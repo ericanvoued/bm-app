@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {NavController, ModalController} from 'ionic-angular';
 import {HotGmageListPage} from '../hot-gmage-list/hot-gmage-list';
+import { HomeProvider } from '../../providers/home/home'
+
 
 declare var Swiper;
 
@@ -12,15 +14,24 @@ export class HomePage {
 
   banner_swiper: any;
   info_swiper: any;
+  homeData: any;
 
+  constructor(
+    public navCtrl: NavController,
+    public homePrv: HomeProvider,
+    public modalCtrl: ModalController) {
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
-
+    this.loadData();
   }
 
   ionViewDidLoad() {
     this.swiper_init()
   }
+  loadData(){
+    this.homeData = this.homePrv.HomeData;
+    console.log(this.homeData)
+  }
+
 
   swiper_init() {
     this.banner_swiper = new Swiper('.swiper-container', {
@@ -47,7 +58,6 @@ export class HomePage {
 
   //更多彩种
   allGameModel() {
-    // alert(1)
     let modal = this.modalCtrl.create(HotGmageListPage);
     modal.present();
   }

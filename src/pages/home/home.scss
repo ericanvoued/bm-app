@@ -3,15 +3,15 @@ page-home {
     width: 100%;
     height: 100%;
     padding-bottom: 8px;
-    .swiper-pagination{
+    .swiper-pagination {
       bottom: -3px;
-      .swiper-pagination-bullet{
+      .swiper-pagination-bullet {
         height: 2px;
         width: 15px;
         background-color: #D1D1D1;
         border-radius: 2px;
       }
-      .swiper-pagination-bullet-active{
+      .swiper-pagination-bullet-active {
         background-color: #999999;
       }
     }
@@ -34,91 +34,121 @@ page-home {
     align-items: center;
   }
 
-  .swiper-container{
-    height:auto;
+  .swiper-container {
+    height: auto;
     position: relative;
-    .swiper-slide{
+    .swiper-slide {
       width: 90.6vw;
       background: #FFFFFF;
-      box-shadow: 0 2px 4px 0 rgba(142,139,139,0.86);
+      box-shadow: 0 2px 4px 0 rgba(142, 139, 139, 0.86);
       border-radius: 3px;
       overflow: hidden;
       height: 37vw;
     }
+    .swiper-slide-prev, .swiper-slide-next {
+      height: 32vw;
+      margin-top: 5vw;
+    }
   }
-  .swiper-container .swiper-slide a{
+  .swiper-container .swiper-slide a {
     display: block;
     width: 100%;
     height: 100%;
-    img{
+    img {
       display: block;
       width: 100%;
       height: 100%;
     }
   }
 
-  .lotory-list{
+  .lotory-list {
     padding: 0 8px;
     background: #FFFFFF;
-    box-shadow: 0 2px 8px 0 rgba(65,64,66,0.21);
+    box-shadow: 0 2px 8px 0 rgba(65, 64, 66, 0.21);
     border-radius: 5px;
     margin: 0 7px;
     padding-bottom: 8px;
     margin-bottom: 10px;
-    h2{
+    h2 {
       font-family: PingFangSC-Medium;
       font-size: 14px;
       color: #333333;
       letter-spacing: 0;
       display: flex;
       align-items: center;
-      height: 32px;border-bottom: 1px solid #D8D8D8;
-      i{
-        margin: 0 3px;
-
+      height: 32px;
+      border-bottom: 1px solid #D8D8D8;
+      i {
+        display: inline-block;
+        width: 9px;
+        height: 24px;
+        background-image: linear-gradient(0deg, #F74511 0%, #F98A6A 100%);
+        margin-left: -8px;
+        margin-right: 5px;
       }
     }
-    ul{
+    ul {
       display: flex;
       justify-content: center;
       align-items: flex-start;
       min-height: 210px;
       flex-wrap: wrap;
-      li{
+      li {
         width: 25%;
-        &:nth-child(4n){
+        height: 24.8vw;
+        &:nth-child(4n) {
           border-right: none;
         }
       }
 
-      a{
+      a {
         width: 100%;
-        height: auto;
-        text-align: center;
+        height: 100%;
         color: #333333;
         font-size: 12px;
         display: block;
-        img{
+        position: relative;
+        img {
           width: 70%;
           height: auto;
           display: block;
           margin: 10px auto;
         }
-
+        p {
+          position: absolute;
+          bottom: 10px;
+          width: 100%;
+          text-align: center;
+        }
+        span {
+          display: block;
+          position: absolute;
+          top: 2px;
+          right: 0;
+          width: 33px;
+          height: 18px;
+          text-align: center;
+          font-size: 12px;
+          line-height: 18px;
+          background-color: #6E6E6E;
+          color: #ffffff;
+          border-radius: 20px;
+        }
       }
     }
   }
 
 }
-.index-info{
+
+.index-info {
   height: 44px;
   margin: 9px 7px;
   background-color: #ffffff;
   border-radius: 5px;
-  box-shadow: 0 2px 8px 0 rgba(188,188,188,0.37);
+  box-shadow: 0 2px 8px 0 rgba(188, 188, 188, 0.37);
   display: flex;
   overflow: hidden;
-  .info-title{
+  .info-title {
     height: 100%;
     width: 75px;
     align-items: center;
@@ -130,7 +160,7 @@ page-home {
     background-position: center top;
     font-size: 13px;
     color: #ffffff;
-    .voice-icon{
+    .voice-icon {
       display: inline-block;
       background-image: url("../assets/icon/voice-icon.png");
       background-size: 100% 100%;
@@ -141,21 +171,21 @@ page-home {
       margin-right: 3px;
     }
   }
-  .info-slider{
+  .info-slider {
     width: 100%;
     flex: 1;
     white-space: nowrap;
-    text-overflow:ellipsis;
-    overflow:hidden;
-    .swiper-slide{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    .swiper-slide {
 
-      a{
+      a {
         line-height: 38px;
         padding: 3px 16px;
         width: 100%;
         white-space: nowrap;
-        text-overflow:ellipsis;
-        overflow:hidden;
+        text-overflow: ellipsis;
+        overflow: hidden;
         height: 100%;
         font-size: 14px;
         text-align: left;
@@ -168,7 +198,8 @@ page-home {
 
   }
 }
-.lotory-8-icon{
+
+.lotory-8-icon {
   display: inline-block;
   width: 15px;
   height: 15px;

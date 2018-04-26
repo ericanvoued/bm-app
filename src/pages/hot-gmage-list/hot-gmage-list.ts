@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  ViewController } from 'ionic-angular';
 
 /**
  * Generated class for the HotGmageListPage page.
@@ -15,11 +19,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class HotGmageListPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public ViewCtrl: ViewController) {
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HotGmageListPage');
+  }
+
+  modelDismiss(){
+    this.ViewCtrl.dismiss();
   }
 
 }
