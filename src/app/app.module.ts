@@ -8,7 +8,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { LottoryCenterPage } from '../pages/lottory-center/lottory-center'
 import { ActivityPage } from '../pages/activity/activity'
 import { UserCenterPage } from '../pages/user-center/user-center'
-
+import { HotGmageListPage } from '../pages/hot-gmage-list/hot-gmage-list'
 
 
 
@@ -22,7 +22,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     LottoryCenterPage,
     ActivityPage,
     UserCenterPage,
-    TabsPage
+    TabsPage,
+    HotGmageListPage,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +36,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     LottoryCenterPage,
     ActivityPage,
     UserCenterPage,
-    TabsPage
+    TabsPage,
+    HotGmageListPage,
   ],
   providers: [
     StatusBar,

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController, ModalController} from 'ionic-angular';
+import {HotGmageListPage} from '../hot-gmage-list/hot-gmage-list';
 
 declare var Swiper;
 
@@ -8,34 +9,12 @@ declare var Swiper;
   templateUrl: 'home.html'
 })
 export class HomePage {
-  currentFlag:boolean = true
 
-  banner_swiper:any;
-  info_swiper:any;
+  banner_swiper: any;
+  info_swiper: any;
 
-  footBallData:any = {
-    btns:[
-      {
-        a:0,
-        spanFlag:0,
-        text:"10元"
-      },{
-        a:0,
-        spanFlag:0,
-        text:"20元"
-      },{
-        a:0,
-        spanFlag:0,
-        text:"50元"
-      },{
-        a:0,
-        spanFlag:1,
-        text:'预测奖金'
-      }
-    ]
-  }
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
 
   }
 
@@ -43,11 +22,11 @@ export class HomePage {
     this.swiper_init()
   }
 
-  swiper_init(){
-    this.banner_swiper = new Swiper('.swiper-container',{
+  swiper_init() {
+    this.banner_swiper = new Swiper('.swiper-container', {
       slidesPerView: 'auto',
       centeredSlides: true,
-      spaceBetween: 12,
+      spaceBetween: 5,
       loop: true,
       pagination: {
         el: '.swiper-pagination',
@@ -55,7 +34,7 @@ export class HomePage {
 
     });
 
-    this.info_swiper = new Swiper('.info-slider',{
+    this.info_swiper = new Swiper('.info-slider', {
       direction: 'vertical',
       spaceBetween: 0,
       loop: true,
@@ -66,13 +45,18 @@ export class HomePage {
     })
   }
 
+  //更多彩种
+  allGameModel() {
+    // alert(1)
+    let modal = this.modalCtrl.create(HotGmageListPage);
+    modal.present();
+  }
 
   // pushPage(pageName,title){
   //   this.navCtrl.push(pageName,{
   //     title:title
   //   })
   // }
-
 
 
 }
