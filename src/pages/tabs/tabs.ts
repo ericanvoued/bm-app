@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { HomePage } from '../home/home';
 import { LottoryCenterPage } from '../lottory-center/lottory-center';
 import { ActivityPage } from '../activity/activity';
-import { UserCenterPage } from '../user-center/user-center';
+import { UserCenterPage } from '../user/user-center/user-center';
 
 @Component({
   selector: 'page-tab',

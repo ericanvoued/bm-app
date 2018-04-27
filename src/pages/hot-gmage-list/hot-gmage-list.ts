@@ -5,13 +5,6 @@ import {
   NavParams,
   ViewController } from 'ionic-angular';
 
-/**
- * Generated class for the HotGmageListPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-hot-gmage-list',
@@ -19,10 +12,12 @@ import {
 })
 export class HotGmageListPage {
 
+  private lottorys;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public ViewCtrl: ViewController) {
+    this.lottorys = this.navParams.data
 
   }
 

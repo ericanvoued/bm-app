@@ -4,13 +4,13 @@ ion-navbar.toolbar{
   //background-color: #F1C901;
 }
 .toolbar-background-ios,.toolbar-background-md{
-  background-color: #F1C901;
+  background-image: linear-gradient(137deg, #F3361B 0%, #EC6432 1%, #F5AD58 100%);
 }
 .header-ios .toolbar-background-ios, .footer-ios .toolbar-background-ios,.toolbar-background-md{
   border:none;
 }
 .toolbar-md{
-  min-height: 47px;
+  min-height: 44px;
 }
 .tabs-md .tab-button{
   min-height: 60px;
@@ -18,6 +18,9 @@ ion-navbar.toolbar{
 
 .color-dager{
   color: #F6374E;
+}
+*{
+  font-family: PingFangSC-Regular;
 }
 a{
   text-decoration: none;
@@ -46,4 +49,11 @@ ul,li{
 }
 .content-ios,.content-md{
   background-color: #f1f1f1;
+}
+.toolbar-title{
+  font-weight: normal;
+  font-size: 16px;
+  color: #FEF6F5;
+  letter-spacing: 0;
+  text-align: center;
 }

@@ -29,7 +29,6 @@ export class HomePage {
   }
   loadData(){
     this.homeData = this.homePrv.HomeData;
-    console.log(this.homeData)
   }
 
 
@@ -57,8 +56,8 @@ export class HomePage {
   }
 
   //更多彩种
-  allGameModel() {
-    let modal = this.modalCtrl.create(HotGmageListPage);
+  allGameModel(data) {
+    let modal = this.modalCtrl.create(HotGmageListPage,data);
     modal.present();
   }
 
