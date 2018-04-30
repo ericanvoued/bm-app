@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {NavController, ModalController} from 'ionic-angular';
 import {HotGmageListPage} from '../hot-gmage-list/hot-gmage-list';
-
+import { CommonProvider } from "../../providers/common/common";
 declare var Swiper;
 
 @Component({
@@ -14,7 +14,7 @@ export class HomePage {
   info_swiper: any;
 
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public common:CommonProvider) {
 
   }
 
@@ -58,5 +58,8 @@ export class HomePage {
   //   })
   // }
 
-
+  goToSsc(){
+     this.common.pid.next('./assets/ssc.json')
+     this.navCtrl.push('SscPage')
+  }
 }

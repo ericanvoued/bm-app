@@ -47,3 +47,17 @@ ul,li{
 .content-ios,.content-md{
   background-color: #f1f1f1;
 }
+
+// 阴影
+.body-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 100;
+  display: none;
+}
+
+//modal
