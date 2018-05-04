@@ -7,5 +7,5 @@ gamemenu {
 
   .big-method li:nth-of-type(4n){margin-right: 0}
 
-  div.small-method{display:inline-block;width:30%;margin-right:2%;border-radius:5px;background:#ffffff;text-align:center;padding:3px;margin-bottom:10px}
+  div.small-method{display:inline-block;min-width:30%;margin-right:2%;border-radius:5px;background:#ffffff;text-align:center;padding:3px;margin-bottom:10px}
 }

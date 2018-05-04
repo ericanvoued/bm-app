@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Input,Output,EventEmitter } from '@angular/core';
 import { trigger ,state,transition,animate,style} from "@angular/animations";
 import { CommonProvider } from "../../providers/common/common";
 import * as $ from 'jquery';
@@ -30,7 +30,7 @@ import { UtilProvider } from '../../providers/util/util'
   ]
 })
 export class GamemenuComponent {
-
+    @Output('switch') switch:EventEmitter<any> = new EventEmitter<any>()
     choosen:any;
 
     //大玩法
@@ -70,6 +70,7 @@ export class GamemenuComponent {
         }
         console.log('dddddd')
 
+        this.switch.emit(this.method + this.smallMethod)
     }
 
     setSmallIndex(j,name){
@@ -83,6 +84,7 @@ export class GamemenuComponent {
         //     this.lhc.resetData()
         //     this.lhc.setGameKind(name)
         // }
+        this.switch.emit(this.common.method + this.common.smallMethod)
     }
 
 

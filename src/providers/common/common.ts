@@ -16,15 +16,22 @@ let _ = new observe();
 @Injectable()
 export class CommonProvider {
   pid = new Subject();
+
+  bonus:number;
   open:boolean = false
   //倒计时
   timer:any;
   //用于存储现在游戏所有的玩法
   gameMethodConfig:Array<any> = [];
   data:any;
-  public ballData:any = [];
+  ballData:any = [];
   small:any;
   method:any;
+
+  //xiao wan fa
+  smallKind:any;
+
+  //小玩法名称
   smallMethod:string;
   bigIndex:any;
 
@@ -51,6 +58,7 @@ export class CommonProvider {
     'seconds': ''
   }
 
+
   constructor(public tools:ToolsProvider, public http:HttpClientProvider, public events:Events) {
     console.log('Hello CommonProvider Provider');
     this.produce()
@@ -62,19 +70,32 @@ export class CommonProvider {
     ],true)
 
       this.events.subscribe('changeYuan',(val) => {
-          let percent = val == '元' ? 1 : this.tabYuan == '角' ? 0.1 : 0.01
+          console.log('wefwewf')
+          let origin = this.tabYuan == '元' ? 1 : this.tabYuan == '角' ? 0.1 : 0.01
+          let percent = val == '元' ? 1 : val == '角' ? 0.1 : 0.01
           this.betPrice = this.count*2*percent
+          console.log(origin)
+          console.log(percent)
+          this.bonus *= percent/origin
+          this.tabYuan = val
+
       })
   }
 
+
     async initData(name){
-        console.log('wcnm')
         this.data = (await this.http.fetchData(name)).list;
 
 
         this.gameMethodConfig = this.data;
 
         this.small = this.gameMethodConfig[0].children;
+        this.smallKind = this.gameMethodConfig[0].children[0].children[0]
+
+        console.log(this.smallKind)
+        let percent = this.tabYuan == '元' ? 1 : this.tabYuan == '角' ? 0.1 : 0.01
+        this.bonus = this.smallKind.bonus*percent
+
         if(this.small.length)
             this.ballData = this.tools.copy(this.gameMethodConfig[0].children[0].children[0].bet_numberArrObj, true)
         //this.ballData = arr
@@ -108,35 +129,32 @@ export class CommonProvider {
 
         this.method = this.gameMethodConfig[index].name
 
-        this.small = this.gameMethodConfig[0].children
+        //console.log(this.gameMethodConfig[index].children[index2])
+        this.small = this.gameMethodConfig[index].children
+        console.log(this.small)
+        let temp;
+        this.small.forEach((ele,index) => {
+            //temp = ele.children.filter(item => item.name == name)[0]
+
+            ele.children.forEach(item => {
+                if(item.name == name)
+                   temp = item
+            })
+        })
+        console.log(temp)
+        this.smallKind = temp
+        console.log(this.smallKind)
+        // let percent = this.tabYuan == '元' ? 1 : this.tabYuan == '角' ? 0.1 : 0.01
+        // this.bonus = this.smallKind.bonus*percent
         this.smallMethod = name
-        console.log(this.ballData)
     }
 
     //计算注单
     calculate(){
         let count = 1;
-
-        //组六选球算法
-        if(this.smallMethod == '组选6'){
-            let order = 0;
-            this.ballData.forEach((item,index) => {
-                order +=  item.value.filter(ele => ele == 1).length
-            })
-            console.log(order)
-            if(order >= 3){
-                count = order*(order-1)*(order-2)/6
-            }else{
-                count = 0
-            }
-        }else{
-            this.ballData.forEach((item,index) => {
-                count *=  item.value.filter(ele => ele == 1).length
-            })
-    }    
-            
-
-
+        this.ballData.forEach((item,index) => {
+            count *=  item.value.filter(ele => ele == 1).length
+        })
         this.count = count
         let percent = this.tabYuan == '元' ? 1 : this.tabYuan == '角' ? 0.1 : 0.01
         this.betPrice = this.count*2*percent

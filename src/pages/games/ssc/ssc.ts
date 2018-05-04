@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import {
+    Component, ViewChild, ViewContainerRef, ComponentFactory,
+    ComponentRef, ComponentFactoryResolver, OnDestroy
+  } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { CommonProvider } from "../../../providers/common/common";
 import { Effect } from '../../../baseComponent'
@@ -7,7 +10,7 @@ import { BasketDataProvider } from '../../../providers/basket-data/basket-data'
 import { GamemenuComponent } from '../../../components/gamemenu/gamemenu'
 import { MenumodalComponent } from '../../../components/menumodal/menumodal'
 import { UtilProvider } from '../../../providers/util/util'
-
+import { gameConfig } from '../../../components/ssc-config'
 import * as $ from 'jquery'
 import * as Hammer from 'hammerjs';
 /**
@@ -24,6 +27,8 @@ import * as Hammer from 'hammerjs';
   providers:[GamemenuComponent]
 })
 export class SscPage extends Effect{
+    @ViewChild("gameContainer", { read: ViewContainerRef }) gameContainer: ViewContainerRef;
+    componentRef: ComponentRef<any>;
     //showTip:any = ['当前遗漏', '30期冷热', '平均遗漏', '最大遗漏']
     haveChoosen:any[] = ['当前遗漏']
 
@@ -54,7 +59,7 @@ export class SscPage extends Effect{
     high:number = 0
 
 
-    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, 
+    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private resolver: ComponentFactoryResolver,
     public common:CommonProvider, public gamemenu:GamemenuComponent, public util:UtilProvider,public basket:BasketDataProvider) {
         super(common,gamemenu)
 
@@ -170,5 +175,14 @@ export class SscPage extends Effect{
 
    check(choice){
        return this.haveChoosen.indexOf(choice) > -1
+   }
+
+   //切换小玩法
+   methodChange($event){
+       console.log($event)
+       let component = gameConfig[$event]
+       this.gameContainer.clear()
+       const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(component)
+       this.componentRef = this.gameContainer.createComponent(factory)
    }
 }

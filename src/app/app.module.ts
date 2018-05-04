@@ -28,6 +28,9 @@ import { Vibration } from '@ionic-native/vibration';
 import { TrendHeadComponent } from '../components/gametrend/trend-head/trend-head'
 import { WuxingComponent } from '../components/gametrend/wuxing/wuxing'
 
+import { ZhixuanfushiComponent } from '../components/ssc-game/wuxing/zhixuanfushi/zhixuanfushi'
+import { WuxingzhixuanzuheComponent } from '../components/ssc-game/wuxing/wuxingzhixuanzuhe/wuxingzhixuanzuhe'
+
 
 @NgModule({
   declarations: [
@@ -39,7 +42,8 @@ import { WuxingComponent } from '../components/gametrend/wuxing/wuxing'
     TabsPage,
     HotGmageListPage,
     TrendHeadComponent,
-    WuxingComponent
+    WuxingComponent,
+    WuxingzhixuanzuheComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +61,8 @@ import { WuxingComponent } from '../components/gametrend/wuxing/wuxing'
     TabsPage,
     HotGmageListPage,
     TrendHeadComponent,
-    WuxingComponent
+    WuxingComponent,
+    WuxingzhixuanzuheComponent
   ],
   providers: [
     StatusBar,

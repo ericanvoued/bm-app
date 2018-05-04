@@ -61,4 +61,28 @@ export class ToolsProvider {
         }
     }
 
+
+    zuhe1(m,n){
+        if(m == n)
+            return 1
+    
+        let gap = n,total = m, divider = 1;;
+
+        for(let i = 1;i<gap;i++){
+             total *= (m-i)
+             divider *= (i+1)
+        }
+
+        return total/divider
+    }
+
+    removeElement(arr,ele){
+        let temp = []
+        let index = arr.indexOf(ele)
+        for(let i = 0;i<arr.length;i++){
+            if(index != i)
+                temp.push(arr[i])
+        }
+        return temp
+    }
 }
