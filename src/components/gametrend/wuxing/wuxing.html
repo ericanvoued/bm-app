@@ -1,0 +1,16 @@
+<!-- Generated template for the WuxingComponent component -->
+<div>
+  <div class="kai-jiang">
+      <div >期号</div><div >开奖号码</div><div >和值</div><div >跨度</div>
+      <div >大小比</div><div >奇偶比</div>
+   </div>
+
+   <div *ngFor ="let item of util.wuxingData" class="kai-jiang-line">
+        <div >{{item.number}}</div>
+        <div ><span *ngFor="let aa of item.history">{{aa}}</span></div>
+        <div >{{item.sum}}</div>
+        <div >{{item.gap}}</div>
+        <div >{{item.daxiao}}</div>
+        <div >{{item.oddeven}}</div>
+   </div>
+</div>   

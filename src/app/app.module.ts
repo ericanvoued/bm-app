@@ -21,7 +21,12 @@ import { ToolsProvider } from '../providers/tools/tools';
 
 //动画模块
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UtilProvider } from '../providers/util/util';
+import { BasketDataProvider } from '../providers/basket-data/basket-data';
+import { Vibration } from '@ionic-native/vibration';
+import { TrendHeadComponent } from '../components/gametrend/trend-head/trend-head'
+import { WuxingComponent } from '../components/gametrend/wuxing/wuxing'
 
 
 @NgModule({
@@ -33,6 +38,8 @@ import { UtilProvider } from '../providers/util/util';
     UserCenterPage,
     TabsPage,
     HotGmageListPage,
+    TrendHeadComponent,
+    WuxingComponent
   ],
   imports: [
     BrowserModule,
@@ -49,15 +56,20 @@ import { UtilProvider } from '../providers/util/util';
     UserCenterPage,
     TabsPage,
     HotGmageListPage,
+    TrendHeadComponent,
+    WuxingComponent
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    Vibration,
     CommonProvider,
     HttpClientProvider,
     ToolsProvider,
-    UtilProvider
+    UtilProvider,
+    BasketDataProvider
+    
   ]
 })
 export class AppModule {}

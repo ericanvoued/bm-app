@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { trigger ,state,transition,animate,style} from "@angular/animations";
 import { CommonProvider } from "../../providers/common/common";
 import * as $ from 'jquery';
+import { UtilProvider } from '../../providers/util/util'
 
 /**
  * Generated class for the GamemenuComponent component.
@@ -41,7 +42,7 @@ export class GamemenuComponent {
     bigIndex:number;
 
 
-    constructor(public common:CommonProvider) {
+    constructor(public common:CommonProvider,public util:UtilProvider) {
        console.log('Hello GamemenuComponent Component');
         this.method = this.common.method
         this.small = this.common.small
@@ -61,8 +62,8 @@ export class GamemenuComponent {
             this.small = this.common.small = []
             this.smallMethod = this.common.smallMethod = ''
             this.common.method = this.common.gameMethodConfig[index].name
-
-
+  
+            this.util.setData()
             this.common.visible = 'invisable';
 
             $('.body-bg').fadeOut(1000)
@@ -73,7 +74,7 @@ export class GamemenuComponent {
 
     setSmallIndex(j,name){
         this.common.setGameConfig(this.bigIndex,j,name)
-       // this.util.setData()
+        this.util.setData()
         this.common.visible = 'invisable';
         $('.body-bg').fadeOut(1000)
         console.log(name)

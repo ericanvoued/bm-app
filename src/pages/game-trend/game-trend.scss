@@ -1,0 +1,69 @@
+page-game-trend {
+    .segment {
+        width: 100%;
+        height: 44px;
+        background: #FFF9F5
+      }
+      .swiper-slide {
+        background: #fff;
+        color: #333;
+      }
+  
+      ion-slides {
+      background-color: white;
+      padding: 0 0 20px 0;
+      // div{color:blue};
+    }
+   
+    .highlight{background: pink;z-index:5}
+  
+    canvas{position: absolute;top:0;left:0}
+  
+    .segment-ios ion-segment-button.segment-activated{
+        border-bottom: 3px solid #F6374E;
+    }
+  
+    .segment-ios .segment-button.segment-activated{color:#F6374E}
+    .segment-ios .segment-button{border:none}
+  
+    .trend-container ul{display:flex;justify-content:space-between}
+    //.trend-container li{margin-bottom:25px;width:28px;height:28px;border-radius:50%;line-height: 28px}
+  
+    .trend-container ul li{width:8.5%;height:30px}
+    .trend-container ul li:nth-of-type(1){width:17%}
+  
+    li.head-num{font-size: 15px;display: flex;justify-content: center;align-items: center}
+  
+    ion-slides div.kai-jiang{display: flex;color:#666}
+    ion-slides div.kai-jiang div{font-size: 15px;background: #DEE2FF;padding: 5px 0 5px 0}
+    ion-slides div.kai-jiang-line{display: flex;padding: 5px 0 5px 0}
+    ion-slides div.kai-jiang-line:nth-of-type(2n+1){background: #FFFAF7}
+  
+    ion-slides div.kai-jiang div, ion-slides div.kai-jiang-line div{width:15%;font-size: 15px}
+    ion-slides div.kai-jiang div:nth-of-type(2),ion-slides div.kai-jiang-line div:nth-of-type(2){width:25%}
+  
+    ul.ball-line{background: #ffffff}
+    ul.ball-line:nth-of-type(2n){background: #FFFAF7}
+
+
+   .trend-container .trend-category:nth-last-of-type(4) {
+        
+        .head-category{color:#9013FE}
+    }
+
+    .trend-container .trend-category:nth-last-of-type(3){
+          background: #FFF7E7;
+          .head-category{color:#F6374E}
+    }
+
+    .trend-category:nth-last-of-type(2){
+       
+        .head-category{color:#000;} 
+    }
+
+    .trend-category:nth-last-of-type(1){
+        background: #F8FFF0;
+        .head-category{color:#25B35E} 
+    }
+    //#9013FE  #F6374E  #F6F6F6  #25B35F    #FFF7E7  #F8FFF0
+}
