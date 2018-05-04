@@ -81,7 +81,64 @@ page-user-center {
       }
     }
   }
-
+  .with-charge-card{
+    height: 45px;
+    background: #FFFFFF;
+    display: flex;
+    padding: 0 16px;
+    align-items: center;
+    margin-bottom: 12px;
+    .mid-line{
+      background: #E8E8E8;
+      border-radius: 1px;
+      height: 20px;
+      width: 1px;
+      display: block;
+    }
+    a{
+      width: 100%;
+      flex:1;
+      text-align: center;
+      font-size: 16px;
+      color: #333333;
+      letter-spacing: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      i.firecat-icon{
+        display: inline-block;
+        width: 22px;
+        height: 22px;
+        margin-right: 4px;
+      }
+    }
+  }
+  .f-items{
+    margin-bottom: 12px;
+    .item-unit{
+      background: #FFFFFF;
+      padding: 0 16px;
+      border-bottom: 1px solid #E8E8E8;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: #333333;
+      font-weight: normal;
+      &:last-child{
+        height: 45px;
+        border-bottom: none;
+      }
+      &>.firecat-icon:first-child{
+        width: 30px;
+        background-position: left center;
+      }
+      p{
+        width: 100%;
+        flex: 1;
+      }
+    }
+  }
 }
 
 
@@ -142,4 +199,49 @@ page-user-center {
   position: relative;
   top: 2px;
 }
+.tran-his-icon{
+  height: 19.2px;
+  background-size: auto 19.2px;
+}
+.ltr-his-icon{
+  height: 19.14px;
+  background-size: auto 19.14px;
+}
+.follow-his-icon{
+  height: 17px;
+  background-size: auto 17px;
+}
+.trans-detail-icon{
+  height: 16px;
+  background-size: auto 16px;
+}
+.lucky-task-icon{
+  height: 16px;
+  background-size: auto 16px;
+}
+
+.safe-cen-icon{
+  height: 16.5px;
+  background-size: auto 16.5px;
+}
+.push-set-icon{
+  height: 17px;
+  background-size: auto 17px;
+}
+.invite-icon{
+  height: 13.22px;
+  background-size: auto 13.22px;
+}
+.more-icon{
+  height: 15.5px;
+  background-size: auto 15.5px;
+}
+
+
+
+
+
+
+
+
 

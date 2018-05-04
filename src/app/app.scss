@@ -114,6 +114,8 @@ ul, li {
   background-position: center center;
 }
 
+
+//个人中心的icon
 .kefu-icon {
   background-image: url(../assets/icon/kefu-icon.png);
 }
@@ -140,15 +142,126 @@ ul, li {
 .caijin-icon{
   background-image: url("../assets/icon/caijin-icon.png");
 }
+.charge-icon{
+  background-image: url("../assets/icon/charge-icon.png");
+}
+.withdrew-icon{
+  background-image: url("../assets/icon/withdrew-icon.png");
+}
+.tran-his-icon{
+  background-image: url("../assets/icon/tran-his-icon.png");
+}
+.ltr-his-icon{
+  background-image: url("../assets/icon/ltr-his-icon.png");
+}
+.follow-his-icon{
+  background-image: url("../assets/icon/follow-his-icon.png");
+}
+.trans-detail-icon{
+  background-image: url("../assets/icon/trans-detail-icon.png");
+}
+.lucky-task-icon{
+  background-image: url("../assets/icon/lucky-task-icon.png");
+}
+.safe-cen-icon{
+  background-image: url("../assets/icon/safe-cen-icon.png");
+}
+.push-set-icon{
+  background-image: url("../assets/icon/push-set-icon.png");
+}
+.invite-icon{
+  background-image: url("../assets/icon/invite-icon.png");
+}
+.more-icon{
+  background-image: url("../assets/icon/more-icon.png");
+}
+
+.toRight-icon{
+  width: 8px;
+  height: 15.2px;
+  background-image: url("../assets/icon/toRight-icon.png");
+}
+
+.small-dager-close-icon{
+  background-image: url("../assets/icon/small-dager-close-icon.png");
+}
 
 
 
+.common-form{
 
-
-
-
-
-
+  .cf-row{
+    padding: 0 16px;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #E8E8E8;
+    height: 52px;
+    display: flex;
+    position: relative;
+    label{
+      font-size: 16px;
+      color: #333333;
+      width: 56px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      text-align: justify;
+      justify-content: space-between;
+    }
+    input{
+      width: 100%;
+      flex: 1;
+      background-color: #FFFFFF!important;
+      border: none;
+      outline: none;
+      text-indent: 12px;
+      font-size: 16px;
+    }
+    .row-info{
+      position: absolute;
+      right: 16px;
+      color: #F6374E;
+      height: 100%;
+      line-height:51px;
+      .small-dager-close-icon{
+        width: 12px;
+        height: 12px;
+        position: relative;
+        top: 1px;
+      }
+    }
+  }
+  .submit-row{
+    padding: 0 16px;
+    margin-top: 35px;
+    height: 47px;
+    .submit-button{
+      width: 100%;
+      outline: none;
+      border: none;
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      background-color: #F98D4B;
+      box-shadow: 0 2px 4px 0 #FFDFC4;
+      border-radius: 3px;
+      font-size: 18px;
+      color: #FFFFFF;
+      letter-spacing: -0.29px;
+      text-align: center;
+    }
+  }
+  .common-form-info{
+    margin-top: 18px;
+    text-align: center;
+    color: #666666;
+    font-size: 12px;
+    a{
+      color: #3291FF;
+      text-decoration-color: #3291FF;
+      text-decoration: underline;
+    }
+  }
+}
 
 
 

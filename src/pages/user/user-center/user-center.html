@@ -16,11 +16,12 @@
 
 <ion-content>
   <div class="gredient-bg"></div>
-  <div class="sc-card">
+  <!--未登陆-->
+  <div class="sc-card" *ngIf="userData == null">
     <div class="head-row">
       <img src="../../assets/imgs/default-head.png" alt="">
       <div class="head-info">
-        <h2>BOMAO888<i class="firecat-icon edit-name-icon"></i></h2>
+        <h2 (click)="pushPage('LoginPage')">用户登陆</h2>
         <!--<p>安全指数: <a class="safe-info" href="javascript:;">70分</a></p>-->
       </div>
       <!--<div class="sign-in">-->
@@ -43,5 +44,88 @@
         <p>0</p>
       </div>
     </div>
+  </div>
+  <!--已登陆-->
+  <div class="sc-card"  *ngIf="userData != null">
+    <div class="head-row">
+      <img src="../../assets/imgs/default-head.png" alt="" (click)="changePic()">
+      <div class="head-info">
+        <h2>{{userData.username}}<i  (click)="pushPage('ChangeNamePage')" class="firecat-icon edit-name-icon"></i></h2>
+        <!--<p>安全指数: <a class="safe-info" href="javascript:;">70分</a></p>-->
+      </div>
+      <!--<div class="sign-in">-->
+      <!--<a href="javascript:;"><i class="firecat-icon edit-icon"></i>签到+10积分</a>-->
+      <!--</div>-->
+    </div>
+    <div class="money-row">
+      <div class="money-unit">
+        <h4><i class="firecat-icon yue-icon"></i>余额</h4>
+        <p>{{userData.available}}元</p>
+      </div>
+      <span class="mid-line"></span>
+      <div class="money-unit">
+        <h4><i class="firecat-icon jifen-icon"></i>积分</h4>
+        <p>0</p>
+      </div>
+      <span class="mid-line"></span>
+      <div class="money-unit">
+        <h4><i class="firecat-icon caijin-icon"></i>彩金卡</h4>
+        <p>0</p>
+      </div>
+    </div>
+  </div>
+  <div class="with-charge-card">
+    <a href="javascript:;"><i class="firecat-icon charge-icon"></i>充值</a>
+    <span class="mid-line"></span>
+    <a href="javascript:;"><i class="firecat-icon withdrew-icon"></i>提款</a>
+  </div>
+  <div class="f-items">
+    <a href="javascript:;" class="item-unit">
+      <i class="firecat-icon tran-his-icon"></i>
+      <p>充提记录</p>
+      <i class="firecat-icon toRight-icon"></i>
+    </a>
+    <a href="javascript:;" class="item-unit">
+      <i class="firecat-icon ltr-his-icon"></i>
+      <p>购彩记录</p>
+      <i class="firecat-icon toRight-icon"></i>
+    </a>
+    <a href="javascript:;" class="item-unit">
+      <i class="firecat-icon follow-his-icon"></i>
+      <p>追号记录</p>
+      <i class="firecat-icon toRight-icon"></i>
+    </a>
+    <a href="javascript:;" class="item-unit">
+      <i class="firecat-icon trans-detail-icon"></i>
+      <p>帐变明细</p>
+      <i class="firecat-icon toRight-icon"></i>
+    </a>
+  </div>
+  <div class="f-items">
+    <a href="javascript:;" class="item-unit">
+      <i class="firecat-icon lucky-task-icon"></i>
+      <p>福利任务</p>
+      <i class="firecat-icon toRight-icon"></i>
+    </a>
+    <a href="javascript:;" class="item-unit">
+      <i class="firecat-icon safe-cen-icon"></i>
+      <p>安全中心</p>
+      <i class="firecat-icon toRight-icon"></i>
+    </a>
+    <a href="javascript:;" class="item-unit">
+      <i class="firecat-icon push-set-icon"></i>
+      <p>推送设置</p>
+      <i class="firecat-icon toRight-icon"></i>
+    </a>
+    <a href="javascript:;" class="item-unit">
+      <i class="firecat-icon invite-icon"></i>
+      <p>邀请有理</p>
+      <i class="firecat-icon toRight-icon"></i>
+    </a>
+    <a href="javascript:;" class="item-unit">
+      <i class="firecat-icon more-icon"></i>
+      <p>更多选项</p>
+      <i class="firecat-icon toRight-icon"></i>
+    </a>
   </div>
 </ion-content>
