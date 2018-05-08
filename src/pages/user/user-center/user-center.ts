@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
-import {IonicPage, normalizeURL,NavController, NavParams, Platform} from 'ionic-angular';
+import {IonicPage, ToastController, LoadingController, normalizeURL,NavController, NavParams, Platform} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
+import { LoadingProvider } from '../../../providers/loading/loading'
 import {ActionSheetController} from 'ionic-angular';
 
 //camara
@@ -9,8 +10,10 @@ import {File} from '@ionic-native/file';
 import {Transfer, TransferObject} from '@ionic-native/transfer';
 import {FilePath} from '@ionic-native/file-path';
 
+//page
 import {LoginPage} from '../../commonPage/login/login';
 import {ChangeNamePage} from '../change-name/change-name';
+import {ChargePage} from '../charge/charge';
 
 declare var cordova: any;
 
@@ -23,6 +26,7 @@ export class UserCenterPage {
 
   userData: any = null;
   lastImage: string=null;
+  toast:any = null;
   userId:string;
 
   constructor(public storage: Storage,
@@ -30,6 +34,9 @@ export class UserCenterPage {
               private camera: Camera,
               private transfer: Transfer,
               private file: File,
+              public toastCtrl: ToastController,
+              public loadPrd:LoadingProvider,
+              public LoadingCtrl: LoadingController,
               private filePath: FilePath,
               public actionSheetCtrl: ActionSheetController,
               public navCtrl: NavController,
@@ -51,7 +58,7 @@ export class UserCenterPage {
         }, {
           text: '拍照',
           handler: () => {
-            this.takePicture(this.camera.PictureSourceType.CAMARA);
+            this.takePicture(this.camera.PictureSourceType.CAMERA);
           }
         }, {
           text: '取消',
@@ -147,15 +154,15 @@ export class UserCenterPage {
 
     //开始正式地上传
     fileTransfer.upload(targetPath, url, options).then(data => {
-      loading.dismiss();
+      // loading.dismiss();
       // super.showToast(this.toastCtrl, "图片上传成功。");
       console.log("图片上传成功。")
       //在用户看清弹窗提示后进行页面的关闭
       setTimeout(() => {
-        this.viewCtrl.dismiss();
+        // this.viewCtrl.dismiss();
       }, 3000);
     }, err => {
-      loading.dismiss();
+      // loading.dismiss();
       console.log("图片上传发生错误，请重试。")
       // super.showToast(this.toastCtrl, "图片上传发生错误，请重试。");
     });
@@ -173,7 +180,16 @@ export class UserCenterPage {
     })
   }
   //页面跳转
-  pushPage(page) {
-    this.navCtrl.push(page);
+  pushPage(page,needLogin) {
+    if(needLogin){
+      if(this.userData==null){
+        this.toast = this.loadPrd.showToast(this.toastCtrl, '请先登陆');
+      }else {
+        this.navCtrl.push(page);
+      }
+
+    }else {
+      this.navCtrl.push(page);
+    }
   }
 }

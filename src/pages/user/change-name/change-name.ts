@@ -15,8 +15,8 @@ export class ChangeNamePage{
   userData ={
     oldName:'',
     nameInfoFlag:false,
-    nameInfo : '',
-    loading:'',
+    nameInfo : {},
+    loading:{},
     data:{
       username:''
     }

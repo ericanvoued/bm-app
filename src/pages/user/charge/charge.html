@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-navbar>
+    <h2 class="DIY-title">充值中心</h2>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <div class="worming-info">温馨提示：<span class="danger">充值后需购买充值金额的20%方可提现</span></div>
+  <div class="common-form">
+    <div class="cf-row">
+      <label for="username">用户名</label>
+      <input id="username" type="text" maxlength="40" [(ngModel)]="userData.data.username" disabled>
+    </div>
+    <div class="cf-row">
+      <label for="yue" class="w81">当前金额：</label>
+      <input id="yue" type="number" [(ngModel)]="userData.data.available" disabled>
+    </div>
+  </div>
+
+  <div class="input-value">
+    <p class="info">请输入充值金额：</p>
+    <div class="input-wrap"><input type="number" (input)="inputMoney()" [(ngModel)]="numList.chargeMoney" placeholder="请输入充值金额，最少选择0.01元"></div>
+    <div class="num-list">
+      <span [ngClass]="{'current':numList.status[i]==1}" *ngFor="let num of numList.money;index as i" (click)="selectMoney(num,i)">{{num}}元</span>
+    </div>
+  </div>
+
+  <div class="bank-list">
+    <p class="info">请选择支付方式：</p>
+    <div class="bank-content">
+      <div class="bank-unit"
+           [ngClass]="{'repaired':bank.isRepaire==true,'current':bankList.status[i]==1}"
+           (click)="selectBank(i)"
+           *ngFor="let bank of bankList.data.slice(0,3);index as i">
+        <div class="capture">
+          <img src="../../../assets/bank-icon/{{bank.logoSrc}}" alt="">
+        </div>
+        <div class="bank-text">
+          <h4>{{bank.name}}</h4>
+          <p>当日最高上限{{bank.limit}}元</p>
+        </div>
+        <div class="repairing">
+          维护中
+        </div>
+        <button class="select-btn"></button>
+      </div>
+      <div class="union-bank" *ngIf="bankList.status[2]==1">
+        <div class="capture">
+          <img src="../../../assets/bank-icon/s-ctbc-icon.png" alt="">
+        </div>
+        <div class="bank-text">
+          <h4>中国工商银行</h4>
+        </div>
+        <p (click)="pushPage('BankListPage')">选择其他银行>></p>
+      </div>
+      <div class="bank-unit"
+           [ngClass]="{'repaired':bank.isRepaire==true,'current':bankList.status[i+3]==1}"
+           (click)="selectBank(i+3)"
+           *ngFor="let bank of bankList.data.slice(-2);index as i">
+      <div class="capture">
+        <img src="../../../assets/bank-icon/{{bank.logoSrc}}" alt="">
+      </div>
+      <div class="bank-text">
+        <h4>{{bank.name}}</h4>
+        <p>当日最高上限{{bank.limit}}元</p>
+      </div>
+      <div class="repairing">
+        维护中
+      </div>
+      <button class="select-btn"></button>
+    </div>
+    </div>
+  </div>
+  <div class="fix-sure-btn">
+    <button>确认充值</button>
+  </div>
+</ion-content>

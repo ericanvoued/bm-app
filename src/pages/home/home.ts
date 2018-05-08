@@ -1,7 +1,9 @@
 import {Component} from '@angular/core';
 import {NavController, ModalController} from 'ionic-angular';
-import {HotGmageListPage} from '../hot-gmage-list/hot-gmage-list';
 import { HomeProvider } from '../../providers/home/home'
+
+import {HotGmageListPage} from '../hot-gmage-list/hot-gmage-list';
+import { InfoCenterPage } from '../info-center/info-center'
 
 
 declare var Swiper;
@@ -61,11 +63,11 @@ export class HomePage {
     modal.present();
   }
 
-  // pushPage(pageName,title){
-  //   this.navCtrl.push(pageName,{
-  //     title:title
-  //   })
-  // }
+  pushPage(pageName,title){
+    this.navCtrl.push(pageName,{
+      title:title
+    })
+  }
 
 
 }

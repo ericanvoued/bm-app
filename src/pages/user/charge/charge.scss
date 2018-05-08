@@ -1,0 +1,198 @@
+page-charge {
+  .toolbar-content{
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+  .back-button{
+    z-index: 10;
+  }
+  .worming-info{
+    height: 25px;
+    line-height:25px;
+    background-color: #FCEFE5;
+    padding: 0 16px;
+    font-size: 12px;
+    .danger{
+      color: #FC302B;
+    }
+  }
+  .common-form{
+    padding: 0 16px;
+    margin-bottom: 14px;
+    background-color: #FFFFFF;
+    .cf-row{
+      padding: 0;
+      &:last-child{
+        border-bottom: none;
+      }
+    }
+  }
+  .input-value{
+    padding: 4px 16px 0;
+    background-color: #FFFFFF;
+    .info{
+      font-size: 14px;
+      color: #333333;
+      letter-spacing: -0.22px;
+      line-height:30px;
+    }
+    .input-wrap{
+      height: 47px;
+      line-height: 45px;
+      display: flex;
+      input{
+        outline: none;
+        width: 100%;
+        flex: 1;
+        border: 1px solid #EAEAEA;
+        border-radius: 3px;
+        text-indent: 10px;
+      }
+    }
+    .num-list{
+      height: 104px;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 5px 0;
+      justify-content: space-between;
+      align-items: center;
+      span{
+        width: 29.5vw;
+        height: 38px;
+        border-radius: 3px;
+        border: 1px solid #EAEAEA;
+        text-align: center;
+        line-height:36px;
+        color: #666666;
+        transition: all .35s;
+        &.current{
+          color: #FFFFFF;
+          background: #F98D4B;
+        }
+      }
+    }
+  }
+  .bank-list{
+    padding-top: 4px;
+    .info{
+      line-height:30px;
+      font-size: 14px;
+      color: #333333;
+      letter-spacing: -0.22px;
+      text-indent: 16px;
+    }
+    .bank-content{
+      background-color: #FFFFFF;
+      margin-bottom: 47px;
+      .bank-unit{
+        height: 47px;
+        padding: 0 16px;
+        border-bottom: 1px solid #EAEAEA;
+        display: flex;
+        &.current{
+          .select-btn{
+            background-image: url("../../../assets/icon/selected-icon.png");
+          }
+        }
+        &.repaired{
+          .repairing{
+            display: block;
+          }
+        }
+        .repairing{
+          width: 50px;
+          text-align: left;
+          height: 100%;
+          line-height:46px;
+          color: #F6374E;
+          font-size: 14px;
+          display: none;
+        }
+      }
+      .capture{
+        height: 100%;
+        width: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        img{
+          transform: scale(.75);
+        }
+      }
+      .select-btn{
+        width: 18px;
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        background-image: url("../../../assets/icon/selecte-icon.png");
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+        background-color: transparent;
+        transition: all .35s;
+      }
+      .bank-text{
+        width: 100%;
+        flex: 1;
+        padding: 3px 0;
+        h4{
+          font-size: 14px;
+          color: #333333;
+          letter-spacing: -0.22px;
+          line-height:22px;
+        }
+        p{
+          font-size: 12px;
+          color: #999999;
+          letter-spacing: -0.19px;
+          //line-height:20px;
+        }
+      }
+      .union-bank{
+        height: 47px;
+        padding: 0 16px 0 49px;
+        border-bottom: 1px solid #EAEAEA;
+        display: flex;
+        .capture{
+          width: 36px;
+        }
+        .bank-text{
+          h4{
+            line-height:40px;
+          }
+        }
+        p{
+          width: 107px;
+          line-height:46px;
+          color: #3291FF;
+          font-size: 14px;
+          letter-spacing: -0.22px;
+        }
+      }
+    }
+  }
+  .fix-sure-btn{
+    position: fixed;
+    bottom: 60px;
+    left: 0;
+    width: 100%;
+    height: 47px;
+    button{
+      width: 100%;
+      height: 100%;
+      outline: none;
+      padding: 0;
+      border: none;
+      background: #F98D4B;
+      box-shadow: 0 2px 4px 0 #FFDFC4;
+      color: #FFFFFF;
+      text-align: center;
+      font-size: 18px;
+      letter-spacing: -0.29px;
+    }
+  }
+  .w81{
+    width: 81px!important;
+  }
+}

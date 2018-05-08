@@ -24,6 +24,7 @@ import { HomeProvider } from '../providers/home/home';
 import { LoginProvider } from '../providers/login/login';
 import { RestProvider } from '../providers/rest/rest';
 import { LoadingProvider } from '../providers/loading/loading';
+import { InfoCenterProvider } from '../providers/info-center/info-center';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { LoadingProvider } from '../providers/loading/loading';
     LoginProvider,
     RestProvider,
     LoadingProvider,
+    InfoCenterProvider,
   ]
 })
 export class AppModule { }

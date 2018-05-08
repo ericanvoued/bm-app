@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar>
+    <h2 class="DIY-title">消息中心</h2>
+    <button class="clear-btn" (click)="showConfirm(infoCenter)">清除</button>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="gredient-bg">
+    <ion-segment [(ngModel)]="infoCenter">
+      <ion-segment-button value="info">
+        公告
+        <div class="underline"></div>
+      </ion-segment-button>
+      <ion-segment-button value="msg">
+        站内信({{infoData.msg.length}})
+        <div class="underline"></div>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+  <!--站内信-->
+  <div [ngSwitch]="infoCenter" class="switch-body">
+    <ion-list *ngSwitchCase="'msg'">
+      <ion-item-sliding #item *ngFor="let msg of infoData.msg;index as i">
+        <ion-item>
+          <h2 (click)="pushPage('InfoDetailPage')"><span class="item-title">{{msg.title}} <i class="red-coin" *ngIf="msg.red"></i></span><span class="item-date">{{msg.date}}</span></h2>
+          <p class="item-text">{{msg.text}} <i class="firecat-icon stick-icon" *ngIf="msg.stick"></i></p>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button class="Stick" (click)="stick('msg',i)">置顶</button>
+          <button ion-button color="danger" class="delete" (click)="delete('msg',i)">删除</button>
+        </ion-item-options>
+      </ion-item-sliding>
+      <div class="noInfo" *ngIf="infoData.msg.length==0">
+        暂无站内信
+      </div>
+    </ion-list>
+
+    <!--公告-->
+    <ion-list *ngSwitchCase="'info'">
+      <ion-item-sliding #item  *ngFor="let info of infoData.info;index as i">
+        <ion-item>
+          <h2 (click)="pushPage('InfoDetailPage')"><span class="item-title">{{info.title}} <i class="red-coin" *ngIf="info.red"></i></span><span class="item-date">{{info.date}}</span></h2>
+          <p class="item-text">{{info.text}} <i class="firecat-icon stick-icon" *ngIf="info.stick"></i></p>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button class="Stick" (click)="stick('info',i)">置顶</button>
+          <button ion-button color="danger" class="delete" (click)="delete('info',i)">删除</button>
+        </ion-item-options>
+      </ion-item-sliding>
+      <div class="noInfo" *ngIf="infoData.info.length==0">
+        暂无公告
+      </div>
+    </ion-list>
+
+  </div>
+</ion-content>

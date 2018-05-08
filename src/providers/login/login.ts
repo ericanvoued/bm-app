@@ -10,13 +10,13 @@ interface loginParameter {
 @Injectable()
 export class LoginProvider {
 
-  loginApi = '/mobile-h5-auth/login'
+  loginApi:string = '/mobile-h5-auth/login'
 
   constructor(public http: HttpClient,public rest: RestProvider) {
 
   }
 
-  loginApp(parameter: loginParameter): Promise<any> {
+  loginApp(parameter: loginParameter){
     return this.rest.postUrlReturn(this.loginApi, parameter);
   }
 
