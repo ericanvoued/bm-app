@@ -26,6 +26,36 @@ export class Zuxuan20Component {
     return number + 5
   }
 
+  randomChoose(){
+    let temp,arr;
+    this.common.ballData = this.common.ballData.map((item,index) => {
+     
+      if(index == 0){
+          temp = this.tool.produceRandom(1)
+          item.value = item.value.map((ele,index) => {
+              if(temp.indexOf(index) != -1){
+                  return 1
+              }else{
+                  return 0
+              }
+          })
+          return item
+      }else{
+          arr = this.tool.produceRandom(2,temp)
+          item.value = item.value.map((ele,index) => {
+            if(arr.indexOf(index) != -1){
+                return 1
+            }else{
+                return 0
+            }
+        })
+          return item
+      }
+    })
+    this.calculate()
+  }
+
+
   changeToggle(row,column){
     console.log('wwww')
     if(column!=null){

@@ -24,6 +24,25 @@ export class Zuxuan120Component {
         return number + 5
     }
 
+
+  randomChoose(){
+    this.common.ballData = this.common.ballData.map((item,index) => {
+      let temp = this.tool.produceRandom(5)
+      if(index == 0){
+          item.value = item.value.map((ele,index) => {
+              if(temp.indexOf(index) != -1){
+                  return 1
+              }else{
+                  return 0
+              }
+          })
+
+          return item
+      }
+    })
+    this.calculate()
+  }
+
   changeToggle(row,column){
       console.log('wwww')
       if(column!=null){

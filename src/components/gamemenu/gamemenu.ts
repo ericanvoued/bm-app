@@ -50,7 +50,7 @@ export class GamemenuComponent {
         this.bigIndex = this.common.bigIndex
     }
 
-
+    // dawan fa
     setMethodIndex(index){
         this.bigIndex = index
         this.method = this.common.gameMethodConfig[index].name
@@ -70,7 +70,7 @@ export class GamemenuComponent {
         }
         console.log('dddddd')
 
-        this.switch.emit(this.method + this.smallMethod)
+        //this.switch.emit(this.method + this.smallMethod)
     }
 
     setSmallIndex(j,name){
@@ -84,7 +84,14 @@ export class GamemenuComponent {
         //     this.lhc.resetData()
         //     this.lhc.setGameKind(name)
         // }
-        this.switch.emit(this.common.method + this.common.smallMethod)
+
+        console.log(this.common.secondKind)
+
+        if(this.common.method == '二星'){
+            this.switch.emit(this.common.method + this.common.secondKind + this.common.smallMethod)
+        }else{
+            this.switch.emit(this.common.method + this.common.smallMethod)
+        }
     }
 
 

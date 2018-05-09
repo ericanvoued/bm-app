@@ -11,6 +11,8 @@ import { GamemenuComponent } from '../../../components/gamemenu/gamemenu'
 import { MenumodalComponent } from '../../../components/menumodal/menumodal'
 import { UtilProvider } from '../../../providers/util/util'
 import { gameConfig } from '../../../components/ssc-config'
+
+import { SscServiceProvider } from '../../../providers/games/ssc-service/ssc-service'
 import * as $ from 'jquery'
 import * as Hammer from 'hammerjs';
 /**
@@ -60,11 +62,8 @@ export class SscPage extends Effect{
 
 
     constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private resolver: ComponentFactoryResolver,
-    public common:CommonProvider, public gamemenu:GamemenuComponent, public util:UtilProvider,public basket:BasketDataProvider) {
+    public common:CommonProvider, public gamemenu:GamemenuComponent, public util:UtilProvider,public basket:BasketDataProvider,public ssc:SscServiceProvider) {
         super(common,gamemenu)
-
-        this.util.shakePhone(this.util.randomChoose)
-
 
         this.list = this.record.slice(0, 2)
         this.over = this.record.length > 2 ? false:true
@@ -77,6 +76,11 @@ export class SscPage extends Effect{
 
     }
 
+    ionViewWillEnter(){
+        this.gameContainer.clear()
+        const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(gameConfig[this.common.method + this.common.smallMethod])
+        this.componentRef = this.gameContainer.createComponent(factory)
+    }
 
     ionViewDidLoad() {
        
@@ -129,12 +133,12 @@ export class SscPage extends Effect{
     addToCart(dom){
         console.log(dom.innerText)
         if(this.common.count == 0){return}
+        console.log(this.common.cartNumber)
         // 把数据放进购彩蓝
         this.basket.addBetData(dom.innerText)
         $('<div id="ball"></div>').appendTo($('#bet-statistic'));
         this.move()
         this.util.resetData()
-
     }
 
     qqq(number){
@@ -142,8 +146,9 @@ export class SscPage extends Effect{
     }
 
     goToBasket(){
+
       if(this.common.cartNumber > 0 )
-       this.navCtrl.push('BasketPage')
+         this.navCtrl.push('BasketPage',{'index':this.componentRef})
     }
 
     change(val){
@@ -164,13 +169,25 @@ export class SscPage extends Effect{
    }
 
    changeMenu(val){
-        if(this.haveChoosen.indexOf(val) > -1){
-             let index = this.haveChoosen.indexOf(val)
-             this.haveChoosen.splice(index,1)
-        }else{
-             this.haveChoosen.push(val)
-             // 判断是否冷热  this.util.fetch('lengre')
+        // if(this.haveChoosen.indexOf(val) > -1){
+        //      let index = this.haveChoosen.indexOf(val)
+        //      this.haveChoosen.splice(index,1)
+        // }else{
+        //      this.haveChoosen.push(val)
+        //      // 判断是否冷热  this.util.fetch('lengre')
+        // }
+        for(let j = 0;j<this.haveChoosen.length;j++){
+            if(val.indexOf(this.haveChoosen[j] == -1)){
+                this.haveChoosen.splice(this.haveChoosen[j],1)
+                j--
+            }      
         }
+
+        for(let i =0;i<val.length;i++){
+            if(this.haveChoosen.indexOf(val[i]) == -1)
+               this.haveChoosen.push(val[i])    
+        }
+        console.log(val)
    }
 
    check(choice){
@@ -184,5 +201,6 @@ export class SscPage extends Effect{
        this.gameContainer.clear()
        const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(component)
        this.componentRef = this.gameContainer.createComponent(factory)
+       this.componentRef.instance.choose = this.haveChoosen
    }
 }

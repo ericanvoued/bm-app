@@ -17,7 +17,7 @@ export class Effect{
             if(self.common.visible = 'visable'){
                 console.log('fff');self.gamemenu.toggle()
             }
-
+            $('.modal').removeClass('active')
             
         });
         //this.addDynamicComponent()
@@ -46,7 +46,7 @@ export class Effect{
 
             requestAnimationFrame(this.move.bind(this))
         }else{
-            console.log('wwww')
+            console.log('你妈死额')
             this.common.cartNumber++
             $('#ball').remove()
             tt = 0

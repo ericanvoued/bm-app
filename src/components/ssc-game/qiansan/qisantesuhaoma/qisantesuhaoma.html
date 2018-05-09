@@ -1,0 +1,21 @@
+<!-- Generated template for the QisantesuhaomaComponent component -->
+<div>{{common.smallKind.des}} {{common.bonus}} 元</div>
+<div class="l-game" *ngFor="let data of common.ballData;let ii = index" >
+    <div class="l">
+        <p><span></span>{{data.key}}</p>
+       
+    </div>
+
+    <div class="r">
+        <div class="ball-list">
+            <ul class="teshuhaoma" style="height:auto">
+                <li *ngFor="let item of data.value.slice(0,5);let i = index" [class.current]="item == 1" (click)="changeToggle(ii,i)" style="border-radius:0;
+                width:60px;height: 60px;font-size:15px;
+                padding: 5px 5px;">
+                    <div>{{qqq(i)}}</div>
+                    <div>123元</div>
+                </li>
+            </ul> 
+        </div>
+    </div>
+</div>

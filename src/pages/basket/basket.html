@@ -19,8 +19,8 @@
         距下一期开奖 <span>{{common.countTime.minutes}}</span>:<span>{{common.countTime.seconds}}</span>
     </div>
    <div class="top-header" style="display:flex;justify-content:space-between;margin-bottom:10px">
-      <div class="top-menu" (click)="basket.randomChoose(1)">+ 机选1注</div>
-      <div class="top-menu" (click)="basket.randomChoose(5)">+ 机选5注</div>
+      <div class="top-menu" (click)="randomChoose()">+ 机选1注</div>
+      <div class="top-menu" (click)="randomChoose(5)">+ 机选5注</div>
       <div class="top-menu" (click)="basket.randomChoose()">继续追号</div>
   </div> 
    

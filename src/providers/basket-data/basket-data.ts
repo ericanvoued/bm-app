@@ -51,10 +51,29 @@ export class BasketDataProvider {
         this.totalAmount = 0   
   }
 
-  addBetData(name){
-    this.betData.push(this.util.processOrder(name))
-    this.common.cartNumber++
+  addBetData(name?){
+    this.betData.push(this.processOrder(name))
+    //this.common.cartNumber++
     //this.calculateTotal()
+  }
+
+  processOrder(name?){
+    let dataArr = []
+    this.common.ballData.forEach(item => {
+         let arr = []
+         item.value.forEach((ele,index) => {
+              ele == 1 ? arr.push(('0'+index).slice(-2)):''
+         })
+         dataArr.push(arr.join(' '))
+    })
+    console.log(dataArr)
+    // dataArr = dataArr.map(item => item.join(''))
+    return {
+         betData:dataArr,
+         gameName:name?name:this.common.method + this.common.smallMethod,
+         count:this.common.count,
+         price:this.common.betPrice
+    }
   }
 
   clearBasket(){

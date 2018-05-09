@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component ,ComponentRef} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { BasketDataProvider } from '../../providers/basket-data/basket-data'
 import { CommonProvider } from "../../providers/common/common";
 import { trigger ,state,transition,animate,style} from "@angular/animations";
 import { AlertController } from 'ionic-angular';
+import { UtilProvider } from '../../providers/util/util'
 
 /**
  * Generated class for the BasketPage page.
@@ -34,7 +35,11 @@ import { AlertController } from 'ionic-angular';
 export class BasketPage {
   show:string = "invisable"
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,  public basket:BasketDataProvider, public common:CommonProvider, private alertCtrl: AlertController) {
+  componentRef:ComponentRef<any>
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,  public basket:BasketDataProvider, public common:CommonProvider, private alertCtrl: AlertController,public util:UtilProvider) {
+    //此处获取需要机选注单的实例  
+    this.componentRef = this.navParams.get('index')
   }
 
   ionViewDidLoad() {
@@ -47,6 +52,16 @@ export class BasketPage {
 
   change(number){
     this.basket.statistic.multiple += number
+  }
+
+  // 机选一单
+  randomChoose(number?){
+     this.componentRef.instance.randomChoose(number)
+     this.basket.addBetData()
+  }
+
+  ionViewWillLeave(){
+     this.util.resetData()
   }
 
   presentConfirm() {

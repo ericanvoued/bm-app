@@ -33,6 +33,7 @@ export class CommonProvider {
 
   //小玩法名称
   smallMethod:string;
+  secondKind:string;
   bigIndex:any;
 
   visible:string = 'invisable';
@@ -96,8 +97,11 @@ export class CommonProvider {
         let percent = this.tabYuan == '元' ? 1 : this.tabYuan == '角' ? 0.1 : 0.01
         this.bonus = this.smallKind.bonus*percent
 
-        if(this.small.length)
+        if(this.small.length){
             this.ballData = this.tools.copy(this.gameMethodConfig[0].children[0].children[0].bet_numberArrObj, true)
+            this.secondKind = this.gameMethodConfig[0].children[0].name
+        }
+           
         //this.ballData = arr
         this.method = this.gameMethodConfig[0].name;
         this.bigIndex = 0
@@ -112,6 +116,8 @@ export class CommonProvider {
 
     setGameConfig(index,index2,name){
         if(this.bigIndex!=index || name!=this.smallMethod){
+            this.secondKind = this.gameMethodConfig[index].children[index2].name
+
             this.ballData = this.tools.copy(this.gameMethodConfig[index].children[index2].children.filter(ele => ele.name == name)[0].bet_numberArrObj, true)
 
             this.btn = this.ballData.map(ele => [{name:"全",flag:false},{name:"大",flag:false},{name:"小",flag:false},{name:"奇",flag:false},{name:"偶",flag:false},{name:"清",flag:false}])

@@ -1,3 +1,5 @@
+<div class="shakePhone" (click)="randomChoose()"></div>  
+
 <div class="l-game" *ngFor="let data of common.ballData;let ii = index" >
     <div class="l">
         <p><span></span>{{data.key}}</p>
@@ -15,18 +17,18 @@
                 <li *ngFor ="let detail of util.yilou[data.key].slice(0,5)">{{detail}}</li>
             </ul>
             
-            <ul class="lengre statistic" >
+            <ul class="lengre statistic" *ngIf="check('30期冷热')">
                 <li *ngFor ="let detail of util.lengre[data.key].slice(0,5)">{{detail}}</li>
             </ul>
 
             <ul>
                 <li *ngFor="let item of data.value.slice(-5);let i = index" [class.current]="item == 1" (click)="changeToggle(ii,i+5)">{{qqq(i)}}</li>
             </ul>
-            <ul class="yilou statistic">
+            <ul class="yilou statistic" >
                 <li *ngFor ="let detail of util.yilou[data.key].slice(-5)">{{detail}}</li>
             </ul>
 
-            <ul class="lengre statistic" >
+            <ul class="lengre statistic" *ngIf="check('30期冷热')">
                 <li *ngFor ="let detail of util.lengre[data.key].slice(-5)">{{detail}}</li>
             </ul>
 

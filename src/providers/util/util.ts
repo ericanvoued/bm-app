@@ -18,7 +18,10 @@ export class UtilProvider {
   trendKind = {
     '五星':['万位走势','千位走势','百位走势','十位走势','个位走势'],
     '四星':['万位走势','千位走势','百位走势','十位走势'],
-    '前三':['万位走势','千位走势','百位走势']
+    '前三':['万位走势','千位走势','百位走势'],
+    '中三':['千位走势','百位走势','十位走势'],
+    '后三':['百位走势','十位走势','个位走势'],
+    '二星':['十位走势','个位走势']
   }
 
   // 走势图头部选择
@@ -299,6 +302,7 @@ export class UtilProvider {
             item.value = balls
             return item
         })
+        this.common.cartNumber = 0
         this.common.calculate()
     }
 
@@ -521,7 +525,7 @@ export class UtilProvider {
     return r || -1;
   } 
 
-
+  
   mathResult(sum, nBegin, nEnd){
     var me = this,
         arr = [],
@@ -539,6 +543,24 @@ export class UtilProvider {
                         checkArray.push(postArray)
                         arr.push([x,y,z]);
                     }
+                }
+            }
+        }
+    }
+    return arr
+  }
+
+  mathHezhiResult(sum, nBegin, nEnd){
+    var me = this,
+        arr = [],
+        checkArray = [],
+        x,y,z;
+        
+    for (x=nBegin;x<=nEnd ;x++ ){
+        for (y=nBegin;y<=nEnd ;y++ ){
+            for (z=nBegin;z<=nEnd ;z++ ){
+                if(x+y+z==sum){
+                   arr.push([x,y,z])
                 }
             }
         }

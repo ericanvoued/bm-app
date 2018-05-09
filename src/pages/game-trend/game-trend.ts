@@ -35,9 +35,8 @@ export class GameTrendPage {
   }
 
   ionViewWillEnter(){
-     this.contentSlides.slideTo(this.navParams.get('index'))
+     //this.contentSlides.slideTo(this.navParams.get('index'))
      this.drawTrend() 
-
   }
 
   drawTrend(){
@@ -80,7 +79,7 @@ export class GameTrendPage {
   slideChanged(){
     let index = this.contentSlides.getActiveIndex();
     console.log(index)
-    this.util.choose = this.util.menus[index]
+   // this.util.choose = this.util.menus[index]
   }  
 
   segmentChanged($event){
