@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ChargePage } from '../charge/charge'
 
 import * as Hammer from  'hammerjs';
-// declare var Swiper;
 
 
 @IonicPage()
@@ -12,24 +12,20 @@ import * as Hammer from  'hammerjs';
 })
 export class TransformHistoryPage {
 
-  _index = 0;
+  isSlide:boolean = false;
+  detail_btn_text:string = '详情'
+
   segmentsArray = ['all','charge','withdraw'];
-  transformHistory: string = this.segmentsArray[this._index];
+  transformHistory: string = this.segmentsArray[0];
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     this.swipeEvent()
-    // this.swiper_init()
   }
 
-  // swiper_init() {
-  //   this.banner_swiper = new Swiper('.swiper-container', {
-  //     loop: true
-  //   });
-  // }
-
-  swipeEvent(event:Event){
+  swipeEvent(){
 
     var switchBody = document.getElementById('switchBody');
     var hammertime = new Hammer(switchBody);
@@ -47,6 +43,18 @@ export class TransformHistoryPage {
 
   }
 
+  toggleDetail(){
+    console.log(1)
+    this.isSlide = !this.isSlide;
+    this.isSlide==true?this.detail_btn_text ='收起':this.detail_btn_text = '详情'
+  }
 
-
+  //页面跳转
+  pushPage(page, param) {
+    if (param) {
+      this.navCtrl.push(page, param);
+    } else {
+      this.navCtrl.push(page);
+    }
+  }
 }
