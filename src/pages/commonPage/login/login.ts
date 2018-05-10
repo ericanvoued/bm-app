@@ -7,17 +7,17 @@ import {
   NavParams
 } from 'ionic-angular';
 import {Storage} from '@ionic/storage';
-import { TabsPage } from '../../tabs/tabs';
+import {TabsPage} from '../../tabs/tabs';
 import {LoginProvider} from '../../../providers/login/login';
-import { LoadingProvider } from '../../../providers/loading/loading'
+import {LoadingProvider} from '../../../providers/loading/loading'
 import * as md5 from 'md5';
 
 @IonicPage()
 @Component({
   selector: 'page-login',
-  templateUrl: './login.html',
+  templateUrl:'./login.html',
 })
-export class LoginPage{
+export class LoginPage {
 
   username: string = 'testjose';
   password: string = '123qwe';
@@ -31,7 +31,7 @@ export class LoginPage{
 
   constructor(private logins: LoginProvider,
               public navCtrl: NavController,
-              public loadPrd:LoadingProvider,
+              public loadPrd: LoadingProvider,
               public loadingCtrl: LoadingController,
               public storage: Storage,
               public ToastCtrl: ToastController,
@@ -53,14 +53,14 @@ export class LoginPage{
         username: this.username,
         password: md5(md5(md5(this.username + this.password)))
       }).subscribe((data) => {
-
+        console.log(data)
         if (data.isSuccess) {
           this.loading.dismiss();
           this.tost = this.loadPrd.showToast(this.ToastCtrl, data.Msg);
           this.storage.set('userInfo', data['data']);
 
-          this.navCtrl.setRoot(TabsPage,{
-            pageIndex:3
+          this.navCtrl.setRoot(TabsPage, {
+            pageIndex: 3
           });
         } else {
           this.loading.dismiss();

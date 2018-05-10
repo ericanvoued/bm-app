@@ -12,14 +12,14 @@ export class RestProvider {
   }
 
 
-  postUrlReturn(url: string,parameter): Observable<string[]> {
+  postUrlReturn(url: string,parameter): Observable<any> {
     return this.http.post('http://www.zhenwin.com'+url,parameter)
   }
 
   getUrlReturn(url: string): Observable<string[]> {
     return this.http.get('http://www.zhenwin.com'+url)
-      .map(this.extractData)
-      .catch(this.handleError)
+      // .map(this.extractData)
+      // .catch(this.handleError)
   }
 
   extractData(res: Response) {

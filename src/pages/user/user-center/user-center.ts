@@ -14,6 +14,8 @@ import {FilePath} from '@ionic-native/file-path';
 import {LoginPage} from '../../commonPage/login/login';
 import {ChangeNamePage} from '../change-name/change-name';
 import {ChargePage} from '../charge/charge';
+import {WithdrawPage} from '../withdraw/withdraw';
+import {TransformHistoryPage} from '../transform-history/transform-history';
 
 declare var cordova: any;
 
@@ -169,7 +171,7 @@ export class UserCenterPage {
   }
 
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     this.storage.get('userInfo').then((val) => {
       if (val == null) {
         this.userData = null;

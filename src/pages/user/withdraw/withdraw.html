@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar>
+    <h2 class="DIY-title">充值中心</h2>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <div class="worming-info"><span class="danger">*为防止套现和洗钱，充值后需购买充值金额的20％方可提现</span></div>
+  <div class="withDraw-info clearfix">
+    <h4>可提现额度 <span>10000.00</span></h4>
+    <p>拥有资产：50000.00</p>
+  </div>
+  <div class="withDraw-money">
+    <p>提现金额</p>
+    <span class="currency">¥</span>
+    <input type="number" class="showCurrency" (input)="onlyNum($event)" [(ngModel)]="withDrawMoney"/>
+  </div>
+  <div class="bank-list">
+    <p class="info">请选择提现银行：</p>
+    <div class="bank-content">
+      <div class="bank-unit current">
+        <div class="capture">
+          <img src="../../../assets/bank-icon/s-ctbc-icon.png" alt="">
+        </div>
+        <div class="bank-text">
+          <h4>张三</h4>
+          <p>666666 *** 6666 中国工商银行</p>
+        </div>
+        <button class="select-btn"></button>
+      </div>
+      <div class="bank-unit">
+        <div class="capture">
+          <img src="../../../assets/bank-icon/s-ctbc-icon.png" alt="">
+        </div>
+        <div class="bank-text">
+          <h4>张三</h4>
+          <p>666666 *** 6666 中国工商银行</p>
+        </div>
+        <button class="select-btn"></button>
+      </div>
+      <div class="add-bank-card">
+        +添加银行卡
+      </div>
+    </div>
+  </div>
+  <div class="fix-sure-btn unable" >
+    <button (click)="showPrompt()">确认提现</button>
+  </div>
+</ion-content>
+
+
+
+
+
+

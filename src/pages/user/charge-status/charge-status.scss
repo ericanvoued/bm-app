@@ -1,0 +1,83 @@
+page-charge-status {
+  .finished-btn{
+    float: right;
+    color: #FFFFFF;
+    font-size: 16px;
+    letter-spacing: -0.29px;
+    padding: 0;
+    height: 44px;
+    background: none;
+    line-height:44px;
+    border: none;
+    outline: none;
+    margin: 0;
+    position: relative;
+    z-index: 1000;
+  }
+  .status-head{
+    height: 161px;
+    background-color: #FFFFFF;
+    h2{
+      background-repeat: no-repeat;
+      height: 34px;
+      width: 100%;
+      margin-bottom: 10px;
+      background-position: center top;
+      background-size: auto 100%;
+      margin-top: 40px;
+    }
+    p{
+      width: 100%;
+      font-size: 18px;
+      color: #333333;
+      letter-spacing: -0.29px;
+      text-align: center;
+    }
+  }
+  .status-wrap{
+    height: 41px;
+    border-top: 1px solid #EAEAEA;
+    line-height:40px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #FFFFFF;
+    padding: 0 16px;
+    p{
+      width: 100%;
+      flex: 1;
+      font-size: 14px;
+      color: #333333;
+      letter-spacing: -0.22px;
+      &:last-child{
+        text-align: right;
+      }
+    }
+    &:last-child{
+      border-top-style: dashed;
+    }
+  }
+  .bottom-link{
+    display: block;
+    position: absolute;
+    bottom: 80px;
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-color: #3291FF;
+    color: #3291FF;
+    font-size: 12px;
+    width: 100%;
+  }
+
+  .succeed-head{
+    h2{
+      background-image: url("../../../assets/icon/charge-succeed-icon.png");
+    }
+  }
+
+  .fail-head{
+    h2{
+      background-image: url("../../../assets/icon/dager-close-icon.png");
+    }
+  }
+
+}

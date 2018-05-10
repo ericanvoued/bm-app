@@ -1,0 +1,61 @@
+page-transform-history {
+  .kefu-btn{
+    float: right;
+    color: #FFFFFF;
+    font-size: 16px;
+    letter-spacing: -0.29px;
+    padding: 0;
+    height: 44px;
+    background: none;
+    line-height:44px;
+    border: none;
+    outline: none;
+    margin: 0;
+    position: relative;
+    z-index: 1000;
+  }
+  .switch-head{
+    height: 40px;
+    line-height: 40px;
+    background-color: #FFFFFF;
+    .segment-ios .segment-button,.segment-md .segment-button{
+      border: none;
+      color: #333333;
+      height: 100%;
+      line-height:40px;
+      font-size: 14px;
+    }
+    ion-segment-button{
+      border: none;
+      color: #333333;
+      border-radius: 0;
+      height: 100%;
+      line-height:40px;
+      position: relative;
+      .underline{
+        position: absolute;
+        height: 3px;
+        background-color: transparent;
+        width: 0%;
+        left: 0;
+        bottom: 0px;
+        transition: all .5s;
+      }
+    }
+    .segment-ios .segment-button.segment-activated,.segment-md .segment-button.activated, .segment-md .segment-button.segment-activated{
+      color: #F6374E;
+      background-color: transparent;
+      font-size: 14px;
+      .underline{
+        width: 100%;
+        background-color: #F6374E;
+      }
+    }
+  }
+  .switch-body{
+    height: 200px;
+    ion-list{
+      height: 200px;
+    }
+  }
+}

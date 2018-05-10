@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <h2 class="DIY-title">充提记录</h2>
+    <button class="kefu-btn">客服</button>
+  </ion-navbar>
+</ion-header>
+
+
+
+<ion-content>
+  <div class="switch-head">
+    <ion-segment [(ngModel)]="transformHistory">
+      <ion-segment-button value="all">
+        全部
+        <div class="underline"></div>
+      </ion-segment-button>
+      <ion-segment-button value="charge">
+        充值
+        <div class="underline"></div>
+      </ion-segment-button>
+      <ion-segment-button value="withdraw">
+        提款
+        <div class="underline"></div>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="transformHistory" id="switchBody" class="switch-body">
+    <ion-list *ngSwitchCase="'all'">
+
+    </ion-list>
+    <ion-list *ngSwitchCase="'charge'">
+
+    </ion-list>
+    <ion-list *ngSwitchCase="'withdraw'">
+
+    </ion-list>
+  </div>
+
+</ion-content>
