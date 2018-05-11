@@ -16,10 +16,9 @@ export class RestProvider {
     return this.http.post('http://www.zhenwin.com'+url,parameter)
   }
 
-  getUrlReturn(url: string): Observable<string[]> {
+  getUrlReturn(url: string): Observable<any> {
     return this.http.get('http://www.zhenwin.com'+url)
-      // .map(this.extractData)
-      // .catch(this.handleError)
+
   }
 
   extractData(res: Response) {

@@ -16,6 +16,8 @@ import {ChangeNamePage} from '../change-name/change-name';
 import {ChargePage} from '../charge/charge';
 import {WithdrawPage} from '../withdraw/withdraw';
 import {TransformHistoryPage} from '../transform-history/transform-history';
+import {LottoryHistoryPage} from '../lottory-history/lottory-history';
+import {FollowHistoryPage} from '../follow-history/follow-history';
 
 declare var cordova: any;
 

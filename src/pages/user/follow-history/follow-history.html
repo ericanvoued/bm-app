@@ -1,0 +1,97 @@
+<ion-header>
+  <ion-navbar>
+    <h2 class="DIY-title">追号记录</h2>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="lh-head">
+    <div class="lh-Picker">
+      <ion-datetime cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="lhRecord.timeStarts"></ion-datetime>
+      <i class="firecat-icon dropdown-icon"></i>
+    </div>
+    <div class="mid-line"></div>
+    <div class="lh-Picker">
+      <ion-datetime cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="lhRecord.timeEnds"></ion-datetime>
+      <i class="firecat-icon dropdown-icon"></i>
+    </div>
+    <div class="mid-line"></div>
+    <div class="lh-Picker game-picker">
+      <ion-item>
+        <ion-select cancelText="取消" okText="确认" placeholder="全部游戏">
+          <ion-label>全部游戏</ion-label>
+          <ion-option value="全部游戏1">全部游戏1</ion-option>
+          <ion-option value="全部游戏2">全部游戏2</ion-option>
+          <ion-option value="全部游戏3">全部游戏3</ion-option>
+          <ion-option value="全部游戏4">全部游戏4</ion-option>
+          <ion-option value="全部游戏5">全部游戏5</ion-option>
+          <ion-option value="全部游戏6">全部游戏6</ion-option>
+          <ion-option value="全部游戏7">全部游戏7</ion-option>
+
+        </ion-select>
+      </ion-item>
+      <i class="firecat-icon dropdown-icon"></i>
+    </div>
+  </div>
+  <div class="lh-body">
+    <div class="switch-case case-withdraw">
+      <div class="enpty" *ngIf="false">
+        <p>暂无可浏览记录</p>
+      </div>
+      <div class="month"  *ngIf="true">
+        <div class="case-content switch-case">
+          <div class="case-content-unit" [ngClass]="{'isSlide':record.isSlide==true}" *ngFor="let record of lhRecord.data;index as i">
+            <div class="case-wrap">
+              <p><span>{{record.name}}</span> <span>{{record.date}}</span> {{record.qihao}}期</p>
+              <p><span [ngClass]="{'blue':record.is_waiting==true,'red':record.is_win==true}">{{record.is_waiting==true?'待开奖':record.is_win==true?"已中奖":"未中奖"}}</span></p>
+            </div>
+            <div class="case-wrap ball-wrap border-bottom">
+              <p><span>{{record.ball_group}}：</span></p>
+              <p class="ball-list">
+                <span *ngFor="let ball of record.balls">{{ball}}</span>
+              </p>
+              <p>金额：{{record.money}}元</p>
+            </div>
+            <div class="content-detail">
+              <div class="case-wrap ">
+                <p class="right">编&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号： <span>{{record.detail.serial}}</span></p>
+              </div>
+              <div class="case-wrap ">
+                <p class="right">投注时间： <span>{{record.detail.bet_time}}</span></p>
+              </div>
+              <div class="case-wrap ">
+                <p class="right">注&nbsp;&nbsp;&nbsp;单ID： <span>{{record.detail.bet_id}}</span></p>
+              </div>
+              <div class="case-wrap">
+                <p class="right">玩法详情： <span>{{record.detail.bet_detail}}</span></p>
+              </div>
+              <div class="case-wrap">
+                <p class="right">投注内容： <span>{{record.detail.bet_ball}}</span></p>
+              </div>
+              <div class="case-wrap">
+                <p class="right">模&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;式： <span>{{record.detail.bet_model}}</span></p>
+              </div>
+              <div class="case-wrap">
+                <p class="right">倍&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数： <span>{{record.detail.bet_times}}倍</span></p>
+              </div>
+              <div class="case-wrap">
+                <p class="right">投注返点： <span>{{record.detail.bet_reward}}</span></p>
+              </div>
+              <div class="case-wrap">
+                <p class="right">中奖金额： <span class="red">{{record.detail.win_money}}元</span></p>
+              </div>
+            </div>
+            <div class="case-wrap case-wrap-big">
+              <p *ngIf="record.is_following">正在追号</p>
+              <p>
+                <!--<span>充值成功</span>-->
+                <button class="detail-btn concel-btn"  *ngIf="record.is_following">撤单</button>
+                <button class="detail-btn" (click)="toggleDetail(i)"><i class="trangle"></i>{{record.detail_btn_text}}</button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

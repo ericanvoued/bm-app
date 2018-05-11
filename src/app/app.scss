@@ -190,6 +190,11 @@ ul, li {
   height: 12px;
   background-image: url("../assets/icon/stick-icon.png");
 }
+.dropdown-icon{
+  background-image: url("../assets/icon/drop-down-icon.png");
+}
+
+
 
 
 .common-form{
@@ -265,6 +270,124 @@ ul, li {
     }
   }
 }
+
+//ion-select默认样式去除
+.ion-select{
+  min-width: 100%;
+  max-width: none;
+}
+ion-select{
+  max-width: none;
+  width: 100%;
+  height: 100%;
+}
+.select-ios .select-icon{
+  display: none;
+}
+.select-text{
+  min-width: 100%;
+  text-align: center;
+  line-height: 40px;
+  color: #333333;
+  font-size: 14px;
+}
+.item-ios.item-block .item-inner{
+  padding: 0;
+  border: none;
+}
+.select-ios .select-placeholder{
+  color: #333333;
+}
+
+page-lottory-history .lh-head .lh-Picker .item-block{
+  padding: 0;
+}
+.select-ios{
+  padding: 0;
+}
+.item-cover{
+  padding: 0;
+  text-align: center;
+}
+.select-md{
+  padding: 0;
+}
+
+.alert-head,.alert-ios .alert-head{
+  padding: 0;
+}
+
+
+//弹框的样式修改
+.alert-title {
+  color: #3e3e3e;
+}
+
+.alert-ios .alert-title {
+  margin-top: 0;
+}
+
+.alert-ios .alert-head {
+  padding-bottom: 0;
+}
+
+.alert-ios .alert-message, .alert-ios .alert-input-group {
+  color: #4a4a4a;
+  font-size: 1.5rem;
+}
+
+.alert-ios .alert-sub-title {
+  color: #4a4a4a;
+  font-size: 1.7rem;
+}
+
+.aaa {
+  background: #fff;
+  height: 100%;
+}
+
+.alert-ios [aria-checked=true] .alert-radio-label {
+  color: #FE5600;
+}
+
+.alert-ios [aria-checked=true] .alert-radio-inner {
+  border-color: #FE5600;
+}
+
+.alert-button-group .alert-button {
+  color: #4a4a4a;
+}
+
+.alert-button-group .alert-button:last-child {
+  color: #FE5600;
+}
+
+.alert-ios .alert-input {
+  color: #000;
+  margin-top: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

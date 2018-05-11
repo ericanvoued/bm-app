@@ -29,7 +29,24 @@
 
   <div [ngSwitch]="transformHistory" id="switchBody" class="switch-body">
     <div class="switch-case case-all" *ngSwitchCase="'all'">
-      <div class="month"  *ngIf="false">
+      <div class="enpty">
+        <p>暂无可浏览记录</p>
+      </div>
+    </div>
+    <div class="switch-case case-charge" *ngSwitchCase="'charge'">
+
+      <div class="enpty">
+        <p>暂无可浏览记录</p>
+        <div class="fix-sure-btn">
+          <button (click)="pushPage('ChargePage')">立即充值</button>
+        </div>
+      </div>
+    </div>
+    <div class="switch-case case-withdraw" *ngSwitchCase="'withdraw'">
+      <div class="enpty" *ngIf="false">
+        <p>暂无可浏览记录</p>
+      </div>
+      <div class="month"  *ngIf="true">
         <div class="month-title">本月</div>
         <div class="case-content">
           <div class="case-content-unit">
@@ -78,22 +95,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="enpty">
-        <p>暂无可浏览记录</p>
-      </div>
-    </div>
-    <div class="switch-case case-charge" *ngSwitchCase="'charge'">
-      <div class="enpty">
-        <p>暂无可浏览记录</p>
-        <div class="fix-sure-btn">
-          <button (click)="pushPage('ChargePage')">立即充值</button>
-        </div>
-      </div>
-    </div>
-    <div class="switch-case case-withdraw" *ngSwitchCase="'withdraw'">
-      <div class="enpty">
-        <p>暂无可浏览记录</p>
       </div>
     </div>
   </div>
