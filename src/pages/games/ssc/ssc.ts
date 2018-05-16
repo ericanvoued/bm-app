@@ -63,21 +63,13 @@ export class SscPage extends Effect{
     trHeight:number;
     high:number = 0
 
-    timer:any;
-
-    countTime:any = {
-        'total': '',
-        'days': '',
-        'hours': '',
-        'minutes': '',
-        'seconds': ''
-    }
+   
     
 
 
     constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private resolver: ComponentFactoryResolver,public app:App,
     public common:CommonProvider, public gamemenu:GamemenuComponent, public util:UtilProvider,public basket:BasketDataProvider,public ssc:SscServiceProvider, public events:Events) {
-        super(common,gamemenu)
+        super(common,gamemenu,modalCtrl)
 
         this.list = this.record.slice(0, 2)
         this.over = this.record.length > 2 ? false:true
@@ -92,7 +84,6 @@ export class SscPage extends Effect{
         //     //this.common.showToast('进入新一期开奖',2000)
         //     modal.present()
         // })
-        this.produce()
     }
 
     ionViewWillEnter(){
@@ -141,41 +132,6 @@ export class SscPage extends Effect{
         clearInterval(this.timer)
     }
 
-    produce(){
-        console.log('produce')  
-        this.countDown(Math.floor(Math.random()*10)*1000 + 10*1000)
-    }
-
-    countDown(time){
-        this.timer = setInterval(()=> {
-        if(time <1000){
-            clearInterval(this.timer)
-            console.log('wcnmbmb')
-            //this.events.publish('countDown')
-            let modal = this.modalCtrl.create(CountTipComponent, {qishu:123456})
-            modal.present()
-            //this.global.showToast('进入新一期开奖',2000)
-            this.produce()
-        } 
-        this.countTime = this.getTimeRemaining(time)
-        time -= 1000
-        },1000)
-    }
-
-    getTimeRemaining(t) {
-        let seconds = Math.floor((t / 1000) % 60);
-        let minutes = Math.floor((t / 1000 / 60) % 60);
-        let hours = Math.floor((t / (1000 * 60 * 60)) % 24);
-        let days = Math.floor(t / (1000 * 60 * 60 * 24));
-    
-        return {
-          'total': t,
-          'days': days,
-          'hours': ('0' + hours).slice(-2),
-          'minutes': ('0' + minutes).slice(-2),
-          'seconds': ('0' + seconds).slice(-2)
-        };
-    }
 
     watchScroll(){
         let mc = new Hammer(document.getElementById('qq'));

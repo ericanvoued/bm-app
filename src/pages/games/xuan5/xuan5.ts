@@ -42,7 +42,7 @@ export class Xuan5Page extends Effect{
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private resolver: ComponentFactoryResolver,public app:App,
     public common:CommonProvider, public gamemenu:GamemenuComponent, public util:UtilProvider,public basket:BasketDataProvider,public events:Events) {
-        super(common,gamemenu)
+        super(common,gamemenu,modalCtrl)
   }
 
   ionViewDidLoad() {

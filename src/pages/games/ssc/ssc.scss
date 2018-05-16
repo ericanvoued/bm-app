@@ -29,6 +29,8 @@ page-ssc {
 
   .toggle-menu{background: url('/assets/imgs/toggle.png') center center no-repeat; float:right;width:21px;height:21px;margin-right: 10px}
 
+
+
   // #bet-statistic{width:calc(100% - 232px);position:relative;display:flex;background:#f0f0f0}
 
   // #ball{width:20px;height:20px;background:yellow;position:absolute;top:0px;left:50px;border-radius:50%;}
@@ -52,8 +54,8 @@ page-ssc {
   }
 
   #qq{
-    width:70px;height:30px;box-shadow:0 1px 2px 0 #B6B6B6;border-top:none;border-bottom-left-radius: 8px;border-bottom-right-radius: 8px;margin: 0 auto;
-    text-align: center;line-height: 30px;
+    width:70px;height:20px;box-shadow:0 1px 2px 0 #B6B6B6;border-top:none;border-bottom-left-radius: 8px;border-bottom-right-radius: 8px;margin: 0 auto;
+    text-align: center;line-height: 20px;background: url('/assets/imgs/games/return.png') center center no-repeat
   }
 
   .table{
