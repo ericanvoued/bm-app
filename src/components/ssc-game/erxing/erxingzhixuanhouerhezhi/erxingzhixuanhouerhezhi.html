@@ -1,12 +1,14 @@
 <!-- Generated template for the ErxingzhixuanhouerhezhiComponent component -->
+<div class="shakePhone" (click)="randomChoose()"></div>   
+
 <div>{{common.smallKind.des}} {{common.bonus}} 元</div>
 <div class="l-game" *ngFor="let data of common.ballData;let ii = index" >
                 <div class="r" style="padding-right:10px">
                     <div class="ball-list">
                         <ul>
-                            <li *ngFor="let item of data.value;let i = index" [class.current]="item == 1" [class.blank]="(ii*7 + i) > 18" (click)="changeToggle(ii,i)" >
-                                <span *ngIf="item != null">{{ii*7 + i}}</span>
-                                <span *ngIf="item == null"></span>  
+                            <li *ngFor="let item of data.value;let i = index" [class.current]="item == 1" [class.blank]="(ii*7 + i) > 18"  >
+                                <span *ngIf="(ii*7 + i) <= 18" (click)="changeToggle(ii,i)">{{ii*7 + i}}</span>
+                                <span *ngIf="(ii*7 + i) > 18"></span>  
                             </li>
                         </ul>
                     
@@ -18,5 +20,5 @@
 </div>
 
 <div class="btn-list" style="margin:10px auto">
-    <a href="javascript:;" *ngFor="let detail of common.singleBtn;let j = index" [class.current]="detail.flag" (click)="util.changeActive(null,j,detail.name)">{{detail.name}} <span></span></a>
+    <a href="javascript:;" *ngFor="let detail of common.singleBtn;let j = index" [class.current]="detail.flag" (click)="changeActive(null,j,detail.name)">{{detail.name}} <span></span></a>
  </div>

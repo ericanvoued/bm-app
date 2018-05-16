@@ -10,7 +10,7 @@
     <div *ngFor="let item of small;let j = index" style="display:flex">
       <span>{{item.name}}: </span>
       <div style="width:75%;padding-left:3%">
-        <div class="small-method" *ngFor="let ele of item.children;let k = index" (click)="setSmallIndex(j,ele.name)">
+        <div class="small-method" *ngFor="let ele of item.children;let k = index" [class.active]="smallMethod == ele.name" (click)="setSmallIndex(j,ele.name)">
           {{ele.name}}</div>
 
       </div>

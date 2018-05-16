@@ -5,7 +5,7 @@ page-game-trend {
         background: #FFF9F5
       }
       .swiper-slide {
-        background: #fff;
+         background: none;
         color: #333;
       }
   
@@ -17,7 +17,7 @@ page-game-trend {
    
     .highlight{background: pink;z-index:5}
   
-    canvas{position: absolute;top:0;left:0}
+    canvas{position: absolute;top:0;left:0;z-index:-1}
   
     .segment-ios ion-segment-button.segment-activated{
         border-bottom: 3px solid #F6374E;
@@ -26,7 +26,7 @@ page-game-trend {
     .segment-ios .segment-button.segment-activated{color:#F6374E}
     .segment-ios .segment-button{border:none}
   
-    .trend-container ul{display:flex;justify-content:space-between}
+    .trend-container ul:not(.special){display:flex;justify-content:space-between}
     //.trend-container li{margin-bottom:25px;width:28px;height:28px;border-radius:50%;line-height: 28px}
   
     .trend-container ul li{width:8.5%;height:30px}
@@ -37,13 +37,14 @@ page-game-trend {
     ion-slides div.kai-jiang{display: flex;color:#666}
     ion-slides div.kai-jiang div{font-size: 15px;background: #DEE2FF;padding: 5px 0 5px 0}
     ion-slides div.kai-jiang-line{display: flex;padding: 5px 0 5px 0}
+    
     ion-slides div.kai-jiang-line:nth-of-type(2n+1){background: #FFFAF7}
   
     ion-slides div.kai-jiang div, ion-slides div.kai-jiang-line div{width:15%;font-size: 15px}
     ion-slides div.kai-jiang div:nth-of-type(2),ion-slides div.kai-jiang-line div:nth-of-type(2){width:25%}
   
-    ul.ball-line{background: #ffffff}
-    ul.ball-line:nth-of-type(2n){background: #FFFAF7}
+    ul.ball-line{background:rgba(255,255,255,.1)}
+    ul.ball-line:nth-of-type(2n){background:rgba(96, 152, 60, 0.1)}
 
 
    .trend-container .trend-category:nth-last-of-type(4) {

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonProvider } from '../../../../providers/common/common'
-import { ToolsProvider } from '../../../../providers/tools/tools'
 import { UtilProvider } from '../../../../providers/util/util'
+import { commonMethod } from '../../../common.method'
+import { BasketDataProvider } from '../../../../providers/basket-data/basket-data'
 /**
  * Generated class for the QisanzhixuanhezhiComponent component.
  *
@@ -12,40 +13,49 @@ import { UtilProvider } from '../../../../providers/util/util'
   selector: 'qisanzhixuanhezhi',
   templateUrl: 'qisanzhixuanhezhi.html'
 })
-export class QisanzhixuanhezhiComponent {
+export class QisanzhixuanhezhiComponent extends commonMethod{
 
   text: string;
 
-  constructor(public common:CommonProvider, public tool:ToolsProvider, public util:UtilProvider) {
+constructor(public common:CommonProvider, public util:UtilProvider,public basket:BasketDataProvider) {
+    super(common,util,basket)        
     console.log('Hello QisanzhixuanhezhiComponent Component');
     this.text = 'Hello World';
   }
 
-  randomChoose(){
-
-  }
-
-  changeToggle(row,column){
-    console.log('wwww')
-    if(column!=null){
-       this.common.ballData = this.common.ballData.map((item,index) => {
-          if(index == row){
-              item.value = item.value.map((ele,index) => {
-                  if(index == column){
-                      return ele == 1 ? 0 : 1
-                  }else{
-                      return ele
-                  }
-              })
-              return item
-          }else{
-              return item
-          }
-      })
+  randomChoose(number?){
+    if(number){
+        let arr = [Math.floor(Math.random()*4),Math.floor(Math.random()*7)]
+        console.log(arr)
+        this.common.ballData = this.common.ballData.map((ele,index) => {
+            ele.value = ele.value.map((item,index1) => {
+                if(index == arr[0] && index1 == arr[1])
+                    return 1
+                else
+                    return 0   
+            })
+            return ele
+        })
+        this.calculate()
+        this.basket.addBetData()
+        if(number == 1) return
+        this.randomChoose(--number)
+    }else{
+       let arr = [Math.floor(Math.random()*4),Math.floor(Math.random()*7)]
+       console.log(arr)
+       this.common.ballData = this.common.ballData.map((ele,index) => {
+           ele.value = ele.value.map((item,index1) => {
+               if(index == arr[0] && index1 == arr[1])
+                  return 1
+               else
+                  return 0   
+           })
+           return ele
+       })
+       this.calculate()
     }
-     this.calculate()
-   }
-
+   
+  }
 
    getOriginData(){
       let arr = []

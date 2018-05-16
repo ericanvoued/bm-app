@@ -2,6 +2,8 @@ import { Component ,Input } from '@angular/core';
 import { CommonProvider } from '../../../../providers/common/common'
 import { UtilProvider } from '../../../../providers/util/util'
 import { ToolsProvider } from '../../../../providers/tools/tools'
+import { commonMethod } from '../../../common.method'
+import { BasketDataProvider } from '../../../../providers/basket-data/basket-data'
 
 /**
  * Generated class for the WuxingzhixuanzuheComponent component.
@@ -13,11 +15,12 @@ import { ToolsProvider } from '../../../../providers/tools/tools'
   selector: 'wuxingzhixuanzuhe',
   templateUrl: 'wuxingzhixuanzuhe.html'
 })
-export class WuxingzhixuanzuheComponent {
+export class WuxingzhixuanzuheComponent extends commonMethod{
   @Input('choose') choose: any[] = [];
   text: string;
 
-  constructor(public common:CommonProvider, public util:UtilProvider, public tool:ToolsProvider) {
+  constructor(public common:CommonProvider, public util:UtilProvider, public tool:ToolsProvider,public basket:BasketDataProvider) {
+    super(common,util,basket)  
     console.log('Hello WuxingzhixuanzuheComponent Component');
     this.text = 'Hello World';
   }
@@ -30,50 +33,28 @@ export class WuxingzhixuanzuheComponent {
     return this.choose.indexOf(choice) > -1
   }
 
-  randomChoose(){
-    //  let arr = this.tool.produceRandom(4,[5,6,7,8,9])
-    //  let temp = this.tool.produceRandom(4)
-     let temp = this.tool.produceArr(5)
-     this.common.ballData = this.common.ballData.map((item,index) => {
-           let flag = true
+//   randomChoose(){
+//      let temp = this.tool.produceArr(5)
+//      this.common.ballData = this.common.ballData.map((item,index) => {
+//            let flag = true
        
-           item.value = item.value.map((ele,index) => {
-               if(temp.indexOf(index) != -1 && flag){
-                   temp.splice(temp.indexOf(index),1)
-                   flag = false
-                   return 1
-               }else{
-                   return 0
-               }
-           })
-           return item
+//            item.value = item.value.map((ele,index) => {
+//                if(temp.indexOf(index) != -1 && flag){
+//                    temp.splice(temp.indexOf(index),1)
+//                    flag = false
+//                    return 1
+//                }else{
+//                    return 0
+//                }
+//            })
+//            return item
       
-     })
-     this.calculate()
-  }
-
-  changeToggle(row,column){
-    console.log('wwww')
-    if(column!=null){
-       this.common.ballData = this.common.ballData.map((item,index) => {
-          if(index == row){
-              item.value = item.value.map((ele,index) => {
-                  if(index == column){
-                      return ele == 1 ? 0 : 1
-                  }else{
-                      return ele
-                  }
-              })
-              return item
-          }else{
-              return item
-          }
-      })
-    }
-    this.calculate()
- } 
+//      })
+//      this.calculate()
+//   }
 
  calculate(){
+    console.log('zhixuanzuhe')
     let flag = this.common.ballData.every(item => {
          return item.value.some(ele => ele == 1)
     }), count = 5

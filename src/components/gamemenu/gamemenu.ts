@@ -74,11 +74,14 @@ export class GamemenuComponent {
     }
 
     setSmallIndex(j,name){
+        this.smallMethod = name
         this.common.setGameConfig(this.bigIndex,j,name)
+        this.util.resetData()
         this.util.setData()
         this.common.visible = 'invisable';
         $('.body-bg').fadeOut(1000)
         console.log(name)
+
         // 切换小玩法 判断是lhc
         // if(this.nav.getActive().name == "LhcPage"){
         //     this.lhc.resetData()

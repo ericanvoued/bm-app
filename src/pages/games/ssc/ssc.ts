@@ -2,9 +2,12 @@ import {
     Component, ViewChild, ViewContainerRef, ComponentFactory,
     ComponentRef, ComponentFactoryResolver, OnDestroy
   } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, App } from 'ionic-angular';
 import { CommonProvider } from "../../../providers/common/common";
 import { Effect } from '../../../baseComponent'
+import { Events } from 'ionic-angular';
+import { CountTipComponent } from '../../../components/count-tip/count-tip'
+
 import { BasketDataProvider } from '../../../providers/basket-data/basket-data'
 
 import { GamemenuComponent } from '../../../components/gamemenu/gamemenu'
@@ -60,9 +63,20 @@ export class SscPage extends Effect{
     trHeight:number;
     high:number = 0
 
+    timer:any;
 
-    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private resolver: ComponentFactoryResolver,
-    public common:CommonProvider, public gamemenu:GamemenuComponent, public util:UtilProvider,public basket:BasketDataProvider,public ssc:SscServiceProvider) {
+    countTime:any = {
+        'total': '',
+        'days': '',
+        'hours': '',
+        'minutes': '',
+        'seconds': ''
+    }
+    
+
+
+    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private resolver: ComponentFactoryResolver,public app:App,
+    public common:CommonProvider, public gamemenu:GamemenuComponent, public util:UtilProvider,public basket:BasketDataProvider,public ssc:SscServiceProvider, public events:Events) {
         super(common,gamemenu)
 
         this.list = this.record.slice(0, 2)
@@ -73,13 +87,28 @@ export class SscPage extends Effect{
         }else{
             this.maxNumber = 0
         }
-
+        // this.events.subscribe('countDown',()=>{
+        //     console.log('进入新一期开奖')
+        //     //this.common.showToast('进入新一期开奖',2000)
+        //     modal.present()
+        // })
+        this.produce()
     }
 
     ionViewWillEnter(){
         this.gameContainer.clear()
-        const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(gameConfig[this.common.method + this.common.smallMethod])
+        let method
+        if(this.common.method == '二星'){
+            method = this.common.method + this.common.secondKind + this.common.smallMethod
+        }else{
+            method = this.common.method + this.common.smallMethod
+        }
+        const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(gameConfig[method])
         this.componentRef = this.gameContainer.createComponent(factory)
+        
+                   this.util.shakePhone(() => {
+                       this.util.randomChoose(this.componentRef)
+                   })
     }
 
     ionViewDidLoad() {
@@ -99,14 +128,53 @@ export class SscPage extends Effect{
                 this.over = false
                 this.high = 0
 
-
                 setTimeout(()=> {
                    this.watchScroll()
                 },0)
             }
 
         })
+      }
 
+    ionViewWillLeave(){
+        console.log('dwfqwfwqef')
+        clearInterval(this.timer)
+    }
+
+    produce(){
+        console.log('produce')  
+        this.countDown(Math.floor(Math.random()*10)*1000 + 10*1000)
+    }
+
+    countDown(time){
+        this.timer = setInterval(()=> {
+        if(time <1000){
+            clearInterval(this.timer)
+            console.log('wcnmbmb')
+            //this.events.publish('countDown')
+            let modal = this.modalCtrl.create(CountTipComponent, {qishu:123456})
+            modal.present()
+            //this.global.showToast('进入新一期开奖',2000)
+            this.produce()
+        } 
+        this.countTime = this.getTimeRemaining(time)
+        time -= 1000
+        },1000)
+    }
+
+    getTimeRemaining(t) {
+        let seconds = Math.floor((t / 1000) % 60);
+        let minutes = Math.floor((t / 1000 / 60) % 60);
+        let hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+        let days = Math.floor(t / (1000 * 60 * 60 * 24));
+    
+        return {
+          'total': t,
+          'days': days,
+          'hours': ('0' + hours).slice(-2),
+          'minutes': ('0' + minutes).slice(-2),
+          'seconds': ('0' + seconds).slice(-2)
+        };
     }
 
     watchScroll(){
@@ -129,24 +197,8 @@ export class SscPage extends Effect{
         })
     }
 
-    //添加至购彩篮
-    addToCart(dom){
-        console.log(dom.innerText)
-        if(this.common.count == 0){return}
-        console.log(this.common.cartNumber)
-        // 把数据放进购彩蓝
-        this.basket.addBetData(dom.innerText)
-        $('<div id="ball"></div>').appendTo($('#bet-statistic'));
-        this.move()
-        this.util.resetData()
-    }
-
-    qqq(number){
-        return number + 5
-    }
-
     goToBasket(){
-
+      console.log('gobasket')
       if(this.common.cartNumber > 0 )
          this.navCtrl.push('BasketPage',{'index':this.componentRef})
     }
@@ -154,7 +206,8 @@ export class SscPage extends Effect{
     change(val){
         console.log(val)
         if(val == '走势图')
-           this.navCtrl.push('GameTrendPage',{'index':1})
+           this.app.getRootNav().push('GameTrendPage',{'index':1}) 
+          // this.navCtrl.push('GameTrendPage',{'index':1})
 
         if(val == '号码统计'){
             if($('.modal').hasClass('active')){

@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { CommonProvider } from '../../../../providers/common/common'
 import { UtilProvider } from '../../../../providers/util/util'
+import { commonMethod } from '../../../common.method'
+import { BasketDataProvider } from '../../../../providers/basket-data/basket-data'
 
 // import { SscPage } from '../../../../pages/games/ssc/ssc'
 /**
@@ -13,13 +15,16 @@ import { UtilProvider } from '../../../../providers/util/util'
   selector: 'zhixuanfushi',
   templateUrl: 'zhixuanfushi.html'
 })
-export class ZhixuanfushiComponent {
+export class ZhixuanfushiComponent extends commonMethod{
   @Input('choose') choose: any[] = [];
   text: string;
 
-  constructor(public common:CommonProvider, public util:UtilProvider) {
+  constructor(public common:CommonProvider, public util:UtilProvider,public basket:BasketDataProvider) {
+    super(common,util,basket)
+            //this.util.shakePhone(this.randomChoose)
+
     console.log('Hello ZhixuanfushiComponent Component');
-    this.util.shakePhone(this.randomChoose)
+    //this.util.shakePhone(this.randomChoose)
     //console.log(ssc.haveChoosen)
     setTimeout(() => {
       console.log(this.choose)
@@ -35,16 +40,9 @@ export class ZhixuanfushiComponent {
     return this.choose.indexOf(choice) > -1
   }
 
-  //机选注单
-  randomChoose(){
-    this.common.ballData = this.common.ballData.map(item => {
-      // let arr = [0,1,2,3,4,5,6,7,8,9]
-      let random = Math.floor(Math.random()*10)
-      //let arr = this.generateTwo(number)
-      let balls = item.value.map((ele,index) => index == random ? 1 : 0)
-      item.value = balls
-      return item
-    })
-    //this.calculate()
-  }
+  
+
+  // changeToggle(row,column){
+  //   super.changeToggle(row,column)
+  // }
 }

@@ -62,4 +62,10 @@ export class HomePage {
      this.common.pid.next('./assets/ssc.json')
      this.navCtrl.push('SscPage')
   }
+
+  goToxuan5(){
+     console.log('wcndmd')
+     this.common.pid.next('./assets/115.json')
+     this.navCtrl.push('Xuan5Page')
+  }
 }

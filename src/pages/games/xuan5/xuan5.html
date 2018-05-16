@@ -1,0 +1,58 @@
+<!--
+  Generated template for the Xuan5Page page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    
+      <ion-navbar>
+        <ion-title>
+           <div style="position:relative;z-index:1300" #methodName (click)="common.toggle()">{{common.method}} {{common.smallMethod}}</div>
+    
+        </ion-title>
+    
+        <div class="toggle-menu" (click)="$event.stopPropagation();common.open = !common.open"></div>
+      </ion-navbar>
+    
+    </ion-header>
+    <rightmenu [menus]="menus" (switch)="change($event)" [open]="common.open"></rightmenu>
+    <gamemenu (switch)="methodChange($event)"> </gamemenu>
+    
+
+<ion-content>
+    <div class="body-bg"></div>
+    <div class="bet-box clearfix">
+        <ng-template #gameContainer>
+              
+        </ng-template>
+
+        <!-- <div [ngSwitch]="common.smallMethod">
+                <div *ngSwitchCase="'乱选和值'" class="l-game l-hezhi" style="height:230px">
+                        <div class="ball-list hezhi">
+                          <ul *ngFor="let item of common.ballData;let i = index">
+                            <li *ngFor="let todo of item;let j = index" [class.current]="todo == 1">{{7*i + j}}</li>
+                          </ul>
+      
+                           <div class="btn-list">
+                             <a href="javascript:;" *ngFor="let detail of common.singleBtn;let j = index" [class.current]="detail.flag" (click)="util.changeActive(null,j,detail.name)">{{detail.name}} <span></span></a>
+      
+                          </div>
+                       </div> 
+                </div>   
+
+                   <div *ngSwitchDefault>
+                        <div class="l-game" *ngFor="let data of common.ballData;let ii = index" >
+                          <div class="l">
+                              <p><span></span>{{data.key}}</p>
+                              <p style="margin-top:18px"><span></span>遗漏</p>
+                              <p *ngIf="check('30期冷热')" style="margin-top:18px"><span></span>冷热</p>
+                          </div>
+
+                      </div>
+                   </div>   
+        </div>     -->
+    </div>
+</ion-content>
+
+<footer> </footer> 

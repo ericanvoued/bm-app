@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CommonProvider } from '../../common/common'
 
 /*
   Generated class for the SscServiceProvider provider.
@@ -29,7 +30,7 @@ export class SscServiceProvider {
   fakeTrend:Array<any> 
   
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient,public common:CommonProvider) {
     console.log('Hello SscServiceProvider Provider');
     this.fakeTrend = [0,1,2,3,4].reduce((a,b) =>{
          let arr = []
@@ -93,5 +94,35 @@ export class SscServiceProvider {
         return '个位走势'
   }
 
-  
+  changeToggle(row,column){
+    
+     console.log('wcnmbg')
+      this.common.ballData = this.common.ballData.map((item,index) => {
+           if(index == row){
+               item.value = item.value.map((ele,index) => {
+                    if(index == column){
+                       return ele == 1 ? 0 : 1
+                    }else{
+                       return ele
+                    }
+               })
+               return item
+           }else{
+               return item
+           }
+      })  
+
+      //this.common.calculate()
+  }
+
+   //计算注单总数  五星复试
+   wuxingfushi(){
+    let count = 1;
+    this.common.ballData.forEach((item,index) => {
+         count *=  item.value.filter(ele => ele == 1).length
+     })
+     this.common.count = count
+     let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
+     this.common.betPrice = this.common.count*2*percent
+  }
 }

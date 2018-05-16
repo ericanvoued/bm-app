@@ -10,7 +10,7 @@
     <div class="r">
         <div class="ball-list">
             <ul>
-                <li *ngFor="let item of data.value.slice(0,5);let i = index" [class.current]="item == 1">{{i}}</li>
+                <li *ngFor="let item of data.value.slice(0,5);let i = index" [class.current]="item == 1" (click)="changeToggle(ii,i)">{{i}}</li>
             </ul>
 
             <ul class="yilou statistic">
@@ -22,7 +22,7 @@
             </ul>
 
             <ul>
-                <li *ngFor="let item of data.value.slice(-5);let i = index" [class.current]="item == 1">{{qqq(i)}}</li>
+                <li *ngFor="let item of data.value.slice(-5);let i = index" [class.current]="item == 1" (click)="changeToggle(ii,i+5)">{{qqq(i)}}</li>
             </ul>
             <ul class="yilou statistic">
                 <li *ngFor ="let detail of util.yilou[data.key].slice(-5)">{{detail}}</li>
@@ -33,7 +33,7 @@
             </ul>
 
             <div class="btn-list">
-                <a href="javascript:;" *ngFor="let detail of common.btn[ii];let j = index" [class.current]="detail.flag">{{detail.name}} <span></span></a>
+                <a href="javascript:;" *ngFor="let detail of common.btn[ii];let j = index" [class.current]="detail.flag" (click)="util.changeActive(ii,j,detail.name)">{{detail.name}} <span></span></a>
 
             </div>
         </div>

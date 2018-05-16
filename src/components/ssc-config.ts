@@ -8,6 +8,7 @@ import { Zuxuan10Component } from './ssc-game/wuxing/zuxuan10/zuxuan10'
 import { Zuxuan5Component } from './ssc-game/wuxing/zuxuan5/zuxuan5'
 
 import { SiXingZhixuanfushiComponent } from './ssc-game/sixing/zhixuanfushi/zhixuanfushi'
+import { SixingzhixuanzuheComponent } from './ssc-game/sixing/sixingzhixuanzuhe/sixingzhixuanzuhe'
 import { Zuxuan24Component } from './ssc-game/sixing/zuxuan24/zuxuan24'
 import { Zuxuan12Component } from './ssc-game/sixing/zuxuan12/zuxuan12'
 import { Zuxuan6Component } from './ssc-game/sixing/zuxuan6/zuxuan6'
@@ -40,9 +41,42 @@ import { HousanzhixuankuaduComponent } from './ssc-game/housan/housanzhixuankuad
 import { HousanzhixuanzuheComponent } from './ssc-game/housan/housanzhixuanzuhe/housanzhixuanzuhe'
 import { HousanzusanComponent } from './ssc-game/housan/housanzusan/housanzusan'
 import { HousanzuliuComponent } from './ssc-game/housan/housanzuliu/housanzuliu'
+import { HousanhezhiweishuComponent } from './ssc-game/housan/housanhezhiweishu/housanhezhiweishu'
+import { HousanteshuhaomaComponent } from './ssc-game/housan/housanteshuhaoma/housanteshuhaoma'
+import { HousanzuxuanhezhiComponent } from './ssc-game/housan/housanzuxuanhezhi/housanzuxuanhezhi'
+
 
 import { ErxingzhixuanhouerhezhiComponent } from './ssc-game/erxing/erxingzhixuanhouerhezhi/erxingzhixuanhouerhezhi'
 import { ErxingzhixuanhouerfushiComponent } from './ssc-game/erxing/erxingzhixuanhouerfushi/erxingzhixuanhouerfushi'
+import { ErxingzhixuanhouerkuaduComponent } from './ssc-game/erxing/erxingzhixuanhouerkuadu/erxingzhixuanhouerkuadu'
+import { ErxingzhixuanqianerfushiComponent } from './ssc-game/erxing/erxingzhixuanqianerfushi/erxingzhixuanqianerfushi'
+import { ErxingzhixuanqianerhezhiComponent } from './ssc-game/erxing/erxingzhixuanqianerhezhi/erxingzhixuanqianerhezhi'
+import { ErxingzhixuanqianerkuaduComponent } from './ssc-game/erxing/erxingzhixuanqianerkuadu/erxingzhixuanqianerkuadu'
+import { ErxingzuxuanhouerhezhiComponent } from './ssc-game/erxing/erxingzuxuanhouerhezhi/erxingzuxuanhouerhezhi'
+import { ErxingzuxuanhouerbaodanComponent } from './ssc-game/erxing/erxingzuxuanhouerbaodan/erxingzuxuanhouerbaodan'
+import { ErxingzuxuanqianerfushiComponent } from './ssc-game/erxing/erxingzuxuanqianerfushi/erxingzuxuanqianerfushi'
+import { ErxingzuxuanqianerhezhiComponent } from './ssc-game/erxing/erxingzuxuanqianerhezhi/erxingzuxuanqianerhezhi'
+import { ErxingzuxuanqianerbaodanComponent } from './ssc-game/erxing/erxingzuxuanqianerbaodan/erxingzuxuanqianerbaodan'
+
+import { YixingdingweidanComponent } from './ssc-game/yixing/yixingdingweidan/yixingdingweidan'
+
+import { HousanyimabudingweiComponent } from './ssc-game/budingwei/housanyimabudingwei/housanyimabudingwei'
+import { HousanermabudingweiComponent } from './ssc-game/budingwei/housanermabudingwei/housanermabudingwei'
+
+import { QiansanyimabudingweiComponent } from './ssc-game/budingwei/qiansanyimabudingwei/qiansanyimabudingwei'
+import { QiansanermabudingweiComponent } from './ssc-game/budingwei/qiansanermabudingwei/qiansanermabudingwei'
+import { ZhongsanyimabudingweiComponent } from './ssc-game/budingwei/zhongsanyimabudingwei/zhongsanyimabudingwei'
+import { ZhongsanermabudingweiComponent } from './ssc-game/budingwei/zhongsanermabudingwei/zhongsanermabudingwei'
+import { SixingyimabudingweiComponent } from './ssc-game/budingwei/sixingyimabudingwei/sixingyimabudingwei'
+import { SixingermabudingweiComponent } from './ssc-game/budingwei/sixingermabudingwei/sixingermabudingwei'
+import { WuxingermabudingweiComponent } from './ssc-game/budingwei/wuxingermabudingwei/wuxingermabudingwei'
+import { WuxingsanmabudingweiComponent } from './ssc-game/budingwei/wuxingsanmabudingwei/wuxingsanmabudingwei'
+
+import { HouerdaxiaodanshuangComponent } from './ssc-game/daxiaodanshuang/houerdaxiaodanshuang/houerdaxiaodanshuang'
+import { HousandaxiaodanshuangComponent } from './ssc-game/daxiaodanshuang/housandaxiaodanshuang/housandaxiaodanshuang'
+import { QianerdaxiaodanshuangComponent } from './ssc-game/daxiaodanshuang/qianerdaxiaodanshuang/qianerdaxiaodanshuang'
+import { QiansandaxiaodanshuangComponent } from './ssc-game/daxiaodanshuang/qiansandaxiaodanshuang/qiansandaxiaodanshuang'
+import { ZhongsandaxiaodanshuangComponent } from './ssc-game/daxiaodanshuang/zhongsandaxiaodanshuang/zhongsandaxiaodanshuang'
 
 
 export let gameConfig = {
@@ -59,6 +93,7 @@ export let gameConfig = {
     "四星组选6":Zuxuan6Component,
     "四星组选4":Zuxuan4Component,
     "四星直选复式":SiXingZhixuanfushiComponent,
+    "四星直选组合":SixingzhixuanzuheComponent,
 
     "前三直选和值":QisanzhixuanhezhiComponent,
     "前三直选跨度":QisanzhixuankuaduComponent,
@@ -87,7 +122,38 @@ export let gameConfig = {
     "后三直选组合":HousanzhixuanzuheComponent,
     "后三组三":HousanzusanComponent,
     "后三组六":HousanzuliuComponent,
+    "后三组选和值":HousanzuxuanhezhiComponent,
+    "后三和值尾数":HousanhezhiweishuComponent,
+    "后三特殊号码":HousanteshuhaomaComponent,
 
     "二星直选后二和值":ErxingzhixuanhouerhezhiComponent,
-    "二星直选后二复式":ErxingzhixuanhouerfushiComponent
-}
+    "二星直选后二复式":ErxingzhixuanhouerfushiComponent,
+    "二星直选后二跨度":ErxingzhixuanhouerkuaduComponent,
+    "二星直选前二复式":ErxingzhixuanqianerfushiComponent,
+    "二星直选前二和值":ErxingzhixuanqianerhezhiComponent,
+    "二星直选前二跨度":ErxingzhixuanqianerkuaduComponent,
+    "二星组选后二和值":ErxingzuxuanhouerhezhiComponent,
+    "二星组选后二包胆":ErxingzuxuanhouerbaodanComponent,
+    "二星组选前二复式":ErxingzuxuanqianerfushiComponent,
+    "二星组选前二和值":ErxingzuxuanqianerhezhiComponent,
+    "二星组选前二包胆":ErxingzuxuanqianerbaodanComponent,
+
+    "一星定位胆":YixingdingweidanComponent,
+
+    "不定位后三一码不定位":HousanyimabudingweiComponent,
+    "不定位后三二码不定位":HousanermabudingweiComponent,
+    "不定位前三一码不定位":QiansanyimabudingweiComponent,
+    "不定位前三二码不定位":QiansanermabudingweiComponent,
+    "不定位中三一码不定位":ZhongsanyimabudingweiComponent,
+    "不定位中三二码不定位":ZhongsanermabudingweiComponent,
+    "不定位四星一码不定位":SixingyimabudingweiComponent,
+    "不定位四星二码不定位":SixingermabudingweiComponent, 
+    "不定位五星二码不定位":WuxingermabudingweiComponent,
+    "不定位五星三码不定位":WuxingsanmabudingweiComponent,
+
+    "大小单双后二大小单双":HouerdaxiaodanshuangComponent,
+    "大小单双后三大小单双":HousandaxiaodanshuangComponent,
+    "大小单双前二大小单双":QianerdaxiaodanshuangComponent,
+    "大小单双前三大小单双":QiansandaxiaodanshuangComponent,
+    "大小单双中三大小单双":QiansandaxiaodanshuangComponent
+}    

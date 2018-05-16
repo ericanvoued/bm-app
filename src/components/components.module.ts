@@ -7,8 +7,8 @@ import { MenumodalComponent } from './menumodal/menumodal';
 import { ZuxuanhezhiComponent } from './ssc-game/zuxuanhezhi/zuxuanhezhi';
 import { ZuxuanliuComponent } from './ssc-game/zuxuanliu/zuxuanliu';
 
-import { HouerdaxiaodanshuangComponent } from './ssc-game/houerdaxiaodanshuang/houerdaxiaodanshuang';
 import { WuxingzhixuanzuheComponent } from './ssc-game/wuxing/wuxingzhixuanzuhe/wuxingzhixuanzuhe';
+import { FooterComponent } from './footer/footer';
 
 @NgModule({
 	declarations: [GamemenuComponent,
@@ -17,7 +17,7 @@ import { WuxingzhixuanzuheComponent } from './ssc-game/wuxing/wuxingzhixuanzuhe/
     MenumodalComponent,
     ZuxuanhezhiComponent,
     ZuxuanliuComponent,
-    HouerdaxiaodanshuangComponent,
+    FooterComponent,
     ],
 	imports: [CommonModule],
 	exports: [GamemenuComponent,
@@ -26,7 +26,7 @@ import { WuxingzhixuanzuheComponent } from './ssc-game/wuxing/wuxingzhixuanzuhe/
     MenumodalComponent,
     ZuxuanhezhiComponent,
     ZuxuanliuComponent,
-    HouerdaxiaodanshuangComponent,
+    FooterComponent,
     ]
 })
 export class ComponentsModule {}

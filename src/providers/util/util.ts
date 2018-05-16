@@ -21,7 +21,11 @@ export class UtilProvider {
     '前三':['万位走势','千位走势','百位走势'],
     '中三':['千位走势','百位走势','十位走势'],
     '后三':['百位走势','十位走势','个位走势'],
-    '二星':['十位走势','个位走势']
+    '二星':['十位走势','个位走势'],
+    '一星':['万位走势','千位走势','百位走势','十位走势','个位走势'],
+    '不定位':['十位走势','个位走势'],
+    '大小单双':['十位走势','个位走势']
+
   }
 
   // 走势图头部选择
@@ -267,10 +271,8 @@ export class UtilProvider {
                     break;
 
             }
-        
-
-        
-    }
+            //this.common.calculate()
+   }
 
     changeChooseStatus(index1,index2){
         if(index1 != null){
@@ -320,8 +322,8 @@ export class UtilProvider {
            })
         }else{
             this.common.ballData = this.common.ballData.map((item,index) => {
-                 let temp = item.map(ele => 1)
-                 return temp
+                 item.value = item.value.map(ele => 1)
+                 return item
             })
             console.log(this.common.ballData)
         }
@@ -331,14 +333,22 @@ export class UtilProvider {
     changeClear(line){
         //this.ballData
         console.log(line)
-        this.common.ballData = this.common.ballData.map((item,index) => {
-            if(index == line){
-                item.value = item.value.map(ele => 0)
-                return item
-            }else{
-                return item
-            }
-        })
+        if(line != null){
+            this.common.ballData = this.common.ballData.map((item,index) => {
+                if(index == line){
+                    item.value = item.value.map(ele => 0)
+                    return item
+                }else{
+                    return item
+                }
+            })
+        }else{
+            this.common.ballData = this.common.ballData.map((item,index) => {
+                    item.value = item.value.map(ele => 0)
+                    return item            
+            })
+        }
+      
     }
 
     changeBig(line){
@@ -354,14 +364,29 @@ export class UtilProvider {
         }else{
              let total = this.common.ballData.reduce((prev,next) => {
 
-                 return prev + next.length
+                 return prev + next.value.length
              },0)
              console.log(total)
+
+             if(this.common.method == '二星'){
+                 if(this.common.secondKind == '组选')
+                    total = 17
+                 else
+                    total = 19
+             }else{
+                 if(this.common.smallMethod == '组选和值')
+                    total = 26
+             }   
+
              this.common.ballData = this.common.ballData.map((item,index) => {
-                item = item.map((ele,index2) => index*item.length + index2 > total/2 ? 1:0)
+                item.value = item.value.map((ele,index2) => {
+                     let temp = index*item.value.length + index2 > (total-1)/2 &&  index*item.value.length + index2 < total ? 1 : 0
+                     console.log(temp)
+                     return temp
+                })
                 return item
-                
             })
+            console.log(this.common.ballData)
         }   
     }
 
@@ -378,13 +403,26 @@ export class UtilProvider {
         }else{
              let total = this.common.ballData.reduce((prev,next) => {
 
-                 return prev + next.length
+                 return prev + next.value.length
              },0)
              console.log(total)
+
+             if(this.common.method == '二星'){
+                if(this.common.secondKind == '组选')
+                   total = 17
+                else
+                   total = 19
+            }else{
+                if(this.common.smallMethod == '组选和值')
+                   total = 26
+            }   
              this.common.ballData = this.common.ballData.map((item,index) => {
-                item = item.map((ele,index2) => index*item.length + index2 < total/2 ? 1:0)
-                return item
-                
+                 item.value = item.value.map((ele,index2) => {
+                    let temp = index*item.value.length + index2 <= (total-1)/2 ? 1 : 0
+                    console.log(temp)
+                    return temp
+                })
+                return item     
             })
         }
        
@@ -403,13 +441,32 @@ export class UtilProvider {
         }else{
             let total = this.common.ballData.reduce((prev,next) => {
 
-                 return prev + next.length
+                 return prev + next.value.length
              },0)
              console.log(total)
+             let zhixuan = this.common.smallMethod.indexOf('直选和值') > -1 || this.common.secondKind == '直选' ? true : false
+
+             if(this.common.method == '二星'){
+                if(this.common.smallMethod == '组选和值')
+                   total = 17
+                else
+                   total = 19
+             }else{
+                if(this.common.smallMethod == '组选和值')
+                   total = 26
+             }   
+             
              this.common.ballData = this.common.ballData.map((item,index) => {
-                item = item.map((ele,index2) => (index*item.length + index2) % 2 ? 1:0)
-                return item
-                
+                 item.value = item.value.map((ele,index2) => {
+                     let temp
+                     if(zhixuan)
+                        temp = (index*item.value.length + index2) %2 && (index*item.value.length + index2) < total ? 1 : 0
+                     else
+                        temp = (index*item.value.length + index2 + 1) %2  && (index*item.value.length + index2 + 1) <= total? 1 : 0
+                     console.log(temp)
+                     return temp
+                })
+                return item       
             })
         }
        
@@ -426,10 +483,34 @@ export class UtilProvider {
                 }
             })
         }else{
+             let total = this.common.ballData.reduce((prev,next) => {
+
+                 return prev + next.value.length
+             },0)
+             console.log(total)
+             let zhixuan = this.common.smallMethod.indexOf('直选和值') > -1 || this.common.secondKind == '直选' ? true : false
+             
+             if(this.common.method == '二星'){
+                if(this.common.smallMethod == '组选和值')
+                   total = 17
+                else
+                   total = 19
+             }else{
+                if(this.common.smallMethod == '组选和值')
+                   total = 26
+             }   
+             
              this.common.ballData = this.common.ballData.map((item,index) => {
-                item = item.map((ele,index2) => (index*item.length + index2) % 2 ? 0:1)
-                return item
-                
+                 item.value = item.value.map((ele,index2) => {
+                     let temp
+                     if(zhixuan)
+                        temp = (index*item.value.length + index2) %2 ==0 && (index*item.value.length + index2) < total? 1 : 0
+                     else
+                        temp = (index*item.value.length + index2 + 1) %2==0 && (index*item.value.length + index2 + 1) <= total ? 1 : 0
+                     console.log(temp)
+                     return temp
+                })
+                return item       
             })
         }
         
@@ -461,48 +542,50 @@ export class UtilProvider {
   }
 
      // 机选注单
-   randomChoose(number?){
-    this.common.ballData = this.common.ballData.map(item => {
-        // let arr = [0,1,2,3,4,5,6,7,8,9]
-        let random = Math.floor(Math.random()*10)
-        //let arr = this.generateTwo(number)
-        let balls = item.value.map((ele,index) => index == random ? 1 : 0)
-        item.value = balls
-        return item
-    })
-    this.common.calculate()
+   randomChoose(number:any){
+    console.log(number)   
+    number.instance.randomChoose()
+    // this.common.ballData = this.common.ballData.map(item => {
+    //     // let arr = [0,1,2,3,4,5,6,7,8,9]
+    //     let random = Math.floor(Math.random()*10)
+    //     //let arr = this.generateTwo(number)
+    //     let balls = item.value.map((ele,index) => index == random ? 1 : 0)
+    //     item.value = balls
+    //     return item
+    // })
+    // this.common.calculate()
   }
 
    shakePhone(func:Function){
-     var speed = 15;    // 用来判定的加速度阈值，太大了则很难触发
+     var speed = 15,self = this;    // 用来判定的加速度阈值，太大了则很难触发
      var x, y, z, lastX, lastY, lastZ;
      x = y = z = lastX = lastY = lastZ = 0;
+     //func()
 
-     window.addEventListener('devicemotion', (event) => {
+     window.addEventListener('devicemotion', ((event) => {
         var acceleration = event.accelerationIncludingGravity;
         x = acceleration.x;
         y = acceleration.y;
         //alert(this.shake)
-        if((Math.abs(x-lastX) > speed || Math.abs(y-lastY) > speed) && !this.shake)  {
+        if((Math.abs(x-lastX) > speed || Math.abs(y-lastY) > speed) && !self.shake)  {
             // 用户设备摇动了，触发响应操作
             // 此处的判断依据是用户设备的加速度大于我们设置的阈值
-            //alert('摇了');
-            this.shake = true;
+            self.shake = true;
             new Observable(observer => {
                 setTimeout(() => {
                   observer.next();
                    }, 500);
             }).subscribe(value => {
-                  func.bind(this)()
-                  this.vibration.vibrate(1000)
-                  this.shake = false
-                  
+                  func.bind(self)()
+                  self.shake = false
+                  self.vibration.vibrate(500)
             })
         }
         lastX = x;
         lastY = y;
-    }, false);
+    }).bind(self), false);
   }
+
 
 
   checkResult(data, array){

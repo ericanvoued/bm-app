@@ -112,4 +112,52 @@ export class ToolsProvider {
         }
         return temp
     }
+
+   combination(arr2) {
+        if (arr2.length < 1) {
+            return [];
+        }
+        var w = arr2[0].length,
+            h = arr2.length,
+            i, j,
+            m = [],
+            n,
+            result = [],
+            _row = [];
+
+        m[i = h] = 1;
+        console.log(m)
+        while (i--) {
+            m[i] = m[i + 1] * arr2[i].length;
+        }
+        n = m[0];
+        for (i = 0; i < n; i++) {
+            _row = [];
+            for (j = 0; j < h; j++) {
+                _row[j] = arr2[j][~~(i % m[j] / m[j + 1])]
+            }
+            result[i] = _row;
+        }
+        return result
+    }
+
+    /**
+     * 
+     * @param arr 二维数组
+     */
+    checkCount(arr){
+        return arr.filter(this.checkRepeat).length
+    }
+
+    /**
+     * 
+     * @param arr 数组去重
+     */
+    checkRepeat(arr){
+         let temp = arr.filter((ele,index) => arr.indexOf(ele) == index)
+         if(arr.length == temp.length)
+            return true
+         else
+            return false
+    }
 }

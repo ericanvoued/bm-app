@@ -23,8 +23,7 @@
 
 <ion-content >
     <div class="body-bg"></div>
-  <p class="l-info" text-center>距23058期截止 09:56</p>
-
+  <p class="l-info" text-center>距23058期截止 {{countTime.minutes}}:{{countTime.seconds}}</p>
   <div class="table" id="touch" [ngStyle]="{'height':(80 + high) + 'px'}" style="overflow:hidden;transition:all .5s ease-in;">
     <div class="thead clearfix">
       <div class="tr clearfix">
@@ -73,30 +72,6 @@
                        </div> 
                 </div>   
 
-                   <div *ngSwitchCase="'组选120'">
-                        <zuxuan120></zuxuan120>
-                   </div>
-      
-                   <div *ngSwitchCase="'组选30'">
-                       <zuxuan30></zuxuan30>
-                   </div>
-
-                   <div *ngSwitchCase="'组选60'">
-                        <zuxuan60></zuxuan60>
-                   </div>
-       
-                   <div *ngSwitchCase="'组选20'">
-                        <zuxuan20></zuxuan20>
-                   </div>     
- 
-                   <div *ngSwitchCase="'后二大小单双'">
-                       <houerdaxiaodanshuang></houerdaxiaodanshuang>
-                   </div>
-
-                   <div *ngSwitchCase="'直选组合'">
-                        <wuxingzhixuanzuhe></wuxingzhixuanzuhe>
-                    </div>
-
                    <div *ngSwitchDefault>
                         <div class="l-game" *ngFor="let data of common.ballData;let ii = index" >
                           <div class="l">
@@ -114,9 +89,10 @@
 
 </ion-content>
 
-<ion-footer class="ion-footer" style="position:fixed;height:50px;bottom:0;display:flex;" >
+<footer (goBasket)="goToBasket($event)"> </footer>    
+<!-- <ion-footer class="ion-footer" style="position:fixed;height:50px;bottom:0;display:flex;" >
     <tab-yuan ></tab-yuan>
-    <div class="clear" ></div>
+    <div class="clear" (click)="util.resetData()"></div>
     <div class="tab-mode" (click)="common.openTab()" style="z-index:10">
         <div>{{common.tabYuan}}</div><div>模式</div>
     </div>
@@ -131,4 +107,4 @@
         <div class="bet-number" *ngIf="common.cartNumber"> {{common.cartNumber}}</div>
 
     </div>
-</ion-footer>
+</ion-footer> -->

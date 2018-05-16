@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { ToolsProvider } from '../tools/tools'
 import { Events } from 'ionic-angular';
+import {ToastController, ModalController} from "ionic-angular";
+import { CountTipComponent } from '../../components/count-tip/count-tip'
 
 import { HttpClientProvider } from '../http-client/http-client'
 import * as $ from 'jquery'
@@ -17,6 +19,8 @@ let _ = new observe();
 export class CommonProvider {
   pid = new Subject();
 
+  gameId:any;
+
   bonus:number;
   open:boolean = false
   //倒计时
@@ -30,6 +34,9 @@ export class CommonProvider {
 
   //xiao wan fa
   smallKind:any;
+
+  //是否直选
+  zhixuan:boolean = true
 
   //小玩法名称
   smallMethod:string;
@@ -60,11 +67,14 @@ export class CommonProvider {
   }
 
 
-  constructor(public tools:ToolsProvider, public http:HttpClientProvider, public events:Events) {
+  constructor(public tools:ToolsProvider, public http:HttpClientProvider,public modalCtrl: ModalController, public events:Events,private toastCtrl:ToastController) {
     console.log('Hello CommonProvider Provider');
-    this.produce()
+    
     this.pid.subscribe((val) => {
-        this.initData(val);
+      
+        this.gameId = val
+        this.initData(val)
+        
     })
     this.singleBtn = this.tools.copy([
     {name:"全",flag:false},{name:"大",flag:false},{name:"小",flag:false},{name:"奇",flag:false},{name:"偶",flag:false},{name:"清",flag:false}
@@ -86,7 +96,6 @@ export class CommonProvider {
 
     async initData(name){
         this.data = (await this.http.fetchData(name)).list;
-
 
         this.gameMethodConfig = this.data;
 
@@ -117,21 +126,27 @@ export class CommonProvider {
     setGameConfig(index,index2,name){
         if(this.bigIndex!=index || name!=this.smallMethod){
             this.secondKind = this.gameMethodConfig[index].children[index2].name
-
+            console.log(this.gameMethodConfig[index].children[index2].children.filter(ele => ele.name == name)[0].bet_numberArrObj)
             this.ballData = this.tools.copy(this.gameMethodConfig[index].children[index2].children.filter(ele => ele.name == name)[0].bet_numberArrObj, true)
+                        console.log(this.ballData)
 
             this.btn = this.ballData.map(ele => [{name:"全",flag:false},{name:"大",flag:false},{name:"小",flag:false},{name:"奇",flag:false},{name:"偶",flag:false},{name:"清",flag:false}])
 
-            console.log(this.ballData)
             console.log(this.btn)
         }
         console.log(index)
         console.log(name)
+
+        if(this.gameMethodConfig[index].children[index2].name == '直选')
+            this.zhixuan = true
+         else
+            this.zhixuan = false   
+
         this.bigIndex = index
-        // if(this.method != this.gameMethodConfig[index].name){
-        //
-        //     this.events.publish('changeTrend')
-        // }
+        if(this.method != this.gameMethodConfig[index].name){
+            this.events.publish('changeTrend')
+           
+        }
 
         this.method = this.gameMethodConfig[index].name
 
@@ -177,35 +192,12 @@ export class CommonProvider {
         this.tabVisible = 'visible'
     }
 
-    produce(){
-      this.countDown(Math.floor(Math.random()*30)*1000)
-      
-    }
-
-    countDown(time){
-        this.timer = setInterval(()=> {
-        if(time <1000){
-            clearInterval(this.timer)
-            //this.global.showToast('进入新一期开奖',2000)
-            this.produce()
-        } 
-        this.countTime = this.getTimeRemaining(time)
-        time -= 1000
-        },1000)
-    }
-
-    getTimeRemaining(t) {
-    let seconds = Math.floor((t / 1000) % 60);
-    let minutes = Math.floor((t / 1000 / 60) % 60);
-    let hours = Math.floor((t / (1000 * 60 * 60)) % 24);
-    let days = Math.floor(t / (1000 * 60 * 60 * 24));
-
-    return {
-      'total': t,
-      'days': days,
-      'hours': ('0' + hours).slice(-2),
-      'minutes': ('0' + minutes).slice(-2),
-      'seconds': ('0' + seconds).slice(-2)
-    };
+  showToast(msg,time?,position?) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: time?time:2000,
+      position: position?position:'middle'
+    });
+    toast.present();
   }
 }

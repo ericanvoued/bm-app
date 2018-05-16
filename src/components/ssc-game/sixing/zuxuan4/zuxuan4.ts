@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonProvider } from '../../../../providers/common/common'
+import { UtilProvider } from '../../../../providers/util/util'
+
 import { ToolsProvider } from '../../../../providers/tools/tools'
+import { commonMethod } from '../../../common.method'
+import { BasketDataProvider } from '../../../../providers/basket-data/basket-data'
 /**
  * Generated class for the Zuxuan4Component component.
  *
@@ -11,70 +15,95 @@ import { ToolsProvider } from '../../../../providers/tools/tools'
   selector: 'zuxuan4',
   templateUrl: 'zuxuan4.html'
 })
-export class Zuxuan4Component {
+export class Zuxuan4Component extends commonMethod{
 
   text: string;
 
-  constructor(public common:CommonProvider, public tool:ToolsProvider) {
+constructor(public common:CommonProvider, public util:UtilProvider,public tool:ToolsProvider, public basket:BasketDataProvider) {
+    super(common,util,basket)    
     console.log('Hello Zuxuan4Component Component');
     this.text = 'Hello World';
-  }
+}
 
 
   qqq(number){
     return number + 5
 }
 
-changeToggle(row,column){
-  console.log('wwww')
-  if(column!=null){
-     this.common.ballData = this.common.ballData.map((item,index) => {
-        if(index == row){
-            item.value = item.value.map((ele,index) => {
-                if(index == column){
-                    return ele == 1 ? 0 : 1
+ randomChoose(number?){
+    if(number){
+       let temp,arr;
+        this.common.ballData = this.common.ballData.map((item,index) => {
+        
+            if(index == 0){
+                temp = this.tool.produceRandom(1)
+                item.value = item.value.map((ele,index) => {
+                    if(temp.indexOf(index) != -1){
+                        return 1
+                    }else{
+                        return 0
+                    }
+                })
+
+                return item
+            }else{
+                arr = this.tool.produceRandom(1,temp)
+                item.value = item.value.map((ele,index) => {
+                if(arr.indexOf(index) != -1){
+                    return 1
                 }else{
-                    return ele
+                    return 0
                 }
             })
-            return item
-        }else{
-            return item
-        }
-    })
-  }
-  this.calculate()
- }
+                return item
+            }
+        })
+        this.calculate()
+        this.basket.addBetData()
+        if(number == 1) return
+        this.randomChoose(--number)
+    }else{
+       let temp,arr;
+        this.common.ballData = this.common.ballData.map((item,index) => {
+        
+            if(index == 0){
+                temp = this.tool.produceRandom(1)
+                item.value = item.value.map((ele,index) => {
+                    if(temp.indexOf(index) != -1){
+                        return 1
+                    }else{
+                        return 0
+                    }
+                })
 
- getOriginData(){
-  let sanchong = [], danhao = []
-  this.common.ballData.forEach((ele,index) => {
-      if(index == 0){
-          ele.value.forEach((item,index) => {
-              if(item)
-                sanchong.push(index)
-          })
-      }else{
-          ele.value.forEach((item,index) => {
-              if(item)
-                danhao.push(index)
-          })
-      }
-  })
-  return {sanchong, danhao}
-}
+                return item
+            }else{
+                arr = this.tool.produceRandom(1,temp)
+                item.value = item.value.map((ele,index) => {
+                if(arr.indexOf(index) != -1){
+                    return 1
+                }else{
+                    return 0
+                }
+            })
+                return item
+            }
+        })
+        this.calculate()
+    }  
+ }
 
  calculate(){
     console.log(this.getOriginData())
     let tempData = this.getOriginData(),count = 0;
-    if(tempData.sanchong.length < 1 || tempData.danhao.length < 1)
+    if(tempData.first.length < 1 || tempData.second.length < 1)
       count = 0
   
 
-    for(let i = 0;i<tempData.sanchong.length;i++){
-      let sanchong = tempData.sanchong[i]
+    for(let i = 0;i<tempData.first.length;i++){
+      let sanchong = tempData.first[i]
       // 去掉重复的
-      let data = this.tool.removeElement(tempData.danhao,sanchong)
+      let data = this.tool.removeElement(tempData.second,sanchong)
       if(data.length >= 1)
         count += this.tool.zuhe1(data.length,1)
     }

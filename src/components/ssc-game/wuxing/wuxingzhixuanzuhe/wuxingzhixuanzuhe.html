@@ -33,7 +33,8 @@
             </ul>
 
             <div class="btn-list">
-                <a href="javascript:;" *ngFor="let detail of common.btn[ii];let j = index" [class.current]="detail.flag" (click)="util.changeActive(ii,j,detail.name)">{{detail.name}} <span></span></a>
+                <a href="javascript:;" *ngFor="let detail of common.btn[ii];let j = index" [class.current]="detail.flag" 
+                (click)="changeActive(ii,j,detail.name)">{{detail.name}} <span></span></a>
 
             </div>
         </div>

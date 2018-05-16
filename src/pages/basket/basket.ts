@@ -56,8 +56,15 @@ export class BasketPage {
 
   // 机选一单
   randomChoose(number?){
-     this.componentRef.instance.randomChoose(number)
-     this.basket.addBetData()
+     if(number){
+         console.log('number == 5')
+         this.componentRef.instance.randomChoose(number)
+
+     }else{
+         this.componentRef.instance.randomChoose(number)
+         this.basket.addBetData()
+     }
+     
   }
 
   ionViewWillLeave(){

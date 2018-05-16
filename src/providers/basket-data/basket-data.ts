@@ -52,28 +52,88 @@ export class BasketDataProvider {
   }
 
   addBetData(name?){
-    this.betData.push(this.processOrder(name))
+    console.log('sssss')
+    let processData = this.processOrder(name)
+    let names = name?name:this.common.method + ' ' + this.common.smallMethod
+    let totalData = this.betData.filter(ele => ele.gameName == names)
+    console.log(totalData)
+    console.log(processData)
+    if(totalData.filter(item => item.betData.join('') == processData.betData.join('')).length > 0){
+       console.log('cun zai')
+       this.betData = this.betData.map(item => {
+            if(item.gameName == names && item.betData.join('') == processData.betData.join('')){
+                console.log('axiww')
+                return {...item,count:item.count + 1, price:item.price*(item.count + 1)/item.count}
+            }else{
+                return item
+            }
+       })
+    }else{
+        this.betData.push(this.processOrder(name))
+
+    }
     //this.common.cartNumber++
     //this.calculateTotal()
   }
 
   processOrder(name?){
     let dataArr = []
-    this.common.ballData.forEach(item => {
-         let arr = []
-         item.value.forEach((ele,index) => {
-              ele == 1 ? arr.push(('0'+index).slice(-2)):''
-         })
-         dataArr.push(arr.join(' '))
-    })
+    let names = name?name:this.common.method + ' ' + this.common.smallMethod
+
+    if(names.indexOf('和值') > -1){
+      let zhixuan = names.indexOf('直选和值') > -1 || this.common.secondKind == '直选' ? true : false
+      
+      this.common.ballData.forEach((item,index) => {
+        let arr = [],flag = false
+        item.value.forEach((ele,index1) => {
+             if(ele){
+                let number = zhixuan ? ('0' + (index*item.value.length + index1)).slice(-2) : ('0' + (index*item.value.length + index1 + 1)).slice(-2)
+                arr.push(number)
+                flag = true
+             }
+        })
+        if(flag)
+           dataArr.push(arr.join(' '))
+      })
+
+    }else{
+      let daxiaodanshuang = this.common.method == '大小单双' ? true : false
+
+      this.common.ballData.forEach(item => {
+        let arr = []
+        item.value.forEach((ele,index) => {
+          if(!daxiaodanshuang){
+            ele == 1 ? arr.push(('0'+index).slice(-2)):''
+          }else{
+            ele == 1 ? arr.push(this.judge(index)):''
+          }
+        })
+        dataArr.push(arr.join(' '))
+      })
+    }
+    
+   
     console.log(dataArr)
     // dataArr = dataArr.map(item => item.join(''))
     return {
          betData:dataArr,
-         gameName:name?name:this.common.method + this.common.smallMethod,
+         gameName:names,
          count:this.common.count,
          price:this.common.betPrice
     }
+  }
+
+  judge(number){
+    switch(number){
+      case 0:
+          return '大'
+      case 1:
+          return '小'
+      case 2:
+          return '单'  
+      case 3:
+          return '双'           
+   }
   }
 
   clearBasket(){
