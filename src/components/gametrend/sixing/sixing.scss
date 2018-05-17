@@ -1,0 +1,20 @@
+sixing {
+    li.ball-choose span{
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background-image: linear-gradient(-182deg, #FFFFFF 16%, #D5E9F7 100%);
+        box-shadow: 0 1px 2px 0 #A7B5E8;
+        font-family: PingFangSC-Regular;
+        font-size: 12px;
+        color: #666666;
+        letter-spacing: 0;
+        text-align: center;
+        line-height: 18px;
+        &.current {
+          color: #FFFFFF;
+          background-image: linear-gradient(0deg, #F74511 0%, #F98A6A 100%);
+          box-shadow: 0 1px 2px 0 #F3B19F;
+        }
+      }
+}

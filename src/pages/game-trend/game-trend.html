@@ -1,0 +1,34 @@
+<!--
+  Generated template for the GameTrendPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  
+    <ion-navbar>
+      <ion-title (click)="common.toggle()">{{common.method}} {{common.smallMethod}}</ion-title>
+    </ion-navbar>
+  
+  </ion-header>
+  
+  
+  <ion-content>
+      <gamemenu></gamemenu>  
+  <!-- <div class="segment">
+       <ion-segment [(ngModel)]="util.choose" (ionChange)="segmentChanged($event)">
+         <ion-segment-button *ngFor="let name of util.menus;let ii = index" value="{{name}}">{{name}}</ion-segment-button>  
+       </ion-segment>
+  </div> -->
+  
+  <ng-template #gameTrendContainer></ng-template>  
+  <!-- <trend-head (changeIndex)="segmentChanged($event)"> </trend-head>   -->
+  
+  <div style="position:fixed;bottom:0;z-index:100;background:pink;display:flex;justify-content:space-between;width:100%">
+      <div>距下期开奖还剩12s</div>
+       <div (click)="goBasket()">go</div>
+
+      <div style="width:80px;height:30px" id="confirm" [class.active]="common.count > 0" (click)="goBasket()">确定</div>
+ </div>
+  </ion-content>
+  

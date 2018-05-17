@@ -6,6 +6,7 @@ import {HotGmageListPage} from '../hot-gmage-list/hot-gmage-list';
 import { InfoCenterPage } from '../info-center/info-center'
 
 
+import { CommonProvider } from "../../providers/common/common";
 declare var Swiper;
 
 @Component({
@@ -21,10 +22,10 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public homePrv: HomeProvider,
-    public modalCtrl: ModalController) {
+    public modalCtrl: ModalController,public common:CommonProvider) {
 
     this.loadData();
-  }
+    }
 
   ionViewDidLoad() {
     this.swiper_init()
@@ -69,5 +70,14 @@ export class HomePage {
     })
   }
 
+  goToSsc(){
+     this.common.pid.next('./assets/ssc.json')
+     this.navCtrl.push('SscPage')
+  }
 
+  goToxuan5(){
+     console.log('wcndmd')
+     this.common.pid.next('./assets/115.json')
+     this.navCtrl.push('Xuan5Page')
+  }
 }

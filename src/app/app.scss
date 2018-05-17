@@ -367,30 +367,23 @@ page-lottory-history .lh-head .lh-Picker .item-block{
   margin-top: 5px;
 }
 
+// 阴影
+.body-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 100;
+  display: none;
+}
+
+//modal
 
 
+// .content-ios, .content-md {
+//   background-color: #ffffff;
+// }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ion-slides{padding: 20px 0 20px 0;height: auto}

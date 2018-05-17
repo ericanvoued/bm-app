@@ -2,8 +2,9 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
 
+import {HttpClientModule} from "@angular/common/http";
+import { CountTipComponent } from '../components/count-tip/count-tip'
 
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -14,8 +15,6 @@ import { HotGmageListPage } from '../pages/hot-gmage-list/hot-gmage-list'
 
 
 import { IonicStorageModule } from '@ionic/storage'
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
 import {Camera} from '@ionic-native/camera';
 import {File} from '@ionic-native/file';
 import {Transfer, TransferObject} from '@ionic-native/transfer';
@@ -25,6 +24,28 @@ import { LoginProvider } from '../providers/login/login';
 import { RestProvider } from '../providers/rest/rest';
 import { LoadingProvider } from '../providers/loading/loading';
 import { InfoCenterProvider } from '../providers/info-center/info-center';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { CommonProvider } from '../providers/common/common';
+import { SscServiceProvider } from '../providers/games/ssc-service/ssc-service'
+
+
+import { HttpClientProvider } from '../providers/http-client/http-client';
+import { ToolsProvider } from '../providers/tools/tools';
+import { ComponentsModule } from '../components/components.module'
+//动画模块
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UtilProvider } from '../providers/util/util';
+import { BasketDataProvider } from '../providers/basket-data/basket-data';
+import { Vibration } from '@ionic-native/vibration';
+import { TrendHeadComponent } from '../components/gametrend/trend-head/trend-head'
+import { WuxingComponent } from '../components/gametrend/wuxing/wuxing'
+import { SixingComponent } from '../components/gametrend/sixing/sixing'
+import { ZhixuanhezhiComponent } from '../components/gametrend/qiansan/zhixuanhezhi/zhixuanhezhi'
+import { gameConfig } from './gameComponent'
+
+
 
 @NgModule({
   declarations: [
@@ -35,13 +56,22 @@ import { InfoCenterProvider } from '../providers/info-center/info-center';
     UserCenterPage,
     TabsPage,
     HotGmageListPage,
+    WuxingComponent,
+    SixingComponent,
+    ZhixuanhezhiComponent,
+    CountTipComponent,
+    ...gameConfig.ssc,
+    ...gameConfig.d5
     // LoginPage,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot() //全局定义 storage 模块
+    NoopAnimationsModule,
+    IonicModule.forRoot(MyApp,{
+      tabsHideOnSubPages: 'true'   
+    }),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -53,11 +83,18 @@ import { InfoCenterProvider } from '../providers/info-center/info-center';
     TabsPage,
     HotGmageListPage,
     // LoginPage,
+    WuxingComponent,
+    SixingComponent,
+    ZhixuanhezhiComponent,
+    CountTipComponent,
+    ...gameConfig.ssc,
+    ...gameConfig.d5
   ],
   providers: [
     StatusBar,
     SplashScreen,
     Camera,
+    Vibration,
     File,
     Transfer,
     TransferObject,
@@ -68,6 +105,14 @@ import { InfoCenterProvider } from '../providers/info-center/info-center';
     RestProvider,
     LoadingProvider,
     InfoCenterProvider,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    CommonProvider,
+    HttpClientProvider,
+    ToolsProvider,
+    UtilProvider,
+    SscServiceProvider,
+    BasketDataProvider
+    
   ]
 })
 export class AppModule { }
