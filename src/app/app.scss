@@ -386,4 +386,18 @@ page-lottory-history .lh-head .lh-Picker .item-block{
 //   background-color: #ffffff;
 // }
 
-ion-slides{padding: 20px 0 20px 0;height: auto}
+// ion-slides{padding: 20px 0 20px 0;}
+ion-app.md [padding] .scroll-content {
+  padding: 0px;
+}
+ion-app.ios [padding] .scroll-content{
+  padding: 0px;
+}
+
+//pop弹框
+.popover-ios .popover-content {
+  width: 84px;
+}
+.popover-content {
+  overflow: visible;
+}

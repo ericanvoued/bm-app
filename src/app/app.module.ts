@@ -24,6 +24,10 @@ import { LoginProvider } from '../providers/login/login';
 import { RestProvider } from '../providers/rest/rest';
 import { LoadingProvider } from '../providers/loading/loading';
 import { InfoCenterProvider } from '../providers/info-center/info-center';
+import { LhcSlidePage } from '../pages/lhc/lhc-slide/lhc-slide'
+import { KsPage } from '../pages/k3/ks/ks'
+// import { KsBasketPage } from '../pages/k3/ks-basket/ks-basket'
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { CommonProvider } from '../providers/common/common';
@@ -47,6 +51,9 @@ import { gameConfig } from './gameComponent'
 
 
 
+
+
+
 @NgModule({
   declarations: [
     MyApp,
@@ -60,6 +67,8 @@ import { gameConfig } from './gameComponent'
     SixingComponent,
     ZhixuanhezhiComponent,
     CountTipComponent,
+    LhcSlidePage,
+    KsPage,
     ...gameConfig.ssc,
     ...gameConfig.d5
     // LoginPage,
@@ -69,10 +78,14 @@ import { gameConfig } from './gameComponent'
     HttpClientModule,
     NoopAnimationsModule,
     IonicModule.forRoot(MyApp,{
+      backButtonText: '',//按钮内容
+      backButtonIcon: 'ios-arrow-back',//按钮图标样式
       tabsHideOnSubPages: 'true'   
     }),
     IonicStorageModule.forRoot()
+   
   ],
+
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
@@ -86,9 +99,13 @@ import { gameConfig } from './gameComponent'
     WuxingComponent,
     SixingComponent,
     ZhixuanhezhiComponent,
+    LhcSlidePage,
+    KsPage,
     CountTipComponent,
     ...gameConfig.ssc,
     ...gameConfig.d5
+   
+   
   ],
   providers: [
     StatusBar,

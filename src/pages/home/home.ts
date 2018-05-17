@@ -7,6 +7,8 @@ import { InfoCenterPage } from '../info-center/info-center'
 
 
 import { CommonProvider } from "../../providers/common/common";
+import {LhcSlidePage} from "../lhc/lhc-slide/lhc-slide";
+import {KsPage } from "../k3/ks/ks";
 declare var Swiper;
 
 @Component({
@@ -26,6 +28,7 @@ export class HomePage {
 
     this.loadData();
     }
+  
 
   ionViewDidLoad() {
     this.swiper_init()
@@ -44,7 +47,6 @@ export class HomePage {
       pagination: {
         el: '.swiper-pagination',
       },
-
     });
 
     this.info_swiper = new Swiper('.info-slider', {
@@ -73,6 +75,18 @@ export class HomePage {
   goToSsc(){
      this.common.pid.next('./assets/ssc.json')
      this.navCtrl.push('SscPage')
+  }
+
+  gotoLhc(){
+    this.navCtrl.push(LhcSlidePage,{
+        })
+  }
+  gotoKs(){
+
+    this.navCtrl.push(KsPage,{
+
+    })
+
   }
 
   goToxuan5(){
