@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
- * Generated class for the ChargeFailPage page.
+ * Generated class for the ChangePayPswPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -10,16 +10,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-charge-fail',
-  templateUrl: 'charge-fail.html',
+  selector: 'page-change-pay-psw',
+  templateUrl: 'change-pay-psw.html',
 })
-export class ChargeFailPage {
+export class ChangePayPswPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ChargeFailPage');
+    console.log('ionViewDidLoad ChangePayPswPage');
   }
 
 }

@@ -9,77 +9,77 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class FollowHistoryPage {
 
-  lhRecord ={
+  followData ={
     timeStarts:'2018-01-01',
     timeEnds:'2018-01-02',
     data:[{
       name:"江西11选5",
       date:'01-09',
       qihao:1580,
-      is_waiting:false,
-      is_win:true,
+      is_finish:false,
+      is_continue:true,
       ball_group:'前三组复式',
       balls:[0,1,1,2],
       money:5.00,
       isSlide: false,
-      is_following: true,
-      detail_btn_text: '详情',
       detail:{
         serial:4664656566,
-        bet_time:'2018-2-12 18:12:33',
-        bet_id:'11111111111',
-        bet_detail:'单式1倍1驻',
-        bet_ball:122,
-        bet_model:'角',
-        bet_times:1,
-        bet_reward:'dasd',
-        win_money:10000.00
+        follow_time:'2018-2-12 18:12:33',
+        follow_start_qihao:'11111111111',
+        follow_qishu:123,
+        follow_finish_qishu:122,
+        follow_money:122,
+        follow_finish_model:123,
+        follow_concel_money:1,
+        follow_reward_money:123,
+        win_group:1950,
+        follow_model:'角'
       }
     },{
       name:"江西11选7",
       date:'01-09',
       qihao:1580,
-      is_waiting:true,
-      is_win:false,
+      is_finish:true,
+      is_continue:false,
       ball_group:'前三组复式',
       balls:[0,1,1,2],
       money:5,
       isSlide: false,
-      is_following: false,
-      detail_btn_text: '详情',
       detail:{
         serial:4664656566,
-        bet_time:'2018-2-12 18:12:33',
-        bet_id:'11111111111',
-        bet_detail:'单式1倍1驻',
-        bet_ball:122,
-        bet_model:'角',
-        bet_times:1,
-        bet_reward:'dasd',
-        win_money:10000.00
+        follow_time:'2018-2-12 18:12:33',
+        follow_start_qihao:'11111111111',
+        follow_qishu:123,
+        follow_finish_qishu:122,
+        follow_money:122,
+        follow_finish_model:123,
+        follow_concel_money:1,
+        follow_reward_money:123,
+        win_group:1950,
+        follow_model:'角'
       }
     },{
       name:"江西11选6",
       date:'01-09',
       qihao:1580,
-      is_waiting:true,
-      is_win:false,
+      is_finish:false,
+      is_continue:false,
       ball_group:'前三组复式',
       balls:[0,1,1,2],
       money:5,
       isSlide:false,
-      is_following: true,
-      detail_btn_text: '详情',
       detail:{
         serial:4664656566,
-        bet_time:'2018-2-12 18:12:33',
-        bet_id:'11111111111',
-        bet_detail:'单式1倍1驻',
-        bet_ball:122,
-        bet_model:'角',
-        bet_times:1,
-        bet_reward:'dasd',
-        win_money:10000.00
+        follow_time:'2018-2-12 18:12:33',
+        follow_start_qihao:'11111111111',
+        follow_qishu:123,
+        follow_finish_qishu:122,
+        follow_money:122,
+        follow_finish_model:123,
+        follow_concel_money:1,
+        follow_reward_money:123,
+        win_group:1950,
+        follow_model:'角'
       }
     }]
   }
@@ -93,7 +93,7 @@ export class FollowHistoryPage {
 
   toggleDetail(_index){
 
-    this.lhRecord.data[_index].isSlide = !this.lhRecord.data[_index].isSlide;
-    this.lhRecord.data[_index].isSlide==true?this.lhRecord.data[_index].detail_btn_text ='收起':this.lhRecord.data[_index].detail_btn_text = '详情'
+    this.followData.data[_index].isSlide = !this.followData.data[_index].isSlide;
+    // this.followData.data[_index].isSlide==true?this.followData.data[_index].detail_btn_text ='收起':this.followData.data[_index].detail_btn_text = '详情'
   }
 }

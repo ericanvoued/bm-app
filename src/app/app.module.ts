@@ -83,7 +83,6 @@ import { gameConfig } from './gameComponent'
       tabsHideOnSubPages: 'true'   
     }),
     IonicStorageModule.forRoot()
-   
   ],
 
   bootstrap: [IonicApp],
