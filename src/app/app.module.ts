@@ -40,7 +40,11 @@ import { InfoCenterProvider } from '../providers/info-center/info-center';
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp,{
+      backButtonText: '',//按钮内容
+      backButtonIcon: 'ios-arrow-back',//按钮图标样式
+      tabsHideOnSubPages: true
+    }),
     IonicStorageModule.forRoot() //全局定义 storage 模块
   ],
   bootstrap: [IonicApp],

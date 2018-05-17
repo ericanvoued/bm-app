@@ -1,0 +1,65 @@
+page-bank-card {
+  .no-bank-card-content{
+    min-height: 100%;
+    .no-bank-card-logo{
+      margin: 59px auto 30px;
+      width: 80px;
+    }
+    .no-bank-card-text{
+      font-size: 16px;
+      color: #333333;
+      letter-spacing: 0;
+      text-align: center;
+    }
+    .submit-row{
+      margin-top: 85px;
+    }
+  }
+
+}
+
+.alert-md .alert-head{
+  padding: 10px 0;
+  text-align: center;
+}
+.alert-md .alert-title{
+  font-size: 16px;
+}
+.alert-md .alert-wrapper{
+  border-radius: 10px;
+  margin-top: 20%;
+}
+.alert-md .alert-input{
+  margin: 3px 0;
+  background-color: #FFFFFF;
+  text-indent: 12px;
+}
+.alert-md .alert-input::-webkit-input-placeholder{
+  text-indent: 12px;
+  color: #999999;
+}
+
+.alert-md .alert-input-group{
+  padding-bottom: 6px;
+  border-bottom: 1px solid #EAEAEA;
+}
+.alert-md .alert-button-group{
+  padding: 0;
+  height: 47px;
+  justify-content: space-between;
+}
+.alert-md .alert-button{
+  flex: 1;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+.alert-md .alert-button:first-child{
+  border-right: 1px solid #EAEAEA;
+}
+.button-inner{
+  justify-content: center!important;
+}
+
+

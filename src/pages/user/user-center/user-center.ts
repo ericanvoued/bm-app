@@ -18,6 +18,8 @@ import {WithdrawPage} from '../withdraw/withdraw';
 import {TransformHistoryPage} from '../transform-history/transform-history';
 import {LottoryHistoryPage} from '../lottory-history/lottory-history';
 import {FollowHistoryPage} from '../follow-history/follow-history';
+import {TransDetailPage} from '../trans-detail/trans-detail';
+import {SafeCenterPage} from '../safe-center/safe-center';
 
 declare var cordova: any;
 
