@@ -12,6 +12,7 @@ export class KsAction {
     this.ballClick();
 
     this.fastBtnDxds123();
+
     this.moneyUnitChange();
     this.cleanBalls();
 
@@ -214,6 +215,21 @@ export class KsAction {
 
       _this.calculateNumOfBet();
       _this.calculateMoney();
+    })
+
+    //三同通
+    $('.tx-btn').on('click',function () {
+
+      // $('.active').removeClass('active');
+      $(this).find('.tx-num').toggleClass('selected');
+      if($(this).find('.tx-num').hasClass('selected')){
+        $(this).siblings('.ball-unit').find('.ball-num').addClass('active');
+      }else{
+        $(this).siblings('.ball-unit').find('.ball-num').removeClass('active');
+      }
+      _this.calculateNumOfBet();
+      _this.calculateMoney();
+
     })
   }
 
