@@ -1,0 +1,1374 @@
+<ion-header>
+
+  <ion-navbar>
+    <!--<ion-title>-->
+      <div class="header-select" (click)="addCover();">
+        <i class="lottery">{{lottery}}</i>
+        <i class="wanfa">和值</i>
+        <ion-icon name="md-arrow-dropdown" style="margin-top: 5px;
+    position: absolute;
+    margin-left: 4px;">
+        </ion-icon>
+      </div>
+    <!--</ion-title>-->
+
+    <div class="trend-div">
+      <img src="../../../assets/imgs/ks/trend.png"/>
+    </div>
+  </ion-navbar>
+
+  <div class="popover-wrapper hide">
+    <div class="popover-arrow"></div>
+    <div class="popover-content">
+      <div class="popover-viewport">
+        <div nav-viewport=""></div>
+        <div class="side-nav">
+          <a class="side-nav-a j-btn" href="#">走势图</a>
+          <a class="side-nav-a j-btn" href="#">近期开奖</a>
+          <a class="side-nav-a j-btn" href="#">号码统计</a>
+          <a class="side-nav-a j-btn" href="#">玩法说明</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-top">
+    <div class="header-l ">
+      <p>1041期开奖:2 3 5 <img src="../../../assets/imgs/ks/sanjiao.png" class="dot-bottom"/></p>
+
+      <span class="saizi-span">
+        <i class="saizi saizi-1"></i>
+        <i class="saizi saizi-2"></i>
+        <i class="saizi saizi-3"></i>
+      </span>
+    </div>
+    <div class="header-r ">
+      <p class="r-issue">12080期截止:</p>
+      <span class="r-time">
+        <span>00</span>:<span>45</span>:<span>12</span>
+      </span>
+    </div>
+  </div>
+
+
+</ion-header>
+
+<ion-content padding>
+
+
+  <div class="his-box">
+    <ul>
+      <li class="top-line">
+
+        <p class="t-issue">期号</p>
+        <p class="t-num">开奖号码</p>
+        <p class="t-total">和值</p>
+        <p class="t-big">大小</p>
+        <p class="t-odd">单双</p>
+
+      </li>
+    </ul>
+    <ul>
+      <li class="his-line">
+
+        <p class="t-issue">020</p>
+        <p class="t-num">
+           <span class="saizi-span">
+        <i class="saizi saizi-1"></i>
+        <i class="saizi saizi-2"></i>
+        <i class="saizi saizi-3"></i>
+      </span>
+          2 3 2</p>
+        <p class="t-total">15</p>
+        <p class="t-big">13</p>
+        <p class="t-odd">12</p>
+
+      </li>
+      <li class="his-line">
+        <p class="t-issue">020</p>
+        <p class="t-num">
+          <span class="saizi-span">
+        <i class="saizi saizi-1"></i>
+        <i class="saizi saizi-2"></i>
+        <i class="saizi saizi-3"></i>
+      </span>
+          23</p>
+        <p class="t-total">15</p>
+        <p class="t-big">13</p>
+        <p class="t-odd">12</p>
+      </li>
+      <li class="his-line">
+        <p class="t-issue">020</p>
+        <p class="t-num">
+          <span class="saizi-span">
+        <i class="saizi saizi-1"></i>
+        <i class="saizi saizi-2"></i>
+        <i class="saizi saizi-3"></i>
+      </span>
+          23</p>
+        <p class="t-total">15</p>
+        <p class="t-big">13</p>
+        <p class="t-odd">12</p>
+      </li>
+      <li class="his-line">
+        <p class="t-issue">020</p>
+        <p class="t-num">
+          <span class="saizi-span">
+        <i class="saizi saizi-1"></i>
+        <i class="saizi saizi-2"></i>
+        <i class="saizi saizi-3"></i>
+      </span>
+          23</p>
+        <p class="t-total">15</p>
+        <p class="t-big">13</p>
+        <p class="t-odd">12</p>
+      </li>
+
+    </ul>
+  </div>
+
+  <!-- 和值 -->
+  <section class="hz-section section">
+    <div class="shake">
+      <img src="../../../assets/imgs/ks/shake-icon.png"/>
+      <span>摇一摇机选</span>
+    </div>
+    <p class="title-tip">猜开奖号码相加之和</p>
+
+    <div class="content-box">
+
+      <div class="ball-unit">
+
+        <div class="ball-num">
+          <span>3</span>
+          <p>奖金189.00元</p>
+        </div>
+
+        <div class="yilou">
+
+          <span class="tips loss">遗漏</span>
+          <p class="total loss">猪</p>
+          <span class="tips cold">冷热</span>
+          <p class="total cold">猪</p>
+          <span class="tips aver">平均</span>
+          <p class="total aver">猪</p>
+          <span class="tips most">最大</span>
+          <p class="total most">猪</p>
+
+        </div>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num active">
+          <span>4</span>
+          <p>奖金140.40元</p>
+        </div>
+        <div class="yilou">
+          <p class="total loss">猪</p>
+          <p class="total cold">猪</p>
+          <p class="total aver">猪</p>
+          <p class="total most">猪</p>
+        </div>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>5</span>
+          <p>奖金70.20元</p>
+        </div>
+        <div class="yilou">
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+        </div>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>6</span>
+          <p>奖金42.12元</p>
+        </div>
+        <div class="yilou">
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+        </div>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>7</span>
+          <p>奖金28.08元</p>
+        </div>
+        <div class="yilou">
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+        </div>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>8</span>
+          <p>奖金20.06元</p>
+        </div>
+        <div class="yilou">
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+        </div>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>9</span>
+          <p>奖金16.85元</p>
+        </div>
+        <div class="yilou">
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+        </div>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>10</span>
+          <p>奖金15.60元</p>
+        </div>
+        <div class="yilou">
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+        </div>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>11</span>
+          <p>奖金15.60元</p>
+        </div>
+        <div class="yilou">
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+        </div>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>12</span>
+          <p>奖金16.85元</p>
+        </div>
+        <div class="yilou">
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+        </div>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>13</span>
+          <p>奖金20.06元</p>
+        </div>
+        <div class="yilou">
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+        </div>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>14</span>
+          <p>奖金28.08元</p>
+        </div>
+        <div class="yilou">
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+        </div>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>15</span>
+          <p>奖金42.12元</p>
+        </div>
+        <div class="yilou">
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+        </div>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>16</span>
+          <p>奖金70.20元</p>
+        </div>
+        <div class="yilou">
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+        </div>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>17</span>
+          <p>奖金140.40元</p>
+        </div>
+        <div class="yilou">
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+        </div>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>18</span>
+          <p>奖金421.20元</p>
+        </div>
+        <div class="yilou">
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="select-btn">
+      <span>快速选号</span>
+
+      <ul>
+        <li class="da active">
+          大
+        </li>
+        <li class="xiao">
+          小
+        </li>
+        <li class="ji">
+          单
+        </li>
+        <li class="ou">
+          双
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 三同号 -->
+  <section class="santh-section section hide">
+    <div class="shake">
+      <img src="../../../assets/imgs/ks/shake-icon.png"/>
+      <span>摇一摇机选</span>
+    </div>
+    <p class="title-tip">猜开奖号码相加之和</p>
+
+    <div class="content-box">
+
+      <div class="ball-unit">
+
+        <div class="ball-num">
+          <span>111</span>
+          <p>奖金421.00元</p>
+        </div>
+        <span class="tips">遗漏</span>
+        <p class="total loss">猪</p>
+        <span class="tips">冷热</span>
+        <p class="total cold">猪</p>
+        <span class="tips">平均</span>
+        <p class="total aver">猪</p>
+        <span class="tips">最大</span>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num active">
+          <span>222</span>
+          <p>奖金421.00元</p>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>333</span>
+          <p>奖金421.00元</p>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>444</span>
+          <p>奖金421.00元</p>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>555</span>
+          <p>奖金421.00元</p>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>666</span>
+          <p>奖金421.00元</p>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+
+      <div class="ball-unit tx-btn">
+        <div class="ball-num">
+          <span>三同号通选</span>
+          <p> 任意一个豹子号开出即可中奖40 </p>
+        </div>
+        <!--<p class="total loss">猪</p>-->
+        <!--<p class="total cold">猪</p>-->
+        <!--<p class="total aver">猪</p>-->
+        <!--<p class="total most">猪</p>-->
+      </div>
+    </div>
+
+  </section>
+
+  <!-- 二同号 -------->
+  <section class="ert-section section hide">
+    <div class="shake">
+      <img src="../../../assets/imgs/ks/shake-icon.png"/>
+      <span>摇一摇机选</span>
+    </div>
+    <p class="title-tip">猜豹子号(有2个号相同)</p>
+
+    <div class="content-box">
+
+      <div class="tips-dx">
+        <img src="../../../assets/imgs/ks/erth-dx.png"/>
+        <span>选择同号和不同号的组合，奖金80元</span>
+      </div>
+
+      <p class="tips-th">一 同号 一 </p>
+
+      <!--<div class="tonghao">-->
+
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>11</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <span class="tips">遗漏</span>
+        <p class="total loss">猪</p>
+        <span class="tips">冷热</span>
+        <p class="total cold">猪</p>
+        <span class="tips">平均</span>
+        <p class="total aver">猪</p>
+        <span class="tips">最大</span>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num active">
+          <span>22</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>33</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>44</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>55</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>66</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <!--</div>-->
+      <p class="tips-bth">一 不同号 一</p>
+
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>1</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>2</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>3</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>4</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>5</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>6</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+
+      <div class="tips-dx tips-dx-2">
+        <img src="../../../assets/imgs/ks/erth-dx.png"/>
+        <span>猜开奖中2个指定的相同号码，奖金15元</span>
+      </div>
+
+      <div class="ball-unit double">
+        <div class="ball-num">
+          <span>11*</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit double">
+        <div class="ball-num">
+          <span>22*</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit double">
+        <div class="ball-num">
+          <span>33*</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit double">
+        <div class="ball-num">
+          <span>44*</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit double">
+        <div class="ball-num">
+          <span>55*</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit double">
+        <div class="ball-num">
+          <span>66*</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+
+
+    </div>
+  </section>
+
+  <!-- 三不同号 -------->
+  <section class="sanbth-section section hide">
+    <div class="shake">
+      <img src="../../../assets/imgs/ks/shake-icon.png"/>
+      <span>摇一摇机选</span>
+    </div>
+    <p class="title-tip">选3个不同号吗，与开奖相同即中70.20</p>
+
+    <div class="content-box">
+
+      <div class="ball-unit">
+
+        <div class="ball-num">
+          <span>123</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <span class="tips">遗漏</span>
+        <p class="total loss">猪</p>
+        <span class="tips">冷热</span>
+        <p class="total cold">猪</p>
+        <span class="tips">平均</span>
+        <p class="total aver">猪</p>
+        <span class="tips">最大</span>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num active">
+          <span>124</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>125</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>126</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>134</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>135</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>136</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>145</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>146</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>156</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>234</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>235</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>236</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>245</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>246</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>256</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>345</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>346</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>356</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>456</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+
+    </div>
+
+    <div class="select-btn">
+      <span>快速选号</span>
+
+      <ul>
+        <li class="li1">
+          1
+        </li>
+        <li class="li2">
+          2
+        </li>
+        <li class="li3">
+          3
+        </li>
+        <li class="li4">
+          4
+        </li>
+        <li class="li5">
+          5
+        </li>
+        <li class="li6">
+          6
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 二不同号 -------->
+  <section class="erbth-section section hide">
+    <div class="shake">
+      <img src="../../../assets/imgs/ks/shake-icon.png"/>
+      <span>摇一摇机选</span>
+    </div>
+    <p class="title-tip">选2个不同号码，猜中开奖的任意2位即中14.04元</p>
+
+    <div class="content-box">
+
+      <div class="ball-unit">
+
+        <div class="ball-num">
+          <span>12*</span>
+
+        </div>
+        <span class="tips">遗漏</span>
+        <p class="total loss">猪</p>
+        <span class="tips">冷热</span>
+        <p class="total cold">猪</p>
+        <span class="tips">平均</span>
+        <p class="total aver">猪</p>
+        <span class="tips">最大</span>
+        <p class="total most">猪</p>
+      </div>
+
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>13*</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>14*</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>15*</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>16*</span>
+          <!--<p>奖金189.00元</p>-->
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>23*</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>24*</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>25*</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>26*</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>34*</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>35*</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>36*</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>45*</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>46*</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>56*</span>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+
+    </div>
+
+    <div class="select-btn">
+      <span>快速选号</span>
+
+      <ul>
+        <li class="da">
+          大
+        </li>
+        <li class="xiao">
+          小
+        </li>
+        <li class="ji">
+          单
+        </li>
+        <li class="ou">
+          双
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 三连号 -------->
+  <section class="sanlh-section section hide">
+    <div class="shake">
+      <img src="../../../assets/imgs/ks/shake-icon.png"/>
+      <span>摇一摇机选</span>
+    </div>
+    <p class="title-tip">猜顺子号（顺序不限）</p>
+
+    <div class="content-box">
+
+      <div class="ball-unit">
+
+        <div class="ball-num">
+          <span>123</span>
+          <p>奖金70.20元</p>
+        </div>
+        <span class="tips">遗漏</span>
+        <p class="total loss">猪</p>
+        <span class="tips">冷热</span>
+        <p class="total cold">猪</p>
+        <span class="tips">平均</span>
+        <p class="total aver">猪</p>
+        <span class="tips">最大</span>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num active">
+          <span>234</span>
+          <p>奖金70.20元</p>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>345</span>
+          <p>奖金70.20元</p>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>456</span>
+          <p>奖金70.20元</p>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- 单挑一骰 -------->
+  <section class="dtys-section section hide">
+    <div class="shake">
+      <img src="../../../assets/imgs/ks/shake-icon.png"/>
+      <span>摇一摇机选</span>
+    </div>
+    <p class="title-tip">猜1个开奖号（顺序不限）</p>
+
+    <div class="content-box">
+
+      <div class="ball-unit">
+
+        <div class="ball-num">
+          <span>6</span>
+          <p>奖金4.38元</p>
+        </div>
+        <span class="tips loss">遗漏</span>
+        <p class="total loss">猪</p>
+        <span class="tips cold">冷热</span>
+        <p class="total cold">猪</p>
+        <span class="tips aver">平均</span>
+        <p class="total aver">猪</p>
+        <span class="tips most">最大</span>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num active">
+          <span>5</span>
+          <p>奖金4.36元</p>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>4</span>
+          <p>奖金4.38元</p>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>3</span>
+          <p>奖金4.38元</p>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>2</span>
+          <p>奖金4.36元</p>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+      <div class="ball-unit">
+        <div class="ball-num">
+          <span>1</span>
+          <p>奖金4.36元</p>
+        </div>
+        <p class="total loss">猪</p>
+        <p class="total cold">猪</p>
+        <p class="total aver">猪</p>
+        <p class="total most">猪</p>
+      </div>
+
+    </div>
+  </section>
+
+</ion-content>
+
+<ion-footer class="ks-footer">
+
+  <div class="bottom-l">
+    <div class="l-clean">
+
+      <!--<ion-icon id="cleanBtn" style="color:rgb(51,51,51);" name="ios-trash-outline">-->
+      <!--</ion-icon>-->
+      <img src="../../../assets/imgs/ks/clean.png">
+      <p class="clean">清空</p>
+    </div>
+    <p class="line"></p>
+    <div class="l-m">
+      <div class="money-drop">
+        <div class="money-btn money-btn-2">
+          <i>元</i>
+          <ion-icon name="md-arrow-dropup" style="
+             position: absolute;
+             margin-top: -22px;
+             margin-left: 4px;
+          ">
+          </ion-icon>
+        </div>
+
+        <ul class="money-menu">
+          <li>分</li>
+          <li>角</li>
+          <li class="active">元</li>
+        </ul>
+      </div>
+      <p class="model">模式</p>
+
+    </div>
+  </div>
+
+  <div class="bottom-m">
+    <ion-icon name="md-add"
+              style="color: rgb(172,172,172);
+position: absolute;
+top: 50%;
+    transform: translateY(-50%);
+    margin-left: -46px;
+    font-size: 1.5em;
+"></ion-icon>
+    <p style="margin-top: 6px;">已选<span class="total-num">0</span>注</p>
+    <p>共<span class="money">0.11</span>元</p>
+  </div>
+
+
+  <div class="bottom-r" (click)="pushToBasket()">
+    <ion-icon name="ios-cart-outline"></ion-icon>
+    <a class="confirm-btn">
+      <span>购彩篮</span>
+      <span class="confirm-number hide">22</span>
+    </a>
+  </div>
+
+</ion-footer>
+
+<div class="body-bg hide"></div>
+
+<!-- 玩法选择 ------------------------------------------------->
+
+<div class="alert-con hide">
+  <div class="play-select">
+    <div class="play-title">玩法选择</div>
+    <ul class="play-list clear">
+      <li><i class="play-black play-yellow">和值</i></li>
+      <li><i class="play-black">三同号</i></li>
+      <li><i class="play-black">二同号</i></li>
+      <li><i class="play-black">三不同号</i></li>
+      <li><i class="play-black">二不同号</i></li>
+      <li><i class="play-black">三连号</i></li>
+      <li><i class="play-black">单挑一骰</i></li>
+    </ul>
+  </div>
+
+  <p class="pp"></p>
+
+  <!--<div class="after-select">-->
+  <!--&lt;!&ndash;<p class="pp">玩法选择</p>&ndash;&gt;-->
+  <!--<div class="after-con active">-->
+  <!--<div class="after-list clear after-list-3">-->
+  <!--<div class="after-l"><i class="after-text">特码:</i></div>-->
+  <!--<ul class="lastchina">-->
+  <!--<li><i class="play-black play-opacity play-yellow">特码</i></li>-->
+  <!--</ul>-->
+  <!--</div>-->
+
+  <!--</div>-->
+
+  <!--<div class="after-con">-->
+  <!--<div class="after-list clear after-list-3">-->
+  <!--<div class="after-l"><i class="after-text">正码:</i></div>-->
+  <!--<ul class="lastchina">-->
+  <!--<li><i class="play-black play-opacity">正码1</i></li>-->
+  <!--<li><i class="play-black play-opacity">正码2</i></li>-->
+  <!--<li><i class="play-black play-opacity">正码3</i></li>-->
+  <!--<li><i class="play-black play-opacity">正码4</i></li>-->
+  <!--<li><i class="play-black play-opacity">正码5</i></li>-->
+  <!--<li><i class="play-black play-opacity">正码6</i></li>-->
+  <!--</ul>-->
+  <!--</div>-->
+  <!--</div>-->
+
+  <!--<div class="after-con">-->
+  <!--<div class="after-list clear after-list-3">-->
+  <!--<div class="after-l"><i class="after-text">半波:</i></div>-->
+  <!--<ul class="lastchina">-->
+  <!--<li><i class="play-black play-opacity">半波</i></li>-->
+  <!--</ul>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div class="after-con">-->
+  <!--<div class="after-list clear after-list-3">-->
+  <!--<div class="after-l"><i class="after-text">生肖:</i></div>-->
+  <!--<ul class="lastchina">-->
+  <!--<li><i class="play-black play-opacity">特肖</i></li>-->
+  <!--<li><i class="play-black play-opacity">一肖</i></li>-->
+  <!--<li><i class="play-black play-opacity">六肖</i></li>-->
+  <!--</ul>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div class="after-con">-->
+  <!--<div class="after-list clear after-list-3">-->
+  <!--<div class="after-l"><i class="after-text">尾数:</i></div>-->
+  <!--<ul class="lastchina">-->
+  <!--<li><i class="play-black play-opacity">尾数</i></li>-->
+  <!--</ul>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div class="after-con">-->
+  <!--<div class="after-list clear after-list-3">-->
+  <!--<div class="after-l"><i class="after-text">总分:</i></div>-->
+  <!--<ul class="lastchina">-->
+  <!--<li><i class="play-black play-opacity">总分</i></li>-->
+  <!--</ul>-->
+  <!--</div>-->
+  <!--&lt;!&ndash;<div class="after-list clear after-list-3">&ndash;&gt;-->
+  <!--</div>-->
+  <!--<div class="after-con">-->
+  <!--<div class="after-list clear after-list-4">-->
+  <!--<div class="after-l"><i class="after-text">不中:</i></div>-->
+  <!--<ul class="lastchina">-->
+  <!--<li><i class="play-black play-opacity">五不中</i></li>-->
+  <!--<li><i class="play-black play-opacity">6不中</i></li>-->
+  <!--<li><i class="play-black play-opacity">7不中</i></li>-->
+  <!--<li><i class="play-black play-opacity">8不中</i></li>-->
+  <!--<li><i class="play-black play-opacity">9不中</i></li>-->
+  <!--<li><i class="play-black play-opacity">10不中</i></li>-->
+  <!--</ul>-->
+  <!--</div>-->
+  <!--</div>-->
+
+  <!--</div>-->
+
+</div>

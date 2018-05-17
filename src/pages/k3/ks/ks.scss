@@ -1,0 +1,1005 @@
+page-ks {
+  //.back-button.show-back-button{
+  //  color: #FFFFFF;
+  //}
+  .hide {
+    display: block;
+  }
+  a, b, em, i, img, input, span, strong {
+    display: inline-block;
+    vertical-align: middle;
+    font-style: normal;
+  }
+  .toolbar-background-ios, .toolbar-background-md {
+    background-color: rgb(0, 23, 13);
+  }
+  .wanfa {
+    color: #fff;
+    font-style: normal;
+  }
+  .ion-md-arrow-dropdown:before {
+    content: "\f280";
+    color: #fff;
+  }
+  .content-ios, .content-md {
+    background-color: rgb(36, 113, 76);
+  }
+  .header-select{
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    width: 150px;
+    margin-left: 12vw;
+  }
+  .trend-div {
+    width: 21px;
+    float: right;
+    margin-right: 18px;
+    //height: 47px;
+  }
+  //ion-app.ios [padding] .scroll-content {
+  //  padding: 7px;
+  //}
+
+  // 弹出窗
+  .popover-wrapper {
+    opacity: 1;
+    float: right;
+    margin-right: 105px;
+    .popover-arrow {
+      top: 39px;
+      position: absolute;
+      display: block;
+      overflow: hidden;
+      width: 20px;
+      height: 10px;
+      right: 27px;
+    }
+     .popover-arrow::after {
+      left: 3px;
+      top: 3px;
+      border-radius: 3px;
+      position: absolute;
+      z-index: 10;
+      width: 14px;
+      height: 14px;
+      background-color: #fff;
+      content: "";
+      -webkit-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+    .popover-content {
+      //top: 52px;
+      //left: 233px;
+      transform-origin: right top 0px;
+      width: 84px;
+      border-radius: 10px;
+      min-width: 0;
+      min-height: 0;
+      //max-height: 90%;
+      color: #000;
+      background: #fff;
+      overflow: visible;
+      position: absolute;
+      z-index: 10;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+
+    }
+    .side-nav{
+      line-height: 42px;
+      font-size: 1.6rem;
+      //padding: 5px 0;
+      position: relative;
+      border-radius: 10px;
+
+      .side-nav-a {
+        color: #2e324e;
+        display: block;
+        padding-left: 10px;
+      }
+
+    }
+  }
+
+  .header-top {
+
+    background: rgb(0, 88, 46);
+    float: left;
+    color: #fff;
+    width: 100%;
+    height: 52px;
+    border-top: 1px solid rgb(36, 113, 76);
+
+    //border-top-color: rgb(36,113,76);
+    //border-top-width: 1px;
+    .header-l {
+      border-right: 1px solid rgb(36, 113, 76);
+      //border-right-color: rgb(36,113,76);
+      //border-right-width: 1px;
+    }
+    .header-r {
+      border-bottom: 2px solid rgb(10, 175, 94);
+      //border-left-color: rgb(36,113,76);
+      //border-left-width: 1px;
+    }
+  }
+
+  .header-top div {
+    width: 50%;
+    text-align: center;
+    //float: left;
+    height: 100%;
+    box-shadow: 0px 2px 1px 1px rgb(1, 75, 39);
+  }
+
+  .header-l {
+
+    float: left;
+
+    p {
+      margin-top: 4px;
+      font-size: 12px;
+      margin-bottom: 3px;
+    }
+  }
+
+  .header-r {
+    float: right;
+    .r-issue {
+      margin-top: 4px;
+      margin-bottom: 3px;
+      font-size: 12px;
+    }
+    .r-time {
+      span {
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+    }
+  }
+  .dot-bottom {
+    margin-left: 3px;
+    margin-right: -5px;
+  }
+  .saizi-span {
+
+  }
+
+  .saizi-span .saizi {
+    border-radius: 3px;
+    background-color: #FFF;
+    border: 0;
+    background-size: 100% auto;
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+    text-align: center;
+    line-height: 20px;
+    font-style: normal;
+    margin: 0 1px;
+    color: #b2a789;
+    font-size: 14px;
+  }
+
+  .saizi-span .saizi.saizi-1 {
+    background-image: url(../../../assets/imgs/ks/one.png);
+  }
+  .saizi-span .saizi.saizi-2 {
+    background-image: url(../../../assets/imgs/ks/two.png);
+  }
+  .saizi-span .saizi.saizi-3 {
+    background-image: url(../../../assets/imgs/ks/three.png);
+  }
+  .saizi-span .saizi.saizi-4 {
+    background-image: url(../../../assets/imgs/ks/four.png);
+  }
+  .saizi-span .saizi.saizi-5 {
+    background-image: url(../../../assets/imgs/ks/five.png);
+  }
+  .saizi-span .saizi.saizi-6 {
+    background-image: url(../../../assets/imgs/ks/six.png);
+  }
+
+  //历史记录
+  .his-box {
+
+    overflow: hidden;
+    height: 100px;
+    li {
+      border-bottom: 0.5px solid rgb(45, 92, 55);
+    }
+    p {
+      color: #fff;
+      text-align: center;
+    }
+    .top-line {
+
+      height: 25px;
+      line-height: 25px;
+      background: rgb(0, 88, 46);
+
+      .t-issue {
+        width: 20%;
+      }
+      .t-num {
+        padding-left: 0px;
+        text-align: left;
+        width: 30%;
+      }
+      p {
+        float: left;
+        width: 16%;
+        font-size: 14px;
+      }
+    }
+    .his-line {
+      height: 28px;
+      line-height: 25px;
+
+      width: 100%;
+      .t-issue {
+        width: 20%;
+      }
+      .t-num {
+        padding-left: 5px;
+        text-align: left;
+        width: 30%;
+      }
+      p {
+        float: left;
+        width: 16%;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .his-box .his-line:nth-child(odd) {
+    background: rgb(53, 118, 75);
+  }
+  .his-box .his-line:nth-child(even) {
+    background: rgb(36, 113, 76);
+  }
+
+  //footer
+  .ks-footer {
+
+    bottom: 0px;
+    z-index: 3;
+    position: absolute;
+    background: rgb(236, 236, 236);
+    width: 100%;
+    height: 49px;
+    float: left;
+
+    .bottom-l {
+
+      float: left;
+      background: rgb(255, 255, 255);
+      height: 100%;
+      width: 120px;
+
+      .l-clean {
+        height: 100%;
+        float: left;
+        //background: grey;
+        width: 60px;
+        text-align: center;
+        img {
+          width: 17px;
+          height: 18px;
+          margin-top: 8px;
+        }
+        p {
+          margin-top: 1px;
+          font-size: 14px;
+        }
+      }
+      .l-m {
+        height: 100%;
+        float: right;
+        //background: #3D7CCF;
+        width: 60px;
+        text-align: center;
+
+        .money-drop {
+          display: inline-block;
+          vertical-align: middle;
+          position: relative;
+          text-align: center;
+          line-height: 32px;
+          color: #4a4a4a
+        }
+        .money-btn {
+          margin-top: 2px;
+          padding: 0 10px;
+          background: #f3f3f3;
+          border-radius: 16px;
+          height: 25px;
+          line-height: 25px;
+          width: 42px;
+          i {
+            margin-right: 10px
+          }
+        }
+        .money-menu {
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          border-radius: 16px;
+          background: #fff;
+          overflow: hidden;
+          display: none;
+          border: 1px solid #ddd
+        }
+        .money-menu .active {
+          background: #E5E5E5
+        }
+        .model {
+          margin-top: 1px;
+          font-size: 14px;
+        }
+
+      }
+
+      ul {
+        display: table-row
+      }
+      ul li {
+        width: 100%;
+        float: left;
+        height: 25px;
+        display: table-cell;
+        vertical-align: middle;
+        position: relative
+      }
+    }
+
+    .line {
+      height: 34px;
+      width: 0.5px;
+      background: #00582E;
+      position: absolute;
+      margin-left: 60px;
+      margin-top: 8px;
+    }
+
+  }
+  .bottom-m {
+    height: 100%;
+    //background: cornflowerblue;
+    float: left;
+    text-align: center;
+    width: 34%;
+    .total, .money {
+      color: rgb(191, 82, 82);
+    }
+  }
+  .bottom-r {
+    width: 99px;
+    height: 100%;
+    background-image: linear-gradient(43deg, #F3361B 0%, #EC6432 1%, #F5AD58 100%);
+    float: right;
+    text-align: center;
+    ion-icon {
+      margin-left: -36px;
+      font-size: 2.2em;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #fff;
+    }
+    .confirm-btn {
+      top: 50%;
+      transform: translateY(-50%);
+      position: absolute;
+      color: #fff;
+      margin-left: -8px;
+      .confirm-number{
+        position: absolute;
+        background: #fff;
+        border-radius: 50%;
+        margin-left: -43px;
+        margin-top: -27px;
+        color: red;
+        width: 16px;
+        height: 16px;
+        font-size: 10px;
+        line-height: 16px;
+      }
+    }
+  }
+
+  //玩法选择-阴影
+  .alert-con, .my-table {
+    width: 100%;
+    //background: #fff;
+  }
+
+  .alert-con, .alert-show {
+    top: auto;
+    right: 0;
+    left: 0;
+  }
+
+  .alert-con {
+    top: 0px;
+    z-index: 4;
+    position: absolute;
+    background: rgb(37, 87, 50);
+    padding-bottom: 10px;
+    //border-bottom: 2px solid rgb(10, 175, 94);
+    .pp {
+      width: 100%;
+      height: 2px;
+      background-image: linear-gradient(43deg, #F3361B 0%, #EC6432 1%, #F5AD58 100%);
+      position: absolute;
+      margin-top: 80px;
+    }
+
+    .play-title {
+      padding-left: 2%;
+      font-size: 14px;
+      color: #fff;
+      margin-bottom: 3px;
+      font-weight: 500;
+
+      //padding-left:2%;
+      //font-size: 1.8rem;
+      //color: #2E324E;
+      //margin-bottom:12px;
+    }
+    .play-list li {
+      float: left;
+      width: 25%;
+      padding: 0 2%;
+      margin-bottom: 12px;
+    }
+    .play-select {
+      padding: 0px 2% 3px;
+      //background: #fff;
+      margin-top: 54px;
+    }
+
+    .play-black {
+      background: rgb(255, 255, 255);
+      color: rgb(102, 102, 102);
+      font-size: 14px;
+      border-radius: 2px;
+      text-align: center;
+      //box-shadow: 0px 2px 1px 1px rgb(207, 207, 207);
+      line-height: 26px;
+      width: 100%;
+      -webkit-transition: all .3s;
+      transition: all .3s;
+    }
+    .play-yellow {
+      background: rgb(233, 146, 89);
+      color: #fff;
+    }
+  }
+
+  .body-bg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .4);
+    z-index: 3;
+  }
+  //和值 ,三连号
+  .hz-section, .sanlh-section {
+    overflow: hidden;
+    margin-bottom: 50px;
+
+    .shake {
+
+      width: 110px;
+      height: 30px;
+      color: #fff;
+      background: rgb(0, 88, 46);
+      border-radius: 3px;
+      margin-top: 10px;
+      margin-left: 7px;
+
+      img {
+        margin-top: 4px;
+        margin-left: 5px;
+      }
+      span {
+        line-height: 30px;
+        height: 30px;
+        position: absolute;
+        margin-left: 4px;
+      }
+    }
+
+    .title-tip {
+      text-align: center;
+      color: #fff;
+      margin-top: 8px;
+      margin-bottom: 12px;
+      font-size: 14px;
+
+    }
+
+    .content-box {
+
+      margin-left: 7px;
+      margin-right: 7px;
+      background: rgb(3, 86, 46);
+      border-radius: 5px;
+      overflow: hidden;
+      padding-left: 2.7vw;
+      padding-top: 11px;
+      padding-bottom: 4px;
+
+      .ball-unit {
+        width: 21.5vw;
+        float: left;
+        text-align: center;
+        font-size: 14px;
+        margin-right: 1.5vw;
+        //margin-top: 11px;
+
+        .ball-num {
+          color: #fff;
+          //margin-bottom: 7px;
+          span {
+            font-size: 20px;
+          }
+          p {
+            margin-top: 5px;
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+          }
+        }
+        .ball-num.active {
+          background-image: linear-gradient(43deg, #F3361B 0%, #EC6432 1%, #F5AD58 100%);
+          box-shadow: 0 1px 2px 0 #00582E;
+        }
+
+        .ball-num {
+          background: rgb(53, 118, 75);
+          width: 100%;
+          height: 56px;
+          border-radius: 3px;
+        }
+
+        .yilou{
+          height: 100%;
+          margin-top: 5px;
+          margin-bottom: 7px;
+        }
+        .tips {
+          position: absolute;
+          color: #fff;
+          margin-left: -42px;
+          margin-top: 1px;
+          font-size: 12px;
+        }
+        .total {
+          font-size: 14px;
+          color: #FFCEC0;
+        }
+
+      }
+    }
+
+    //快速选号
+    .select-btn {
+
+      margin-top: 11px;
+      margin-left: 11px;
+      span {
+        color: #fff;
+        float: left;
+      }
+      ul {
+        float: left;
+      }
+      li {
+        float: left;
+        width: 15.5vw;
+        height: 24px;
+        text-align: center;
+        margin-left: 10px;
+        color: rgb(249, 141, 75);
+        background: rgb(253, 253, 253);
+        border-radius: 3px;
+      }
+      .active {
+        background: rgb(249, 141, 75);
+        color: #fff;
+      }
+
+    }
+
+  }
+
+  //三同号， 单挑一骰
+  .santh-section, .dtys-section {
+    overflow: hidden;
+    margin-bottom: 50px;
+
+    .shake {
+
+      width: 110px;
+      height: 30px;
+      color: #fff;
+      background: rgb(0, 88, 46);
+      border-radius: 3px;
+      margin-top: 10px;
+      margin-left: 7px;
+
+      img {
+        margin-top: 4px;
+        margin-left: 5px;
+      }
+      span {
+        line-height: 30px;
+        height: 30px;
+        position: absolute;
+        margin-left: 4px;
+      }
+    }
+
+    .title-tip {
+      text-align: center;
+      color: #fff;
+      margin-top: 8px;
+      margin-bottom: 12px;
+      font-size: 14px;
+
+    }
+
+    .content-box {
+
+      margin-left: 7px;
+      margin-right: 7px;
+      background: rgb(3, 86, 46);
+      border-radius: 5px;
+      overflow: hidden;
+      padding-left: 5.5vw;
+      padding-top: 16px;
+      padding-bottom: 20px;
+
+      .ball-unit {
+        width: 26.5vw;
+        float: left;
+        text-align: center;
+        font-size: 14px;
+        margin-right: 2.5vw;
+        margin-top: 5px;
+
+        .ball-num {
+          color: #fff;
+          margin-bottom: 6px;
+          span {
+            font-size: 20px;
+          }
+          p {
+            margin-top: 5px;
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+          }
+        }
+        .ball-num.active {
+          background-image: linear-gradient(43deg, #F3361B 0%, #EC6432 1%, #F5AD58 100%);
+          box-shadow: 0 1px 2px 0 #00582E;
+        }
+
+        div {
+          background: rgb(53, 118, 75);
+          width: 100%;
+          height: 56px;
+          border-radius: 3px;
+        }
+        .tips {
+          position: absolute;
+          color: #fff;
+          margin-left: -42px;
+          margin-top: 1px;
+          font-size: 12px;
+        }
+        .total {
+          font-size: 14px;
+          color: #FFCEC0;
+        }
+
+      }
+      .ball-unit.tx-btn {
+        width: 93%;
+      }
+    }
+  }
+
+  //二同号
+  .ert-section {
+
+    .shake {
+
+      width: 110px;
+      height: 30px;
+      color: #fff;
+      background: rgb(0, 88, 46);
+      border-radius: 3px;
+      margin-top: 10px;
+      margin-left: 7px;
+
+      img {
+        margin-top: 4px;
+        margin-left: 5px;
+      }
+      span {
+        line-height: 30px;
+        height: 30px;
+        position: absolute;
+        margin-left: 4px;
+      }
+    }
+
+    .title-tip {
+      text-align: center;
+      color: #fff;
+      margin-top: 8px;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+    .content-box {
+      margin-left: 7px;
+      margin-right: 7px;
+      background: rgb(3, 86, 46);
+      border-radius: 5px;
+      overflow: hidden;
+      padding-left: 5.5vw;
+      padding-bottom: 20px;
+      .tips-dx {
+        margin-top: 17px;
+        margin-right: 12px;
+        img {
+          width: 57px;
+        }
+        span {
+          color: #fff;
+          font-size: 14px;
+        }
+      }
+      .tips-dx.tips-dx-2 {
+        margin-top: 10px;
+      }
+      .tips-th {
+        margin-right: 10px;
+        text-align: center;
+        color: #3DA875;
+      }
+      .tips-bth {
+
+        float: left;
+        text-align: center;
+        padding-right: 10px;
+        color: #3DA875;
+        width: 100%;
+
+      }
+      .ball-unit {
+
+        width: 13vw;
+        float: left;
+        text-align: center;
+        font-size: 14px;
+        margin-right: 2vw;
+        margin-top: 11px;
+
+        .ball-num {
+          width: 40px;
+          color: #fff;
+          margin-bottom: 7px;
+          margin: 0 auto;
+          span {
+            font-size: 20px;
+            line-height: 40px;
+          }
+          p {
+            margin-top: 5px;
+            font-size: 12px;
+          }
+        }
+        .ball-num.active {
+
+          background-image: linear-gradient(43deg, #F3361B 0%, #EC6432 1%, #F5AD58 100%);
+          box-shadow: 0 1px 2px 0 #00582E;
+          border-radius: 3px;
+        }
+
+        div {
+          background: rgb(53, 118, 75);
+          width: 100%;
+          height: 40px;
+          border-radius: 3px;
+        }
+        .tips {
+          position: absolute;
+          color: #fff;
+          margin-left: -36px;
+          margin-top: 1px;
+          font-size: 12px;
+        }
+        .total {
+          font-size: 14px;
+          color: #FFCEC0;
+        }
+
+      }
+      .ball-unit.double {
+        width: 27.5vw;
+      }
+      .ball-unit.double .ball-num {
+        width: 100%;
+      }
+
+    }
+
+  }
+
+  //三不同号 二不同号
+  .sanbth-section, .erbth-section {
+    overflow: hidden;
+    margin-bottom: 50px;
+
+    .shake {
+
+      width: 110px;
+      height: 30px;
+      color: #fff;
+      background: rgb(0, 88, 46);
+      border-radius: 3px;
+      margin-top: 10px;
+      margin-left: 7px;
+
+      img {
+        margin-top: 4px;
+        margin-left: 5px;
+      }
+      span {
+        line-height: 30px;
+        height: 30px;
+        position: absolute;
+        margin-left: 4px;
+      }
+    }
+
+    .title-tip {
+      text-align: center;
+      color: #fff;
+      margin-top: 8px;
+      margin-bottom: 12px;
+      font-size: 14px;
+
+    }
+
+    .content-box {
+
+      margin-left: 7px;
+      margin-right: 7px;
+      background: rgb(3, 86, 46);
+      border-radius: 5px;
+      overflow: hidden;
+
+      padding-left: 6vw;
+      padding-bottom: 20px;
+
+      .ball-unit {
+        width: 16.5vw;
+        float: left;
+        text-align: center;
+        font-size: 14px;
+        margin-right: 0.5vw;
+        margin-top: 11px;
+
+        .ball-num {
+          color: #fff;
+          margin-bottom: 7px;
+          margin: 0 auto;
+
+          span {
+            font-size: 20px;
+          }
+          p {
+            margin-top: 5px;
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+          }
+        }
+        .ball-num.active {
+          background-image: linear-gradient(43deg, #F3361B 0%, #EC6432 1%, #F5AD58 100%);
+          box-shadow: 0 1px 2px 0 #00582E;
+        }
+
+        div {
+          background: rgb(53, 118, 75);
+          width: 50px;
+          height: 40px;
+          border-radius: 3px;
+          line-height: 40px;
+        }
+        .tips {
+          position: absolute;
+          color: #fff;
+          margin-left: -42px;
+          margin-top: 1px;
+          font-size: 12px;
+        }
+        .total {
+          font-size: 14px;
+          color: #FFCEC0;
+        }
+
+      }
+    }
+
+    //快速选号
+    .select-btn {
+
+      margin-top: 11px;
+      //margin-left: 11px;
+
+      span {
+        color: #fff;
+        text-align: center;
+        width: 100%;
+        margin-bottom: 5px;
+
+      }
+      ul {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+      li {
+        float: left;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        margin-left: 10px;
+        font-size: 20px;
+        line-height: 40px;
+        color: #666666;
+        background: rgb(247, 247, 247);
+        border-radius: 3px;
+      }
+      .active {
+        background: rgb(249, 141, 75);
+        color: #fff;
+      }
+    }
+
+  }
+
+}
+
+
+
+
+
+

@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {NavController, ModalController} from 'ionic-angular';
 import {HotGmageListPage} from '../hot-gmage-list/hot-gmage-list';
 
+import {LhcSlidePage} from "../lhc/lhc-slide/lhc-slide";
+import {KsPage } from "../k3/ks/ks";
 declare var Swiper;
 
 @Component({
@@ -12,10 +14,7 @@ export class HomePage {
 
   banner_swiper: any;
   info_swiper: any;
-
-
   constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
-
   }
 
   ionViewDidLoad() {
@@ -31,7 +30,6 @@ export class HomePage {
       pagination: {
         el: '.swiper-pagination',
       },
-
     });
 
     this.info_swiper = new Swiper('.info-slider', {
@@ -58,5 +56,16 @@ export class HomePage {
   //   })
   // }
 
+  gotoLhc(){
+    this.navCtrl.push(LhcSlidePage,{
+        })
+  }
+  gotoKs(){
+
+    this.navCtrl.push(KsPage,{
+
+    })
+
+  }
 
 }
