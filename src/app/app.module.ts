@@ -17,7 +17,6 @@ import { KsPage } from '../pages/k3/ks/ks'
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { PopViewComponent } from '../components/pop-view/pop-view';
 
 
 
@@ -31,8 +30,7 @@ import { PopViewComponent } from '../components/pop-view/pop-view';
     TabsPage,
     HotGmageListPage,
     LhcSlidePage,
-    KsPage,
-    PopViewComponent
+    KsPage
   ],
   imports: [
     BrowserModule,
@@ -52,8 +50,7 @@ import { PopViewComponent } from '../components/pop-view/pop-view';
     TabsPage,
     HotGmageListPage,
     LhcSlidePage,
-    KsPage,
-    PopViewComponent
+    KsPage
   ],
   providers: [
     StatusBar,
