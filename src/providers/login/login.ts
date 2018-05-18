@@ -10,7 +10,7 @@ interface loginParameter {
 @Injectable()
 export class LoginProvider {
 
-  loginApi:string = '/mobile-h5-auth/login'
+  loginApi:string = '/h5-api-auth/login?_t=init'
 
   constructor(public http: HttpClient,public rest: RestProvider) {
 
