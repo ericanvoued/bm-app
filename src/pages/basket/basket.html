@@ -25,8 +25,8 @@
   </div> 
    
    <div>
-       <ul>
-          <li *ngFor="let item of basket.betData;let i = index" style="display:flex;padding:10px;margin-bottom:10px;background:#f0f0f0">
+       <ul style="width:94%;margin:0 auto">
+          <li *ngFor="let item of basket.betData;let i = index" style="display:flex;padding:10px;margin-bottom:10px;position:relative;background:#ffffff">
               <div style="width:15%;display:flex;align-items:center;justify-content:center">
                 <img src="assets/imgs/games/delete.png" alt="" (click)="basket.removeByIndex(i)">
               </div>
@@ -41,6 +41,9 @@
               <!-- <div><span>{{item.gameName}}</span>    共{{item.count}}注 {{item.price}}元
                  <span style="float:right" (click)="basket.removeByIndex(i)">delete</span>   
               </div> -->
+               <div style="width:300px;height:5px;display:flex;overflow:hidden;position:absolute;left:calc(50% - 150px);bottom:0">
+                    <div *ngFor="let ii of arr" style="width:10px;height:10px;border-radius:50%;background:#f0f0f0"></div>
+               </div>
           </li>
        </ul>
    </div>

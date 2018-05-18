@@ -27,7 +27,7 @@
 page-ssc {
   .toolbar-background-ios, .toolbar-background-md{background-image: linear-gradient(-43deg, #F3361B 0%, #EC6432 1%, #F5AD58 100%)}
 
-  .toggle-menu{background: url('/assets/imgs/toggle.png') center center no-repeat; position:relative;float:right;top:10px;width:21px;height:21px;margin-right: 10px}
+  .toggle-menu{background: url('../assets/imgs/toggle.png') center center no-repeat; position:relative;float:right;top:10px;width:21px;height:21px;margin-right: 10px}
 
 
 
@@ -36,7 +36,7 @@ page-ssc {
   // #ball{width:20px;height:20px;background:yellow;position:absolute;top:0px;left:50px;border-radius:50%;}
   // #bet-statistic.can{background: lightblue}
 
-  .shakePhone{background: url('/assets/imgs/games/shake.png') no-repeat;width:110px;height:30px}
+  .shakePhone{background: url('../assets/imgs/games/shake.png') no-repeat;width:110px;height:30px}
 
   
   .l-info{
@@ -48,7 +48,7 @@ page-ssc {
 
   #qq{
     width:70px;height:20px;box-shadow:0 1px 2px 0 #B6B6B6;border-top:none;border-bottom-left-radius: 8px;border-bottom-right-radius: 8px;margin: 0 auto;
-    text-align: center;line-height: 20px;background: url('/assets/imgs/games/return.png') center center no-repeat
+    text-align: center;line-height: 20px;background: url('../assets/imgs/games/return.png') center center no-repeat
   }
 
   .table{
@@ -88,6 +88,8 @@ page-ssc {
   }
   .l-game.l-hezhi{display: block}
 
+  .l-game:nth-last-of-type(1){margin-bottom: 40px}
+
   .l-game {
     // height: 126px;
     padding: 8px 0;
@@ -95,6 +97,7 @@ page-ssc {
     box-shadow: 0 1px 3px 0 rgba(65, 64, 66, 0.21);
     border-radius: 5px;
     display: flex;
+    margin-bottom: 10px;
     .l {
       padding-top: 4px;
       width: 84px;

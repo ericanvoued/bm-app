@@ -34,10 +34,14 @@ import { UtilProvider } from '../../providers/util/util'
 
 export class BasketPage {
   show:string = "invisable"
+  arr:any[] = []
 
   componentRef:ComponentRef<any>
 
   constructor(public navCtrl: NavController, public navParams: NavParams,  public basket:BasketDataProvider, public common:CommonProvider, private alertCtrl: AlertController,public util:UtilProvider) {
+    for(let i = 0;i<30;i++){
+       this.arr.push(i)
+    }
     //此处获取需要机选注单的实例  
     this.componentRef = this.navParams.get('index')
   }

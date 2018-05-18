@@ -113,6 +113,17 @@ export class ToolsProvider {
         return temp
     }
 
+    produceArrd5(number){
+        let arr = [0,1,2,3,4,5,6,7,8,9,10],temp=[]
+        for(let i =0; i<number; i++){
+            let index = Math.floor(Math.random()*arr.length)
+            let single = arr[index]
+            temp.push(single)
+            arr.splice(index,1)
+        }
+        return temp
+    }
+
    combination(arr2) {
         if (arr2.length < 1) {
             return [];

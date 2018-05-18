@@ -24,6 +24,20 @@ export class QiansanzhixuanfushiComponent extends commonMethod{
     super(common,util,basket) 
     this.text = 'Hello World';
   }
+
+  randomChoose(number?){
+      let arr = this.tool.produceArrd5(3)
+      this.common.ballData = this.common.ballData.map((ele,index) => {
+           ele.value = ele.value.map((item,index1) => {
+                  if(index1 == arr[index])
+                       return 1
+                  else
+                       return 0
+           })
+           return ele
+      })
+      this.calculate()
+  }
  
   getOriginData():any{
     // let erchong = [], danhao = []

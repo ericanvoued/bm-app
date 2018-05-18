@@ -4,8 +4,7 @@ page-basket {
     .bet-ball{color:#F6374E;margin-right:5px}
     ul.fandian{transition: all .5s;position:absolute;bottom:0;background:#f5d300;width:100%;border-radius:10px}
     ul.fandian li{display: block}
-
-    //footer
+    ion-content{padding:0 15px 0 15px}
     .basket-footer{display:flex;flex-direction:column;height:140px;background:#ffffff;padding-top:10px}
 
     .mutiple,.trace{float:left;margin-right:5px}

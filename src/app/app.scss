@@ -416,6 +416,17 @@ ion-app.ios [padding] .scroll-content{
   padding: 0px;
 }
 
+.toolbar-md ion-title {
+  left: 0px;
+  top: 0;
+  padding: 0 90px 1px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0)
+}
+
 //pop弹框
 .popover-ios .popover-content {
   width: 84px;

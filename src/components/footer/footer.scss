@@ -8,9 +8,9 @@ footer {
         
       .tab-mode{width:70px;display:flex;flex-direction:column;align-items:center;justify-content:space-around;background:#ffffff}
     
-      .clear{width:10%;background:url('/assets/imgs/games/clear.png') center center no-repeat;width:70px;border-right:1px solid #f0f0f0;background-color:#ffffff}
+      .clear{width:10%;background:url('../assets/imgs/games/clear.png') center center no-repeat;background-size:50% 70%;width:70px;border-right:1px solid #f0f0f0;background-color:#ffffff}
     
-      .basket{width:92px;background:url('/assets/imgs/games/basket.png') center center no-repeat;background-size:auto 50px;position: relative}
+      .basket{width:92px;background:url('../assets/imgs/games/basket.png') center center no-repeat;background-size:auto 50px;position: relative}
     
       .bet-number{width:18px;height:18px;background: #ffffff;text-align: center;line-height: 18px;position: absolute;top:15px;left:15px;border-radius: 50%}
 

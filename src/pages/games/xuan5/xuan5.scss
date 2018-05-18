@@ -16,8 +16,6 @@ page-xuan5 {
       
         .tab-mode{width:70px;display:flex;flex-direction:column;align-items:center;justify-content:space-around;background:#ffffff}
       
-        .clear{width:10%;background:url('/assets/imgs/games/clear.png') center center no-repeat;width:70px;border-right:1px solid #f0f0f0;background-color:#ffffff}
-      
         .basket{width:92px;background:url('/assets/imgs/games/basket.png') center center no-repeat;background-size:auto 50px;position: relative}
       
         .bet-number{width:18px;height:18px;background: #ffffff;text-align: center;line-height: 18px;position: absolute;top:15px;left:15px;border-radius: 50%}
@@ -37,6 +35,7 @@ page-xuan5 {
         box-shadow: 0 1px 3px 0 rgba(65, 64, 66, 0.21);
         border-radius: 5px;
         display: flex;
+        margin-bottom: 10px;
         .l {
           padding-top: 4px;
           width: 84px;
