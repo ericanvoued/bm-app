@@ -90,6 +90,7 @@ export class SscPage extends Effect{
         }else{
             method = this.common.method + this.common.smallMethod
         }
+        console.log(method)
         const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(gameConfig[method])
         this.componentRef = this.gameContainer.createComponent(factory)
         
@@ -100,8 +101,8 @@ export class SscPage extends Effect{
 
     ionViewDidLoad() {
        
-        console.log(document.querySelector('.tr').offsetHeight)
-        this.trHeight = document.querySelector('.tr').offsetHeight
+        console.log(document.querySelector('.tr')[0].offsetHeight)
+        this.trHeight = document.querySelector('.tr')[0].offsetHeight
 
         console.log(document.getElementById('qq'))
         this.watchScroll()
