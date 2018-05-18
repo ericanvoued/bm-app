@@ -15,8 +15,112 @@ page-bank-card {
       margin-top: 85px;
     }
   }
+  .bank-card-content{
+    .cf-row label{
+      width: auto;
+    }
+    .cf-row input{
+      height: 100%;
+      font-size: 14px;
+    }
+    .select-input{
+      background-repeat: no-repeat;
+      background-size: 8px 15px;
+      padding-right: 15px;
+      text-align: right;
+      background-position: right center;
+      &::-webkit-input-placeholder{
+        text-align: right;
+        color: #999999;
+      }
+    }
+  }
 
 }
+
+.bankList-model{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(33,33,33,.5);
+  z-index: 10000000;
+  .bankList-model-content{
+    height: 442px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #FFFFFF;
+    h4{
+      height: 34px;
+      line-height:33px;
+      text-align: center;
+      font-size: 14px;
+      border-bottom: 1px solid #EAEAEA;
+    }
+    .bank-list{
+      height: 408px;
+      overflow: scroll;
+      p{
+        height: 31px;
+        display: flex;
+        padding: 0 16px;
+        align-items: center;
+        .firecat-icon {
+          width: 36px;
+          background-position: left center;
+          height: 100%;
+        }
+
+        .s-bc-icon {
+          background-size: 18px 19px;
+        }
+
+        .s-cb-icon {
+          background-size: 23px 13px;
+        }
+
+        .s-ceb-icon {
+          background-size: 23px 12px;
+        }
+
+        .s-cgb-icon {
+          background-size: 16px 15.6px;
+        }
+
+        .s-CHAINABANK-icon, .s-ctbc-icon, .s-ccb-icon, .s-abc-icon, .s-cmb-icon, .s-psbc-icon {
+          background-size: 18px 18px;
+        }
+
+        .s-cmbc-icon {
+          background-size: 20px 17px;
+        }
+
+        .s-construtorbank-icon {
+          background-size: 18px 19px;
+        }
+
+        .s-hxb-icon {
+          background-size: 20px 18.7px;
+        }
+        .s-ib-icon {
+          background-size: 20px 12.7px;
+        }
+        .s-pb-icon {
+          background-size: 22px auto;
+        }
+      }
+    }
+  }
+}
+
+
+.disable-submit{
+  background-color: #B4B4B4!important;
+  color: #FFFFFF;
+}
+
 
 .alert-md .alert-head{
   padding: 10px 0;
@@ -61,5 +165,10 @@ page-bank-card {
 .button-inner{
   justify-content: center!important;
 }
+
+
+
+
+
 
 

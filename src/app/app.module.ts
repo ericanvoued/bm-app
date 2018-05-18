@@ -80,7 +80,7 @@ import { gameConfig } from './gameComponent'
     IonicModule.forRoot(MyApp,{
       backButtonText: '',//按钮内容
       backButtonIcon: 'ios-arrow-back',//按钮图标样式
-      tabsHideOnSubPages: 'true'   
+      tabsHideOnSubPages: 'true'
     }),
     IonicStorageModule.forRoot()
   ],
@@ -103,8 +103,8 @@ import { gameConfig } from './gameComponent'
     CountTipComponent,
     ...gameConfig.ssc,
     ...gameConfig.d5
-   
-   
+
+
   ],
   providers: [
     StatusBar,
@@ -128,7 +128,7 @@ import { gameConfig } from './gameComponent'
     UtilProvider,
     SscServiceProvider,
     BasketDataProvider
-    
+
   ]
 })
 export class AppModule { }

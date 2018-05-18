@@ -15,11 +15,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CommonStatusPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  statusData = {
+    status:'',
+    text:'waiting'
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CommonStatusPage');
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+    this.statusData = this.navParams.data;
   }
 
 }

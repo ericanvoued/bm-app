@@ -27,12 +27,12 @@ import { BasketDataProvider } from '../../providers/basket-data/basket-data'
 })
 export class GameTrendPage {
   componentRef: ComponentRef<any>;
-  @ViewChild('contentSlides') contentSlides: Slides;  
+  @ViewChild('contentSlides') contentSlides: Slides;
   @ViewChild("gameTrendContainer", { read: ViewContainerRef }) container: ViewContainerRef;
 
   observable: Observable<any>;
   observer: Observer<any>;
-  
+
  // @ViewChild("headContainer", { read: ViewContainerRef }) head: ViewContainerRef;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public events:Events, public util:UtilProvider, public common:CommonProvider, public basket:BasketDataProvider,private resolver: ComponentFactoryResolver) {
@@ -63,7 +63,7 @@ export class GameTrendPage {
 
   ionViewWillEnter(){
      //this.contentSlides.slideTo(this.navParams.get('index'))
-     this.drawTrend() 
+     this.drawTrend()
   }
 
   ionViewDidLeave(){
@@ -85,7 +85,7 @@ export class GameTrendPage {
 
       console.log(containers.length)
       for(let i = 0;i<containers.length;i++){
-     
+
         let container = containers[i]
         let canvas = document.createElement('canvas')
         canvas.width = container.offsetWidth
@@ -107,7 +107,7 @@ export class GameTrendPage {
         }
         ctx.stroke()
         ctx.closePath()
-    }   
+    }
 }
 else{
       let containers = document.getElementsByClassName('trend-container')
@@ -122,7 +122,7 @@ else{
       }
       console.log(containers.length)
               for(let i = 0;i<containers.length;i++){
-             
+
               let container = document.getElementsByClassName('trend-container')[i]
               let canvas = document.createElement('canvas')
               canvas.width = container.offsetWidth
@@ -143,9 +143,9 @@ else{
               }
               ctx.stroke()
               ctx.closePath()
-            }   
+            }
     }
-      
+
 }
 
   create(gameMethod:string):Promise<any>{
@@ -169,30 +169,30 @@ else{
     }else{
         this.observer.next(this.create(this.common.method))
     }
-   
+
   }
 
   getCtxColor(i){
     switch(this.util.trendKind[this.common.method][i]) {
        case '万位走势':
             return 'yellow'
-       case '千位走势': 
+       case '千位走势':
             return 'orange'
        case '百位走势':
             return 'green'
-       case '十位走势': 
-            return 'purple'  
+       case '十位走势':
+            return 'purple'
        case '个位走势':
-            return 'pink'      
+            return 'pink'
 
     }
  }
- 
+
   slideChanged(){
     let index = this.contentSlides.getActiveIndex();
     console.log(index)
    // this.util.choose = this.util.menus[index]
-  }  
+  }
 
   segmentChanged($event){
     console.log('wcnmb')
