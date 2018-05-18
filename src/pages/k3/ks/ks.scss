@@ -225,9 +225,9 @@ page-ks {
 
   //历史记录
   .his-box {
-
     overflow: hidden;
-    height: 100px;
+    height: 110px;
+    
     li {
       border-bottom: 0.5px solid rgb(45, 92, 55);
     }
@@ -515,6 +515,7 @@ page-ks {
     bottom: 0;
     background: rgba(0, 0, 0, .4);
     z-index: 3;
+    display: block;
   }
   //和值 ,三连号
   .hz-section, .sanlh-section {

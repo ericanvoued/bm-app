@@ -101,15 +101,17 @@ export class KsAction {
 
   shakeClick() {
 
+    let _this = this;
     $('.active').removeClass('active');
-
+    $('.selected').removeClass('selected');
     //获取 content 内球数量
     var len = $('.section.current').find('.ball-unit').length-1;
     console.log('len====' + len);
     var num = Math.floor(Math.random() * (len + 1));
     console.log('num====' + num);
     $('.section.current').find('.ball-num').eq(num).addClass('active');
-
+    _this.calculateNumOfBet();
+    _this.calculateMoney();
 
   }
 
