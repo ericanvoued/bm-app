@@ -181,7 +181,6 @@ export class UserCenterPage {
         this.userData = null;
       } else {
         this.userData = val;
-
       }
     })
   }
