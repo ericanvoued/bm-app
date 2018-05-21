@@ -101,8 +101,8 @@ export class SscPage extends Effect{
 
     ionViewDidLoad() {
        
-        console.log(document.querySelector('.tr')[0].offsetHeight)
-        this.trHeight = document.querySelector('.tr')[0].offsetHeight
+        console.log(document.querySelector('.tr').offsetHeight)
+        this.trHeight = document.querySelector('.tr').offsetHeight
 
         console.log(document.getElementById('qq'))
         this.watchScroll()
@@ -158,6 +158,7 @@ export class SscPage extends Effect{
 
     change(val){
         console.log(val)
+        this.common.open = false
         if(val == '走势图')
            this.app.getRootNav().push('GameTrendPage',{'index':1}) 
           // this.navCtrl.push('GameTrendPage',{'index':1})

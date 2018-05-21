@@ -36,6 +36,20 @@ export class Xuan5Page extends Effect{
    @ViewChild("gameContainer", { read: ViewContainerRef }) gameContainer: ViewContainerRef;
    componentRef: ComponentRef<any>;
    
+   record: any = [
+    {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
+    {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'},
+    {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
+    {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'},
+    {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
+    {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'},
+    {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
+    // {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'},
+    // {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
+    // {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'}
+   ]
+
+   list: any = []
    //助手菜单
    menus:any =  ['走势图','近期开奖','号码统计','玩法说明']
 
@@ -43,6 +57,7 @@ export class Xuan5Page extends Effect{
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private resolver: ComponentFactoryResolver,public app:App,
     public common:CommonProvider, public gamemenu:GamemenuComponent, public util:UtilProvider,public basket:BasketDataProvider,public events:Events) {
         super(common,gamemenu,modalCtrl)
+        this.list = this.record.slice(0, 2)
   }
 
   ionViewDidLoad() {
