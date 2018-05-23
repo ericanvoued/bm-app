@@ -23,5 +23,6 @@ export class RightmenuComponent {
   switch(title){
     this.change.emit(title)
     
+    
   }
 }

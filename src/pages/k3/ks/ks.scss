@@ -41,6 +41,7 @@ page-ks {
     float: right;
     margin-right: 18px;
     //height: 47px;
+    margin-top: 9px;
   }
   //ion-app.ios [padding] .scroll-content {
   //  padding: 7px;
@@ -139,7 +140,8 @@ page-ks {
     text-align: center;
     //float: left;
     height: 100%;
-    box-shadow: 0px 2px 1px 1px rgb(1, 75, 39);
+    box-shadow: 0px 3px 0px 0px #014b27;
+    //box-shadow: 0px 2px 1px 1px rgb(1, 75, 39);
   }
 
   .header-l {
@@ -192,6 +194,16 @@ page-ks {
     font-size: 14px;
   }
 
+  .t-num .saizi-span .saizi {
+    width: 16px;
+    height: 16px;
+  }
+  @media screen and (max-width: 320px) {
+    .saizi-span .saizi {
+      margin-right: -3px;
+    }
+  }
+
   .saizi-span .saizi.saizi-1 {
     background-image: url(../../../assets/imgs/ks/one.png);
   }
@@ -213,9 +225,9 @@ page-ks {
 
   //历史记录
   .his-box {
-
     overflow: hidden;
-    height: 100px;
+    height: 110px;
+    
     li {
       border-bottom: 0.5px solid rgb(45, 92, 55);
     }
@@ -386,6 +398,11 @@ page-ks {
       color: rgb(191, 82, 82);
     }
   }
+  @media screen and (max-width: 320px) {
+    .bottom-m {
+      width: 31%;
+    }
+  }
   .bottom-r {
     width: 99px;
     height: 100%;
@@ -498,6 +515,7 @@ page-ks {
     bottom: 0;
     background: rgba(0, 0, 0, .4);
     z-index: 3;
+    display: block;
   }
   //和值 ,三连号
   .hz-section, .sanlh-section {

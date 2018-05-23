@@ -82,8 +82,8 @@ export class GameTrendPage {
 
         let container = containers[i]
         let canvas = document.createElement('canvas')
-        canvas.width = container.offsetWidth
-        canvas.height = container.offsetHeight
+        canvas.width = container[0].offsetWidth
+        canvas.height = container[0].offsetHeight
         canvas.setAttribute('id','canvas')
         container.appendChild(canvas)
         let ctx = canvas.getContext('2d')
@@ -95,9 +95,9 @@ export class GameTrendPage {
         for(let i=0; i< nodes.length; i++){
             console.log(nodes.length)
             if(i == 0)
-              ctx.moveTo(nodes[i].offsetLeft + 14,nodes[i].offsetTop + 14)
+              ctx.moveTo(nodes[i][0].offsetLeft + 14,nodes[i][0].offsetTop + 14)
             else
-              ctx.lineTo(nodes[i].offsetLeft + 14,nodes[i].offsetTop + 14)
+              ctx.lineTo(nodes[i][0].offsetLeft + 14,nodes[i][0].offsetTop + 14)
         }
         ctx.stroke()
         ctx.closePath()
@@ -119,8 +119,8 @@ else{
 
               let container = document.getElementsByClassName('trend-container')[i]
               let canvas = document.createElement('canvas')
-              canvas.width = container.offsetWidth
-              canvas.height = container.offsetHeight
+              canvas.width = container[0].offsetWidth
+              canvas.height = container[0].offsetHeight
               container.appendChild(canvas)
               let ctx = canvas.getContext('2d')
               ctx.strokeStyle = this.getCtxColor(i)
@@ -131,9 +131,9 @@ else{
               for(let i=0; i< nodes.length; i++){
                   console.log(nodes.length)
                   if(i == 0)
-                    ctx.moveTo(nodes[i].offsetLeft + 14,nodes[i].offsetTop + 14)
+                    ctx.moveTo(nodes[i][0].offsetLeft + 14,nodes[i][0].offsetTop + 14)
                   else
-                    ctx.lineTo(nodes[i].offsetLeft + 14,nodes[i].offsetTop + 14)
+                    ctx.lineTo(nodes[i][0].offsetLeft + 14,nodes[i][0].offsetTop + 14)
               }
               ctx.stroke()
               ctx.closePath()

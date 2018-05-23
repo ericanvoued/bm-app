@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { KsAction } from "./ks-action";
-import { KsBasketPage } from '../ks-basket/ks-basket';
-import {PopViewComponent} from "../../../components/pop-view/pop-view";
+// import { KsBasketPage } from '../ks-basket/ks-basket';
 import {PopoverController} from "ionic-angular";
 
 @IonicPage()

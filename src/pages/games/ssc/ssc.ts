@@ -90,6 +90,7 @@ export class SscPage extends Effect{
         }else{
             method = this.common.method + this.common.smallMethod
         }
+        console.log(method)
         const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(gameConfig[method])
         this.componentRef = this.gameContainer.createComponent(factory)
         
@@ -157,6 +158,7 @@ export class SscPage extends Effect{
 
     change(val){
         console.log(val)
+        this.common.open = false
         if(val == '走势图')
            this.app.getRootNav().push('GameTrendPage',{'index':1}) 
           // this.navCtrl.push('GameTrendPage',{'index':1})

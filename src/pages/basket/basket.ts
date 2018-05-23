@@ -76,6 +76,7 @@ export class BasketPage {
   }
 
   presentConfirm() {
+    console.log('ssss')
     let alert = this.alertCtrl.create({
       message: '确认清空所有注单',
       buttons: [

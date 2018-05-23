@@ -4,8 +4,10 @@ import { ToolsProvider } from '../tools/tools'
 import { Events } from 'ionic-angular';
 import {ToastController, ModalController} from "ionic-angular";
 import { CountTipComponent } from '../../components/count-tip/count-tip'
-
+import { RestProvider } from '../../providers/rest/rest'
 import { HttpClientProvider } from '../http-client/http-client'
+import {Storage} from '@ionic/storage';
+
 import * as $ from 'jquery'
 import {observe} from "../tools/observe";
 let _ = new observe();
@@ -67,7 +69,7 @@ export class CommonProvider {
   }
 
 
-  constructor(public tools:ToolsProvider, public http:HttpClientProvider,public modalCtrl: ModalController, public events:Events,private toastCtrl:ToastController) {
+  constructor(public tools:ToolsProvider, public http:HttpClientProvider,public modalCtrl: ModalController, public events:Events,private toastCtrl:ToastController,public storage:Storage) {
     console.log('Hello CommonProvider Provider');
     
     this.pid.subscribe((val) => {
@@ -95,6 +97,17 @@ export class CommonProvider {
 
 
     async initData(name){
+        // let auth_token,_token;
+        // this.storage.get('userInfo').then(data => {
+        //     console.log(data)
+        //     auth_token = data.auth_token
+        //     _token = data.token
+        // })
+        let url = 'api-lotteries-h5/load-data/2/1?_t=a6ce22f00eee8a7193ea99368f7236d1'
+        let params = {_token:'495g0Pa3SKOQnKnFgQsq7viW5R12uXLTsU2OPJcK'}
+
+        let qwe = await this.http.postData(url,params)
+        console.log(qwe)
         this.data = (await this.http.fetchData(name)).list;
 
         this.gameMethodConfig = this.data;

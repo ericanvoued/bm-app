@@ -7,6 +7,9 @@ import { Injectable } from '@angular/core';
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
+
+let baseUrl = 'http://user.firecat.com/'
+
 @Injectable()
 export class HttpClientProvider {
 
@@ -22,5 +25,14 @@ export class HttpClientProvider {
 
             })
         })
+    }
+
+    public postData(url,params):any{
+        return this.http.post(baseUrl + url,params)
+        //  return new Promise((resolve,reject) => {
+        //      this.http.post(baseUrl + url,params).subscribe(data => {
+        //          resolve(data)
+        //      })
+        //  })
     }
 }

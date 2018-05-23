@@ -25,14 +25,11 @@ export class LhcAction {
 
 
   // initEffect() {
-  //
   //   this.requestData();
   //   this.initView();
-  //
   //   this.tmBallClick();
   //   this.tmboxBtnClick();
   //   this.changePlaySelect();
-  //
   //   this.betBtnClick();
   //   this.alertBetBtnClick();
   //   // this.dropdownClick();
@@ -168,6 +165,7 @@ export class LhcAction {
           //           >=140px &&   >5  &&  <10 --> 140px + (len-5)*28
           //          >=10   --> 280px
 
+          var ooo = $('.lhc-content-child .section.active');
           if ($('.lhc-content-child .section.active').offset().top < 159) {  //scroll上滑后下 滑动时候
             $(".his-box").stop().animate({height: "0px"}, 0);
             return;
