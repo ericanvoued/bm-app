@@ -4,7 +4,8 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import {HttpClientModule} from "@angular/common/http";
-import { CountTipComponent } from '../components/count-tip/count-tip'
+import { CountTipComponent } from '../components/count-tip/count-tip';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -48,6 +49,7 @@ import { WuxingComponent } from '../components/gametrend/wuxing/wuxing'
 import { SixingComponent } from '../components/gametrend/sixing/sixing'
 import { ZhixuanhezhiComponent } from '../components/gametrend/qiansan/zhixuanhezhi/zhixuanhezhi'
 import { gameConfig } from './gameComponent'
+import { BankCardProvider } from '../providers/bank-card/bank-card';
 
 
 
@@ -77,6 +79,7 @@ import { gameConfig } from './gameComponent'
     BrowserModule,
     HttpClientModule,
     NoopAnimationsModule,
+    BrowserAnimationsModule,
     IonicModule.forRoot(MyApp,{
       backButtonText: '',//按钮内容
       backButtonIcon: 'ios-arrow-back',//按钮图标样式
@@ -104,7 +107,6 @@ import { gameConfig } from './gameComponent'
     ...gameConfig.ssc,
     ...gameConfig.d5
 
-
   ],
   providers: [
     StatusBar,
@@ -127,7 +129,8 @@ import { gameConfig } from './gameComponent'
     ToolsProvider,
     UtilProvider,
     SscServiceProvider,
-    BasketDataProvider
+    BasketDataProvider,
+    BankCardProvider
 
   ]
 })

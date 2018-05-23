@@ -1,67 +1,36 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController,ToastController,AlertController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController,LoadingController,ToastController,AlertController, NavParams } from 'ionic-angular';
 import { LoadingProvider } from '../../../providers/loading/loading';
-import { CommonStatusPage } from '../common-status/common-status'
+import { CommonStatusPage } from '../common-status/common-status';
+import { flyUp } from '../../../animation/flyUp'
 
-
+import {Storage} from '@ionic/storage';
+import { BankCardProvider } from '../../../providers/bank-card/bank-card'
+import { AddBankCardPage } from '../add-bank-card/add-bank-card'
+import { UnbindBankCardPage } from '../unbind-bank-card/unbind-bank-card'
 
 @IonicPage()
 @Component({
   selector: 'page-bank-card',
   templateUrl: './bank-card.html',
+  animations: [
+    flyUp
+  ]
 })
 export class BankCardPage {
 
   bcData = {
+    authToken:'init',
     toast:null,
-    bankModelFlag:false,
-    bank: [
-      {
-        name: '中国银行',
-        s:'CHAINABANK'
-      },{
-        name: '中国工商银行',
-        s:'ctbc'
-      },{
-        name: '中国招商银行',
-        s:'cmb'
-      },{
-        name: '中国民生银行',
-        s:'cmbc'
-      },{
-        name: '中国交通银行',
-        s:'bc'
-      },{
-        name: '中国光大银行',
-        s:'ceb'
-      },{
-        name: '中国农业银行',
-        s:'abc'
-      },{
-        name: '中信银行',
-        s:'ccb'
-      },{
-        name: '兴业银行',
-        s:'ib'
-      },{
-        name: '中国建设银行',
-        s:'construtorbank'
-      },{
-        name: '华夏银行',
-        s:'hxb'
-      },{
-        name: '广发银行',
-        s:'cgb'
-      },{
-        name: '中国邮政储蓄银行',
-        s:'psbc'
-      },{
-        name: '平安银行',
-        s:'pb'
-      },{
-        name: '浦发银行',
-        s:'cb'
-      },
+    isLocked:false,
+    userInfo:null,
+    bankList:[
+      // {
+      //   bankStr:'cmb',
+      //   bankName:'招商银行',
+      //   bankType:'储蓄卡',
+      //   bankNum:'**** **** **** **** 123'
+      // }
     ]
   }
 
@@ -69,13 +38,50 @@ export class BankCardPage {
     public navCtrl: NavController,
     public alertCtrl: AlertController,
     public loadPrd: LoadingProvider,
+    public storage: Storage,
+    public bankCardPrd:BankCardProvider,
+    public loadingCtrl:LoadingController,
     public toastCtrl:ToastController,
     public navParams: NavParams) {
+
+    this.getUserInfo();
   }
+
+  getUserInfo(){
+    this.storage.get('userInfo').then((val) => {
+      this.bcData.userInfo = val
+      console.log(this.bcData.userInfo)
+    });
+
+  }
+
+  // ionViewWillEnter(){
+  //   this.getUserInfo();
+  // }
+  //
+  // ionViewDidEnter(){
+  //   this.loadBindCardData()
+  // }
+  //
+  // loadBindCardData() {
+  //   console.log(this.bcData.userInfo)
+  //   this.bankCardPrd.getBindCard({
+  //     'Content-Type': 'application/x-www-form-urlencoded',
+  //     '_t': this.bcData.userInfo.auth_token,
+  //     '_token': this.bcData.userInfo._token
+  //   }).subscribe((data) => {
+  //     console.log(data)
+  //   })
+  // }
+
+
+
 
   //*************************************添加银行卡*****************************************
   addBankCard() {
-    this.setPayPsw()
+    // this.setPayPsw()
+
+    this.navCtrl.push('AddBankCardPage')
   }
 
   //*************************************设置支付密码****************************************
@@ -112,6 +118,7 @@ export class BankCardPage {
               return false
             }else{
               this.navCtrl.push('CommonStatusPage',{
+                title:'银行卡',
                 status:'succeed',
                 text:'恭喜你！支付密码设置成功'
               })
@@ -123,22 +130,47 @@ export class BankCardPage {
     prompt.present();
   }
 
-  showBanckModel(){
-    this.bcData.bankModelFlag = true;
+  //*************************************用户锁卡操作****************************************
+  toggleLockCard(){
+    if(this.bcData.isLocked){
+      return false;
+    }else {
+      let confirm = this.alertCtrl.create({
+        title: '提示',
+        message: '锁卡后所有银行卡将被锁定，不能再进行所有卡片操作！',
+        buttons: [
+          {
+            text: '取消',
+            handler: () => {
+
+            }
+          },
+          {
+            text: '确定',
+            handler: () => {
+              this.bcData.isLocked = true;
+            }
+          }
+        ]
+      });
+      confirm.present();
+    }
+
   }
 
-  handlePsw(data){
-
+  //*************************************用户进入解绑银行卡页面********************************
+  enterUnbindCard(){
+    if(this.bcData.isLocked) return false;
+    else {
+      this.navCtrl.push('UnbindBankCardPage',{
+        bankStr:'cmb',
+        bankName:'招商银行',
+        bankType:'储蓄卡',
+        bankNum:'**** **** **** **** 123',
+        userName:this.bcData.userInfo.username
+      })
+    }
   }
-  selectBank(_index){
 
-  }
 
-  // disableInput(){
-  //   return false
-  // }
-
-  dismissBankModel(){
-    return this.bcData.bankModelFlag = false;
-  }
 }

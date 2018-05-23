@@ -1,0 +1,208 @@
+page-add-bank-card {
+  .bank-card-content{
+    .cf-row label{
+      width: auto;
+    }
+    .cf-row input{
+      height: 100%;
+      font-size: 14px;
+    }
+    .select-input{
+      background-repeat: no-repeat;
+      background-size: 8px 15px;
+      padding-right: 15px;
+      text-align: right;
+      background-position: right center;
+      &::-webkit-input-placeholder{
+        text-align: right;
+        color: #999999;
+      }
+    }
+  }
+  .common-form-info{
+    h4{
+      font-size: 12px;
+      color: #666666;
+      letter-spacing: -0.19px;
+      text-align: center;
+      margin-top:5px;
+    }
+    ul{
+      margin: 15px 0px 20px 0;
+    }
+    li{
+      font-size: 12px;
+      color: #666666;
+      letter-spacing: -0.19px;
+      text-align: left;
+      padding: 0 16px;
+      line-height:20px;
+    }
+
+  }
+}
+.bankList-model{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000000;
+  .mask{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(33,33,33,.5);
+    z-index: 0;
+  }
+  .bankList-model-content{
+    height: 442px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #FFFFFF;
+    z-index: 1;
+    h4{
+      height: 34px;
+      line-height:33px;
+      text-align: center;
+      font-size: 14px;
+      border-bottom: 1px solid #EAEAEA;
+    }
+    .bank-list{
+      height: 408px;
+      overflow: scroll;
+      p{
+        height: 31px;
+        display: flex;
+        padding: 0 16px;
+        align-items: center;
+        .firecat-icon {
+          width: 36px;
+          background-position: left center;
+          height: 100%;
+        }
+
+        .s-bc-icon {
+          background-size: 18px 19px;
+        }
+
+        .s-cb-icon {
+          background-size: 23px 13px;
+        }
+
+        .s-ceb-icon {
+          background-size: 23px 12px;
+        }
+
+        .s-cgb-icon {
+          background-size: 16px 15.6px;
+        }
+
+        .s-CHAINABANK-icon, .s-ctbc-icon, .s-ccb-icon, .s-abc-icon, .s-cmb-icon, .s-psbc-icon {
+          background-size: 18px 18px;
+        }
+
+        .s-cmbc-icon {
+          background-size: 20px 17px;
+        }
+
+        .s-construtorbank-icon {
+          background-size: 18px 19px;
+        }
+
+        .s-hxb-icon {
+          background-size: 20px 18.7px;
+        }
+        .s-ib-icon {
+          background-size: 20px 12.7px;
+        }
+        .s-pb-icon {
+          background-size: 22px auto;
+        }
+      }
+    }
+    .bank-address-head{
+      height: 35px;
+      line-height:34px;
+      width: 100%;
+      border-bottom: 1px solid #EAEAEA;
+      ion-segment{
+        display: block;
+      }
+      .segment-button{
+        padding: 0 16px;
+        width: auto;
+        float: left;
+        flex: none;
+        background-color: transparent;
+        border: none;
+        color: #333333;
+        height: 100%;
+        position: relative;
+        &.segment-activated{
+          color: #F6374E;
+          .underline{
+            background-color: #F6374E;
+          }
+        }
+        .underline{
+          position: absolute;
+          bottom: 0px;
+          left: 0;
+          right: 0;
+          background-color: transparent;
+          height: 2px;
+          transition: all .35s;
+        }
+      }
+      .visible{
+        visibility: hidden;
+      }
+    }
+    .bank-address-body{
+      height: 372px;
+      overflow: scroll;
+      width: 100%;
+    }
+    .switch-body{
+      overflow: scroll;
+      p{
+        display: block;
+        line-height:31px;
+        text-align: left;
+        width: 100%;
+      }
+    }
+    .bank-address{
+      overflow: inherit;
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+
+}
+.common-form{
+  .search-container{
+    position: absolute;
+    //min-height: 266px;
+    left: 0;
+    right: 0;
+    top: 52px;
+    text-align: center;
+    border-top: 2px solid #F08845;
+    background-color: #FFFFFF;
+    font-size: 16px;
+    color: #666666;
+    letter-spacing: 0;
+    line-height:36px;
+    overflow: scroll;
+  }
+}
+
+.disable-submit{
+  background-color: #B4B4B4!important;
+  color: #FFFFFF;
+}

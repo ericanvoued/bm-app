@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RestProvider } from '../rest/rest'
+import { RestProvider } from '../rest/rest';
 
 interface loginParameter {
   username: string,

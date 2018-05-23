@@ -13,12 +13,6 @@ import { WuxingComponent } from '../../components/gametrend/wuxing/wuxing'
 import { config } from '../../components/gameTrend.config'
 import { BasketDataProvider } from '../../providers/basket-data/basket-data'
 
-/**
- * Generated class for the GameTrendPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({

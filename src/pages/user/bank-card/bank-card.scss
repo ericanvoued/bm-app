@@ -15,110 +15,178 @@ page-bank-card {
       margin-top: 85px;
     }
   }
-  .bank-card-content{
-    .cf-row label{
-      width: auto;
-    }
-    .cf-row input{
-      height: 100%;
-      font-size: 14px;
-    }
-    .select-input{
-      background-repeat: no-repeat;
-      background-size: 8px 15px;
-      padding-right: 15px;
-      text-align: right;
-      background-position: right center;
-      &::-webkit-input-placeholder{
-        text-align: right;
-        color: #999999;
+  .has-bank-card-content{
+    .lock-info{
+      height: 36px;
+      padding: 6px 16px 0;
+      line-height:30px;
+      .firecat-icon{
+        background-color: #CDCDCD;
+        border-radius: 100px;
+        width: 35px;
+        height: 21px;
+        position: relative;
+        top:5.5px;
+        transition: all 0.35s;
+        background-position: center center;
+        background-repeat: no-repeat;
       }
-    }
-  }
+      .unlocked-icon{
+        background-size: 12px 11px;
+      }
+      .lock-icon{
+        background-size: 9px 12px;
+      }
 
-}
-
-.bankList-model{
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(33,33,33,.5);
-  z-index: 10000000;
-  .bankList-model-content{
-    height: 442px;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background-color: #FFFFFF;
-    h4{
-      height: 34px;
-      line-height:33px;
-      text-align: center;
-      font-size: 14px;
-      border-bottom: 1px solid #EAEAEA;
     }
-    .bank-list{
-      height: 408px;
-      overflow: scroll;
-      p{
-        height: 31px;
+    .card-list{
+
+      .card-unit{
+        margin: 0 7px 8px;
+        height: 24vw;
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-size: 100% 100%;
+        box-shadow: 0 2px 4px rgba(0,0,0,.35);
+        border-radius: 10px;
         display: flex;
-        padding: 0 16px;
-        align-items: center;
-        .firecat-icon {
-          width: 36px;
-          background-position: left center;
+        .bank-logo{
+          width: 80px;
           height: 100%;
-        }
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .firecat-icon{
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: #FFFFFF;
+            background-size: 50% auto;
+          }
+          .s-abc-icon {
+            background-size: 31px auto;
+          }
 
-        .s-bc-icon {
-          background-size: 18px 19px;
-        }
+          .s-bc-icon {
+            background-size: 36px auto;
+          }
 
-        .s-cb-icon {
-          background-size: 23px 13px;
-        }
+          .s-cb-icon {
+            background-size: 33px auto;
+          }
 
-        .s-ceb-icon {
-          background-size: 23px 12px;
-        }
+          .s-ccb-icon {
+            background-size: 31px auto;
+          }
 
-        .s-cgb-icon {
-          background-size: 16px 15.6px;
-        }
+          .s-ceb-icon {
+            background-size: 35px auto;
+          }
 
-        .s-CHAINABANK-icon, .s-ctbc-icon, .s-ccb-icon, .s-abc-icon, .s-cmb-icon, .s-psbc-icon {
-          background-size: 18px 18px;
-        }
+          .s-cgb-icon {
+            background-size: 33px auto;
+          }
 
-        .s-cmbc-icon {
-          background-size: 20px 17px;
-        }
+          .s-CHAINABANK-icon {
+            background-size: 31px auto;
+          }
 
-        .s-construtorbank-icon {
-          background-size: 18px 19px;
-        }
+          .s-cmb-icon {
+            background-size: 31px auto;
+          }
 
-        .s-hxb-icon {
-          background-size: 20px 18.7px;
+          .s-cmbc-icon {
+            background-size: 28px auto;
+          }
+
+          .s-construtorbank-icon {
+            background-size: 26px auto;
+          }
+          .s-ctbc-icon {
+            background-size: 31px auto;
+          }
+
+          .s-hxb-icon {
+            background-size: 32.8px auto;
+          }
+          .s-ib-icon {
+            background-size: 34.5px auto;
+          }
+          .s-psbc-icon {
+            background-size: 31.3px auto;
+          }
+          .s-pb-icon {
+            background-size: 32px auto;
+          }
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
-        .s-ib-icon {
-          background-size: 20px 12.7px;
+        .bank-info{
+          width: 100%;
+          flex: 1;
+          align-content: center;
+          color: #FFFFFF;
+          display: flex;
+          flex-wrap: wrap;
+          h4{
+            width: 100%;
+            font-size: 18px;
+            letter-spacing: 0;
+          }
+          p{
+            width: 100%;
+            font-size: 22px;
+            letter-spacing: 0;
+            &.card-type{
+              font-size: 14px;
+            }
+          }
         }
-        .s-pb-icon {
-          background-size: 22px auto;
+      }
+      &.isLocked{
+        .card-unit{
+          filter: grayscale(90%);
         }
       }
     }
+
   }
-}
+  .common-form-info{
+    margin-top: 50px!important;
+    h4{
+      font-size: 12px;
+      color: #666666;
+      letter-spacing: -0.19px;
+      text-align: center;
+      margin-top:5px;
+    }
+    ul{
+      margin: 15px 0px 20px 0;
+    }
+    li{
+      font-size: 12px;
+      color: #666666;
+      letter-spacing: -0.19px;
+      text-align: left;
+      padding: 0 16px;
+      line-height:20px;
+      width: 80%;
+      margin: 0 auto;
+    }
 
+  }
 
-.disable-submit{
-  background-color: #B4B4B4!important;
-  color: #FFFFFF;
 }
 
 
