@@ -30,7 +30,13 @@ page-ssc {
   .toggle-menu{background: url('../assets/imgs/toggle.png') center center no-repeat; position:relative;float:right;top:10px;width:21px;height:21px;margin-right: 10px}
 
 
+  //任选 和值
+  #balls-choice{
+     margin:10px 0 10px 0;
+     label{border: 1px solid #ccc;background: #eee;padding:3px 5px;margin-right:5px;border-radius:15px;}
 
+     label.current {background: #F60;border-color: #F60;color:#FFF;}
+  }
   // #bet-statistic{width:calc(100% - 232px);position:relative;display:flex;background:#f0f0f0}
 
   // #ball{width:20px;height:20px;background:yellow;position:absolute;top:0px;left:50px;border-radius:50%;}

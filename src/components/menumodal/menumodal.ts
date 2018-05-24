@@ -63,6 +63,12 @@ export class MenumodalComponent implements OnInit{
         let text = $(ele.nativeElement).next('span').text()
         if(this.hasChoosen.indexOf(text) == -1){
            $(ele.nativeElement).removeClass('active')
+           if(this.chooseCopy.indexOf(text) != -1)
+              this.chooseCopy.splice(this.chooseCopy.indexOf(text),1)
+        }else{
+           $(ele.nativeElement).addClass('active')
+           if(this.chooseCopy.indexOf(text) == -1)
+              this.chooseCopy.push(text)
         }
     })
     $('.modal').removeClass('active')

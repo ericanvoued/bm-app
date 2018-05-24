@@ -19,7 +19,13 @@ export class ZhongsanzhixuanhezhiComponent extends commonMethod{
 
   constructor(public common:CommonProvider, public util:UtilProvider,public basket:BasketDataProvider) {
     super(common,util,basket) 
-    this.text = 'Hello World';
+    this.common.ballData = [
+        {"key":"千", "value":[0,0,0,0,0,0,0]},
+        {"key":"百", "value":[0,0,0,0,0,0,0]},
+        {"key":"十", "value":[0,0,0,0,0,0,0]
+        },{"key":"十", "value":[0,0,0,0,0,0,0]
+        }
+      ]
   }
 
   randomChoose(number?){

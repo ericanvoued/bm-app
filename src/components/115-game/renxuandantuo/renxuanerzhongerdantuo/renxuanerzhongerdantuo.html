@@ -1,0 +1,26 @@
+<!-- Generated template for the RenxuanerzhongerdantuoComponent component -->
+<div class="shakePhone" (click)="randomChoose()"></div>  
+
+<div class="l-game" *ngFor="let data of common.ballData;let ii = index" >
+    <div class="l">
+        <p><span></span>{{data.key}}</p>
+        <p style="margin-top:18px"><span></span>遗漏</p>
+      
+    </div>
+
+    <div class="r">
+        <div class="ball-list">
+            <ul>
+                <li *ngFor="let item of data.value.slice(0,6);let i = index" [class.current]="item == 1" (click)="changeToggle(ii,i)">{{('0' + (i + 1)).slice(-2)}}</li>
+            </ul>
+
+            <ul>
+                <li *ngFor="let item of data.value.slice(6,12);let i = index" [class.current]="item == 1" [class.blank]="i > 4" >
+                    <span *ngIf="i <= 4" (click)="changeToggle(ii,i+6)">{{ppp(i)}}</span>
+                    <span *ngIf="i > 4"></span>  
+                </li>
+            </ul>
+        
+        </div>
+    </div>
+</div>

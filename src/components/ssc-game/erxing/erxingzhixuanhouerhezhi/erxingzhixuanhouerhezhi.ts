@@ -19,7 +19,11 @@ export class ErxingzhixuanhouerhezhiComponent extends commonMethod{
 
   constructor(public common:CommonProvider, public util:UtilProvider,public basket:BasketDataProvider) {
     super(common,util,basket) 
-    this.text = 'Hello World';
+    this.common.ballData = [
+        {"key":"选号", "value":[0,0,0,0,0,0,0]},
+        {"key":"选号", "value":[0,0,0,0,0,0,0]},
+        {"key":"选号", "value":[0,0,0,0,0,0,0]}
+      ]
   }
 
   randomChoose(number?){
@@ -81,17 +85,5 @@ export class ErxingzhixuanhouerhezhiComponent extends commonMethod{
       this.common.betPrice = this.common.count*2*percent
    }
 
-   mathResult(sum, nBegin, nEnd){
-    var arr = [],
-      x,y;
-
-      for (x=nBegin;x<=nEnd ;x++ ){
-        for (y=nBegin;y<=nEnd ;y++ ){
-          if(x+y == sum){
-            arr.push([x,y]);
-          }
-        }
-      }
-      return arr
-  }
+  
 }

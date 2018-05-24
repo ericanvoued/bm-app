@@ -1,10 +1,11 @@
 <!-- Generated template for the ZhixuanfushiComponent component -->
 <!-- Generated template for the ZhixuanfushiComponent component -->
 <div class="shakePhone" (click)="randomChoose()"></div>  
+<div>{{common.smallKind.bonus_note}} {{util.formatMoney(common.bonus)}} 元</div>
 
 <div class="l-game" *ngFor="let data of common.ballData;let ii = index" >
     <div class="l">
-        <p><span></span>{{data.key}}</p>
+        <p><span></span>{{getWei(data.key)}}</p>
         <p style="margin-top:18px"><span></span>遗漏</p>
       
     </div>
@@ -15,23 +16,23 @@
                 <li *ngFor="let item of data.value.slice(0,5);let i = index" [class.current]="item == 1" (click)="changeToggle(ii,i)">{{i}}</li>
             </ul>
 
-            <ul class="yilou statistic">
-                <li *ngFor ="let detail of util.yilou[data.key].slice(0,5)">{{detail}}</li>
+            <ul class="yilou statistic" *ngIf="check('当前遗漏')">
+                <li *ngFor ="let detail of util.yilou[getWei(data.key)].slice(0,5)">{{detail}}</li>
             </ul>
             
-            <ul class="lengre statistic" >
-                <li *ngFor ="let detail of util.lengre[data.key].slice(0,5)">{{detail}}</li>
+            <ul class="lengre statistic" *ngIf="check('30期冷热')">
+                <li *ngFor ="let detail of util.lengre[getWei(data.key)].slice(0,5)">{{detail}}</li>
             </ul>
 
             <ul>
                 <li *ngFor="let item of data.value.slice(-5);let i = index" [class.current]="item == 1" (click)="changeToggle(ii,i+5)">{{qqq(i)}}</li>
             </ul>
-            <ul class="yilou statistic">
-                <li *ngFor ="let detail of util.yilou[data.key].slice(-5)">{{detail}}</li>
+            <ul class="yilou statistic" *ngIf="check('当前遗漏')">
+                <li *ngFor ="let detail of util.yilou[getWei(data.key)].slice(-5)">{{detail}}</li>
             </ul>
 
-            <ul class="lengre statistic" >
-                <li *ngFor ="let detail of util.lengre[data.key].slice(-5)">{{detail}}</li>
+            <ul class="lengre statistic" *ngIf="check('30期冷热')">
+                <li *ngFor ="let detail of util.lengre[getWei(data.key)].slice(-5)">{{detail}}</li>
             </ul>
 
             <div class="btn-list">

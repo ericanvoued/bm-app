@@ -20,7 +20,13 @@ export class HousanzuxuanhezhiComponent extends commonMethod{
 
   constructor(public common:CommonProvider, public util:UtilProvider,public basket:BasketDataProvider) {
     super(common,util,basket) 
-    console.log('Hello HousanzuxuanhezhiComponent Component');
+    this.common.ballData = [
+        {"key":"千", "value":[0,0,0,0,0,0,0]},
+        {"key":"百", "value":[0,0,0,0,0,0,0]},
+        {"key":"十", "value":[0,0,0,0,0,0,0]
+        },{"key":"十", "value":[0,0,0,0,0,0,0]
+        }
+      ]
     this.text = 'Hello World';
   }
 
@@ -63,7 +69,7 @@ export class HousanzuxuanhezhiComponent extends commonMethod{
     this.common.ballData.forEach((ele,number) => {
          ele.value.forEach((item,index) => {
              if(item == 1)
-                arr.push(number*7 + index)
+                arr.push(number*7 + index + 1)
          })
     })
     return arr

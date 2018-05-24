@@ -26,17 +26,36 @@ export class QiansanzhixuanfushiComponent extends commonMethod{
   }
 
   randomChoose(number?){
-      let arr = this.tool.produceArrd5(3)
-      this.common.ballData = this.common.ballData.map((ele,index) => {
-           ele.value = ele.value.map((item,index1) => {
-                  if(index1 == arr[index])
-                       return 1
-                  else
-                       return 0
-           })
-           return ele
-      })
-      this.calculate()
+      if(number){
+        let arr = this.tool.produceArrd5(3)
+        this.common.ballData = this.common.ballData.map((ele,index) => {
+             ele.value = ele.value.map((item,index1) => {
+                    if(index1 == arr[index])
+                         return 1
+                    else
+                         return 0
+             })
+             return ele
+        })
+        this.calculate()
+        this.basket.addBetData()
+        if(number == 1) return
+        this.randomChoose(--number)
+      }else{
+        let arr = this.tool.produceArrd5(3)
+        this.common.ballData = this.common.ballData.map((ele,index) => {
+             ele.value = ele.value.map((item,index1) => {
+                    if(index1 == arr[index])
+                         return 1
+                    else
+                         return 0
+             })
+             return ele
+        })
+        this.calculate()
+      }
+
+     
   }
  
   getOriginData():any{

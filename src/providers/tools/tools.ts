@@ -105,6 +105,25 @@ export class ToolsProvider {
         return temp
     }
 
+    produceRandom5(number,except?){
+        
+         let arr = [0,1,2,3,4,5,6,7,8,9,10],temp=[];
+         if(this.isArray(except)){
+             for(let i = 0;i<except.length;i++){
+                 arr.splice(arr.indexOf(except[i]),1)
+             }
+             console.log(arr)
+         }
+         console.log(arr)
+        
+         for(let i =0;i<number;i++){
+             let index = Math.floor(Math.random()*arr.length)
+             temp.push(arr[index])
+             arr.splice(index,1)
+         }
+         return temp
+     }
+
     produceArr(number){
         let arr = [0,1,2,3,4,5,6,7,8,9],temp=[]
         for(let i =0; i<number; i++){

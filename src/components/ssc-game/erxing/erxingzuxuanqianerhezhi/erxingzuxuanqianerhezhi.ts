@@ -19,7 +19,11 @@ export class ErxingzuxuanqianerhezhiComponent extends commonMethod{
 
   constructor(public common:CommonProvider, public util:UtilProvider,public basket:BasketDataProvider) {
     super(common,util,basket) 
-    this.text = 'Hello World';
+    this.common.ballData = [
+        {"key":"选号", "value":[0,0,0,0,0,0,0]},
+        {"key":"选号", "value":[0,0,0,0,0,0,0]},
+        {"key":"选号", "value":[0,0,0,0,0,0,0]}
+      ]
   }
 
   

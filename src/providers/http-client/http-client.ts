@@ -27,12 +27,12 @@ export class HttpClientProvider {
         })
     }
 
-    public postData(url,params):any{
-        return this.http.post(baseUrl + url,params)
-        //  return new Promise((resolve,reject) => {
-        //      this.http.post(baseUrl + url,params).subscribe(data => {
-        //          resolve(data)
-        //      })
-        //  })
+    public postData(url,params):Promise<any>{
+        //return this.http.post(baseUrl + url,params)
+         return new Promise((resolve,reject) => {
+             this.http.post(baseUrl + url,params).subscribe(data => {
+                 resolve(data)
+             })
+         })
     }
 }

@@ -1,7 +1,11 @@
 import * as $ from 'jquery';
+import {
+    Component, ViewChild, ViewContainerRef, ComponentFactory,
+    ComponentRef, ComponentFactoryResolver, OnDestroy
+  } from '@angular/core';
 import { CommonProvider } from './providers/common/common'
 import { GamemenuComponent } from './components/gamemenu/gamemenu'
-import { ModalController } from 'ionic-angular';
+import { ModalController,NavController } from 'ionic-angular';
 import { CountTipComponent } from './components/count-tip/count-tip'
 
 
@@ -13,6 +17,9 @@ function easeOutCubic(t, b, c, d) {
 
 export class Effect{
     timer:any;
+    componentRef: ComponentRef<any>;
+    haveChoosen:any[] = ['当前遗漏']
+    
     
     countTime:any = {
         'total': '',
@@ -22,7 +29,7 @@ export class Effect{
         'seconds': ''
     }
 
-    constructor(public common:CommonProvider, public gamemenu:GamemenuComponent, public modalCtrl: ModalController,){
+    constructor(public common:CommonProvider, public gamemenu:GamemenuComponent, public modalCtrl: ModalController,public navCtrl:NavController){
         let self = this;
 
         this.produce()
@@ -77,7 +84,6 @@ export class Effect{
         if(time <1000){
             clearInterval(this.timer)
             console.log('wcnmbmb')
-            //this.events.publish('countDown')
             let modal = this.modalCtrl.create(CountTipComponent, {qishu:123456})
             modal.present()
             //this.global.showToast('进入新一期开奖',2000)
@@ -103,5 +109,38 @@ export class Effect{
         };
     }
 
+    goToBasket(){
+        console.log('gobasket')
+        if(this.common.cartNumber > 0 )
+           this.navCtrl.push('BasketPage',{'index':this.componentRef})
+    }
 
+    changeMenu(val){
+        // if(this.haveChoosen.indexOf(val) > -1){
+        //      let index = this.haveChoosen.indexOf(val)
+        //      this.haveChoosen.splice(index,1)
+        // }else{
+        //      this.haveChoosen.push(val)
+        //      // 判断是否冷热  this.util.fetch('lengre')
+        // }
+        for(let j = 0;j<this.haveChoosen.length;j++){
+            if(val.indexOf(this.haveChoosen[j] == -1)){
+                this.haveChoosen.splice(this.haveChoosen[j],1)
+                j--
+            }      
+        }
+
+        for(let i =0;i<val.length;i++){
+            if(this.haveChoosen.indexOf(val[i]) == -1)
+               this.haveChoosen.push(val[i])    
+        }
+        console.log(val)
+        console.log(this.haveChoosen)
+        this.componentRef.instance.choose = this.haveChoosen
+   }
+
+   
+   check(choice){
+       return this.haveChoosen.indexOf(choice) > -1
+   }
 }
