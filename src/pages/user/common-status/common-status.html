@@ -1,10 +1,13 @@
 <ion-header>
   <ion-navbar>
-    <h2 class="DIY-title">银行卡</h2>
+    <h2 class="DIY-title">{{statusData.title}}</h2>
   </ion-navbar>
 </ion-header>
 
-
 <ion-content>
-
+  <div class="status-content clearfix">
+    <div class="content-head" *ngIf="statusData.status=='succeed'"><img src="../../../assets/icon/charge-succeed-icon.png" width="34" alt=""></div>
+    <div class="content-head" *ngIf="statusData.status!=='succeed'"><img src="../../../assets/icon/dager-close-icon.png" width="34" alt=""></div>
+    <div class="content-text">{{statusData.text}}</div>
+  </div>
 </ion-content>

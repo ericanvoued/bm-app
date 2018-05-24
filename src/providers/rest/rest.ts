@@ -4,16 +4,32 @@ import {Observable} from "rxjs/Observable";
 import {Response} from '@angular/http';
 
 
+
 @Injectable()
 export class RestProvider {
+
+  // authToken:string = 'init';
+  // user:any;
 
   constructor(public http: HttpClient) {
     console.log('Hello RestProvider Provider');
   }
-
+  //
+  // getToken(){
+  //   this.storage.get('userInfo').then((val) => {
+  //     console.log(val)
+  //     this.authToken = val.auto_token
+  //   });
+  //
+  // }
 
   postUrlReturn(url: string,parameter): Observable<any> {
+<<<<<<< HEAD
     return this.http.post('http://www.zhenwin.com'+url,parameter)
+=======
+    // this.getToken()
+    return this.http.post('http://user.firecat.com'+url,parameter)
+>>>>>>> 9dd55245d6e47ef506c97745ad81bd8f7764359c
   }
 
   getUrlReturn(url: string): Observable<any> {
