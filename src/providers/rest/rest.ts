@@ -13,7 +13,7 @@ export class RestProvider {
 
 
   postUrlReturn(url: string,parameter): Observable<any> {
-    return this.http.post('http://user.firecat.com'+url,parameter)
+    return this.http.post('http://www.zhenwin.com'+url,parameter)
   }
 
   getUrlReturn(url: string): Observable<any> {
