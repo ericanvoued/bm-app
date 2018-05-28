@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { AboutUsPage } from '../about-us/about-us'
+import { HelpCenterPage } from '../help-center/help-center'
+import { FeedbackPage } from '../feedback/feedback'
+import { AgreementPage } from '../agreement/agreement'
+
 @IonicPage()
 @Component({
   selector: 'page-more-option',
@@ -12,12 +16,9 @@ export class MoreOptionPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MoreOptionPage');
-  }
 
-  pushPage() {
-    this.navCtrl.push('AboutUsPage')
+  pushPage(page) {
+    this.navCtrl.push(page)
   }
 
 }
