@@ -50,7 +50,8 @@ export class SignupPage {
 
   getRegister(){
     if(this.navParams.data.keyword){
-      this.signupPrd.getRegisterParam('&keyword='+this.navParams.data.keyword).subscribe((data)=>{
+      this.signupPrd.getRegisterParam('&keyword='+this.navParams.data.keyword)
+        .subscribe((data)=>{
         if(data.isSuccess==1){
           this.signData.signInitParam = data.data.tplData.successful;
           // this.storage.set('signParam',data.data.tplData.successful)
@@ -65,10 +66,6 @@ export class SignupPage {
       })
     }
 
-
-
-
-    console.log(this.navParams.data.keyword)
   }
 
   checkForm() {

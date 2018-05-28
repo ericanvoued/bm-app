@@ -1,7 +1,7 @@
 <!-- Generated template for the QisanzhixuanhezhiComponent component -->
 <div class="shakePhone" (click)="randomChoose()"></div>  
 
-<div>{{common.smallKind.des}} {{common.bonus}} 元</div>
+<div>{{common.smallKind.bonus_note}} {{util.formatMoney(common.bonus)}} 元</div>
 <div class="l-game" *ngFor="let data of common.ballData;let ii = index" >
                 <div class="r" style="padding-right:10px">
                     <div class="ball-list">
@@ -18,5 +18,5 @@
 
 <div class="btn-list" style="margin:10px auto">
     <a href="javascript:;" *ngFor="let detail of common.singleBtn;let j = index" [class.current]="detail.flag" (click)="changeActive(null,j,detail.name)">{{detail.name}} <span></span></a>
- </div>
+</div>
 

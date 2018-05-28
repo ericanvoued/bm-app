@@ -19,7 +19,13 @@ export class ZhongsanzuxuanhezhiComponent extends commonMethod{
 
   constructor(public common:CommonProvider, public util:UtilProvider,public basket:BasketDataProvider) {
     super(common,util,basket) 
-    this.text = 'Hello World';
+    this.common.ballData = [
+        {"key":"千", "value":[0,0,0,0,0,0,0]},
+        {"key":"百", "value":[0,0,0,0,0,0,0]},
+        {"key":"十", "value":[0,0,0,0,0,0,0]
+        },{"key":"十", "value":[0,0,0,0,0,0,0]
+        }
+      ]
   }
 
   randomChoose(number?){
@@ -61,7 +67,7 @@ export class ZhongsanzuxuanhezhiComponent extends commonMethod{
     this.common.ballData.forEach((ele,number) => {
          ele.value.forEach((item,index) => {
              if(item == 1)
-                arr.push(number*7 + index)
+                arr.push(number*7 + index + 1)
          })
     })
     return arr

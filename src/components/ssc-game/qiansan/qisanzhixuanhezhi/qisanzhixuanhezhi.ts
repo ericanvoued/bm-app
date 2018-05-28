@@ -19,7 +19,13 @@ export class QisanzhixuanhezhiComponent extends commonMethod{
 
 constructor(public common:CommonProvider, public util:UtilProvider,public basket:BasketDataProvider) {
     super(common,util,basket)        
-    console.log('Hello QisanzhixuanhezhiComponent Component');
+    this.common.ballData = [
+        {"key":"千", "value":[0,0,0,0,0,0,0]},
+        {"key":"百", "value":[0,0,0,0,0,0,0]},
+        {"key":"十", "value":[0,0,0,0,0,0,0]
+        },{"key":"十", "value":[0,0,0,0,0,0,0]
+        }
+      ]
     this.text = 'Hello World';
   }
 

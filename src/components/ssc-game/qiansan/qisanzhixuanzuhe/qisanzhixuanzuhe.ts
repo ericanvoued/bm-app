@@ -14,7 +14,8 @@ import { BasketDataProvider } from '../../../../providers/basket-data/basket-dat
   templateUrl: 'qisanzhixuanzuhe.html'
 })
 export class QisanzhixuanzuheComponent extends commonMethod{
-
+  @Input('choose') choose: any[] = [];
+  
   text: string;
 
  constructor(public common:CommonProvider, public util:UtilProvider,public basket:BasketDataProvider) {
@@ -27,6 +28,9 @@ export class QisanzhixuanzuheComponent extends commonMethod{
     return number + 5
   }
 
+  check(choice){
+    return this.choose.indexOf(choice) > -1
+  }
 
   calculate(){
     let flag = this.common.ballData.every(item => {

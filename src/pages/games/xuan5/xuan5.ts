@@ -35,6 +35,7 @@ import * as Hammer from 'hammerjs';
 export class Xuan5Page extends Effect{
    @ViewChild("gameContainer", { read: ViewContainerRef }) gameContainer: ViewContainerRef;
    componentRef: ComponentRef<any>;
+   haveChoosen:any[] = ['当前遗漏']
    
    record: any = [
     {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
@@ -56,7 +57,7 @@ export class Xuan5Page extends Effect{
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private resolver: ComponentFactoryResolver,public app:App,
     public common:CommonProvider, public gamemenu:GamemenuComponent, public util:UtilProvider,public basket:BasketDataProvider,public events:Events) {
-        super(common,gamemenu,modalCtrl)
+        super(common,gamemenu,modalCtrl,navCtrl)
         this.list = this.record.slice(0, 2)
   }
 
@@ -95,6 +96,30 @@ export class Xuan5Page extends Effect{
         $('.modal').toggleClass('active')
 
     }
-       
-  }
+   }
+
+   resetData(){
+       if(this.common.smallMethod.indexOf('组选胆拖') != -1){
+            console.log('dwf')
+            this.componentRef.instance.arr = []
+       }
+       this.util.resetData()
+   }
+
+
+// check(choice){
+//    return this.haveChoosen.indexOf(choice) > -1
+// }
+
+   //切换小玩法
+   methodChange($event){
+    //    this.haveChoosen = ['当前遗漏']
+       console.log($event)
+       let component = gameConfig[$event]
+       this.gameContainer.clear()
+       const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(component)
+       this.componentRef = this.gameContainer.createComponent(factory)
+       console.log(this.haveChoosen)
+       this.componentRef.instance.choose = this.haveChoosen
+   }
 }
