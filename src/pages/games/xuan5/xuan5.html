@@ -23,37 +23,35 @@
 <ion-content>
     <div class="body-bg"></div>
     <p class="l-info" text-center>距23058期截止 {{countTime.minutes}}:{{countTime.seconds}}</p>
+
+    <div class="table" id="touch"  style="overflow:hidden;height:80px;transition:all .5s ease-in;">
+      <div class="thead clearfix">
+        <div class="tr clearfix">
+          <div class="th" style='width:22.6%'>期次</div>
+          <div class="th" style='width:24.6%'>开奖号码</div>
+          <div class="th" style='width:17.5%'>十位</div>
+          <div class="th" style='width:17.5%'>个位</div>
+          <div class="th" style='width:17.5%'>后三</div>
+        </div>
+  
+        <div class="tbody clearfix">
+          <div class="tr clearfix" *ngFor="let item of list">
+              <div style='width:22.6%' class="td">{{item.number}}期</div>
+              <div style='width:24.6%' class="td color-dager">{{item.balls}}</div>
+              <div style='width:17.5%' class="td">{{item.shiwei}}</div>
+              <div style='width:17.5%' class="td">{{item.gewei}}</div>
+              <div style='width:17.5%' class="td">{{item.housan}}</div>
+          </div>
+        </div>
+      </div>
+  </div>
+
     <div class="bet-box clearfix">
         <ng-template #gameContainer>
               
         </ng-template>
 
-        <!-- <div [ngSwitch]="common.smallMethod">
-                <div *ngSwitchCase="'乱选和值'" class="l-game l-hezhi" style="height:230px">
-                        <div class="ball-list hezhi">
-                          <ul *ngFor="let item of common.ballData;let i = index">
-                            <li *ngFor="let todo of item;let j = index" [class.current]="todo == 1">{{7*i + j}}</li>
-                          </ul>
-      
-                           <div class="btn-list">
-                             <a href="javascript:;" *ngFor="let detail of common.singleBtn;let j = index" [class.current]="detail.flag" (click)="util.changeActive(null,j,detail.name)">{{detail.name}} <span></span></a>
-      
-                          </div>
-                       </div> 
-                </div>   
-
-                   <div *ngSwitchDefault>
-                        <div class="l-game" *ngFor="let data of common.ballData;let ii = index" >
-                          <div class="l">
-                              <p><span></span>{{data.key}}</p>
-                              <p style="margin-top:18px"><span></span>遗漏</p>
-                              <p *ngIf="check('30期冷热')" style="margin-top:18px"><span></span>冷热</p>
-                          </div>
-
-                      </div>
-                   </div>   
-        </div>     -->
     </div>
 </ion-content>
 
-<footer> </footer> 
+<footer (goBasket)="goToBasket($event)"  (clear)="resetData()"> </footer> 

@@ -1,6 +1,6 @@
 page-xuan5 {
-    .toggle-menu{background: url('/assets/imgs/toggle.png') center center no-repeat; float:right;width:21px;height:21px;margin-right: 10px}
-    
+  .toggle-menu{background: url('../assets/imgs/toggle.png') center center no-repeat; position:relative;float:right;top:10px;width:21px;height:21px;margin-right: 10px}
+  
     .bet-box{
         margin:20px auto;
         padding: 0 10px 0 10px
@@ -26,7 +26,40 @@ page-xuan5 {
         color: #666666;
         border-bottom: 1px solid #EAEAEA;
         }
+   
         
+        .table{
+          text-align: center;
+      
+          .tbody{
+      
+            width: 100%;
+            overflow: hidden;
+          }
+        }
+        .tr{
+          padding: 0 8px;
+          line-height: 26px;
+          border-bottom: 1px solid #EAEAEA;
+          &:nth-child(2n){
+            background-color: #FFF9F5;
+          }
+          &:first-child{
+            box-shadow: 0 2px 3px 0 rgba(130,130,130,0.50);
+          }
+          .th{
+            font-weight: normal;
+            float: left;
+          }
+          .td{
+            float: left;
+          }
+          .td:nth-child(2){
+            letter-spacing: 5px;
+          }
+        }    
+ 
+        .l-game:nth-last-of-type(1){margin-bottom: 40px}
 
     .l-game {
         // height: 126px;

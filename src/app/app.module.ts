@@ -4,7 +4,8 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import {HttpClientModule} from "@angular/common/http";
-import { CountTipComponent } from '../components/count-tip/count-tip'
+import { CountTipComponent } from '../components/count-tip/count-tip';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -26,7 +27,7 @@ import { LoadingProvider } from '../providers/loading/loading';
 import { InfoCenterProvider } from '../providers/info-center/info-center';
 import { LhcSlidePage } from '../pages/lhc/lhc-slide/lhc-slide'
 import { KsPage } from '../pages/k3/ks/ks'
-import { KsBasketPage } from '../pages/k3/ks-basket/ks-basket'
+// import { KsBasketPage } from '../pages/k3/ks-basket/ks-basket'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -48,6 +49,8 @@ import { WuxingComponent } from '../components/gametrend/wuxing/wuxing'
 import { SixingComponent } from '../components/gametrend/sixing/sixing'
 import { ZhixuanhezhiComponent } from '../components/gametrend/qiansan/zhixuanhezhi/zhixuanhezhi'
 import { gameConfig } from './gameComponent'
+import { BankCardProvider } from '../providers/bank-card/bank-card';
+import { SignupProvider } from '../providers/signup/signup';
 
 
 
@@ -68,7 +71,7 @@ import { gameConfig } from './gameComponent'
     ZhixuanhezhiComponent,
     CountTipComponent,
     LhcSlidePage,
-    KsPage, KsBasketPage,
+    KsPage,
     ...gameConfig.ssc,
     ...gameConfig.d5
     // LoginPage,
@@ -77,6 +80,7 @@ import { gameConfig } from './gameComponent'
     BrowserModule,
     HttpClientModule,
     NoopAnimationsModule,
+    BrowserAnimationsModule,
     IonicModule.forRoot(MyApp,{
       backButtonText: '',//按钮内容
       backButtonIcon: 'ios-arrow-back',//按钮图标样式
@@ -99,11 +103,10 @@ import { gameConfig } from './gameComponent'
     SixingComponent,
     ZhixuanhezhiComponent,
     LhcSlidePage,
-    KsPage,KsBasketPage,
+    KsPage,
     CountTipComponent,
     ...gameConfig.ssc,
     ...gameConfig.d5
-
 
   ],
   providers: [
@@ -127,7 +130,9 @@ import { gameConfig } from './gameComponent'
     ToolsProvider,
     UtilProvider,
     SscServiceProvider,
-    BasketDataProvider
+    BasketDataProvider,
+    BankCardProvider,
+    SignupProvider
 
   ]
 })

@@ -46,10 +46,7 @@
 
       </div>
     </div>
-
-
-
-  </div>
+</div>
     <div *ngIf="!over" id="qq"></div>
     
 
@@ -64,11 +61,7 @@
                           <ul *ngFor="let item of common.ballData;let i = index">
                             <li *ngFor="let todo of item;let j = index" [class.current]="todo == 1">{{7*i + j}}</li>
                           </ul>
-      
-                           <div class="btn-list">
-                             <a href="javascript:;" *ngFor="let detail of common.singleBtn;let j = index" [class.current]="detail.flag" (click)="util.changeActive(null,j,detail.name)">{{detail.name}} <span></span></a>
-      
-                          </div>
+
                        </div> 
                 </div>   
 
@@ -89,22 +82,5 @@
 
 </ion-content>
 
-<footer (goBasket)="goToBasket($event)"> </footer>    
-<!-- <ion-footer class="ion-footer" style="position:fixed;height:50px;bottom:0;display:flex;" >
-    <tab-yuan ></tab-yuan>
-    <div class="clear" (click)="util.resetData()"></div>
-    <div class="tab-mode" (click)="common.openTab()" style="z-index:10">
-        <div>{{common.tabYuan}}</div><div>模式</div>
-    </div>
-    <div id="bet-statistic" [class.can] = "common.count > 0" (click)="addToCart(methodName)">
-        <div style="width:30px;padding-left:20px;line-height:50px;font-size:18px">+</div>
-        <div style="padding-left:10px">
-            <div style="height:25px;line-height:25px">已选{{common.count}}注</div>
-            <div style="height:25px;line-height:25px">共{{common.betPrice}}元</div>
-        </div>
-    </div>
-    <div class="basket" (click)="goToBasket()">
-        <div class="bet-number" *ngIf="common.cartNumber"> {{common.cartNumber}}</div>
+<footer (goBasket)="goToBasket($event)"  (clear)="resetData()"> </footer>    
 
-    </div>
-</ion-footer> -->

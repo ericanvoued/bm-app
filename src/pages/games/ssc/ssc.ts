@@ -63,13 +63,28 @@ export class SscPage extends Effect{
     trHeight:number;
     high:number = 0
 
-   
-    
-
-
     constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private resolver: ComponentFactoryResolver,public app:App,
     public common:CommonProvider, public gamemenu:GamemenuComponent, public util:UtilProvider,public basket:BasketDataProvider,public ssc:SscServiceProvider, public events:Events) {
-        super(common,gamemenu,modalCtrl)
+        super(common,gamemenu,modalCtrl,navCtrl)
+
+        this.common.initData().then(
+            () => {
+                this.gameContainer.clear()
+                let method
+                if(this.common.method == '二星'){
+                    method = this.common.method + this.common.secondKind + this.common.smallMethod
+                }else{
+                    method = this.common.method + this.common.smallMethod
+                }
+                console.log(method)
+                const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(gameConfig[method])
+                this.componentRef = this.gameContainer.createComponent(factory)
+                
+                           this.util.shakePhone(() => {
+                               this.util.randomChoose(this.componentRef)
+                           })
+            }
+        )
 
         this.list = this.record.slice(0, 2)
         this.over = this.record.length > 2 ? false:true
@@ -83,30 +98,14 @@ export class SscPage extends Effect{
     }
 
     ionViewWillEnter(){
-        this.gameContainer.clear()
-        let method
-        if(this.common.method == '二星'){
-            method = this.common.method + this.common.secondKind + this.common.smallMethod
-        }else{
-            method = this.common.method + this.common.smallMethod
-        }
-        console.log(method)
-        const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(gameConfig[method])
-        this.componentRef = this.gameContainer.createComponent(factory)
-        
-                   this.util.shakePhone(() => {
-                       this.util.randomChoose(this.componentRef)
-                   })
+      
     }
 
     ionViewDidLoad() {
-       
-        console.log(document.querySelector('.tr')[0].offsetHeight)
-        this.trHeight = document.querySelector('.tr')[0].offsetHeight
+        this.trHeight = document.querySelector('.tr').offsetHeight
 
         console.log(document.getElementById('qq'))
         this.watchScroll()
-
 
         let touch = new Hammer(document.getElementById('touch'));
         touch.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
@@ -129,7 +128,6 @@ export class SscPage extends Effect{
         clearInterval(this.timer)
     }
 
-
     watchScroll(){
         let mc = new Hammer(document.getElementById('qq'));
         mc.get('swipe').set({direction: Hammer.DIRECTION_VERTICAL});
@@ -150,14 +148,11 @@ export class SscPage extends Effect{
         })
     }
 
-    goToBasket(){
-      console.log('gobasket')
-      if(this.common.cartNumber > 0 )
-         this.navCtrl.push('BasketPage',{'index':this.componentRef})
-    }
+   
 
     change(val){
         console.log(val)
+        this.common.open = false
         if(val == '走势图')
            this.app.getRootNav().push('GameTrendPage',{'index':1}) 
           // this.navCtrl.push('GameTrendPage',{'index':1})
@@ -174,34 +169,9 @@ export class SscPage extends Effect{
            
    }
 
-   changeMenu(val){
-        // if(this.haveChoosen.indexOf(val) > -1){
-        //      let index = this.haveChoosen.indexOf(val)
-        //      this.haveChoosen.splice(index,1)
-        // }else{
-        //      this.haveChoosen.push(val)
-        //      // 判断是否冷热  this.util.fetch('lengre')
-        // }
-        for(let j = 0;j<this.haveChoosen.length;j++){
-            if(val.indexOf(this.haveChoosen[j] == -1)){
-                this.haveChoosen.splice(this.haveChoosen[j],1)
-                j--
-            }      
-        }
-
-        for(let i =0;i<val.length;i++){
-            if(this.haveChoosen.indexOf(val[i]) == -1)
-               this.haveChoosen.push(val[i])    
-        }
-        console.log(val)
-        console.log(this.haveChoosen)
-        this.componentRef.instance.choose = this.haveChoosen
-   }
-
-   
-   check(choice){
-       return this.haveChoosen.indexOf(choice) > -1
-   }
+    resetData(){
+        this.util.resetData()
+    }
 
    //切换小玩法
    methodChange($event){

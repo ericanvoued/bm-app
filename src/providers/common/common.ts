@@ -75,7 +75,7 @@ export class CommonProvider {
     this.pid.subscribe((val) => {
       
         this.gameId = val
-        this.initData(val)
+        this.initData()
         
     })
     this.singleBtn = this.tools.copy([
@@ -89,99 +89,126 @@ export class CommonProvider {
           this.betPrice = this.count*2*percent
           console.log(origin)
           console.log(percent)
-          this.bonus *= percent/origin
+          this.bonus = this.smallKind.prize*percent
+          console.log(this.bonus)
           this.tabYuan = val
 
       })
   }
 
 
-    async initData(name){
+    async initData():Promise<any>{
         // let auth_token,_token;
         // this.storage.get('userInfo').then(data => {
         //     console.log(data)
         //     auth_token = data.auth_token
         //     _token = data.token
         // })
-        let url = 'api-lotteries-h5/load-data/2/1?_t=a6ce22f00eee8a7193ea99368f7236d1'
-        let params = {_token:'495g0Pa3SKOQnKnFgQsq7viW5R12uXLTsU2OPJcK'}
 
-        let qwe = await this.http.postData(url,params)
-        console.log(qwe)
-        this.data = (await this.http.fetchData(name)).list;
+        let url = 'api-lotteries-h5/load-data/2/1?_t=e7e339482fa34098b74fa4e6560e566d'
+        let params = {_token:'G5W3CI0VsWOfN5R2OndV7fcssY9F9jhmQvdCHs8S'}
+        this.gameMethodConfig = (await this.http.postData(url,params)).data.game_ways
+       
 
-        this.gameMethodConfig = this.data;
+        // let qwe = await this.http.postData(url,params)
+         console.log(this.gameMethodConfig )
+        // this.data = (await this.http.fetchData(name)).list;
 
+        // this.gameMethodConfig = this.data;
+        
         this.small = this.gameMethodConfig[0].children;
         this.smallKind = this.gameMethodConfig[0].children[0].children[0]
 
         console.log(this.smallKind)
         let percent = this.tabYuan == '元' ? 1 : this.tabYuan == '角' ? 0.1 : 0.01
-        this.bonus = this.smallKind.bonus*percent
+        this.bonus = this.smallKind.prize*percent
 
         if(this.small.length){
-            this.ballData = this.tools.copy(this.gameMethodConfig[0].children[0].children[0].bet_numberArrObj, true)
-            this.secondKind = this.gameMethodConfig[0].children[0].name
+            if(this.small.length){
+                this.ballData = this.tools.copy(
+                    this.processBall(this.gameMethodConfig[0].children[0].children[0].bet_number), true)
+                    console.log(this.ballData)
+                this.secondKind = this.gameMethodConfig[0].children[0].name_cn
+            }
         }
            
         //this.ballData = arr
-        this.method = this.gameMethodConfig[0].name;
+        this.method = this.gameMethodConfig[0].name_cn;
         this.bigIndex = 0
 
         if(this.small.length)
-            this.smallMethod = this.small[0].children[0].name;
-        //this.changeMethod(this.data.list[0].name);
+            this.smallMethod = this.small[0].children[0].name_cn;
         this.btn = this.ballData.map(ele => [{name:"全",flag:false},{name:"大",flag:false},{name:"小",flag:false},{name:"奇",flag:false},{name:"偶",flag:false},{name:"清",flag:false}])
         console.log(this.ballData)
         console.log(this.btn)
+
+        return new Promise((resolve,reject) =>{
+            resolve()
+        })
     }
 
     setGameConfig(index,index2,name){
-        if(this.bigIndex!=index || name!=this.smallMethod){
-            this.secondKind = this.gameMethodConfig[index].children[index2].name
-            console.log(this.gameMethodConfig[index].children[index2].children.filter(ele => ele.name == name)[0].bet_numberArrObj)
-            this.ballData = this.tools.copy(this.gameMethodConfig[index].children[index2].children.filter(ele => ele.name == name)[0].bet_numberArrObj, true)
+      
+        if(this.bigIndex!=index || name!=this.smallMethod || this.gameMethodConfig[index].children[index2].name_cn != this.secondKind){
+            this.secondKind = this.gameMethodConfig[index].children[index2].name_cn
+            // console.log(this.gameMethodConfig[index].children[index2].children.filter(ele => ele.name == name)[0].bet_numberArrObj)
+            this.ballData = this.tools.copy(this.processBall(this.gameMethodConfig[index].children[index2].children.filter(ele => ele.name_cn == name)[0].bet_number), true)
                         console.log(this.ballData)
 
             this.btn = this.ballData.map(ele => [{name:"全",flag:false},{name:"大",flag:false},{name:"小",flag:false},{name:"奇",flag:false},{name:"偶",flag:false},{name:"清",flag:false}])
-
+            console.log('change meeddd')
             console.log(this.btn)
         }
-        console.log(index)
-        console.log(name)
 
-        if(this.gameMethodConfig[index].children[index2].name == '直选')
+        if(this.gameMethodConfig[index].children[index2].name_cn == '直选')
             this.zhixuan = true
          else
             this.zhixuan = false   
 
         this.bigIndex = index
-        if(this.method != this.gameMethodConfig[index].name){
+        if(this.method != this.gameMethodConfig[index].name_cn){
             this.events.publish('changeTrend')
            
         }
 
-        this.method = this.gameMethodConfig[index].name
+        this.method = this.gameMethodConfig[index].name_cn
 
         //console.log(this.gameMethodConfig[index].children[index2])
         this.small = this.gameMethodConfig[index].children
         console.log(this.small)
         let temp;
         this.small.forEach((ele,index) => {
-            //temp = ele.children.filter(item => item.name == name)[0]
-
             ele.children.forEach(item => {
-                if(item.name == name)
+                if(item.name_cn == name)
                    temp = item
             })
         })
         console.log(temp)
         this.smallKind = temp
         console.log(this.smallKind)
+        let percent = this.tabYuan == '元' ? 1 : this.tabYuan == '角' ? 0.1 : 0.01
+        this.bonus = this.smallKind.prize*percent
         // let percent = this.tabYuan == '元' ? 1 : this.tabYuan == '角' ? 0.1 : 0.01
         // this.bonus = this.smallKind.bonus*percent
         this.smallMethod = name
     }
+
+    create(aa){
+        let [a,b] = aa.split('-'),qq = []
+        for(let i = a;i<=b;i++){
+            qq.push(0)
+        }
+        return qq
+     }
+
+     processBall(data){
+           let arr = []
+           for(let key in data){
+               arr.push({key,value:this.create(data[key])})
+           }
+           return arr
+     }
+
 
     //计算注单
     calculate(){

@@ -26,9 +26,6 @@ export class ZhixuanfushiComponent extends commonMethod{
     console.log('Hello ZhixuanfushiComponent Component');
     //this.util.shakePhone(this.randomChoose)
     //console.log(ssc.haveChoosen)
-    setTimeout(() => {
-      console.log(this.choose)
-    },1000)
     
   }
 

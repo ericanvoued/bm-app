@@ -20,6 +20,8 @@ import {LottoryHistoryPage} from '../lottory-history/lottory-history';
 import {FollowHistoryPage} from '../follow-history/follow-history';
 import {TransDetailPage} from '../trans-detail/trans-detail';
 import {SafeCenterPage} from '../safe-center/safe-center';
+import {MoreOptionPage} from '../more-option/more-option';
+import {PushSetPage} from '../push-set/push-set';
 
 declare var cordova: any;
 

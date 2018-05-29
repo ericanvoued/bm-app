@@ -24,8 +24,13 @@ export class UtilProvider {
     '二星':['十位走势','个位走势'],
     '一星':['万位走势','千位走势','百位走势','十位走势','个位走势'],
     '不定位':['十位走势','个位走势'],
-    '大小单双':['十位走势','个位走势']
-
+    '大小单双':['十位走势','个位走势'],
+    '三码':['十位走势','个位走势'],
+    '二码':['十位走势','个位走势'],
+    '定位胆':['十位走势','个位走势'],
+    '任选复式':['十位走势','个位走势'],
+    '任选胆拖':['十位走势','个位走势'],
+    '任选':['十位走势','个位走势'],
   }
 
   // 走势图头部选择
@@ -43,7 +48,26 @@ export class UtilProvider {
     {number:'08期', history:[4,5,7,1,5]},
     {number:'09期', history:[3,5,6,8,2]},
     {number:'10期', history:[7,5,3,9,3]},
-    {number:'11期', history:[6,5,5,1,4]}
+    {number:'11期', history:[6,2,4,8,7]},
+    {number:'12期', history:[2,5,5,3,4]},
+    {number:'13期', history:[6,5,5,1,4]},
+    {number:'14期', history:[7,1,3,2,4]},
+    {number:'15期', history:[1,3,2,1,7]},
+    {number:'16期', history:[8,9,2,1,3]},
+    {number:'17期', history:[5,1,3,6,7]},
+    {number:'18期', history:[9,8,7,3,5]},
+    {number:'19期', history:[7,8,9,1,2]},
+    {number:'20期', history:[4,5,6,7,8]},
+    {number:'21期', history:[2,3,5,2,4]},
+    {number:'22期', history:[1,2,3,1,4]},
+    {number:'23期', history:[7,3,4,1,3]},
+    {number:'24期', history:[4,5,3,2,4]},
+    {number:'25期', history:[1,7,5,5,3]},
+    {number:'26期', history:[2,3,9,8,7]},
+    {number:'27期', history:[3,6,7,3,6]},
+    {number:'28期', history:[6,7,3,9,5]},
+    {number:'29期', history:[7,8,2,8,3]},
+    {number:'30期', history:[8,2,6,6,2]}
   ]
   fakeData:any = {}
 
@@ -92,25 +116,62 @@ export class UtilProvider {
   //统计遗漏
   yilou:any;
 
+  //最大遗漏
+  maxYi:any;
+
+  //平均遗漏
+  avgYi:any;
+
   //统计冷热
   lengre:any;
 
 
-  fakeTrend:Array<any> = [[5,3,9,8,6,2,9,1,8,6,4],[7,3,6,5,3,2,8,3,5,6,9],[7,3,6,5,3,2,8,3,5,6,9],[5,8,9,1,2,4,5,7,8,3,2],[7,5,5,3,2,4,5,6,8,1,6]]
+  fakeTrend:Array<any> = []
 
   constructor(public http: HttpClient,public common:CommonProvider, public vibration: Vibration) {
     console.log('Hello UtilProvider Provider');
+
+    this.fakeTrend = [0,1,2,3,4].reduce((a,b) =>{
+        let arr = []
+        for(let i = 0;i<this.historyNumbers.length;i++){
+            arr.push(this.historyNumbers[i].history[b])
+        }
+        a.push(arr)
+        return a
+    },[])
+    console.log(this.fakeTrend)
+
     this.generateFake()
 
-    //遗漏冷热
-    let yilou = {},lengre = {};
+    //遗漏冷热  yilou 当前遗漏 
+    let yilou = {},lengre = {},maxYi = {},avgYi = {};
     for(let aa in this.fakeData){
         yilou[aa.substr(0,1)] = []
         lengre[aa.substr(0,1)] = []
-        let length = this.fakeData[aa].length
+        maxYi[aa.substr(0,1)] = []
+        avgYi[aa.substr(0,1)] = []
+        let length = this.fakeData[aa].length, arr = this.fakeData[aa]
 
         for(let i = 1 ; i<this.fakeData[aa][length-1].length;i++){
-            let item = this.fakeData[aa][length-1][i]
+            let item = this.fakeData[aa][length-1][i], temp = [], local = []
+
+            arr.forEach((ele,index) => {
+                temp.push(ele[i])
+                if(index < arr.length - 1){
+                    if(!ele[i].choose && arr[index+1][i].choose){
+                        local.push(ele[i])
+                    }
+                }else if(index = arr.length - 1){
+                    if(!ele[i].choose)
+                        local.push(ele[i])
+                }        
+            })
+
+            console.log(local)
+            let max = Math.max(...temp.filter(ele => !ele.choose).map(item => item.number))
+            let avg = Math.floor(local.reduce((a,b) => a + b.number,0)/local.length)
+            maxYi[aa.substr(0,1)].push(max)
+            avgYi[aa.substr(0,1)].push(avg)
             lengre[aa.substr(0,1)].push('--')
             if(!item.choose)
                 yilou[aa.substr(0,1)].push(item.number)
@@ -121,8 +182,12 @@ export class UtilProvider {
     }
     this.yilou = yilou
     this.lengre = lengre
+    this.maxYi = maxYi
+    this.avgYi = avgYi
     console.log(this.yilou)
     console.log(this.lengre)
+    console.log(this.maxYi)
+    console.log(this.avgYi)
     console.log(this.common.ballData)
 
     //五星走势图
@@ -192,6 +257,7 @@ export class UtilProvider {
   }
 
     deal(number){
+     // 根据玩法判断  如果common.pid == ssc    
      if(number == 0)
         return '万位走势'
      if(number == 1)
@@ -516,8 +582,18 @@ export class UtilProvider {
         
     }
 
-    changeHeZhi(){
-
+    formatMoney(num){
+        let re = /(-?\d+)(\d{3})/;
+        if (Number.prototype.toFixed) {
+            num = (num).toFixed(2)
+        } else {
+            num = Math.round(num * 100) / 100
+        }
+        num = '' + num;
+        while (re.test(num)) {
+            num = num.replace(re, "$1,$2")
+        }
+        return num
     }
 
    

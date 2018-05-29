@@ -23,6 +23,7 @@ function easeOutCubic(t, b, c, d) {
 })
 export class FooterComponent {
   @Output('goBasket') goBasket:EventEmitter<any> = new EventEmitter<any>()
+  @Output('clear') clear:EventEmitter<any> = new EventEmitter<any>()
   
   text: string;
 
@@ -70,10 +71,13 @@ export class FooterComponent {
 
         requestAnimationFrame(this.move.bind(this))
     }else{
-        console.log('你妈死额')
         this.common.cartNumber++
         $('#ball').remove()
         tt = 0
     }
-}
+   }
+
+  clearData(){
+      this.clear.emit()
+  }
 }

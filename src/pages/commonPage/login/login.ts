@@ -53,7 +53,6 @@ export class LoginPage {
         username: this.username,
         password: md5(md5(md5(this.username + this.password)))
       }).subscribe((data) => {
-        console.log(data)
         if (data.isSuccess) {
           this.loading.dismiss();
           this.tost = this.loadPrd.showToast(this.ToastCtrl, data.Msg);
@@ -66,12 +65,18 @@ export class LoginPage {
           this.loading.dismiss();
           this.tost = this.loadPrd.showToast(this.ToastCtrl, data.Msg);
         }
-      })
+      },
+       error => {
+
+       }
+      )
     }
   }
 
   checkForm() {
     let patt = /^[a-zA-Z0-9`\-=\[\];,./~!@#$%^*()_+}{:?]{6,16}$/g;
+    this.nameInfoFlag = false;
+    this.pswInfoFlag = false;
     if (this.username.length == 0) {
       this.nameInfoFlag = true;
       this.nameInfo = '用户名不能为空';

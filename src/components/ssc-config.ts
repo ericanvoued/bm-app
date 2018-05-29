@@ -78,6 +78,20 @@ import { QianerdaxiaodanshuangComponent } from './ssc-game/daxiaodanshuang/qiane
 import { QiansandaxiaodanshuangComponent } from './ssc-game/daxiaodanshuang/qiansandaxiaodanshuang/qiansandaxiaodanshuang'
 import { ZhongsandaxiaodanshuangComponent } from './ssc-game/daxiaodanshuang/zhongsandaxiaodanshuang/zhongsandaxiaodanshuang'
 
+import { RenxuanerzhixuanfushiComponent } from './ssc-game/renxuan/renxuanerzhixuanfushi/renxuanerzhixuanfushi'
+import { RenxuanerzhixuanhezhiComponent } from './ssc-game/renxuan/renxuanerzhixuanhezhi/renxuanerzhixuanhezhi'
+import { RenxuanerzuxuanfushiComponent } from './ssc-game/renxuan/renxuanerzuxuanfushi/renxuanerzuxuanfushi'
+import { RenxuanerzuxuanhezhiComponent } from './ssc-game/renxuan/renxuanerzuxuanhezhi/renxuanerzuxuanhezhi'
+import { RenxuansanzhixuanfushiComponent } from './ssc-game/renxuan/renxuansanzhixuanfushi/renxuansanzhixuanfushi'
+import { RenxuansanzhixuanhezhiComponent } from './ssc-game/renxuan/renxuansanzhixuanhezhi/renxuansanzhixuanhezhi'
+import { RenxuansanzusanfushiComponent } from './ssc-game/renxuan/renxuansanzusanfushi/renxuansanzusanfushi'
+import { RenxuansanzuliufushiComponent } from './ssc-game/renxuan/renxuansanzuliufushi/renxuansanzuliufushi'
+import { RenxuansanzuxuanhezhiComponent } from './ssc-game/renxuan/renxuansanzuxuanhezhi/renxuansanzuxuanhezhi'
+import { RenxuansizhixuanfushiComponent } from './ssc-game/renxuan/renxuansizhixuanfushi/renxuansizhixuanfushi'
+import { Renxuanzuxuan24Component } from './ssc-game/renxuan/renxuanzuxuan24/renxuanzuxuan24'
+import { Renxuanzuxuan12Component } from './ssc-game/renxuan/renxuanzuxuan12/renxuanzuxuan12'
+import { Renxuanzuxuan6Component } from './ssc-game/renxuan/renxuanzuxuan6/renxuanzuxuan6'
+
 
 export let gameConfig = {
     "五星直选复式":ZhixuanfushiComponent,
@@ -155,5 +169,19 @@ export let gameConfig = {
     "大小单双后三大小单双":HousandaxiaodanshuangComponent,
     "大小单双前二大小单双":QianerdaxiaodanshuangComponent,
     "大小单双前三大小单双":QiansandaxiaodanshuangComponent,
-    "大小单双中三大小单双":QiansandaxiaodanshuangComponent
+    "大小单双中三大小单双":QiansandaxiaodanshuangComponent,
+
+    "任选任选二直选复式":RenxuanerzhixuanfushiComponent,
+    "任选任选二直选和值":RenxuanerzhixuanhezhiComponent,
+    "任选任选二组选复式":RenxuanerzuxuanfushiComponent,
+    "任选任选二组选和值":RenxuanerzuxuanhezhiComponent ,
+    "任选任选三直选复式":RenxuansanzhixuanfushiComponent,
+    "任选任选三直选和值":RenxuansanzhixuanhezhiComponent,
+    "任选任选三组三复式":RenxuansanzusanfushiComponent, 
+    "任选任选三组六复式":RenxuansanzuliufushiComponent,
+    "任选任选三组选和值":RenxuansanzuxuanhezhiComponent,
+    "任选任选四直选复式":RenxuansizhixuanfushiComponent,
+    "任选任选四组选24":Renxuanzuxuan24Component,
+    "任选任选四组选12":Renxuanzuxuan12Component,
+    "任选任选四组选6":Renxuanzuxuan6Component,
 }    

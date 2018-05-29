@@ -81,6 +81,42 @@ import { ZhongsandaxiaodanshuangComponent } from '../components/ssc-game/daxiaod
 
 /**************** 115 ***********/
 import { QiansanzhixuanfushiComponent } from '../components/115-game/sanma/qiansanzhixuanfushi/qiansanzhixuanfushi'
+import { QiansanzuxuanfushiComponent } from '../components/115-game/sanma/qiansanzuxuanfushi/qiansanzuxuanfushi'
+import { QiansanzuxuandantuoComponent } from '../components/115-game/sanma/qiansanzuxuandantuo/qiansanzuxuandantuo'
+import { QianerzhixuanfushiComponent } from '../components/115-game/erma/qianerzhixuanfushi/qianerzhixuanfushi'
+import { QianerzuxuanfushiComponent } from '../components/115-game/erma/qianerzuxuanfushi/qianerzuxuanfushi'
+import { QianerzuxuandantuoComponent } from '../components/115-game/erma/qianerzuxuandantuo/qianerzuxuandantuo'
+import { QiansanbudingweiComponent } from '../components/115-game/budingwei/qiansanbudingwei/qiansanbudingwei'
+import { DingweidanComponent } from '../components/115-game/dingweidan/dingweidan/dingweidan'
+import { RenxuanyizhongyifushiComponent } from '../components/115-game/renxuanfushi/renxuanyizhongyifushi/renxuanyizhongyifushi'
+import { RenxuanerzhongerfushiComponent } from '../components/115-game/renxuanfushi/renxuanerzhongerfushi/renxuanerzhongerfushi'
+import { RenxuansanzhongsanfushiComponent } from '../components/115-game/renxuanfushi/renxuansanzhongsanfushi/renxuansanzhongsanfushi'
+import { RenxuansizhongsifushiComponent } from '../components/115-game/renxuanfushi/renxuansizhongsifushi/renxuansizhongsifushi'
+import { RenxuanwuzhongwufushiComponent } from '../components/115-game/renxuanfushi/renxuanwuzhongwufushi/renxuanwuzhongwufushi'
+import { RenxuanliuzhongwufushiComponent } from '../components/115-game/renxuanfushi/renxuanliuzhongwufushi/renxuanliuzhongwufushi'
+import { RenxuanqizhongwufushiComponent } from '../components/115-game/renxuanfushi/renxuanqizhongwufushi/renxuanqizhongwufushi'
+import { RenxuanbazhongwufushiComponent } from '../components/115-game/renxuanfushi/renxuanbazhongwufushi/renxuanbazhongwufushi'
+import { RenxuanerzhongerdantuoComponent } from '../components/115-game/renxuandantuo/renxuanerzhongerdantuo/renxuanerzhongerdantuo'
+import { RenxuansanzhongsandantuoComponent } from '../components/115-game/renxuandantuo/renxuansanzhongsandantuo/renxuansanzhongsandantuo'
+import { RenxuansizhongsidantuoComponent } from '../components/115-game/renxuandantuo/renxuansizhongsidantuo/renxuansizhongsidantuo'
+import { RenxuanwuzhongwudantuoComponent } from '../components/115-game/renxuandantuo/renxuanwuzhongwudantuo/renxuanwuzhongwudantuo'
+import { RenxuanliuzhongwudantuoComponent } from '../components/115-game/renxuandantuo/renxuanliuzhongwudantuo/renxuanliuzhongwudantuo'
+import { RenxuanqizhongwudantuoComponent } from '../components/115-game/renxuandantuo/renxuanqizhongwudantuo/renxuanqizhongwudantuo'
+import { RenxuanerzhixuanfushiComponent } from '../components/ssc-game/renxuan/renxuanerzhixuanfushi/renxuanerzhixuanfushi'
+import { RenxuanerzhixuanhezhiComponent } from '../components/ssc-game/renxuan/renxuanerzhixuanhezhi/renxuanerzhixuanhezhi'
+import { RenxuanerzuxuanfushiComponent } from '../components/ssc-game/renxuan/renxuanerzuxuanfushi/renxuanerzuxuanfushi'
+
+import { RenxuanerzuxuanhezhiComponent } from '../components/ssc-game/renxuan/renxuanerzuxuanhezhi/renxuanerzuxuanhezhi'
+import { RenxuansanzhixuanfushiComponent } from '../components/ssc-game/renxuan/renxuansanzhixuanfushi/renxuansanzhixuanfushi'
+import { RenxuansanzhixuanhezhiComponent } from '../components/ssc-game/renxuan/renxuansanzhixuanhezhi/renxuansanzhixuanhezhi'
+import { RenxuansanzusanfushiComponent } from '../components/ssc-game/renxuan/renxuansanzusanfushi/renxuansanzusanfushi'
+import { RenxuansanzuliufushiComponent } from '../components/ssc-game/renxuan/renxuansanzuliufushi/renxuansanzuliufushi'
+import { RenxuansanzuxuanhezhiComponent } from '../components/ssc-game/renxuan/renxuansanzuxuanhezhi/renxuansanzuxuanhezhi'
+import { RenxuansizhixuanfushiComponent } from '../components/ssc-game/renxuan/renxuansizhixuanfushi/renxuansizhixuanfushi'
+import { Renxuanzuxuan24Component } from '../components/ssc-game/renxuan/renxuanzuxuan24/renxuanzuxuan24'
+import { Renxuanzuxuan12Component } from '../components/ssc-game/renxuan/renxuanzuxuan12/renxuanzuxuan12'
+import { Renxuanzuxuan6Component } from '../components/ssc-game/renxuan/renxuanzuxuan6/renxuanzuxuan6'
+
 
 export const gameConfig = { 
    'ssc':[
@@ -95,10 +131,17 @@ export const gameConfig = {
       ErxingzuxuanqianerbaodanComponent,YixingdingweidanComponent,SixingzhixuanzuheComponent,HousanyimabudingweiComponent,HousanermabudingweiComponent,QiansanyimabudingweiComponent,
       QiansanermabudingweiComponent,ZhongsanyimabudingweiComponent,ZhongsanermabudingweiComponent,SixingyimabudingweiComponent,SixingermabudingweiComponent,WuxingermabudingweiComponent,
       WuxingsanmabudingweiComponent,HousanzuxuanhezhiComponent,HouerdaxiaodanshuangComponent,HousandaxiaodanshuangComponent,QianerdaxiaodanshuangComponent,QiansandaxiaodanshuangComponent,
-      ZhongsandaxiaodanshuangComponent
+      ZhongsandaxiaodanshuangComponent,RenxuanerzhixuanfushiComponent,
+      RenxuanerzhixuanhezhiComponent,RenxuanerzuxuanfushiComponent,RenxuanerzuxuanhezhiComponent,RenxuansanzhixuanhezhiComponent,RenxuansanzusanfushiComponent,RenxuansanzuliufushiComponent,
+      RenxuansanzuxuanhezhiComponent,RenxuansizhixuanfushiComponent,Renxuanzuxuan24Component, Renxuanzuxuan6Component ,Renxuanzuxuan12Component
    ],
    'd5':[
-      QiansanzhixuanfushiComponent
+      QiansanzhixuanfushiComponent,
+      QiansanzuxuanfushiComponent,
+      QiansanzuxuandantuoComponent,QianerzhixuanfushiComponent ,QianerzuxuanfushiComponent,QianerzuxuandantuoComponent,QiansanbudingweiComponent,DingweidanComponent,
+      RenxuanyizhongyifushiComponent,RenxuanerzhongerfushiComponent,RenxuansanzhongsanfushiComponent,RenxuansizhongsifushiComponent,RenxuanwuzhongwufushiComponent,
+      RenxuanliuzhongwufushiComponent,RenxuanqizhongwufushiComponent,RenxuanbazhongwufushiComponent,RenxuanerzhongerdantuoComponent,RenxuansanzhongsandantuoComponent,
+      RenxuansizhongsidantuoComponent,RenxuanwuzhongwudantuoComponent,RenxuanliuzhongwudantuoComponent,RenxuanqizhongwudantuoComponent,RenxuansanzhixuanfushiComponent
    ],
    'pk10':[]
 

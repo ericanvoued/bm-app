@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RestProvider } from '../rest/rest'
+import {Storage} from '@ionic/storage';
 
 interface loginParameter {
   username: string,
@@ -10,10 +11,12 @@ interface loginParameter {
 @Injectable()
 export class LoginProvider {
 
-  loginApi:string = '/h5-api-auth/login?_t=init'
+  loginApi:string = '/mobile-h5-auth/login'
 
-  constructor(public http: HttpClient,public rest: RestProvider) {
-
+  constructor(public http: HttpClient,public rest: RestProvider,public storage:Storage) {
+      //  this.storage.get('userInfo').then((data) => {
+      //      this.loginApi += data.auth_token
+      //  })
   }
 
   loginApp(parameter: loginParameter){
