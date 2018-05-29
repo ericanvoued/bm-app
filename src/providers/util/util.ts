@@ -142,14 +142,14 @@ export class UtilProvider {
     console.log(this.fakeTrend)
 
     this.generateFake()
-
+    console.log(this.fakeData)
     //遗漏冷热  yilou 当前遗漏 
     let yilou = {},lengre = {},maxYi = {},avgYi = {};
     for(let aa in this.fakeData){
-        yilou[aa.substr(0,1)] = []
-        lengre[aa.substr(0,1)] = []
-        maxYi[aa.substr(0,1)] = []
-        avgYi[aa.substr(0,1)] = []
+        yilou[aa.substr(0,2)] = []
+        lengre[aa.substr(0,2)] = []
+        maxYi[aa.substr(0,2)] = []
+        avgYi[aa.substr(0,2)] = []
         let length = this.fakeData[aa].length, arr = this.fakeData[aa]
 
         for(let i = 1 ; i<this.fakeData[aa][length-1].length;i++){
@@ -168,15 +168,18 @@ export class UtilProvider {
             })
 
             console.log(local)
+            let leng = temp.filter(ele => ele.choose).length
             let max = Math.max(...temp.filter(ele => !ele.choose).map(item => item.number))
             let avg = Math.floor(local.reduce((a,b) => a + b.number,0)/local.length)
-            maxYi[aa.substr(0,1)].push(max)
-            avgYi[aa.substr(0,1)].push(avg)
-            lengre[aa.substr(0,1)].push('--')
+
+            maxYi[aa.substr(0,2)].push(max)
+            avgYi[aa.substr(0,2)].push(avg)
+            lengre[aa.substr(0,2)].push(leng)
+
             if(!item.choose)
-                yilou[aa.substr(0,1)].push(item.number)
+                yilou[aa.substr(0,2)].push(item.number)
             else
-                yilou[aa.substr(0,1)].push(this.fakeData[aa][length-2][i].number)
+                yilou[aa.substr(0,2)].push(this.fakeData[aa][length-2][i].number)
                     
         }
     }
@@ -338,7 +341,7 @@ export class UtilProvider {
 
             }
             //this.common.calculate()
-   }
+    }
 
     changeChooseStatus(index1,index2){
         if(index1 != null){

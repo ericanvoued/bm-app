@@ -25,7 +25,7 @@ import { UtilProvider } from '../../providers/util/util'
               transform:'scale(1,0)'
               //transform:'translate3d(0, -100%, 0)'
           })),
-          transition('* => *',animate('1s'))
+          transition('* => *',animate('.3s'))
       ])
   ]
 })

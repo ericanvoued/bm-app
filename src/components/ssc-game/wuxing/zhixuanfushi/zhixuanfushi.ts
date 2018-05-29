@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input,  AfterViewInit} from '@angular/core';
 import { CommonProvider } from '../../../../providers/common/common'
 import { UtilProvider } from '../../../../providers/util/util'
 import { commonMethod } from '../../../common.method'
 import { BasketDataProvider } from '../../../../providers/basket-data/basket-data'
+import * as $ from 'jquery'
 
 // import { SscPage } from '../../../../pages/games/ssc/ssc'
 /**
@@ -15,18 +16,37 @@ import { BasketDataProvider } from '../../../../providers/basket-data/basket-dat
   selector: 'zhixuanfushi',
   templateUrl: 'zhixuanfushi.html'
 })
-export class ZhixuanfushiComponent extends commonMethod{
+export class ZhixuanfushiComponent extends commonMethod implements AfterViewInit{
   @Input('choose') choose: any[] = [];
   text: string;
 
   constructor(public common:CommonProvider, public util:UtilProvider,public basket:BasketDataProvider) {
     super(common,util,basket)
-            //this.util.shakePhone(this.randomChoose)
-
     console.log('Hello ZhixuanfushiComponent Component');
-    //this.util.shakePhone(this.randomChoose)
-    //console.log(ssc.haveChoosen)
     
+    //this.util.shakePhone(this.randomChoose)
+    //console.log(ssc.haveChoosen)  
+  }
+
+  ngAfterViewInit(){
+  // this.dealHover()
+     console.log( document.getElementsByClassName('qwe')[0])
+    //  setTimeout(() => {
+       
+    //       // setTimeout(() => {
+    //   $('.ball-choose li').on({  
+    //     touchstart: function(e){  
+    //        console.log('dqwfqf')
+    //        $(this).find('.tip-block').show()
+    //     },  
+    //     touchmove: function(){  
+                   
+    //     },  
+    //     touchend: function(){  
+    //       $(this).find('.tip-block').hide()
+    //     }  
+    // })  
+    // },100)     
   }
 
   qqq(number){
@@ -37,9 +57,4 @@ export class ZhixuanfushiComponent extends commonMethod{
     return this.choose.indexOf(choice) > -1
   }
 
-  
-
-  // changeToggle(row,column){
-  //   super.changeToggle(row,column)
-  // }
 }

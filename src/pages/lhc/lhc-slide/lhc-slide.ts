@@ -25,10 +25,12 @@ export class LhcSlidePage extends LhcAction{
   ionViewDidLoad() {
 
     this.initSwiper();
-
     this.initView();
-
   }
+
+  // pressEvent(){
+  //   console.log(22222)
+  // }
 
   initSwiper() {
     this.swiper = new Swiper('.pageMenuSlides .swiper-container', {

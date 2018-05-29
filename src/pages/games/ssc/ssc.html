@@ -24,7 +24,7 @@
 <ion-content >
     <div class="body-bg"></div>
   <p class="l-info" text-center>距23058期截止 {{countTime.minutes}}:{{countTime.seconds}}</p>
-  <div class="table" id="touch" [ngStyle]="{'height':(80 + high) + 'px'}" style="overflow:hidden;transition:all .5s ease-in;">
+  <div class="table" id="touch" [ngStyle]="{'height':(110 + high) + 'px'}" style="overflow:hidden;transition:all .3s ease-in;">
     <div class="thead clearfix">
       <div class="tr clearfix">
         <div class="th" style='width:22.6%'>期次</div>
@@ -33,6 +33,7 @@
         <div class="th" style='width:17.5%'>个位</div>
         <div class="th" style='width:17.5%'>后三</div>
       </div>
+    </div>  
 
       <div class="tbody clearfix">
         <div class="tr clearfix" *ngFor="let item of list">
@@ -42,16 +43,14 @@
             <div style='width:17.5%' class="td">{{item.gewei}}</div>
             <div style='width:17.5%' class="td">{{item.housan}}</div>
         </div>
-
-
       </div>
+      <div id="qq" style="position:relative;bottom:0"></div>
     </div>
-</div>
-    <div *ngIf="!over" id="qq"></div>
+   
     
-
+    
     <div class="bet-box clearfix">
-        <ng-template #gameContainer>
+        <ng-template  #gameContainer>
               
         </ng-template>
 

@@ -75,8 +75,11 @@ export class Effect{
     }
 
     produce(){
-        console.log('produce')  
-        this.countDown(Math.floor(Math.random()*10)*1000 + 30*1000)
+        // console.log(this.common.getCountDownTime()['current_number_time'])
+        this.common.getCountDownTime().then((data) => {
+            this.countDown(new Date(data['current_number_time']).getTime() - new Date(data['current_time']).getTime())
+        })
+        
     }
 
     countDown(time){

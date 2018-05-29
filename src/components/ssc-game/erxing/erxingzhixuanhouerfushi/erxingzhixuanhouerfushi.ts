@@ -33,28 +33,6 @@ export class ErxingzhixuanhouerfushiComponent extends commonMethod{
     return this.choose.indexOf(choice) > -1
   }
 
-  
-  changeToggle(row,column){
-    console.log('wwww')
-    if(column!=null){
-       this.common.ballData = this.common.ballData.map((item,index) => {
-          if(index == row){
-              item.value = item.value.map((ele,index) => {
-                  if(index == column){
-                      return ele == 1 ? 0 : 1
-                  }else{
-                      return ele
-                  }
-              })
-              return item
-          }else{
-              return item
-          }
-      })
-    }
-     this.calculate()
-   }
-
    calculate(){
     let count = 1;
     this.common.ballData.forEach((item,index) => {

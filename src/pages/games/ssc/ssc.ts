@@ -79,7 +79,8 @@ export class SscPage extends Effect{
                 console.log(method)
                 const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(gameConfig[method])
                 this.componentRef = this.gameContainer.createComponent(factory)
-                
+                this.componentRef.instance.choose = this.haveChoosen
+                this.common.componentRef = this.componentRef
                            this.util.shakePhone(() => {
                                this.util.randomChoose(this.componentRef)
                            })
@@ -106,20 +107,32 @@ export class SscPage extends Effect{
 
         console.log(document.getElementById('qq'))
         this.watchScroll()
-
+        document.getElementsByClassName('tbody')[0].addEventListener('click', function(){console.log('fffffff')}, false)
+        
         let touch = new Hammer(document.getElementById('touch'));
         touch.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
         touch.on('swipeup',()=>{
-            if(this.loadNumber == this.maxNumber && this.maxNumber != 0){
-                this.loadNumber = 0
-                this.over = false
+            if(!this.loadNumber)
+                return
+
+            this.loadNumber --
+
+            if (this.loadNumber)
+                this.high = (this.record.slice(0,this.loadNumber*5).length - 2)*this.trHeight
+
+            // if (this.loadNumber == 2)
+            //     this.high = (this.record.slice(0,2*5).length - 2)*this.trHeight
+
+            if (this.loadNumber == 0)
                 this.high = 0
 
-                setTimeout(()=> {
-                   this.watchScroll()
-                },0)
+            if(this.loadNumber == this.maxNumber && this.maxNumber != 0){
+                this.loadNumber = 0
+                this.high = 0
             }
-
+            setTimeout(() => {
+                this.list = this.record.slice(0, this.loadNumber? this.loadNumber * 5 : 2)
+            },300)
         })
       }
 
@@ -129,19 +142,17 @@ export class SscPage extends Effect{
     }
 
     watchScroll(){
-        let mc = new Hammer(document.getElementById('qq'));
+        let mc = new Hammer(document.getElementById('touch'));
         mc.get('swipe').set({direction: Hammer.DIRECTION_VERTICAL});
         mc.on('swipedown', () => {
             console.log('axiba')
             //this.record.push( {number:23056,balls:'34567',shiwei:'大单',gewei:'小双',housan:'组六'})
-            if (++this.loadNumber == this.maxNumber)
-                this.over = true
-
-            if (this.loadNumber == 1)
-                this.high = (this.record.slice(0,1*5).length - 2)*this.trHeight
-
-            if (this.loadNumber == 2)
-                this.high = (this.record.slice(0,2*5).length - 2)*this.trHeight
+            if(this.loadNumber == this.maxNumber)
+                return
+            this.loadNumber ++
+               
+            if (this.loadNumber)
+                this.high = (this.record.slice(0,this.loadNumber*5).length - 2)*this.trHeight
 
             this.list = this.record.slice(0, this.loadNumber * 5)
 
@@ -165,8 +176,7 @@ export class SscPage extends Effect{
             }
             $('.modal').toggleClass('active')
 
-        }
-           
+        }         
    }
 
     resetData(){
@@ -181,6 +191,7 @@ export class SscPage extends Effect{
        this.gameContainer.clear()
        const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(component)
        this.componentRef = this.gameContainer.createComponent(factory)
+       this.common.componentRef = this.componentRef
        console.log(this.haveChoosen)
        this.componentRef.instance.choose = this.haveChoosen
    }

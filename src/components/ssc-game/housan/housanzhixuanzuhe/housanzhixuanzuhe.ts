@@ -1,7 +1,8 @@
-import { Component ,Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonProvider } from '../../../../providers/common/common'
 import { UtilProvider } from '../../../../providers/util/util'
-import { ToolsProvider } from '../../../../providers/tools/tools'
+import { commonMethod } from '../../../common.method'
+import { BasketDataProvider } from '../../../../providers/basket-data/basket-data'
 /**
  * Generated class for the HousanzhixuanzuheComponent component.
  *
@@ -12,12 +13,12 @@ import { ToolsProvider } from '../../../../providers/tools/tools'
   selector: 'housanzhixuanzuhe',
   templateUrl: 'housanzhixuanzuhe.html'
 })
-export class HousanzhixuanzuheComponent {
+export class HousanzhixuanzuheComponent extends commonMethod{
   @Input('choose') choose: any[] = [];
   text: string;
 
-  constructor(public common:CommonProvider, public util:UtilProvider, public tool:ToolsProvider) {
-    console.log('Hello HousanzhixuanzuheComponent Component');
+  constructor(public common:CommonProvider, public util:UtilProvider,public basket:BasketDataProvider) {
+    super(common,util,basket) 
     this.text = 'Hello World';
   }
 
@@ -28,28 +29,6 @@ export class HousanzhixuanzuheComponent {
   check(choice){
     return this.choose.indexOf(choice) > -1
   }
-
-  changeToggle(row,column){
-    console.log('wwww')
-    if(column!=null){
-       this.common.ballData = this.common.ballData.map((item,index) => {
-          if(index == row){
-              item.value = item.value.map((ele,index) => {
-                  if(index == column){
-                      return ele == 1 ? 0 : 1
-                  }else{
-                      return ele
-                  }
-              })
-              return item
-          }else{
-              return item
-          }
-      })
-    }
-    this.calculate()
- } 
-
 
   randomChoose(){
     this.common.ballData = this.common.ballData.map(item => {

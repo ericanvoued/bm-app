@@ -88,6 +88,21 @@ export class Renxuanzuxuan4Component extends commonMethod{
    
   }
 
+  toggle(index,number){
+    // 少于2个 选择
+    if(this.choices.filter(ele => ele.choose).length == number && this.choices[index].choose )
+       return 
+    this.choices = this.choices.map((ele,indexs) => {
+        if(index == indexs)
+          return {...ele,choose:!ele.choose}
+        else
+          return ele
+    })
+    let { first,second } = this.getOriginData()
+    if(first.length >0 && second.length >0)
+       this.calculate()
+  }
+
   calculate(){
     let tempData = this.getOriginData(),count = 0;
     if(tempData.first.length < 1 || tempData.second.length < 1)
