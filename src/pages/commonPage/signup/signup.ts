@@ -97,7 +97,7 @@ export class SignupPage {
       this.signData.checkInfoText = '两次输入的密码不一样';
       return false;
     }else {
-      console.log(this.signData.data)
+      // console.log(this.signData.data)
       return true;
     }
   }

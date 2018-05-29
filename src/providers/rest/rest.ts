@@ -12,7 +12,7 @@ export class RestProvider {
   // user:any;
 
   constructor(public http: HttpClient) {
-    console.log('Hello RestProvider Provider');
+
   }
   //
   // getToken(){
@@ -24,12 +24,10 @@ export class RestProvider {
   // }
 
   postUrlReturn(url: string,parameter): Observable<any> {
-<<<<<<< HEAD
-    return this.http.post('http://www.zhenwin.com'+url,parameter)
-=======
+
     // this.getToken()
     return this.http.post('http://user.firecat.com'+url,parameter)
->>>>>>> 9dd55245d6e47ef506c97745ad81bd8f7764359c
+
   }
 
   getUrlReturn(url: string): Observable<any> {
