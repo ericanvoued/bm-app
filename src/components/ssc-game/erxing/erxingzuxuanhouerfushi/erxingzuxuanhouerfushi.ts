@@ -7,26 +7,21 @@ import { commonMethod } from '../../../common.method'
 import { BasketDataProvider } from '../../../../providers/basket-data/basket-data'
 
 /**
- * Generated class for the ErxingzuxuanqianerfushiComponent component.
+ * Generated class for the ErxingzuxuanhouerfushiComponent component.
  *
  * See https://angular.io/api/core/Component for more info on Angular
  * Components.
  */
 @Component({
-  selector: 'erxingzuxuanqianerfushi',
-  templateUrl: 'erxingzuxuanqianerfushi.html'
+  selector: 'erxingzuxuanhouerfushi',
+  templateUrl: 'erxingzuxuanhouerfushi.html'
 })
-export class ErxingzuxuanqianerfushiComponent extends commonMethod{
-
+export class ErxingzuxuanhouerfushiComponent extends commonMethod{
   text: string;
 
   constructor(public common:CommonProvider, public tool:ToolsProvider,public util:UtilProvider,public basket:BasketDataProvider) {
     super(common,util,basket) 
     this.text = 'Hello World';
-  }
-
-  qqq(number){
-    return number + 5
   }
 
   randomChoose(number?){

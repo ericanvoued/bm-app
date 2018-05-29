@@ -75,6 +75,13 @@ export class HousanzuxuanhezhiComponent extends commonMethod{
     return arr
  }
 
+ getLotteryText(){
+    let arr = []
+    this.getCommonData().forEach((ele,index) => ele.forEach((item,index1) => arr.push(('0' + (index*7 + item + 1)).slice(-2) + ' ')))
+    console.log(arr)
+    return arr.join('| ')
+ }
+
  calculate(){
     let count = 0
     this.getOriginData().forEach(item => {
@@ -131,4 +138,75 @@ mathResult(sum, nBegin, nEnd){
   }
   return arr
 }
+
+changeAll(line){
+    
+      this.common.ballData = this.common.ballData.map((item,index) => {
+          item.value = item.value.map((ele,index1) => index*7 + index1 <= 25 ? 1 : 0)
+          return item      
+      })      
+    }
+  
+    changeOdd(line){
+      this.common.ballData = this.common.ballData.map((ele,index) => {
+           ele.value = ele.value.map((item,index1) => {
+               return (index*7 + index1 + 1) % 2 && index*7 + index1 <= 25 ? 1:0 
+           })
+           return ele
+      })
+    }
+  
+    changeEven(line){
+      this.common.ballData = this.common.ballData.map((ele,index) => {
+          ele.value = ele.value.map((item,index1) => {
+              return (index*7 + index1 + 1) % 2 && index*7 + index1 <= 25 ? 0:1 
+          })
+          return ele
+      })
+     }
+  
+     changeBig(line){
+          let total = this.common.ballData.reduce((prev,next) => {
+              return prev + next.value.length
+          },0)
+  
+          this.common.ballData = this.common.ballData.map((item,index) => {
+              item.value = item.value.map((ele,index2) => {
+                  let temp = index*7 + index2 + 1 > 13 &&  index*7 + index2 + 1 <= 26 ? 1 : 0
+                  return temp
+              })
+              return item
+          })
+     }
+  
+     changeSmall(line){
+          let total = this.common.ballData.reduce((prev,next) => {
+              return prev + next.value.length
+          },0)
+  
+          this.common.ballData = this.common.ballData.map((item,index) => {
+              item.value = item.value.map((ele,index2) => {
+                  let temp = index*7 + index2 + 1 <= 13 ? 1 : 0
+                  return temp
+              })
+              return item
+          })
+     }
+  
+     changeClear(line){
+      this.common.ballData = this.common.ballData.map((item,index) => {
+          item.value = item.value.map(ele => 0)
+          return item            
+      })
+     }
+
+     changeChooseStatus(index1,index2){   
+        this.common.singleBtn = this.common.singleBtn.map((item,index) => {
+                if(index2 == index)
+                 return {...item, flag:true}
+                else
+                 return {...item, flag:false}   
+        })
+        console.log(this.common.singleBtn)        
+    }
 }

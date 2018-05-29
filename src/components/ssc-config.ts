@@ -44,7 +44,7 @@ import { HousanzuliuComponent } from './ssc-game/housan/housanzuliu/housanzuliu'
 import { HousanhezhiweishuComponent } from './ssc-game/housan/housanhezhiweishu/housanhezhiweishu'
 import { HousanteshuhaomaComponent } from './ssc-game/housan/housanteshuhaoma/housanteshuhaoma'
 import { HousanzuxuanhezhiComponent } from './ssc-game/housan/housanzuxuanhezhi/housanzuxuanhezhi'
-
+import { HousanbaodanComponent } from './ssc-game/housan/housanbaodan/housanbaodan'
 
 import { ErxingzhixuanhouerhezhiComponent } from './ssc-game/erxing/erxingzhixuanhouerhezhi/erxingzhixuanhouerhezhi'
 import { ErxingzhixuanhouerfushiComponent } from './ssc-game/erxing/erxingzhixuanhouerfushi/erxingzhixuanhouerfushi'
@@ -57,6 +57,7 @@ import { ErxingzuxuanhouerbaodanComponent } from './ssc-game/erxing/erxingzuxuan
 import { ErxingzuxuanqianerfushiComponent } from './ssc-game/erxing/erxingzuxuanqianerfushi/erxingzuxuanqianerfushi'
 import { ErxingzuxuanqianerhezhiComponent } from './ssc-game/erxing/erxingzuxuanqianerhezhi/erxingzuxuanqianerhezhi'
 import { ErxingzuxuanqianerbaodanComponent } from './ssc-game/erxing/erxingzuxuanqianerbaodan/erxingzuxuanqianerbaodan'
+import { ErxingzuxuanhouerfushiComponent } from './ssc-game/erxing/erxingzuxuanhouerfushi/erxingzuxuanhouerfushi'
 
 import { YixingdingweidanComponent } from './ssc-game/yixing/yixingdingweidan/yixingdingweidan'
 
@@ -91,6 +92,7 @@ import { RenxuansizhixuanfushiComponent } from './ssc-game/renxuan/renxuansizhix
 import { Renxuanzuxuan24Component } from './ssc-game/renxuan/renxuanzuxuan24/renxuanzuxuan24'
 import { Renxuanzuxuan12Component } from './ssc-game/renxuan/renxuanzuxuan12/renxuanzuxuan12'
 import { Renxuanzuxuan6Component } from './ssc-game/renxuan/renxuanzuxuan6/renxuanzuxuan6'
+import { Renxuanzuxuan4Component } from './ssc-game/renxuan/renxuanzuxuan4/renxuanzuxuan4'
 
 
 export let gameConfig = {
@@ -139,11 +141,13 @@ export let gameConfig = {
     "后三组选和值":HousanzuxuanhezhiComponent,
     "后三和值尾数":HousanhezhiweishuComponent,
     "后三特殊号码":HousanteshuhaomaComponent,
+    "后三包胆":HousanbaodanComponent,
 
     "二星直选后二和值":ErxingzhixuanhouerhezhiComponent,
     "二星直选后二复式":ErxingzhixuanhouerfushiComponent,
     "二星直选后二跨度":ErxingzhixuanhouerkuaduComponent,
     "二星直选前二复式":ErxingzhixuanqianerfushiComponent,
+    "二星组选后二复式":ErxingzuxuanhouerfushiComponent,
     "二星直选前二和值":ErxingzhixuanqianerhezhiComponent,
     "二星直选前二跨度":ErxingzhixuanqianerkuaduComponent,
     "二星组选后二和值":ErxingzuxuanhouerhezhiComponent,
@@ -184,4 +188,5 @@ export let gameConfig = {
     "任选任选四组选24":Renxuanzuxuan24Component,
     "任选任选四组选12":Renxuanzuxuan12Component,
     "任选任选四组选6":Renxuanzuxuan6Component,
+    "任选任选四组选4":Renxuanzuxuan4Component
 }    

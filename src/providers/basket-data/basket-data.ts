@@ -4,7 +4,8 @@ import { CommonProvider } from '../common/common'
 import { UtilProvider } from '../util/util'
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
-import {observe} from "..//tools/observe";
+import { observe } from "../tools/observe";
+import { commonMethod } from '../../components/common.method'
 let _ = new observe();
 
 /*
@@ -17,7 +18,28 @@ let _ = new observe();
 export class BasketDataProvider {
   betData:Array<any> = []
   totalAmount:number;
-  
+  /**
+   *  {
+   *    amount: ,
+   *    lotterys: ,
+   *    lotterysText:,
+   *    mid:,
+   *    moneyUnit:1,
+   *    mutiple, 倍数
+   *    number, 注数,
+   *    origin:
+   *    postParameter,  "3|4|5"
+   *    prize_group,
+   *    type:"qiansan.zhixuan.fushi"
+   *    typeText:"前三,直选,直选复式"
+   *    
+   * 
+   * 
+   *  }
+   *  
+   * 
+   * 
+   */
   statistic:any = {
      multiple: 1,
      trace:1
@@ -51,17 +73,18 @@ export class BasketDataProvider {
         this.totalAmount = 0   
   }
 
-  addBetData(name?){
+  addBetData(){
     console.log('sssss')
-    let processData = this.processOrder(name)
-    let names = name?name:this.common.method + ' ' + this.common.smallMethod
+    let processData = this.processOrder()
+    let names = name?name:this.common.method + this.common.secondKind + this.common.smallMethod
     let totalData = this.betData.filter(ele => ele.gameName == names)
     console.log(totalData)
     console.log(processData)
-    if(totalData.filter(item => item.betData.join('') == processData.betData.join('')).length > 0){
+    //检测重复
+    if(totalData.filter(item => item.betData.join('') == processData.lotterysText.join('')).length > 0){
        console.log('cun zai')
        this.betData = this.betData.map(item => {
-            if(item.gameName == names && item.betData.join('') == processData.betData.join('')){
+            if(item.gameName == names && item.betData.join('') == processData.lotterysText.join('')){
                 console.log('axiww')
                 return {...item,count:item.count + 1, price:item.price*(item.count + 1)/item.count}
             }else{
@@ -69,57 +92,67 @@ export class BasketDataProvider {
             }
        })
     }else{
-        this.betData.push(this.processOrder(name))
-
+        this.betData.push(this.processOrder())
     }
     //this.common.cartNumber++
     //this.calculateTotal()
   }
 
-  processOrder(name?){
+  processOrder(){
     let dataArr = []
-    let names = name?name:this.common.method + ' ' + this.common.smallMethod
+    let names = name?name:this.common.method + ' ' + this.common.secondKind + ' ' + this.common.smallMethod
 
     if(names.indexOf('和值') > -1){
-      let zhixuan = names.indexOf('直选和值') > -1 || this.common.secondKind == '直选' ? true : false
+      // let zhixuan = names.indexOf('直选和值') > -1 || this.common.secondKind == '直选' ? true : false
       
-      this.common.ballData.forEach((item,index) => {
-        let arr = [],flag = false
-        item.value.forEach((ele,index1) => {
-             if(ele){
-                let number = zhixuan ? ('0' + (index*item.value.length + index1)).slice(-2) : ('0' + (index*item.value.length + index1 + 1)).slice(-2)
-                arr.push(number)
-                flag = true
-             }
-        })
-        if(flag)
-           dataArr.push(arr.join(' '))
-      })
-
+      // this.common.ballData.forEach((item,index) => {
+      //   let arr = [],flag = false
+      //   item.value.forEach((ele,index1) => {
+      //        if(ele){
+      //           let number = zhixuan ? ('0' + (index*item.value.length + index1)).slice(-2) : ('0' + (index*item.value.length + index1 + 1)).slice(-2)
+      //           arr.push(number)
+      //           flag = true
+      //        }
+      //   })
+      //   if(flag)
+      //      dataArr.push(arr.join(' '))
+      // })
     }else{
-      let daxiaodanshuang = this.common.method == '大小单双' ? true : false
+      // let daxiaodanshuang = this.common.method == '大小单双' ? true : false
 
-      this.common.ballData.forEach(item => {
-        let arr = []
-        item.value.forEach((ele,index) => {
-          if(!daxiaodanshuang){
-            ele == 1 ? arr.push(('0'+index).slice(-2)):''
-          }else{
-            ele == 1 ? arr.push(this.judge(index)):''
-          }
-        })
-        dataArr.push(arr.join(' '))
-      })
+      // this.common.ballData.forEach(item => {
+      //   let arr = []
+      //   item.value.forEach((ele,index) => {
+      //     if(!daxiaodanshuang){
+      //       ele == 1 ? arr.push(('0'+index).slice(-2)):''
+      //     }else{
+      //       ele == 1 ? arr.push(this.judge(index)):''
+      //     }
+      //   })
+      //   dataArr.push(arr.join(' '))
+      // })
     }
-    
+    /**
+     * lotterysText:this.common.componentRef.getLotteryText(), 
+     * 
+     */
    
     console.log(dataArr)
-    // dataArr = dataArr.map(item => item.join(''))
+    console.log(this.common.componentRef.instance.getLotteryText())
+    console.log(this.common.componentRef.instance.getPositionArr())
+
+
     return {
-         betData:dataArr,
-         gameName:names,
-         count:this.common.count,
-         price:this.common.betPrice
+         amount:this.common.betPrice,
+         lotterys:this.common.componentRef.instance.getLotteryData(),
+         lotterysText:this.common.componentRef.instance.getLotteryText(), 
+         mid:this.common.smallId,
+         typeText:names,
+         number:this.common.count,
+         moneyUnit:this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01,
+         mutiple:this.statistic.multiple,
+         postParameter: "3|4|5",
+         position:this.common.componentRef.instance.getPositionArr()    
     }
   }
 

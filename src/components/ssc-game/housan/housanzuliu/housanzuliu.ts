@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonProvider } from '../../../../providers/common/common'
 import { UtilProvider } from '../../../../providers/util/util'
 import { ToolsProvider } from '../../../../providers/tools/tools'
+import { commonMethod } from '../../../common.method'
+import { BasketDataProvider } from '../../../../providers/basket-data/basket-data'
 /**
  * Generated class for the HousanzuliuComponent component.
  *
@@ -12,12 +14,12 @@ import { ToolsProvider } from '../../../../providers/tools/tools'
   selector: 'housanzuliu',
   templateUrl: 'housanzuliu.html'
 })
-export class HousanzuliuComponent {
+export class HousanzuliuComponent extends commonMethod{
 
   text: string;
 
-  constructor(public common:CommonProvider, public util:UtilProvider, public tool:ToolsProvider) {
-    console.log('Hello HousanzuliuComponent Component');
+  constructor(public common:CommonProvider, public tool:ToolsProvider,public util:UtilProvider,public basket:BasketDataProvider) {
+    super(common,util,basket) 
     this.text = 'Hello World';
   }
 
@@ -25,26 +27,44 @@ export class HousanzuliuComponent {
     return number + 5
   }
 
-  changeToggle(row,column){
-    console.log('wwww')
-    if(column!=null){
-       this.common.ballData = this.common.ballData.map((item,index) => {
-          if(index == row){
-              item.value = item.value.map((ele,index) => {
-                  if(index == column){
-                      return ele == 1 ? 0 : 1
-                  }else{
-                      return ele
-                  }
-              })
-              return item
-          }else{
-              return item
-          }
+  randomChoose(number?){
+    if(number){
+         this.common.ballData = this.common.ballData.map((item,index) => {
+         let temp = this.tool.produceRandom(3)
+         if(index == 0){
+            item.value = item.value.map((ele,index) => {
+                if(temp.indexOf(index) != -1){
+                    return 1
+                }else{
+                    return 0
+                }
+            })
+
+          return item
+        }
+       })
+       this.calculate()
+       this.basket.addBetData()
+       if(number == 1) return
+       this.randomChoose(--number)
+    }else{
+        this.common.ballData = this.common.ballData.map((item,index) => {
+        let temp = this.tool.produceRandom(3)
+        if(index == 0){
+            item.value = item.value.map((ele,index) => {
+                if(temp.indexOf(index) != -1){
+                    return 1
+                }else{
+                    return 0
+                }
+            })
+
+         return item
+       }
       })
+       this.calculate()
     }
-    this.calculate()
-  } 
+}
 
   calculate(){
     let total = this.common.ballData[0].value.reduce((a,b) => { 

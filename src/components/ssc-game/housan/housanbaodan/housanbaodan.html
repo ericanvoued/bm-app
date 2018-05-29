@@ -1,4 +1,4 @@
-<!-- Generated template for the ZhongsanbaodanComponent component -->
+<!-- Generated template for the HousanbaodanComponent component -->
 <div class="shakePhone" (click)="randomChoose()"></div>   
 
  <div>{{common.smallKind.bonus_note}} {{util.formatMoney(common.bonus)}} 元</div><div class="l-game" *ngFor="let data of common.ballData;let ii = index" >
@@ -25,7 +25,6 @@
           
             <div class="btn-list">
                 <a href="javascript:;" *ngFor="let detail of common.btn[ii];let j = index" [class.current]="detail.flag">{{detail.name}} <span></span></a>
-
             </div>
         </div>
     </div>

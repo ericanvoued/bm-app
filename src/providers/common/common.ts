@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+import { ComponentRef} from '@angular/core';
+
 import { ToolsProvider } from '../tools/tools'
 import { Events } from 'ionic-angular';
 import {ToastController, ModalController} from "ionic-angular";
@@ -45,6 +47,9 @@ export class CommonProvider {
   secondKind:string;
   bigIndex:any;
 
+  //小玩法id
+  smallId:any
+
   visible:string = 'invisable';
   tabYuan:string = "元";
   // 元 角 分
@@ -56,6 +61,8 @@ export class CommonProvider {
 
   // 添加到购物篮数
   cartNumber:number = 0;
+  // 随机注单的实例
+  componentRef:ComponentRef<any>
   // odd even big small
   btn:any[];
   singleBtn:Array<any>;
@@ -78,9 +85,9 @@ export class CommonProvider {
         this.initData()
         
     })
-    this.singleBtn = this.tools.copy([
-    {name:"全",flag:false},{name:"大",flag:false},{name:"小",flag:false},{name:"奇",flag:false},{name:"偶",flag:false},{name:"清",flag:false}
-    ],true)
+    // this.singleBtn = this.tools.copy([
+    // {name:"全",flag:false},{name:"大",flag:false},{name:"小",flag:false},{name:"奇",flag:false},{name:"偶",flag:false},{name:"清",flag:false}
+    // ],true)
 
       this.events.subscribe('changeYuan',(val) => {
           console.log('wefwewf')
@@ -105,11 +112,10 @@ export class CommonProvider {
         //     _token = data.token
         // })
 
-        let url = 'api-lotteries-h5/load-data/2/1?_t=e7e339482fa34098b74fa4e6560e566d'
-        let params = {_token:'G5W3CI0VsWOfN5R2OndV7fcssY9F9jhmQvdCHs8S'}
+        let url = 'api-lotteries-h5/load-data/2/1?_t=7c8c4682df229178c3a7aba4c44fa427'
+        let params = {_token:'DF3GbKXP5MKshQBS519MrngPN6JOShVAU7MR054s'}
         this.gameMethodConfig = (await this.http.postData(url,params)).data.game_ways
        
-
         // let qwe = await this.http.postData(url,params)
          console.log(this.gameMethodConfig )
         // this.data = (await this.http.fetchData(name)).list;
@@ -118,8 +124,9 @@ export class CommonProvider {
         
         this.small = this.gameMethodConfig[0].children;
         this.smallKind = this.gameMethodConfig[0].children[0].children[0]
-
+        this.smallId = this.smallKind.id
         console.log(this.smallKind)
+        console.log(this.smallId)
         let percent = this.tabYuan == '元' ? 1 : this.tabYuan == '角' ? 0.1 : 0.01
         this.bonus = this.smallKind.prize*percent
 
@@ -156,9 +163,12 @@ export class CommonProvider {
                         console.log(this.ballData)
 
             this.btn = this.ballData.map(ele => [{name:"全",flag:false},{name:"大",flag:false},{name:"小",flag:false},{name:"奇",flag:false},{name:"偶",flag:false},{name:"清",flag:false}])
-            console.log('change meeddd')
             console.log(this.btn)
         }
+
+        this.singleBtn = this.tools.copy([
+            {name:"全",flag:false},{name:"大",flag:false},{name:"小",flag:false},{name:"奇",flag:false},{name:"偶",flag:false},{name:"清",flag:false}
+            ],true)
 
         if(this.gameMethodConfig[index].children[index2].name_cn == '直选')
             this.zhixuan = true
@@ -185,11 +195,12 @@ export class CommonProvider {
         })
         console.log(temp)
         this.smallKind = temp
+        this.smallId = this.smallKind.id
         console.log(this.smallKind)
+        console.log(this.smallId)
         let percent = this.tabYuan == '元' ? 1 : this.tabYuan == '角' ? 0.1 : 0.01
         this.bonus = this.smallKind.prize*percent
-        // let percent = this.tabYuan == '元' ? 1 : this.tabYuan == '角' ? 0.1 : 0.01
-        // this.bonus = this.smallKind.bonus*percent
+     
         this.smallMethod = name
     }
 
@@ -242,5 +253,14 @@ export class CommonProvider {
       position: position?position:'middle'
     });
     toast.present();
+  }
+
+  
+ async getCountDownTime():Promise<any>{
+      let data = (await this.http.postData('/api-lotteries-h5/load-data/1/1?_t=7c8c4682df229178c3a7aba4c44fa427', {_token:'DF3GbKXP5MKshQBS519MrngPN6JOShVAU7MR054s'})).data
+      console.log(data)
+      return new Promise((resolve,reject) =>{
+        resolve(data)
+    })
   }
 }

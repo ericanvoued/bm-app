@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonProvider } from '../../../../providers/common/common'
-import { ToolsProvider } from '../../../../providers/tools/tools'
+import { UtilProvider } from '../../../../providers/util/util'
+import { commonMethod } from '../../../common.method'
+import { BasketDataProvider } from '../../../../providers/basket-data/basket-data'
 /**
  * Generated class for the HousanzhixuankuaduComponent component.
  *
@@ -11,11 +13,12 @@ import { ToolsProvider } from '../../../../providers/tools/tools'
   selector: 'housanzhixuankuadu',
   templateUrl: 'housanzhixuankuadu.html'
 })
-export class HousanzhixuankuaduComponent {
+export class HousanzhixuankuaduComponent extends commonMethod{
 
   text: string;
 
-  constructor(public common:CommonProvider, public tool:ToolsProvider) {
+  constructor(public common:CommonProvider, public util:UtilProvider,public basket:BasketDataProvider) {
+    super(common,util,basket) 
     console.log('Hello HousanzhixuankuaduComponent Component');
     this.text = 'Hello World';
   }
@@ -23,27 +26,6 @@ export class HousanzhixuankuaduComponent {
   qqq(number){
     return number + 5
   }
-
-  changeToggle(row,column){
-    console.log('wwww')
-    if(column!=null){
-       this.common.ballData = this.common.ballData.map((item,index) => {
-          if(index == row){
-              item.value = item.value.map((ele,index) => {
-                  if(index == column){
-                      return ele == 1 ? 0 : 1
-                  }else{
-                      return ele
-                  }
-              })
-              return item
-          }else{
-              return item
-          }
-      })
-    }
-     this.calculate()
-   }
 
    getOriginData(){
     let arr = []

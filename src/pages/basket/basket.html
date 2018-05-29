@@ -32,10 +32,10 @@
               </div>
               <div style="display:flex;flex-direction:column;width:80%"> 
                   <div style="border-bottom:1px solid lightgreen;padding:5px 0 5px 0;margin-bottom:5px">
-                      <span class="bet-ball" *ngFor="let detail of item.betData">{{detail}} |</span>
+                      <span class="bet-ball">{{item.lotterysText}}</span>
                   </div>
                  <div style="display:flex;justify-content:space-between">
-                    <span>{{item.gameName}}</span>    共{{item.count}}注 {{item.price}}元
+                    <span>{{item.typeText}}</span>    共{{item.number}}注 {{item.amount}}元
                  </div>
               </div>
               <!-- <div><span>{{item.gameName}}</span>    共{{item.count}}注 {{item.price}}元

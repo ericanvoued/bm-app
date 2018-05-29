@@ -43,7 +43,8 @@ export class BasketPage {
        this.arr.push(i)
     }
     //此处获取需要机选注单的实例  
-    this.componentRef = this.navParams.get('index')
+    //this.componentRef = this.navParams.get('index')
+   
   }
 
   ionViewDidLoad() {
@@ -62,13 +63,12 @@ export class BasketPage {
   randomChoose(number?){
      if(number){
          console.log('number == 5')
-         this.componentRef.instance.randomChoose(number)
+         this.common.componentRef.instance.randomChoose(number)
 
      }else{
-         this.componentRef.instance.randomChoose(number)
+         this.common.componentRef.instance.randomChoose(number)
          this.basket.addBetData()
-     }
-     
+     }  
   }
 
   ionViewWillLeave(){
