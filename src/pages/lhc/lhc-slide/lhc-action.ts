@@ -2,7 +2,7 @@ import * as $ from 'jquery';
 
 // import {Config} from './config';
 // import {NavParams} from "ionic-angular";
-import * as Hammer from 'hammerjs';
+// import * as Hammer from 'hammerjs';
 
 export class LhcAction {
 
@@ -24,17 +24,6 @@ export class LhcAction {
   };
 
 
-  // initEffect() {
-  //   this.requestData();
-  //   this.initView();
-  //   this.tmBallClick();
-  //   this.tmboxBtnClick();
-  //   this.changePlaySelect();
-  //   this.betBtnClick();
-  //   this.alertBetBtnClick();
-  //   // this.dropdownClick();
-  // }
-
   requestData() {
     //请求玩法
 
@@ -50,9 +39,8 @@ export class LhcAction {
 
   initView() {
 
-    // $('.after-select .after-con').css('display','none');
-    // $('.after-select .after-con').eq(0).css('display','block');
     this.requestData();
+    this.trendClick();
     this.tmBallClick();
     this.tmboxBtnClick();
     this.changePlaySelect();
@@ -69,34 +57,126 @@ export class LhcAction {
     this.ws_BallClick();
     this.points_BallClick();
 
-    // var _this = this, startX, startY, endX, endY, distanceX, distanceY;
-
     this.initHisBox();
-
-    // if($('.lhc-content-child .section.active').offset().top < 159){
-    //   $(".his-box").stop().animate({height:"0px"},100);
-    // }else{
-    //   $(".his-box").stop().animate({height:"100px"},100);
-    // }
-
-    // $(".lhc-content-child")
-    //   .hammer({
-    //     // 对DOM进行一些初始化，这里可以加入一些参数
-    //   })
-    //   .bind("tap", function(ev) {
-    //     console.log(4444444);
-    //   });
-
+    this.calculateProfit();
 
   }
 
-  initHisBox(){
+
+  calculateProfit() {
+
+    let _this = this;
+    $('.buy-input').bind('input propertychange', function () {
+      if ($(this).val() == '') {
+        $('.money-text').addClass('hide');
+        return;
+      }
+      $('.money-text').removeClass('hide');
+      var moneyunit = parseInt($(this).val());
+      $('.zhu').text(_this.calculateNum());
+
+      $('.money').text(_this.calculateNum() * moneyunit + '元');
+
+      var money = _this.calculateNum() * moneyunit;
+
+      //理论奖金=注单金额*赔率
+
+      var wanfa = $('.wanfa').text(),bonus=0,profit;
+      if(wanfa.search('特码')!=-1){
+        bonus = money * 46.55;
+        profit = bonus - money;
+
+      }else if(wanfa.search('半波')!=-1){
+
+        var balldata = JSON.parse(localStorage.balls);
+        for(var i =0 ;i<balldata.length;i++){
+          bonus += balldata[i].odds * moneyunit;
+        }
+        profit = bonus - money;
+
+      }else if(wanfa.search('肖')!=-1){
+
+        var balldata = JSON.parse(localStorage.balls);
+        for(var i =0 ;i<balldata.length;i++){
+          bonus += balldata[i].odds * moneyunit;
+        }
+        profit = bonus - money;
+
+      }else if(wanfa.search('尾数')!=-1){
+
+        var balldata = JSON.parse(localStorage.balls);
+        for(var i =0 ;i<balldata.length;i++){
+          bonus += balldata[i].odds * moneyunit;
+        }
+        profit = bonus - money;
+
+      }else if(wanfa.search('总分')!=-1){
+
+        var balldata = JSON.parse(localStorage.balls);
+        for(var i =0 ;i<balldata.length;i++){
+          bonus += balldata[i].odds * moneyunit;
+        }
+        profit = bonus - money;
+
+      }else if(wanfa.search('不中')!=-1){
+
+        var balldata = JSON.parse(localStorage.balls);
+        for(var i =0 ;i<balldata.length;i++){
+          bonus += balldata[i].odds * moneyunit;
+        }
+        profit = bonus - money;
+
+      }
+
+      $('.bonus').text(bonus.toFixed(2));
+      $('.profit').text(parseFloat(profit));
+
+    })
+
+//        理论奖金=注单金额*赔率
+//       //   <h4 class="money-text hide">
+//       //   <span class="zhu">5</span>注 共<span class="money">10元</span>，若中奖，奖金为<span class="bonus">10</span>元，盈利<span
+//       // class="profit">1000元</span>
+//       //   </h4>
+
+  }
+
+
+  trendClick() {
+
+    $('.trend-div').on('click', function () {
+      $('.right-popover').css('height')=='200px'? $('.right-popover').css('height','0px'):$('.right-popover').css('height','200px');
+    })
+
+    $('.side-nav a').on('click', function () {
+      var index = $(this).index();
+      switch (index) {
+        case 0:
+//走势图
+          break;
+        case 1:
+//近期开奖
+          break;
+        case 2:
+          //玩法说明
+          break;
+
+      }
+      $('.right-popover').css('height','0px');
+      // $('.popover-wrapper').addClass('hide');
+    })
+
+  }
+
+  initHisBox() {
 
     var startx, starty;
+
     //获得角度
     function getAngle(angx, angy) {
       return Math.atan2(angy, angx) * 180 / Math.PI;
     };
+
     //根据起点终点返回方向 1向上 2向下 3向左 4向右 0未滑动
     function getDirection(startx, starty, endx, endy) {
       var angx = endx - startx;
@@ -119,6 +199,7 @@ export class LhcAction {
       }
       return result;
     }
+
     //手指接触屏幕
     document.addEventListener("touchstart", function (e) {
       startx = e.touches[0].pageX;
@@ -132,32 +213,25 @@ export class LhcAction {
       var direction = getDirection(startx, starty, endx, endy);
 
       var len = $('.his-box .his-line').length; //28px
-
-      // console.log('len==='+len);
-
       // 小于等于 5条数据 -->  下滑 ， 数据 <=5 ,  不能继续下滑
       // 大于 5 条，小于 10 条 -->
-      var his  = $(".his-box").css('height');
+      var his = $(".his-box").css('height');
       switch (direction) {
         case 0:
           console.log("未滑动");
           break;
         case 1://向上
-
           //  <=140px    ， -->  0px，
           //  >= 140px &&    140px
-
-          if ( parseInt(his) <= 165) {
+          if (parseInt(his) <= 165) {
             $(".his-box").animate({height: "0px"}, 100);
             $('.lhc-content-child .scroll-content').css('overflow', '');
           } else if (parseInt(his) >= 165) {
             $(".his-box").stop().animate({height: "165px"}, 100);
             $('.lhc-content-child .scroll-content').css('overflow', 'hidden');
           }
-
           // $(".his-box").animate({height:"0px"},100);
-          console.log($(".his-box").css('height'));
-
+          // console.log($(".his-box").css('height'));
           break;
         case 2://向下
           // <5 && 0px    ， -->len x 28 px + 25px，
@@ -166,26 +240,26 @@ export class LhcAction {
           //          >=10   --> 280px
 
           var ooo = $('.lhc-content-child .section.active');
-          if ($('.lhc-content-child .section.active').offset().top < 159) {  //scroll上滑后下 滑动时候
+          if ($('.lhc-content-child .section.active').offset().top < 156) {  //scroll上滑后下 滑动时候
             $(".his-box").stop().animate({height: "0px"}, 0);
             return;
           }
-          console.log('his=='+his);
-          console.log('his=='+parseInt(his));
-          if ($(".his-box").css('height') == '0px' && len<5 ) {
-            var  h =  len*28 + 25;
-            console.log('h==='+h);
-            $(".his-box").animate({height: h+'px'}, 100);
+          console.log('his==' + his);
+          console.log('his==' + parseInt(his));
+          if ($(".his-box").css('height') == '0px' && len < 5) {
+            var h = len * 28 + 25;
+            console.log('h===' + h);
+            $(".his-box").animate({height: h + 'px'}, 100);
 
-          } else if ($(".his-box").css('height') == '0px' && len >=5) {
+          } else if ($(".his-box").css('height') == '0px' && len >= 5) {
 //28*5 + 25 px
             $(".his-box").animate({height: "165px"}, 100);
 
-          } else if (parseInt(his) >= 165 && len <10) {
+          } else if (parseInt(his) >= 165 && len < 10) {
 
-            var h = 165 + (len-5)*28;
-            $(".his-box").animate({height: h+"px"}, 100);
-          }else if (len >=10) {
+            var h = 165 + (len - 5) * 28;
+            $(".his-box").animate({height: h + "px"}, 100);
+          } else if (len >= 10) {
 //280 + 25
             $(".his-box").animate({height: "305px"}, 100);
           }
@@ -264,11 +338,11 @@ export class LhcAction {
         if (title.search('不中') == -1 || title.search('六肖') == -1) {
           _this.recoverTopSlide();
 
-          console.log('.transform=='+$('.slide_one .swiper-wrapper').css('transform'));
-          console.log('localStorage.transform=='+localStorage.transform);
-          console.log('isfast==='+_this.isfast());
+          console.log('.transform==' + $('.slide_one .swiper-wrapper').css('transform'));
+          console.log('localStorage.transform==' + localStorage.transform);
+          console.log('isfast===' + _this.isfast());
 
-          if(!_this.isfast() && $('.slide_one .swiper-wrapper').css('transform') == 'matrix(1, 0, 0, 1, 0, 0)'){
+          if (!_this.isfast() && $('.slide_one .swiper-wrapper').css('transform') == 'matrix(1, 0, 0, 1, 0, 0)') {
 
             $('.slide_one .swiper-wrapper').css('transform', localStorage.transform);
           }
@@ -291,7 +365,8 @@ export class LhcAction {
         $('.status-title').css('display', 'block');
         $('.status-time').css('display', 'block');
         $('.status-box').css('display', 'block');
-
+        $('.buy-input').val('');
+        $('.money-text').addClass('hide');
       })
 
     });
@@ -325,12 +400,12 @@ export class LhcAction {
         $('.self-tm').addClass('active');
         _this.removeTopSlide();
         //matrix(1, 0, 0, 1, 0, 0),matrix(1, 0, 0, 1, -414, 0)
-        if( $('.slide_one .swiper-wrapper').css('transform') != 'matrix(1, 0, 0, 1, 0, 0)'){
+        if ($('.slide_one .swiper-wrapper').css('transform') != 'matrix(1, 0, 0, 1, 0, 0)') {
 
-          console.log(11111);
-          console.log('transform=='+$('.slide_one .swiper-wrapper').css('transform'));
+          // console.log(11111);
+          // console.log('transform=='+$('.slide_one .swiper-wrapper').css('transform'));
           localStorage.transform = $('.slide_one .swiper-wrapper').css('transform');
-          $('.slide_one .swiper-wrapper').css('transform','matrix(1, 0, 0, 1, 0, 0)');
+          $('.slide_one .swiper-wrapper').css('transform', 'matrix(1, 0, 0, 1, 0, 0)');
 
         }
 
@@ -366,19 +441,69 @@ export class LhcAction {
       // tmBallClick();
     }
 
-    //   localStorage.removeItem('balls');
-    //   var wayId = $('.after-select .play-yellow').next().attr('id');
-    //   localStorage.wayId = wayId;
-    //   clean();
-
   }
 
 
   tmBallClick() {
 
-    $('.b-box .tm-unit').on('click', function () {
-      $(this).toggleClass('currunt');
-    });
+
+    // $('.b-box .tm-unit').on('click', function () {
+    //   $(this).toggleClass('currunt');
+    // });
+    var timeOutEvent=0;
+    $(".b-box .tm-unit").on({
+      touchstart: function(e){
+        timeOutEvent = setTimeout(function () {
+          var clas =   e.currentTarget.children[0].className;
+          if(clas.search('red-ball')!=-1){
+            e.currentTarget.children[0].className='topball red-ball';
+          }else if(clas.search('blue-ball')!=-1){
+            e.currentTarget.children[0].className='topball blue-ball';
+          }else{
+            e.currentTarget.children[0].className='topball green-ball';
+          }
+        },0);
+        e.preventDefault();
+      },
+      // touchmove: function(){
+      //   clearTimeout(timeOutEvent);
+      //   timeOutEvent = 0;
+      //   $(".b-box .tm-unit").eq($(this).index()).find('.topball').addClass('hide');
+      //   $(".b-box .tm-unit").eq($(this).index()).toggleClass('currunt');
+      // },
+      touchend: function(){
+        clearTimeout(timeOutEvent);
+        if(timeOutEvent!=0){
+          $(".b-box .tm-unit").eq($(this).index()).find('.topball').addClass('hide');
+          $(".b-box .tm-unit").eq($(this).index()).toggleClass('currunt');
+        }
+        return false;
+      }
+    })
+
+
+    // var timeout ;
+    // $(".b-box .tm-unit").mousedown(function() {
+    //   console.log('11111222221')
+    //   $(".b-box .tm-unit").eq($(this).index()).find('.topball').removeClass('hide');
+    //   timeout = setTimeout(function() {
+    //     console.log('11111222221')
+    //     $(".b-box .tm-unit").eq($(this).index()).find('.topball').removeClass('hide');
+    //     // $(this).find('.hide').removeClass('hide');
+    //   }, 500);
+    // });
+    // $(".b-box .tm-unit").mouseup(function() {
+    //   clearTimeout(timeout);
+    //   console.log('2222222111111111')
+    //   $(".b-box .tm-unit").eq($(this).index()).find('.topball').addClass('hide');
+    //   // $(this).find('.hide').addClass('hide');
+    // });
+    // $(".b-box .tm-unit").mouseout(function() {
+    //   clearTimeout(timeout);
+    //   console.log('333333')
+    //   $(this).find('.hide').addClass('hide');
+    // });
+
   }
 
   tmboxBtnClick() {
@@ -513,7 +638,7 @@ export class LhcAction {
         if (type.search('特码') != -1 || type.search('正') != -1 || type.search('不') != -1) {
           str = $('.b-box .currunt').eq(i).find('span').text();
           zhu = 1;
-          odds = 47.7;
+          odds = 46.55;
           txt = str;
         } else if (type.search('波') != -1) {
 
@@ -626,7 +751,6 @@ export class LhcAction {
 
     }
   }
-
 
 
   dealWitSelfBallData(str, num, odds, text) {
@@ -1019,7 +1143,6 @@ export class LhcAction {
   }
 
 
-
   betBtnClick() {
 
     //阴影弹窗
@@ -1102,8 +1225,8 @@ export class LhcAction {
       $('.lhc-popup .box').html(html);
 
       //注数
-      $('.zhu').text(_this.calculateNum());
-      $('.money').text(_this.calculateNum() * 2 + '元');
+      // $('.zhu').text(_this.calculateNum());
+      // $('.money').text(_this.calculateNum() * 2 + '元');
 
     } else {
 
@@ -1141,7 +1264,6 @@ export class LhcAction {
     })
 
   }
-
 
 
   bb_boxBtnClick() {

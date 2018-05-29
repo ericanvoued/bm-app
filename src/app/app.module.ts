@@ -26,7 +26,7 @@ import { LoadingProvider } from '../providers/loading/loading';
 import { InfoCenterProvider } from '../providers/info-center/info-center';
 import { LhcSlidePage } from '../pages/lhc/lhc-slide/lhc-slide'
 import { KsPage } from '../pages/k3/ks/ks'
-// import { KsBasketPage } from '../pages/k3/ks-basket/ks-basket'
+import { KsBasketPage } from '../pages/k3/ks-basket/ks-basket'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -68,7 +68,7 @@ import { gameConfig } from './gameComponent'
     ZhixuanhezhiComponent,
     CountTipComponent,
     LhcSlidePage,
-    KsPage,
+    KsPage, KsBasketPage,
     ...gameConfig.ssc,
     ...gameConfig.d5
     // LoginPage,
@@ -80,7 +80,7 @@ import { gameConfig } from './gameComponent'
     IonicModule.forRoot(MyApp,{
       backButtonText: '',//按钮内容
       backButtonIcon: 'ios-arrow-back',//按钮图标样式
-      tabsHideOnSubPages: 'true'   
+      tabsHideOnSubPages: 'true'
     }),
     IonicStorageModule.forRoot()
   ],
@@ -99,12 +99,12 @@ import { gameConfig } from './gameComponent'
     SixingComponent,
     ZhixuanhezhiComponent,
     LhcSlidePage,
-    KsPage,
+    KsPage,KsBasketPage,
     CountTipComponent,
     ...gameConfig.ssc,
     ...gameConfig.d5
-   
-   
+
+
   ],
   providers: [
     StatusBar,
@@ -128,7 +128,7 @@ import { gameConfig } from './gameComponent'
     UtilProvider,
     SscServiceProvider,
     BasketDataProvider
-    
+
   ]
 })
 export class AppModule { }
