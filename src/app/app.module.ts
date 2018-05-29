@@ -49,6 +49,7 @@ import { SixingComponent } from '../components/gametrend/sixing/sixing'
 import { ZhixuanhezhiComponent } from '../components/gametrend/qiansan/zhixuanhezhi/zhixuanhezhi'
 import { gameConfig } from './gameComponent'
 import { BankCardProvider } from '../providers/bank-card/bank-card';
+import { SignupProvider } from '../providers/signup/signup';
 
 
 @NgModule({
@@ -125,7 +126,8 @@ import { BankCardProvider } from '../providers/bank-card/bank-card';
     UtilProvider,
     SscServiceProvider,
     BasketDataProvider,
-    BankCardProvider
+    BankCardProvider,
+    SignupProvider
 
   ]
 })

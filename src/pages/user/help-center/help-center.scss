@@ -1,0 +1,121 @@
+page-help-center {
+  .scroll-content{
+    background-color: #FFFFFF;
+  }
+
+  .kefu-icon{
+    float: right;
+  }
+  .toolbar-background-ios, .toolbar-background-md {
+    background-image: linear-gradient(-334deg, #7F6AED 0%, #664ED3 80%);
+  }
+  .gradient-bg{
+    height: 144px;
+    background-image: linear-gradient(-189deg, #7F6AED 3%, #311790 91%);
+    position: relative;
+  }
+  .bottom-bg{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 60px;
+    background: url("../../../assets/imgs/help-bg.png") center bottom no-repeat;
+    background-size: 100% 100%;
+    z-index: 0;
+  }
+  .icon-list{
+    height: 90px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 16px;
+    flex-wrap: wrap;
+    margin-top: 38px;
+    .list-unit{
+      width: 82px;
+      img{
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+      p{
+        width: 100%;
+        color: #FFFFFF;
+        text-align: center;
+      }
+    }
+  }
+  .type-list{
+    height: 135px;
+    padding: 0 16px;
+    padding-top: 8px;
+    border-bottom: 1px solid #EAEAEA;
+    h4{
+      line-height:37px;
+      font-size: 14px;
+      color: #333333;
+      letter-spacing: 0;
+      font-weight:bold;
+    }
+    ul{
+      height: 22px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #333333;
+      letter-spacing: 0;
+      text-align: center;
+      margin: 16px 0;
+      margin-top: 10px;
+      &:last-child{
+        margin-top: 25px;
+      }
+      li{
+        width: 65px;
+        height: 22px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        i{
+          width: 22px;
+          height: 22px;
+          margin-left: 9px;
+        }
+        span{
+          display: inline-block;
+          height: 22px;
+          line-height:22px;
+        }
+      }
+    }
+  }
+  .question-content{
+    padding: 10px 16px;
+    h4{
+      line-height:37px;
+      font-size: 14px;
+      color: #333333;
+      letter-spacing: 0;
+      font-weight:bold;
+    }
+    ul{
+      padding-left: 20px;
+    }
+    li{
+      list-style: outside;
+      padding: 8px 0;
+      h5{
+        font-size: 14px;
+        color: #333333;
+        letter-spacing: 0;
+      }
+      p{
+        font-size: 14px;
+        color: #666666;
+        letter-spacing: 0;
+        padding: 10px 0;
+        line-height:24px;
+      }
+    }
+  }
+}

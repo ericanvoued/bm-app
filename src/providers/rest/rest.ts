@@ -12,7 +12,7 @@ export class RestProvider {
   // user:any;
 
   constructor(public http: HttpClient) {
-    console.log('Hello RestProvider Provider');
+
   }
   //
   // getToken(){
@@ -31,7 +31,6 @@ export class RestProvider {
 
   getUrlReturn(url: string): Observable<any> {
     return this.http.get('http://user.firecat.com'+url)
-
   }
 
   // extractData(res: Response) {

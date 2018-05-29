@@ -1,0 +1,199 @@
+
+<ion-header>
+  <ion-navbar>
+    <!--<ion-title>-->
+    <span class="nav-title"> 购彩篮</span>
+    <!--</ion-title>-->
+
+    <span class="clean-all">清空</span>
+
+
+  </ion-navbar>
+
+  <p class="top-issue">距23058期截止<span>09:56</span></p>
+  <ul class="topSelect">
+    <li class="goOnBtn random1">+ 机选一注</li>
+    <li class="goOnBtn random5">+ 机选5注</li>
+    <li class="goOnBtn" (click)="oneMore()">继续选号</li>
+  </ul>
+
+</ion-header>
+
+<ion-content padding>
+
+  <div class="scroll-content" style="">
+    <ul class="buy-list">
+
+      <!--<li class="buy-li clear">-->
+        <!--<div class="li-close">-->
+          <!--<ion-icon name="ios-close-circle-outline"></ion-icon>-->
+        <!--</div>-->
+        <!--<div class="buy-con">-->
+          <!--<div class="number">-->
+            <!--<i style="color: #FE5600;width: auto; display: inline;">-->
+              <!--<i>888</i>-->
+            <!--</i>-->
+          <!--</div>-->
+          <!--<div class="mt5"><span class="direct-select">后三直选复式</span> <span>1注 1倍 2元</span>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</li>-->
+
+
+      <!--<li class="buy-li clear">-->
+      <!--<div class="li-close">-->
+      <!--<ion-icon name="ios-close-circle-outline"></ion-icon>-->
+      <!--</div>-->
+      <!--<div class="buy-con">-->
+      <!--<div class="number">-->
+      <!--<i style="color: #FE5600;width: auto; display: inline;"><i>8</i><i class="line">,</i></i>-->
+      <!--</div>-->
+      <!--<div class="mt5"><span class="direct-select">后三直选复式</span> <span>1注 1倍 2元</span>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</li>-->
+
+      <!--<li class="buy-li clear">-->
+      <!--<div class="li-close">-->
+      <!--<ion-icon name="ios-close-circle-outline"></ion-icon>-->
+      <!--</div>-->
+      <!--<div class="buy-con">-->
+      <!--<div class="number">-->
+      <!--<i style="color: #FE5600;width: auto; display: inline;"><i>8</i><i class="line">,</i></i>-->
+      <!--</div>-->
+      <!--<div class="mt5"><span class="direct-select">后三直选复式</span> <span>1注 1倍 2元</span>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</li>-->
+
+      <!--<li class="buy-li clear">-->
+      <!--<div class="li-close">-->
+      <!--<ion-icon name="ios-close-circle-outline"></ion-icon>-->
+      <!--</div>-->
+      <!--<div class="buy-con">-->
+      <!--<div class="number">-->
+      <!--<i style="color: #FE5600;width: auto; display: inline;"><i>8</i><i class="line">,</i></i>-->
+      <!--</div>-->
+      <!--<div class="mt5"><span class="direct-select">后三直选复式</span> <span>1注 1倍 2元</span>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</li>-->
+
+      <!--<li class="buy-li clear">-->
+      <!--<div class="li-close">-->
+      <!--<ion-icon name="ios-close-circle-outline"></ion-icon>-->
+      <!--</div>-->
+      <!--<div class="buy-con">-->
+      <!--<div class="number">-->
+      <!--<i style="color: #FE5600;width: auto; display: inline;"><i>8</i><i class="line">,</i></i>-->
+      <!--</div>-->
+      <!--<div class="mt5"><span class="direct-select">后三直选复式</span> <span>1注 1倍 2元</span>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</li>-->
+
+      <!--<li class="buy-li clear">-->
+      <!--<div class="li-close">-->
+      <!--<ion-icon name="ios-close-circle-outline"></ion-icon>-->
+      <!--</div>-->
+      <!--<div class="buy-con">-->
+      <!--<div class="number">-->
+      <!--<i style="color: #FE5600;width: auto; display: inline;"><i>8</i><i class="line">,</i></i>-->
+      <!--</div>-->
+      <!--<div class="mt5"><span class="direct-select">后三直选复式</span> <span>1注 1倍 2元</span>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</li>-->
+
+
+      <!--<li class="buy-li clear">-->
+      <!--<div class="buy-li-r">-->
+      <!--<ion-icon ios="ios-close" md="md-close"></ion-icon>-->
+      <!--</div>-->
+      <!--<div class="buy-con">-->
+      <!--<div class="number">-->
+      <!--<i style="color: #FE5600;width: auto; display: inline;"><i>8</i><i class="line">,</i></i>-->
+      <!--</div>-->
+      <!--<div class="mt5"><span class="direct-select">后三直选复式</span> <span>1注 1倍 2元</span>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</li>-->
+
+    </ul>
+  </div>
+</ion-content>
+
+
+<ion-footer class="basket-footer">
+
+  <div class="footer-con" style="">
+    <div class="clear">
+      <div class="fl">
+        <span class="multiple-num">追号:</span>
+        <div class="multiple" id="zhui">
+          <ion-icon class="zhui_min ion" ios="ios-remove-outline" md="md-remove"></ion-icon>
+          <input maxlength="6" type="tel" value="1">
+          <ion-icon class="zhui_more ion" ios="ios-add-outline" md="md-add"></ion-icon>
+        </div>
+      </div>
+      <div class="fr">
+        <span class="multiple-num">倍数: </span>
+        <div class="multiple" id="bei">
+          <ion-icon class="bei_min ion" ios="ios-remove-outline" md="md-remove"></ion-icon>
+          <input maxlength="6" type="tel" value="1">
+          <ion-icon class="bei_more ion" ios="ios-add-outline" md="md-add"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <div class="clear">
+      <div class="fl">
+        <span class="multiple-num">返点:</span>
+        <div class="money-drop return-point">
+          <div class="money-btn money-btn-1">
+            <i>1950-0%</i>
+            <ion-icon name="md-arrow-dropdown" style="
+             position: absolute;
+             margin-top: 6px;
+             margin-left: 4px;
+          "></ion-icon>
+          </div>
+
+          <ul class="money-menu">
+            <li>
+              1888-7.5%
+            </li>
+            <li>
+              1950-0%
+            </li>
+          </ul>
+
+        </div>
+      </div>
+      <div class="fr">
+        <label class="win-select">
+          <input type="checkbox" class="ng-untouched ng-pristine" disabled="disabled">
+          <span class="traceWinStop"
+                style="width: 18px;height: 18px;background: url(./assets/img/win-bg-checked.svg) no-repeat;background-size: 100% 100%;"></span>
+          <strong>中奖后停止追号</strong>
+        </label>
+      </div>
+
+    </div>
+
+    <div class="win-point">
+      <div class="total-con fl">
+        <span>追号</span>
+        <span class="qi">1</span>
+        <span>期</span>
+        <span class="zhu">1</span>
+        <span>注    共</span>
+        <span class="yuan">2222</span> 元
+        <div class="buy-balance">余额：¥ <span class="balance">2222</span></div>
+      </div>
+      <div class="fr">
+        <div class="bet-btn" style="">立即下注</div>
+      </div>
+    </div>
+  </div>
+</ion-footer>

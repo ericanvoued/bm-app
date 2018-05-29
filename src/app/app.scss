@@ -328,9 +328,38 @@ ul, li {
 }
 
 
+//帮助中心
+.help-sign-icon{
+  background-image: url("../assets/icon/help-sign-icon.png");
+}
+.help-charge-icon{
+  background-image: url("../assets/icon/help-charge-icon.png");
+}
+.help-lottory-icon{
+  background-image: url("../assets/icon/help-lottory-icon.png");
+}
+.help-win-icon{
+  background-image: url("../assets/icon/help-win-icon.png");
+}
+.help-withdrew-icon{
+  background-image: url("../assets/icon/help-withdrew-icon.png");
+}
+.help-others-icon{
+  background-image: url("../assets/icon/help-others-icon.png");
+}
 
-
-
+.push-win-icon{
+  background-image: url("../assets/icon/push-win-icon.png");
+}
+.push-msg-icon{
+  background-image: url("../assets/icon/push-msg-icon.png");
+}
+.push-voice-icon{
+  background-image: url("../assets/icon/push-voice-icon.png");
+}
+.push-time-icon{
+  background-image: url("../assets/icon/push-time-icon.png");
+}
 
 
 
@@ -361,6 +390,9 @@ ul, li {
       outline: none;
       text-indent: 12px;
       font-size: 16px;
+      &::-webkit-input-placeholder{
+        font-size: 14px;
+      }
     }
     .row-info{
       position: absolute;
