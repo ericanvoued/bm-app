@@ -2,40 +2,53 @@ page-hot-gmage-list {
   .info {
     font-size: 14px;
     color: #333333;
-    height: 54px;
-    line-height: 54px;
-    text-indent: 3vw;
-    position: relative;
+    letter-spacing: 0;
+    line-height:24px;
+    margin-top: 13px;
+    .disc{
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      background-color: #000000;
+      border-radius: 50%;
+      position: relative;
+      top: -4px;
+      margin-right: 8px;
+      margin-left: 3px;
+    }
   }
-  .close {
+  .edit {
+    width: 72px;
+    height: 24px;
+    line-height:22px;
+    border: 1px solid #E96A04;
+    color: #E96A04;
+    text-align: center;
     display: block;
-    position: absolute;
-    right: 0;
-    top: 17px;
-    background-image: url("../assets/icon/close-icon.png");
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: 15px 15px;
-    width: 20px;
-    height: 20px;
+    float: right;
+    border-radius: 3px;
+    &:active{
+      background-color: #E96A04;
+      color: #ffffff;
+    }
   }
   .lotory-list {
     width: 100%;
-    height: 100%;
+    height: auto;
     padding: 0 8px;
     background: #FFFFFF;
     box-shadow: 0 2px 8px 0 rgba(65, 64, 66, 0.21);
-    border-radius: 5px;
     padding-bottom: 8px;
     ul {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      //display: flex;
+      //justify-content: center;
+      //align-items: flex-start;
       min-height: 210px;
-      flex-wrap: wrap;
+      //flex-wrap: wrap;
       li {
         width: 25%;
         height: 24.8vw;
+        float: left;
         &:nth-child(4n) {
           border-right: none;
         }
@@ -60,7 +73,7 @@ page-hot-gmage-list {
           width: 100%;
           text-align: center;
         }
-        span {
+        span.stop-sale {
           display: block;
           position: absolute;
           top: 2px;
@@ -74,7 +87,25 @@ page-hot-gmage-list {
           color: #ffffff;
           border-radius: 20px;
         }
+        .delete-lottory{
+          display: block;
+          position: absolute;
+          top: 2px;
+          left: 0;
+          width: 21px;
+          height: 21px;
+          border-radius: 50%;
+          background-color: #D4D4D4;
+          font-size: 20px;
+          color: #ffffff;
+          font-weight: bold;
+          line-height: 19px;
+          text-align: center;
+        }
       }
     }
+  }
+  .mt-12{
+    margin-top: 12px;
   }
 }
