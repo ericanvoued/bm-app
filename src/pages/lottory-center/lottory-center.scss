@@ -1,3 +1,41 @@
 page-lottory-center {
+  .lottory-list{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    background-color: rgba(0,0,0,.5);
+  }
 
+
+  .lc-tab-head{
+    height: 35px;
+    line-height:35px;
+    display: flex;
+    color: #333333;
+    text-align: center;
+    background-color: #FFF9F5;
+    .lc-tab-unit{
+      flex: 1;
+      width: 100%;
+      position: relative;
+      transition: all .35s;
+      .underline{
+        position: absolute;
+        left: 0;
+        right: 100%;
+        bottom: 0px;
+        background-color: #F6374E;
+        height: 2px;
+      }
+      &.current{
+        color: #F6374E;
+        .underline{
+          right: 0;
+        }
+      }
+    }
+  }
 }

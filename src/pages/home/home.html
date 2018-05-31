@@ -38,7 +38,7 @@
           <img src="{{lottory.imgSrc}}" alt="{{lottory.title}}">
           <p>{{lottory.title}}</p>
           <span *ngIf="lottory.stopSale">停售</span>
-        </a>  
+        </a>
       </li>     -->
       <li>
         <a href="javascript:;" (click)="goToSsc()">
@@ -132,7 +132,8 @@
       </li>
 
       <li>
-        <a href="javascript:;" (click)="allGameModel(homeData.lottorys)">
+        <a href="javascript:;" (click)="pushPage('HotGmageListPage',homeData.lottorys)">
+        <!--<a href="javascript:;" (click)="allGameModel(homeData.lottorys)">-->
           <img src="assets/home/lotory-more.png" alt="">
           <p>更多彩种</p>
         </a>

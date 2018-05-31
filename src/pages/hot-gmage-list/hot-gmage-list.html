@@ -1,12 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <h2 class="DIY-title">更多彩种</h2>
+  </ion-navbar>
+</ion-header>
 <ion-content>
-  <div class="lotory-list">
-    <h4 class="info"><span class="close" (click)="modelDismiss()"></span></h4>
+  <div class="lotory-list clearfix">
+    <h4 class="info"><i class="disc"></i>我的常用彩种<span class="edit" (click)="modelDismiss()">编辑</span></h4>
     <ul>
-      <li *ngFor="let lottory of lottorys">
+      <li *ngFor="let lottory of lottorys.slice(0,14)">
         <a href="{{lottory.url}}" title="{{lottory.title}}">
           <img src="{{lottory.imgSrc}}" alt="{{lottory.title}}">
           <p>{{lottory.title}}</p>
-          <span *ngIf="lottory.stopSale">停售</span>
+          <span class="stop-sale" *ngIf="lottory.stopSale">停售</span>
+          <span class="delete-lottory">-</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="lotory-list mt-12 clearfix">
+    <h4 class="info"><i class="disc"></i>更多彩种</h4>
+    <ul>
+      <li *ngFor="let lottory of lottorys.slice(0,5)">
+        <a href="{{lottory.url}}" title="{{lottory.title}}">
+          <img src="{{lottory.imgSrc}}" alt="{{lottory.title}}">
+          <p>{{lottory.title}}</p>
+          <span class="stop-sale" *ngIf="lottory.stopSale">停售</span>
+          <span class="delete-lottory">+</span>
         </a>
       </li>
     </ul>

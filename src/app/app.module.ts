@@ -11,7 +11,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { LottoryCenterPage } from '../pages/lottory-center/lottory-center'
 import { ActivityPage } from '../pages/activity/activity'
 import { UserCenterPage } from '../pages/user/user-center/user-center'
-import { HotGmageListPage } from '../pages/hot-gmage-list/hot-gmage-list'
+// import { HotGmageListPage } from '../pages/hot-gmage-list/hot-gmage-list'
 
 
 import { IonicStorageModule } from '@ionic/storage'
@@ -60,7 +60,7 @@ import { SignupProvider } from '../providers/signup/signup';
     ActivityPage,
     UserCenterPage,
     TabsPage,
-    HotGmageListPage,
+    // HotGmageListPage,
     WuxingComponent,
     SixingComponent,
     ZhixuanhezhiComponent,
@@ -92,7 +92,7 @@ import { SignupProvider } from '../providers/signup/signup';
     ActivityPage,
     UserCenterPage,
     TabsPage,
-    HotGmageListPage,
+    // HotGmageListPage,
     // LoginPage,
     WuxingComponent,
     SixingComponent,
