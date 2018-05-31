@@ -2,8 +2,13 @@ page-basket {
     .top-menu{width:30%;padding:3px;background: #ffffff;border:1px solid #f0f0f0;text-align: center}
 
     .bet-ball{color:#F6374E;margin-right:5px}
-    ul.fandian{transition: all .5s;position:absolute;bottom:0;background:#f5d300;width:100%;border-radius:10px}
-    ul.fandian li{display: block}
+    ul.fandian{transition: all .5s;position:absolute;bottom:0;background:#F3F3F3;width:100%;border-radius:10px;transform: translate3d(0, 100%, 0);opacity: 0,}
+    ul.fandian li{display: block;}
+
+    ul.fandian li:nth-of-type(1){border-top-right-radius: 10px;border-top-left-radius: 10px}
+    ul.fandian li:nth-last-of-type(1){border-bottom-right-radius: 10px;border-bottom-left-radius: 10px}
+
+    ul.fandian li.current{background: #979797}
     ion-content{padding:0 15px 0 15px}
     .basket-footer{display:flex;flex-direction:column;height:140px;background:#ffffff;padding-top:10px}
 
@@ -14,5 +19,6 @@ page-basket {
 
     .middle-part{display:flex;justify-content:space-between;width:100%;padding:0 10px 10px 10px;border-bottom:1px solid grey;margin-top:10px}
 
-    .fandian-number{float:left;background:#F3F3F3;width:120px;text-align:center;height:30px;line-height:26px;border-radius:30px;padding:2px;position:relative}
+    //返点
+    .fandian-number{float:left;background:#F3F3F3;width:100px;text-align:center;height:30px;line-height:26px;border-radius:30px;padding:2px 0;position:relative;}
 }

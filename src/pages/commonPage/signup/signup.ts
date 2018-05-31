@@ -58,12 +58,12 @@ export class SignupPage {
         }
       })
     }else {
-      this.signupPrd.getRegisterParam().subscribe((data)=>{
-        if(data.isSuccess==1){
-          this.signData.signInitParam = data.data.tplData.successful;
-          // this.storage.set('signParam',data.data.tplData.successful)
-        }
-      })
+      // this.signupPrd.getRegisterParam().subscribe((data)=>{
+      //   if(data.isSuccess==1){
+      //     this.signData.signInitParam = data.data.tplData.successful;
+      //     // this.storage.set('signParam',data.data.tplData.successful)
+      //   }
+      // })
     }
 
   }
@@ -113,35 +113,35 @@ export class SignupPage {
     return
   }
 
-  signAction() {
-    if (!this.checkForm()) return;
-    else {
-      this.signData.loading = this.loadPrd.showLoading(this.loadingCtrl, '注册中...');
+  // signAction() {
+  //   if (!this.checkForm()) return;
+  //   else {
+  //     this.signData.loading = this.loadPrd.showLoading(this.loadingCtrl, '注册中...');
 
-      this.signupPrd.postRegisterData({
-        'Content-Type':          'application/x-www-form-urlencoded',
-        username:                this.signData.data.username,
-        password:                this.signData.data.password,
-        password_confirmation:   this.signData.data.confirmPsw,
-        keyword:                 this.signData.signInitParam.keyword,
-        _token:                  this.signData.signInitParam.token,
-      }).subscribe((data) => {
+  //     this.signupPrd.postRegisterData({
+  //       'Content-Type':          'application/x-www-form-urlencoded',
+  //       username:                this.signData.data.username,
+  //       password:                this.signData.data.password,
+  //       password_confirmation:   this.signData.data.confirmPsw,
+  //       keyword:                 this.signData.signInitParam.keyword,
+  //       _token:                  this.signData.signInitParam.token,
+  //     }).subscribe((data) => {
 
-        if (data.isSuccess == 1) {
-          this.signData.loading.dismiss();
-          this.signData.toast = this.loadPrd.showToast(this.ToastCtrl, '注册成功');
-          this.storage.set('userInfo', data['data']);
-          this.navCtrl.setRoot(TabsPage, {
-            pageIndex: 0
-          });
-        } else {
-          this.signData.loading.dismiss();
-          this.tost = this.loadPrd.showToast(this.ToastCtrl, data.Msg);
-        }
+  //       if (data.isSuccess == 1) {
+  //         this.signData.loading.dismiss();
+  //         this.signData.toast = this.loadPrd.showToast(this.ToastCtrl, '注册成功');
+  //         this.storage.set('userInfo', data['data']);
+  //         this.navCtrl.setRoot(TabsPage, {
+  //           pageIndex: 0
+  //         });
+  //       } else {
+  //         this.signData.loading.dismiss();
+  //         this.tost = this.loadPrd.showToast(this.ToastCtrl, data.Msg);
+  //       }
 
-      })
-    }
-  }
+  //     })
+  //   }
+  // }
 
   toLogin() {
       this.navCtrl.push('LoginPage');

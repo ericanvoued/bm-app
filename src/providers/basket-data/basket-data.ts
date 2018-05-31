@@ -65,37 +65,48 @@ export class BasketDataProvider {
   }
 
   calculateTotal(){
-     if(this.betData.length>0)
-        this.totalAmount = this.betData.reduce((r1,r2) => {
-            return {...r1, price:r1.price + r2.price}
-        }).price*this.statistic.multiple
-     else
+    console.log('change')
+      if(this.betData.length>0){
+          console.log(this.betData)
+          this.totalAmount = this.betData.reduce((r1,r2) => {
+            return {...r1, amount:r1.amount + r2.amount}
+        }).amount*this.statistic.multiple
+        console.log('dddd')
+        console.log(this.totalAmount)
+     } else
         this.totalAmount = 0   
   }
 
   addBetData(){
     console.log('sssss')
     let processData = this.processOrder()
-    let names = name?name:this.common.method + this.common.secondKind + this.common.smallMethod
-    let totalData = this.betData.filter(ele => ele.gameName == names)
-    console.log(totalData)
-    console.log(processData)
+    //let names = name?name:this.common.method + this.common.secondKind + this.common.smallMethod
     //检测重复
-    if(totalData.filter(item => item.betData.join('') == processData.lotterysText.join('')).length > 0){
+    if(this.checkRepeat(processData)){
        console.log('cun zai')
        this.betData = this.betData.map(item => {
-            if(item.gameName == names && item.betData.join('') == processData.lotterysText.join('')){
+            if(item.wayId == processData.wayId && item.lotterysText == processData.lotterysText){
                 console.log('axiww')
-                return {...item,count:item.count + 1, price:item.price*(item.count + 1)/item.count}
+                return {...item, jsId:item.jsId, number:item.number + 1, amount:item.amount*(item.number + 1)/item.number}
             }else{
                 return item
             }
        })
+       this.calculateTotal()
     }else{
-        this.betData.push(this.processOrder())
+        this.betData.push(processData)
     }
     //this.common.cartNumber++
     //this.calculateTotal()
+  }
+
+  checkRepeat(processData){
+    //let names = name?name:this.common.method + this.common.secondKind + this.common.smallMethod
+    let totalData = this.betData.filter(ele => ele.wayId == processData.wayId)
+  
+    //检测重复
+    if(totalData.filter(item => item.lotterysText == processData.lotterysText).length > 0)
+       return true
   }
 
   processOrder(){
@@ -143,10 +154,11 @@ export class BasketDataProvider {
 
 
     return {
+         jsId:this.betData.length + 1,
          amount:this.common.betPrice,
          lotterys:this.common.componentRef.instance.getLotteryData(),
          lotterysText:this.common.componentRef.instance.getLotteryText(), 
-         mid:this.common.smallId,
+         wayId:this.common.smallId,
          typeText:names,
          number:this.common.count,
          moneyUnit:this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01,

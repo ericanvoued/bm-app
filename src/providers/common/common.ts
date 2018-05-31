@@ -67,6 +67,10 @@ export class CommonProvider {
   btn:any[];
   singleBtn:Array<any>;
 
+  prizeGroup:any[];
+
+  chooseGroup:any;
+
   countTime:any = {
     'total': '',
     'days': '',
@@ -105,17 +109,11 @@ export class CommonProvider {
 
 
     async initData():Promise<any>{
-        // let auth_token,_token;
-        // this.storage.get('userInfo').then(data => {
-        //     console.log(data)
-        //     auth_token = data.auth_token
-        //     _token = data.token
-        // })
-
-        let url = 'api-lotteries-h5/load-data/2/1?_t=7c8c4682df229178c3a7aba4c44fa427'
-        let params = {_token:'DF3GbKXP5MKshQBS519MrngPN6JOShVAU7MR054s'}
+        let url = 'api-lotteries-h5/load-data/2/1?_t=4a2d4618e7774c19f84aa3d0b6426816'
+        let params = {_token:'9LTxelc7wY2XHR4L5n1XhlQ8Rwwq4mGQB42HkfWk'}
         this.gameMethodConfig = (await this.http.postData(url,params)).data.game_ways
-       
+        
+        
         // let qwe = await this.http.postData(url,params)
          console.log(this.gameMethodConfig )
         // this.data = (await this.http.fetchData(name)).list;
@@ -257,8 +255,12 @@ export class CommonProvider {
 
   
  async getCountDownTime():Promise<any>{
-      let data = (await this.http.postData('/api-lotteries-h5/load-data/1/1?_t=7c8c4682df229178c3a7aba4c44fa427', {_token:'DF3GbKXP5MKshQBS519MrngPN6JOShVAU7MR054s'})).data
+      let data = (await this.http.postData('/api-lotteries-h5/load-data/1/1?_t=4a2d4618e7774c19f84aa3d0b6426816', {_token:'9LTxelc7wY2XHR4L5n1XhlQ8Rwwq4mGQB42HkfWk'})).data
       console.log(data)
+      this.prizeGroup = []
+      this.prizeGroup.push(data.bet_max_prize_group + '-' + Number((data.user_prize_group - data.bet_max_prize_group)/data.series_amount.toFixed(2)) + '%')
+      this.prizeGroup.push(data.bet_min_prize_group + '-' + Number((data.user_prize_group - data.bet_min_prize_group)/data.series_amount.toFixed(2)) + '%')
+      this.chooseGroup = this.prizeGroup[0]
       return new Promise((resolve,reject) =>{
         resolve(data)
     })

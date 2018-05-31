@@ -20,7 +20,7 @@ export class HttpClientProvider {
     public fetchData(url):Promise<any>{
         return new Promise((resolve,reject) => {
             //this.beforeRequest()
-            this.http.get(url).subscribe((data:any) => {
+            this.http.get(baseUrl + url).subscribe((data:any) => {
                 resolve(data)
 
             })

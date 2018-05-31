@@ -1,4 +1,6 @@
 import { HttpClient } from '@angular/common/http';
+import { HttpClientProvider } from '../http-client/http-client'
+
 import { Injectable } from '@angular/core';
 import { CommonProvider } from '../common/common'
 import {Observable} from 'rxjs/Observable';
@@ -36,6 +38,8 @@ export class UtilProvider {
   // 走势图头部选择
   choose:any
   menus: Array<string> 
+
+  historyList:any[]
 
   historyNumbers = [
     {number:'01期', history:[5,7,7,5,7]},
@@ -128,7 +132,7 @@ export class UtilProvider {
 
   fakeTrend:Array<any> = []
 
-  constructor(public http: HttpClient,public common:CommonProvider, public vibration: Vibration) {
+  constructor(public http: HttpClientProvider,public common:CommonProvider, public vibration: Vibration) {
     console.log('Hello UtilProvider Provider');
 
     this.fakeTrend = [0,1,2,3,4].reduce((a,b) =>{
@@ -218,6 +222,20 @@ export class UtilProvider {
          
          if lengre haa loaded  return 
       */
+  }
+
+  async fetchRecord():Promise<any>{
+      console.log('fetchdata')
+      this.historyList = (await this.http.fetchData('api-lotteries-h5/load-issues/1?_t=4a2d4618e7774c19f84aa3d0b6426816')).data
+      
+    //   this.http.fetchData('api-lotteries-h5/load-issues/1?_t=4b5dbcc45a38784ce1aabaaa03ae806a').then(data => {
+    //        console.log(data)
+    //        this.historyList = data
+    //   })
+      console.log(this.historyList)
+      return new Promise((resolve,reject) =>{
+        resolve()
+    })
   }
 
    //生成走势统计数据
@@ -314,58 +332,6 @@ export class UtilProvider {
         this.common.calculate()
     }
 
-    //奇偶 全清
-    changeActive(index,choice,name){
-               //this.changeChooseStatus(index,choice)
-           
-           this.changeChooseStatus(index,choice)
-            switch(name){
-                case "全":
-                    this.changeAll(index)
-                    break;
-                case "奇":
-                    this.changeOdd(index)
-                    break;
-                case "偶":
-                    this.changeEven(index)
-                    break;
-                case "大":
-                    this.changeBig(index)
-                    break;
-                case "小":
-                    this.changeSmall(index)
-                    break;
-                case "清":
-                    this.changeClear(index)
-                    break;
-
-            }
-            //this.common.calculate()
-    }
-
-    changeChooseStatus(index1,index2){
-        if(index1 != null){
-            this.common.btn = this.common.btn.map((item,index) => {
-                if(index == index1){
-                    let ele = item.map((todo,order) => order == index2 ? {...todo,flag:true}:{...todo,flag:false})
-                    return ele
-                }else{
-                    return item
-                }
-          })
-        }else{
-            this.common.singleBtn = this.common.singleBtn.map((item,index) => {
-                 if(index2 == index)
-                    return {...item, flag:true}
-                 else
-                    return {...item, flag:false}   
-            })
-            console.log(this.common.singleBtn)
-        }
-        
-    }
-
-
     // 重置选球数据
     resetData(){
         this.common.ballData = this.common.ballData.map(item => {
@@ -375,214 +341,6 @@ export class UtilProvider {
         })
         //this.common.cartNumber = 0
         this.common.calculate()
-    }
-
-    changeAll(line){
-        //this.ballData
-        console.log(line)
-        if(line != null) {
-            this.common.ballData = this.common.ballData.map((item,index) => {
-            if(index == line){
-                item.value = item.value.map(ele => 1)
-                return item
-            }else{
-                return item
-            }
-           })
-        }else{
-            this.common.ballData = this.common.ballData.map((item,index) => {
-                 item.value = item.value.map(ele => 1)
-                 return item
-            })
-            console.log(this.common.ballData)
-        }
-       
-    }
-
-    changeClear(line){
-        //this.ballData
-        console.log(line)
-        if(line != null){
-            this.common.ballData = this.common.ballData.map((item,index) => {
-                if(index == line){
-                    item.value = item.value.map(ele => 0)
-                    return item
-                }else{
-                    return item
-                }
-            })
-        }else{
-            this.common.ballData = this.common.ballData.map((item,index) => {
-                    item.value = item.value.map(ele => 0)
-                    return item            
-            })
-        }
-      
-    }
-
-    changeBig(line){
-        if(line != null) {
-            this.common.ballData = this.common.ballData.map((item,index) => {
-            if(index == line){
-                item.value = item.value.map((ele,index) => index > 4? 1:0)
-                return item
-            }else{
-                return item
-            }
-           })
-        }else{
-             let total = this.common.ballData.reduce((prev,next) => {
-
-                 return prev + next.value.length
-             },0)
-             console.log(total)
-
-             if(this.common.method == '二星'){
-                 if(this.common.secondKind == '组选')
-                    total = 17
-                 else
-                    total = 19
-             }else{
-                 if(this.common.smallMethod == '组选和值')
-                    total = 26
-             }   
-
-             this.common.ballData = this.common.ballData.map((item,index) => {
-                item.value = item.value.map((ele,index2) => {
-                     let temp = index*item.value.length + index2 > (total-1)/2 &&  index*item.value.length + index2 < total ? 1 : 0
-                     console.log(temp)
-                     return temp
-                })
-                return item
-            })
-            console.log(this.common.ballData)
-        }   
-    }
-
-    changeSmall(line){
-        if(line != null) {
-             this.common.ballData = this.common.ballData.map((item,index) => {
-            if(index == line){
-                item.value = item.value.map((ele,index) => index > 4? 0:1)
-                return item
-            }else{
-                return item
-            }
-          })
-        }else{
-             let total = this.common.ballData.reduce((prev,next) => {
-
-                 return prev + next.value.length
-             },0)
-             console.log(total)
-
-             if(this.common.method == '二星'){
-                if(this.common.secondKind == '组选')
-                   total = 17
-                else
-                   total = 19
-            }else{
-                if(this.common.smallMethod == '组选和值')
-                   total = 26
-            }   
-             this.common.ballData = this.common.ballData.map((item,index) => {
-                 item.value = item.value.map((ele,index2) => {
-                    let temp = index*item.value.length + index2 <= (total-1)/2 ? 1 : 0
-                    console.log(temp)
-                    return temp
-                })
-                return item     
-            })
-        }
-       
-    }
-
-    changeOdd(line){
-        if(line != null){
-            this.common.ballData = this.common.ballData.map((item,index) => {
-            if(index == line){
-                item.value = item.value.map((ele,index) => index %2 == 0? 0 : 1)
-                return item
-            }else{
-                return item
-            }
-          })
-        }else{
-            let total = this.common.ballData.reduce((prev,next) => {
-
-                 return prev + next.value.length
-             },0)
-             console.log(total)
-             let zhixuan = this.common.smallMethod.indexOf('直选和值') > -1 || this.common.secondKind == '直选' ? true : false
-
-             if(this.common.method == '二星'){
-                if(this.common.smallMethod == '组选和值')
-                   total = 17
-                else
-                   total = 19
-             }else{
-                if(this.common.smallMethod == '组选和值')
-                   total = 26
-             }   
-             
-             this.common.ballData = this.common.ballData.map((item,index) => {
-                 item.value = item.value.map((ele,index2) => {
-                     let temp
-                     if(zhixuan)
-                        temp = (index*item.value.length + index2) %2 && (index*item.value.length + index2) < total ? 1 : 0
-                     else
-                        temp = (index*item.value.length + index2 + 1) %2  && (index*item.value.length + index2 + 1) <= total? 1 : 0
-                     console.log(temp)
-                     return temp
-                })
-                return item       
-            })
-        }
-       
-    }
-
-    changeEven(line){
-        if(line != null){
-            this.common.ballData = this.common.ballData.map((item,index) => {
-                if(index == line){
-                    item.value = item.value.map((ele,index) => index %2 == 0? 1 : 0)
-                    return item
-                }else{
-                    return item
-                }
-            })
-        }else{
-             let total = this.common.ballData.reduce((prev,next) => {
-
-                 return prev + next.value.length
-             },0)
-             console.log(total)
-             let zhixuan = this.common.smallMethod.indexOf('直选和值') > -1 || this.common.secondKind == '直选' ? true : false
-             
-             if(this.common.method == '二星'){
-                if(this.common.smallMethod == '组选和值')
-                   total = 17
-                else
-                   total = 19
-             }else{
-                if(this.common.smallMethod == '组选和值')
-                   total = 26
-             }   
-             
-             this.common.ballData = this.common.ballData.map((item,index) => {
-                 item.value = item.value.map((ele,index2) => {
-                     let temp
-                     if(zhixuan)
-                        temp = (index*item.value.length + index2) %2 ==0 && (index*item.value.length + index2) < total? 1 : 0
-                     else
-                        temp = (index*item.value.length + index2 + 1) %2==0 && (index*item.value.length + index2 + 1) <= total ? 1 : 0
-                     console.log(temp)
-                     return temp
-                })
-                return item       
-            })
-        }
-        
     }
 
     formatMoney(num){

@@ -27,6 +27,10 @@
 page-ssc {
   .toolbar-background-ios, .toolbar-background-md{background-image: linear-gradient(-43deg, #F3361B 0%, #EC6432 1%, #F5AD58 100%)}
 
+  .toolbar-title,.see-more{display: flex;justify-content: center;align-items: center}
+
+  .see-more{background: #ffffff;padding: 5px 0}
+
   .toggle-menu{background: url('../assets/imgs/toggle.png') center center no-repeat; position:relative;float:right;top:10px;width:21px;height:21px;margin-right: 10px}
 
   ul.statistic li.active, ul.statistic li.low{color:#F3361B}
@@ -52,16 +56,30 @@ page-ssc {
     line-height:26px;
     font-size: 12px;
     color: #666666;
-    border-bottom: 1px solid #EAEAEA;
+    position: fixed;
+    width:100%;
+    z-index:10;
+    background: #f0f0f0;
+    border-bottom: 1px solid #767676;
   }
 
   #qq{
-    width:70px;height:20px;box-shadow:0 1px 2px 0 #B6B6B6;border-top:none;border-bottom-left-radius: 8px;border-bottom-right-radius: 8px;margin: 0 auto;
-    text-align: center;line-height: 20px;background: url('../assets/imgs/games/return.png') center center no-repeat
+    width:70px;height:20px;box-shadow:0 2px 2px  #B6B6B6;border-top:none;border-bottom-left-radius: 8px;border-bottom-right-radius: 8px;margin: 0 auto;z-index:100;
+    text-align: center;line-height: 20px;background: url('../assets/imgs/games/return.png') center center no-repeat;position: relative;top:-2px;background-color: #ffffff
   }
+
+  #qq.fixed{position: fixed; top:70px;left:50%;transform: translateX(-50%)}
+
+  .tri-arrow{width:15px;height:15px;background: url(../assets/imgs/games/triangle.png) center center no-repeat}
+
+  .notice{width:15px;height: 15px;background: url(../assets/imgs/games/notice.png) center center no-repeat}
 
   .table{
     text-align: center;
+    position: fixed;
+    top:74px;
+    z-index:1;
+    width: 100%;
 
     .tbody{
 
@@ -92,7 +110,13 @@ page-ssc {
   }
 
   .bet-box{
-    margin:20px auto;
+    position: relative;
+    background: #f0f0f0;
+    transition:all .1s ease;
+    z-index: 5;
+    //top:81px;
+   // margin:0px auto;
+    box-shadow: 0 1px 2px 1px #B6B6B6;
     padding: 0 10px 0 10px
   }
   .l-game.l-hezhi{display: block}
