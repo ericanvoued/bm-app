@@ -73,7 +73,7 @@ export class HomePage {
   }
 
   goToSsc(){
-     this.common.pid.next('./assets/ssc.json')
+    // this.common.pid.next('./assets/ssc.json')
      this.navCtrl.push('SscPage')
   }
 
@@ -90,8 +90,7 @@ export class HomePage {
   }
 
   goToxuan5(){
-     console.log('wcndmd')
-     this.common.pid.next('./assets/115.json')
+     //this.common.pid.next('./assets/115.json')
      this.navCtrl.push('Xuan5Page')
   }
 }

@@ -119,7 +119,6 @@ import { SignupProvider } from '../providers/signup/signup';
     RestProvider,
     LoadingProvider,
     InfoCenterProvider,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
     CommonProvider,
     HttpClientProvider,
     ToolsProvider,
