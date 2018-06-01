@@ -11,18 +11,15 @@ export class BaseToolProvider {
   color = {
     red: ['01', '02', '07', '08', '12', '13', '18', '19', '23', '24', '29', '30', '34', '35', '40', '45', '46'],
     blue: ['03', '04', '09', '10', '14', '15', '20', '25', '26', '31', '36', '37', '41', '42', '47', '48']
-
   };
 
   constructor(public http: HttpClient,
               public rest: RestProvider) {
 
-    console.log('Hello BaseToolProvider Provider');
-
   }
 
   requestPlayData(idstr, lottery) {
-    //请求玩法
+
     var userInfo = JSON.parse(localStorage.userInfo);
     console.log(userInfo);
     var url = '/api-lotteries-h5/load-data/2/'+idstr+'?_t=' + userInfo.auth_token;
@@ -70,7 +67,6 @@ export class BaseToolProvider {
             // this.initViewData();
             resolve();
           } else {
-
           }
           this.requestJiangQiData(idstr, lottery);
         });
@@ -86,7 +82,7 @@ export class BaseToolProvider {
     var url = '/api-lotteries-h5/load-data/1/'+idstr+'?_t=' + data.auth_token;
     this.rest.postUrlReturn(url, {_token: data.token})
       .subscribe((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.IsSuccess) {
 
           localStorage.trace_max_times = data.data.trace_max_times;
@@ -97,12 +93,10 @@ export class BaseToolProvider {
           localStorage.series_amount = data.data.series_amount;
           var currentstr = data.data.current_number; //当前奖期
 
-          console.log("currentstr=====" + currentstr);
-
+          // console.log("currentstr=====" + currentstr);
           var part2 = parseInt(currentstr.substr(currentstr.length - 2)) + 1;
           var nextDate = currentstr.substr(0, currentstr.length - 2) + part2;
-
-          console.log("nextDate=====" + nextDate);
+          // console.log("nextDate=====" + nextDate);
           // var title = localStorage.nameStr;
           // data.data.lottery_balls
           $('.currentdate').text(currentstr + '期开奖');
@@ -156,16 +150,13 @@ export class BaseToolProvider {
               } else if (ani.yang.indexOf(v) != -1) {
                 tt = '羊';
               }
-              console.log(tt);
               score = score + parseInt(s[i]);
               var item = '<span class="' + clas + '">' + s[i] + '</span><p>' + tt + '</p>';
               $('.status-box').find('.status-number').eq(i).html(item);
               $('#score').text(score);
             }
           }
-
           this.cutDownTime(data.data.current_time, data.data.current_number_time);
-
         }
       });
   }
@@ -175,16 +166,15 @@ export class BaseToolProvider {
   }
 
   cutDownTime(a, b) {
-
+    let _this = this;
     var totalSec = this.getRemainTime(a, b);
     var ttt = totalSec;
     var liArr = $('.r-time span');
     this.timeIddd = setInterval(function () {
-
       if (totalSec <= 0) {
         //--奖期
-        this.requestJiangQiData('21', '3');
-        clearInterval(this.timeIddd);
+        _this.requestJiangQiData('21', '3');
+        clearInterval(_this.timeIddd);
         return;
       }
       totalSec--;
@@ -218,7 +208,6 @@ export class BaseToolProvider {
     } else if (title.search("6") != -1) {
       n = 0, m = 0, k = 0;
     }
-    // var n = 0, m = 0, k = 0;
     $('.play-list .play-black').eq(n).addClass('play-yellow');
     $('.after-select .after-con').eq(n).addClass('active');
     $('.after-select .active').find('.after-list').eq(m).find('.play-black').eq(k).addClass('play-yellow');
@@ -247,7 +236,6 @@ export class BaseToolProvider {
   getAngle(angx, angy) {
     return Math.atan2(angy, angx) * 180 / Math.PI;
   };
-
   getDirection(startx, starty, endx, endy) {
     var angx = endx - startx;
     var angy = endy - starty;
@@ -256,7 +244,6 @@ export class BaseToolProvider {
       return result;
     }
     var angle = this.getAngle(angx, angy);
-    console.log('angle==' + angle);
     if (angle >= -135 && angle <= -45) {
       result = 1;
     } else if (angle > 45 && angle < 135) {
@@ -302,7 +289,7 @@ export class BaseToolProvider {
               lscroll.css('overflow', 'hidden');
             }
             break;
-          case 2://down
+          case 2:
             if (obj.css('height') == '0px' && len < 5) {
               var h = len * 28 + 25;
               obj.animate({height: h + 'px'}, 100);
