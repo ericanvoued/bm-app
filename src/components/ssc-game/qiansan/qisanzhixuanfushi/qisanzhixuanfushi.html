@@ -13,9 +13,12 @@
 
     <div class="r">
         <div class="ball-list">
-            <ul>
-                <li *ngFor="let item of data.value.slice(0,5);let i = index" [class.current]="item == 1" (click)="changeToggle(ii,i)">{{i}}</li>
-            </ul>
+                <ul class="ball-choose">
+                        <li *ngFor="let item of data.value.slice(0,5);let i = index" [class.current]="item == 1" (click)="changeToggle(ii,i)">
+                            {{i}}
+                            <span class="tip-block">{{i}}</span>
+                        </li>
+                </ul>
 
             <ul class="yilou statistic" *ngIf="check('当前遗漏')">
                 <li *ngFor ="let detail of util.yilou[getWei(data.key)].slice(0,5)">{{detail}}</li>
@@ -25,8 +28,11 @@
                 <li *ngFor ="let detail of util.lengre[getWei(data.key)].slice(0,5)">{{detail}}</li>
             </ul>
 
-            <ul>
-                <li *ngFor="let item of data.value.slice(-5);let i = index" [class.current]="item == 1" (click)="changeToggle(ii,i+5)">{{qqq(i)}}</li>
+            <ul class="ball-choose">
+                <li *ngFor="let item of data.value.slice(-5);let i = index" [class.current]="item == 1" (click)="changeToggle(ii,i+5)">
+                    {{qqq(i)}}
+                    <span class="tip-block"> {{qqq(i)}}</span>
+                </li>
             </ul>
             <ul class="yilou statistic" *ngIf="check('当前遗漏')">
                 <li *ngFor ="let detail of util.yilou[getWei(data.key)].slice(-5)">{{detail}}</li>

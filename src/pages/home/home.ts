@@ -28,11 +28,12 @@ export class HomePage {
 
     this.loadData();
     }
-  
+
 
   ionViewDidLoad() {
     this.swiper_init()
   }
+
   loadData(){
     this.homeData = this.homePrv.HomeData;
   }
@@ -61,37 +62,47 @@ export class HomePage {
   }
 
   //更多彩种
-  allGameModel(data) {
-    let modal = this.modalCtrl.create(HotGmageListPage,data);
-    modal.present();
-  }
+  // allGameModel(data) {
+  //   let modal = this.modalCtrl.create(HotGmageListPage,data);
+  //   modal.present();
+  // }
 
-  pushPage(pageName,title){
-    this.navCtrl.push(pageName,{
-      title:title
-    })
+  //页面跳转
+  pushPage(pageName, data) {
+    console.log(data)
+    if (data) {
+      this.navCtrl.push(pageName, data)
+    } else {
+      this.navCtrl.push(pageName)
+    }
   }
 
   goToSsc(){
-     this.common.pid.next('./assets/ssc.json')
+    // this.common.pid.next('./assets/ssc.json')
      this.navCtrl.push('SscPage')
+  }   
+  // goToSsc() {
+  //   this.common.pid.next('./assets/ssc.json')
+  //   this.navCtrl.push('SscPage')
+  // }
+
+  gotoLhc() {
+    this.navCtrl.push(LhcSlidePage, {})
   }
 
-  gotoLhc(){
-    this.navCtrl.push(LhcSlidePage,{
-        })
-  }
-  gotoKs(){
+  gotoKs() {
 
-    this.navCtrl.push(KsPage,{
-
-    })
+    this.navCtrl.push(KsPage, {})
 
   }
 
   goToxuan5(){
-     console.log('wcndmd')
-     this.common.pid.next('./assets/115.json')
+     //this.common.pid.next('./assets/115.json')
      this.navCtrl.push('Xuan5Page')
-  }
+  }   
+  // goToxuan5() {
+  //   console.log('wcndmd')
+  //   this.common.pid.next('./assets/115.json')
+  //   this.navCtrl.push('Xuan5Page')
+  // }
 }

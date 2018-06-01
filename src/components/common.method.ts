@@ -1,10 +1,43 @@
 import { CommonProvider } from '../providers/common/common'
+
 import { UtilProvider } from '../providers/util/util'
 import { BasketDataProvider } from '../providers/basket-data/basket-data'
+import * as $ from 'jquery'
+
+
+$.fn.Press = function(fn1,fn2) {
+    var timeout ;
+    var $this = this;
+    for(var i = 0;i<$this.length;i++){
+        console.log($this[i])
+        $this[i].addEventListener('touchstart', function(event) {
+            console.log('dddd')
+            timeout = setTimeout(fn1, 0);  //长按时间超过800ms，则执行传入的方法
+            }, false);
+        $this[i].addEventListener('touchend', function(event) {
+            // setTimeout(fn2, 100);
+           
+            if (true) {
+              fn2()
+            }
+            clearTimeout(timeout);  //长按时间少于800ms，不会执行传入的方法
+            }, false);
+    }
+  }
 
 export class commonMethod{
-    choices:any[]
+    choices:any[] = []
+
    constructor(public common:CommonProvider, public util:UtilProvider,public basket:BasketDataProvider) {
+        $('body').on('touchstart', '.ball-choose li', function(){
+            $(this).find('.tip-block').show()
+        }).on('touchend', '.ball-choose li', function(){
+            $(this).find('.tip-block').hide()
+        })
+   }
+
+   ngOnInit(){
+      
    }
 
    qqq(number){
@@ -31,15 +64,15 @@ export class commonMethod{
     getWei(str){
         switch(str){
             case 'w':
-                return '万'
+                return '万位'
             case 'q':
-                return '千'
+                return '千位'
             case 'b':
-                return '百'  
+                return '百位'  
             case 's':
-                return '十'  
+                return '十位'  
             case 'g':
-                return '个'                  
+                return '个位'                  
            }
     }
 
@@ -110,6 +143,50 @@ export class commonMethod{
         return arr
    }
 
+   /**
+    * 
+      [1,2,3,4] [2,3,4] [5,6,7]
+      完全展开数组
+    */
+   getLotteryData(){
+       return this.combination(this.getCommonData())
+   }
+
+   getLotteryText(){
+       return this.getCommonData().filter(ele => ele.length > 0).map(ele => ele.map(item => ('0' + item).slice(-2) + ' ').join('')).join('| ')
+   }
+
+   getPositionArr(){
+       return this.choices.length == 0? [] : this.choices.map(ele => ele.choose ? 1 : 0)
+   }
+
+   combination(arr2) {
+        if (arr2.length < 1) {
+            return [];
+        }
+        var w = arr2[0].length,
+            h = arr2.length,
+            i, j,
+            m = [],
+            n,
+            result = [],
+            _row = [];
+
+        m[i = h] = 1;
+        console.log(m)
+        while (i--) {
+            m[i] = m[i + 1] * arr2[i].length;
+        }
+        n = m[0];
+        for (i = 0; i < n; i++) {
+            _row = [];
+            for (j = 0; j < h; j++) {
+                _row[j] = arr2[j][~~(i % m[j] / m[j + 1])]
+            }
+            result[i] = _row;
+        }
+        return result
+    }
     //机选注单
     randomChoose(number?){
         if(number){
@@ -129,8 +206,8 @@ export class commonMethod{
                this.randomChoose(--number)
                
         }else{
+               // $("ul" ).not( ".statistic" ).find('li').removeClass('current');
                 this.common.ballData = this.common.ballData.map(item => {
-            // let arr = [0,1,2,3,4,5,6,7,8,9]
                 let random = Math.floor(Math.random()*item.value.length)
                 //let arr = this.generateTwo(number)
                 let balls = item.value.map((ele,index) => index == random ? 1 : 0)
@@ -138,9 +215,7 @@ export class commonMethod{
                 return item
             })
             this.calculate()
-        }
-       
-        
+        }   
     }
 
     createRandom(number):any[]{
@@ -156,9 +231,121 @@ export class commonMethod{
      }
 
     //奇偶 全清
-    changeActive(index,choice,name){
-         this.util.changeActive(index,choice,name)
-         this.calculate()
+    // changeActive(index,choice,name){
+    //      this.util.changeActive(index,choice,name)
+    //      this.calculate()
+    // }
+
+
+     //奇偶 全清
+     changeActive(index,choice,name){
+        this.changeChooseStatus(index,choice)
+    
+    //this.changeChooseStatus(index,choice)
+     switch(name){
+         case "全":
+             this.changeAll(index)
+             break;
+         case "奇":
+             this.changeOdd(index)
+             break;
+         case "偶":
+             this.changeEven(index)
+             break;
+         case "大":
+             this.changeBig(index)
+             break;
+         case "小":
+             this.changeSmall(index)
+             break;
+         case "清":
+             this.changeClear(index)
+             break;
+
+     }
+     this.calculate()
+     //this.common.calculate()
+    }
+
+    changeClear(line){
+        this.common.ballData = this.common.ballData.map((item,index) => {
+            if(index == line){
+                item.value = item.value.map(ele => 0)
+                return item
+            }else{
+                return item
+            }
+        })       
+    }
+
+    changeAll(line){
+        console.log(line)
+      
+        this.common.ballData = this.common.ballData.map((item,index) => {
+            if(index == line){
+                item.value = item.value.map(ele => 1)
+                return item
+            }else{
+                return item
+            }
+        })      
+    }
+
+    changeBig(line){
+     
+        this.common.ballData = this.common.ballData.map((item,index) => {
+            if(index == line){
+                item.value = item.value.map((ele,index) => index > 4? 1:0)
+                return item
+            }else{
+                return item
+            }
+        })
+        
+    }
+
+    changeSmall(line){
+        this.common.ballData = this.common.ballData.map((item,index) => {
+            if(index == line){
+                item.value = item.value.map((ele,index) => index > 4? 0:1)
+                return item
+            }else{
+                return item
+            }
+        })     
+    }
+
+    changeOdd(line){
+        this.common.ballData = this.common.ballData.map((item,index) => {
+            if(index == line){
+                item.value = item.value.map((ele,index) => index %2 == 0? 0 : 1)
+                return item
+            }else{
+                return item
+            }
+        })   
+    }
+
+    changeEven(line){    
+        this.common.ballData = this.common.ballData.map((item,index) => {
+            if(index == line){
+                item.value = item.value.map((ele,index) => index %2 == 0? 1 : 0)
+                return item
+            }else{
+                return item
+            }
+        })  
+    }
+
+    changeChooseStatus(index1,index2){
+        this.common.btn = this.common.btn.map((item,index) => {
+            if(index == index1){
+                let ele = item.map((todo,order) => order == index2 ? {...todo,flag:true}:{...todo,flag:false})
+                return ele
+            }else{
+                return item
+            }
+        }) 
     }
 
      //计算注单
@@ -205,4 +392,24 @@ export class commonMethod{
         }
         return r || -1;
       } 
+
+      //检测遗漏最大值
+      checkMax(ele,arr){
+          return ele == Math.max(...arr) ? true : false
+      }
+
+      //冷热标记
+      checkLengRe(ele,arr){
+          if(ele == Math.max(...arr)){
+              return 'high'
+          }else if(ele == Math.min(...arr)){
+              return 'low'
+          }else{
+              return ''
+          }
+      }
+
+      dealHover(){
+     
+      }
 }

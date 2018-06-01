@@ -58,12 +58,12 @@ export class SignupPage {
         }
       })
     }else {
-      this.signupPrd.getRegisterParam().subscribe((data)=>{
-        if(data.isSuccess==1){
-          this.signData.signInitParam = data.data.tplData.successful;
-          // this.storage.set('signParam',data.data.tplData.successful)
-        }
-      })
+      // this.signupPrd.getRegisterParam().subscribe((data)=>{
+      //   if(data.isSuccess==1){
+      //     this.signData.signInitParam = data.data.tplData.successful;
+      //     // this.storage.set('signParam',data.data.tplData.successful)
+      //   }
+      // })
     }
 
   }
@@ -131,6 +131,8 @@ export class SignupPage {
           this.signData.loading.dismiss();
           this.signData.toast = this.loadPrd.showToast(this.ToastCtrl, '注册成功');
           this.storage.set('userInfo', data['data']);
+
+          localStorage.userInfo = JSON.stringify(data['data']);
           this.navCtrl.setRoot(TabsPage, {
             pageIndex: 0
           });
@@ -146,6 +148,7 @@ export class SignupPage {
   toLogin() {
       this.navCtrl.push('LoginPage');
   }
+
 }
 
 

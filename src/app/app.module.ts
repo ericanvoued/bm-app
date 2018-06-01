@@ -5,14 +5,13 @@ import { MyApp } from './app.component';
 
 import {HttpClientModule} from "@angular/common/http";
 import { CountTipComponent } from '../components/count-tip/count-tip';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LottoryCenterPage } from '../pages/lottory-center/lottory-center'
 import { ActivityPage } from '../pages/activity/activity'
 import { UserCenterPage } from '../pages/user/user-center/user-center'
-import { HotGmageListPage } from '../pages/hot-gmage-list/hot-gmage-list'
+// import { HotGmageListPage } from '../pages/hot-gmage-list/hot-gmage-list'
 
 
 import { IonicStorageModule } from '@ionic/storage'
@@ -40,7 +39,7 @@ import { ToolsProvider } from '../providers/tools/tools';
 import { ComponentsModule } from '../components/components.module'
 //动画模块
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UtilProvider } from '../providers/util/util';
 import { BasketDataProvider } from '../providers/basket-data/basket-data';
 import { Vibration } from '@ionic-native/vibration';
@@ -51,13 +50,14 @@ import { ZhixuanhezhiComponent } from '../components/gametrend/qiansan/zhixuanhe
 import { gameConfig } from './gameComponent'
 import { BankCardProvider } from '../providers/bank-card/bank-card';
 import { SignupProvider } from '../providers/signup/signup';
+
+//module模块
+import { LottoryKaijiangComponent } from '../components/lottoyCenter/lottory-kaijiang/lottory-kaijiang'
+import { LottoryDaxiaoComponent } from '../components/lottoyCenter/lottory-daxiao/lottory-daxiao'
+import { Lottory_11YkaijiangComponent } from '../components/lottoyCenter/lottory-11-ykaijiang/lottory-11-ykaijiang'
+import { LottoryDistributeComponent } from '../components/lottoyCenter/lottory-distribute/lottory-distribute'
+import { UserCenterProvider } from '../providers/user-center/user-center';
 import { BaseToolProvider } from '../providers/base-tool/base-tool';
-
-
-
-
-
-
 @NgModule({
   declarations: [
     MyApp,
@@ -66,9 +66,13 @@ import { BaseToolProvider } from '../providers/base-tool/base-tool';
     ActivityPage,
     UserCenterPage,
     TabsPage,
-    HotGmageListPage,
+    // HotGmageListPage,
     WuxingComponent,
     SixingComponent,
+    LottoryKaijiangComponent,
+    LottoryDaxiaoComponent,
+    Lottory_11YkaijiangComponent,
+    LottoryDistributeComponent,
     ZhixuanhezhiComponent,
     CountTipComponent,
     LhcSlidePage,
@@ -98,7 +102,7 @@ import { BaseToolProvider } from '../providers/base-tool/base-tool';
     ActivityPage,
     UserCenterPage,
     TabsPage,
-    HotGmageListPage,
+    // HotGmageListPage,
     // LoginPage,
     WuxingComponent,
     SixingComponent,
@@ -106,6 +110,10 @@ import { BaseToolProvider } from '../providers/base-tool/base-tool';
     LhcSlidePage,
     KsPage,KsBasketPage,
     CountTipComponent,
+    LottoryKaijiangComponent,
+    LottoryDaxiaoComponent,
+    Lottory_11YkaijiangComponent,
+    LottoryDistributeComponent,
     ...gameConfig.ssc,
     ...gameConfig.d5
 
@@ -125,7 +133,6 @@ import { BaseToolProvider } from '../providers/base-tool/base-tool';
     RestProvider,
     LoadingProvider,
     InfoCenterProvider,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
     CommonProvider,
     HttpClientProvider,
     ToolsProvider,
@@ -134,6 +141,7 @@ import { BaseToolProvider } from '../providers/base-tool/base-tool';
     BasketDataProvider,
     BankCardProvider,
     SignupProvider,
+    UserCenterProvider,
     BaseToolProvider
 
   ]

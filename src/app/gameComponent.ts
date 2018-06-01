@@ -45,12 +45,13 @@ import { HousanzusanComponent } from '../components/ssc-game/housan/housanzusan/
 import { HousanzuliuComponent } from '../components/ssc-game/housan/housanzuliu/housanzuliu'
 import { HousanzuxuanhezhiComponent } from '../components/ssc-game/housan/housanzuxuanhezhi/housanzuxuanhezhi'
 
+import { HousanbaodanComponent } from '../components/ssc-game/housan/housanbaodan/housanbaodan'
 
 import { HousanhezhiweishuComponent } from '../components/ssc-game/housan/housanhezhiweishu/housanhezhiweishu'
 import { HousanteshuhaomaComponent } from '../components/ssc-game/housan/housanteshuhaoma/housanteshuhaoma'
 
 import { ErxingzhixuanhouerhezhiComponent } from '../components/ssc-game/erxing/erxingzhixuanhouerhezhi/erxingzhixuanhouerhezhi'
-// import { ErxingzhixuanhouerfushiComponent } from '../components/ssc-game/erxing/erxingzhixuanhouerfushi/erxingzhixuanhouerfushi'
+import { ErxingzhixuanhouerfushiComponent } from '../components/ssc-game/erxing/erxingzhixuanhouerfushi/erxingzhixuanhouerfushi'
 import { ErxingzhixuanhouerkuaduComponent } from '../components/ssc-game/erxing/erxingzhixuanhouerkuadu/erxingzhixuanhouerkuadu'
 import { ErxingzhixuanqianerfushiComponent } from '../components/ssc-game/erxing/erxingzhixuanqianerfushi/erxingzhixuanqianerfushi'
 import { ErxingzhixuanqianerhezhiComponent } from '../components/ssc-game/erxing/erxingzhixuanqianerhezhi/erxingzhixuanqianerhezhi'
@@ -60,6 +61,8 @@ import { ErxingzuxuanhouerbaodanComponent } from '../components/ssc-game/erxing/
 import { ErxingzuxuanqianerfushiComponent } from '../components/ssc-game/erxing/erxingzuxuanqianerfushi/erxingzuxuanqianerfushi'
 import { ErxingzuxuanqianerhezhiComponent } from '../components/ssc-game/erxing/erxingzuxuanqianerhezhi/erxingzuxuanqianerhezhi'
 import { ErxingzuxuanqianerbaodanComponent } from '../components/ssc-game/erxing/erxingzuxuanqianerbaodan/erxingzuxuanqianerbaodan'
+import { ErxingzuxuanhouerfushiComponent } from '../components/ssc-game/erxing/erxingzuxuanhouerfushi/erxingzuxuanhouerfushi'
+
 import { YixingdingweidanComponent } from '../components/ssc-game/yixing/yixingdingweidan/yixingdingweidan'
 
 import { HousanyimabudingweiComponent } from '../components/ssc-game/budingwei/housanyimabudingwei/housanyimabudingwei'
@@ -116,9 +119,13 @@ import { RenxuansizhixuanfushiComponent } from '../components/ssc-game/renxuan/r
 import { Renxuanzuxuan24Component } from '../components/ssc-game/renxuan/renxuanzuxuan24/renxuanzuxuan24'
 import { Renxuanzuxuan12Component } from '../components/ssc-game/renxuan/renxuanzuxuan12/renxuanzuxuan12'
 import { Renxuanzuxuan6Component } from '../components/ssc-game/renxuan/renxuanzuxuan6/renxuanzuxuan6'
+import { Renxuanzuxuan4Component } from '../components/ssc-game/renxuan/renxuanzuxuan4/renxuanzuxuan4'
+
+import { DiyimingfushiComponent } from '../components/pk10/caidiyi/diyimingfushi/diyimingfushi'
+import { DiermingfushiComponent } from '../components/pk10/caiqianer/diermingfushi/diermingfushi'
 
 
-export const gameConfig = { 
+export const gameConfig = {
    'ssc':[
       ZhixuanfushiComponent,WuxingzhixuanzuheComponent,Zuxuan20Component,Zuxuan30Component,Zuxuan60Component,Zuxuan120Component,Zuxuan10Component,Zuxuan5Component,
       Zuxuan24Component,Zuxuan12Component,Zuxuan6Component,Zuxuan4Component,SiXingZhixuanfushiComponent,QisanzhixuanhezhiComponent,QisanzhixuankuaduComponent,
@@ -131,9 +138,9 @@ export const gameConfig = {
       ErxingzuxuanqianerbaodanComponent,YixingdingweidanComponent,SixingzhixuanzuheComponent,HousanyimabudingweiComponent,HousanermabudingweiComponent,QiansanyimabudingweiComponent,
       QiansanermabudingweiComponent,ZhongsanyimabudingweiComponent,ZhongsanermabudingweiComponent,SixingyimabudingweiComponent,SixingermabudingweiComponent,WuxingermabudingweiComponent,
       WuxingsanmabudingweiComponent,HousanzuxuanhezhiComponent,HouerdaxiaodanshuangComponent,HousandaxiaodanshuangComponent,QianerdaxiaodanshuangComponent,QiansandaxiaodanshuangComponent,
-      ZhongsandaxiaodanshuangComponent,RenxuanerzhixuanfushiComponent,
+      ZhongsandaxiaodanshuangComponent,RenxuanerzhixuanfushiComponent,HousanbaodanComponent,ErxingzhixuanhouerfushiComponent,ErxingzuxuanhouerfushiComponent,
       RenxuanerzhixuanhezhiComponent,RenxuanerzuxuanfushiComponent,RenxuanerzuxuanhezhiComponent,RenxuansanzhixuanhezhiComponent,RenxuansanzusanfushiComponent,RenxuansanzuliufushiComponent,
-      RenxuansanzuxuanhezhiComponent,RenxuansizhixuanfushiComponent,Renxuanzuxuan24Component, Renxuanzuxuan6Component ,Renxuanzuxuan12Component
+      RenxuansanzuxuanhezhiComponent,RenxuansizhixuanfushiComponent,Renxuanzuxuan24Component, Renxuanzuxuan6Component ,Renxuanzuxuan12Component,Renxuanzuxuan4Component
    ],
    'd5':[
       QiansanzhixuanfushiComponent,
@@ -143,6 +150,8 @@ export const gameConfig = {
       RenxuanliuzhongwufushiComponent,RenxuanqizhongwufushiComponent,RenxuanbazhongwufushiComponent,RenxuanerzhongerdantuoComponent,RenxuansanzhongsandantuoComponent,
       RenxuansizhongsidantuoComponent,RenxuanwuzhongwudantuoComponent,RenxuanliuzhongwudantuoComponent,RenxuanqizhongwudantuoComponent,RenxuansanzhixuanfushiComponent
    ],
-   'pk10':[]
+   'pk10':[
+     // DiyimingfushiComponent,DiermingfushiComponent
+   ]
 
-} 
+}

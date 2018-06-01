@@ -24,15 +24,13 @@ export class RestProvider {
   // }
 
   postUrlReturn(url: string,parameter): Observable<any> {
-
+   // return this.http.post('http://www.zhenwin.com'+url,parameter)
     // this.getToken()
     return this.http.post('http://user.firecat.com'+url,parameter)
-
   }
 
   getUrlReturn(url: string): Observable<any> {
     return this.http.get('http://user.firecat.com'+url)
-
   }
 
   // extractData(res: Response) {

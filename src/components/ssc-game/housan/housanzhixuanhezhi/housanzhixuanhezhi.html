@@ -3,12 +3,15 @@
 
  <div>{{common.smallKind.bonus_note}} {{util.formatMoney(common.bonus)}} 元</div>
 
-<div class="l-game" *ngFor="let data of common.ballData;let ii = index" >
+<div class="l-game" *ngFor="let data of common.ballData;let ii = index" style="margin-bottom:0">
                 <div class="r" style="padding-right:10px">
                     <div class="ball-list">
-                        <ul>
-                            <li *ngFor="let item of data.value;let i = index" [class.current]="item == 1" (click)="changeToggle(ii,i)" >{{ii*7 + i}}</li>
-                        </ul>
+                            <ul class="ball-choose">
+                                    <li *ngFor="let item of data.value;let i = index" [class.current]="item == 1" (click)="changeToggle(ii,i)" >
+                                        {{ii*7 + i}}
+                                        <span class="tip-block"> {{ii*7 + i}}</span>
+                                    </li>
+                                </ul>
                     
                         <!-- <div class="btn-list">
                             <a href="javascript:;" *ngFor="let detail of common.btn[ii];let j = index" [class.current]="detail.flag" >{{detail.name}} <span></span></a>

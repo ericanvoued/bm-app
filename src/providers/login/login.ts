@@ -11,7 +11,7 @@ interface loginParameter {
 @Injectable()
 export class LoginProvider {
 
-  loginApi:string = '/mobile-h5-auth/login'
+  loginApi:string = '/mobile-h5-auth/login?_t=init'
 
   constructor(public http: HttpClient,public rest: RestProvider,public storage:Storage) {
       //  this.storage.get('userInfo').then((data) => {

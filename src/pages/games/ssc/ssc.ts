@@ -37,25 +37,21 @@ export class SscPage extends Effect{
     //showTip:any = ['当前遗漏', '30期冷热', '平均遗漏', '最大遗漏']
     haveChoosen:any[] = ['当前遗漏']
 
-    record: any = [
-        {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
-        {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'},
-        {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
-        {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'},
-        {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
-        {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'},
-        {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
-        // {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'},
-        // {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
-        // {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'}
-    ]
-
+    record: any ;
     //助手菜单
     menus:any =  ['走势图','近期开奖','号码统计','玩法说明']
 
-    
-
-    list: any = []
+    list: any ;
+    // =  [{number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
+    // {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'},
+    // {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
+    // {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'},
+    // {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
+    // {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'},
+    // {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
+    // {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'},
+    // {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
+    // {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'}]
 
     maxNumber:number;
     loadNumber:number = 0
@@ -66,6 +62,25 @@ export class SscPage extends Effect{
     constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private resolver: ComponentFactoryResolver,public app:App,
     public common:CommonProvider, public gamemenu:GamemenuComponent, public util:UtilProvider,public basket:BasketDataProvider,public ssc:SscServiceProvider, public events:Events) {
         super(common,gamemenu,modalCtrl,navCtrl)
+
+        $('body').on('touchmove', '.bet-box', function(){
+           console.log($('#qq').offset().top)
+           console.log($(this).offset().top)
+           if($('#qq').offset().top < 70){
+              $('#qq').addClass('fixed')
+           }
+
+           if($(this).offset().top > 70){
+              $('#qq').removeClass('fixed')
+           }      
+        })
+
+        $('body').on('click', '#qq', function(){
+            $(this).removeClass('fixed')
+            $('.scroll-content').animate({  
+                scrollTop: 0
+            }, 200);  
+        })
 
         this.common.initData().then(
             () => {
@@ -79,26 +94,57 @@ export class SscPage extends Effect{
                 console.log(method)
                 const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(gameConfig[method])
                 this.componentRef = this.gameContainer.createComponent(factory)
-                
+                this.componentRef.instance.choose = this.haveChoosen
+                this.common.componentRef = this.componentRef
                            this.util.shakePhone(() => {
                                this.util.randomChoose(this.componentRef)
                            })
             }
         )
 
-        this.list = this.record.slice(0, 2)
-        this.over = this.record.length > 2 ? false:true
+       
+        //this.over = this.record.length > 2 ? false:true
 
-        if(this.record.length > 2){
-            this.maxNumber = Math.ceil(this.record.length/5)
-        }else{
-            this.maxNumber = 0
-        }
+        this.util.fetchRecord().then(() => {
+            console.log(this.util.historyList)
+            console.log(this.util.historyList.map(this.handleBall))
+            this.list = this.util.historyList.map(this.handleBall).slice(0,10)
+            if(this.list.length > 2){
+                this.maxNumber = Math.ceil(this.list.length/5)
+            }else{
+                this.maxNumber = 0
+            }
+       })
+      
     
     }
 
-    ionViewWillEnter(){
-      
+    handleBall(ele){
+        function judge(number){
+            if(number%2 == 0 && number >=5)
+                return '大双'
+            if(number%2 == 0 && number < 5)
+                return '小双'
+            if(number%2 != 0 && number >= 5)
+                return '大单'
+            if(number%2 != 0 && number < 5)
+                return '小单'
+        } 
+
+        function tell(balls){
+            let arr = balls.replace(/\s+/g, "").split('').slice(-3), temp = []
+            for(let i = 0;i<arr.length;i++){
+                if(temp.indexOf(arr[i]) != -1)
+                    return true 
+                temp.push(arr[i])
+            }    
+            return false
+        }
+
+        return {...ele, number:ele.number.substr(2,ele.number.length),balls:ele.code.replace(/\s+/g, ""), shiwei:judge(ele.code.replace(/\s+/g, "").split('')[3]) ,
+               gewei:judge(ele.code.replace(/\s+/g, "").split('')[4]), housan:tell(ele.code) ? '组三':'组六'
+        }
+                    
     }
 
     ionViewDidLoad() {
@@ -106,21 +152,33 @@ export class SscPage extends Effect{
 
         console.log(document.getElementById('qq'))
         this.watchScroll()
+        document.getElementsByClassName('tbody')[0].addEventListener('click', function(){console.log('fffffff')}, false)
+        
+        // let touch = new Hammer(document.getElementById('touch'));
+        // touch.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
+        // touch.on('swipeup',()=>{
+        //     if(!this.loadNumber)
+        //         return
 
-        let touch = new Hammer(document.getElementById('touch'));
-        touch.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
-        touch.on('swipeup',()=>{
-            if(this.loadNumber == this.maxNumber && this.maxNumber != 0){
-                this.loadNumber = 0
-                this.over = false
-                this.high = 0
+        //     this.loadNumber --
 
-                setTimeout(()=> {
-                   this.watchScroll()
-                },0)
-            }
+        //     if (this.loadNumber)
+        //         this.high = (this.record.slice(0,this.loadNumber*5).length - 2)*this.trHeight
 
-        })
+        //     // if (this.loadNumber == 2)
+        //     //     this.high = (this.record.slice(0,2*5).length - 2)*this.trHeight
+
+        //     if (this.loadNumber == 0)
+        //         this.high = 0
+
+        //     if(this.loadNumber == this.maxNumber && this.maxNumber != 0){
+        //         this.loadNumber = 0
+        //         this.high = 0
+        //     }
+        //     setTimeout(() => {
+        //         this.list = this.record.slice(0, this.loadNumber? this.loadNumber * 5 : 2)
+        //     },300)
+        // })
       }
 
     ionViewWillLeave(){
@@ -129,26 +187,40 @@ export class SscPage extends Effect{
     }
 
     watchScroll(){
-        let mc = new Hammer(document.getElementById('qq'));
+        // let mc = new Hammer(document.getElementById('touch'));
+        // mc.get('swipe').set({direction: Hammer.DIRECTION_VERTICAL});
+        // mc.on('swipedown', () => {
+        //     console.log('axiba')
+        //     //this.record.push( {number:23056,balls:'34567',shiwei:'大单',gewei:'小双',housan:'组六'})
+        //     if(this.loadNumber == this.maxNumber)
+        //         return
+        //     this.loadNumber ++
+               
+        //     if (this.loadNumber)
+        //         this.high = (this.record.slice(0,this.loadNumber*5).length - 2)*this.trHeight
+
+        //     this.list = this.record.slice(0, this.loadNumber * 5)
+        // })
+
+        let mc = new Hammer(document.getElementById('ball-area'));
         mc.get('swipe').set({direction: Hammer.DIRECTION_VERTICAL});
         mc.on('swipedown', () => {
             console.log('axiba')
-            //this.record.push( {number:23056,balls:'34567',shiwei:'大单',gewei:'小双',housan:'组六'})
-            if (++this.loadNumber == this.maxNumber)
-                this.over = true
-
-            if (this.loadNumber == 1)
-                this.high = (this.record.slice(0,1*5).length - 2)*this.trHeight
-
-            if (this.loadNumber == 2)
-                this.high = (this.record.slice(0,2*5).length - 2)*this.trHeight
-
-            this.list = this.record.slice(0, this.loadNumber * 5)
-
+            if(this.loadNumber == this.maxNumber + 1)
+                return
+            this.loadNumber ++
+            this.high = this.loadNumber == 1 ? 81 : this.loadNumber == 3 ? 248 : 216
         })
-    }
 
-   
+        mc.on('swipeup', () => {
+            console.log('axiba')
+            if(this.loadNumber == 0)
+                return
+            this.loadNumber --
+            this.high = this.loadNumber == 1 ? 81 : this.loadNumber == 2 ? 216 : 0
+        })
+
+    }
 
     change(val){
         console.log(val)
@@ -165,8 +237,7 @@ export class SscPage extends Effect{
             }
             $('.modal').toggleClass('active')
 
-        }
-           
+        }         
    }
 
     resetData(){
@@ -181,6 +252,7 @@ export class SscPage extends Effect{
        this.gameContainer.clear()
        const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(component)
        this.componentRef = this.gameContainer.createComponent(factory)
+       this.common.componentRef = this.componentRef
        console.log(this.haveChoosen)
        this.componentRef.instance.choose = this.haveChoosen
    }

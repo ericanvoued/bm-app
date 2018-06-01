@@ -1,8 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+// import {Storage} from '@ionic/storage';
+
+
+
+import { RestProvider } from '../rest/rest';
 
 @Injectable()
 export class HomeProvider {
+
+  lottoryApi = '/api-lotteries-h5/lottery-info?_t=';
+
+
+
   HomeData = {
     banner:{
       url:['javascript:;','javascript:;','javascript:;'],
@@ -144,12 +154,33 @@ export class HomeProvider {
         title:'体彩p3/p5',
         stopSale:false
       }
-    ]
+    ],
+    storage:null
   }
 
-  constructor(public http: HttpClient) {
-
+  constructor(public http: HttpClient,public rest: RestProvider) {
+    this.HomeData.storage = JSON.parse(localStorage.getItem('userInfo'));
+    this.getLottoryList(this.HomeData.storage.auth_token)
+    this.getBanner(this.HomeData.storage.auth_token)
   }
+
+
+  ionViewLoaded(){
+    // this.getLottoryList()
+  }
+
+  getLottoryList(auto_token: string = 'init'){
+    return this.rest.getUrlReturn('/api-lotteries-h5/lottery-info?_t='+auto_token).subscribe((data)=>{
+      console.log(data)
+    });
+  }
+
+  getBanner(auto_token: string = 'init'){
+    return this.rest.getUrlReturn('/h5api-announcements/banner?_t='+auto_token).subscribe((data)=>{
+      console.log(data)
+    });
+  }
+
 }
 
 

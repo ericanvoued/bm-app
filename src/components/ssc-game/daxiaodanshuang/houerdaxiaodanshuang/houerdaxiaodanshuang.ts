@@ -20,6 +20,12 @@ export class HouerdaxiaodanshuangComponent extends commonMethod{
 
   constructor(public common:CommonProvider, public util:UtilProvider,public basket:BasketDataProvider) {
     super(common,util,basket) 
-    this.text = 'Hello World';
+    this.common.ballData =  [{
+      "key":"十位", "value":[0,0,0,0]},
+     {"key":"个位", "value":[0,0,0,0]}]
+  }
+
+  getLotteryText(){
+    return this.getCommonData().map(ele => ele.map(item => this.judge(item) + ' ').join('')).join('| ')
   }
 }

@@ -1,14 +1,36 @@
+<ion-header>
+  <ion-navbar>
+    <h2 class="DIY-title">更多彩种</h2>
+  </ion-navbar>
+</ion-header>
 <ion-content>
-  <div class="lotory-list">
-    <h4 class="info"><span class="close" (click)="modelDismiss()"></span></h4>
+  <div class="lotory-list clearfix">
+    <h4 class="info"><i class="disc"></i>我的常用彩种<span class="edit" (click)="toggleEdit()">{{lottorys.editable?'完成':'编辑'}}</span></h4>
     <ul>
-      <li *ngFor="let lottory of lottorys">
-        <a href="{{lottory.url}}" title="{{lottory.title}}">
-          <img src="{{lottory.imgSrc}}" alt="{{lottory.title}}">
-          <p>{{lottory.title}}</p>
-          <span *ngIf="lottory.stopSale">停售</span>
+      <li *ngFor="let lottory of lottorys.hotGmaes;index as i">
+        <a href="javascript:;" title="{{lottory.name}}">
+          <img src="../../assets/home/{{lottory.nav}}.png" alt="{{lottory.name}}" alt="{{lottory.name}}">
+          <p>{{lottory.name}}</p>
+          <span class="stop-sale" *ngIf="lottory.time!=null">停售</span>
+          <span class="delete-lottory" *ngIf="lottorys.editable" (click)="decreament(lottory,i)">-</span>
         </a>
       </li>
     </ul>
+  </div>
+  <div class="lotory-list mt-12 clearfix">
+    <h4 class="info"><i class="disc"></i>更多彩种</h4>
+    <ul *ngIf="lottorys.moreGmages.length!==0">
+      <li *ngFor="let lottory of lottorys.moreGmages;index as i">
+        <a href="javascript:;" title="{{lottory.name}}">
+          <img src="../../assets/home/{{lottory.nav}}.png" alt="{{lottory.name}}">
+          <p>{{lottory.name}}</p>
+          <span class="stop-sale" *ngIf="lottory.time!=null">停售</span>
+          <span class="delete-lottory" *ngIf="lottorys.editable" (click)="increament(lottory,i)">+</span>
+        </a>
+      </li>
+    </ul>
+    <div class="empty-lottory" *ngIf="lottorys.moreGmages.length==0">
+      彩种都被掏空了～～～
+    </div>
   </div>
 </ion-content>

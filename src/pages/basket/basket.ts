@@ -27,7 +27,7 @@ import { UtilProvider } from '../../providers/util/util'
          opacity: 0,
         transform:'translate3d(0, 100%, 0)'
        })),
-       transition('* => *',animate('.5s'))
+       transition('* => *',animate('.3s'))
     ])
    ]
 })
@@ -43,7 +43,8 @@ export class BasketPage {
        this.arr.push(i)
     }
     //此处获取需要机选注单的实例  
-    this.componentRef = this.navParams.get('index')
+    //this.componentRef = this.navParams.get('index')
+   
   }
 
   ionViewDidLoad() {
@@ -55,6 +56,10 @@ export class BasketPage {
   }
 
   change(number){
+    if(number < 0 && this.basket.statistic.multiple == 0)
+       return
+
+    
     this.basket.statistic.multiple += number
   }
 
@@ -62,13 +67,12 @@ export class BasketPage {
   randomChoose(number?){
      if(number){
          console.log('number == 5')
-         this.componentRef.instance.randomChoose(number)
+         this.common.componentRef.instance.randomChoose(number)
 
      }else{
-         this.componentRef.instance.randomChoose(number)
+         this.common.componentRef.instance.randomChoose(number)
          this.basket.addBetData()
-     }
-     
+     }  
   }
 
   ionViewWillLeave(){

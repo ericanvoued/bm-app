@@ -2,17 +2,16 @@
  <div class="shakePhone" (click)="randomChoose()"></div>   
 
  <div>{{common.smallKind.bonus_note}} {{util.formatMoney(common.bonus)}} 元</div>
- <div class="l-game" *ngFor="let data of common.ballData;let ii = index" >
+ <div class="l-game" *ngFor="let data of common.ballData;let ii = index" style="margin-bottom:0">
                 <div class="r" style="padding-right:10px">
                     <div class="ball-list">
-                        <ul>
+                        <ul class="ball-choose">
                             <li *ngFor="let item of data.value;let i = index" [class.current]="item == 1" [class.blank]="(ii*7 + i) > 25"  >
                                 <span *ngIf="(ii*7 + i) <= 25" (click)="changeToggle(ii,i)">{{ii*7 + i +1}}</span>
+                                <span *ngIf="(ii*7 + i) <= 25" class="tip-block">{{ii*7 + i +1}}</span>
                                 <span *ngIf="(ii*7 + i) > 25"></span>  
                             </li>                        
-                        </ul>
-                         
-                    
+                        </ul>                   
                     </div>
                 </div>              
 </div>

@@ -17,7 +17,9 @@ export class ZhongsanteshuhaomaComponent {
 
   constructor(public common:CommonProvider, public util:UtilProvider){
     console.log('Hello ZhongsanteshuhaomaComponent Component');
-    this.text = 'Hello World';
+    this.common.ballData = [
+        {"key":"特殊号码", "value":[0,0,0]}             
+      ]
   }
 
   qqq(i){
