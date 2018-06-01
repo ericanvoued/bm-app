@@ -437,7 +437,7 @@ page-ks {
   //历史记录
   .his-box {
     overflow: hidden;
-    height: 110px;
+    height: 0px;
 
     li {
       border-bottom: 0.5px solid rgb(45, 92, 55);
@@ -690,7 +690,7 @@ page-ks {
       height: 2px;
       background-image: linear-gradient(43deg, #F3361B 0%, #EC6432 1%, #F5AD58 100%);
       position: absolute;
-      margin-top: 80px;
+      margin-top: 126px
     }
 
     .play-title {
@@ -733,6 +733,52 @@ page-ks {
       background: rgb(233, 146, 89);
       color: #fff;
     }
+
+    .after-select {
+      padding: 12px 4%;
+      //background: #e3e3e3;
+    }
+    .after-con {
+      display: none;
+    }
+    .after-con.active {
+      display: block;
+    }
+    .after-list {
+      .after-l {
+        float: left;
+        text-align: center;
+      }
+      .after-text {
+        font-size: 1.3rem;
+        color: #4a4a4a;
+        line-height: 34px;
+      }
+    }
+    .lastchina {
+      li {
+        float: left;
+        padding: 0 1%;
+        margin-bottom: 10px;
+        i {
+          padding: 0 6px;
+        }
+      }
+    }
+    .after-list .after-text {
+      font-size: 1.3rem;
+      color: #4a4a4a;
+      line-height: 34px;
+    }
+    .after-list-3 .after-text {
+      width: 42px;
+    }
+
+
+
+
+
+
   }
 
   .body-bg {

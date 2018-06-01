@@ -26,7 +26,7 @@ import { LoadingProvider } from '../providers/loading/loading';
 import { InfoCenterProvider } from '../providers/info-center/info-center';
 import { LhcSlidePage } from '../pages/lhc/lhc-slide/lhc-slide'
 import { KsPage } from '../pages/k3/ks/ks'
-// import { KsBasketPage } from '../pages/k3/ks-basket/ks-basket'
+import { KsBasketPage } from '../pages/k3/ks-basket/ks-basket'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -57,7 +57,7 @@ import { LottoryDaxiaoComponent } from '../components/lottoyCenter/lottory-daxia
 import { Lottory_11YkaijiangComponent } from '../components/lottoyCenter/lottory-11-ykaijiang/lottory-11-ykaijiang'
 import { LottoryDistributeComponent } from '../components/lottoyCenter/lottory-distribute/lottory-distribute'
 import { UserCenterProvider } from '../providers/user-center/user-center';
-
+import { BaseToolProvider } from '../providers/base-tool/base-tool';
 @NgModule({
   declarations: [
     MyApp,
@@ -73,7 +73,7 @@ import { UserCenterProvider } from '../providers/user-center/user-center';
     ZhixuanhezhiComponent,
     CountTipComponent,
     LhcSlidePage,
-    KsPage,
+    KsPage,KsBasketPage,
     ...gameConfig.ssc,
     ...gameConfig.d5
     // LoginPage,
@@ -105,7 +105,7 @@ import { UserCenterProvider } from '../providers/user-center/user-center';
     SixingComponent,
     ZhixuanhezhiComponent,
     LhcSlidePage,
-    KsPage,
+    KsPage,KsBasketPage,
     CountTipComponent,
    
     ...gameConfig.ssc,
@@ -135,7 +135,8 @@ import { UserCenterProvider } from '../providers/user-center/user-center';
     BasketDataProvider,
     BankCardProvider,
     SignupProvider,
-    UserCenterProvider
+    UserCenterProvider,
+    BaseToolProvider
 
   ]
 })
