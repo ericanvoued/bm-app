@@ -60,6 +60,7 @@ export class LoginPage {
           this.tost = this.loadPrd.showToast(this.ToastCtrl, data.Msg);
           this.storage.set('userInfo', data['data']);
 
+          localStorage.userInfo = JSON.stringify(data['data']);
           this.navCtrl.setRoot(TabsPage, {
             pageIndex: 3
           });

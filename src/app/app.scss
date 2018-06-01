@@ -46,9 +46,11 @@ ul, li {
 }
 
 .cl:after, .clearfix:after,.cl:before, .clearfix:before {
-  content: ".";
+  content: '.';
   display: block;
   height: 0;
+  width: 0;
+  overflow: hidden;
   clear: both;
   visibility: hidden
 }

@@ -31,14 +31,16 @@ export class ChangeNamePage{
     public navCtrl: NavController,
     public navParams: NavParams) {
 
-      this.storage.get('userInfo').then((val) => {
-        if(val==null){
-          this.userData = null;
-        }else{
-          this.userData.data = val;
-          this.userData.oldName = this.userData.data.username;
-        }
-      })
+    this.userData.data = JSON.parse(localStorage.getItem("userInfo"));
+    this.userData.oldName = this.userData.data.username;
+      // this.storage.get('userInfo').then((val) => {
+      //   if(val==null){
+      //     this.userData = null;
+      //   }else{
+      //     this.userData.data = val;
+      //     this.userData.oldName = this.userData.data.username;
+      //   }
+      // })
   }
 
   ionViewWillEnter() {
@@ -56,7 +58,10 @@ export class ChangeNamePage{
       return
     }else {
       this.userData.loading = this.loadPrd.showLoading(this.LoadingCtrl, '昵称修改中...');
-      this.storage.set('userInfo',this.userData.data);
+
+      // this.storage.set('userInfo',this.userData.data);
+      localStorage.userInfo = JSON.stringify(this.userData.data);
+
       setTimeout(() => {
         this.userData.loading = this.loadPrd.showToast(this.toastCtrl, '昵称修改成功');
         this.navCtrl.setRoot(TabsPage,{

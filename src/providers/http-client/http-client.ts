@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
   and Angular DI.
 */
 
-let baseUrl = 'http://user.firecat.com/'
+let baseUrl = 'http://user.firecat.com'
 
 @Injectable()
 export class HttpClientProvider {
@@ -20,7 +20,7 @@ export class HttpClientProvider {
     public fetchData(url):Promise<any>{
         return new Promise((resolve,reject) => {
             //this.beforeRequest()
-            this.http.get(baseUrl + url).subscribe((data:any) => {
+            this.http.get(baseUrl+url).subscribe((data:any) => {
                 resolve(data)
             })
         })
