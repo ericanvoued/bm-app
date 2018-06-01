@@ -27,7 +27,7 @@ import { LoadingProvider } from '../providers/loading/loading';
 import { InfoCenterProvider } from '../providers/info-center/info-center';
 import { LhcSlidePage } from '../pages/lhc/lhc-slide/lhc-slide'
 import { KsPage } from '../pages/k3/ks/ks'
-// import { KsBasketPage } from '../pages/k3/ks-basket/ks-basket'
+import { KsBasketPage } from '../pages/k3/ks-basket/ks-basket'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -40,7 +40,7 @@ import { ToolsProvider } from '../providers/tools/tools';
 import { ComponentsModule } from '../components/components.module'
 //动画模块
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UtilProvider } from '../providers/util/util';
 import { BasketDataProvider } from '../providers/basket-data/basket-data';
 import { Vibration } from '@ionic-native/vibration';
@@ -51,6 +51,7 @@ import { ZhixuanhezhiComponent } from '../components/gametrend/qiansan/zhixuanhe
 import { gameConfig } from './gameComponent'
 import { BankCardProvider } from '../providers/bank-card/bank-card';
 import { SignupProvider } from '../providers/signup/signup';
+import { BaseToolProvider } from '../providers/base-tool/base-tool';
 
 
 
@@ -71,7 +72,7 @@ import { SignupProvider } from '../providers/signup/signup';
     ZhixuanhezhiComponent,
     CountTipComponent,
     LhcSlidePage,
-    KsPage,
+    KsPage,KsBasketPage,
     ...gameConfig.ssc,
     ...gameConfig.d5
     // LoginPage,
@@ -103,7 +104,7 @@ import { SignupProvider } from '../providers/signup/signup';
     SixingComponent,
     ZhixuanhezhiComponent,
     LhcSlidePage,
-    KsPage,
+    KsPage,KsBasketPage,
     CountTipComponent,
     ...gameConfig.ssc,
     ...gameConfig.d5
@@ -132,7 +133,8 @@ import { SignupProvider } from '../providers/signup/signup';
     SscServiceProvider,
     BasketDataProvider,
     BankCardProvider,
-    SignupProvider
+    SignupProvider,
+    BaseToolProvider
 
   ]
 })
