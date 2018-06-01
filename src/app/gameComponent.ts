@@ -125,7 +125,7 @@ import { DiyimingfushiComponent } from '../components/pk10/caidiyi/diyimingfushi
 import { DiermingfushiComponent } from '../components/pk10/caiqianer/diermingfushi/diermingfushi'
 
 
-export const gameConfig = { 
+export const gameConfig = {
    'ssc':[
       ZhixuanfushiComponent,WuxingzhixuanzuheComponent,Zuxuan20Component,Zuxuan30Component,Zuxuan60Component,Zuxuan120Component,Zuxuan10Component,Zuxuan5Component,
       Zuxuan24Component,Zuxuan12Component,Zuxuan6Component,Zuxuan4Component,SiXingZhixuanfushiComponent,QisanzhixuanhezhiComponent,QisanzhixuankuaduComponent,
@@ -151,7 +151,7 @@ export const gameConfig = {
       RenxuansizhongsidantuoComponent,RenxuanwuzhongwudantuoComponent,RenxuanliuzhongwudantuoComponent,RenxuanqizhongwudantuoComponent,RenxuansanzhixuanfushiComponent
    ],
    'pk10':[
-     DiyimingfushiComponent,DiermingfushiComponent
+     // DiyimingfushiComponent,DiermingfushiComponent
    ]
 
-} 
+}

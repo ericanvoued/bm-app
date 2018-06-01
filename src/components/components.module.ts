@@ -9,6 +9,10 @@ import { ZuxuanliuComponent } from './ssc-game/zuxuanliu/zuxuanliu';
 
 import { WuxingzhixuanzuheComponent } from './ssc-game/wuxing/wuxingzhixuanzuhe/wuxingzhixuanzuhe';
 import { FooterComponent } from './footer/footer';
+import { LottoryKaijiangComponent } from './lottoyCenter/lottory-kaijiang/lottory-kaijiang';
+import { LottoryDaxiaoComponent } from './lottoyCenter/lottory-daxiao/lottory-daxiao';
+import { Lottory_11YkaijiangComponent } from './lottoyCenter/lottory-11-ykaijiang/lottory-11-ykaijiang';
+import { LottoryDistributeComponent } from './lottoyCenter/lottory-distribute/lottory-distribute';
 
 @NgModule({
 	declarations: [GamemenuComponent,
@@ -18,6 +22,11 @@ import { FooterComponent } from './footer/footer';
     ZuxuanhezhiComponent,
     ZuxuanliuComponent,
     FooterComponent,
+    LottoryKaijiangComponent,,
+    LottoryDaxiaoComponent,
+    Lottory_11YkaijiangComponent,
+    LottoryDistributeComponent
+    ,
     ],
 	imports: [CommonModule],
 	exports: [GamemenuComponent,
@@ -27,6 +36,11 @@ import { FooterComponent } from './footer/footer';
     ZuxuanhezhiComponent,
     ZuxuanliuComponent,
     FooterComponent,
+    LottoryKaijiangComponent,,
+    LottoryDaxiaoComponent,
+    Lottory_11YkaijiangComponent,
+    LottoryDistributeComponent
+    ,
     ]
 })
 export class ComponentsModule {}

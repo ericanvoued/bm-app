@@ -131,6 +131,8 @@ export class SignupPage {
           this.signData.loading.dismiss();
           this.signData.toast = this.loadPrd.showToast(this.ToastCtrl, '注册成功');
           this.storage.set('userInfo', data['data']);
+
+          localStorage.userInfo = JSON.stringify(data['data']);
           this.navCtrl.setRoot(TabsPage, {
             pageIndex: 0
           });

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Storage} from '@ionic/storage';
+// import {Storage} from '@ionic/storage';
 
 
 
@@ -158,14 +158,10 @@ export class HomeProvider {
     storage:null
   }
 
-  constructor(public http: HttpClient,public rest: RestProvider,public storage : Storage) {
-
-
-    this.storage.get('userInfo').then((val)=>{
-      console.log(val)
-      this.HomeData.storage = val;
-      this.getLottoryList()
-    })
+  constructor(public http: HttpClient,public rest: RestProvider) {
+    this.HomeData.storage = JSON.parse(localStorage.getItem('userInfo'));
+    this.getLottoryList(this.HomeData.storage.auth_token)
+    this.getBanner(this.HomeData.storage.auth_token)
   }
 
 
@@ -173,14 +169,17 @@ export class HomeProvider {
     // this.getLottoryList()
   }
 
-  getLottoryList(){
-    console.log(1)
-    return this.rest.getUrlReturn(this.lottoryApi+this.HomeData.storage.auth_token).subscribe((data)=>{
+  getLottoryList(auto_token: string = 'init'){
+    return this.rest.getUrlReturn('/api-lotteries-h5/lottery-info?_t='+auto_token).subscribe((data)=>{
       console.log(data)
     });
   }
 
-
+  getBanner(auto_token: string = 'init'){
+    return this.rest.getUrlReturn('/h5api-announcements/banner?_t='+auto_token).subscribe((data)=>{
+      console.log(data)
+    });
+  }
 
 }
 
