@@ -69,10 +69,7 @@ import { UserCenterProvider } from '../providers/user-center/user-center';
     // HotGmageListPage,
     WuxingComponent,
     SixingComponent,
-    LottoryKaijiangComponent,
-    LottoryDaxiaoComponent,
-    Lottory_11YkaijiangComponent,
-    LottoryDistributeComponent,
+  
     ZhixuanhezhiComponent,
     CountTipComponent,
     LhcSlidePage,
@@ -110,10 +107,7 @@ import { UserCenterProvider } from '../providers/user-center/user-center';
     LhcSlidePage,
     KsPage,
     CountTipComponent,
-    LottoryKaijiangComponent,
-    LottoryDaxiaoComponent,
-    Lottory_11YkaijiangComponent,
-    LottoryDistributeComponent,
+   
     ...gameConfig.ssc,
     ...gameConfig.d5
 
