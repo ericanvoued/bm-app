@@ -1,45 +1,28 @@
 import * as $ from 'jquery';
 
-// import {Config} from './config';
-// import {NavParams} from "ionic-angular";
-// import * as Hammer from 'hammerjs';
-
 export class LhcAction {
 
-  ani = {
+  // ani = {
+  //
+  //   shu: ['10', '22', '34', '46'],
+  //   niu: ['9', '21', '33', '45'],
+  //   hu: ['8', '20', '32', '44'],
+  //   tu: ['7', '19', '31', '43'],
+  //   long: ['6', '18', '30', '42'],
+  //   she: ['5', '17', '29', '41'],
+  //   ma: ['4', '16', '28', '40'],
+  //   yang: ['3', '15', '27', '39'],
+  //   hou: ['2', '14', '26', '38'],
+  //   ji: ['1', '13', '25', '37', '49'],
+  //   gou: ['12', '24', '36', '48'],
+  //   pig: ['11', '23', '35', '47']
+  //
+  // };
 
-    shu: ['10', '22', '34', '46'],
-    niu: ['9', '21', '33', '45'],
-    hu: ['8', '20', '32', '44'],
-    tu: ['7', '19', '31', '43'],
-    long: ['6', '18', '30', '42'],
-    she: ['5', '17', '29', '41'],
-    ma: ['4', '16', '28', '40'],
-    yang: ['3', '15', '27', '39'],
-    hou: ['2', '14', '26', '38'],
-    ji: ['1', '13', '25', '37', '49'],
-    gou: ['12', '24', '36', '48'],
-    pig: ['11', '23', '35', '47']
-
-  };
-
-
-  requestData() {
-    //请求玩法
-
-    //请求奖期
-
-  }
-
-  // UI总结：
-  // 1， 特码，  正码，  不中
-  // 2， 半波
-  // 3， 生肖
-  // 4， 尾数
 
   initView() {
 
-    this.requestData();
+
     this.trendClick();
     this.tmBallClick();
     this.tmboxBtnClick();
@@ -57,8 +40,8 @@ export class LhcAction {
     this.ws_BallClick();
     this.points_BallClick();
 
-    this.initHisBox();
     this.calculateProfit();
+
 
   }
 
@@ -147,7 +130,6 @@ export class LhcAction {
     $('.trend-div').on('click', function () {
       $('.right-popover').css('height')=='200px'? $('.right-popover').css('height','0px'):$('.right-popover').css('height','200px');
     })
-
     $('.side-nav a').on('click', function () {
       var index = $(this).index();
       switch (index) {
@@ -160,7 +142,6 @@ export class LhcAction {
         case 2:
           //玩法说明
           break;
-
       }
       $('.right-popover').css('height','0px');
       // $('.popover-wrapper').addClass('hide');
@@ -168,112 +149,6 @@ export class LhcAction {
 
   }
 
-  initHisBox() {
-
-    var startx, starty;
-
-    //获得角度
-    function getAngle(angx, angy) {
-      return Math.atan2(angy, angx) * 180 / Math.PI;
-    };
-
-    //根据起点终点返回方向 1向上 2向下 3向左 4向右 0未滑动
-    function getDirection(startx, starty, endx, endy) {
-      var angx = endx - startx;
-      var angy = endy - starty;
-      var result = 0;
-      //如果滑动距离太短
-      if (Math.abs(angx) < 2 && Math.abs(angy) < 2) {
-        return result;
-      }
-      var angle = getAngle(angx, angy);
-      console.log('angle==' + angle);
-      if (angle >= -135 && angle <= -45) {
-        result = 1;
-      } else if (angle > 45 && angle < 135) {
-        result = 2;
-      } else if ((angle >= 135 && angle <= 180) || (angle >= -180 && angle < -135)) {
-        result = 3;
-      } else if (angle >= -45 && angle <= 45) {
-        result = 4;
-      }
-      return result;
-    }
-
-    //手指接触屏幕
-    document.addEventListener("touchstart", function (e) {
-      startx = e.touches[0].pageX;
-      starty = e.touches[0].pageY;
-    }, false);
-    //手指离开屏幕
-    document.addEventListener("touchend", function (e) {
-      var endx, endy;
-      endx = e.changedTouches[0].pageX;
-      endy = e.changedTouches[0].pageY;
-      var direction = getDirection(startx, starty, endx, endy);
-
-      var len = $('.his-box .his-line').length; //28px
-      // 小于等于 5条数据 -->  下滑 ， 数据 <=5 ,  不能继续下滑
-      // 大于 5 条，小于 10 条 -->
-      var his = $(".his-box").css('height');
-      switch (direction) {
-        case 0:
-          console.log("未滑动");
-          break;
-        case 1://向上
-          //  <=140px    ， -->  0px，
-          //  >= 140px &&    140px
-          if (parseInt(his) <= 165) {
-            $(".his-box").animate({height: "0px"}, 100);
-            $('.lhc-content-child .scroll-content').css('overflow', '');
-          } else if (parseInt(his) >= 165) {
-            $(".his-box").stop().animate({height: "165px"}, 100);
-            $('.lhc-content-child .scroll-content').css('overflow', 'hidden');
-          }
-          // $(".his-box").animate({height:"0px"},100);
-          // console.log($(".his-box").css('height'));
-          break;
-        case 2://向下
-          // <5 && 0px    ， -->len x 28 px + 25px，
-          //  >= 5 && 0px  ， --> 140px
-          //           >=140px &&   >5  &&  <10 --> 140px + (len-5)*28
-          //          >=10   --> 280px
-
-          var ooo = $('.lhc-content-child .section.active');
-          if ($('.lhc-content-child .section.active').offset().top < 156) {  //scroll上滑后下 滑动时候
-            $(".his-box").stop().animate({height: "0px"}, 0);
-            return;
-          }
-          console.log('his==' + his);
-          console.log('his==' + parseInt(his));
-          if ($(".his-box").css('height') == '0px' && len < 5) {
-            var h = len * 28 + 25;
-            console.log('h===' + h);
-            $(".his-box").animate({height: h + 'px'}, 100);
-
-          } else if ($(".his-box").css('height') == '0px' && len >= 5) {
-//28*5 + 25 px
-            $(".his-box").animate({height: "165px"}, 100);
-
-          } else if (parseInt(his) >= 165 && len < 10) {
-
-            var h = 165 + (len - 5) * 28;
-            $(".his-box").animate({height: h + "px"}, 100);
-          } else if (len >= 10) {
-//280 + 25
-            $(".his-box").animate({height: "305px"}, 100);
-          }
-
-          $('.lhc-content-child .scroll-content').css('overflow', 'hidden');
-          // console.log($('.lhc-content-child .section.active').offset().top);
-          break;
-
-        default:
-      }
-    }, false);
-
-
-  }
 
   dropdownClick() {
 
@@ -301,6 +176,7 @@ export class LhcAction {
 
       })
     });
+
     //子玩法选择
     $('.after-list .play-black').each(function () {
 
@@ -564,43 +440,45 @@ export class LhcAction {
       var clas = $(this).attr('class');
       console.log(clas);
       clas = clas.split(' ')[1];
-      // var len = obj.find('.ball').length;
+      var ani = JSON.parse(localStorage.ani);
+      var len = obj.find('.ball').length;
+console.log(ani);
       switch (clas) {
         case 'shu':
-          _this.dealWithTmAniBoxClick(_this.ani.shu, flag);
+          _this.dealWithTmAniBoxClick(ani.shu, flag);
           break;
         case 'niu':
-          _this.dealWithTmAniBoxClick(_this.ani.niu, flag);
+          _this.dealWithTmAniBoxClick(ani.niu, flag);
           break;
         case 'hu':
-          _this.dealWithTmAniBoxClick(_this.ani.hu, flag);
+          _this.dealWithTmAniBoxClick(ani.hu, flag);
           break;
         case 'tu':
-          _this.dealWithTmAniBoxClick(_this.ani.tu, flag);
+          _this.dealWithTmAniBoxClick(ani.tu, flag);
           break;
         case 'long':
-          _this.dealWithTmAniBoxClick(_this.ani.long, flag);
+          _this.dealWithTmAniBoxClick(ani.long, flag);
           break;
         case 'she':
-          _this.dealWithTmAniBoxClick(_this.ani.she, flag);
+          _this.dealWithTmAniBoxClick(ani.she, flag);
           break;
         case 'ma':
-          _this.dealWithTmAniBoxClick(_this.ani.ma, flag);
+          _this.dealWithTmAniBoxClick(ani.ma, flag);
           break;
         case 'yang':
-          _this.dealWithTmAniBoxClick(_this.ani.yang, flag);
+          _this.dealWithTmAniBoxClick(ani.yang, flag);
           break;
         case 'hou':
-          _this.dealWithTmAniBoxClick(_this.ani.hou, flag);
+          _this.dealWithTmAniBoxClick(ani.hou, flag);
           break;
         case 'ji':
-          _this.dealWithTmAniBoxClick(_this.ani.ji, flag);
+          _this.dealWithTmAniBoxClick(ani.ji, flag);
           break;
         case 'gou':
-          _this.dealWithTmAniBoxClick(_this.ani.gou, flag);
+          _this.dealWithTmAniBoxClick(ani.gou, flag);
           break;
         case 'pig':
-          _this.dealWithTmAniBoxClick(_this.ani.pig, flag);
+          _this.dealWithTmAniBoxClick(ani.zhu, flag);
           break;
       }
 
@@ -1108,19 +986,22 @@ export class LhcAction {
 
   dealWithTmAniBoxClick(arr, flag) {
 
+    console.log(arr);
     var obj = $('.b-box');
     var len = obj.find('.tm-unit').length;
     if (flag == 1) {
       for (var i = 0; i < len; i++) {
         var tt = obj.find('.tm-unit').eq(i).text();
-        if (arr.indexOf(tt) != -1) {
+        var v = parseInt(tt);
+        if (arr.indexOf(v) != -1) {
           obj.find('.tm-unit').eq(i).addClass('currunt');
         }
       }
     } else {
       for (var i = 0; i < len; i++) {
         var tt = obj.find('.tm-unit').eq(i).text();
-        if (arr.indexOf(tt) != -1) {
+        var v = parseInt(tt);
+        if (arr.indexOf(v) != -1) {
           obj.find('.tm-unit').eq(i).removeClass('currunt');
         }
       }

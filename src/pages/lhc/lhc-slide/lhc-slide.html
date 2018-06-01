@@ -40,11 +40,11 @@
 
 
   <div class="status-title cl">
-    <p>1041期开奖</p>
+    <p class="currentdate">1041期开奖</p>
   </div>
   <div class="status-time cl">
-    <div class="l">12080期截止:</div>
-    <div class="r">
+    <div class="l nextdate">12080期截止:</div>
+    <div class="r r-time">
       <span>00</span>:<span>45</span>:<span>12</span>
     </div>
     <span class="time-bar"></span>
@@ -77,7 +77,7 @@
     </div>
     <div class="status-unit status-plus"><span>=</span>
     </div>
-    <div class="status-unit "><span>168</span>
+    <div class="status-unit "><span id="score">168</span>
     </div>
   </div>
   <!--<div class="status-time cl">-->
@@ -119,7 +119,7 @@
 
     <ion-slide>
 
-      <ion-content id="test" class="lhc-content-child">
+      <ion-content id="lhc-content-child" class="lhc-content-child" name="contents">
 
         <div class="his-box">
           <ul>
@@ -134,7 +134,7 @@
               <span>特码</span>
             </li>
           </ul>
-          <ul>
+          <ul class="his-ul">
             <li class="his-line">
               <span>020</span>
               <span>23</span>
@@ -175,7 +175,6 @@
               <span>09</span>
               <span>78</span>
             </li>
-
           </ul>
         </div>
         <!--特码彩种 特码，正码，不中-->
@@ -193,12 +192,10 @@
                 <span class="topball red-ball hide">01</span>
                 <span class="ball red-ball">01</span>
               </li>
-
               <li class="tm-unit">
                 <span class="topball red-ball hide">02</span>
                 <span class="ball red-ball">02</span>
               </li>
-
               <li class="tm-unit">
                 <span class="topball blue-ball hide">03</span>
                 <span class="ball blue-ball">03</span>
@@ -349,7 +346,6 @@
             <!--text-align: left;-->
             <!--margin-bottom: 8px;-->
             <!--font-weight: 500;">快速选号</p>-->
-
           </section>
 
           <section class="t-box">

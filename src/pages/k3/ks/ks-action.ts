@@ -8,7 +8,6 @@ export class KsAction {
 
   initView() {
 
-    this.requestData();
     this.initClick();
     this.changePlaySelect();
     this.ballClick();
@@ -18,53 +17,45 @@ export class KsAction {
     this.trendClick();
     this.addOrder();
 
-
-  }
-
-  requestData() {
-    //玩法
-    //奖期
-    this.cutDownTime();
   }
 
 
-  cutDownTime() {
-
-    let _this = this;
-    var totalSec = _this.getRemainTime('2017-09-11 15:39:31', '2017-09-11 15:40:30');
-    var ttt = totalSec;
-    var liArr = $('.r-time span');
-    var timeId = setInterval(function () {
-      _this.timeIddd = timeId;
-      if (totalSec <= 0) {
-        //--奖期
-        // requestJiangQiData(1);
-        clearInterval(timeId);
-        return;
-      }
-      totalSec--;
-      var hour = Math.floor(totalSec / 3600);
-      var minute = Math.floor(totalSec % 3600 / 60);
-      var sec = totalSec % 60;
-      //显示
-      liArr[0].innerHTML = hour;
-      liArr[1].innerHTML = minute;
-      liArr[2].innerHTML = sec;
-
-      var scale = totalSec / ttt * 100;
-
-      $('.time-bar').css('width', scale + '%');
-
-    }, 1000)
-  }
+  // cutDownTime() {
+  //   //ewee
+  //   let _this = this;
+  //   var totalSec = _this.getRemainTime('2017-09-11 15:39:31', '2017-09-11 15:40:30');
+  //   var ttt = totalSec;
+  //   var liArr = $('.r-time span');
+  //   var timeId = setInterval(function () {
+  //     _this.timeIddd = timeId;
+  //     if (totalSec <= 0) {
+  //       //--奖期
+  //       // requestJiangQiData(1);
+  //       clearInterval(timeId);
+  //       return;
+  //     }
+  //     totalSec--;
+  //     var hour = Math.floor(totalSec / 3600);
+  //     var minute = Math.floor(totalSec % 3600 / 60);
+  //     var sec = totalSec % 60;
+  //     //显示
+  //     liArr[0].innerHTML = hour;
+  //     liArr[1].innerHTML = minute;
+  //     liArr[2].innerHTML = sec;
+  //     var scale = totalSec / ttt * 100;
+  //     $('.time-bar').css('width', scale + '%');
+  //   }, 1000)
+  // }
 
 
-  getRemainTime(startime, endtime) {
-    var a = new Date(startime.replace(/-/g, '/')).getTime();
-    var b = new Date(endtime.replace(/-/g, '/')).getTime();
-    var t = (b - a) / 1000;
-    return t;
-  }
+  // getRemainTime(startime, endtime) {
+  //   var a = new Date(startime.replace(/-/g, '/')).getTime();
+  //   var b = new Date(endtime.replace(/-/g, '/')).getTime();
+  //   var t = (b - a) / 1000;
+  //   return t;
+  // }
+
+
 
 
   /**
@@ -564,20 +555,22 @@ export class KsAction {
 
     let _this = this;
     //主玩法选择
-    $('.play-list .play-black').each(function () {
+    $('.after-list .play-black').each(function () {
+
       $(this).on('click', function () {
-        $('.play-list .play-black').removeClass('play-yellow');
+
+        $('.after-list .play-black').removeClass('play-yellow');
         $(this).addClass('play-yellow');
         // var title = $('.wanfa').text();
-        var title = $('.play-list .play-yellow').text();
+        var title = $('.after-list .play-yellow').text();
         //清空当前页面
         $('.active').removeClass('active');
         $('.wanfa').text(title);
         _this.changeBallUi(title);
         _this.removeCover();
-        // _this.calculateNumOfBet();
         _this.calculateMoney();
       })
+
     });
   };
 
@@ -712,7 +705,6 @@ export class KsAction {
   cleanBalls() {
 
     $('.active').removeClass('active');
-
     $('.total-num').text(0);
     $('.money').text(0);
 
@@ -723,6 +715,7 @@ export class KsAction {
     $('.header-top').addClass('hide');
     $('.body-bg').removeClass('hide');
     $('.alert-con').removeClass('hide');
+    $('.after-con').addClass('active');
 
   }
 
@@ -731,5 +724,5 @@ export class KsAction {
     $('.body-bg').addClass('hide');
     $('.alert-con').addClass('hide');
   }
-
+//11
 }
