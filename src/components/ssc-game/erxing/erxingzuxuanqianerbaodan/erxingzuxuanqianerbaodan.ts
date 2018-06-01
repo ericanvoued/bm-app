@@ -27,6 +27,26 @@ export class ErxingzuxuanqianerbaodanComponent extends commonMethod{
     return number + 5
   }
 
+  changeToggle(row,column){
+    if(column!=null){
+    this.common.ballData = this.common.ballData.map((item,index) => {
+        if(index == row){
+            item.value = item.value.map((ele,index) => {
+                if(index == column){
+                    return ele == 1 ? 0 : 1 
+                }else{
+                    return 0
+                }
+            })
+            return item
+        }else{
+            return item
+        }
+    })
+    }
+    this.calculate()
+  } 
+
    calculate(){
     let count = 0;
     this.common.ballData[0].value.forEach((item,index) => {

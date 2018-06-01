@@ -59,6 +59,26 @@ export class Xuan5Page extends Effect{
     public common:CommonProvider, public gamemenu:GamemenuComponent, public util:UtilProvider,public basket:BasketDataProvider,public events:Events) {
         super(common,gamemenu,modalCtrl,navCtrl)
         this.list = this.record.slice(0, 2)
+
+        this.common.initData().then(
+            () => {
+                this.gameContainer.clear()
+                let method
+                if(this.common.method == '二星'){
+                    method = this.common.method + this.common.secondKind + this.common.smallMethod
+                }else{
+                    method = this.common.method + this.common.smallMethod
+                }
+                console.log(method)
+                const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(gameConfig[method])
+                this.componentRef = this.gameContainer.createComponent(factory)
+                this.componentRef.instance.choose = this.haveChoosen
+                this.common.componentRef = this.componentRef
+                           this.util.shakePhone(() => {
+                               this.util.randomChoose(this.componentRef)
+                           })
+            }
+        )
   }
 
   ionViewDidLoad() {
@@ -66,19 +86,20 @@ export class Xuan5Page extends Effect{
   }
 
   ionViewWillEnter(){
-    this.gameContainer.clear()
-    let method
-    if(this.common.method == '二星'){
-        method = this.common.method + this.common.secondKind + this.common.smallMethod
-    }else{
-        method = this.common.method + this.common.smallMethod
-    }
-    const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(gameConfig[method])
-    this.componentRef = this.gameContainer.createComponent(factory)
+    // this.gameContainer.clear()
+    // let method
+    // if(this.common.method == '二星'){
+    //     method = this.common.method + this.common.secondKind + this.common.smallMethod
+    // }else{
+    //     method = this.common.method + this.common.smallMethod
+    // }
+    // console.log(method)
+    // const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(gameConfig[method])
+    // this.componentRef = this.gameContainer.createComponent(factory)
     
-               this.util.shakePhone(() => {
-                   this.util.randomChoose(this.componentRef)
-               })
+    //            this.util.shakePhone(() => {
+    //                this.util.randomChoose(this.componentRef)
+    //            })
   }
 
   change(val){

@@ -21,7 +21,7 @@ import { Events } from 'ionic-angular';
                 opacity: 0,
                 transform:'translate3d(0, 100%, 0)'
             })),
-            transition('* => *',animate('.5s'))
+            transition('* => *',animate('.3s'))
         ])
     ]
 })

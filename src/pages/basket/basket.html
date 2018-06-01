@@ -82,11 +82,12 @@
         <div style="line-height:30px">
             <div style="float:left;margin-right:5px">返点:</div> 
             <div class="fandian-number" (click)="toggle()">
-                 1950-0.00% +
+                 {{common.chooseGroup}}
                  <ul class="fandian" [@show]="show" >
+                     <li *ngFor="let item of common.prizeGroup" (click)="common.chooseGroup = item" [class.current]="common.chooseGroup == item">{{item}}</li>
+                     <!-- <li>1800-7.50%</li>
                      <li>1800-7.50%</li>
-                     <li>1800-7.50%</li>
-                     <li>1800-7.50%</li>
+                     <li>1800-7.50%</li> -->
                  </ul>
                
             </div> 

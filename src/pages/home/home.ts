@@ -77,10 +77,14 @@ export class HomePage {
     }
   }
 
-  goToSsc() {
-    this.common.pid.next('./assets/ssc.json')
-    this.navCtrl.push('SscPage')
-  }
+  goToSsc(){
+    // this.common.pid.next('./assets/ssc.json')
+     this.navCtrl.push('SscPage')
+  }   
+  // goToSsc() {
+  //   this.common.pid.next('./assets/ssc.json')
+  //   this.navCtrl.push('SscPage')
+  // }
 
   gotoLhc() {
     this.navCtrl.push(LhcSlidePage, {})
@@ -92,9 +96,13 @@ export class HomePage {
 
   }
 
-  goToxuan5() {
-    console.log('wcndmd')
-    this.common.pid.next('./assets/115.json')
-    this.navCtrl.push('Xuan5Page')
-  }
+  goToxuan5(){
+     //this.common.pid.next('./assets/115.json')
+     this.navCtrl.push('Xuan5Page')
+  }   
+  // goToxuan5() {
+  //   console.log('wcndmd')
+  //   this.common.pid.next('./assets/115.json')
+  //   this.navCtrl.push('Xuan5Page')
+  // }
 }

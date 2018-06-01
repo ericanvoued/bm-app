@@ -133,7 +133,6 @@ import { UserCenterProvider } from '../providers/user-center/user-center';
     RestProvider,
     LoadingProvider,
     InfoCenterProvider,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
     CommonProvider,
     HttpClientProvider,
     ToolsProvider,

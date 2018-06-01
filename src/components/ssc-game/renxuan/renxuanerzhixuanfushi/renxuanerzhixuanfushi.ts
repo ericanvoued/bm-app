@@ -48,8 +48,7 @@ export class RenxuanerzhixuanfushiComponent extends commonMethod{
             item.value = item.value.map((ele,index1) => arr.filter(detail => detail[0] == index && detail[1] == index1).length > 0 ? 1 : 0)
             return item
         })
-     }
-    
+     }  
   }
 
   calculate(){

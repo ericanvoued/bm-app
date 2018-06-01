@@ -27,7 +27,7 @@ import { UtilProvider } from '../../providers/util/util'
          opacity: 0,
         transform:'translate3d(0, 100%, 0)'
        })),
-       transition('* => *',animate('.5s'))
+       transition('* => *',animate('.3s'))
     ])
    ]
 })
@@ -56,6 +56,10 @@ export class BasketPage {
   }
 
   change(number){
+    if(number < 0 && this.basket.statistic.multiple == 0)
+       return
+
+    
     this.basket.statistic.multiple += number
   }
 
