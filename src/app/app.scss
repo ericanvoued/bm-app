@@ -117,7 +117,7 @@ ul, li {
   background-position: center center;
 }
 
-
+div.not-enough{color: #4a4a4a; font-size: 16px}
 //个人中心的icon
 .kefu-icon {
   background-image: url(../assets/icon/kefu-icon.png);
@@ -583,3 +583,5 @@ ion-app.ios [padding] .scroll-content{
 .popover-content {
   overflow: visible;
 }
+
+.swiper-container{height:auto}

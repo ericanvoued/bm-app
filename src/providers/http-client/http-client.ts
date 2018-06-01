@@ -22,7 +22,6 @@ export class HttpClientProvider {
             //this.beforeRequest()
             this.http.get(baseUrl + url).subscribe((data:any) => {
                 resolve(data)
-
             })
         })
     }

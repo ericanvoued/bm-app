@@ -25,6 +25,8 @@ import { Qisanzuxuan6Component } from '../components/ssc-game/qiansan/qisanzuxua
 import { QisanzuxuanhezhiComponent } from '../components/ssc-game/qiansan/qisanzuxuanhezhi/qisanzuxuanhezhi'
 import { QisanbaodanComponent } from '../components/ssc-game/qiansan/qisanbaodan/qisanbaodan'
 import { QisantesuhaomaComponent } from '../components/ssc-game/qiansan/qisantesuhaoma/qisantesuhaoma'
+import { QiansanhezhiweishuComponent} from '../components/ssc-game/qiansan/qiansanhezhiweishu/qiansanhezhiweishu'
+
 
 import { ZhongsanzhixuanfushiComponent } from '../components/ssc-game/zhongsan/zhongsanzhixuanfushi/zhongsanzhixuanfushi'
 import { ZhongsanzhixuanhezhiComponent } from '../components/ssc-game/zhongsan/zhongsanzhixuanhezhi/zhongsanzhixuanhezhi'
@@ -129,7 +131,7 @@ export const gameConfig = {
    'ssc':[
       ZhixuanfushiComponent,WuxingzhixuanzuheComponent,Zuxuan20Component,Zuxuan30Component,Zuxuan60Component,Zuxuan120Component,Zuxuan10Component,Zuxuan5Component,
       Zuxuan24Component,Zuxuan12Component,Zuxuan6Component,Zuxuan4Component,SiXingZhixuanfushiComponent,QisanzhixuanhezhiComponent,QisanzhixuankuaduComponent,
-      QisanzhixuanfushiComponent,QisanzhixuanzuheComponent,Qisanzuxuan3Component,Qisanzuxuan6Component,QisanzuxuanhezhiComponent,QisanbaodanComponent,
+      QisanzhixuanfushiComponent,QisanzhixuanzuheComponent,Qisanzuxuan3Component,Qisanzuxuan6Component,QisanzuxuanhezhiComponent,QisanbaodanComponent,QiansanhezhiweishuComponent,
       QisantesuhaomaComponent,ZhongsanzhixuanfushiComponent,ZhongsanzhixuanhezhiComponent,ZhongsanzhixuankuaduComponent,ZhongsanzhixuanzuheComponent,Zhongsanzuxuan6Component,
       Zhongsanzuxuan3Component,ZhongsanzuxuanhezhiComponent,ZhongsanbaodanComponent,ZhongsanhezhiweishuComponent,ZhongsanteshuhaomaComponent,HousanzhixuanfushiComponent,
       HousanzhixuanhezhiComponent,HousanzhixuankuaduComponent,HousanzhixuanzuheComponent,ErxingzhixuanhouerhezhiComponent,HousanzusanComponent,
