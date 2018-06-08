@@ -11,9 +11,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { LottoryCenterPage } from '../pages/lottory-center/lottory-center'
 import { ActivityPage } from '../pages/activity/activity'
 import { UserCenterPage } from '../pages/user/user-center/user-center'
+
 // import { HotGmageListPage } from '../pages/hot-gmage-list/hot-gmage-list'
-
-
 import { IonicStorageModule } from '@ionic/storage'
 import {Camera} from '@ionic-native/camera';
 import {File} from '@ionic-native/file';
@@ -46,10 +45,15 @@ import { Vibration } from '@ionic-native/vibration';
 import { TrendHeadComponent } from '../components/gametrend/trend-head/trend-head'
 import { WuxingComponent } from '../components/gametrend/wuxing/wuxing'
 import { SixingComponent } from '../components/gametrend/sixing/sixing'
+import { KuadutrendComponent } from '../components/gametrend/kuadutrend/kuadutrend'
 import { ZhixuanhezhiComponent } from '../components/gametrend/qiansan/zhixuanhezhi/zhixuanhezhi'
 import { gameConfig } from './gameComponent'
 import { BankCardProvider } from '../providers/bank-card/bank-card';
 import { SignupProvider } from '../providers/signup/signup';
+
+
+import { RightmenuComponent } from '../components/rightmenu/rightmenu';
+import { TabYuanComponent } from '../components/tab-yuan/tab-yuan';
 
 //module模块
 import { LottoryKaijiangComponent } from '../components/lottoyCenter/lottory-kaijiang/lottory-kaijiang'
@@ -58,6 +62,7 @@ import { Lottory_11YkaijiangComponent } from '../components/lottoyCenter/lottory
 import { LottoryDistributeComponent } from '../components/lottoyCenter/lottory-distribute/lottory-distribute'
 import { UserCenterProvider } from '../providers/user-center/user-center';
 import { BaseToolProvider } from '../providers/base-tool/base-tool';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -69,7 +74,7 @@ import { BaseToolProvider } from '../providers/base-tool/base-tool';
     // HotGmageListPage,
     WuxingComponent,
     SixingComponent,
-  
+    KuadutrendComponent,
     ZhixuanhezhiComponent,
     CountTipComponent,
     LhcSlidePage,
@@ -83,6 +88,7 @@ import { BaseToolProvider } from '../providers/base-tool/base-tool';
     HttpClientModule,
     NoopAnimationsModule,
     BrowserAnimationsModule,
+  
     IonicModule.forRoot(MyApp,{
       backButtonText: '',//按钮内容
       backButtonIcon: 'ios-arrow-back',//按钮图标样式
@@ -103,6 +109,7 @@ import { BaseToolProvider } from '../providers/base-tool/base-tool';
     // LoginPage,
     WuxingComponent,
     SixingComponent,
+    KuadutrendComponent,
     ZhixuanhezhiComponent,
     LhcSlidePage,
     KsPage,KsBasketPage,
