@@ -47,8 +47,8 @@ export class HousanbaodanComponent extends commonMethod{
       }
       this.calculate()
     } 
-  
-     calculate(){
+
+    getCount(){
       let count = 0;
       this.common.ballData[0].value.forEach((item,index) => {
           if(item){
@@ -57,10 +57,8 @@ export class HousanbaodanComponent extends commonMethod{
           }
             
       })
-      this.common.count = count
-      let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
-      this.common.betPrice = this.common.count*2*percent
-   }
+      return count
+    }
   
    arrIndexOf(value, arr) {
     var r = 0;

@@ -37,14 +37,12 @@ export class ErxingzhixuanqianerkuaduComponent extends commonMethod{
       return arr
     }
 
-    calculate(){
+    getCount(){
       let count = 0
       this.getOriginData().forEach(element => {
            count += this.mathResult(element).length
       })
-      this.common.count = count 
-      let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
-      this.common.betPrice = this.common.count*2*percent
+      return count
     }
 
    mathResult(num){

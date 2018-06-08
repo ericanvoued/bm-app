@@ -1,0 +1,224 @@
+<!-- Generated template for the KuadutrendComponent component -->
+<div class="segment">
+    <ion-segment [(ngModel)]="choose" (ionChange)="ionChange($event)">
+      <ion-segment-button *ngFor="let name of menus;let ii = index" value="{{name}}">{{name}}</ion-segment-button>  
+    </ion-segment>
+</div>
+
+<ion-slides #contentSlides  (ionSlideDidChange)="slideChanged()">
+
+  <ion-slide>
+        <!--<ng-template #alertContainer></ng-template>-->
+        
+        <div [ngSwitch]="true">
+                <div *ngSwitchCase="['五星','一星','任选'].includes(common.method)">
+                        <div class="kai-jiang">
+                                <div >期号</div><div >开奖号码</div><div >和值</div><div >跨度</div>
+                                <div >大小比</div><div >奇偶比</div>
+                             </div>
+                   
+                             <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
+                                  <div >{{item.number}}</div>
+                                  <div class="wuxing"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                                  <div >{{item.sum}}</div>
+                                  <div >{{item.gap}}</div>
+                                  <div >{{item.daxiao}}</div>
+                                  <div >{{item.oddeven}}</div>
+                             </div>
+                </div> 
+            
+                <div *ngSwitchCase="common.method == '前三'">
+                        <div class="kai-jiang">
+                                <div >期号</div><div >开奖号码</div> <div>万位</div><div >千位</div>
+                                <div >百位</div><div >前三形态</div>
+                        </div>
+                   
+                        <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
+                            <div >{{item.number}}</div>
+                            <div class="qiansan"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                            <div >{{item.wan}}</div>
+                            <div >{{item.qian}}</div>
+                            <div >{{item.bai}}</div>
+                            <div >{{item.zu}}</div>
+                        </div>
+                </div> 
+                
+                <div *ngSwitchCase="common.method == '中三'">
+                        <div class="kai-jiang">
+                                <div >期号</div><div >开奖号码</div> <div>千位</div><div >百位</div>
+                                <div >十位</div><div >中三形态</div>
+                        </div>
+                   
+                        <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
+                            <div >{{item.number}}</div>
+                            <div class="zhongsan"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                            <div >{{item.qian}}</div>
+                            <div >{{item.bai}}</div>
+                            <div >{{item.shi}}</div>
+                            <div >{{item.zu}}</div>
+                        </div>
+                </div>   
+
+                <div *ngSwitchCase="common.method == '后三'">
+                        <div class="kai-jiang">
+                                <div >期号</div><div >开奖号码</div> <div>百位</div><div >十位</div>
+                                <div >个位</div><div >后三形态</div>
+                        </div>
+                   
+                        <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
+                            <div >{{item.number}}</div>
+                            <div class="housan"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                            <div >{{item.bai}}</div>
+                            <div >{{item.shi}}</div>
+                            <div >{{item.ge}}</div>
+                            <div >{{item.zu}}</div>
+                        </div>
+                </div>  
+                 
+                <div *ngSwitchDefault>
+                    <div class="l-game" *ngFor="let data of common.ballData;let ii = index" >
+                        <div class="l">
+                            <p><span></span>{{data.key}}</p>
+                            <p style="margin-top:18px"><span></span>遗漏</p>
+                            <p *ngIf="check('30期冷热')" style="margin-top:18px"><span></span>冷热</p>
+                        </div>
+                    </div>
+                </div>   
+        </div> 
+
+     
+  </ion-slide>  
+  <!-- swiper-slide-active -->
+
+  <ion-slide>
+      <div>
+          <ul style="display:flex">
+                  <li class="head-num" style="width:17%">期号</li>
+                  <li class="head-num" style="width:8.5%">0</li>
+                  <li class="head-num" style="width:8.5%">1</li>
+                  <li class="head-num" style="width:8.5%">2</li>
+                  <li class="head-num" style="width:8.5%">3</li>
+                  <li class="head-num" style="width:8.5%">4</li>
+                  <li class="head-num" style="width:8.5%">5</li>
+                  <li class="head-num" style="width:8.5%">6</li>
+                  <li class="head-num" style="width:8.5%">7</li>
+                  <li class="head-num" style="width:8.5%">8</li>
+                  <li class="head-num" style="width:8.5%">9</li>
+              </ul>
+              <ul *ngFor="let item of trendData" class="ball-line" style="display:flex">
+                  <li *ngFor="let ele of item.slice(0,1)" style="line-height:30px;font-size:15px;width:17%">
+                      {{ele.number}}
+                   </li>
+                  <li *ngFor="let ele of item.slice(1)" style="position:relative;display:flex;width:8.5%;align-items:center;justify-content:center;border-left:1px solid #f0f0f0">
+                     <span [class.highlight]="ele.choose" class="number-code" style="width:20px;height:20px;border-radius:50%;text-align:center;line-height:20px;"> {{ele.number}}</span>
+                     <span class="right-corner" *ngIf="ele.choose > 1">{{ele.choose}}</span>
+                  </li>
+              </ul>
+     </div>
+         
+      <!-- <ul *ngFor="let item of util.statisticCategory;let i =index" class="trend-category">
+              <li class="head-num head-category" style="width:17%;font-size:10px">{{item}}</li>
+              <li class="head-num" style="width:8.5%" *ngFor="let todo of sumData[i];">
+                  {{todo}}
+              </li>
+      </ul>
+
+      <div style="display:flex;width:100%">
+          <div style="width:17%">和值选号</div>
+          <div style="width:83%;overflow:hidden">
+              <ul style="width:280%;" #drag [ngStyle]="{'transform': 'translateX(' + gap + 'px)'}">
+                  <li *ngFor="let item of numbers" style="width:3.57%;display:inline-block">
+                      {{item}}
+                  </li>
+              </ul>
+          </div>       
+      </div> -->
+  </ion-slide>  
+
+
+  <ion-slide style="min-height:100%">
+      <div class="trend-container">
+          <ul style="display:flex">
+              <li class="head-num" style="width:17%">期号</li>
+              <li class="head-num" style="width:8.5%">0</li>
+              <li class="head-num" style="width:8.5%">1</li>
+              <li class="head-num" style="width:8.5%">2</li>
+              <li class="head-num" style="width:8.5%">3</li>
+              <li class="head-num" style="width:8.5%">4</li>
+              <li class="head-num" style="width:8.5%">5</li>
+              <li class="head-num" style="width:8.5%">6</li>
+              <li class="head-num" style="width:8.5%">7</li>
+              <li class="head-num" style="width:8.5%">8</li>
+              <li class="head-num" style="width:8.5%">9</li>
+          </ul>
+          <ul *ngFor="let item of kuaDuData" class="ball-line kuadu">
+              <li *ngFor="let ele of item.slice(0,1)" style="line-height:30px;font-size:15px">
+                  {{ele.number}}
+               </li>
+              <li *ngFor="let ele of item.slice(1)" style="display:flex;align-items:center;justify-content:center;border-left:1px solid #f0f0f0">
+                 <span [class.highlight]="ele.choose"> {{ele.number}}</span>
+              </li>
+          </ul>
+
+        </div>
+     
+              <!-- <ul *ngFor="let item of util.statisticCategory" class="trend-category">
+                <li class="head-num head-category" style="width:17%;font-size:10px">{{item}}</li>
+                <li class="head-num" style="width:8.5%" *ngFor="let todo of util.trendData[item][ii]">
+                    {{todo}}
+                </li>
+              </ul> -->
+<!--           
+            <div *ngIf="common.Method != '任选'">
+                    <div *ngIf="common.bigKind == '直选'">
+                            <ul style="display:flex;bottom:0;margin-top:10px;padding-bottom:8px">
+                                    <li class="head-num" style="width:17%;font-size:10px">{{ii}}</li>
+                                    <li class="head-num ball-choose" style="width:8.5%" [class.current]="item == 1" *ngFor="let item of common.ballData[i].value;let j=index" >
+                                        <span [class.current]="item == 1" (click)="toggle(i,j)">{{j}}</span>
+                                    </li>
+                            </ul>
+                    
+                            <div *ngIf="existNumber(common.ballData[i].value)" style="display:flex;align-items:center">
+                                    <div style="width:17%;font-size:10px">已选</div>
+                                    <div *ngFor="let item of common.componentRef.instance.getCommonData()[i]" style="color:#F84F1E;margin-left:5px">{{item}}</div>
+                            </div>
+                    </div>
+        
+                  
+        
+                    <div style="bottom:0" *ngIf="common.bigKind != '直选'">
+                        <ul style="display:flex;padding-bottom:8px" *ngFor="let item of common.ballData;let row=index">
+                            <li class="head-num" style="width:17%;">{{processName(item.key)}}</li>
+                            <li class="head-num ball-choose" style="width:8.5%"  *ngFor="let item of item.value;let column=index" >
+                                <span [class.current]="item == 1" (click)="toggle(row,column)">{{column}}</span>
+                            </li>
+                        </ul>
+        
+                        <div *ngIf="existZuxuan()" style="display:flex;align-items:center">
+                            <div style="width:17%;font-size:10px">已选</div>
+                            <div style="color:#F84F1E;margin-left:5px">{{common.componentRef.instance.getLotteryText()}}</div>
+                        </div>
+                    </div>
+            </div>   -->
+           
+  </ion-slide> 
+
+  <ion-slide> 
+      <div class="menus-head" style="display:flex;font-size:14px">
+              <div style="width:16%">和值</div> <div style="width:21%">10期冷热</div> <div style="width:21%">20期冷热</div> 
+              <div style="width:21%">30期冷热</div> <div style="width:21%">遗漏</div>
+      </div>
+      
+          <ul>
+              <li *ngFor="let item of lengreData" class="list-detail">
+                  <div class="ball-detail">
+                      <span>{{item.number}}</span>
+                  </div> 
+                  <div style="width:21%">{{item.leng30}}</div>  
+                  <div style="width:21%">{{item.leng20}}</div> <div style="width:21%">{{item.leng10}}</div>  <div style="width:21%">{{item.yilou}}</div>   
+              </li>
+          </ul>
+
+ 
+  </ion-slide>          
+</ion-slides> 

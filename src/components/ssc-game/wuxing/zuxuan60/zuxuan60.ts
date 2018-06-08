@@ -29,55 +29,50 @@ export class Zuxuan60Component extends commonMethod{
         return number + 5
     }
 
-    randomChoose(number?){
-      let temp,arr;
+   randomOneOrder(){
+    let tempArr,arr;
+    this.common.ballData = this.common.ballData.map((item,index) => {
+        
+        if(index == 0){
+            
+            tempArr = this.tool.produceRandom(1)
+            item.value = item.value.map((ele,index) => {
+                if(tempArr.indexOf(index) != -1){
+                    return 1
+                }else{
+                    return 0
+                }
+            })
+    
+            return item
+        }else{
+            arr = this.tool.produceRandom(3,tempArr)
+            item.value = item.value.map((ele,index) => {
+                if(arr.indexOf(index) != -1){
+                    return 1
+                }else{
+                    return 0
+                }
+            })
+            return item
+        }
+        })
+     this.calculate()
+   } 
 
-     
-        this.common.ballData = this.common.ballData.map((item,index) => {
-          
-           if(index == 0){
-               
-               temp = this.tool.produceRandom(number == 5 ? 5 : 1)
-               item.value = item.value.map((ele,index) => {
-                   if(temp.indexOf(index) != -1){
-                       return 1
-                   }else{
-                       return 0
-                   }
-               })
-     
-               return item
-           }else{
-               arr = this.tool.produceRandom(3,temp)
-               item.value = item.value.map((ele,index) => {
-                 if(arr.indexOf(index) != -1){
-                     return 1
-                 }else{
-                     return 0
-                 }
-             })
-               return item
-           }
-         })
-        this.calculate()
-    }
+   getCount(){
+        console.log(this.getOriginData())
+        let tempData = this.getOriginData(),count = 0;
+        if(tempData.first.length < 1 || tempData.second.length < 3)
+        count = 0
 
-   calculate(){
-      console.log(this.getOriginData())
-      let tempData = this.getOriginData(),count = 0;
-      if(tempData.first.length < 1 || tempData.second.length < 3)
-         count = 0
-
-      for(let i = 0;i<tempData.first.length;i++){
-          let erchong = tempData.first[i]
-          // 去掉重复的
-          let data = this.tool.removeElement(tempData.second,erchong)
-          if(data.length >= 3)
-             count += this.tool.zuhe1(data.length,3)
-      }
-
-      this.common.count = count 
-      let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
-      this.common.betPrice = this.common.count*2*percent
+        for(let i = 0;i<tempData.first.length;i++){
+            let erchong = tempData.first[i]
+            // 去掉重复的
+            let data = this.tool.removeElement(tempData.second,erchong)
+            if(data.length >= 3)
+            count += this.tool.zuhe1(data.length,3)
+        }
+        return count
    }
 }

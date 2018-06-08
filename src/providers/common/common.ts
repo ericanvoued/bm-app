@@ -39,6 +39,9 @@ export class CommonProvider {
   //xiao wan fa
   smallKind:any;
 
+  //zhixuan zuxuan
+  bigKind:any;
+
   //是否直选
   zhixuan:boolean = true
 
@@ -59,10 +62,15 @@ export class CommonProvider {
   count:number = 0;
   betPrice:number = 0;
 
+  profits:number;
+
   // 添加到购物篮数
   cartNumber:number = 0;
   // 随机注单的实例
   componentRef:ComponentRef<any>
+
+  //历史开奖
+  historyList:any[]
   // odd even big small
   btn:any[];
   singleBtn:Array<any>;
@@ -71,6 +79,7 @@ export class CommonProvider {
 
   chooseGroup:any;
 
+  currentNumber:any;
   countTime:any = {
     'total': '',
     'days': '',
@@ -107,23 +116,36 @@ export class CommonProvider {
       })
   }
 
+  //重设倒计时
+  resetLotteryData(){
+       this.countTime = {
+        'total': '',
+        'days': '',
+        'hours': '',
+        'minutes': '',
+        'seconds': ''
+      }
+       this.currentNumber = ''
+  }
+
 
     async initData():Promise<any>{
-        let url = 'api-lotteries-h5/load-data/2/1?_t=4a2d4618e7774c19f84aa3d0b6426816'
-        let params = {_token:'9LTxelc7wY2XHR4L5n1XhlQ8Rwwq4mGQB42HkfWk'}
+        let url = '/api-lotteries-h5/load-data/2/' + this.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token
+        let params = {_token:JSON.parse(localStorage.getItem('userInfo')).token}
         this.gameMethodConfig = (await this.http.postData(url,params)).data.game_ways
         
-        
-        // let qwe = await this.http.postData(url,params)
-         console.log(this.gameMethodConfig )
+        console.log(this.gameMethodConfig )
         // this.data = (await this.http.fetchData(name)).list;
 
         // this.gameMethodConfig = this.data;
         
         this.small = this.gameMethodConfig[0].children;
+        this.bigKind = this.gameMethodConfig[0].children[0].name_cn
+
         this.smallKind = this.gameMethodConfig[0].children[0].children[0]
         this.smallId = this.smallKind.id
         console.log(this.smallKind)
+        console.log(this.bigKind)
         console.log(this.smallId)
         let percent = this.tabYuan == '元' ? 1 : this.tabYuan == '角' ? 0.1 : 0.01
         this.bonus = this.smallKind.prize*percent
@@ -145,7 +167,9 @@ export class CommonProvider {
             this.smallMethod = this.small[0].children[0].name_cn;
         this.btn = this.ballData.map(ele => [{name:"全",flag:false},{name:"大",flag:false},{name:"小",flag:false},{name:"奇",flag:false},{name:"偶",flag:false},{name:"清",flag:false}])
         console.log(this.ballData)
-        console.log(this.btn)
+        this.singleBtn = this.tools.copy([
+            {name:"全",flag:false},{name:"大",flag:false},{name:"小",flag:false},{name:"奇",flag:false},{name:"偶",flag:false},{name:"清",flag:false}
+            ],true)
 
         return new Promise((resolve,reject) =>{
             resolve()
@@ -153,7 +177,7 @@ export class CommonProvider {
     }
 
     setGameConfig(index,index2,name){
-      
+        let flag, tempMethod = this.method;
         if(this.bigIndex!=index || name!=this.smallMethod || this.gameMethodConfig[index].children[index2].name_cn != this.secondKind){
             this.secondKind = this.gameMethodConfig[index].children[index2].name_cn
             // console.log(this.gameMethodConfig[index].children[index2].children.filter(ele => ele.name == name)[0].bet_numberArrObj)
@@ -168,22 +192,18 @@ export class CommonProvider {
             {name:"全",flag:false},{name:"大",flag:false},{name:"小",flag:false},{name:"奇",flag:false},{name:"偶",flag:false},{name:"清",flag:false}
             ],true)
 
-        if(this.gameMethodConfig[index].children[index2].name_cn == '直选')
-            this.zhixuan = true
-         else
-            this.zhixuan = false   
-
         this.bigIndex = index
-        if(this.method != this.gameMethodConfig[index].name_cn){
-            this.events.publish('changeTrend')
+        // if(this.method + this.smallMethod != this.gameMethodConfig[index].name_cn + name){
+        //     this.events.publish('changeTrend')
            
-        }
-
+        // }
         this.method = this.gameMethodConfig[index].name_cn
 
         //console.log(this.gameMethodConfig[index].children[index2])
         this.small = this.gameMethodConfig[index].children
+        this.bigKind = this.gameMethodConfig[index].children[index2].name_cn
         console.log(this.small)
+        console.log(this.bigKind)
         let temp;
         this.small.forEach((ele,index) => {
             ele.children.forEach(item => {
@@ -253,9 +273,55 @@ export class CommonProvider {
     toast.present();
   }
 
+  produce(){
+    // console.log(this.common.getCountDownTime()['current_number_time'])
+    this.getCountDownTime().then((data) => {
+        this.currentNumber = data.current_number
+        this.countDown(new Date(data['current_number_time']).getTime() - new Date(data['current_time']).getTime())
+  })   
+ }
+
+countDown(time){
+    this.timer = setInterval(()=> {
+    if(time <1000){
+        clearInterval(this.timer)
+        console.log('wcnmbmb')
+        let modal = this.modalCtrl.create(CountTipComponent, {qishu:123456})
+        modal.present()
+        //this.global.showToast('进入新一期开奖',2000)
+        this.produce()
+    } 
+    this.countTime = this.getTimeRemaining(time)
+    time -= 1000
+    },1000)
+}
+
+getTimeRemaining(t) {
+    let seconds = Math.floor((t / 1000) % 60);
+    let minutes = Math.floor((t / 1000 / 60) % 60);
+    let hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+    let days = Math.floor(t / (1000 * 60 * 60 * 24));
+
+    return {
+      'total': '',
+      'days': '',
+      'hours': ('0' + hours).slice(-2),
+      'minutes': ('0' + minutes).slice(-2),
+      'seconds': ('0' + seconds).slice(-2)
+    }
+} 
+
+async fetchRecord():Promise<any>{
+    console.log('fetchdata')
+    this.historyList = (await this.http.fetchData('/api-lotteries-h5/load-issues/' + this.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)).data
+    console.log(this.historyList)
+    return new Promise((resolve,reject) =>{
+      resolve()
+  })
+}
   
  async getCountDownTime():Promise<any>{
-      let data = (await this.http.postData('/api-lotteries-h5/load-data/1/1?_t=4a2d4618e7774c19f84aa3d0b6426816', {_token:'9LTxelc7wY2XHR4L5n1XhlQ8Rwwq4mGQB42HkfWk'})).data
+      let data = (await this.http.postData('/api-lotteries-h5/load-data/1/' + this.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token, {_token:JSON.parse(localStorage.getItem('userInfo')).token})).data
       console.log(data)
       this.prizeGroup = []
       this.prizeGroup.push(data.bet_max_prize_group + '-' + Number((data.user_prize_group - data.bet_max_prize_group)/data.series_amount.toFixed(2)) + '%')

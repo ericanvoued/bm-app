@@ -61,20 +61,31 @@ export class ErxingzuxuanqianerhezhiComponent extends commonMethod{
         })
         this.calculate()
     }
-   
   }
 
-   calculate(){
+  randomOneOrder(){
+    let target = Math.floor(Math.random()*17)
+    
+    this.common.ballData = this.common.ballData.map((ele,index) => {
+        ele.value = ele.value.map((item,index1) => {
+            if(index*7 + index1 == target){
+                return 1
+            }else{
+                return 0
+            }
+        })
+        return ele
+    })
+    this.calculate()
+  }
+
+  getCount(){
     let count = 0
     this.getOriginData().forEach(item => {
         count += this.mathResult(item,0,9).length
     })
-
-    this.common.count = count 
-    let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
-    this.common.betPrice = this.common.count*2*percent
- }
-
+    return count
+  }
 
    getOriginData(){
       let arr = []

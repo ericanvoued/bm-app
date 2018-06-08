@@ -47,17 +47,25 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
   
   kaijiangData:any[];
 
-  hezhiData:any[];
+  //记录号码走势
+  trendData:any[];
 
   hezhiTrendData:any[]
 
+  lengreData:any[]
+
+  sumData:any[];
+
   constructor(public common:CommonProvider,public util:UtilProvider, public ssc:SscServiceProvider) {
     console.log('Hello ZhixuanhezhiComponent Component');
-    this.historyRecord = this.util.historyNumbers.slice(0,this.page*11)
+    this.historyRecord = this.util.historyNumbers.slice(0,this.page*30)
     this.getKaijiang()
     this.getNumberTrend()
 
     this.getHezhiTrend()
+    this.getColdHot()
+
+    console.log(this.lengreData)
 
     this.hezhiTrendData.slice(1,this.hezhiTrendData.length).forEach(ele => {
          this.qishu.push(ele[0])
@@ -67,7 +75,7 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
   }
 
   getKaijiang(){
-    this.kaijiangData = this.historyRecord.map((ele,index) => {
+    this.kaijiangData = this.util.historyNumbers.slice(0,this.page*10).map((ele,index) => {
       let hezhi,daxiao,danshuang;
       hezhi = ele.history.reduce((a,b) => a+b)
       daxiao = hezhi > 13 ? '大':'小'
@@ -77,35 +85,8 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
   }
 
   ngOnInit(){
-    // console.log('axivababsbeen')
-    // this.contentSlides.lockSwipes(true)
-   
-    //  this.domWidth = this.drag.nativeElement.offsetWidth
-    //  console.log(this.domWidth)
-    //  console.log(this.drag.nativeElement)
-
-    //  this.canvas = document.querySelector('canvas')
-    //  console.log(this.canvas)
-
-    //  this.drag.nativeElement.addEventListener('touchstart', (e)=>{
-    //     this.originX = e.changedTouches[0].pageX
-    //     console.log('begin')
-    //     console.log(this.originX)
-    //  }, false)
-
-    //   this.drag.nativeElement.addEventListener('touchmove', 
-    //     (e)=>{
-    //       let x = e.changedTouches[0].pageX
-    //       let total = this.gap + x - this.originX
-    //       console.log(total)
-    //       if( total > 0 || total < -18*this.domWidth/28){
-    //         return
-    //       }
-    //       this.gap = this.gap + x - this.originX
-    //      // this.canvas.style.transform = "translate(" + this.gap + "px,0)"
-    //       console.log(x)
-    //   }, false)
-     
+    this.contentSlides.initialSlide = this.chooseIndex
+    this.choose = this.menus[this.chooseIndex]
   }
 
   ngAfterViewInit(){
@@ -117,7 +98,6 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
      //console.log(this.drag.nativeElement)
      console.log(document.querySelector('.hezhi-container'))
 
-    
 
      this.drag.nativeElement.addEventListener('touchstart', (e)=>{
         this.originX = e.changedTouches[0].pageX
@@ -159,7 +139,14 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
  }
 
   getNumberTrend(){
-      let asd = [[3,4,5],[5,6,7],[2,2,3],[4,5,6],[5,5,8],[7,8,9],[1,3,7],[2,4,6],[4,5,9],[5,7,8],[3,6,9]]
+     // let asd = [[3,4,5],[5,6,7],[2,2,3],[4,5,6],[5,5,8],[7,8,9],[1,3,7],[2,4,6],[4,5,9],[5,7,8],[3,6,9]]
+      let asd = []
+      this.historyRecord.forEach(ele => {
+           let temp = []
+           temp.push(...ele.history.slice(0,3))
+           asd.push(temp)
+      })
+
       let totals = []
       function check(arr,num){
         let total = 0
@@ -169,7 +156,6 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
         }
         return total
       }
-
 
       for(let i =0;i<asd.length;i++){
           let arr:any[] = []
@@ -188,31 +174,65 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
                       
                     }
               }
-      }   
-        //arr.unshift({number:('00' + i).slice(-2) + '期'})
-        totals.push(arr)
+           }   
+              totals.push(arr)
       }
 
       for(let i =0;i<totals.length;i++){
           totals[i].unshift({number:('00' + i).slice(-2) + '期'})
       }
       console.log(totals)
-      return this.hezhiData = totals
+      this.trendData = totals
+      this.getComplexData(this.trendData)
+  }
+
+  getComplexData(hezhiData){
+    //遗漏冷热  yilou 当前遗漏 
+    let yilou = [],lengre = [],maxYi = [],avgYi = [], sumData = [], length = hezhiData.length;
+            for(let i = 1; i < hezhiData[length-1].length;i++){
+                let item = '', temp = [], local = []
+    
+                hezhiData.forEach((ele,index) => {
+                    temp.push(ele[i])
+                    if(index < hezhiData.length - 1){
+                        if(!ele[i].choose && hezhiData[index+1][i].choose){
+                            local.push(ele[i])
+                        }
+                    }else if(index = hezhiData.length - 1){
+                        if(!ele[i].choose)
+                            local.push(ele[i])
+                    }        
+                })
+    
+                console.log(local)
+                // 每个位数出现次数
+                let leng = temp.reduce((a,b) => { 
+                    if(b.choose) 
+                       return a + b.choose
+                    else
+                       return a
+                },0)
+
+                let max = Math.max(...temp.filter(ele => !ele.choose).map(item => item.number))
+                let avg = Math.floor(local.reduce((a,b) => a + b.number,0)/local.length)
+                let tempArr = temp.filter(ele => !ele.choose)
+                // let length = temp.filter(ele => !ele.choose).length
+                yilou.push(tempArr[tempArr.length - 1].number)
+                maxYi.push(max)
+                avgYi.push(avg)
+                lengre.push(leng)     
+            }
+        sumData.push(lengre)
+        sumData.push(avgYi)
+        sumData.push(maxYi)
+        sumData.push(yilou)
+        this.sumData = sumData
   }
 
   getHezhiTrend(){
      let asd = [[1,2,5],[2,3,1],[2,2,3],[4,5,6],[1,1,3],[2,3,2],[1,2,3],[2,4,3],[4,2,2],[5,7,8],[3,6,9]]
      let sum = asd.map(item => item.reduce((a,b) => a+b))
      let totals = []
-
-    //  function check(arr,num){
-    //   let total = 0
-    //   for(let i =0;i<arr.length;i++){
-    //         if(arr[i] == num)
-    //           total++
-    //   }
-    //   return total
-    // }
 
      for(let i = 0;i<sum.length;i++){
           let arr:any[] = []
@@ -245,4 +265,28 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
       console.log(totals)
       return this.hezhiTrendData = totals
   }
+
+
+  //计算冷热
+  getColdHot(){
+     let arr = []
+     for(let i =0; i<= 27; i++){
+         arr.push(i)
+     }
+
+     let asd = []
+     this.historyRecord.forEach(ele => {
+          let temp = []
+          temp.push(...ele.history.slice(0,3))
+          asd.push(temp.reduce((a,b) => a + b))
+     })
+
+     this.lengreData = arr.map(number => {
+         let leng30 = asd.slice(-30).filter(item => number == item).length
+         let leng20 = asd.slice(-20).filter(item => number == item).length
+         let leng10 = asd.slice(-10).filter(item => number == item).length
+         let yilou = asd.length - asd.lastIndexOf(number)
+         return {number, leng30, leng20, leng10, yilou}
+     })
+  } 
 }

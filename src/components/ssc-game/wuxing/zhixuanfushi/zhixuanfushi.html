@@ -1,5 +1,5 @@
 <!-- Generated template for the ZhixuanfushiComponent component -->
-<div class="shakePhone" (click)="randomChoose()"></div>  
+<div class="shakePhone" (click)="randomAnimateChoose()"></div>  
 <div>{{common.smallKind.bonus_note}} {{util.formatMoney(common.bonus)}} 元</div>
 
 <div class="l-game" *ngFor="let data of common.ballData;let ii = index" >
@@ -59,7 +59,7 @@
             </ul>
 
             <div class="btn-list">
-                <a href="javascript:;" *ngFor="let detail of common.btn[ii];let j = index" [class.current]="detail.flag" (click)="util.changeActive(ii,j,detail.name)">{{detail.name}} <span></span></a>
+                <a href="javascript:;" *ngFor="let detail of common.btn[ii];let j = index" [class.current]="detail.flag" (click)="changeActive(ii,j,detail.name)">{{detail.name}} <span></span></a>
 
             </div>
         </div>

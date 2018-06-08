@@ -10,8 +10,9 @@ import { IonicPage, NavController, NavParams,  Slides } from 'ionic-angular';
 import { UtilProvider } from '../../providers/util/util'
 import { CommonProvider } from "../../providers/common/common";
 import { WuxingComponent } from '../../components/gametrend/wuxing/wuxing'
-import { config } from '../../components/gameTrend.config'
+import { config, judgeTrend } from '../../components/gameTrend.config'
 import { BasketDataProvider } from '../../providers/basket-data/basket-data'
+import { gameConfig } from '../../components/ssc-config'
 
 
 @IonicPage()
@@ -23,6 +24,9 @@ export class GameTrendPage {
   componentRef: ComponentRef<any>;
   @ViewChild('contentSlides') contentSlides: Slides;
   @ViewChild("gameTrendContainer", { read: ViewContainerRef }) container: ViewContainerRef;
+  @ViewChild("noshowContainer", { read: ViewContainerRef }) nocontainer: ViewContainerRef;
+
+  
 
   observable: Observable<any>;
   observer: Observer<any>;
@@ -40,15 +44,6 @@ export class GameTrendPage {
           this.drawCanvas()
       })
     })
-
-    //方法切换 改变走势图
-    this.events.subscribe('changeTrend',(val) => {
-      setTimeout(() => {
-        console.log('wcnnvmfmf')
-        this.drawTrend()
-
-      },0)
- })
 
     this.events.subscribe('changeIndex', (val) => {
        this.segmentChanged(val)
@@ -82,8 +77,8 @@ export class GameTrendPage {
 
         let container = containers[i]
         let canvas = document.createElement('canvas')
-        canvas.width = container[0].offsetWidth
-        canvas.height = container[0].offsetHeight
+        canvas.width = container.offsetWidth
+        canvas.height = container.offsetHeight
         canvas.setAttribute('id','canvas')
         container.appendChild(canvas)
         let ctx = canvas.getContext('2d')
@@ -95,9 +90,9 @@ export class GameTrendPage {
         for(let i=0; i< nodes.length; i++){
             console.log(nodes.length)
             if(i == 0)
-              ctx.moveTo(nodes[i][0].offsetLeft + 14,nodes[i][0].offsetTop + 14)
+              ctx.moveTo(nodes[i].offsetLeft + 14,nodes[i].offsetTop + 14)
             else
-              ctx.lineTo(nodes[i][0].offsetLeft + 14,nodes[i][0].offsetTop + 14)
+              ctx.lineTo(nodes[i].offsetLeft + 14,nodes[i].offsetTop + 14)
         }
         ctx.stroke()
         ctx.closePath()
@@ -119,8 +114,8 @@ else{
 
               let container = document.getElementsByClassName('trend-container')[i]
               let canvas = document.createElement('canvas')
-              canvas.width = container[0].offsetWidth
-              canvas.height = container[0].offsetHeight
+              canvas.width = container.offsetWidth
+              canvas.height = container.offsetHeight
               container.appendChild(canvas)
               let ctx = canvas.getContext('2d')
               ctx.strokeStyle = this.getCtxColor(i)
@@ -131,9 +126,9 @@ else{
               for(let i=0; i< nodes.length; i++){
                   console.log(nodes.length)
                   if(i == 0)
-                    ctx.moveTo(nodes[i][0].offsetLeft + 14,nodes[i][0].offsetTop + 14)
+                    ctx.moveTo(nodes[i].offsetLeft + 14,nodes[i].offsetTop + 14)
                   else
-                    ctx.lineTo(nodes[i][0].offsetLeft + 14,nodes[i][0].offsetTop + 14)
+                    ctx.lineTo(nodes[i].offsetLeft + 14,nodes[i].offsetTop + 14)
               }
               ctx.stroke()
               ctx.closePath()
@@ -143,14 +138,18 @@ else{
 }
 
   create(gameMethod:string):Promise<any>{
+    console.log('create trend')
+    console.log(gameMethod)
 
-
-    let trendComponent = config[gameMethod]
-    const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(trendComponent)
+    let trendComponent:any = judgeTrend('SSC', gameMethod)
+    console.log(trendComponent)
+    const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(trendComponent.component)
     this.componentRef = this.container.createComponent(factory)
     this.componentRef.instance.chooseIndex = this.navParams.get('index')
+    this.componentRef.instance.menus = trendComponent.menus
+    this.componentRef.instance.position = trendComponent.position
     //上拉加载数据 canvas重回
-    this.componentRef.instance.output.subscribe(() => setTimeout(() => this.drawCanvas(),0))
+    //this.componentRef.instance.output.subscribe(() => setTimeout(() => this.drawCanvas(),0))
     return new Promise((resolve,reject) => {
         setTimeout(resolve,0)
     })
@@ -161,23 +160,22 @@ else{
     if(this.common.method == '前三'){
         this.observer.next(this.create(this.common.method + this.common.smallMethod))
     }else{
-        this.observer.next(this.create(this.common.method))
+        this.observer.next(this.create(this.common.method + this.common.smallMethod))
     }
-
   }
 
   getCtxColor(i){
     switch(this.util.trendKind[this.common.method][i]) {
        case '万位走势':
-            return 'yellow'
+            return '#F84F1E'
        case '千位走势':
-            return 'orange'
+            return '#F84F1E'
        case '百位走势':
-            return 'green'
+            return '#F84F1E'
        case '十位走势':
-            return 'purple'
+            return '#F84F1E'
        case '个位走势':
-            return 'pink'
+            return '#F84F1E'
 
     }
  }
@@ -195,7 +193,25 @@ else{
   }
 
   goBasket(){
+    if(!this.common.count)
+      return
     this.basket.addBetData()
     this.navCtrl.push('BasketPage')
+  }
+
+  methodChange($event){
+    console.log('trend change')
+
+    this.drawTrend()
+
+    console.log($event)
+    let component = gameConfig[$event]
+    console.log(component)
+    this.nocontainer.clear()
+    const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(component)
+    this.componentRef = this.nocontainer.createComponent(factory)
+    this.common.componentRef = this.componentRef
+    
+    //this.componentRef.instance.choose = this.haveChoosen
   }
 }

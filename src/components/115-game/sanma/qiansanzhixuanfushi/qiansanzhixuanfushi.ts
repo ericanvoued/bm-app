@@ -22,40 +22,21 @@ export class QiansanzhixuanfushiComponent extends commonMethod{
 
   constructor(public common:CommonProvider, public util:UtilProvider,public tool:ToolsProvider,public basket:BasketDataProvider) {
     super(common,util,basket) 
-    this.text = 'Hello World';
+    this.text = 'Hello World';   
   }
 
-  randomChoose(number?){
-      if(number){
-        let arr = this.tool.produceArrd5(3)
-        this.common.ballData = this.common.ballData.map((ele,index) => {
-             ele.value = ele.value.map((item,index1) => {
-                    if(index1 == arr[index])
-                         return 1
-                    else
-                         return 0
-             })
-             return ele
-        })
-        this.calculate()
-        this.basket.addBetData()
-        if(number == 1) return
-        this.randomChoose(--number)
-      }else{
-        let arr = this.tool.produceArrd5(3)
-        this.common.ballData = this.common.ballData.map((ele,index) => {
-             ele.value = ele.value.map((item,index1) => {
-                    if(index1 == arr[index])
-                         return 1
-                    else
-                         return 0
-             })
-             return ele
-        })
-        this.calculate()
-      }
-
-     
+  randomOneOrder(){
+    let arr = this.tool.produceArrd5(3)
+    this.common.ballData = this.common.ballData.map((ele,index) => {
+         ele.value = ele.value.map((item,index1) => {
+                if(index1 == arr[index])
+                     return 1
+                else
+                     return 0
+         })
+         return ele
+    })
+    this.calculate()
   }
  
   getOriginData():any{
@@ -72,13 +53,10 @@ export class QiansanzhixuanfushiComponent extends commonMethod{
      return data
   }
 
-  calculate(){
-      let count = 1;
-      console.log(this.getOriginData())
-      console.log(this.tool.combination(this.getOriginData()))
-      count = this.tool.checkCount(this.tool.combination(this.getOriginData()))
-      this.common.count = count
-      let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
-      this.common.betPrice = this.common.count*2*percent 
-  }  
+  getCount(){
+    let count = 1
+    console.log(this.tool.combination(this.getOriginData()))
+    count = this.tool.checkCount(this.tool.combination(this.getOriginData()))
+    return count
+  }
 }

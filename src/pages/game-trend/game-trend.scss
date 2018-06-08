@@ -2,22 +2,41 @@ page-game-trend {
     .segment {
         width: 100%;
         height: 44px;
-        background: #FFF9F5
+        background: #FFF9F5;
+        position: fixed;z-index: 10
       }
       .swiper-slide {
          background: none;
         color: #333;
+        align-items: flex-start;
+        overflow: scroll
       }
   
       ion-slides {
       background-color: white;
-      padding: 0 0 20px 0;
+      height: auto;
+      padding: 0 0 0 0;
+      position: relative;top:45px
       // div{color:blue};
     }
-   
-    .highlight{background: pink;z-index:5}
+
+    .slides{height:calc(100% - 85px)}
+
+    .ball-line span.right-corner{position:absolute;top:0;right:0;width:15px;height:15px;border-radius:50%;background:#ffffff;font-size:10px;
+        text-align:center;line-height:15px;z-index: 10;color: #E96A04}
+
+    div.active{background: #25B35E}
+    .swiper-container{height:100%}
+
+    .ball-line li span{width:20px;height:20px;color:#000000;font-size:15px;border-radius:50%;text-align:center;line-height:20px}
+
+    .ball-line .highlight{background: #F86338;z-index:5}
+
+    .ball-line.kuadu li span{width:20px;height:20px;color:#000000;font-size:15px;border-radius:0%;text-align:center;line-height:20px}
+    
+    .ball-line.kuadu .highlight{background: #7ED321;z-index:5}
   
-    canvas{position: absolute;top:0;left:0;z-index:-1}
+    canvas{position: absolute;top:0;left:0}
   
     .segment-ios ion-segment-button.segment-activated{
         border-bottom: 3px solid #F6374E;
@@ -27,6 +46,7 @@ page-game-trend {
     .segment-ios .segment-button{border:none}
   
     .trend-container ul:not(.special){display:flex;justify-content:space-between}
+    .trend-category{display:flex;justify-content:space-between}
     //.trend-container li{margin-bottom:25px;width:28px;height:28px;border-radius:50%;line-height: 28px}
   
     .trend-container ul li{width:8.5%;height:30px}
@@ -35,36 +55,51 @@ page-game-trend {
     li.head-num{font-size: 15px;display: flex;justify-content: center;align-items: center}
   
     ion-slides div.kai-jiang{display: flex;color:#666}
-    ion-slides div.kai-jiang div{font-size: 15px;background: #DEE2FF;padding: 5px 0 5px 0}
+    ion-slides div.kai-jiang div{background: #DEE2FF;padding: 5px 0 5px 0}
     ion-slides div.kai-jiang-line{display: flex;padding: 5px 0 5px 0}
     
     ion-slides div.kai-jiang-line:nth-of-type(2n+1){background: #FFFAF7}
   
-    ion-slides div.kai-jiang div, ion-slides div.kai-jiang-line div{width:15%;font-size: 15px}
-    ion-slides div.kai-jiang div:nth-of-type(2),ion-slides div.kai-jiang-line div:nth-of-type(2){width:25%}
+    ion-slides div.kai-jiang div{width:16%;font-size: 14px}
+    ion-slides div.kai-jiang-line div{width:16%;font-size: 13px}
+
+    ion-slides div.kai-jiang div:nth-of-type(2),ion-slides div.kai-jiang-line div:nth-of-type(2){width:20%}
+
+    ion-slides div.kai-jiang.erxing div{width:25%;font-size: 14px}
+    ion-slides div.kai-jiang-line.erxing  div{width:25%;font-size: 13px}
+
+    ion-slides div.kai-jiang.erxing  div:nth-of-type(2),ion-slides div.kai-jiang-line.erxing  div:nth-of-type(2){width:35%}
+    ion-slides div.kai-jiang.erxing  div:nth-of-type(1),ion-slides div.kai-jiang-line.erxing  div:nth-of-type(1){width:15%}
   
     ul.ball-line{background:rgba(255,255,255,.1)}
-    ul.ball-line:nth-of-type(2n){background:rgba(96, 152, 60, 0.1)}
+    ul.ball-line:nth-of-type(2n){background:#FFFAF7}
 
 
-   .trend-container .trend-category:nth-last-of-type(4) {
-        
+   .trend-category:nth-of-type(4) {
         .head-category{color:#9013FE}
     }
 
-    .trend-container .trend-category:nth-last-of-type(3){
+   .trend-category:nth-of-type(3){
           background: #FFF7E7;
           .head-category{color:#F6374E}
     }
 
-    .trend-category:nth-last-of-type(2){
+    .trend-category:nth-of-type(2){
        
         .head-category{color:#000;} 
     }
 
-    .trend-category:nth-last-of-type(1){
+    .trend-category:nth-of-type(1){
         background: #F8FFF0;
         .head-category{color:#25B35E} 
     }
-    //#9013FE  #F6374E  #F6F6F6  #25B35F    #FFF7E7  #F8FFF0
+  
+   .fixed-footer{position:fixed;bottom:0;height:40px;z-index:100;background:#ffffff;display:flex;justify-content:space-between;width:100%;
+    align-items:center;padding-right:10px;border-top:1px solid #F6F6F6}
+
+    ul.choose-area{display:flex;flex-direction:column;height:40px;justify-content:center;padding-left:10px}
+    span.little-circle{background:#999999;width:5px;height:5px;border-radius:50%;margin-right:5px}
+
+    #confirm{width:80px;height:30px;background-image: linear-gradient(137deg, #F3361B  0%, #EC6432 1%, #F5AD58 100%);
+        border-radius: 4px;text-align:center;line-height:30px;color:#ffffff}
 }

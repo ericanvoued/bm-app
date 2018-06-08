@@ -17,4 +17,36 @@ wuxing {
           box-shadow: 0 1px 2px 0 #F3B19F;
         }
       }
+     
+      div.kai-jiang-line{font-size: 12px}
+
+     
+   
+      div.wuxing{
+         display: flex;color:#F6374E;justify-content: space-between;padding: 0 12px
+      }
+
+      div.sixing,div.qiansan,div.zhongsan,div.housan{
+        display: flex;justify-content: space-between;padding: 0 12px
+     }
+
+      div.sixing span:nth-of-type(2), div.sixing span:nth-of-type(3), div.sixing span:nth-of-type(4), div.sixing span:nth-of-type(5)
+      {color:#F6374E}
+
+      div.qiansan span:nth-of-type(1), div.qiansan span:nth-of-type(2), div.qiansan span:nth-of-type(3)
+      {color:#F6374E}
+
+      div.zhongsan span:nth-of-type(2), div.zhongsan span:nth-of-type(3), div.zhongsan span:nth-of-type(4)
+      {color:#F6374E}
+
+      div.housan span:nth-of-type(3), div.housan span:nth-of-type(4), div.housan span:nth-of-type(5)
+      {color:#F6374E}
+
+      div.qianerfushi span:nth-of-type(1), div.qianerfushi span:nth-of-type(2)
+      {color:#F6374E}
+
+      div.houerfushi span:nth-of-type(4), div.houerfushi span:nth-of-type(5)
+      {color:#F6374E}
+         //,span:nth-of-type(3),span:nth-of-type(4),span:nth-of-type(5)
+      
 }

@@ -22,25 +22,29 @@
 
 <ion-content>
     <div class="body-bg"></div>
-    <p class="l-info" text-center>距23058期截止 {{countTime.minutes}}:{{countTime.seconds}}</p>
-
+    <p class="l-info" text-center>距{{common.currentNumber}}期截止 {{common.countTime.minutes}}:{{common.countTime.seconds}}</p>
+    
     <div class="table" id="touch"  style="overflow:hidden;height:80px;transition:all .5s ease-in;">
       <div class="thead clearfix">
         <div class="tr clearfix">
-          <div class="th" style='width:22.6%'>期次</div>
-          <div class="th" style='width:24.6%'>开奖号码</div>
-          <div class="th" style='width:17.5%'>十位</div>
-          <div class="th" style='width:17.5%'>个位</div>
-          <div class="th" style='width:17.5%'>后三</div>
+            <div class="th" style='width:18%'>期次</div>
+            <div class="th" style='width:30%'>开奖号码</div>
+            <div class="th" style='width:13%'>和值</div>
+            <div class="th" style='width:13%'>跨度</div>
+            <div class="th" style='width:13%'>大小比</div>
+            <div class="th" style='width:13%'>奇偶比</div>
         </div>
   
         <div class="tbody clearfix">
           <div class="tr clearfix" *ngFor="let item of list">
-              <div style='width:22.6%' class="td">{{item.number}}期</div>
-              <div style='width:24.6%' class="td color-dager">{{item.balls}}</div>
-              <div style='width:17.5%' class="td">{{item.shiwei}}</div>
-              <div style='width:17.5%' class="td">{{item.gewei}}</div>
-              <div style='width:17.5%' class="td">{{item.housan}}</div>
+              <div style='width:18%' class="td">{{item.number}}期</div>
+              <div style='width:30%;' class="td color-dager">
+                 {{item.balls}}
+              </div>
+              <div style='width:13%' class="td">{{item.hezhi}}</div>
+              <div style='width:13%' class="td">{{item.kuadu}}</div>
+              <div style='width:13%' class="td">{{item.daxiao}}</div>
+              <div style='width:13%' class="td">{{item.oddeven}}</div>
           </div>
         </div>
       </div>

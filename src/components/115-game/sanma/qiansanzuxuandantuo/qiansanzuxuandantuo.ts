@@ -27,7 +27,7 @@ export class QiansanzuxuandantuoComponent extends commonMethod{
     this.text = 'Hello World';
   }
 
-  randomChoose(number?){
+  randomOneOrder(){
     let temp,arr;
     this.common.ballData = this.common.ballData.map((item,index) => {
      
@@ -98,8 +98,6 @@ export class QiansanzuxuandantuoComponent extends commonMethod{
 
            return item
         }else{
-          console.log('ewwww')
-         
             item.value = item.value.map((ele,index2) => {
               
               if(index2 == column){
@@ -117,37 +115,35 @@ export class QiansanzuxuandantuoComponent extends commonMethod{
       this.calculate()
   } 
 
-  getOriginData():any{
-    // let erchong = [], danhao = []
-     let first = [], second = []
-     this.common.ballData.forEach((ele,index) => {
-          if(index == 0){
-             ele.value.forEach((item,index) => {
-                 if(item)
-                   first.push(index)
-             })
-          }else{
-             ele.value.forEach((item,index) => {
-                 if(item)
-                   second.push(index)
-              })
-          }
-     })
-     return {first, second}
+//   getOriginData():any{
+//     // let erchong = [], danhao = []
+//      let first = [], second = []
+//      this.common.ballData.forEach((ele,index) => {
+//           if(index == 0){
+//              ele.value.forEach((item,index) => {
+//                  if(item)
+//                    first.push(index)
+//              })
+//           }else{
+//              ele.value.forEach((item,index) => {
+//                  if(item)
+//                    second.push(index)
+//               })
+//           }
+//      })
+//      return {first, second}
+//   }
+
+  getCount(){
+        let count = 0;
+        let data = this.getOriginData()
+
+        if(data.first.length == 1){
+        count = data.second.length < 2 ? 0 : this.tool.zuhe1(data.second.length,2)
+        }else if(data.first.length == 2){
+        count =  data.second.length
+        }
+        return count
   }
 
-  calculate(){
-    let count = 0;
-    let data = this.getOriginData()
-
-    if(data.first.length == 1){
-       count = data.second.length < 2 ? 0 : this.tool.zuhe1(data.second.length,2)
-    }else if(data.first.length == 2){
-       count =  data.second.length
-    }
-    this.common.count = count
-    // this.common.count = count < 3 ? 0 : this.tool.zuhe1(count,3)
-    let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
-    this.common.betPrice = this.common.count*2*percent
-  }
 }

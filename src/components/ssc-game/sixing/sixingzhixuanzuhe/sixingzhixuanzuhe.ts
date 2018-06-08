@@ -34,7 +34,7 @@ export class SixingzhixuanzuheComponent extends commonMethod{
     return this.choose.indexOf(choice) > -1
   }
 
-  calculate(){
+  getCount(){
     console.log('zhixuanzuhe')
     let flag = this.common.ballData.every(item => {
          return item.value.some(ele => ele == 1)
@@ -47,10 +47,6 @@ export class SixingzhixuanzuheComponent extends commonMethod{
     }else{
       count = 0
     }
-      
-    this.common.count = count 
-    let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
-    this.common.betPrice = this.common.count*2*percent
- }
-
+    return count
+  }
 }

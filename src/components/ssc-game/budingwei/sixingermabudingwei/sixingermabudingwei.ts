@@ -25,30 +25,15 @@ export class SixingermabudingweiComponent extends commonMethod{
     this.text = 'Hello World';
   }
 
-  randomChoose(number?){
-    if(number){
-      let arr = this.tool.produceRandom(2)
-      this.common.ballData = this.common.ballData.map((item,index) => {
-           item.value = item.value.map((ele,index1) => {
-                return arr.indexOf(index1) != -1 ? 1 : 0
-           })
-           return item
-      })
-      this.calculate()
-      this.basket.addBetData()
-      if(number == 1) return
-      this.randomChoose(--number)
-    }else{
-      let arr = this.tool.produceRandom(2)
-      this.common.ballData = this.common.ballData.map((item,index) => {
-           item.value = item.value.map((ele,index1) => {
-                return arr.indexOf(index1) != -1 ? 1 : 0
-           })
-           return item
-      })
-      this.calculate()
-    }
-   
+randomOneOrder(){
+  let arr = this.tool.produceRandom(2)
+  this.common.ballData = this.common.ballData.map((item,index) => {
+       item.value = item.value.map((ele,index1) => {
+            return arr.indexOf(index1) != -1 ? 1 : 0
+       })
+       return item
+  })
+  this.calculate()
 }
 
   getOriginData(){
@@ -64,17 +49,13 @@ export class SixingermabudingweiComponent extends commonMethod{
     return {first}
   }
 
-  calculate(){
-    console.log(this.getOriginData())
+  getCount(){
     let tempData = this.getOriginData(),count = 0;
     if(tempData.first.length < 2)
         count = 0
     else
         count = this.tool.zuhe1(tempData.first.length,2)
-
-    this.common.count = count 
-    let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
-    this.common.betPrice = this.common.count*2*percent
+    return count
   }
 
 }

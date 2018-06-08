@@ -1,9 +1,8 @@
 import { Component ,ComponentRef} from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { BasketDataProvider } from '../../providers/basket-data/basket-data'
 import { CommonProvider } from "../../providers/common/common";
 import { trigger ,state,transition,animate,style} from "@angular/animations";
-import { AlertController } from 'ionic-angular';
 import { UtilProvider } from '../../providers/util/util'
 
 /**
@@ -36,6 +35,8 @@ export class BasketPage {
   show:string = "invisable"
   arr:any[] = []
 
+  balance:number = 100
+
   componentRef:ComponentRef<any>
 
   constructor(public navCtrl: NavController, public navParams: NavParams,  public basket:BasketDataProvider, public common:CommonProvider, private alertCtrl: AlertController,public util:UtilProvider) {
@@ -56,11 +57,16 @@ export class BasketPage {
   }
 
   change(number){
-    if(number < 0 && this.basket.statistic.multiple == 0)
+    if(number < 0 && this.basket.statistic.multiple == 1)
        return
 
-    
+    let mutiple = this.basket.statistic.multiple + number
+    if(this.basket.totalAmount*(mutiple/this.basket.statistic.multiple) > this.balance){
+        this.presentRecharge()
+        return 
+    }
     this.basket.statistic.multiple += number
+    console.log(this.basket.totalAmount)   
   }
 
   // 机选一单
@@ -101,5 +107,28 @@ export class BasketPage {
     });
     alert.present();
  }
+
+ presentRecharge() {
+  console.log('ssss')
+  let alert = this.alertCtrl.create({
+    message: '<div class="not-enough">您的余额不足，请先去充值</div>',
+    buttons: [
+      {
+        text: '取消',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      },
+      {
+        text: '确认',
+        handler: () => {
+        }
+      }
+    ]
+  })
+  alert.present();
+}
+
 
 }

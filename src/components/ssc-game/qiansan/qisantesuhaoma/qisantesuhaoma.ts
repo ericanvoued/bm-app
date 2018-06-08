@@ -36,27 +36,17 @@ export class QisantesuhaomaComponent extends commonMethod{
      }
   }
 
-  changeToggle(row,column){
-    console.log('wwww')
-    if(column!=null){
-       this.common.ballData = this.common.ballData.map((item,index) => {
-          if(index == row){
-              item.value = item.value.map((ele,index) => {
-                  if(index == column){
-                      if(ele)
-                         return 0
-                      else
-                         return 1 
-                  }else{
-                      return 0
-                  }
-              })
-              return item
-          }else{
-              return item
-          }
-      })
-    }
-     //this.calculate()
+   getLotteryText(){ 
+    return this.getCommonData().map(ele =>  ele.map(item => this.qqq(item))).join(' ')
    }
+
+   getCount(){
+    let count = 0
+    this.common.ballData[0].value.forEach(item => {
+         if(item)
+            count++
+    })
+    return count
+  }
+
 }

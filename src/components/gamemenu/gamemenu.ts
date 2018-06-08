@@ -78,6 +78,15 @@ export class GamemenuComponent {
 
     //小玩法切换
     setSmallIndex(j,name){
+        if(this.common.gameMethodConfig[this.bigIndex].name_cn == this.common.method 
+            && this.common.secondKind == this.common.gameMethodConfig[this.bigIndex].children[j].name_cn
+            && this.common.smallMethod == name
+        ){
+            console.log('same')
+            this.toggle()
+            return 
+        }
+
         this.smallMethod = name
         this.common.setGameConfig(this.bigIndex,j,name)
         this.util.resetData()

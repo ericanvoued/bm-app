@@ -29,14 +29,14 @@ export class Zuxuan30Component extends commonMethod{
     return number + 5
   }
 
-  randomChoose(){
-    let temp,arr;
+  randomOneOrder(){
+    let tempArr,arr;
     this.common.ballData = this.common.ballData.map((item,index) => {
      
       if(index == 0){
-          temp = this.tool.produceRandom(2)
+          tempArr = this.tool.produceRandom(2)
           item.value = item.value.map((ele,index) => {
-              if(temp.indexOf(index) != -1){
+              if( tempArr.indexOf(index) != -1){
                   return 1
               }else{
                   return 0
@@ -44,7 +44,7 @@ export class Zuxuan30Component extends commonMethod{
           })
           return item
       }else{
-          arr = this.tool.produceRandom(1,temp)
+          arr = this.tool.produceRandom(1, tempArr)
           item.value = item.value.map((ele,index) => {
             if(arr.indexOf(index) != -1){
                 return 1
@@ -58,7 +58,7 @@ export class Zuxuan30Component extends commonMethod{
     this.calculate()
   }
 
-  calculate(){
+  getCount(){
     let tempData = this.getOriginData(),count = 0;
     if(tempData.first.length < 2 || tempData.second.length < 1)
        count = 0
@@ -70,9 +70,7 @@ export class Zuxuan30Component extends commonMethod{
       if(data.length >= 2)
          count += this.tool.zuhe1(data.length,2)
      }
-
-     this.common.count = count 
-     let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
-     this.common.betPrice = this.common.count*2*percent
+     return count
   }
+
 }
