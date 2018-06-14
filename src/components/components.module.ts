@@ -11,11 +11,7 @@ import { ZuxuanliuComponent } from './ssc-game/zuxuanliu/zuxuanliu';
 
 import { WuxingzhixuanzuheComponent } from './ssc-game/wuxing/wuxingzhixuanzuhe/wuxingzhixuanzuhe';
 import { FooterComponent } from './footer/footer';
-// import { LottoryKaijiangComponent } from './lottoyCenter/lottory-kaijiang/lottory-kaijiang';
-// import { LottoryDaxiaoComponent } from './lottoyCenter/lottory-daxiao/lottory-daxiao';
-// import { Lottory_11YkaijiangComponent } from './lottoyCenter/lottory-11-ykaijiang/lottory-11-ykaijiang';
-// import { LottoryDistributeComponent } from './lottoyCenter/lottory-distribute/lottory-distribute';
-import { AxibaComponent } from './axiba/axiba';
+
 
 @NgModule({
 	declarations: [
@@ -25,8 +21,7 @@ import { AxibaComponent } from './axiba/axiba';
     GamemenuComponent,
     ZuxuanhezhiComponent,
     ZuxuanliuComponent,
-    FooterComponent,
-    AxibaComponent,
+    FooterComponent
     ],
 	imports: [CommonModule],
 	exports: [
@@ -36,8 +31,7 @@ import { AxibaComponent } from './axiba/axiba';
     GamemenuComponent,
     ZuxuanhezhiComponent,
     ZuxuanliuComponent,
-    FooterComponent,
-    AxibaComponent,
+    FooterComponent
     ]
 })
 export class ComponentsModule {}

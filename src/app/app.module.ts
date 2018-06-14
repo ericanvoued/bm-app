@@ -119,7 +119,7 @@ import { BaseToolProvider } from '../providers/base-tool/base-tool';
     LhcSlidePage,
     KsPage,KsBasketPage,
     CountTipComponent,
-   
+  
     ...gameConfig.ssc,
     ...gameConfig.d5
 
