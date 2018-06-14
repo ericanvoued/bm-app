@@ -8,44 +8,34 @@
 <ion-content>
   <div class="worming-info"><span class="danger">*为防止套现和洗钱，充值后需购买充值金额的20％方可提现</span></div>
   <div class="withDraw-info clearfix">
-    <h4>可提现额度 <span>10000.00</span></h4>
-    <p>拥有资产：50000.00</p>
+    <h4>可提现额度 <span>{{ucPrd.withdrewApiData.data.accounts.withdrawable}}</span></h4>
+    <p>拥有资产：{{ucPrd.withdrewApiData.data.accounts.balance}}</p>
   </div>
   <div class="withDraw-money">
     <p>提现金额</p>
     <span class="currency">¥</span>
-    <input type="number" class="showCurrency" (input)="onlyNum($event)" [(ngModel)]="withDrawMoney"/>
+    <input type="number" class="showCurrency" [(ngModel)]="withDrawMoney"/>
   </div>
   <div class="bank-list">
     <p class="info">请选择提现银行：</p>
     <div class="bank-content">
-      <div class="bank-unit current">
+      <div class="bank-unit" *ngFor="let bank of ucPrd.withdrewApiData.data.bank_cards" (click)="selectBank(bank)" [ngClass]="{'current':bank.flag}">
         <div class="capture">
-          <img src="../../../assets/bank-icon/s-ctbc-icon.png" alt="">
+          <img src="../../../assets/bank-icon/s-{{bank.identifier}}-icon.png" alt="">
         </div>
         <div class="bank-text">
-          <h4>张三</h4>
-          <p>666666 *** 6666 中国工商银行</p>
+          <h4>{{bank.account_name}}</h4>
+          <p>{{formatBankNumber(bank.account)}} {{bank.bank}}</p>
         </div>
         <button class="select-btn"></button>
       </div>
-      <div class="bank-unit">
-        <div class="capture">
-          <img src="../../../assets/bank-icon/s-ctbc-icon.png" alt="">
-        </div>
-        <div class="bank-text">
-          <h4>张三</h4>
-          <p>666666 *** 6666 中国工商银行</p>
-        </div>
-        <button class="select-btn"></button>
-      </div>
-      <div class="add-bank-card">
+      <div class="add-bank-card" (click)="addBankCard()">
         +添加银行卡
       </div>
     </div>
   </div>
-  <div class="fix-sure-btn unable" >
-    <button (click)="showPrompt()">确认提现</button>
+  <div class="fix-sure-btn" [ngClass]="{'unable':currentBank==null||withDrawMoney==0||withDrawMoney==null}">
+    <button (click)="checkWithdraw()">确认提现</button>
   </div>
 </ion-content>
 

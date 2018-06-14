@@ -9,7 +9,7 @@ import { HttpClientProvider } from '../http-client/http-client'
 @Injectable()
 export class InfoCenterProvider {
 
-  userInfo = null;
+  userInfo ={unreadLetter:0,unreadAnnouncements:0};
 
 
   constructor( public rest: RestProvider,public http:HttpClientProvider) {
@@ -20,48 +20,27 @@ export class InfoCenterProvider {
 
 
   infoData = {
-    info: [
-      {
-        title: '充值返现活动1',
-        text: '博猫2018年02月24日前18年03月注册用户在2018年03月12',
-        date: '2018-04-12 13:23',
-        stick: true,
-        red: true
-      },
-      {
-        title: '充值返现活动2',
-        text: '博猫2018年02月24日前18年03月注册用户在2018年03月12',
-        date: '2018-04-12 13:23',
-        stick: false,
-        red: false
-      }
-    ],
-    msg: [
-      {
-        title: '充值返现活动1',
-        text: '博猫2018年02月24日前18年03月注册用户在2018年03月12',
-        date: '2018-04-12 13:23',
-        stick: true,
-        red: true
-      },
-      {
-        title: '充值返现活动2',
-        text: '博猫2018年02月24日前18年03月注册用户在2018年03月12',
-        date: '2018-04-12 13:23',
-        stick: false,
-        red: false
-      },
-      {
-        title: '充值返现活动3',
-        text: '博猫2018年02月24日前18年03月注册用户在2018年03月12',
-        date: '2018-04-12 13:23',
-        stick: false,
-        red: false
-      }
-    ]
+    announcements: {data:['ddd']},
+    letters: {data:['ddd']}
   }
 
 
+
+  async letterUnreadnum() {
+    this.infoData.unreadLetter = (await this.http.fetchData('/h5api-station-letters/unreadnum?_t=' + this.userInfo.auth_token)).data.tplData.successful.Num;
+  }
+
+  async loadLetters() {
+    this.infoData.letters = (await this.http.fetchData('/h5api-station-letters/?_t=' + this.userInfo.auth_token)).data;
+
+  }
+  async announcementsUnreadnum() {
+    this.infoData.unreadAnnouncements = (await this.http.fetchData('/h5api-announcements/unreadnum?_t=' + this.userInfo.auth_token)).data.tplData.successful.Num;
+
+  }
+  async loadannouncements() {
+    this.infoData.announcements = (await this.http.fetchData('/h5api-announcements?_t=' + this.userInfo.auth_token)).data;
+  }
 
 
 

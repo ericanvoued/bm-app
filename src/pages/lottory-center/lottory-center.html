@@ -1,27 +1,17 @@
 <ion-header>
-
   <ion-navbar>
-    <ion-title>开奖中心</ion-title>
+    <ion-title (click)="triggleMenu()" [ngClass]="{'k3Head':lcData.isK3}">{{lcData.currentLottory.friend_name}} <div class="drop-trangle" [ngClass]="{'current':lcData.isDrop}"></div></ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content>
-  <div class="ll-mask" *ngIf="false">
+  <div class="ll-mask" *ngIf="lcData.isDrop">
     <div class="lottory-list clearfix">
       <div class="lottory-wrap">
         <div class="l-title">时时彩</div>
         <div class="l-list">
           <ul>
-            <li>重庆时时彩</li>
-            <li>夺金60秒</li>
-            <li>金星彩1.5</li>
-          </ul>
-          <ul>
-            <li>腾讯分分彩</li>
-            <li>天津时时彩</li>
-            <li>黑龙江时时彩</li>
+            <li *ngFor="let lottory of homeprv.homeData.lottoryList.SSC;index as i" (click)="switchLottory(lottory)" [ngClass]="{'current':lottory.flag}">{{lottory.friend_name}}</li>
           </ul>
         </div>
       </div>
@@ -29,14 +19,7 @@
         <div class="l-title">11选5</div>
         <div class="l-list">
           <ul>
-            <li>山东11选5</li>
-            <li>江西11选5</li>
-            <li>广东11选5.5</li>
-          </ul>
-          <ul>
-            <li>山西11选5</li>
-            <li>安徽11选5</li>
-            <li>上海11选5</li>
+            <li *ngFor="let lottory of homeprv.homeData.lottoryList['11Y'];index as i" (click)="switchLottory(lottory)" [ngClass]="{'current':lottory.flag}">{{lottory.friend_name}}</li>
           </ul>
         </div>
       </div>
@@ -44,12 +27,7 @@
         <div class="l-title">快3</div>
         <div class="l-list">
           <ul>
-            <li>江苏快3</li>
-            <li>安徽快3</li>
-            <li>湖北快3.5</li>
-          </ul>
-          <ul>
-            <li>河南快3</li>
+            <li *ngFor="let lottory of homeprv.homeData.lottoryList.K3;index as i" (click)="switchLottory(lottory)" [ngClass]="{'current':lottory.flag}">{{lottory.friend_name}}</li>
           </ul>
         </div>
       </div>
@@ -57,7 +35,7 @@
         <div class="l-title">PK10</div>
         <div class="l-list">
           <ul>
-            <li>北京快车PK10</li>
+            <li *ngFor="let lottory of homeprv.homeData.lottoryList.PK10;index as i" (click)="switchLottory(lottory)" [ngClass]="{'current':lottory.flag}">{{lottory.friend_name}}</li>
           </ul>
         </div>
       </div>
@@ -65,7 +43,7 @@
         <div class="l-title">六合彩</div>
         <div class="l-list">
           <ul>
-            <li>香港六合彩</li>
+            <li *ngFor="let lottory of homeprv.homeData.lottoryList.LHC;index as i" (click)="switchLottory(lottory)" [ngClass]="{'current':lottory.flag}">{{lottory.friend_name}}</li>
           </ul>
         </div>
       </div>
@@ -74,27 +52,12 @@
 
 
   <div class="lc-tab-head">
-    <div class="lc-tab-unit">
-      <p>开奖</p>
-      <div class="underline"></div>
-    </div>
-    <div class="lc-tab-unit">
-      <p>大小</p>
-      <div class="underline"></div>
-    </div>
-    <div class="lc-tab-unit current">
-      <p>单双</p>
-      <div class="underline"></div>
-    </div>
-    <div class="lc-tab-unit">
-      <p>形态</p>
+    <div class="lc-tab-unit" *ngFor="let nav of navData;index as i" [ngClass]="{'current':nav.flag}" (click)="changeDynComponent(i,nav)">
+      <p>{{nav.name}}</p>
       <div class="underline"></div>
     </div>
   </div>
-  <!-- <lottory-distribute></lottory-distribute>
-  <lottory-kaijiang></lottory-kaijiang>
-  <lottory-daxiao></lottory-daxiao>
-  <lottory-11-ykaijiang></lottory-11-ykaijiang> -->
+  <div #dynLottoryComponent></div>
 </ion-content>
 
 

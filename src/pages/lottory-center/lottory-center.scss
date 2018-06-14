@@ -9,14 +9,31 @@ page-lottory-center {
     z-index: 1000000000000000;
     background-color: rgba(0,0,0,.5);
   }
+  .k3Head{
+    background-color: #00180D;
+  }
+  .drop-trangle{
+    display: inline-block;
+    border-top: 8px solid #ffffff;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: none;
+    transition: all 0.35s;
+    &.current{
+      transform: rotate(180deg) translateY(2px);
+
+    }
+  }
   .lottory-list{
     padding: 0 16px;
     background-color: #F3F3F3;
     border-bottom: 2px solid #F08845;
     .lottory-wrap{
-      margin: 10px 0 0px;
       display: flex;
       color: #666666;
+      &:first-child{
+        margin-top: 9px;
+      }
       .l-title{
         width: 46px;
         line-height:25px;
@@ -26,10 +43,10 @@ page-lottory-center {
         width: 100%;
       }
       ul{
-        height: 26px;
+        min-height: 26px;
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
-        margin-bottom: 9px;
         &:last-child{
 
         }
@@ -41,6 +58,7 @@ page-lottory-center {
           border: 0 solid #E6E6E6;
           box-shadow: 0 1px 2px 0 #C5C4C4;
           border-radius: 3px;
+          margin-bottom: 13px;
           &.current{
             background-color: #F98D4B;
             color: #ffffff;
@@ -71,6 +89,7 @@ page-lottory-center {
         bottom: 0px;
         background-color: #F6374E;
         height: 2px;
+        transition: all 0.35s;
       }
       &.current{
         color: #F6374E;

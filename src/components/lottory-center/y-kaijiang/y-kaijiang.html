@@ -1,0 +1,20 @@
+<div class="lk-container">
+  <table>
+    <tr>
+      <th class="lk-unit">期号</th>
+      <th class="lk-unit">开奖号码</th>
+      <th class="lk-unit">和值</th>
+      <th class="lk-unit">跨度</th>
+      <th class="lk-unit">大小比</th>
+      <th class="lk-unit">奇偶比</th>
+    </tr>
+    <tr *ngFor="let result of resultsData.data">
+      <td>{{result.number.slice(-2)}}期</td>
+      <td class="num-list"><span *ngFor="let code of result.code">{{code}}</span></td>
+      <td>{{result.sum}}</td>
+      <td>{{result.spacing}}</td>
+      <td>{{result.small}}:{{result.big}}</td>
+      <td>{{result.odd}}:{{result.even}}</td>
+    </tr>
+  </table>
+</div>

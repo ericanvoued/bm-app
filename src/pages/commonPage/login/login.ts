@@ -19,7 +19,7 @@ import * as md5 from 'md5';
 })
 export class LoginPage {
 
-  username: string = 'testjose';
+  username: string = 'testalice';
   password: string = '123qwe';
   loginData: any;
   nameInfoFlag: boolean = false

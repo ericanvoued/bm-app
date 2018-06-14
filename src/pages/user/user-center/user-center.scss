@@ -1,4 +1,8 @@
 page-user-center {
+  .msg-icon,.qrcode-icon,.kefu-icon{
+    position: relative;
+    z-index: 1000;
+  }
   .gredient-bg{
     height: 105px;
     background-image: linear-gradient(69deg, #F3361B 0%, #EC6432 1%, #F5AD58 100%);

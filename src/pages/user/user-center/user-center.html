@@ -2,7 +2,7 @@
   <ion-navbar>
     <a href="javascript:;" class="firecat-icon kefu-icon"></a>
     <h2 class="DIY-title">个人中心</h2>
-    <a href="javascript:;" class="firecat-icon msg-icon"><i class="myBadge">12</i></a>
+    <a href="javascript:;" class="firecat-icon msg-icon" (click)="pushPage('InfoCenterPage',false)"><i class="myBadge">{{unreadAnnouncements}}</i></a>
     <a href="javascript:;" class="firecat-icon qrcode-icon"> </a>
   </ion-navbar>
 </ion-header>
@@ -44,7 +44,7 @@
     <div class="head-row">
       <img src="../../assets/imgs/default-head.png" alt="">
       <div class="head-info">
-        <h2>{{userData.username}}<i  (click)="pushPage('ChangeNamePage',false)" class="firecat-icon edit-name-icon"></i></h2>
+        <h2>{{userData.nickname}}<i  (click)="pushPage('ChangeNamePage',false)" class="firecat-icon edit-name-icon"></i></h2>
         <!--<p>安全指数: <a class="safe-info" href="javascript:;">70分</a></p>-->
       </div>
       <!--<div class="sign-in">-->
@@ -111,7 +111,7 @@
       <p>推送设置</p>
       <i class="firecat-icon toRight-icon"></i>
     </a>
-    <a href="javascript:;" class="item-unit">
+    <a href="javascript:;" class="item-unit" (click)="pushPage('InvitePage',true)">
       <i class="firecat-icon invite-icon"></i>
       <p>邀请有礼</p>
       <i class="firecat-icon toRight-icon"></i>

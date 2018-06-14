@@ -10,11 +10,11 @@
   <div class="common-form">
     <div class="cf-row">
       <label for="username">用户名:</label>
-      <input id="username" type="text" maxlength="40" [(ngModel)]="userData.data.username" disabled>
+      <input id="username" type="text" maxlength="40" [(ngModel)]="ucPrd.userInfo.username" disabled>
     </div>
     <div class="cf-row">
       <label for="yue" class="w81">当前金额:</label>
-      <input id="yue" type="number" [(ngModel)]="userData.data.available" disabled>
+      <input id="yue" type="number" [(ngModel)]="ucPrd.userInfo.available" disabled>
     </div>
   </div>
 
@@ -29,47 +29,81 @@
   <div class="bank-list">
     <p class="info">请选择支付方式：</p>
     <div class="bank-content">
-      <div class="bank-unit"
-           [ngClass]="{'repaired':bank.isRepaire==true,'current':bankList.status[i]==1}"
-           (click)="selectBank(i)"
-           *ngFor="let bank of bankList.data.slice(0,3);index as i">
+      <!--repaired  保留，等待后台开发-->
+      <div class="bank-unit" [ngClass]="{'current':ucPrd.chargeList.bankflag[0]==1}" (click)="selectBank(0,ucPrd.chargeList.data.mobile_weixin)">
         <div class="capture">
-          <img src="../../../assets/bank-icon/{{bank.logoSrc}}" alt="">
+          <img src="../../../assets/bank-icon/mobile_weixin.png" alt="">
         </div>
         <div class="bank-text">
-          <h4>{{bank.name}}</h4>
-          <p>当日最高上限{{bank.limit}}元</p>
+          <h4>{{ucPrd.chargeList.data.mobile_weixin.name}}</h4>
+          <p>当日最高上限{{ucPrd.chargeList.data.mobile_weixin.currency_max}}元</p>
         </div>
-        <div class="repairing">
-          维护中
-        </div>
+        <!--<div class="repairing">-->
+          <!--维护中-->
+        <!--</div>-->
         <button class="select-btn"></button>
       </div>
-      <div class="union-bank" *ngIf="bankList.status[2]==1">
+      <div class="bank-unit" [ngClass]="{'current':ucPrd.chargeList.bankflag[1]==1}" (click)="selectBank(1,ucPrd.chargeList.data.mobile_alipay)">
         <div class="capture">
-          <img src="../../../assets/bank-icon/s-ctbc-icon.png" alt="">
+          <img src="../../../assets/bank-icon/mobile_alipay.png" alt="">
         </div>
         <div class="bank-text">
-          <h4>中国工商银行</h4>
+          <h4>{{ucPrd.chargeList.data.mobile_alipay.name}}</h4>
+          <p>当日最高上限{{ucPrd.chargeList.data.mobile_alipay.currency_max}}元</p>
         </div>
-        <p (click)="pushPage('BankListPage')">选择其他银行>></p>
+        <!--<div class="repairing">-->
+        <!--维护中-->
+        <!--</div>-->
+        <button class="select-btn"></button>
       </div>
-      <div class="bank-unit"
-           [ngClass]="{'repaired':bank.isRepaire==true,'current':bankList.status[i+3]==1}"
-           (click)="selectBank(i+3)"
-           *ngFor="let bank of bankList.data.slice(-2);index as i">
-      <div class="capture">
-        <img src="../../../assets/bank-icon/{{bank.logoSrc}}" alt="">
+      <div class="bank-unit" [ngClass]="{'current':ucPrd.chargeList.bankflag[2]==1}" (click)="selectBank(2,ucPrd.chargeList.data.unionpay)">
+        <div class="capture">
+          <img src="../../../assets/bank-icon/unionpay.png" alt="">
+        </div>
+        <div class="bank-text">
+          <h4>{{ucPrd.chargeList.data.unionpay.name}}</h4>
+          <p>当日最高上限{{ucPrd.chargeList.data.unionpay.currency_max}}元</p>
+        </div>
+        <!--<div class="repairing">-->
+        <!--维护中-->
+        <!--</div>-->
+        <button class="select-btn"></button>
       </div>
-      <div class="bank-text">
-        <h4>{{bank.name}}</h4>
-        <p>当日最高上限{{bank.limit}}元</p>
+      <div class="union-bank" *ngIf="ucPrd.chargeList.bankflag[2]==1">
+        <div class="capture">
+          <img src="../../../assets/bank-icon/s-{{ucPrd.chargeList.data.banks.ABOC.identifier}}-icon.png" alt="">
+        </div>
+        <div class="bank-text">
+          <h4>{{ucPrd.chargeList.data.banks.ABOC.name}}</h4>
+        </div>
+        <p (click)="pushPage('BankListPage',ucPrd.chargeList.data.banks.ABOC)">选择其他银行>></p>
       </div>
-      <div class="repairing">
-        维护中
+      <div class="bank-unit" [ngClass]="{'current':ucPrd.chargeList.bankflag[3]==1}" (click)="selectBank(3,ucPrd.chargeList.data.mobile_jd)">
+        <div class="capture">
+          <img src="../../../assets/bank-icon/mobile_jd.png" alt="">
+        </div>
+        <div class="bank-text">
+          <h4>{{ucPrd.chargeList.data.mobile_jd.name}}</h4>
+          <p>当日最高上限{{ucPrd.chargeList.data.mobile_jd.currency_max}}元</p>
+        </div>
+        <!--<div class="repairing">-->
+        <!--维护中-->
+        <!--</div>-->
+        <button class="select-btn"></button>
       </div>
-      <button class="select-btn"></button>
-    </div>
+      <div class="bank-unit" [ngClass]="{'current':ucPrd.chargeList.bankflag[4]==1}" (click)="selectBank(4,ucPrd.chargeList.data.mobile_qq)">
+        <div class="capture">
+          <img src="../../../assets/bank-icon/mobile_qq.png" alt="">
+        </div>
+        <div class="bank-text">
+          <h4>{{ucPrd.chargeList.data.mobile_qq.name}}</h4>
+          <p>当日最高上限{{ucPrd.chargeList.data.mobile_qq.currency_max}}元</p>
+        </div>
+        <!--<div class="repairing">-->
+        <!--维护中-->
+        <!--</div>-->
+        <button class="select-btn"></button>
+      </div>
     </div>
   </div>
   <div class="fix-sure-btn">

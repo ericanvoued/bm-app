@@ -1,186 +1,124 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-// import {Storage} from '@ionic/storage';
 
-
-
+import { HttpClientProvider } from '../http-client/http-client'
 import { RestProvider } from '../rest/rest';
+
+
+import {SscKaijiangComponent} from '../../components/lottory-center/ssc-kaijiang/ssc-kaijiang'
+import {SscDanshuangComponent} from '../../components/lottory-center/ssc-danshuang/ssc-danshuang'
+import {SscDaxiaoComponent} from '../../components/lottory-center/ssc-daxiao/ssc-daxiao'
+import {YKaijiangComponent} from '../../components/lottory-center/y-kaijiang/y-kaijiang'
+import {YDistributeComponent} from '../../components/lottory-center/y-distribute/y-distribute'
+import {K3KaijiangComponent} from '../../components/lottory-center/k3-kaijiang/k3-kaijiang'
+import {K3BaseTrendComponent} from '../../components/lottory-center/k3-base-trend/k3-base-trend'
+import {K3ShapeTrendComponent} from '../../components/lottory-center/k3-shape-trend/k3-shape-trend'
+import {K3CoodHotComponent} from '../../components/lottory-center/k3-cood-hot/k3-cood-hot'
+import {Pk10KaijiangComponent} from '../../components/lottory-center/pk10-kaijiang/pk10-kaijiang'
+import {Pk10daxiaoComponent} from '../../components/lottory-center/pk10daxiao/pk10daxiao'
+import {Pk10DanshuangComponent} from '../../components/lottory-center/pk10-danshuang/pk10-danshuang'
+import {Pk10ChanpiomComponent} from '../../components/lottory-center/pk10-chanpiom/pk10-chanpiom'
+import {Pk10LonghuComponent} from '../../components/lottory-center/pk10-longhu/pk10-longhu'
+import {LhcKaijiangComponent} from '../../components/lottory-center/lhc-kaijiang/lhc-kaijiang'
+import {LhcShengxiaoComponent} from '../../components/lottory-center/lhc-shengxiao/lhc-shengxiao'
+import {LhcBoseComponent} from '../../components/lottory-center/lhc-bose/lhc-bose'
+
 
 @Injectable()
 export class HomeProvider {
-
-  lottoryApi = '/api-lotteries-h5/lottery-info?_t=';
-
-
-
-  HomeData = {
-    banner:{
-      url:['javascript:;','javascript:;','javascript:;'],
-      imgSrc:['assets/home/banner0.png','assets/home/banner0.png','assets/home/banner0.png'],
-      title:['博猫游戏banner1','博猫游戏banner2','博猫游戏banner3']
-    },
-    info:{
-      url:['javascript:;','javascript:;','javascript:;','javascript:;'],
-      preView:[
-        '1微信支付已经升级，请更新后使用微信支付已经升级，请更新后使用微信支付已经升级，请更新后使用',
-        '2微信支付已经升级，请更新后使用',
-        '3微信支付已经升级，请更新后使用',
-        '4恭喜123xi65898t玩家在博猫一分彩赢得40000元'
-      ],
-      title:[
-        '1关于春节彩金卡延顺公告。',
-        '2关于春节彩金卡延顺公告。',
-        '3关于春节彩金卡延顺公告。',
-        '4关于春节彩金卡延顺公告。'
-      ],
-      text:[
-        ['1为了更好的提升用户体验，截至2月14日','博猫用户账户持有过期时间在春节期 间(2018年2月15日0:00—2月21日24:00)的彩金卡，统一延期过期7天。','祝您春节快乐！'],
-        ['2为了更好的提升用户体验，截至2月14日，博猫用户账户持有过期','间在春节期 间(2018年2月15日0:00—2月21日24:00)的彩金卡，统一延期过期7天。','祝您春节快乐！'],
-        ['3为了更好的提升用户体验，截至2月14日，博猫用户账户持有过期时间在春节期 间(2018年2月15日0:00—2月21日24:00)的彩金卡，统一延期过期7天。','祝您春节快乐！'],
-        ['4为了更好的提升用','体验，截至2月14日，博猫用户账户持有过期时间在春节期 间(2018年2月15日0:00—2月21日24:00)的彩金卡，统一延期过期7天。','祝您春节快乐！']
-      ],
-      team:[
-        '博猫彩票运营团队1',
-        '博猫彩票运营团队2',
-        '博猫彩票运营团队3',
-        '博猫彩票运营团队4'
-      ],
-      date:[
-        '2018年2月11日',
-        '2018年2月12日',
-        '2018年2月13日',
-        '2018年2月14日'
-      ]
-    },
-    lottorys:[
-      {
-        url:'javascript:;',
-        imgSrc:'assets/home/cqssc.png',
-        title:'重庆时时彩',
-        stopSale:false
-      },{
-        url:'javascript:;',
-        imgSrc:'assets/home/jx11of5.png',
-        title:'江西11选5',
-        stopSale:true
-      },{
-        url:'javascript:;',
-        imgSrc:'assets/home/jsk3.png',
-        title:'江苏快三',
-        stopSale:false
-      },{
-        url:'javascript:;',
-        imgSrc:'assets/home/hnk3.png',
-        title:'河南快3',
-        stopSale:false
-      },{
-        url:'javascript:;',
-        imgSrc:'assets/home/xglhc.png',
-        title:'香港六合彩',
-        stopSale:false
-      },{
-        url:'javascript:;',
-        imgSrc:'assets/home/txffc.png',
-        title:'腾讯分分彩',
-        stopSale:true
-      },{
-        url:'javascript:;',
-        imgSrc:'assets/home/hbk3.png',
-        title:'湖北快三',
-        stopSale:false
-      },{
-        url:'javascript:;',
-        imgSrc:'assets/home/sh11of5.png',
-        title:'上海11选5',
-        stopSale:false
-      },{
-        url:'javascript:;',
-        imgSrc:'assets/home/bjpk10.png',
-        title:'北京PK10',
-        stopSale:false
-      },{
-        url:'javascript:;',
-        imgSrc:'assets/home/pl5.png',
-        title:'排列五',
-        stopSale:false
-      },{
-        url:'javascript:;',
-        imgSrc:'assets/home/dj60s.png',
-        title:'夺金60s',
-        stopSale:false
-      },{
-        url:'javascript:;',
-        imgSrc:'assets/home/sd11of5.png',
-        title:'山东11选5',
-        stopSale:false
-      },{
-        url:'javascript:;',
-        imgSrc:'assets/home/tjssc.png',
-        title:'天津时时彩',
-        stopSale:false
-      },{
-        url:'javascript:;',
-        imgSrc:'assets/home/ah11of5.png',
-        title:'安徽11选5',
-        stopSale:false
-      },{
-        url:'javascript:;',
-        imgSrc:'assets/home/ahk3.png',
-        title:'安徽快三',
-        stopSale:false
-      },{
-        url:'javascript:;',
-        imgSrc:'assets/home/pl3.png',
-        title:'排列三',
-        stopSale:false
-      },{
-        url:'javascript:;',
-        imgSrc:'assets/home/fc3D.png',
-        title:'福彩3D',
-        stopSale:false
-      },{
-        url:'javascript:;',
-        imgSrc:'assets/home/jx1.5.png',
-        title:'金星1.5分彩',
-        stopSale:false
-      },{
-        url:'javascript:;',
-        imgSrc:'assets/home/sd11of5.png',
-        title:'山东11选5',
-        stopSale:false
-      },{
-        url:'javascript:;',
-        imgSrc:'assets/home/tcp3:5.png',
-        title:'体彩p3/p5',
-        stopSale:false
-      }
-    ],
-    storage:null
+  userInfo
+  infoData = {
+    announcements: {data:['ddd']}
   }
 
+
+  homeData = {
+    banner:[{'redirect_url':'','title':'','name':'','pic_url':''}],
+    lottoryList:null,
+    lottories:[],
+    lottorys:{hot:[{friend_name:"",identifier:''}]},
+  }
+  lottoryCentData = {}
+
+  constructor(public http: HttpClientProvider,public rest: RestProvider) {
+    this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    this.lottoryInfo();
+  }
+
+  //彩种
+  async lottoryInfo() {
+    this.homeData.lottoryList = (await this.http.fetchData('/api-lotteries-h5/lottery-info?_t=' + this.userInfo.auth_token)).data;
+    for (let item in this.homeData.lottoryList) {
+      for (let i = 0; i < this.homeData.lottoryList[item].length; i++) {
+        this.homeData.lottoryList[item][i].group = item;
+        this.homeData.lottoryList[item][i].flag = false;
+      }
+      this.homeData.lottories.push(...this.homeData.lottoryList[item])
+    }
+    this.homeData.lottoryList.SSC[0].flag = true;
+    // this.homeData.lottoryList.SSC.nav = [{name:'开奖',flag:true,c:'SscKaijiang'},{name:'大小',flag:false,c:'SscDaxiao'},{name:'单双',flag:false,c:'SscDanshuang'},{name:'形态',flag:false}];
+    this.homeData.lottoryList.SSC.nav = [{name:'开奖',flag:true,c:SscKaijiangComponent},{name:'大小',flag:false,c:SscDaxiaoComponent},{name:'单双',flag:false,c:SscDanshuangComponent}];
+    this.homeData.lottoryList['11Y'].nav = [{name:'开奖',flag:true,c:YKaijiangComponent},{name:'号码分布',flag:false,c:YDistributeComponent}];
+    this.homeData.lottoryList.K3.nav = [{name:'开奖',flag:true,c:K3KaijiangComponent},{name:'基本走势',flag:false,c:K3BaseTrendComponent},{name:'形态走势',flag:false,c:K3ShapeTrendComponent},{name:'冷热',flag:false,c:K3CoodHotComponent}];
+    this.homeData.lottoryList.PK10.nav = [{name:'开奖',flag:true,c:Pk10KaijiangComponent},{name:'大小',flag:false,c:Pk10daxiaoComponent},{name:'单双',flag:false,c:Pk10DanshuangComponent},{name:'冠亚军和',flag:false,c:Pk10ChanpiomComponent},{name:'龙虎',flag:false,c:Pk10LonghuComponent}];
+    this.homeData.lottoryList.LHC.nav = [{name:'开奖',flag:true,c:LhcKaijiangComponent},{name:'生肖',flag:false,c:LhcShengxiaoComponent},{name:'两面/波色',flag:false,c:LhcBoseComponent}];
+
+    this.loadHotLottory(this.homeData.lottories)
+    console.log(this.homeData.lottories)
+    console.log(this.homeData.lottoryList)
+  }
+
+<<<<<<< HEAD
+
+  //通知
+  async loadannouncements() {
+    this.infoData.announcements = (await this.http.fetchData('/h5api-announcements?_t=' + this.userInfo.auth_token)).data;
+=======
   constructor(public http: HttpClient,public rest: RestProvider) {
  
+>>>>>>> dd0a4826b1dc93f66dad504f7526a00ea2f091b7
   }
 
+  async announcementsUnreadnum() {
+    this.infoData.unreadAnnouncements = (await this.http.fetchData('/h5api-announcements/unreadnum?_t=' + this.userInfo.auth_token)).data.tplData.successful.Num;
+  }
 
+<<<<<<< HEAD
+  //通知轮播内容
+  async loadbanner() {
+    this.homeData.banner = (await this.http.fetchData('/h5api-announcements/banner?_t=' + this.userInfo.auth_token)).data.banner;
+    console.log(this.homeData.banner)
+=======
   ionViewLoaded(){
     // this.getLottoryList()
     this.HomeData.storage = JSON.parse(localStorage.getItem('userInfo'));
     console.log( this.HomeData.storage)
     this.getLottoryList(this.HomeData.storage.auth_token)
     this.getBanner(this.HomeData.storage.auth_token)
+>>>>>>> dd0a4826b1dc93f66dad504f7526a00ea2f091b7
   }
 
-  getLottoryList(auto_token: string = 'init'){
-    return this.rest.getUrlReturn('/api-lotteries-h5/lottery-info?_t='+auto_token).subscribe((data)=>{
-      console.log(data)
-    });
+  // 获取热门彩种
+  loadHotLottory(_lottory) {
+    this.homeData.lottorys = JSON.parse(localStorage.getItem('lottorys'));
+    if (this.homeData.lottorys) {
+      return this.homeData.lottorys;
+    } else {
+      this.homeData.lottorys = {hot: [], more: []};
+      this.homeData.lottorys.hot = _lottory.slice(0, 15)
+      this.homeData.lottorys.more = _lottory.slice(-3)
+      localStorage.lottorys = JSON.stringify(this.homeData.lottorys)
+    }
   }
 
-  getBanner(auto_token: string = 'init'){
-    return this.rest.getUrlReturn('/h5api-announcements/banner?_t='+auto_token).subscribe((data)=>{
-      console.log(data)
-    });
+  ionViewLoaded() {
+    // this.getLottoryList()
+  }
+
+  //获取最近90期的数据
+  async loadIssues(lottoryId){
+    return this.lottoryCentData = (await this.http.fetchData('/api-lotteries-h5/load-issues/'+lottoryId+'?count=90&_t='+this.userInfo.auth_token))
+    // console.log(this.lottoryCentData)
   }
 
 }

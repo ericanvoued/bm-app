@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <h2 class="DIY-title">邀请好友</h2>
+    <button class="kefu-btn" (click)="toRule()">规则</button>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <div class="invite-banner"><img src="../../../assets/imgs/invite-bg.png" alt=""></div>
+  <div class="invite-text">
+    <h2>邀请好友，得双份奖励</h2>
+    <p>邀请好友加入博猫游戏，但激活后你将获得相应的消费返点，邀请越多返点越多，赶快和好友一起享受双倍奖励吧！</p>
+  </div>
+  <div class="set-reward">
+    <h2>设置奖金组</h2>
+    <input type="text" [(ngModel)]="contrast">
+    <p>预计平均返点率 {{rewardPoint}}%</p>
+  </div>
+  <div class="slide-bar">
+    <div class="bar-hash">1800</div>
+    <ion-item>
+      <ion-range min="1800" max="1950" pin="true" step="2" [(ngModel)]="contrast" color="secondary" (ionChange)="dragRange()"></ion-range>
+    </ion-item>
+    <div class="bar-hash">1950</div>
+  </div>
+
+  <div class="invite-btn"><button>生成二维码邀请</button></div>
+</ion-content>

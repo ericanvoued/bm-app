@@ -13,6 +13,8 @@ import { WuxingzhixuanzuheComponent } from './ssc-game/wuxing/wuxingzhixuanzuhe/
 import { FooterComponent } from './footer/footer';
 
 
+
+
 @NgModule({
 	declarations: [
     TabYuanComponent,
@@ -34,6 +36,7 @@ import { FooterComponent } from './footer/footer';
     FooterComponent
     ]
 })
+
 export class ComponentsModule {}
 
 
