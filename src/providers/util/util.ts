@@ -71,7 +71,10 @@ export class UtilProvider {
     {number:'27期', history:[3,6,7,3,6]},
     {number:'28期', history:[6,7,3,9,5]},
     {number:'29期', history:[7,8,2,8,3]},
-    {number:'30期', history:[8,2,6,6,2]}
+    {number:'30期', history:[8,2,6,6,2]},
+    {number:'31期', history:[6,7,3,9,5]},
+    {number:'32期', history:[7,8,2,8,3]},
+    {number:'33期', history:[8,2,6,6,2]}
   ]
   fakeData:any = {}
 
@@ -132,8 +135,12 @@ export class UtilProvider {
 
   fakeTrend:Array<any> = []
 
+  //http://user.firecat.com/api-lotteries-h5/load-issues/1?_t=e182334981f44d206cc70ddd6c05293a
+
   constructor(public http: HttpClientProvider,public common:CommonProvider, public vibration: Vibration) {
     console.log('Hello UtilProvider Provider');
+
+    
 
     this.fakeTrend = [0,1,2,3,4].reduce((a,b) =>{
         let arr = []
@@ -147,8 +154,10 @@ export class UtilProvider {
 
     this.generateFake()
     console.log(this.fakeData)
+
     //遗漏冷热  yilou 当前遗漏 
-    let yilou = {},lengre = {},maxYi = {},avgYi = {};
+    let yilou = {},lengre = {},maxYi = {},avgYi = {}
+
     for(let aa in this.fakeData){
         yilou[aa.substr(0,2)] = []
         lengre[aa.substr(0,2)] = []
@@ -197,36 +206,12 @@ export class UtilProvider {
     console.log(this.avgYi)
     console.log(this.common.ballData)
 
-    //五星走势图
-    this.wuxingData = this.historyNumbers.map((ele,index) => {
-        let sum = ele.history.reduce((l,r) => l+r)
-        let max = Math.max(...ele.history)
-        let min = Math.min(...ele.history)
-        let gap = max - min
-        let da = ele.history.filter(el => el >= 5).length
-        let daxiao = da + ':' + (5 - da)
-        let odd = ele.history.filter(el => el%2 != 0).length
-        let oddeven = odd + ':' + (5 -odd)
-        return {...ele, sum,gap, daxiao, oddeven}
-    })
-
     this.generateFake()
-  }
-
-  fetch(item){
-      /* item  if is lengre  fetch data from server
-         when lengre == '--'
-         return data {
-             'wan':[],'qian':[]
-         }
-         
-         if lengre haa loaded  return 
-      */
   }
 
   async fetchRecord():Promise<any>{
       console.log('fetchdata')
-      this.historyList = (await this.http.fetchData('api-lotteries-h5/load-issues/1?_t=4a2d4618e7774c19f84aa3d0b6426816')).data
+      this.historyList = (await this.http.fetchData('/api-lotteries-h5/load-issues/1?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)).data
       
     //   this.http.fetchData('api-lotteries-h5/load-issues/1?_t=4b5dbcc45a38784ce1aabaaa03ae806a').then(data => {
     //        console.log(data)
@@ -272,8 +257,6 @@ export class UtilProvider {
       // this.fakeData.push({[this.deal(k)]:arr})
        this.fakeData[this.deal(k)] = arr
     }
-    
-   // this.fakeData = arr
     console.log(this.fakeData)
   }
 
@@ -381,7 +364,7 @@ export class UtilProvider {
      // 机选注单
    randomChoose(number:any){
     console.log(number)   
-    number.instance.randomChoose()
+    number.instance.randomAnimateChoose()
     // this.common.ballData = this.common.ballData.map(item => {
     //     // let arr = [0,1,2,3,4,5,6,7,8,9]
     //     let random = Math.floor(Math.random()*10)
@@ -422,8 +405,6 @@ export class UtilProvider {
         lastY = y;
     }).bind(self), false);
   }
-
-
 
   checkResult(data, array){
     //检查重复

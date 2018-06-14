@@ -26,5 +26,4 @@ export class RenxuanyizhongyifushiComponent extends commonMethod{
     this.text = 'Hello World';
   }
 
- 
 }

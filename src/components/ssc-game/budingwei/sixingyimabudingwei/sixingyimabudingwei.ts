@@ -21,7 +21,6 @@ export class SixingyimabudingweiComponent extends commonMethod{
 
   constructor(public common:CommonProvider, public tool:ToolsProvider, public util:UtilProvider,public basket:BasketDataProvider){
     super(common,util,basket)    
-    console.log('Hello SixingyimabudingweiComponent Component');
     this.text = 'Hello World';
   }
 

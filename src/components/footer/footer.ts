@@ -37,14 +37,21 @@ export class FooterComponent {
       // console.log(dom.innerText)
       if(this.common.count == 0){return}
       console.log(this.common.cartNumber)
-      // 把数据放进购彩蓝
-      this.basket.addBetData()
+      // 把数据放进购彩蓝  如果超过余额
+      if(!this.basket.addBetData())
+         return 
+      
       $('<div id="ball"></div>').appendTo($('#bet-statistic'));
       this.move()
       this.util.resetData()
    }
 
    goToBasket(){
+      if(!this.common.count && !this.basket.betData.length)
+         return 
+
+      if(this.common.count)
+         this.basket.addBetData()
       this.goBasket.emit()
    }
 

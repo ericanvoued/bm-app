@@ -4,17 +4,26 @@ import { HomeProvider } from '../../providers/home/home'
 
 import {HotGmageListPage} from '../hot-gmage-list/hot-gmage-list';
 import { InfoCenterPage } from '../info-center/info-center'
+<<<<<<< HEAD
 
+=======
+import { BasketDataProvider } from '../../providers/basket-data/basket-data'
+
+import { CommonProvider } from "../../providers/common/common";
+>>>>>>> dd0a4826b1dc93f66dad504f7526a00ea2f091b7
 import {LhcSlidePage} from "../lhc/lhc-slide/lhc-slide";
 import {KsPage } from "../k3/ks/ks";
 declare var Swiper;
+
+
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  userInfo:any;
+  userInfo = null;
+  numbers:any[] = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
   banner_swiper: any;
   info_swiper: any;
   homeData: any;
@@ -23,16 +32,22 @@ export class HomePage {
     letters: {data:['ddd']}
   }
 
-  constructor(public navCtrl: NavController,
-              public homePrv: HomeProvider,
-              public modalCtrl: ModalController) {
+
+  constructor(
+    public navCtrl: NavController,
+    public homePrv: HomeProvider,public basket:BasketDataProvider,
+    public modalCtrl: ModalController,public common:CommonProvider) {
 
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
-
     this.homePrv.loadbanner();
     this.homePrv.loadannouncements();
     this.homePrv.announcementsUnreadnum();
+  }
 
+  ionViewWillEnter(){
+      console.log('dsssssss')
+      clearInterval(this.common.timer)
+      this.common.resetLotteryData()
   }
 
 
@@ -79,6 +94,9 @@ export class HomePage {
 
   goToSsc(){
     // this.common.pid.next('./assets/ssc.json')
+     if(this.common.gameId != 1)
+        this.basket.clearBasket()
+     this.common.gameId = 1
      this.navCtrl.push('SscPage')
   }
   // goToSsc() {
@@ -97,6 +115,9 @@ export class HomePage {
   }
 
   goToxuan5(){
+    if(this.common.gameId != 8)
+       this.basket.clearBasket()
+     this.common.gameId = 8
      //this.common.pid.next('./assets/115.json')
      this.navCtrl.push('Xuan5Page')
   }

@@ -26,14 +26,26 @@ export class DingweidanComponent extends commonMethod{
     this.text = 'Hello World';
   }
 
-  calculate(){
+ randomOneOrder(){
+    let arr = [Math.floor(Math.random()*3),Math.floor(Math.random()*11)]
+    console.log(arr)
+    this.common.ballData = this.common.ballData.map((ele,index) => {
+        ele.value = ele.value.map((item,index1) => {
+            if(index == arr[0] && index1 == arr[1])
+            return 1
+            else
+            return 0   
+        })
+        return ele
+      })
+    this.calculate()
+  }
+
+  getCount(){
     let count = 0;
     this.common.ballData.forEach((item,index) => {
         count +=  item.value.filter(ele => ele == 1).length
     })
-    this.common.count = count
-    let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
-    this.common.betPrice = this.common.count*2*percent
-}
-
+    return count
+  }
 }

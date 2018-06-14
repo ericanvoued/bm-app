@@ -30,30 +30,17 @@ export class RenxuansanzhixuanfushiComponent extends commonMethod{
     return this.choose.indexOf(choice) > -1
   }
 
-  randomChoose(number?){
-    if(number){
-       let arr = this.createRandom(3)
-       this.common.ballData = this.common.ballData.map((item,index) => {
-   
-           item.value = item.value.map((ele,index1) => arr.filter(detail => detail[0] == index && detail[1] == index1).length > 0 ? 1 : 0)
-           return item
-       })
-       this.calculate()
-       this.basket.addBetData()
-       if(number == 1) return
-       this.randomChoose(--number)
-    }else{
-       let arr = this.createRandom(3)
-       console.log(arr)
-       this.common.ballData = this.common.ballData.map((item,index) => {
-           item.value = item.value.map((ele,index1) => arr.filter(detail => detail[0] == index && detail[1] == index1).length > 0 ? 1 : 0)
-           return item
-       })
-       this.calculate()
-    } 
+  randomOneOrder(){
+    let arr = this.createRandom(3)
+    console.log(arr)
+    this.common.ballData = this.common.ballData.map((item,index) => {
+        item.value = item.value.map((ele,index1) => arr.filter(detail => detail[0] == index && detail[1] == index1).length > 0 ? 1 : 0)
+        return item
+    })
+    this.calculate()
   }
 
-  calculate(){
+  getCount(){
     let originData = this.getCommonData(),tempArr,count = 0, self = this
     $.each(originData, function(i){
       $.each(originData, function(j){
@@ -69,9 +56,6 @@ export class RenxuansanzhixuanfushiComponent extends commonMethod{
         })
       })
     })
-  
-    this.common.count = count 
-    let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
-    this.common.betPrice = this.common.count*2*percent
- }
+    return count
+  }
 }

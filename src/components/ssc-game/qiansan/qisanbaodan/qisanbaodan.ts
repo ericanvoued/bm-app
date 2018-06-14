@@ -47,19 +47,17 @@ export class QisanbaodanComponent extends commonMethod{
     this.calculate()
   } 
 
-   calculate(){
-      let count = 0;
-      this.common.ballData[0].value.forEach((item,index) => {
-          if(item){
-            console.log(this.mathResult(index,0,9))
-            count += this.mathResult(index,0,9).length
-          }
-            
-      })
-      this.common.count = count
-      let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
-      this.common.betPrice = this.common.count*2*percent
-   }
+  getCount(){
+    let count = 0;
+    this.common.ballData[0].value.forEach((item,index) => {
+        if(item){
+          console.log(this.mathResult(index,0,9))
+          count += this.mathResult(index,0,9).length
+        }
+          
+    })
+    return count
+  }
 
    arrIndexOf(value, arr) {
     var r = 0;

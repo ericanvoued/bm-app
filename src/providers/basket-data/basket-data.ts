@@ -1,4 +1,6 @@
 import { HttpClient } from '@angular/common/http';
+import { AlertController } from 'ionic-angular';
+
 import { Injectable } from '@angular/core';
 import { CommonProvider } from '../common/common'
 import { UtilProvider } from '../util/util'
@@ -18,6 +20,8 @@ let _ = new observe();
 export class BasketDataProvider {
   betData:Array<any> = []
   totalAmount:number;
+
+  balance:number = 100
   /**
    *  {
    *    amount: ,
@@ -32,13 +36,7 @@ export class BasketDataProvider {
    *    prize_group,
    *    type:"qiansan.zhixuan.fushi"
    *    typeText:"前三,直选,直选复式"
-   *    
-   * 
-   * 
    *  }
-   *  
-   * 
-   * 
    */
   statistic:any = {
      multiple: 1,
@@ -50,7 +48,7 @@ export class BasketDataProvider {
   changeDetect:(option:any) => void;
 
 
-  constructor(public http: HttpClient, public util:UtilProvider, public common:CommonProvider) {
+  constructor(public http: HttpClient, public util:UtilProvider, public common:CommonProvider, private alertCtrl: AlertController) {
     console.log('Hello BasketDataProvider Provider');
     this.observable = new Observable((observer: Observer<any>) => {
          this.observer = observer;
@@ -70,34 +68,61 @@ export class BasketDataProvider {
           console.log(this.betData)
           this.totalAmount = this.betData.reduce((r1,r2) => {
             return {...r1, amount:r1.amount + r2.amount}
-        }).amount*this.statistic.multiple
+        }).amount*this.statistic.multiple*this.statistic.trace
         console.log('dddd')
         console.log(this.totalAmount)
+        // if(this.totalAmount > this.balance){
+        //   this.presentRecharge()
+        // }
+
      } else
         this.totalAmount = 0   
   }
 
-  addBetData(){
+  addBetData(betData?){
     console.log('sssss')
-    let processData = this.processOrder()
-    //let names = name?name:this.common.method + this.common.secondKind + this.common.smallMethod
-    //检测重复
-    if(this.checkRepeat(processData)){
-       console.log('cun zai')
-       this.betData = this.betData.map(item => {
-            if(item.wayId == processData.wayId && item.lotterysText == processData.lotterysText){
-                console.log('axiww')
-                return {...item, jsId:item.jsId, number:item.number + 1, amount:item.amount*(item.number + 1)/item.number}
-            }else{
-                return item
-            }
-       })
-       this.calculateTotal()
+    let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
+
+    if(betData){
+      if(this.totalAmount + this.statistic.multiple*this.statistic.trace*percent*2*betData.length > this.balance){
+        this.presentRecharge()
+        return false
+      }
+      betData.forEach(ele => {
+          if(this.checkRepeat(ele))
+             this.addToExist(ele)
+          else
+             this.betData.push(ele)
+      })
+     
     }else{
-        this.betData.push(processData)
-    }
-    //this.common.cartNumber++
-    //this.calculateTotal()
+      let processData = this.processOrder()
+      
+      if(this.totalAmount + this.statistic.multiple**this.statistic.trace*percent*processData.amount > this.balance){
+          this.presentRecharge()
+          return false
+      }
+      if(this.checkRepeat(processData)){
+         this.addToExist(processData)
+      }else{
+         console.log('wccruruurur')
+         this.betData.push(processData)
+      }
+    }  
+    return true
+  }
+
+  //添加至已存在的注单
+  addToExist(processData){
+    this.betData = this.betData.map(item => {
+      if(item.wayId == processData.wayId && item.lotterysText == processData.lotterysText){
+          console.log('axiww')
+          return {...item, jsId:item.jsId, number:item.number + 1, amount:item.amount*(item.number + 1)/item.number}
+      }else{
+          return item
+      }
+    })  
+    this.calculateTotal()
   }
 
   checkRepeat(processData){
@@ -111,60 +136,33 @@ export class BasketDataProvider {
 
   processOrder(){
     let dataArr = []
-    let names = name?name:this.common.method + ' ' + this.common.secondKind + ' ' + this.common.smallMethod
+    let names = name?name: this.common.gameMethodConfig[0].name_en + this.common.bigKindEn + ' ' + this.common.smallKind.name_en
 
-    if(names.indexOf('和值') > -1){
-      // let zhixuan = names.indexOf('直选和值') > -1 || this.common.secondKind == '直选' ? true : false
-      
-      // this.common.ballData.forEach((item,index) => {
-      //   let arr = [],flag = false
-      //   item.value.forEach((ele,index1) => {
-      //        if(ele){
-      //           let number = zhixuan ? ('0' + (index*item.value.length + index1)).slice(-2) : ('0' + (index*item.value.length + index1 + 1)).slice(-2)
-      //           arr.push(number)
-      //           flag = true
-      //        }
-      //   })
-      //   if(flag)
-      //      dataArr.push(arr.join(' '))
-      // })
-    }else{
-      // let daxiaodanshuang = this.common.method == '大小单双' ? true : false
-
-      // this.common.ballData.forEach(item => {
-      //   let arr = []
-      //   item.value.forEach((ele,index) => {
-      //     if(!daxiaodanshuang){
-      //       ele == 1 ? arr.push(('0'+index).slice(-2)):''
-      //     }else{
-      //       ele == 1 ? arr.push(this.judge(index)):''
-      //     }
-      //   })
-      //   dataArr.push(arr.join(' '))
-      // })
-    }
     /**
      * lotterysText:this.common.componentRef.getLotteryText(), 
      * 
      */
-   
     console.log(dataArr)
     console.log(this.common.componentRef.instance.getLotteryText())
     console.log(this.common.componentRef.instance.getPositionArr())
 
-
     return {
          jsId:this.betData.length + 1,
+         mid:this.common.smallId,
          amount:this.common.betPrice,
-         lotterys:this.common.componentRef.instance.getLotteryData(),
-         lotterysText:this.common.componentRef.instance.getLotteryText(), 
+         //amountText:'',
+         //lotterys:this.common.componentRef.instance.getLotteryData(),
+         lotterysText:this.common.componentRef.instance.getOriginLotteryText(), 
          wayId:this.common.smallId,
-         typeText:names,
-         number:this.common.count,
+         type:names,
+         position:this.common.componentRef.instance.getPositionArr(),    
+         num:this.common.count,
+         onePrice:2,
          moneyUnit:this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01,
-         mutiple:this.statistic.multiple,
-         postParameter: "3|4|5",
-         position:this.common.componentRef.instance.getPositionArr()    
+         prize_group:1800,
+         multiple:this.statistic.multiple,
+        // postParameter: this.common.componentRef.instance.getLotteryText(),
+         viewBalls:this.common.componentRef.instance.getOriginLotteryText()     
     }
   }
 
@@ -182,7 +180,12 @@ export class BasketDataProvider {
   }
 
   clearBasket(){
-    this.betData = []
+    console.log('dwefewfeqf')
+   // this.betData = []
+    for(let i = 0;i<this.betData.length;i++){
+        this.betData.splice(i,1)
+        i--
+    }
     this.common.cartNumber = 0
   }
 
@@ -208,18 +211,26 @@ export class BasketDataProvider {
     this.util.resetData()
   }
 
-  // getSubmitData(): Object {
-  //   return {
-  //     "gameId": this.share.pid,
-  //     "isTrace": +(this.share.globalData.trace > 1),
-  //     "traceWinStop": +this.traceWinStop,
-  //     "traceStopValue": 1,
-  //     "balls": this.getBallsString(),
-  //     "orders": this.getOrderIssure(),
-  //     "amount": this.totalAllCount,
-  //     is_encoded: 1,
-  //     _token: this.share.user.token,
-  //     bet_source: this.share.plat
-  //   }
-  // }
+  presentRecharge() {
+    console.log('ssss')
+    let alert = this.alertCtrl.create({
+      message: '您的余额不足，请先去充值',
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: '确认',
+          handler: () => {
+          }
+        }
+      ]
+    })
+    alert.present();
+  }
+ 
 }

@@ -30,7 +30,7 @@ export class ZhixuanfushiComponent extends commonMethod implements AfterViewInit
 
   ngAfterViewInit(){
   // this.dealHover()
-     console.log( document.getElementsByClassName('qwe')[0])
+   
     //  setTimeout(() => {
        
     //       // setTimeout(() => {

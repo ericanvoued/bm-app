@@ -33,43 +33,19 @@ export class WuxingzhixuanzuheComponent extends commonMethod{
     return this.choose.indexOf(choice) > -1
   }
 
-//   randomChoose(){
-//      let temp = this.tool.produceArr(5)
-//      this.common.ballData = this.common.ballData.map((item,index) => {
-//            let flag = true
-       
-//            item.value = item.value.map((ele,index) => {
-//                if(temp.indexOf(index) != -1 && flag){
-//                    temp.splice(temp.indexOf(index),1)
-//                    flag = false
-//                    return 1
-//                }else{
-//                    return 0
-//                }
-//            })
-//            return item
+  getCount(){
+      console.log('zhixuanzuhe')
+      let flag = this.common.ballData.every(item => {
+          return item.value.some(ele => ele == 1)
+      }), count = 5
       
-//      })
-//      this.calculate()
-//   }
-
- calculate(){
-    console.log('zhixuanzuhe')
-    let flag = this.common.ballData.every(item => {
-         return item.value.some(ele => ele == 1)
-    }), count = 5
-    
-    if(flag){
-      this.common.ballData.forEach(item => {
-           count *= item.value.filter(ele => ele == 1).length
-      })
-    }else{
-      count = 0
-    }
-      
-    this.common.count = count 
-    let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
-    this.common.betPrice = this.common.count*2*percent
- }
-
+      if(flag){
+        this.common.ballData.forEach(item => {
+            count *= item.value.filter(ele => ele == 1).length
+        })
+      }else{
+        count = 0
+      }
+      return count
+  }
 }

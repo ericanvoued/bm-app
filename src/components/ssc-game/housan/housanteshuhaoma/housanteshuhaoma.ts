@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonProvider } from '../../../../providers/common/common'
+import { ToolsProvider } from '../../../../providers/tools/tools'
+
 import { UtilProvider } from '../../../../providers/util/util'
+import { commonMethod } from '../../../common.method'
+import { BasketDataProvider } from '../../../../providers/basket-data/basket-data'
 /**
  * Generated class for the HousanteshuhaomaComponent component.
  *
@@ -11,12 +15,12 @@ import { UtilProvider } from '../../../../providers/util/util'
   selector: 'housanteshuhaoma',
   templateUrl: 'housanteshuhaoma.html'
 })
-export class HousanteshuhaomaComponent {
+export class HousanteshuhaomaComponent extends commonMethod{
 
   text: string;
 
-  constructor(public common:CommonProvider, public util:UtilProvider){
-    console.log('Hello HousanteshuhaomaComponent Component');
+  constructor(public common:CommonProvider, public util:UtilProvider, public tool:ToolsProvider,public basket:BasketDataProvider) {
+    super(common,util,basket) 
     this.common.ballData = [
         {"key":"特殊号码", "value":[0,0,0]}             
       ]
@@ -33,25 +37,8 @@ export class HousanteshuhaomaComponent {
     }
   }
 
-  changeToggle(row,column){
-    console.log('wwww')
-    if(column!=null){
-      this.common.ballData = this.common.ballData.map((item,index) => {
-        if(index == row){
-            item.value = item.value.map((ele,index) => {
-                if(index == column){
-                    return ele == 1 ? 0 : 1
-                }else{
-                    return ele
-                }
-            })
-            return item
-        }else{
-            return item
-        }
-    })
-    }
-     //this.calculate()
-   }
+  getLotteryText(){ 
+    return this.getCommonData().map(ele =>  ele.map(item => this.qqq(item))).join(' ')
+  }
 
 }

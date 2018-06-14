@@ -17,7 +17,7 @@ import { BasketDataProvider } from '../../../../providers/basket-data/basket-dat
   templateUrl: 'qianerzuxuandantuo.html'
 })
 export class QianerzuxuandantuoComponent extends commonMethod{
-
+  arr:any = []
   text: string;
 
   constructor(public common:CommonProvider, public util:UtilProvider,public tool:ToolsProvider,public basket:BasketDataProvider) {
@@ -27,7 +27,7 @@ export class QianerzuxuandantuoComponent extends commonMethod{
     this.text = 'Hello World';
   }
 
-  randomChoose(number?){
+  randomOneOrder(){
     let temp,arr;
     this.common.ballData = this.common.ballData.map((item,index) => {
      
@@ -53,6 +53,73 @@ export class QianerzuxuandantuoComponent extends commonMethod{
           return item
       }
     })
-   // this.calculate()
+     this.calculate()
   }
+
+  changeToggle(row,column){
+    if(row == 0) {
+       if(this.common.ballData[row].value[column]){
+           this.arr.splice(this.arr.indexOf(column),1)
+       }else{
+           if(this.arr.length == 1)
+              this.arr.pop()
+           this.arr.push(column)
+       }
+    }else{
+       if(this.common.ballData[0].value[column])
+           this.arr.splice(this.arr.indexOf(column),1)
+    }
+    console.log(this.arr)
+   
+    this.common.ballData = this.common.ballData.map((item,index1) => {
+        if(index1 == row){
+            if(row == 0){
+              item.value = item.value.map((ele,index2) => {
+                
+                if(this.arr.indexOf(index2) != -1){
+                    return 1
+                }else{
+                    return 0
+                }
+              })
+            }else{
+              item.value = item.value.map((ele,index2) => {
+                
+                if(index2 == column){
+                   return ele == 1 ? 0 : 1
+                }else{
+                    return ele
+                }
+               })
+             }
+
+           return item
+        }else{
+            item.value = item.value.map((ele,index2) => {
+              
+              if(index2 == column){
+                  return ele == 1 ? 0 : ele
+              }else{
+                  return ele
+              }
+            })
+          
+            return item
+        }
+      })
+      console.log(this.common.ballData)
+      this.calculate()
+  } 
+
+//   getCount(){
+//     let count = 0;
+//     let data = this.getOriginData()
+
+//     if(data.first.length == 1){
+//     count = data.second.length < 2 ? 0 : this.tool.zuhe1(data.second.length,2)
+//     }else if(data.first.length == 2){
+//     count =  data.second.length
+//     }
+//     return count
+// }
 }

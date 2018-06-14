@@ -1,4 +1,11 @@
 zhixuanhezhi {
-   
-    
+   .qihao-number::-webkit-scrollbar {
+      display: none;
+   }
+
+   .qihao-number{width:100%;height:30px;line-height:30px;font-size:15px}
+
+   .qihao-head{background:#D6DAFF;border-right:1px solid #ffffff}
+
+   .ball-content{display:flex;align-items:center;justify-content:center;border-left:1px solid #f0f0f0}
 }

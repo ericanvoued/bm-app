@@ -26,16 +26,16 @@ export class RenxuansizhongsidantuoComponent extends commonMethod{
     this.text = 'Hello World';
   }
 
-  randomChoose(number?){
-    let temp,arr;
+  randomOneOrder(){
+    let tempArr,arr;
     this.common.ballData = this.common.ballData.map((item,index) => {
      
       if(index == 0){
           this.arr = []
-          temp = this.tool.produceRandom5(1 + Math.floor(Math.random()*3)) 
-          this.arr.push(...temp)
+          tempArr = this.tool.produceRandom5(1 + Math.floor(Math.random()*3)) 
+          this.arr.push(...tempArr)
           item.value = item.value.map((ele,index) => {
-              if(temp.indexOf(index) != -1){
+              if(tempArr.indexOf(index) != -1){
                   
                   return 1
               }else{
@@ -44,7 +44,7 @@ export class RenxuansizhongsidantuoComponent extends commonMethod{
           })
           return item
       }else{
-          arr = this.tool.produceRandom5(4 - temp.length,temp)
+          arr = this.tool.produceRandom5(4 - tempArr.length,tempArr)
           item.value = item.value.map((ele,index) => {
             if(arr.indexOf(index) != -1){
                 return 1
@@ -111,26 +111,7 @@ export class RenxuansizhongsidantuoComponent extends commonMethod{
       this.calculate()
   } 
 
-  getOriginData():any{
-    // let erchong = [], danhao = []
-     let first = [], second = []
-     this.common.ballData.forEach((ele,index) => {
-          if(index == 0){
-             ele.value.forEach((item,index) => {
-                 if(item)
-                   first.push(index)
-             })
-          }else{
-             ele.value.forEach((item,index) => {
-                 if(item)
-                   second.push(index)
-              })
-          }
-     })
-     return {first, second}
-  }
-
-  calculate(){
+  getCount(){
     let count = 0;
     let data = this.getOriginData()
 
@@ -141,8 +122,7 @@ export class RenxuansizhongsidantuoComponent extends commonMethod{
     }else if(data.first.length == 3){
        count =  data.second.length
     }
-    this.common.count = count
-    let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
-    this.common.betPrice = this.common.count*2*percent
+    return count
   }
+
 }

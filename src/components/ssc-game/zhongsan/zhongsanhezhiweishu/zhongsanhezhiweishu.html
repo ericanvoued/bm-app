@@ -9,13 +9,19 @@
 
     <div class="r">
         <div class="ball-list">
-            <ul>
-                <li *ngFor="let item of data.value.slice(0,5);let i = index" [class.current]="item == 1" (click)="changeToggle(ii,i)">{{i}}</li>
-            </ul>
+                <ul class="ball-choose">
+                        <li *ngFor="let item of data.value.slice(0,5);let i = index" [class.current]="item == 1" (click)="changeToggle(ii,i)">
+                            {{i}}
+                            <span class="tip-block">{{i}}</span>
+                        </li>
+                    </ul>
 
-            <ul>
-                <li *ngFor="let item of data.value.slice(-5);let i = index" [class.current]="item == 1" (click)="changeToggle(ii,i+5)">{{qqq(i)}}</li>
-            </ul>
+                    <ul class="ball-choose">
+                        <li *ngFor="let item of data.value.slice(-5);let i = index" [class.current]="item == 1" (click)="changeToggle(ii,qqq(i))">
+                            {{qqq(i)}}
+                            <span class="tip-block">{{qqq(i)}}</span>
+                        </li>
+                    </ul>
 
             <div class="btn-list">
                 <a href="javascript:;" *ngFor="let detail of common.btn[ii];let j = index" [class.current]="detail.flag">{{detail.name}} <span></span></a>

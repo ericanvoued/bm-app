@@ -27,28 +27,6 @@ export class ZhongsanzhixuankuaduComponent extends commonMethod{
     return number + 5
   }
 
-
-  changeToggle(row,column){
-    console.log('wwww')
-    if(column!=null){
-       this.common.ballData = this.common.ballData.map((item,index) => {
-          if(index == row){
-              item.value = item.value.map((ele,index) => {
-                  if(index == column){
-                      return ele == 1 ? 0 : 1
-                  }else{
-                      return ele
-                  }
-              })
-              return item
-          }else{
-              return item
-          }
-      })
-    }
-     this.calculate()
-   }
-
    getOriginData(){
     let arr = []
     this.common.ballData.forEach((ele,number) => {
@@ -60,15 +38,13 @@ export class ZhongsanzhixuankuaduComponent extends commonMethod{
     return arr
  }
 
- calculate(){
-  let count = 0
-  this.getOriginData().forEach(element => {
-       count += this.mathResult(element).length
-  })
-  this.common.count = count 
-  let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
-  this.common.betPrice = this.common.count*2*percent
-}
+ getCount(){
+    let count = 0
+    this.getOriginData().forEach(element => {
+        count += this.mathResult(element).length
+    })
+    return count
+ }
 
 //计算各种结果
 mathResult(num){

@@ -23,6 +23,7 @@ import { Qisanzuxuan6Component } from './ssc-game/qiansan/qisanzuxuan6/qisanzuxu
 import { QisanzuxuanhezhiComponent } from './ssc-game/qiansan/qisanzuxuanhezhi/qisanzuxuanhezhi'
 import { QisanbaodanComponent } from './ssc-game/qiansan/qisanbaodan/qisanbaodan'
 import { QisantesuhaomaComponent } from './ssc-game/qiansan/qisantesuhaoma/qisantesuhaoma'
+import { QiansanhezhiweishuComponent} from './ssc-game/qiansan/qiansanhezhiweishu/qiansanhezhiweishu'
 
 import { ZhongsanzhixuanfushiComponent } from './ssc-game/zhongsan/zhongsanzhixuanfushi/zhongsanzhixuanfushi'
 import { ZhongsanzhixuanhezhiComponent } from './ssc-game/zhongsan/zhongsanzhixuanhezhi/zhongsanzhixuanhezhi'
@@ -120,6 +121,7 @@ export let gameConfig = {
     "前三组选和值":QisanzuxuanhezhiComponent,
     "前三包胆":QisanbaodanComponent,
     "前三特殊号码": QisantesuhaomaComponent,
+    "前三和值尾数": QiansanhezhiweishuComponent,
     
     "中三直选复式":ZhongsanzhixuanfushiComponent,
     "中三直选和值":ZhongsanzhixuanhezhiComponent,

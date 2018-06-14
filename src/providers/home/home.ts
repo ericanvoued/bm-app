@@ -68,20 +68,34 @@ export class HomeProvider {
     console.log(this.homeData.lottoryList)
   }
 
+<<<<<<< HEAD
 
   //通知
   async loadannouncements() {
     this.infoData.announcements = (await this.http.fetchData('/h5api-announcements?_t=' + this.userInfo.auth_token)).data;
+=======
+  constructor(public http: HttpClient,public rest: RestProvider) {
+ 
+>>>>>>> dd0a4826b1dc93f66dad504f7526a00ea2f091b7
   }
 
   async announcementsUnreadnum() {
     this.infoData.unreadAnnouncements = (await this.http.fetchData('/h5api-announcements/unreadnum?_t=' + this.userInfo.auth_token)).data.tplData.successful.Num;
   }
 
+<<<<<<< HEAD
   //通知轮播内容
   async loadbanner() {
     this.homeData.banner = (await this.http.fetchData('/h5api-announcements/banner?_t=' + this.userInfo.auth_token)).data.banner;
     console.log(this.homeData.banner)
+=======
+  ionViewLoaded(){
+    // this.getLottoryList()
+    this.HomeData.storage = JSON.parse(localStorage.getItem('userInfo'));
+    console.log( this.HomeData.storage)
+    this.getLottoryList(this.HomeData.storage.auth_token)
+    this.getBanner(this.HomeData.storage.auth_token)
+>>>>>>> dd0a4826b1dc93f66dad504f7526a00ea2f091b7
   }
 
   // 获取热门彩种
