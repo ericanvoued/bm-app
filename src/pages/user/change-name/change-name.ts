@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController} from 'ionic-angular';
 import { TabsPage } from '../../tabs/tabs';
-import {Storage} from '@ionic/storage';
 import { LoadingProvider } from '../../../providers/loading/loading'
-
+import { HttpClientProvider } from '../../../providers/http-client/http-client'
 
 @IonicPage()
 @Component({
@@ -18,7 +17,7 @@ export class ChangeNamePage{
     nameInfo : {},
     loading:{},
     data:{
-      username:''
+      nickname:''
     }
   };
 
@@ -27,47 +26,54 @@ export class ChangeNamePage{
     public toastCtrl: ToastController,
     public loadPrd:LoadingProvider,
     public LoadingCtrl: LoadingController,
-    public storage: Storage,
+    public http:HttpClientProvider,
     public navCtrl: NavController,
     public navParams: NavParams) {
 
     this.userData.data = JSON.parse(localStorage.getItem("userInfo"));
-    this.userData.oldName = this.userData.data.username;
-      // this.storage.get('userInfo').then((val) => {
-      //   if(val==null){
-      //     this.userData = null;
-      //   }else{
-      //     this.userData.data = val;
-      //     this.userData.oldName = this.userData.data.username;
-      //   }
-      // })
-  }
-
-  ionViewWillEnter() {
+    this.userData.oldName = this.userData.data.nickname;
 
   }
 
-  changeNane(){
-    if(this.userData.data.username.length==0){
+
+  async changeNane(){
+    if(this.userData.data.nickname.length==0){
       this.userData.nameInfoFlag = true;
       this.userData.nameInfo = '昵称不能为空';
       return
-    }else if(this.userData.oldName == this.userData.data.username){
+    }else if(this.userData.oldName == this.userData.data.nickname){
       this.userData.nameInfoFlag = true;
       this.userData.nameInfo = '新旧昵称相同';
       return
     }else {
+      console.log(this.userData.data)
       this.userData.loading = this.loadPrd.showLoading(this.LoadingCtrl, '昵称修改中...');
 
-      // this.storage.set('userInfo',this.userData.data);
-      localStorage.userInfo = JSON.stringify(this.userData.data);
+      await this.http.postData('/h5api-users/resetpersonalinfo?_t='+this.userData.data.auth_token,{
+        'Content-Type':'application/x-www-form-urlencoded',
+        '_token':this.userData.data.token,
+        'nickname':this.userData.data.nickname
 
-      setTimeout(() => {
-        this.userData.loading = this.loadPrd.showToast(this.toastCtrl, '昵称修改成功');
-        this.navCtrl.setRoot(TabsPage,{
-          pageIndex:3
-        });
-      },1500)
+      }).then(data=>{
+        console.log(data)
+        if(data.isSuccess==1){
+          localStorage.userInfo = JSON.stringify(this.userData.data);
+          this.userData.loading = this.loadPrd.showToast(this.toastCtrl, '昵称修改成功');
+          this.navCtrl.setRoot(TabsPage,{
+            pageIndex:3
+          });
+        }
+
+      })
+      // this.storage.set('userInfo',this.userData.data);
+      // localStorage.userInfo = JSON.stringify(this.userData.data);
+      //
+      // setTimeout(() => {
+      //   this.userData.loading = this.loadPrd.showToast(this.toastCtrl, '昵称修改成功');
+      //   this.navCtrl.setRoot(TabsPage,{
+      //     pageIndex:3
+      //   });
+      // },1500)
 
     }
   }

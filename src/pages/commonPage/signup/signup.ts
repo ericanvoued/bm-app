@@ -138,7 +138,7 @@ export class SignupPage {
           });
         } else {
           this.signData.loading.dismiss();
-          this.tost = this.loadPrd.showToast(this.ToastCtrl, data.Msg);
+          this.signData.toast = this.loadPrd.showToast(this.ToastCtrl, data.Msg);
         }
 
       })

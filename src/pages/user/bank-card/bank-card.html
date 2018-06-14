@@ -18,44 +18,20 @@
   </div>
   <!--有银行卡-->
   <div class="has-bank-card-content common-form" *ngIf="bcData.bankList.length!==0">
-    <div class="lock-info" text-end>卡片已锁 <i class="firecat-icon unlocked-icon" [ngClass]="{'lock-icon':bcData.isLocked}" (click)="toggleLockCard()"></i></div>
-    <div class="card-list" [ngClass]="{'isLocked':bcData.isLocked}">
-      <div class="card-unit bank-cmb" (click)="enterUnbindCard()">
-        <div class="bank-logo"><i class="firecat-icon s-cmb-icon"></i></div>
+    <div class="lock-info" text-end>{{bcData.isLocked==true?'卡片已锁':"一键锁卡"}} <i class="firecat-icon unlocked-icon" [ngClass]="{'lock-icon':bcData.isLocked}" (click)="toggleLockCard(bank)"></i></div>
+    <div class="card-list" [ngClass]="{'isLocked':bcData.isLocked==true}">
+      <div class="card-unit bank-{{bank.identifier}}" *ngFor="let bank of bcData.bankList"
+           (click)="enterUnbindCard(bank)">
+        <div class="bank-logo"><i class="firecat-icon s-{{bank.identifier}}-icon"></i></div>
         <div class="bank-info">
-          <h4>招商银行</h4>
+          <h4>{{bank.bank}}</h4>
           <p class="card-type">储蓄卡</p>
-          <p>**** **** **** **** 123</p>
-        </div>
-      </div>
-
-      <div class="card-unit bank-ib">
-        <div class="bank-logo"><i class="firecat-icon s-abc-icon"></i></div>
-        <div class="bank-info">
-          <h4>招商银行</h4>
-          <p class="card-type">储蓄卡</p>
-          <p>**** **** **** **** 123</p>
-        </div>
-      </div>
-      <div class="card-unit bank-icbc">
-        <div class="bank-logo"><i class="firecat-icon s-bc-icon"></i></div>
-        <div class="bank-info">
-          <h4>招商银行</h4>
-          <p class="card-type">储蓄卡</p>
-          <p>**** **** **** **** 123</p>
-        </div>
-      </div>
-      <div class="card-unit bank-pb">
-        <div class="bank-logo"><i class="firecat-icon s-ccb-icon"></i></div>
-        <div class="bank-info">
-          <h4>招商银行</h4>
-          <p class="card-type">储蓄卡</p>
-          <p>**** **** **** **** 123</p>
+          <p>{{formatBankNumber(bank.account)}}</p>
         </div>
       </div>
     </div>
     <div class="submit-row">
-      <button class="submit-button">+添加银行卡</button>
+      <button class="submit-button" (click)="addBankCard()">+添加银行卡</button>
     </div>
     <div class="common-form-info clearfix">
       <h4>温馨提示</h4>

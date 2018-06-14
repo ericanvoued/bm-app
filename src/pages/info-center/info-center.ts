@@ -30,33 +30,11 @@ export class InfoCenterPage {
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
   }
 
-
-  ngOnInit(): void{
-    this.infoData.announcements.data = ['ddd']
-    this.infoData.letters.data = ['ddd']
-  }
-
   ionViewWillEnter(){
-    this.loadannouncements();
-    this.letterUnreadnum();
-    this.loadLetters();
-    this.announcementsUnreadnum();
-  }
-
-  async letterUnreadnum() {
-    this.infoData.unreadLetter = (await this.http.fetchData('/h5api-station-letters/unreadnum?_t=' + this.userInfo.auth_token)).data.tplData.successful.Num;
-  }
-
-  async loadLetters() {
-    this.infoData.letters = (await this.http.fetchData('/h5api-station-letters/?_t=' + this.userInfo.auth_token)).data;
-
-  }
-  async announcementsUnreadnum() {
-    this.infoData.unreadAnnouncements = (await this.http.fetchData('/h5api-announcements/unreadnum?_t=' + this.userInfo.auth_token)).data.tplData.successful.Num;
-
-  }
-  async loadannouncements() {
-    this.infoData.announcements = (await this.http.fetchData('/h5api-announcements?_t=' + this.userInfo.auth_token)).data;
+    this.infoCenterProd.loadannouncements();
+    this.infoCenterProd.letterUnreadnum();
+    this.infoCenterProd.loadLetters();
+    this.infoCenterProd.announcementsUnreadnum();
   }
 
 

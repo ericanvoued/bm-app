@@ -1,0 +1,19 @@
+<div class="lk-container">
+  <table>
+    <tr>
+      <th class="lk-unit">期号</th>
+      <th class="lk-unit">开奖号码</th>
+      <th class="lk-unit">总和</th>
+      <th class="lk-unit">大小</th>
+      <th class="lk-unit">单双</th>
+    </tr>
+    <tr *ngFor="let result of resultsData.data">
+      <td>{{result.number.slice(-6)}}期</td>
+      <td class="num-list"><span *ngFor="let code of result.code">0{{code}}</span></td>
+      <td>{{result.sum}}</td>
+      <td [ngClass]="{'big':result.sum>22,'small':result.sum<23}">{{result.sum>22?'大':'小'}}</td>
+      <td [ngClass]="{'double':result.sum%2==0,'single':result.sum%2==1}">{{result.sum%2==0?'双':'单'}}</td>
+    </tr>
+  </table>
+</div>
+

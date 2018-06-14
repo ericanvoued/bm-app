@@ -85,41 +85,41 @@ page-add-bank-card {
           height: 100%;
         }
 
-        .s-bc-icon {
+        .s-BOCOM-icon {
           background-size: 18px 19px;
         }
 
-        .s-cb-icon {
+        .s-SPDB-icon {
           background-size: 23px 13px;
         }
 
-        .s-ceb-icon {
+        .s-CEB-icon {
           background-size: 23px 12px;
         }
 
-        .s-cgb-icon {
+        .s-GDB-icon {
           background-size: 16px 15.6px;
         }
 
-        .s-CHAINABANK-icon, .s-ctbc-icon, .s-ccb-icon, .s-abc-icon, .s-cmb-icon, .s-psbc-icon {
+        .s-BOC-icon, .s-ICBC-icon, .s-CITIC-icon, .s-ABC-icon, .s-CMB-icon, .s-PSBC-icon {
           background-size: 18px 18px;
         }
 
-        .s-cmbc-icon {
+        .s-CMBC-icon {
           background-size: 20px 17px;
         }
 
-        .s-construtorbank-icon {
+        .s-CCB-icon {
           background-size: 18px 19px;
         }
 
-        .s-hxb-icon {
+        .s-HXB-icon {
           background-size: 20px 18.7px;
         }
-        .s-ib-icon {
+        .s-CIB-icon {
           background-size: 20px 12.7px;
         }
-        .s-pb-icon {
+        .s-PAB-icon {
           background-size: 22px auto;
         }
       }
@@ -199,6 +199,7 @@ page-add-bank-card {
     letter-spacing: 0;
     line-height:36px;
     overflow: scroll;
+    max-height: 300px;
   }
 }
 

@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController,LoadingController,ToastController,AlertController, NavParams } from 'ionic-angular';
-import { LoadingProvider } from '../../../providers/loading/loading';
-import { CommonStatusPage } from '../common-status/common-status';
-import { flyUp } from '../../../animation/flyUp'
+import {Component} from '@angular/core';
+import {IonicPage, NavController, LoadingController, ToastController, AlertController, NavParams} from 'ionic-angular';
+import {LoadingProvider} from '../../../providers/loading/loading';
+import {CommonStatusPage} from '../common-status/common-status';
+import {flyUp} from '../../../animation/flyUp'
 
-import {Storage} from '@ionic/storage';
-import { BankCardProvider } from '../../../providers/bank-card/bank-card'
-import { AddBankCardPage } from '../add-bank-card/add-bank-card'
-import { UnbindBankCardPage } from '../unbind-bank-card/unbind-bank-card'
+import {BankCardProvider} from '../../../providers/bank-card/bank-card'
+import {AddBankCardPage} from '../add-bank-card/add-bank-card'
+import {UnbindBankCardPage} from '../unbind-bank-card/unbind-bank-card'
+
+import {HttpClientProvider} from '../../../providers/http-client/http-client'
 
 @IonicPage()
 @Component({
@@ -20,72 +21,71 @@ import { UnbindBankCardPage } from '../unbind-bank-card/unbind-bank-card'
 export class BankCardPage {
 
   bcData = {
-    authToken:'init',
-    toast:null,
-    isLocked:false,
-    userInfo:null,
-    bankList:[
-      // {
-      //   bankStr:'cmb',
-      //   bankName:'招商银行',
-      //   bankType:'储蓄卡',
-      //   bankNum:'**** **** **** **** 123'
-      // }
-    ]
+    authToken: 'init',
+    toast: null,
+    idArr:[],
+    fund_password: false,
+    isLocked: false,
+    userInfo: null,
+    bankList: []
   }
 
-  constructor(
-    public navCtrl: NavController,
-    public alertCtrl: AlertController,
-    public loadPrd: LoadingProvider,
-    public storage: Storage,
-    public bankCardPrd:BankCardProvider,
-    public loadingCtrl:LoadingController,
-    public toastCtrl:ToastController,
-    public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+              public alertCtrl: AlertController,
+              public loadPrd: LoadingProvider,
+              public http: HttpClientProvider,
+              public bankCardPrd: BankCardProvider,
+              public loadingCtrl: LoadingController,
+              public toastCtrl: ToastController,
+              public navParams: NavParams) {
 
-    this.getUserInfo();
-  }
-
-  getUserInfo(){
-    this.storage.get('userInfo').then((val) => {
-      this.bcData.userInfo = val
-      console.log(this.bcData.userInfo)
-    });
+    this.bcData.userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
   }
 
-  // ionViewWillEnter(){
-  //   this.getUserInfo();
-  // }
-  //
-  // ionViewDidEnter(){
-  //   this.loadBindCardData()
-  // }
-  //
-  // loadBindCardData() {
-  //   console.log(this.bcData.userInfo)
-  //   this.bankCardPrd.getBindCard({
-  //     'Content-Type': 'application/x-www-form-urlencoded',
-  //     '_t': this.bcData.userInfo.auth_token,
-  //     '_token': this.bcData.userInfo._token
-  //   }).subscribe((data) => {
-  //     console.log(data)
-  //   })
-  // }
 
+  ionViewWillEnter() {
+    this.getBankCard().then((data) => {
+      this.bcData.bankList = data.data.bank_cards
+      this.bcData.fund_password = data.data.fund_password
+      for (let i=0,len=this.bcData.bankList.length;i<len;i++){
+        this.bcData.idArr.push(this.bcData.bankList[i].id)
+        if(this.bcData.bankList[i].islock==1){
+          this.bcData.isLocked = true;
+        }else {
+          continue
+        }
+      }
+      console.log(this.bcData.idArr)
+    })
+  }
 
+  //获取用户银行卡列表信息状态等
+  async getBankCard() {
+    return await this.http.fetchData('/h5api-withdrawals/withdraw?_t=' + this.bcData.userInfo.auth_token)
+  }
 
 
   //*************************************添加银行卡*****************************************
   addBankCard() {
-    // this.setPayPsw()
+    if(this.bcData.isLocked){
+      this.bcData.toast = this.loadPrd.showToast(this.toastCtrl, '卡片已锁，添加银行卡功能关闭')
+    }
+    else {
+      if (this.bcData.fund_password) {
+        this.inputPayPsw()
 
-    this.navCtrl.push('AddBankCardPage')
+      } else {
+
+        this.setPayPsw()
+
+      }
+    }
+
   }
 
   //*************************************设置支付密码****************************************
-  setPayPsw(){
+  setPayPsw() {
     let prompt = this.alertCtrl.create({
       title: '请设置支付密码',
       inputs: [
@@ -104,24 +104,37 @@ export class BankCardPage {
         {
           text: '取消',
           handler: data => {
+            console.log(data)
 
           }
         },
         {
           text: '确认',
           handler: data => {
+            this.bcData.toast = this.loadPrd.showLoading(this.loadingCtrl, '资金密码设置中')
             if (data.password != data.comfirmPsw) {
               this.bcData.toast = this.loadPrd.showToast(this.toastCtrl, '两次输入的密码不一致');
               return false
             } else if (data.password.length < 6 || data.password.length > 16) {
               this.bcData.toast = this.loadPrd.showToast(this.toastCtrl, '输入的密码长度不对');
               return false
-            }else{
-              this.navCtrl.push('CommonStatusPage',{
-                title:'银行卡',
-                status:'succeed',
-                text:'恭喜你！支付密码设置成功'
+            } else {
+              this.bcData.toast = this.loadPrd.showToast(this.toastCtrl, '输入的密码长度不对');
+              this.postFoundPsw({psw1: data.password, psw2: data.comfirmPsw}).then(data => {
+                this.bcData.toast.dismiss()
+                console.log(data)
+                if (data.isSuccess == 1) {
+                  this.bcData.toast = this.loadPrd.showToast(this.toastCtrl, data.Msg);
+                  this.navCtrl.push('AddBankCardPage')
+                } else {
+                  this.bcData.toast = this.loadPrd.showToast(this.toastCtrl, data.Msg);
+                }
               })
+              // this.navCtrl.push('CommonStatusPage',{
+              //   title:'银行卡',
+              //   status:'succeed',
+              //   text:'恭喜你！支付密码设置成功'
+              // })
             }
           }
         }
@@ -130,11 +143,67 @@ export class BankCardPage {
     prompt.present();
   }
 
+  //发送设置的资金密码
+  async postFoundPsw(params) {
+    return await this.http.postData('/h5api-users/safe-reset-fund-password?_t=' + this.bcData.userInfo.auth_token, {
+      // 'fund_password':data.password,
+      'fund_password': params.psw1,
+      // 'fund_password_confirmation':data.comfirmPsw,
+      'fund_password_confirmation': params.psw2,
+      '_token': this.bcData.userInfo.token
+    })
+  }
+
+  //发送资金密码
+  async sendFoundPsw(params) {
+    return await this.http.postData('/h5api-users/checkfundpassword?_t=' + this.bcData.userInfo.auth_token, {
+      'fund_password': params.psw1,
+      '_token': this.bcData.userInfo.token
+    })
+  }
+
+
+  //创建支付资金密码表单
+  inputPayPsw() {
+    let prompt = this.alertCtrl.create({
+      title: '请输入支付密码',
+      inputs: [
+        {
+          name: 'password',
+          type: 'password',
+          placeholder: '至少6位，字母和数字组合'
+        }
+      ],
+      buttons: [
+        {
+          text: '取消',
+          handler: data => {
+
+          }
+        },
+        {
+          text: '确认',
+          handler: data => {
+            this.sendFoundPsw({psw1: data.password}).then(data => {
+              console.log(data)
+              if (data.IsSuccess == 1) {
+                this.navCtrl.push('AddBankCardPage')
+              } else {
+                this.bcData.toast = this.loadPrd.showToast(this.toastCtrl, '资金密码错误');
+              }
+            })
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
   //*************************************用户锁卡操作****************************************
-  toggleLockCard(){
-    if(this.bcData.isLocked){
+  toggleLockCard() {
+    if (this.bcData.isLocked) {
       return false;
-    }else {
+    } else {
       let confirm = this.alertCtrl.create({
         title: '提示',
         message: '锁卡后所有银行卡将被锁定，不能再进行所有卡片操作！',
@@ -148,7 +217,22 @@ export class BankCardPage {
           {
             text: '确定',
             handler: () => {
-              this.bcData.isLocked = true;
+              // await this.http.postData()
+              this.bcData.toast = this.loadPrd.showLoading(this.loadingCtrl, '锁卡中')
+              this.postLock().then(data => {
+                this.bcData.toast.dismiss()
+                if (data.isSuccess == 1) {
+                  this.bcData.isLocked = true;
+                  this.bcData.toast = this.loadPrd.showToast(this.toastCtrl, '锁卡成功')
+
+                  this.getBankCard().then((data) => {
+                    this.bcData.bankList = data.data.bank_cards
+                    this.bcData.fund_password = data.data.fund_password
+                  })
+                } else {
+                  this.bcData.toast = this.loadPrd.showToast(this.toastCtrl, '锁卡失败，请重试')
+                }
+              })
             }
           }
         ]
@@ -158,19 +242,26 @@ export class BankCardPage {
 
   }
 
+  //发送一键锁卡请求
+  async postLock() {
+    return await this.http.postData('/h5api-bank-cards/0/card-lock?_t=' + this.bcData.userInfo.auth_token, {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      '_token': this.bcData.userInfo.token,
+      'id':this.bcData.idArr,
+      'status': 1
+    })
+  }
+
   //*************************************用户进入解绑银行卡页面********************************
-  enterUnbindCard(){
-    if(this.bcData.isLocked) return false;
+  enterUnbindCard(bank) {
+    if (bank.islock) return false;
     else {
-      this.navCtrl.push('UnbindBankCardPage',{
-        bankStr:'cmb',
-        bankName:'招商银行',
-        bankType:'储蓄卡',
-        bankNum:'**** **** **** **** 123',
-        userName:this.bcData.userInfo.username
-      })
+      this.navCtrl.push('UnbindBankCardPage', bank)
     }
   }
 
+  formatBankNumber(bankNumber) {
+    return bankNumber.substr(0, 4) + "********" + bankNumber.substr(-4);
+  }
 
 }

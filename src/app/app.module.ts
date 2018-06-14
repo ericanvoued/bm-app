@@ -47,16 +47,13 @@ import { TrendHeadComponent } from '../components/gametrend/trend-head/trend-hea
 import { WuxingComponent } from '../components/gametrend/wuxing/wuxing'
 import { SixingComponent } from '../components/gametrend/sixing/sixing'
 import { ZhixuanhezhiComponent } from '../components/gametrend/qiansan/zhixuanhezhi/zhixuanhezhi'
-import { gameConfig } from './gameComponent'
+import { gameConfig, lottoyCenter } from './gameComponent'
 import { BankCardProvider } from '../providers/bank-card/bank-card';
 import { SignupProvider } from '../providers/signup/signup';
 
 //module模块
-import { LottoryKaijiangComponent } from '../components/lottoyCenter/lottory-kaijiang/lottory-kaijiang'
-import { LottoryDaxiaoComponent } from '../components/lottoyCenter/lottory-daxiao/lottory-daxiao'
-import { Lottory_11YkaijiangComponent } from '../components/lottoyCenter/lottory-11-ykaijiang/lottory-11-ykaijiang'
-import { LottoryDistributeComponent } from '../components/lottoyCenter/lottory-distribute/lottory-distribute'
 import { UserCenterProvider } from '../providers/user-center/user-center';
+import { LottoryCenterProvider } from '../providers/lottory-center/lottory-center';
 
 @NgModule({
   declarations: [
@@ -69,16 +66,13 @@ import { UserCenterProvider } from '../providers/user-center/user-center';
     // HotGmageListPage,
     WuxingComponent,
     SixingComponent,
-    LottoryKaijiangComponent,
-    LottoryDaxiaoComponent,
-    Lottory_11YkaijiangComponent,
-    LottoryDistributeComponent,
     ZhixuanhezhiComponent,
     CountTipComponent,
     LhcSlidePage,
     KsPage,
     ...gameConfig.ssc,
-    ...gameConfig.d5
+    ...gameConfig.d5,
+    ...lottoyCenter.lcList
     // LoginPage,
   ],
   imports: [
@@ -110,12 +104,9 @@ import { UserCenterProvider } from '../providers/user-center/user-center';
     LhcSlidePage,
     KsPage,
     CountTipComponent,
-    LottoryKaijiangComponent,
-    LottoryDaxiaoComponent,
-    Lottory_11YkaijiangComponent,
-    LottoryDistributeComponent,
     ...gameConfig.ssc,
-    ...gameConfig.d5
+    ...gameConfig.d5,
+    ...lottoyCenter.lcList
 
   ],
   providers: [
@@ -141,7 +132,8 @@ import { UserCenterProvider } from '../providers/user-center/user-center';
     BasketDataProvider,
     BankCardProvider,
     SignupProvider,
-    UserCenterProvider
+    UserCenterProvider,
+    LottoryCenterProvider
 
   ]
 })

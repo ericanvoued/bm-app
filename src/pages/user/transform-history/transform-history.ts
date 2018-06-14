@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ChargePage } from '../charge/charge'
+import {HttpClientProvider} from '../../../providers/http-client/http-client'
 
 import * as Hammer from  'hammerjs';
 
@@ -12,13 +13,16 @@ import * as Hammer from  'hammerjs';
 })
 export class TransformHistoryPage {
 
+  userInfo;
   isSlide:boolean = false;
   detail_btn_text:string = '详情'
 
   segmentsArray = ['all','charge','withdraw'];
   transformHistory: string = this.segmentsArray[0];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public http:HttpClientProvider) {
+    this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    this.getChargeHis()
   }
 
   ionViewDidLoad() {
@@ -47,6 +51,17 @@ export class TransformHistoryPage {
     console.log(1)
     this.isSlide = !this.isSlide;
     this.isSlide==true?this.detail_btn_text ='收起':this.detail_btn_text = '详情'
+  }
+
+  //获取充值历史
+  async getChargeHis(){
+    await this.http.postData('/h5api-reports/0/mydeposit?_t='+this.userInfo.auth_token,{
+      'Content-Type':'application/x-www-form-urlencoded',
+      'page':1,
+      '_token':this.userInfo.token
+    }).then(data=>{
+      console.log(data)
+    })
   }
 
   //页面跳转

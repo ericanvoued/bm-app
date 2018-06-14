@@ -5,8 +5,6 @@ import { HomeProvider } from '../../providers/home/home'
 import {HotGmageListPage} from '../hot-gmage-list/hot-gmage-list';
 import { InfoCenterPage } from '../info-center/info-center'
 
-
-import { CommonProvider } from "../../providers/common/common";
 import {LhcSlidePage} from "../lhc/lhc-slide/lhc-slide";
 import {KsPage } from "../k3/ks/ks";
 declare var Swiper;
@@ -16,39 +14,48 @@ declare var Swiper;
   templateUrl: 'home.html'
 })
 export class HomePage {
-
+  userInfo:any;
   banner_swiper: any;
   info_swiper: any;
   homeData: any;
-
-  constructor(
-    public navCtrl: NavController,
-    public homePrv: HomeProvider,
-    public modalCtrl: ModalController,public common:CommonProvider) {
-
-    this.loadData();
-    }
-
-
-  ionViewDidLoad() {
-    this.swiper_init()
+  infoData = {
+    announcements: {data:['ddd']},
+    letters: {data:['ddd']}
   }
 
-  loadData(){
-    this.homeData = this.homePrv.HomeData;
+  constructor(public navCtrl: NavController,
+              public homePrv: HomeProvider,
+              public modalCtrl: ModalController) {
+
+    this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
+
+    this.homePrv.loadbanner();
+    this.homePrv.loadannouncements();
+    this.homePrv.announcementsUnreadnum();
+
+  }
+
+
+
+  ionViewDidEnter(){
+    this.homePrv.loadHotLottory();
+    this.swiper_init()
   }
 
 
   swiper_init() {
-    this.banner_swiper = new Swiper('.swiper-container', {
-      slidesPerView: 'auto',
-      centeredSlides: true,
-      spaceBetween: 5,
-      loop: true,
-      pagination: {
-        el: '.swiper-pagination',
-      },
-    });
+    setTimeout(()=>{
+      this.banner_swiper = new Swiper('.swiper-container', {
+        slidesPerView: 'auto',
+        centeredSlides: true,
+        spaceBetween: 5,
+        loop: true,
+        pagination: {
+          el: '.swiper-pagination',
+        },
+      });
+    },800)
+
 
     this.info_swiper = new Swiper('.info-slider', {
       direction: 'vertical',
@@ -61,15 +68,8 @@ export class HomePage {
     })
   }
 
-  //更多彩种
-  // allGameModel(data) {
-  //   let modal = this.modalCtrl.create(HotGmageListPage,data);
-  //   modal.present();
-  // }
-
   //页面跳转
   pushPage(pageName, data) {
-    console.log(data)
     if (data) {
       this.navCtrl.push(pageName, data)
     } else {
@@ -80,7 +80,7 @@ export class HomePage {
   goToSsc(){
     // this.common.pid.next('./assets/ssc.json')
      this.navCtrl.push('SscPage')
-  }   
+  }
   // goToSsc() {
   //   this.common.pid.next('./assets/ssc.json')
   //   this.navCtrl.push('SscPage')
@@ -99,7 +99,7 @@ export class HomePage {
   goToxuan5(){
      //this.common.pid.next('./assets/115.json')
      this.navCtrl.push('Xuan5Page')
-  }   
+  }
   // goToxuan5() {
   //   console.log('wcndmd')
   //   this.common.pid.next('./assets/115.json')

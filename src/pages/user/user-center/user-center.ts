@@ -3,6 +3,8 @@ import {IonicPage, ToastController, LoadingController, normalizeURL,NavControlle
 import {Storage} from '@ionic/storage';
 import { LoadingProvider } from '../../../providers/loading/loading'
 import {ActionSheetController} from 'ionic-angular';
+import { HttpClientProvider } from '../../../providers/http-client/http-client'
+
 
 //camara
 import {Camera, CameraOptions} from '@ionic-native/camera';
@@ -22,6 +24,8 @@ import {TransDetailPage} from '../trans-detail/trans-detail';
 import {SafeCenterPage} from '../safe-center/safe-center';
 import {MoreOptionPage} from '../more-option/more-option';
 import {PushSetPage} from '../push-set/push-set';
+import { InfoCenterPage } from '../../info-center/info-center'
+import { InvitePage } from '../invite/invite'
 
 declare var cordova: any;
 
@@ -32,16 +36,19 @@ declare var cordova: any;
 })
 export class UserCenterPage {
 
+  unreadAnnouncements:number=0;
   userData: any = null;
   lastImage: string=null;
   toast:any = null;
   userId:string;
+  // userInfo;
 
   constructor(public storage: Storage,
               public platform: Platform,
               private camera: Camera,
               private transfer: Transfer,
               private file: File,
+              public http: HttpClientProvider,
               public toastCtrl: ToastController,
               public loadPrd:LoadingProvider,
               public LoadingCtrl: LoadingController,
@@ -49,8 +56,19 @@ export class UserCenterPage {
               public actionSheetCtrl: ActionSheetController,
               public navCtrl: NavController,
               public navParams: NavParams) {
-
+    this.userData = JSON.parse(localStorage.getItem('userInfo'));
+    this.announcementsUnreadnum();
   }
+
+  async announcementsUnreadnum() {
+    if(this.userData!=null){
+      this.unreadAnnouncements = (await this.http.fetchData('/h5api-announcements/unreadnum?_t=' + this.userData.auth_token)).data.tplData.successful.Num;
+    }
+  }
+
+
+
+
 
   //头像更换
   // changePic() {
@@ -180,14 +198,7 @@ export class UserCenterPage {
   ionViewWillEnter() {
 
     this.userData = JSON.parse(localStorage.getItem('userInfo'));
-    // console.log('sss'+this.userData)
-    // this.storage.get('userInfo').then((val) => {
-    // if (this.userData == null) {
-    //   this.userData = null;
-    // } else {
-    //   this.userData = val;
-    // }
-    // })
+
   }
   //页面跳转
   pushPage(page,needLogin) {

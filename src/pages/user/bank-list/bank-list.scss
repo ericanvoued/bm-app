@@ -28,6 +28,7 @@ page-bank-list {
         transition: all 0.35s;
         img{
           transform: scale(0.75);
+          height: 100%;
         }
         &.current{
           background-image: url("../../../assets/bank-icon/selected.png");
