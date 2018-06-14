@@ -26,7 +26,8 @@
 <ion-content >
   
     <div class="body-bg"></div>
-  <p class="l-info" text-center>距{{common.currentNumber}}期截止 {{common.countTime.minutes}}:{{common.countTime.seconds}}</p>
+  <p class="l-info" text-center *ngIf="!common.countEnd">距{{common.currentNumber}}期截止 {{common.countTime.minutes}}:{{common.countTime.seconds}}</p>
+  <p class="l-info" text-center *ngIf="common.countEnd">本期已截止</p>
   <div class="table" id="touch" >
     <div class="thead clearfix">
       <div class="tr clearfix">

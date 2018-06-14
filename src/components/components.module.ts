@@ -37,7 +37,7 @@ import { AxibaComponent } from './axiba/axiba';
     ZuxuanhezhiComponent,
     ZuxuanliuComponent,
     FooterComponent,
-    AxibaComponent,   
+    AxibaComponent,
     ]
 })
 export class ComponentsModule {}

@@ -39,18 +39,15 @@ page-game-trend {
     canvas{position: absolute;top:0;left:0}
   
     .segment-ios ion-segment-button.segment-activated{
-        border-bottom: 3px solid #F6374E;
+        border-bottom: 2px solid #F6374E;background-color:#FFF9F5 
     }
   
     .segment-ios .segment-button.segment-activated{color:#F6374E}
-    .segment-ios .segment-button{border:none}
+    .segment-ios .segment-button{border:none;color:#666666;font-weight: bold}
   
     .trend-container ul:not(.special){display:flex;justify-content:space-between}
     .trend-category{display:flex;justify-content:space-between}
     //.trend-container li{margin-bottom:25px;width:28px;height:28px;border-radius:50%;line-height: 28px}
-  
-    .trend-container ul li{width:8.5%;height:30px}
-    .trend-container ul li:nth-of-type(1){width:17%}
   
     li.head-num{font-size: 15px;display: flex;justify-content: center;align-items: center}
   
@@ -74,6 +71,9 @@ page-game-trend {
     ul.ball-line{background:rgba(255,255,255,.1)}
     ul.ball-line:nth-of-type(2n){background:#FFFAF7}
 
+    li.qihao-number{background:rgba(255,255,255,.1)}
+    li.qihao-number:nth-of-type(2n+1){background:#FFFAF7}
+    li.qihao-number:nth-of-type(1){background:#D6DAFF}
 
    .trend-category:nth-of-type(4) {
         .head-category{color:#9013FE}
@@ -102,4 +102,81 @@ page-game-trend {
 
     #confirm{width:80px;height:30px;background-image: linear-gradient(137deg, #F3361B  0%, #EC6432 1%, #F5AD58 100%);
         border-radius: 4px;text-align:center;line-height:30px;color:#ffffff}
+
+
+    //跨度 和值    
+    .menus-head {
+        display:flex;font-size:14px;
+        div{padding: 5px 0;text-align: center;background:#DEE2FF;color:#666666 }
+
+        div:nth-of-type(1), div:nth-of-type(2) , div:nth-of-type(3), div:nth-of-type(4){border-right:1px solid #ffffff}
+    }
+
+    li.list-detail{
+        height:30px;
+        &:nth-of-type(2n+1){background: #ffffff}
+        &:nth-of-type(2n){background: #FFFAF7}
+        div{font-size: 14px;color: #666666;line-height: 30px}
+
+        display:flex;width:100%;
+        .ball-detail{
+            width:16%;display:flex;justify-content:center;align-items:center;
+            span{background:#FC6000;color:#D8D8D8;width:20px;height:20px;border-radius:50%;font-size:14px;line-height:20px;text-align:center}
+        }
+
+        div:nth-of-type(1), div:nth-of-type(2) , div:nth-of-type(3), div:nth-of-type(4){border-right:1px solid #F6F6F6;border-bottom:1px solid #F6F6F6 }
+    }    
+
+    //选球区域
+    li.ball-choose span{
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background-image: linear-gradient(-182deg, #FFFFFF 16%, #D5E9F7 100%);
+        box-shadow: 0 1px 2px 0 #A7B5E8;
+        font-family: PingFangSC-Regular;
+        font-size: 12px;
+        color: #666666;
+        letter-spacing: 0;
+        text-align: center;
+        line-height: 18px;
+        &.current {
+          color: #FFFFFF;
+          background-image: linear-gradient(0deg, #F74511 0%, #F98A6A 100%);
+          box-shadow: 0 1px 2px 0 #F3B19F;
+        }
+      }
+
+      ul.choose-content:nth-of-type(1){display:flex;bottom:0;margin-top:10px;padding-bottom:8px}
+      ul.choose-content{display:flex;bottom:0;padding-bottom:8px}
+
+      div.kai-jiang-line{font-size: 12px}
+      
+           
+      //控制开奖颜色号码   
+            div.wuxing{
+               display: flex;color:#F6374E;justify-content: space-between;padding: 0 12px
+            }
+      
+            div.sixing,div.qiansan,div.zhongsan,div.housan,div.qianer,div.houer{
+              display: flex;justify-content: space-between;padding: 0 12px
+           }
+      
+            div.sixing span:nth-of-type(2), div.sixing span:nth-of-type(3), div.sixing span:nth-of-type(4), div.sixing span:nth-of-type(5)
+            {color:#F6374E}
+      
+            div.qiansan span:nth-of-type(1), div.qiansan span:nth-of-type(2), div.qiansan span:nth-of-type(3)
+            {color:#F6374E}
+      
+            div.zhongsan span:nth-of-type(2), div.zhongsan span:nth-of-type(3), div.zhongsan span:nth-of-type(4)
+            {color:#F6374E}
+      
+            div.housan span:nth-of-type(3), div.housan span:nth-of-type(4), div.housan span:nth-of-type(5)
+            {color:#F6374E}
+      
+            div.qianer span:nth-of-type(1), div.qianer span:nth-of-type(2)
+            {color:#F6374E}
+      
+            div.houer span:nth-of-type(4), div.houer span:nth-of-type(5)
+            {color:#F6374E}
 }

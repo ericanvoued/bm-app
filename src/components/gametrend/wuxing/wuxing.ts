@@ -39,6 +39,8 @@ export class WuxingComponent implements OnInit {
 
   constructor(public common:CommonProvider,public util:UtilProvider) {
     console.log('Hello WuxingComponent Component');
+    console.log(this.common.historyList)
+    
     this.historyRecord = this.util.historyNumbers.slice(0,11)
    
   }

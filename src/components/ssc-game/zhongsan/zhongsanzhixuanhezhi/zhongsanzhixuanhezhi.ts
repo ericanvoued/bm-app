@@ -57,7 +57,6 @@ export class ZhongsanzhixuanhezhiComponent extends commonMethod{
    getLotteryText(){
      let arr = []
      this.getCommonData().forEach((ele,index) => ele.forEach((item,index1) => arr.push(('0' + (index*7 + item)).slice(-2) + ' ')))
-     console.log(arr)
      return arr.join('| ')
    }
 

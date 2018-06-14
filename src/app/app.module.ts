@@ -47,6 +47,9 @@ import { WuxingComponent } from '../components/gametrend/wuxing/wuxing'
 import { SixingComponent } from '../components/gametrend/sixing/sixing'
 import { KuadutrendComponent } from '../components/gametrend/kuadutrend/kuadutrend'
 import { ZhixuanhezhiComponent } from '../components/gametrend/qiansan/zhixuanhezhi/zhixuanhezhi'
+import { DaxiaodanshuangComponent } from '../components/gametrend/daxiaodanshuang/daxiaodanshuang'
+
+
 import { gameConfig } from './gameComponent'
 import { BankCardProvider } from '../providers/bank-card/bank-card';
 import { SignupProvider } from '../providers/signup/signup';
@@ -76,6 +79,7 @@ import { BaseToolProvider } from '../providers/base-tool/base-tool';
     SixingComponent,
     KuadutrendComponent,
     ZhixuanhezhiComponent,
+    DaxiaodanshuangComponent,
     CountTipComponent,
     LhcSlidePage,
     KsPage,KsBasketPage,
@@ -111,6 +115,7 @@ import { BaseToolProvider } from '../providers/base-tool/base-tool';
     SixingComponent,
     KuadutrendComponent,
     ZhixuanhezhiComponent,
+    DaxiaodanshuangComponent,
     LhcSlidePage,
     KsPage,KsBasketPage,
     CountTipComponent,

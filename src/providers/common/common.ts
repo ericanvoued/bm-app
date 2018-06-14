@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject} from 'rxjs/Subject';
 import { ComponentRef} from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 
 import { ToolsProvider } from '../tools/tools'
 import { Events } from 'ionic-angular';
@@ -19,6 +20,12 @@ let _ = new observe();
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
+function test(target){
+    console.log('fffff')
+    target.hobby = 'wrgwegwegw'
+}
+
+
 @Injectable()
 export class CommonProvider {
   pid = new Subject();
@@ -39,8 +46,9 @@ export class CommonProvider {
   //xiao wan fa
   smallKind:any;
 
-  //zhixuan zuxuan
+  //是否直选 组选
   bigKind:any;
+  bigKindEn:any;
 
   //是否直选
   zhixuan:boolean = true
@@ -71,6 +79,27 @@ export class CommonProvider {
 
   //历史开奖
   historyList:any[]
+
+  missData:Promise<any>
+
+  //历史遗漏
+//   missLottery:any = {
+//       five:{
+//           current:[
+//                   ['','','','','','','','','',''],['','','','','','','','','',''],['','','','','','','','','',''],['','','','','','','','','',''],['','','','','','','','','','']
+//           ],
+//           hot:[
+//             ['','','','','','','','','',''],['','','','','','','','','',''],['','','','','','','','','',''],['','','','','','','','','',''],['','','','','','','','','','']
+//           ],
+//           average:[
+//             ['','','','','','','','','',''],['','','','','','','','','',''],['','','','','','','','','',''],['','','','','','','','','',''],['','','','','','','','','','']
+//           ]
+//       }
+//   }
+
+  //倒计时是否结束
+  countEnd:boolean = false
+
   // odd even big small
   btn:any[];
   singleBtn:Array<any>;
@@ -91,7 +120,7 @@ export class CommonProvider {
 
   constructor(public tools:ToolsProvider, public http:HttpClientProvider,public modalCtrl: ModalController, public events:Events,private toastCtrl:ToastController,public storage:Storage) {
     console.log('Hello CommonProvider Provider');
-    
+    //this.missData = this.getMissObservable()
     this.pid.subscribe((val) => {
       
         this.gameId = val
@@ -141,6 +170,7 @@ export class CommonProvider {
         
         this.small = this.gameMethodConfig[0].children;
         this.bigKind = this.gameMethodConfig[0].children[0].name_cn
+        this.bigKindEn = this.gameMethodConfig[0].children[0].name_en
 
         this.smallKind = this.gameMethodConfig[0].children[0].children[0]
         this.smallId = this.smallKind.id
@@ -281,54 +311,67 @@ export class CommonProvider {
   })   
  }
 
-countDown(time){
-    this.timer = setInterval(()=> {
-    if(time <1000){
-        clearInterval(this.timer)
-        console.log('wcnmbmb')
-        let modal = this.modalCtrl.create(CountTipComponent, {qishu:123456})
-        modal.present()
-        //this.global.showToast('进入新一期开奖',2000)
-        this.produce()
-    } 
-    this.countTime = this.getTimeRemaining(time)
-    time -= 1000
-    },1000)
-}
-
-getTimeRemaining(t) {
-    let seconds = Math.floor((t / 1000) % 60);
-    let minutes = Math.floor((t / 1000 / 60) % 60);
-    let hours = Math.floor((t / (1000 * 60 * 60)) % 24);
-    let days = Math.floor(t / (1000 * 60 * 60 * 24));
-
-    return {
-      'total': '',
-      'days': '',
-      'hours': ('0' + hours).slice(-2),
-      'minutes': ('0' + minutes).slice(-2),
-      'seconds': ('0' + seconds).slice(-2)
+    countDown(time){
+        this.timer = setInterval(()=> {
+            this.countEnd = false
+            if(time <1000){
+                this.countEnd = true
+                clearInterval(this.timer)
+                
+                let modal = this.modalCtrl.create(CountTipComponent, {qishu:123456})
+                modal.present()
+                //this.global.showToast('进入新一期开奖',2000)
+                this.produce()
+            } 
+            this.countTime = this.getTimeRemaining(time)
+            time -= 1000
+        },1000)
     }
-} 
 
-async fetchRecord():Promise<any>{
-    console.log('fetchdata')
-    this.historyList = (await this.http.fetchData('/api-lotteries-h5/load-issues/' + this.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)).data
-    console.log(this.historyList)
-    return new Promise((resolve,reject) =>{
-      resolve()
-  })
-}
-  
- async getCountDownTime():Promise<any>{
-      let data = (await this.http.postData('/api-lotteries-h5/load-data/1/' + this.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token, {_token:JSON.parse(localStorage.getItem('userInfo')).token})).data
-      console.log(data)
-      this.prizeGroup = []
-      this.prizeGroup.push(data.bet_max_prize_group + '-' + Number((data.user_prize_group - data.bet_max_prize_group)/data.series_amount.toFixed(2)) + '%')
-      this.prizeGroup.push(data.bet_min_prize_group + '-' + Number((data.user_prize_group - data.bet_min_prize_group)/data.series_amount.toFixed(2)) + '%')
-      this.chooseGroup = this.prizeGroup[0]
-      return new Promise((resolve,reject) =>{
-        resolve(data)
-    })
-  }
+    getTimeRemaining(t) {
+        let seconds = Math.floor((t / 1000) % 60);
+        let minutes = Math.floor((t / 1000 / 60) % 60);
+        let hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+        let days = Math.floor(t / (1000 * 60 * 60 * 24));
+
+        return {
+        'total': '',
+        'days': '',
+        'hours': ('0' + hours).slice(-2),
+        'minutes': ('0' + minutes).slice(-2),
+        'seconds': ('0' + seconds).slice(-2)
+        }
+    } 
+
+    async fetchRecord():Promise<any>{
+        console.log('fetchdata')
+        this.historyList = (await this.http.fetchData('/api-lotteries-h5/load-issues/' + this.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)).data
+        console.log(this.historyList)
+        return new Promise((resolve,reject) =>{
+            resolve()
+        })
+    }
+    
+    async getCountDownTime():Promise<any>{
+        let data = (await this.http.postData('/api-lotteries-h5/load-data/1/' + this.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token, {_token:JSON.parse(localStorage.getItem('userInfo')).token})).data
+        console.log(data)
+        this.prizeGroup = []
+        this.prizeGroup.push(data.bet_max_prize_group + '-' + Number((data.user_prize_group - data.bet_max_prize_group)/data.series_amount.toFixed(2)) + '%')
+        this.prizeGroup.push(data.bet_min_prize_group + '-' + Number((data.user_prize_group - data.bet_min_prize_group)/data.series_amount.toFixed(2)) + '%')
+        this.chooseGroup = this.prizeGroup[0]
+        return new Promise((resolve,reject) =>{
+            resolve(data)
+        })
+    }
+
+    getMissObservable(){
+       this.missData =  this.http.fetchData('/api-lotteries-h5/getnewlottterymissed/' + this.gameId + '/30?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)
+    }
+
+    //获取遗漏等数据
+    // async getLotteryMiss(){
+    //     console.log('fetchdata')
+    //     this.missLottery = (await this.http.fetchData('/api-lotteries-h5/getnewlottterymissed/' + this.gameId + '/30?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)).data
+    //     console.log(this.missLottery)
+    // }
 }

@@ -4,7 +4,10 @@ import { BasketDataProvider } from '../../providers/basket-data/basket-data'
 import { CommonProvider } from "../../providers/common/common";
 import { trigger ,state,transition,animate,style} from "@angular/animations";
 import { UtilProvider } from '../../providers/util/util'
+import { HttpClientProvider } from '../../providers/http-client/http-client'
 
+declare var encrypt
+//import { encrypt } from '../../assets/js/Encrypt.js'
 /**
  * Generated class for the BasketPage page.
  *
@@ -39,7 +42,7 @@ export class BasketPage {
 
   componentRef:ComponentRef<any>
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,  public basket:BasketDataProvider, public common:CommonProvider, private alertCtrl: AlertController,public util:UtilProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,  public basket:BasketDataProvider, public common:CommonProvider, private alertCtrl: AlertController,public util:UtilProvider, public http:HttpClientProvider) {
     for(let i = 0;i<30;i++){
        this.arr.push(i)
     }
@@ -67,6 +70,19 @@ export class BasketPage {
     }
     this.basket.statistic.multiple += number
     console.log(this.basket.totalAmount)   
+  }
+
+  changeTrace(number){
+    if(number < 0 && this.basket.statistic.trace == 1)
+      return
+
+   let trace = this.basket.statistic.trace + number
+   if(this.basket.totalAmount*(trace/this.basket.statistic.trace) > this.balance){
+       this.presentRecharge()
+       return 
+   }
+   this.basket.statistic.trace += number
+   console.log(this.basket.totalAmount)   
   }
 
   // 机选一单
@@ -130,5 +146,53 @@ export class BasketPage {
   alert.present();
 }
 
+  confirmBet(){
+     let result = {}, ballsData = this.basket.betData, len = ballsData.length, i = 0;
+     result['gameId'] = this.common.gameId
+     result['isTrace'] = 0
+     result['traceStopValue'] = 1
+     result['traceWinStop'] = 1
+     result['orders'] = {}
+     result['orders'][this.common.currentNumber] = 1
+     result['amount'] = this.basket.totalAmount
+     result['is_encoded'] = 1
+     result['bet_source'] = 'h5'
+     result['_token'] = JSON.parse(localStorage.getItem('userInfo')).token
 
+     result['balls'] = []
+     for (; i < len; i++){
+       console.log('ddd')
+        result['balls'].push({
+          'jsId': ballsData[i]['jsId'],
+          'wayId': ballsData[i]['mid'],
+          'ball': ballsData[i]['lotterysText'],
+          'position':ballsData[i]['position'],
+          'viewBalls':ballsData[i]['viewBalls'],
+          'num': ballsData[i]['num'],
+          'type': ballsData[i]['type'],
+          'onePrice': ballsData[i]['onePrice'],
+          'prize_group':ballsData[i]['prize_group'],
+          'moneyunit': ballsData[i]['moneyUnit'],
+          'multiple': ballsData[i]['multiple']
+        })
+      }
+
+      console.log(result)
+      console.log(encrypt(JSON.stringify(result['balls'])))
+      result['balls'] = encrypt(JSON.stringify(result['balls']))
+
+      let url = '/api-lotteries-h5/bet/' + this.common.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token
+      this.http.postData(url,result).then(data => {
+        console.log(data)
+         if(data.isSuccess == 1){
+          let alert = this.alertCtrl.create({
+            title: '恭喜您',
+            message: '投注已成功，祝你好运!',
+          });
+          alert.present();
+         }
+      
+       }
+      )
+    }
 }

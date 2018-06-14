@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 */
 
 let baseUrl = 'http://user.firecat.com'
+//let baseUrl = '/api'
 
 @Injectable()
 export class HttpClientProvider {

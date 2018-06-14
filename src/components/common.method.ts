@@ -165,6 +165,10 @@ export class commonMethod{
        return this.getCommonData().filter(ele => ele.length > 0).map(ele => ele.map(item => ('0' + item).slice(-2) + ' ').join('')).join('| ')
    }
 
+   getOriginLotteryText(){
+       return this.getCommonData().filter(ele => ele.length > 0).map(ele => ele.join('')).join('|')  
+   }
+
    getPositionArr(){
        return this.choices.length == 0? [] : this.choices.map(ele => ele.choose ? 1 : 0)
    }

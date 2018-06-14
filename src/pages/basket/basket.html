@@ -32,10 +32,10 @@
               </div>
               <div style="display:flex;flex-direction:column;width:80%"> 
                   <div style="border-bottom:1px solid lightgreen;padding:5px 0 5px 0;margin-bottom:5px">
-                      <span class="bet-ball">{{item.lotterysText}}</span>
+                      <span class="bet-ball">{{item.viewBalls}}</span>
                   </div>
                  <div style="display:flex;justify-content:space-between">
-                    <span>{{item.typeText}}</span>    共{{item.number}}注 {{item.amount}}元
+                    <span>{{item.type}}</span>    共{{item.num}}注 {{item.num*item.moneyUnit}}元
                  </div>
               </div>
               <!-- <div><span>{{item.gameName}}</span>    共{{item.count}}注 {{item.price}}元
@@ -67,11 +67,11 @@
           <div style="line-height:30px;">
               <div class="trace">追号:</div> 
               <div style="float:left;background:#F3F3F3;width:100px;height:30px;border-radius:30px;padding:2px">
-                <div class="down" >
+                <div class="down" (click)="changeTrace(-1)">
                     -
                 </div>
-                    <div class="trace-number">1</div>
-                  <div class="up" >
+                    <div class="trace-number">{{basket.statistic.trace}}</div>
+                  <div class="up" (click)="changeTrace(1)">
                         +
                 </div>
               </div> 
@@ -105,7 +105,7 @@
           <div>余额：¥{{balance - basket.totalAmount}}</div>
         </div>
        <div>共 {{basket.totalAmount}} 元</div> 
-       <div style="width:100px;background:url('assets/imgs/games/now-bet.png')">
+       <div style="width:100px;background:url('assets/imgs/games/now-bet.png')" (click)="confirmBet()">
 
        </div>
   </div>

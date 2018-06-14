@@ -99,7 +99,7 @@
                        
                             <div *ngFor ="let item of kaijiangData" class="kai-jiang-line erxing">
                                 <div >{{item.number}}</div>
-                                <div class="qianerfushi"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                                <div class="qianer"><span *ngFor="let aa of item.history">{{aa}}</span></div>
                                 <div >{{item.wan}}</div>
                                 <div >{{item.qian}}</div>
                             </div>
@@ -112,7 +112,7 @@
                        
                             <div *ngFor ="let item of kaijiangData" class="kai-jiang-line erxing">
                                 <div >{{item.number}}</div>
-                                <div class="houerfushi"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                                <div class="houer"><span *ngFor="let aa of item.history">{{aa}}</span></div>
                                 <div >{{item.shi}}</div>
                                 <div >{{item.ge}}</div>
                             </div>
@@ -157,7 +157,7 @@
               </li>
           </ul>
 
-        </div>
+    </div>
        <!-- <ion-infinite-scroll  *ngIf="!finish" (ionInfinite)="doInfinite($event)" immediate-check="false" >
             <ion-infinite-scroll-content
                 loadingSpinner="bubbles"
@@ -173,7 +173,7 @@
           
             <div *ngIf="common.method != '任选'">
                     <div *ngIf="common.bigKind == '直选'">
-                            <ul style="display:flex;bottom:0;margin-top:10px;padding-bottom:8px">
+                            <ul class="choose-content">
                                     <li class="head-num" style="width:17%;font-size:10px">{{ii}}</li>
                                     <li class="head-num ball-choose" style="width:8.5%" [class.current]="item == 1" *ngFor="let item of common.ballData[i].value;let j=index" >
                                         <span [class.current]="item == 1" (click)="toggle(i,j)">{{j}}</span>
@@ -187,13 +187,12 @@
                                     </div>
                             </div>
                     </div>
-        
-                  
+            
                     <div  *ngIf="common.bigKind != '直选'">
-                        <ul style="display:flex;padding-bottom:8px" *ngFor="let item of common.ballData;let row=index">
-                            <li class="head-num" style="width:17%;">{{processName(item.key)}}</li>
+                        <ul class="choose-content" *ngFor="let item of common.ballData;let row=index">
+                            <li class="head-num" style="width:17%;color:#333333;font-size:12px">{{processName(item.key)}}</li>
                             <li class="head-num ball-choose" style="width:8.5%"  *ngFor="let item of item.value;let column=index" >
-                                <span [class.current]="item == 1" (click)="toggle(row,column)">{{column}}</span>
+                                <span [class.current]="item == 1" (click)="common.componentRef.instance.changeToggle(row,column)">{{column}}</span>
                             </li>
                         </ul>
         

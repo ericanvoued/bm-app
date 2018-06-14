@@ -135,8 +135,12 @@ export class UtilProvider {
 
   fakeTrend:Array<any> = []
 
+  //http://user.firecat.com/api-lotteries-h5/load-issues/1?_t=e182334981f44d206cc70ddd6c05293a
+
   constructor(public http: HttpClientProvider,public common:CommonProvider, public vibration: Vibration) {
     console.log('Hello UtilProvider Provider');
+
+    
 
     this.fakeTrend = [0,1,2,3,4].reduce((a,b) =>{
         let arr = []

@@ -88,8 +88,6 @@ export class SscPage extends Effect{
             }   
         })
 
-        
-
         this.common.initData().then(
             () => {
                 this.gameContainer.clear()
@@ -110,6 +108,9 @@ export class SscPage extends Effect{
                            })
             }
         )
+
+        //this.common.getLotteryMiss()
+        this.common.getMissObservable()
 
         //this.over = this.record.length > 2 ? false:true
     }

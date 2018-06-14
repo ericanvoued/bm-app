@@ -159,14 +159,16 @@ export class HomeProvider {
   }
 
   constructor(public http: HttpClient,public rest: RestProvider) {
-    this.HomeData.storage = JSON.parse(localStorage.getItem('userInfo'));
-    this.getLottoryList(this.HomeData.storage.auth_token)
-    this.getBanner(this.HomeData.storage.auth_token)
+ 
   }
 
 
   ionViewLoaded(){
     // this.getLottoryList()
+    this.HomeData.storage = JSON.parse(localStorage.getItem('userInfo'));
+    console.log( this.HomeData.storage)
+    this.getLottoryList(this.HomeData.storage.auth_token)
+    this.getBanner(this.HomeData.storage.auth_token)
   }
 
   getLottoryList(auto_token: string = 'init'){

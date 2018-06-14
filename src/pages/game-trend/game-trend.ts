@@ -26,8 +26,6 @@ export class GameTrendPage {
   @ViewChild("gameTrendContainer", { read: ViewContainerRef }) container: ViewContainerRef;
   @ViewChild("noshowContainer", { read: ViewContainerRef }) nocontainer: ViewContainerRef;
 
-  
-
   observable: Observable<any>;
   observer: Observer<any>;
 
@@ -48,6 +46,8 @@ export class GameTrendPage {
     this.events.subscribe('changeIndex', (val) => {
        this.segmentChanged(val)
     })
+
+    this.common.fetchRecord()
   }
 
   ionViewWillEnter(){
@@ -60,45 +60,40 @@ export class GameTrendPage {
    }
 
   drawCanvas(){
-    if(this.common.smallMethod == '直选和值'){
-      let containers = document.getElementsByClassName('hezhi-container')
+    let methodName = this.common.method + this.common.smallMethod
+    if(["前三直选和值", "前三组选和值", "中三直选和值", "中三组选和值", "后三直选和值", "后三组选和值", "二星后二和值", "二星前二和值"].indexOf(methodName) != -1){
+    //if(this.common.smallMethod == '直选和值'){
+      //let container = document.getElementsByClassName('trend-container')[0],canvas = container.getElementsByTagName('canvas')[0]
+      let container = document.getElementById('trend-container'),canvas = container.querySelector('canvas')
       // 加载新数据后需要清楚canvas
-      for(let i = 0;i<containers.length;i++){
-           let canvas = containers[i].querySelector('canvas')
-           if(canvas){
-              let ctx = canvas.getContext('2d')
-              ctx.clearRect(0,0,canvas.width,canvas.height)
-              containers[i].removeChild(canvas)
-           }
+     // for(let i = 0;i<containers.length;i++){
+          
+      if(canvas){
+          let ctx = canvas.getContext('2d')
+          ctx.clearRect(0,0,canvas.width,canvas.height)
+          container.removeChild(canvas)
+      } 
+      canvas = document.createElement('canvas')
+      canvas.width = container.offsetWidth
+      canvas.height = container.offsetHeight
+      canvas.setAttribute('id','canvas')
+      container.appendChild(canvas)
+      let ctx = canvas.getContext('2d')
+      ctx.strokeStyle = '#7ED321'
+      ctx.lineWidth = 1
+      ctx.beginPath();
+      let nodes = container.querySelectorAll('.highlight')
+      for(let i=0; i< nodes.length; i++){
+
+          if(i == 0)
+            ctx.moveTo(nodes[i].offsetLeft + 10,nodes[i].offsetTop + 10)
+          else
+            ctx.lineTo(nodes[i].offsetLeft + 10,nodes[i].offsetTop + 10)
       }
-
-      console.log(containers.length)
-      for(let i = 0;i<containers.length;i++){
-
-        let container = containers[i]
-        let canvas = document.createElement('canvas')
-        canvas.width = container.offsetWidth
-        canvas.height = container.offsetHeight
-        canvas.setAttribute('id','canvas')
-        container.appendChild(canvas)
-        let ctx = canvas.getContext('2d')
-        ctx.strokeStyle = this.getCtxColor(i)
-        console.log(this.getCtxColor(i))
-        ctx.lineWidth = 1
-        ctx.beginPath();
-        let nodes = container.querySelectorAll('.highlight')
-        for(let i=0; i< nodes.length; i++){
-            console.log(nodes.length)
-            if(i == 0)
-              ctx.moveTo(nodes[i].offsetLeft + 14,nodes[i].offsetTop + 14)
-            else
-              ctx.lineTo(nodes[i].offsetLeft + 14,nodes[i].offsetTop + 14)
-        }
-        ctx.stroke()
-        ctx.closePath()
-    }
-}
-else{
+      ctx.stroke()
+      ctx.closePath()
+    
+   }else{
       let containers = document.getElementsByClassName('trend-container')
       // 加载新数据后需要清楚canvas
       for(let i = 0;i<containers.length;i++){
@@ -124,17 +119,15 @@ else{
               ctx.beginPath();
               let nodes = container.querySelectorAll('.highlight')
               for(let i=0; i< nodes.length; i++){
-                  console.log(nodes.length)
                   if(i == 0)
-                    ctx.moveTo(nodes[i].offsetLeft + 14,nodes[i].offsetTop + 14)
+                    ctx.moveTo(nodes[i].offsetLeft + 10,nodes[i].offsetTop + 10)
                   else
-                    ctx.lineTo(nodes[i].offsetLeft + 14,nodes[i].offsetTop + 14)
+                    ctx.lineTo(nodes[i].offsetLeft + 10,nodes[i].offsetTop + 10)
               }
               ctx.stroke()
               ctx.closePath()
             }
     }
-
 }
 
   create(gameMethod:string):Promise<any>{
@@ -202,7 +195,7 @@ else{
   methodChange($event){
     console.log('trend change')
 
-    this.drawTrend()
+    //this.drawTrend()
 
     console.log($event)
     let component = gameConfig[$event]
@@ -211,7 +204,7 @@ else{
     const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(component)
     this.componentRef = this.nocontainer.createComponent(factory)
     this.common.componentRef = this.componentRef
-    
+    this.drawTrend()
     //this.componentRef.instance.choose = this.haveChoosen
   }
 }

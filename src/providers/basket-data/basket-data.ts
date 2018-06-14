@@ -68,7 +68,7 @@ export class BasketDataProvider {
           console.log(this.betData)
           this.totalAmount = this.betData.reduce((r1,r2) => {
             return {...r1, amount:r1.amount + r2.amount}
-        }).amount*this.statistic.multiple
+        }).amount*this.statistic.multiple*this.statistic.trace
         console.log('dddd')
         console.log(this.totalAmount)
         // if(this.totalAmount > this.balance){
@@ -84,7 +84,7 @@ export class BasketDataProvider {
     let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
 
     if(betData){
-      if(this.totalAmount + this.statistic.multiple*percent*2*betData.length > this.balance){
+      if(this.totalAmount + this.statistic.multiple*this.statistic.trace*percent*2*betData.length > this.balance){
         this.presentRecharge()
         return false
       }
@@ -98,7 +98,7 @@ export class BasketDataProvider {
     }else{
       let processData = this.processOrder()
       
-      if(this.totalAmount + this.statistic.multiple*percent*processData.amount > this.balance){
+      if(this.totalAmount + this.statistic.multiple**this.statistic.trace*percent*processData.amount > this.balance){
           this.presentRecharge()
           return false
       }
@@ -136,45 +136,33 @@ export class BasketDataProvider {
 
   processOrder(){
     let dataArr = []
-    let names = name?name:this.common.method + ' ' + this.common.secondKind + ' ' + this.common.smallMethod
+    let names = name?name: this.common.gameMethodConfig[0].name_en + this.common.bigKindEn + ' ' + this.common.smallKind.name_en
 
-    if(names.indexOf('和值') > -1){
-   
-    }else{
-      // this.common.ballData.forEach(item => {
-      //   let arr = []
-      //   item.value.forEach((ele,index) => {
-      //     if(!daxiaodanshuang){
-      //       ele == 1 ? arr.push(('0'+index).slice(-2)):''
-      //     }else{
-      //       ele == 1 ? arr.push(this.judge(index)):''
-      //     }
-      //   })
-      //   dataArr.push(arr.join(' '))
-      // })
-    }
     /**
      * lotterysText:this.common.componentRef.getLotteryText(), 
      * 
      */
-   
     console.log(dataArr)
     console.log(this.common.componentRef.instance.getLotteryText())
     console.log(this.common.componentRef.instance.getPositionArr())
 
-
     return {
          jsId:this.betData.length + 1,
+         mid:this.common.smallId,
          amount:this.common.betPrice,
-         lotterys:this.common.componentRef.instance.getLotteryData(),
-         lotterysText:this.common.componentRef.instance.getLotteryText(), 
+         //amountText:'',
+         //lotterys:this.common.componentRef.instance.getLotteryData(),
+         lotterysText:this.common.componentRef.instance.getOriginLotteryText(), 
          wayId:this.common.smallId,
-         typeText:names,
-         number:this.common.count,
+         type:names,
+         position:this.common.componentRef.instance.getPositionArr(),    
+         num:this.common.count,
+         onePrice:2,
          moneyUnit:this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01,
-         mutiple:this.statistic.multiple,
-         postParameter: "3|4|5",
-         position:this.common.componentRef.instance.getPositionArr()    
+         prize_group:1800,
+         multiple:this.statistic.multiple,
+        // postParameter: this.common.componentRef.instance.getLotteryText(),
+         viewBalls:this.common.componentRef.instance.getOriginLotteryText()     
     }
   }
 

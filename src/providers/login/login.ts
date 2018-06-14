@@ -3,10 +3,7 @@ import { Injectable } from '@angular/core';
 import { RestProvider } from '../rest/rest'
 import {Storage} from '@ionic/storage';
 
-interface loginParameter {
-  username: string,
-  password: string
-}
+
 
 @Injectable()
 export class LoginProvider {
@@ -19,7 +16,7 @@ export class LoginProvider {
       //  })
   }
 
-  loginApp(parameter: loginParameter){
+  loginApp(parameter: any){
     return this.rest.postUrlReturn(this.loginApi, parameter);
   }
 
