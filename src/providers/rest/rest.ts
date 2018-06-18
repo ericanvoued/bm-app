@@ -18,6 +18,7 @@ export class RestProvider {
   // getToken(){
   //   this.storage.get('userInfo').then((val) => {
   //     console.log(val)
+
   //     this.authToken = val.auto_token
   //   });
   //
@@ -26,11 +27,12 @@ export class RestProvider {
   postUrlReturn(url: string,parameter): Observable<any> {
    // return this.http.post('http://www.zhenwin.com'+url,parameter)
     // this.getToken()
-    return this.http.post('http://user.firecat.com'+url,parameter)
+    return this.http.post('http://www.zhenwin.com'+url,parameter)
   }
 
   getUrlReturn(url: string): Observable<any> {
-    return this.http.get('http://user.firecat.com'+url)
+    // http://www.zhenwin.com'  http://user.firecat.com
+    return this.http.get('http://www.zhenwin.com'+url)
   }
 
   // extractData(res: Response) {

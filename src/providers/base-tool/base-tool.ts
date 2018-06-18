@@ -20,14 +20,17 @@ export class BaseToolProvider {
 
   requestPlayData(idstr, lottery) {
 
+    console.log(1231231231)
     var userInfo = JSON.parse(localStorage.userInfo);
     console.log(userInfo);
-    var url = '/api-lotteries-h5/load-data/2/'+idstr+'?_t=' + userInfo.auth_token;
+    var url = '/api-lotteries-h5/load-data/2/' + idstr + '?_t=' + userInfo.auth_token;
     return new Promise((resolve, reject) => {
       this.rest.postUrlReturn(url, {_token: userInfo.token})
         .subscribe((data) => {
+          console.log(data)
           if (data.IsSuccess) {
 
+            console.log(data)
             $('.play-list').html('');
             $('.after-select').html('');
             var totalArr = data.data.game_ways;
@@ -47,7 +50,8 @@ export class BaseToolProvider {
                 $('.after-con').eq(i).find('.after-list').eq(j).find(".after-text").next().val(totalArr[i].children[j].name_en);
                 for (var x = 0; x < totalArr[i].children[j].children.length; x++) {
 
-                  var ballhtml = '<li><i class="play-black play-opacity">' + totalArr[i].children[j].children[x].name_cn + '</i><input type="hidden" value="" id=""></input></li>';
+                  // var ballhtml = '<li><i class="play-black play-opacity" data-index="" >' + totalArr[i].children[j].children[x].name_cn + '</i><input type="hidden" value="" id=""></input></li>';
+                  var ballhtml = '<li><i class="play-black play-opacity" data-index="" >' + totalArr[i].children[j].children[x].name_cn + '</i></li>';
                   $('.after-con').eq(i).find('.after-list .lastchina').eq(j).append(ballhtml);
                   var name_en = totalArr[i].children[j].children[x].name_en;
                   var price = totalArr[i].children[j].children[x].price;
@@ -55,8 +59,11 @@ export class BaseToolProvider {
                   var bonus_note = totalArr[i].children[j].children[x].bonus_note;
                   var max_multiple = totalArr[i].children[j].children[x].max_multiple;
                   var is_enable_extra = totalArr[i].children[j].children[x].is_enable_extra;
-                  $('.after-con').eq(i).find('.after-list .lastchina').eq(j).find('.play-black').eq(x).next().val(name_en + '|' + price + '|' + bet_note + '|' + bonus_note + '|' + max_multiple + '|' + is_enable_extra);
-                  $('.after-con').eq(i).find('.after-list .lastchina').eq(j).find('input').eq(x).attr('id', totalArr[i].children[j].children[x].id);
+                  var play_id = totalArr[i].children[j].children[x].id;
+                  $('.after-con').eq(i).find('.after-list .lastchina').eq(j).find('.play-black').eq(x).attr('data-index', play_id + '|' + name_en + '|' + price + '|' + bet_note + '|' + bonus_note + '|' + max_multiple + '|' + is_enable_extra);
+                  // $('.after-con').eq(i).find('.after-list .lastchina').eq(j).find('.play-black').eq(x).next().val(name_en + '|' + price + '|' + bet_note + '|' + bonus_note + '|' + max_multiple + '|' + is_enable_extra);
+                  // $('.after-con').eq(i).find('.after-list .lastchina').eq(j).find('input').eq(x).attr('id', totalArr[i].children[j].children[x].id);
+
                 }
               }
             }
@@ -67,105 +74,125 @@ export class BaseToolProvider {
             // this.initViewData();
             resolve();
           } else {
+            // reject();
           }
-          this.requestJiangQiData(idstr, lottery);
+          // this.requestJiangQiData(idstr, lottery, 'play');
         });
 
     })
   }
 
 
-  requestJiangQiData(idstr, lottery) {
+  requestJiangQiData(idstr, lottery, from) {
 
     console.log('requestJiangQiData');
     var data = JSON.parse(localStorage.userInfo);
-    var url = '/api-lotteries-h5/load-data/1/'+idstr+'?_t=' + data.auth_token;
-    this.rest.postUrlReturn(url, {_token: data.token})
-      .subscribe((data) => {
-        // console.log(data);
-        if (data.IsSuccess) {
+    var url = '/api-lotteries-h5/load-data/1/' + idstr + '?_t=' + data.auth_token;
+    return new Promise((resolve, reject) => {
 
-          localStorage.trace_max_times = data.data.trace_max_times;
-          localStorage.subtract_prize_group = data.data.subtract_prize_group;
-          localStorage.bet_min_prize_group = data.data.bet_min_prize_group;
-          localStorage.bet_max_prize_group = data.data.bet_max_prize_group;
-          localStorage.user_prize_group = data.data.user_prize_group;
-          localStorage.series_amount = data.data.series_amount;
-          var currentstr = data.data.current_number; //当前奖期
 
-          // console.log("currentstr=====" + currentstr);
-          var part2 = parseInt(currentstr.substr(currentstr.length - 2)) + 1;
-          var nextDate = currentstr.substr(0, currentstr.length - 2) + part2;
-          // console.log("nextDate=====" + nextDate);
-          // var title = localStorage.nameStr;
-          // data.data.lottery_balls
-          $('.currentdate').text(currentstr + '期开奖');
-          $('.nextdate').text(nextDate + '截止:');
-          if (lottery.search('3') != -1) {
-            // $('.currentdate').text(currentstr + '期开奖:'+ data.data.lottery_balls );
-            var htm = '', s = data.data.lottery_balls.split("");
-            for (var i = 0; i < s.length; i++) {
-              var item = '<i class="saizi saizi-' + s[i] + '"></i>';
-              htm = htm + item;
-            }
-            $('.k3-result').html(htm);
-          } else if (lottery.search('6') != -1) {
+      this.rest.postUrlReturn(url, {_token: data.token})
+        .subscribe((data) => {
+          // console.log(data);
+          if (data.IsSuccess) {
 
-            var s = data.data.lottery_balls.split(" ");
-            var score = 0;
-            var ani = JSON.parse(localStorage.ani);
-            for (var i = 0; i < s.length; i++) {
-              var clas, tt;
-              var v = s[i];
-              if (this.color.red.indexOf(v) != -1) {
-                clas = 'red-ball';
-              } else if (this.color.blue.indexOf(v) != -1) {
-                clas = 'blue-ball';
-              } else {
-                clas = 'green-ball';
+            localStorage.trace_max_times = data.data.trace_max_times;
+            localStorage.subtract_prize_group = data.data.subtract_prize_group;
+            localStorage.bet_min_prize_group = data.data.bet_min_prize_group;
+            localStorage.bet_max_prize_group = data.data.bet_max_prize_group;
+            localStorage.user_prize_group = data.data.user_prize_group;
+            localStorage.series_amount = data.data.series_amount;
+            var currentstr = data.data.current_number; //当前奖期
+
+            // console.log("currentstr=====" + currentstr);
+            var part2 = parseInt(currentstr.substr(currentstr.length - 2)) + 1;
+            var nextDate = currentstr.substr(0, currentstr.length - 2) + part2;
+            // console.log("nextDate=====" + nextDate);
+            // var title = localStorage.nameStr;
+            // data.data.lottery_balls
+
+            if (from == 'trend') {
+
+              $('.ks-nextissue').text(nextDate);
+
+            } else if(from == 'basket'){
+
+              $('.basket-issue').text('距'+nextDate+'期截止');
+
+            } else {
+
+              $('.currentdate').text(currentstr + '期开奖');
+              $('.nextdate').text(nextDate + '截止:');
+              if (lottery.search('3') != -1) {
+                // $('.currentdate').text(currentstr + '期开奖:'+ data.data.lottery_balls );
+                var htm = '', s = data.data.lottery_balls.split("");
+                for (var i = 0; i < s.length; i++) {
+                  var item = '<i class="saizi saizi-' + s[i] + '"></i>';
+                  htm = htm + item;
+                }
+                $('.k3-result').html(htm);
+              } else if (lottery.search('6') != -1) {
+
+                var s = data.data.lottery_balls.split(" ");
+                var score = 0;
+                var ani = JSON.parse(localStorage.ani);
+                for (var i = 0; i < s.length; i++) {
+                  var clas, tt;
+                  var v = s[i];
+                  if (this.color.red.indexOf(v) != -1) {
+                    clas = 'red-ball';
+                  } else if (this.color.blue.indexOf(v) != -1) {
+                    clas = 'blue-ball';
+                  } else {
+                    clas = 'green-ball';
+                  }
+                  v = parseInt(s[i]);
+                  if (ani.gou.indexOf(v) != -1) {
+                    tt = '狗';
+                  } else if (ani.hou.indexOf(v) != -1) {
+                    tt = '猴';
+                  } else if (ani.hu.indexOf(v) != -1) {
+                    tt = '虎';
+                  } else if (ani.ji.indexOf(v) != -1) {
+                    tt = '鸡';
+                  } else if (ani.long.indexOf(v) != -1) {
+                    tt = '龙';
+                  } else if (ani.ma.indexOf(v) != -1) {
+                    tt = '马';
+                  } else if (ani.niu.indexOf(v) != -1) {
+                    tt = '牛';
+                  } else if (ani.zhu.indexOf(v) != -1) {
+                    tt = '猪';
+                  } else if (ani.she.indexOf(v) != -1) {
+                    tt = '蛇';
+                  } else if (ani.shu.indexOf(v) != -1) {
+                    tt = '鼠';
+                  } else if (ani.tu.indexOf(v) != -1) {
+                    tt = '兔';
+                  } else if (ani.yang.indexOf(v) != -1) {
+                    tt = '羊';
+                  }
+                  score = score + parseInt(s[i]);
+                  var item = '<span class="' + clas + '">' + s[i] + '</span><p>' + tt + '</p>';
+                  $('.status-box').find('.status-number').eq(i).html(item);
+                  $('#score').text(score);
+                }
               }
-              v = parseInt(s[i]);
-              if (ani.gou.indexOf(v) != -1) {
-                tt = '狗';
-              } else if (ani.hou.indexOf(v) != -1) {
-                tt = '猴';
-              } else if (ani.hu.indexOf(v) != -1) {
-                tt = '虎';
-              } else if (ani.ji.indexOf(v) != -1) {
-                tt = '鸡';
-              } else if (ani.long.indexOf(v) != -1) {
-                tt = '龙';
-              } else if (ani.ma.indexOf(v) != -1) {
-                tt = '马';
-              } else if (ani.niu.indexOf(v) != -1) {
-                tt = '牛';
-              } else if (ani.zhu.indexOf(v) != -1) {
-                tt = '猪';
-              } else if (ani.she.indexOf(v) != -1) {
-                tt = '蛇';
-              } else if (ani.shu.indexOf(v) != -1) {
-                tt = '鼠';
-              } else if (ani.tu.indexOf(v) != -1) {
-                tt = '兔';
-              } else if (ani.yang.indexOf(v) != -1) {
-                tt = '羊';
-              }
-              score = score + parseInt(s[i]);
-              var item = '<span class="' + clas + '">' + s[i] + '</span><p>' + tt + '</p>';
-              $('.status-box').find('.status-number').eq(i).html(item);
-              $('#score').text(score);
             }
+            resolve();
+            this.cutDownTime(data.data.current_time, data.data.current_number_time, from);
           }
-          this.cutDownTime(data.data.current_time, data.data.current_number_time);
-        }
-      });
+        });
+    })
   }
 
 
   initViewData() {
   }
 
-  cutDownTime(a, b) {
+  cutDownTime(a, b, from) {
+
+    console.log('from===='+from);
     let _this = this;
     var totalSec = this.getRemainTime(a, b);
     var ttt = totalSec;
@@ -173,7 +200,7 @@ export class BaseToolProvider {
     this.timeIddd = setInterval(function () {
       if (totalSec <= 0) {
         //--奖期
-        _this.requestJiangQiData('21', '3');
+        _this.requestJiangQiData('21', '3', from);
         clearInterval(_this.timeIddd);
         return;
       }
@@ -181,19 +208,27 @@ export class BaseToolProvider {
       var hour = Math.floor(totalSec / 3600);
       var minute = Math.floor(totalSec % 3600 / 60);
       var sec = totalSec % 60;
-      //显示
+
       liArr[0].innerHTML = hour;
       liArr[1].innerHTML = minute;
       liArr[2].innerHTML = sec;
+      if(from=='trend'){
 
-      var scale = totalSec / ttt * 100;
-      $('.time-bar').css('width', scale + '%');
+        $('.ks-cuttime').text(minute+':'+sec);
+      }else if(from=='basket'){
+
+        $('.basket-time').text(minute+':'+sec);
+      }else{
+
+        var scale = totalSec / ttt * 100;
+        $('.time-bar').css('width', scale + '%');
+      }
 
     }, 1000)
   }
 
   setDefultPlayedUi(title) {
-    // var title = '';
+
     var n, m, k;
     if (title.search("时") != -1 || title.search("分彩") != -1 || title.search("60秒") != -1) {
       n = 4, m = 0, k = 0;
@@ -236,6 +271,7 @@ export class BaseToolProvider {
   getAngle(angx, angy) {
     return Math.atan2(angy, angx) * 180 / Math.PI;
   };
+
   getDirection(startx, starty, endx, endy) {
     var angx = endx - startx;
     var angy = endy - starty;

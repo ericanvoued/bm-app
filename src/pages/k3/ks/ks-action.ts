@@ -48,15 +48,6 @@ export class KsAction {
   // }
 
 
-  // getRemainTime(startime, endtime) {
-  //   var a = new Date(startime.replace(/-/g, '/')).getTime();
-  //   var b = new Date(endtime.replace(/-/g, '/')).getTime();
-  //   var t = (b - a) / 1000;
-  //   return t;
-  // }
-
-
-
 
   /**
    * 添加注单
@@ -92,13 +83,20 @@ export class KsAction {
     var zhu = $('.total-num').text();
     // if (zhu === 0) return;
     if (zhu > 0) {
-      _this.dealWithBallData(zhu);
-      // alert(localStorage.balls);
-      console.log(11111)
+
+      let wanfa = $('.wanfa').text();
+      if (wanfa.search('二同号') != -1) {
+
+        _this.dealWithBallDataWithErth(zhu, _this);
+
+      } else {
+
+        _this.dealWithBallData(zhu);
+      }
 
       let balll = JSON.parse(localStorage.balls);
       $('.confirm-number').removeClass('hide');
-      $('.bottom-r').css('background','');
+      $('.bottom-r').css('background', '');
       $('.confirm-number').text(balll.length);
       _this.cleanBalls();
     } else {
@@ -107,6 +105,115 @@ export class KsAction {
     }
   }
 
+
+  getErthDxStr() {
+    // tonghao-th   tonghao-bth
+    var tharr = [], btharr = [], len = $('.tonghao-th .active').length;
+    for (var i = 0; i < len; i++) {
+      tharr.push($('.tonghao-th .active').eq(i).find('span').text());
+    }
+    for (var i = 0; i < $('.tonghao-bth .active').length; i++) {
+      btharr.push($('.tonghao-bth .active').eq(i).find('span').text())
+    }
+    var strarr = [];
+    for (var i = 0; i < tharr.length; i++) {
+      for (var j = 0; j < btharr.length; j++) {
+        // console.log('tharr[i]+btharr[j]==='+(tharr[i]+btharr[j]).split('').sort().join('') );
+        strarr.push((tharr[i] + btharr[j]).split('').sort().join(''));
+      }
+    }
+    return strarr.join('|');
+  }
+
+  dealWithBallDataWithErth(zhu, __this) {
+    // 计算字符串
+    //判断 注单上部分  相乘 是否 为0，不为0---》 计算上部分选球字符串
+
+    var a = $('.tonghao-th .active').length;
+    var b = $('.tonghao-bth .active').length;
+    var c = $('.content-box .active').length - $('.tonghao .active').length;
+    var strarr = [], dxstr;
+    // zhushu = a * b + 5*c;
+    if ((a * b) > 0) {
+      // strarr.push(__this.getErthDxStr());
+      dxstr = __this.getErthDxStr();
+      zhu = a * b;
+      // 调用 存储球
+      __this.dealWithErthBallData(zhu, dxstr);
+    }
+    //判断 复选 注数是否为 0 ---》 计算复选 选球字符串
+    var fxarr = [], fxstr;
+    if (c > 0) {
+      // ball-unit double
+      for (var i = 0; i < $('.ball-unit.double .active').length; i++) {
+        fxarr.push($('.ball-unit.double .active').eq(i).attr('data-index'));
+      }
+      fxstr = fxarr.join('|');
+      // console.log('fxstr====' + fxstr);
+      zhu = 5 * c;
+      __this.dealWithErthBallData(zhu, fxstr);
+    }
+
+    //循环  调用存储球
+
+
+  }
+
+  dealWithErthBallData(zhu, str) {
+
+    let _this = this;
+    let wayId = 1;
+    let ballStr = str;
+    let wanfa = $('.wanfa').text();
+    var moneyunit = 1;
+    var txt = $('.money-btn i').text();
+    if (txt == '元') {
+      moneyunit = 1;
+    } else if (txt == '角') {
+      moneyunit = 0.1;
+    } else if (txt == '分') {
+      moneyunit = 0.01;
+    }
+    var jsid = 1;
+    if (localStorage.balls != null) {
+      jsid = JSON.parse(localStorage.balls).length + 1;
+    }
+    let betinfo =
+      {
+        "jsId": jsid,
+        "wayId": wayId,
+        "ballStr": ballStr,
+        "viewBalls": ballStr,
+        "num": zhu,
+        "moneyunit": moneyunit,
+        "position": [],
+        "multiple": 1,
+        "onePrice": 2,
+        "prize_group": 1,
+        "wanfa": wanfa,
+        "price": zhu * 2 * moneyunit
+      };
+    let balls = [];
+    let ballsitem = "";
+    let ball = localStorage.balls;
+    if (ball == null) {
+      balls.push(betinfo);
+      ballsitem = JSON.stringify(balls);
+    } else {
+      let balldata = JSON.parse(ball);
+      //检测号码重复性～～
+      if (_this.isNumDuplication(betinfo).j == 1) {
+
+        ballsitem = JSON.stringify(_this.isNumDuplication(betinfo).data);
+      } else {
+
+        balldata.push(betinfo);
+        ballsitem = JSON.stringify(balldata);
+      }
+    }
+    localStorage.balls = ballsitem;
+
+  }
 
   // shake: boolean = false;
   // shaked() {
@@ -203,9 +310,6 @@ export class KsAction {
     $('.active').removeClass('active');
     $('.selected').removeClass('selected');
 
-    // 先取随机数
-    // 再 添加 对应的 图片类 ，执行动画
-    // 执行结束后  进行位移缩放
 
     var wanfa = $('.wanfa').text();
     if (wanfa.search('和值') != -1) {
@@ -345,12 +449,15 @@ export class KsAction {
     let balls = [];
     let ballsitem = "";
     let ball = localStorage.balls;
-    if (ball == null) {
+    console.log('添加号码时候localStorage.bal===' + localStorage.balls);
+    // if (ball == null) {
+    if (!localStorage.balls) {
+      console.log('为空～～～')
       balls.push(betinfo);
       ballsitem = JSON.stringify(balls);
     } else {
       let balldata = JSON.parse(ball);
-      //检测号码重复性～～
+
       if (_this.isNumDuplication(betinfo).j == 1) {
 
         ballsitem = JSON.stringify(_this.isNumDuplication(betinfo).data);
@@ -360,12 +467,15 @@ export class KsAction {
         ballsitem = JSON.stringify(balldata);
       }
     }
+
     localStorage.balls = ballsitem;
+
+
   }
 
   isNumDuplication(betinfo) {
-    // 先得到新增号码
-    // 遍历 存在号码数组
+
+
     var j = 0;
     var ballstr = betinfo.ballStr;
     var balldata = JSON.parse(localStorage.balls);
@@ -388,16 +498,18 @@ export class KsAction {
     var arr = [], str;
     for (var i = 0; i < len; i++) {
       var txt = $('.section.current .content-box .active').eq(i).find('span').text();
-      arr.push(txt);
+      arr.push(parseInt(txt));
     }
     str = arr.join('|');//112|223|334
+
+    console.log('str===' + str);
     return str;
   }
 
   trendClick() {
-
+    let _this = this;
     $('.trend-div').on('click', function () {
-      $('.right-popover').css('height')=='200px'? $('.right-popover').css('height','0px'):$('.right-popover').css('height','200px');
+      $('.right-popover').css('height') == '200px' ? $('.right-popover').css('height', '0px') : $('.right-popover').css('height', '200px');
     })
 
     $('.side-nav-a').on('click', function () {
@@ -405,6 +517,7 @@ export class KsAction {
       switch (index) {
         case 0:
 //走势图
+//           super.pushTrendPage();
           break;
         case 1:
 //近期开奖
@@ -412,13 +525,13 @@ export class KsAction {
         case 2:
 //号码统计
           $('.trend-select-pop').removeClass('hide');
-          $('.right-popover').css('height','0px');
+          $('.right-popover').css('height', '0px');
           break;
         case 3:
           //玩法说明
           break;
       }
-      $('.right-popover').css('height','0px');
+      $('.right-popover').css('height', '0px');
 
     })
 
@@ -426,7 +539,7 @@ export class KsAction {
 
   initTrendEvent() {
 
-    //一进来只显示遗漏
+
     $('.aver').addClass('hide');
     $('.most').addClass('hide');
     $('.cold').addClass('hide');
@@ -437,7 +550,7 @@ export class KsAction {
     $('.pop-box .item,.pop-box input').on('click', function () {
 
       var index = $(this).index();
-      console.log($('.pop-box input').eq(index).attr('checked'))
+      // console.log($('.pop-box input').eq(index).attr('checked'))
       if ($('.pop-box input').eq(index).attr('checked') == 'checked') {
         $('.pop-box input').eq(index).attr('checked', false);
         switch (index) {
@@ -499,12 +612,12 @@ export class KsAction {
 
     var _this = this;
     $('.select-btn li').on('click', function () {
-
       $('.active').removeClass('active');
       $(this).addClass('active');
       var obj = $(this).parents('.select-btn').siblings('.content-box');
       var len = obj.find('.ball-unit').length;
       var txt = $(this).attr('class').split(' ')[0];
+      // console.log('txt=='+txt);
       if (txt.search('li') != -1) {
         var num = txt.substr(2, 1);
         for (var i = 0; i < len; i++) {
@@ -513,7 +626,6 @@ export class KsAction {
             obj.find('.ball-num').eq(i).addClass('active');
           }
         }
-        return;
       }
       switch (txt) {
         case 'da':
@@ -531,7 +643,6 @@ export class KsAction {
           obj.find('.ball-num:odd').addClass('active');
           break;
       }
-      // _this.calculateNumOfBet();
       _this.calculateMoney();
     })
 
@@ -555,9 +666,11 @@ export class KsAction {
 
     let _this = this;
     //主玩法选择
-    $('.after-list .play-black').each(function () {
+    $('page-ks .after-list .play-black').each(function () {
 
       $(this).on('click', function () {
+
+        console.log('~~~~~~~~~~~~')
 
         $('.after-list .play-black').removeClass('play-yellow');
         $(this).addClass('play-yellow');
@@ -620,9 +733,7 @@ export class KsAction {
       $(this).find('.ball-num').toggleClass('active');
       _this.calculateMoney();
 
-
     })
-
 
     $('.tonghao-th .ball-unit').on('click', function () {
       var index = $(this).index();
@@ -644,15 +755,16 @@ export class KsAction {
       var a = $('.tonghao-th .active').length;
       var b = $('.tonghao-bth .active').length;
       var c = $('.content-box .active').length - $('.tonghao .active').length;
-       zhushu = a * b + c;
+
+      zhushu = a * b + 5 * c;
     } else {
-       zhushu = $('.content-box .active').length;
+      zhushu = $('.content-box .active').length;
     }
 
-    if(zhushu>0){
-      $('.bottom-r').css('background','');
+    if (zhushu > 0) {
+      $('.bottom-r').css('background', '');
     }
-
+    console.log('zhushu==' + zhushu)
     return zhushu;
   }
 
@@ -701,7 +813,6 @@ export class KsAction {
   }
 
 
-
   cleanBalls() {
 
     $('.active').removeClass('active');
@@ -724,5 +835,6 @@ export class KsAction {
     $('.body-bg').addClass('hide');
     $('.alert-con').addClass('hide');
   }
+
 //11
 }

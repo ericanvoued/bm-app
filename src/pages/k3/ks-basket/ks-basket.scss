@@ -11,6 +11,43 @@ page-ks-basket {
   ion-app.md [padding] .scroll-content {
     padding: 10px;
   }
+  .zhui_input {
+
+  }
+  input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 18px;
+    position: relative;
+  }
+  input[type="checkbox"]::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -1px;
+    background: #00582e;
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgb(124,161,143);
+    border-radius: 5px;
+  }
+  input[type="checkbox"]:checked::before {
+    content: "\2713";
+    background-color: #00582e;
+    position: absolute;
+    top: -2px;
+    left: -1px;
+    width: 100%;
+    border: 1px solid rgb(124,161,143);
+    color: green; //rgb(124,161,143);
+    font-size: 17px;
+    //font-weight: bold;
+  }
+
+
   .nav-title {
 
     color: #fff;
@@ -93,15 +130,10 @@ page-ks-basket {
   }
   .buy-li {
 
-    padding: 10px 4%;
+    //padding: 10px 4%;
     background: #fff;
     margin-bottom: 6px;
-    height: 83px;
-    background: radial-gradient(circle at 50% 50%, #24714c 0, #24714c 50%, transparent 0), radial-gradient(circle at 50% 50%, #24714c 0, #24714c 50%, transparent 0);
-    background-repeat: repeat-x;
-    background-color: white;
-    background-size: 16px 19px;
-    background-position: 0px 80px, 1px 75px;
+    border-radius: 5px;
 
     div {
 
@@ -111,7 +143,7 @@ page-ks-basket {
       height: 100%;
       float: left;
       text-align: center;
-      padding-top: 20px;
+      padding-top: 10%;
     }
     .buy-con {
       /* margin-right: 26px; */
@@ -120,11 +152,22 @@ page-ks-basket {
     .number {
       border-bottom: 1px solid rgb(234, 234, 234);
       word-break: break-all;
-      height: 38px;
+      //height: 38px;
       line-height: 38px;
     }
     .mt5 {
       margin-top: 5px;
+    }
+    .dian {
+      width: 96%;
+      margin-left: 2%;
+      background: red;
+      height: 20px;
+      background: radial-gradient(circle at 50% 50%, #24714c 0, #24714c 50%, transparent 0), radial-gradient(circle at 50% 50%, #24714c 0, #24714c 50%, transparent 0);
+      background-repeat: repeat-x;
+      background-color: white;
+      background-size: 17px 19px;
+      background-position: 1px 11px, 4px 85px;
     }
 
   }
@@ -178,7 +221,7 @@ page-ks-basket {
       float: right;
     }
     .multiple-num {
-      font-size: 1.6rem;
+      font-size: 14px;
       color: #fff;
       margin-right: 7px;
     }
@@ -244,7 +287,7 @@ page-ks-basket {
       border-radius: 16px;
       background: #fff;
       overflow: hidden;
-      display: none;
+      //display: none;
       border: 1px solid #ddd
     }
     .money-menu .active {
@@ -269,8 +312,8 @@ page-ks-basket {
       color: #333333;
       margin-top: 5px;
       font-size: 13px;
-      .qi,.zhu,.yuan{
-        color:rgb(246,55,78);
+      .qi, .zhu, .yuan {
+        color: rgb(246, 55, 78);
       }
     }
     .bet-btn {

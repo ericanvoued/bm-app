@@ -27,6 +27,7 @@ import { InfoCenterProvider } from '../providers/info-center/info-center';
 import { LhcSlidePage } from '../pages/lhc/lhc-slide/lhc-slide'
 import { KsPage } from '../pages/k3/ks/ks'
 import { KsBasketPage } from '../pages/k3/ks-basket/ks-basket'
+import { KstrendPage } from '../pages/k3/kstrend/kstrend'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -58,6 +59,7 @@ import { Lottory_11YkaijiangComponent } from '../components/lottoyCenter/lottory
 import { LottoryDistributeComponent } from '../components/lottoyCenter/lottory-distribute/lottory-distribute'
 import { UserCenterProvider } from '../providers/user-center/user-center';
 import { BaseToolProvider } from '../providers/base-tool/base-tool';
+import { TemplatToolProvider } from '../providers/templat-tool/templat-tool';
 @NgModule({
   declarations: [
     MyApp,
@@ -76,7 +78,7 @@ import { BaseToolProvider } from '../providers/base-tool/base-tool';
     ZhixuanhezhiComponent,
     CountTipComponent,
     LhcSlidePage,
-    KsPage,KsBasketPage,
+    KsPage,KsBasketPage,KstrendPage,
     ...gameConfig.ssc,
     ...gameConfig.d5
     // LoginPage,
@@ -108,7 +110,7 @@ import { BaseToolProvider } from '../providers/base-tool/base-tool';
     SixingComponent,
     ZhixuanhezhiComponent,
     LhcSlidePage,
-    KsPage,KsBasketPage,
+    KsPage,KsBasketPage,KstrendPage,
     CountTipComponent,
     LottoryKaijiangComponent,
     LottoryDaxiaoComponent,
@@ -142,7 +144,8 @@ import { BaseToolProvider } from '../providers/base-tool/base-tool';
     BankCardProvider,
     SignupProvider,
     UserCenterProvider,
-    BaseToolProvider
+    BaseToolProvider,
+    TemplatToolProvider
 
   ]
 })
