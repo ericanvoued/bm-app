@@ -89,7 +89,6 @@ page-ks {
     }
   }
 
-
   .moveclass {
     transform: scale(0.1);
     transition: 5s;
@@ -472,6 +471,7 @@ page-ks {
 
       width: 100%;
       .t-issue {
+        font-size: 10px;
         width: 20%;
       }
       .cutline {
@@ -500,6 +500,9 @@ page-ks {
         float: left;
         width: 16%;
         font-size: 14px;
+      }
+      .kj-ing{
+        width: 80%;
       }
     }
   }
@@ -774,11 +777,6 @@ page-ks {
       width: 42px;
     }
 
-
-
-
-
-
   }
 
   .body-bg {
@@ -815,7 +813,7 @@ page-ks {
       width: 75vw;
       position: relative;
       overflow: hidden;
-      p{
+      p {
         margin-bottom: 15px;
         margin-top: 6px;
       }

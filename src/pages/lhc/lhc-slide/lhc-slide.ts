@@ -48,6 +48,15 @@ export class LhcSlidePage extends LhcAction {
     this.initAny();
   }
 
+
+  ionViewWillEnter() {
+
+    this.base.requestJiangQiData('61', '6','play').then(() => {
+      }
+    );
+
+  }
+
   ionViewDidLeave() {
     clearInterval(this.base.timeIddd);
   }

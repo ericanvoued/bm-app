@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from "rxjs/Observable";
 import {Response} from '@angular/http';
 
+let baseUrl = 'http://www.zhenwin.com'
 
 
 @Injectable()
@@ -18,6 +19,7 @@ export class RestProvider {
   // getToken(){
   //   this.storage.get('userInfo').then((val) => {
   //     console.log(val)
+
   //     this.authToken = val.auto_token
   //   });
   //
@@ -26,11 +28,11 @@ export class RestProvider {
   postUrlReturn(url: string,parameter): Observable<any> {
    // return this.http.post('http://user.firecat.com'+url,parameter)
     // this.getToken()
-    return this.http.post('http://www.zhenwin.com'+url,parameter)
+    return this.http.post(baseUrl+url,parameter)
   }
 
   getUrlReturn(url: string): Observable<any> {
-    return this.http.get('http://www.zhenwin.com'+url)
+    return this.http.get(baseUrl+url)
   }
 
   // extractData(res: Response) {
