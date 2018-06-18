@@ -80,7 +80,7 @@ export class CommonProvider {
   //历史开奖
   historyList:any[]
 
-  missData:Promise<any>
+  missData:any
 
   //历史遗漏
 //   missLottery:any = {
@@ -308,7 +308,7 @@ export class CommonProvider {
     this.getCountDownTime().then((data) => {
         this.currentNumber = data.current_number
         this.countDown(new Date(data['current_number_time']).getTime() - new Date(data['current_time']).getTime())
-  })   
+    })   
  }
 
     countDown(time){
@@ -317,7 +317,7 @@ export class CommonProvider {
             if(time <1000){
                 this.countEnd = true
                 clearInterval(this.timer)
-                
+                console.log('wwwevevevev')
                 let modal = this.modalCtrl.create(CountTipComponent, {qishu:123456})
                 modal.present()
                 //this.global.showToast('进入新一期开奖',2000)
@@ -364,8 +364,9 @@ export class CommonProvider {
         })
     }
 
-    getMissObservable(){
-       this.missData =  this.http.fetchData('/api-lotteries-h5/getnewlottterymissed/' + this.gameId + '/30?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)
+    async getMissObservable(){
+      // this.missData =  this.http.fetchData('/api-lotteries-h5/getnewlottterymissed/' + this.gameId + '/30?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)
+       this.missData =  (await this.http.fetchData('/api-lotteries-h5/getnewlottterymissed/' + this.gameId + '/30?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)).data
     }
 
     //获取遗漏等数据

@@ -13,7 +13,7 @@ import { CommonProvider } from "../../../providers/common/common";
   selector: 'daxiaodanshuang',
   templateUrl: 'daxiaodanshuang.html'
 })
-export class DaxiaodanshuangComponent {
+export class DaxiaodanshuangComponent implements OnInit{
   @ViewChild('contentSlides') contentSlides: Slides;
   menus:string[];
 
@@ -29,12 +29,20 @@ export class DaxiaodanshuangComponent {
 
   daxiaoData:any[]
 
+  //位置记录
+  position:any
+
   constructor(public common:CommonProvider,public util:UtilProvider) {
     console.log('Hello DaxiaodanshuangComponent Component');
 
     this.historyRecord = this.common.historyList.map(ele => {
       return {...ele, number:ele.number.substr(2,ele.number.length),history:ele.code.split('').map(ele => parseInt(ele))}
     })
+    console.log(this.historyRecord)
+ 
+  }
+
+  ngOnInit(){
     this.getKaijiang()
     this.getDaxiao()
   }
@@ -100,28 +108,75 @@ export class DaxiaodanshuangComponent {
   }
 
   getDaxiao(){
-    let arr = [3,4,5,6,7,8],qq = ['大','小','单','双'],total = [];
+    //this.position
+    let tempData = this.historyRecord.map(ele => { return {...ele,history:ele.history.slice(this.position[0],this.position[1])}}) 
+    let tempArr = Array.apply(null,Array(this.position[1] - this.position[0])).map((v,i) => i)
+
+    let statisticData = tempArr.reduce((a,b) => {
+        let sumData = []
+        tempData.forEach(ele => {
+            sumData.push(ele.history[b])
+        }) 
+        a.push(sumData)
+        return a
+    },[])
     
-    for(let i =0;i<arr.length;i++){
-        let temp = []
-        if(i == 0){
-           temp.push(...this.test(arr[i]))
+    console.log(statisticData)
+    this.getResultData(statisticData)
+
+    // let arr = [3,4,5,6,7,8],qq = ['大','小','单','双'],total = [];
     
-        }else{
-           let ss = this.test(arr[i])
-           for(let j = 0;j<4;j++){
-               if(total[i-1][j] === true && ss[j] !== true)
-                  temp.push(1)
-               if(ss[j] === true)
-                  temp.push(true)
-               if(total[i-1][j] !== true && ss[j] !== true)
-                  temp.push(total[i-1][j] + 1)
-           }
+    // for(let i =0;i<arr.length;i++){
+    //     let temp = []
+    //     if(i == 0){
+    //        temp.push(...this.test(arr[i]))
     
+    //     }else{
+    //        let ss = this.test(arr[i])
+    //        for(let j = 0;j<4;j++){
+    //            if(total[i-1][j] === true && ss[j] !== true)
+    //               temp.push(1)
+    //            if(ss[j] === true)
+    //               temp.push(true)
+    //            if(total[i-1][j] !== true && ss[j] !== true)
+    //               temp.push(total[i-1][j] + 1)
+    //        }
+    
+    //     }
+    //     total.push(temp)
+    //     this.daxiaoData = total
+    // }
+  }
+
+  getResultData(arr:Array<any>){
+      let length = arr.length, total = []
+      for(let i = 0;i<length;i++){
+          total.push(this.processData(arr[i]))
+      }
+      this.daxiaoData = total
+      //this.daxiaoData = total
+  }
+
+  processData(arr:any[]){
+     let total = []
+     for(let i =0;i<arr.length;i++){
+      let temp = []
+      if(i == 0){
+        temp.push(...this.test(arr[i]))
+      }else{
+        let ss = this.test(arr[i])
+        for(let j = 0;j<4;j++){
+            if(total[i-1][j] === true && ss[j] !== true)
+                temp.push(1)
+            if(ss[j] === true)
+                temp.push(true)
+            if(total[i-1][j] !== true && ss[j] !== true)
+                temp.push(total[i-1][j] + 1)
         }
-        total.push(temp)
-        this.daxiaoData = total
+      }
+         total.push(temp)
     }
+    return total
   }
 
   tellZu(balls){
@@ -179,4 +234,6 @@ export class DaxiaodanshuangComponent {
          return '双'      
      }
    }
+
+   
 }

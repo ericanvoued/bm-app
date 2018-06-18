@@ -14,7 +14,7 @@ import * as $ from 'jquery'
  */
 @Component({
   selector: 'zhixuanfushi',
-  templateUrl: 'zhixuanfushi.html'
+  templateUrl: '../fushi.zuhe.html'
 })
 export class ZhixuanfushiComponent extends commonMethod implements AfterViewInit{
   @Input('choose') choose: any[] = [];

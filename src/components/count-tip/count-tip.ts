@@ -16,11 +16,10 @@ export class CountTipComponent {
 
   constructor(public params:NavParams, public viewCtrl:ViewController) {
       this.text = params.get('qishu')
-      console.log('Hello CountTipComponent Component')
-      let timmer = setInterval(() => {
+      let timmers = setInterval(() => {
                this.count--
                if(this.count == 0){
-                     clearInterval(timmer)
+                     clearInterval(timmers)
                      this.viewCtrl.dismiss()
                }
       },1000)

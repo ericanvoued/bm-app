@@ -11,7 +11,6 @@ import {LoadingProvider} from '../../../providers/loading/loading'
 import {SignupProvider} from '../../../providers/signup/signup';
 import {LoginPage} from '../login/login'
 
-
 @IonicPage()
 @Component({
   selector: 'page-signup',
@@ -26,7 +25,7 @@ export class SignupPage {
     nameInfoFlag: false,
     pswInfoFlag: false,
     checkInfoFlag: false,
-    signInitParam:{keyword:'', token:''},
+    signInitParam:{keyword:'',token:''},
     loading:null,
     toast:null,
     data: {
@@ -35,6 +34,7 @@ export class SignupPage {
       confirmPsw: '',
     }
   }
+
 
   constructor(
     public navCtrl: NavController,

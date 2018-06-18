@@ -44,7 +44,7 @@ export const judgeTrend = (gameKind, gameMethod) => {
         case 'KuadutrendComponent':
            return {component:KuadutrendComponent, menus:getWei(gameMethod),position:getPosition(gameMethod)}   
         case 'DaxiaodanshuangComponent':   
-           return {component:DaxiaodanshuangComponent, menus:getWei(gameMethod), position:[3,4,5,6]}
+           return {component:DaxiaodanshuangComponent, menus:getWei(gameMethod), position:getPosition(gameMethod)}
 
     }
 }
@@ -83,15 +83,15 @@ function getWei(gameMethod){
 }
 
 function getPosition(gameMethod){
-      if(["前三直选和值","前三组选和值","前三直选跨度","前三组三","前三组六","前三包胆","前三和值尾数","前三特殊号码","不定位前三一码不定位","不定位前三二码不定位"].indexOf(gameMethod) != -1)
+      if(["前三直选和值","前三组选和值","前三直选跨度","前三组三","前三组六","前三包胆","前三和值尾数","前三特殊号码","不定位前三一码不定位","不定位前三二码不定位","大小单双前三大小单双"].indexOf(gameMethod) != -1)
          return [0,3]
-      else if(["中三直选和值","中三组选和值","中三直选跨度","中三组三","中三组六","中三包胆","中三和值尾数","中三特殊号码","不定位中三一码不定位","不定位中三二码不定位"].indexOf(gameMethod) != -1)
+      else if(["中三直选和值","中三组选和值","中三直选跨度","中三组三","中三组六","中三包胆","中三和值尾数","中三特殊号码","不定位中三一码不定位","不定位中三二码不定位","大小单双中三大小单双"].indexOf(gameMethod) != -1)
          return [1,4]
-      else if(["后三直选和值", "后三组选和值","后三直选跨度", "后三组三", "后三组六", "后三包胆", "后三和值尾数","后三特殊号码","不定位后三一码不定位","不定位后三二码不定位"].indexOf(gameMethod) != -1)
+      else if(["后三直选和值", "后三组选和值","后三直选跨度", "后三组三", "后三组六", "后三包胆", "后三和值尾数","后三特殊号码","不定位后三一码不定位","不定位后三二码不定位","大小单双后三大小单双"].indexOf(gameMethod) != -1)
          return [2,5]
-      else if(["二星后二和值","二星后二跨度","二星后二包胆"].indexOf(gameMethod) != -1)
+      else if(["二星后二和值","二星后二跨度","二星后二包胆","大小单双后二大小单双"].indexOf(gameMethod) != -1)
          return [3,5]
-      else if(["二星前二和值","二星前二跨度","二星前二包胆"].indexOf(gameMethod) != -1)
+      else if(["二星前二和值","二星前二跨度","二星前二包胆","大小单双前二大小单双"].indexOf(gameMethod) != -1)
          return [0,2]
       else if(["不定位四星一码不定位","不定位四星二码不定位"].indexOf(gameMethod) != -1)
          return [1,5]

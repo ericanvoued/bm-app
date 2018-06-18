@@ -26,16 +26,18 @@ import {LhcBoseComponent} from '../../components/lottory-center/lhc-bose/lhc-bos
 
 @Injectable()
 export class HomeProvider {
-  userInfo
+  userInfo ;
   infoData = {
+    unreadAnnouncements:0,
     announcements: {data:['ddd']}
   }
 
-
+  
   homeData = {
+    redicret_url:['SscPage','','','','','','Xuan5Page','','','','','KsPage','','','','','LhcSlidePage'],
     banner:[{'redirect_url':'','title':'','name':'','pic_url':''}],
     lottoryList:null,
-    lottories:[],
+    lottories:[{url:''}],
     lottorys:{hot:[{friend_name:"",identifier:''}]},
   }
   lottoryCentData = {}
@@ -47,7 +49,9 @@ export class HomeProvider {
 
   //彩种
   async lottoryInfo() {
-    this.homeData.lottoryList = (await this.http.fetchData('/api-lotteries-h5/lottery-info?_t=' + this.userInfo.auth_token)).data;
+    
+    this.homeData.lottoryList = (await this.http.fetchData('/api-lotteries-h5/lottery-info')).data;
+    this.homeData.lottories = []
     for (let item in this.homeData.lottoryList) {
       for (let i = 0; i < this.homeData.lottoryList[item].length; i++) {
         this.homeData.lottoryList[item][i].group = item;
@@ -55,6 +59,8 @@ export class HomeProvider {
       }
       this.homeData.lottories.push(...this.homeData.lottoryList[item])
     }
+    
+    
     this.homeData.lottoryList.SSC[0].flag = true;
     // this.homeData.lottoryList.SSC.nav = [{name:'开奖',flag:true,c:'SscKaijiang'},{name:'大小',flag:false,c:'SscDaxiao'},{name:'单双',flag:false,c:'SscDanshuang'},{name:'形态',flag:false}];
     this.homeData.lottoryList.SSC.nav = [{name:'开奖',flag:true,c:SscKaijiangComponent},{name:'大小',flag:false,c:SscDaxiaoComponent},{name:'单双',flag:false,c:SscDanshuangComponent}];
@@ -62,40 +68,42 @@ export class HomeProvider {
     this.homeData.lottoryList.K3.nav = [{name:'开奖',flag:true,c:K3KaijiangComponent},{name:'基本走势',flag:false,c:K3BaseTrendComponent},{name:'形态走势',flag:false,c:K3ShapeTrendComponent},{name:'冷热',flag:false,c:K3CoodHotComponent}];
     this.homeData.lottoryList.PK10.nav = [{name:'开奖',flag:true,c:Pk10KaijiangComponent},{name:'大小',flag:false,c:Pk10daxiaoComponent},{name:'单双',flag:false,c:Pk10DanshuangComponent},{name:'冠亚军和',flag:false,c:Pk10ChanpiomComponent},{name:'龙虎',flag:false,c:Pk10LonghuComponent}];
     this.homeData.lottoryList.LHC.nav = [{name:'开奖',flag:true,c:LhcKaijiangComponent},{name:'生肖',flag:false,c:LhcShengxiaoComponent},{name:'两面/波色',flag:false,c:LhcBoseComponent}];
+    
+    // for(let i=0,len1=this.homeData.lottories.length;i<len1;i++){
+    //   console.log(this.redicret_url[i])
+    //   this.homeData.lottories[i].url = this.redicret_url[i]
+    // }
 
+    this.addUrl(this.homeData.lottories)
     this.loadHotLottory(this.homeData.lottories)
+
+    
+
     console.log(this.homeData.lottories)
     console.log(this.homeData.lottoryList)
   }
 
-<<<<<<< HEAD
+
+  addUrl(lottory){
+    for(let i=0,len1=lottory.length;i<len1;i++){
+      console.log(this.homeData.redicret_url[i])
+      lottory[i].url = this.homeData.redicret_url[i]
+    }
+  }
 
   //通知
   async loadannouncements() {
-    this.infoData.announcements = (await this.http.fetchData('/h5api-announcements?_t=' + this.userInfo.auth_token)).data;
-=======
-  constructor(public http: HttpClient,public rest: RestProvider) {
- 
->>>>>>> dd0a4826b1dc93f66dad504f7526a00ea2f091b7
+    // this.infoData.announcements = (await this.http.fetchData('/h5api-announcements?_t=' + this.userInfo.auth_token)).data;
   }
 
   async announcementsUnreadnum() {
-    this.infoData.unreadAnnouncements = (await this.http.fetchData('/h5api-announcements/unreadnum?_t=' + this.userInfo.auth_token)).data.tplData.successful.Num;
+    // this.infoData.unreadAnnouncements = (await this.http.fetchData('/h5api-announcements/unreadnum?_t=' + this.userInfo.auth_token)).data.tplData.successful.Num;
   }
 
-<<<<<<< HEAD
   //通知轮播内容
   async loadbanner() {
-    this.homeData.banner = (await this.http.fetchData('/h5api-announcements/banner?_t=' + this.userInfo.auth_token)).data.banner;
+    this.homeData.banner = (await this.http.fetchData('/h5api-announcements/banner')).data.banner;
     console.log(this.homeData.banner)
-=======
-  ionViewLoaded(){
-    // this.getLottoryList()
-    this.HomeData.storage = JSON.parse(localStorage.getItem('userInfo'));
-    console.log( this.HomeData.storage)
-    this.getLottoryList(this.HomeData.storage.auth_token)
-    this.getBanner(this.HomeData.storage.auth_token)
->>>>>>> dd0a4826b1dc93f66dad504f7526a00ea2f091b7
   }
 
   // 获取热门彩种
@@ -104,9 +112,10 @@ export class HomeProvider {
     if (this.homeData.lottorys) {
       return this.homeData.lottorys;
     } else {
+      
       this.homeData.lottorys = {hot: [], more: []};
-      this.homeData.lottorys.hot = _lottory.slice(0, 15)
-      this.homeData.lottorys.more = _lottory.slice(-3)
+      this.homeData.lottorys.hot = _lottory.slice(0, 18)
+     // this.homeData.lottorys.more = _lottory.slice(-3)
       localStorage.lottorys = JSON.stringify(this.homeData.lottorys)
     }
   }
@@ -117,7 +126,7 @@ export class HomeProvider {
 
   //获取最近90期的数据
   async loadIssues(lottoryId){
-    return this.lottoryCentData = (await this.http.fetchData('/api-lotteries-h5/load-issues/'+lottoryId+'?count=90&_t='+this.userInfo.auth_token))
+    return this.lottoryCentData = (await this.http.fetchData('/api-lotteries-h5/load-issues/'+lottoryId+'?count=90'))
     // console.log(this.lottoryCentData)
   }
 

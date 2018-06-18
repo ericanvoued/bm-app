@@ -182,16 +182,16 @@ export class BasketPage {
       result['balls'] = encrypt(JSON.stringify(result['balls']))
 
       let url = '/api-lotteries-h5/bet/' + this.common.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token
+      alert('sss')
       this.http.postData(url,result).then(data => {
         console.log(data)
-         if(data.isSuccess == 1){
+        window.alert('eee')
           let alert = this.alertCtrl.create({
             title: '恭喜您',
             message: '投注已成功，祝你好运!',
           });
           alert.present();
-         }
-      
+         
        }
       )
     }

@@ -83,11 +83,6 @@ export class AddBankCardPage {
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
   }
 
-  getUserInfo(){
-    this.storage.get('userInfo').then((val) => {
-      this.bcData.userInfo = val
-    });
-  }
 
   ionViewDidEnter(){
     this.getAllBankList().then(data=>{
@@ -167,16 +162,13 @@ export class AddBankCardPage {
   }
 
   async submitData() {
-    let chineseReg = /^[\u4E00-\u9FA5\uF900-\uFA2D]{2,16}$/;//中文验证
+    // let chineseReg = /^[\u4E00-\u9 FA5\uF900-\uFA2D]{2,16}$/;//中文验证
     let numReg = /^[0-9]{16,19}$/;//数字验证
 
     if (this.bcData.subData.userName.length == 0) {
       this.loadPrd.showToast(this.toastCtrl, "请输入持卡人姓名");
       return null;
-    } else if (!chineseReg.test(this.bcData.subData.userName)) {
-      this.loadPrd.showToast(this.toastCtrl, "输入的持卡人姓名格式不对")
-      return null;
-    } else if (!numReg.test(this.bcData.subData.cardNum)) {
+    }  else if (!numReg.test(this.bcData.subData.cardNum)) {
       this.loadPrd.showToast(this.toastCtrl, "请输入正确的19位银行卡号")
       return null;
     } else if (this.bcData.subData.bank.name.length == 0) {

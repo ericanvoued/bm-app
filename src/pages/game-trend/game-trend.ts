@@ -61,6 +61,54 @@ export class GameTrendPage {
 
   drawCanvas(){
     let methodName = this.common.method + this.common.smallMethod
+
+    if(this.common.method == '大小单双'){
+      let container = document.getElementsByClassName('trend-container'),canvas 
+      // 加载新数据后需要清楚canvas
+     // for(let i = 0;i<containers.length;i++){
+      for(let i = 0;i<container.length;i++){
+          canvas = container[i].querySelector('canvas')
+          if(canvas){
+            let ctx = canvas.getContext('2d')
+            ctx.clearRect(0,0,canvas.width,canvas.height)
+            container[i].removeChild(canvas)
+          } 
+
+          canvas = document.createElement('canvas')
+          canvas.width = container[i].offsetWidth
+          canvas.height = container[i].offsetHeight
+          canvas.setAttribute('id','canvas')
+          container[i].appendChild(canvas)
+          let ctx = canvas.getContext('2d')
+          ctx.strokeStyle = '#f5d300'
+          ctx.lineWidth = 1
+          ctx.beginPath()
+
+
+          let nodes = container[i].querySelectorAll('.highlight')
+
+          let nodeOdd = [].slice.call(nodes).filter((ele,index) => index % 2 == 1)
+          let nodeEven = [].slice.call(nodes).filter((ele,index) => index % 2 == 0)
+          for(let i=0; i< nodeOdd.length; i++){
+    
+              if(i == 0)
+                ctx.moveTo(nodeOdd[i].offsetLeft + 10,nodeOdd[i].offsetTop + 10)
+              else
+                ctx.lineTo(nodeOdd[i].offsetLeft + 10,nodeOdd[i].offsetTop + 10)
+          }
+
+          for(let i=0; i< nodeEven.length; i++){
+              if(i == 0)
+                ctx.moveTo(nodeEven[i].offsetLeft + 10,nodeEven[i].offsetTop + 10)
+              else
+                ctx.lineTo(nodeEven[i].offsetLeft + 10,nodeEven[i].offsetTop + 10)
+          }
+          ctx.stroke()
+          ctx.closePath()
+       }  
+       return    
+    }
+
     if(["前三直选和值", "前三组选和值", "中三直选和值", "中三组选和值", "后三直选和值", "后三组选和值", "二星后二和值", "二星前二和值"].indexOf(methodName) != -1){
     //if(this.common.smallMethod == '直选和值'){
       //let container = document.getElementsByClassName('trend-container')[0],canvas = container.getElementsByTagName('canvas')[0]
@@ -160,7 +208,7 @@ export class GameTrendPage {
   getCtxColor(i){
     switch(this.util.trendKind[this.common.method][i]) {
        case '万位走势':
-            return '#F84F1E'
+            return '#F5d300'
        case '千位走势':
             return '#F84F1E'
        case '百位走势':

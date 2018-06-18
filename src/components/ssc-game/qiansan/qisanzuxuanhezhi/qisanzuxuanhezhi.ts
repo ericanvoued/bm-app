@@ -28,7 +28,7 @@ export class QisanzuxuanhezhiComponent extends commonMethod{
         },{"key":"十", "value":[0,0,0,0,0,0,0]
         }
       ]
-    this.text = 'Hello World';
+      this.common.missData.qszuxhz.current = this.common.missData.qszuxhz.current.concat(...['',''])
   }
 
    randomOneOrder(){

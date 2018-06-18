@@ -16,7 +16,7 @@ export class LoginProvider {
       //  })
   }
 
-  loginApp(parameter: any){
+  loginApp(parameter){
     return this.rest.postUrlReturn(this.loginApi, parameter);
   }
 

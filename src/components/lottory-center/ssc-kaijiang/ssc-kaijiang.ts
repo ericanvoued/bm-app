@@ -1,11 +1,6 @@
-import { Component,componentRef } from '@angular/core';
+import { Component, ComponentRef } from '@angular/core';
 
-/**
- * Generated class for the SscKaijiangComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
+
 @Component({
   selector: 'ssc-kaijiang',
   templateUrl: './ssc-kaijiang.html'
