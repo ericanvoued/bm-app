@@ -24,7 +24,7 @@ import {RestProvider} from '../providers/rest/rest';
 import {LoadingProvider} from '../providers/loading/loading';
 import {InfoCenterProvider} from '../providers/info-center/info-center';
 import {LhcSlidePage} from '../pages/lhc/lhc-slide/lhc-slide'
-import {KsPage} from '../pages/k3/ks/ks'
+// import {KsPage} from '../pages/k3/ks/ks'
 import {KsBasketPage} from '../pages/k3/ks-basket/ks-basket'
 
 import {StatusBar} from '@ionic-native/status-bar';
@@ -78,8 +78,8 @@ import {BaseToolProvider} from '../providers/base-tool/base-tool';
     ZhixuanhezhiComponent,
     DaxiaodanshuangComponent,
     CountTipComponent,
-    LhcSlidePage,
-    KsPage, KsBasketPage,
+    //LhcSlidePage,
+    KsBasketPage,
     ...gameConfig.ssc,
     ...gameConfig.d5,
     ...lottoyCenter.lcList
@@ -114,8 +114,8 @@ import {BaseToolProvider} from '../providers/base-tool/base-tool';
     KuadutrendComponent,
     ZhixuanhezhiComponent,
     DaxiaodanshuangComponent,
-    LhcSlidePage,
-    KsPage, KsBasketPage,
+   // LhcSlidePage,
+    KsBasketPage,
     CountTipComponent,
     ...gameConfig.ssc,
     ...gameConfig.d5,
