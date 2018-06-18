@@ -11,14 +11,17 @@ export class ChargeStatusPage {
   statusData= {
     bank:'',
     money:0.00,
-    status:''
+    status:null,
+    statusText:''
   }
 
   constructor( public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController) {
+    console.log(this.navParams)
     this.statusData ={
       bank: this.navParams.get('bank'),
       money:this.navParams.get('money'),
-      status: this.navParams.get('status')
+      status: this.navParams.get('status'),
+      statusText: this.navParams.get('statusText')
     }
   }
 

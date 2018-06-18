@@ -9,12 +9,11 @@ import { Events } from 'ionic-angular';
 import { CountTipComponent } from '../../../components/count-tip/count-tip'
 
 import { BasketDataProvider } from '../../../providers/basket-data/basket-data'
-
 import { GamemenuComponent } from '../../../components/gamemenu/gamemenu'
 import { MenumodalComponent } from '../../../components/menumodal/menumodal'
 import { UtilProvider } from '../../../providers/util/util'
 import { gameConfig } from '../../../components/ssc-config'
-
+import { GameTrendPage } from '../../game-trend/game-trend'
 import { SscServiceProvider } from '../../../providers/games/ssc-service/ssc-service'
 import * as $ from 'jquery'
 import * as Hammer from 'hammerjs';
@@ -32,6 +31,7 @@ import * as Hammer from 'hammerjs';
   providers:[GamemenuComponent]
 })
 export class SscPage extends Effect{
+     
     @ViewChild("gameContainer", { read: ViewContainerRef }) gameContainer: ViewContainerRef;
     componentRef: ComponentRef<any>;
     //showTip:any = ['当前遗漏', '30期冷热', '平均遗漏', '最大遗漏']
@@ -45,13 +45,6 @@ export class SscPage extends Effect{
     // =  [{number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
     // {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'},
     // {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
-    // {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'},
-    // {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
-    // {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'},
-    // {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
-    // {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'},
-    // {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
-    // {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'}]
 
     maxNumber:number;
     loadNumber:number = 0
@@ -59,9 +52,14 @@ export class SscPage extends Effect{
     trHeight:number;
     high:number = 0
 
-    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private resolver: ComponentFactoryResolver,public app:App,
+    gameConfig:any;
+
+    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, public resolver: ComponentFactoryResolver,public app:App,
     public common:CommonProvider, public gamemenu:GamemenuComponent, public util:UtilProvider,public basket:BasketDataProvider,public ssc:SscServiceProvider, public events:Events) {
-        super(common,gamemenu,modalCtrl,navCtrl)
+        super(common,gamemenu,modalCtrl,navCtrl,resolver)
+        this.gameConfig = gameConfig
+
+        let self = this
 
         $('body').on('touchmove', '.bet-box', function(){
            console.log($('#qq').offset().top)
@@ -76,10 +74,18 @@ export class SscPage extends Effect{
         })
 
         $('body').on('click', '#qq', function(){
-            $(this).removeClass('fixed')
-            $('.scroll-content').animate({  
-                scrollTop: 0
-            }, 200);  
+            console.log($('.bet-box').scrollTop())
+            if(!$(this).hasClass('fixed')){
+                if(self.loadNumber){
+                    self.high = 0
+                    self.loadNumber = 0
+                }         
+            }else{
+                $(this).removeClass('fixed')
+                $('.scroll-content').animate({  
+                    scrollTop: 0
+                }, 200)
+            }   
         })
 
         this.common.initData().then(
@@ -96,29 +102,19 @@ export class SscPage extends Effect{
                 this.componentRef = this.gameContainer.createComponent(factory)
                 this.componentRef.instance.choose = this.haveChoosen
                 this.common.componentRef = this.componentRef
+                $('.table').css('height','327px')
                            this.util.shakePhone(() => {
                                this.util.randomChoose(this.componentRef)
                            })
             }
         )
 
-       
+        //this.common.getLotteryMiss()
+        this.common.getMissObservable()
+
         //this.over = this.record.length > 2 ? false:true
-
-        this.util.fetchRecord().then(() => {
-            console.log(this.util.historyList)
-            console.log(this.util.historyList.map(this.handleBall))
-            this.list = this.util.historyList.map(this.handleBall).slice(0,10)
-            if(this.list.length > 2){
-                this.maxNumber = Math.ceil(this.list.length/5)
-            }else{
-                this.maxNumber = 0
-            }
-       })
-      
-    
     }
-
+  
     handleBall(ele){
         function judge(number){
             if(number%2 == 0 && number >=5)
@@ -143,8 +139,7 @@ export class SscPage extends Effect{
 
         return {...ele, number:ele.number.substr(2,ele.number.length),balls:ele.code.replace(/\s+/g, ""), shiwei:judge(ele.code.replace(/\s+/g, "").split('')[3]) ,
                gewei:judge(ele.code.replace(/\s+/g, "").split('')[4]), housan:tell(ele.code) ? '组三':'组六'
-        }
-                    
+        }                   
     }
 
     ionViewDidLoad() {
@@ -226,7 +221,7 @@ export class SscPage extends Effect{
         console.log(val)
         this.common.open = false
         if(val == '走势图')
-           this.app.getRootNav().push('GameTrendPage',{'index':1}) 
+           this.navCtrl.push('GameTrendPage',{'index':1}) 
           // this.navCtrl.push('GameTrendPage',{'index':1})
 
         if(val == '号码统计'){
@@ -244,16 +239,4 @@ export class SscPage extends Effect{
         this.util.resetData()
     }
 
-   //切换小玩法
-   methodChange($event){
-    //    this.haveChoosen = ['当前遗漏']
-       console.log($event)
-       let component = gameConfig[$event]
-       this.gameContainer.clear()
-       const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(component)
-       this.componentRef = this.gameContainer.createComponent(factory)
-       this.common.componentRef = this.componentRef
-       console.log(this.haveChoosen)
-       this.componentRef.instance.choose = this.haveChoosen
-   }
 }

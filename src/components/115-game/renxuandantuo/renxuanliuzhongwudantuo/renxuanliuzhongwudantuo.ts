@@ -26,70 +26,35 @@ export class RenxuanliuzhongwudantuoComponent extends commonMethod{
     this.text = 'Hello World';
   }
 
-  randomChoose(number?){
-    if(number){
-      let temp,arr;
-      this.common.ballData = this.common.ballData.map((item,index) => {
-       
-        if(index == 0){
-            this.arr = []
-            temp = this.tool.produceRandom5(1 + Math.floor(Math.random()*5)) 
-            this.arr.push(...temp)
-            item.value = item.value.map((ele,index) => {
-                if(temp.indexOf(index) != -1){
-                    
-                    return 1
-                }else{
-                    return 0
-                }
-            })
-            return item
-        }else{
-            arr = this.tool.produceRandom5(6 - temp.length,temp)
-            item.value = item.value.map((ele,index) => {
-              if(arr.indexOf(index) != -1){
+  randomOneOrder(){
+    let tempArr,arr;
+    this.common.ballData = this.common.ballData.map((item,index) => {
+     
+      if(index == 0){
+          this.arr = []
+          tempArr = this.tool.produceRandom5(1 + Math.floor(Math.random()*5)) 
+          this.arr.push(...tempArr)
+          item.value = item.value.map((ele,index) => {
+              if(tempArr.indexOf(index) != -1){    
                   return 1
               }else{
                   return 0
               }
           })
-            return item
-        }
-      })
-      this.calculate()
-      this.basket.addBetData()
-      if(number == 1) return
-      this.randomChoose(--number)
-    }else{
-      let temp,arr;
-      this.common.ballData = this.common.ballData.map((item,index) => {
-       
-        if(index == 0){
-            this.arr = []
-            temp = this.tool.produceRandom5(1 + Math.floor(Math.random()*5)) 
-            this.arr.push(...temp)
-            item.value = item.value.map((ele,index) => {
-                if(temp.indexOf(index) != -1){    
-                    return 1
-                }else{
-                    return 0
-                }
-            })
-            return item
-        }else{
-            arr = this.tool.produceRandom5(6 - temp.length,temp)
-            item.value = item.value.map((ele,index) => {
-              if(arr.indexOf(index) != -1){
-                  return 1
-              }else{
-                  return 0
-              }
-          })
-            return item
-        }
-      })
-      this.calculate()
-    }
+          return item
+      }else{
+          arr = this.tool.produceRandom5(6 - tempArr.length,tempArr)
+          item.value = item.value.map((ele,index) => {
+            if(arr.indexOf(index) != -1){
+                return 1
+            }else{
+                return 0
+            }
+        })
+          return item
+      }
+    })
+    this.calculate()
   }
 
   changeToggle(row,column){
@@ -137,42 +102,21 @@ export class RenxuanliuzhongwudantuoComponent extends commonMethod{
               }else{
                   return ele
               }
-            })
-          
+            })        
             return item
         }
       })
       this.calculate()
   } 
 
-  getOriginData():any{
-    let first = [], second = []
-    this.common.ballData.forEach((ele,index) => {
-         if(index == 0){
-            ele.value.forEach((item,index) => {
-                if(item)
-                  first.push(index)
-            })
-         }else{
-            ele.value.forEach((item,index) => {
-                if(item)
-                  second.push(index)
-             })
-         }
-    })
-    return {first, second}
+ getCount(){
+    let count = 0;
+    let data = this.getOriginData()
+ 
+    if(data.first.length + data.second.length >= 6 && data.first.length >0 && data.second.length > 0 ) {
+       count = this.tool.zuhe1(data.second.length,6 - data.first.length)
+    }
+    return count
  }
 
- calculate(){
-   let count = 0;
-   let data = this.getOriginData()
-
-   if(data.first.length + data.second.length >= 6 && data.first.length >0 && data.second.length > 0 ) {
-      count = this.tool.zuhe1(data.second.length,6 - data.first.length)
-   }
-
-   this.common.count = count
-   let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
-   this.common.betPrice = this.common.count*2*percent
- }
 }

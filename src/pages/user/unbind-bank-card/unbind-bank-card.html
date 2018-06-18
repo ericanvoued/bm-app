@@ -8,12 +8,12 @@
 <ion-content>
   <div class="e-content">
     <div class="card-list">
-      <div class="card-unit bank-{{bankData.bankStr}}">
-        <div class="bank-logo"><i class="firecat-icon s-{{bankData.bankStr}}-icon"></i></div>
+      <div class="card-unit bank-{{bankData.identifier}}">
+        <div class="bank-logo"><i class="firecat-icon s-{{bankData.identifier}}-icon"></i></div>
         <div class="bank-info">
-          <h4>{{bankData.bankName}}</h4>
-          <p class="card-type">{{bankData.bankType}}</p>
-          <p>{{bankData.bankNum}}</p>
+          <h4>{{bankData.bank}}</h4>
+          <p class="card-type">储蓄卡</p>
+          <p>{{formatBankNumber(bankData.account)}}</p>
         </div>
       </div>
     </div>

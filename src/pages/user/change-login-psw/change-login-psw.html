@@ -9,18 +9,18 @@
   <div class="bank-card-content common-form">
     <div class="cf-row">
       <label for="oldPsw">原登陆密码</label>
-      <input id="oldPsw" type="password" maxlength="16" placeholder="6-20个字符，可使用字母或数字" required>
+      <input id="oldPsw" type="password" maxlength="16" [(ngModel)]="pswData.old_password" placeholder="6-16个字符，可使用字母或数字" required>
     </div>
     <div class="cf-row">
       <label for="newPsw">新登陆密码</label>
-      <input id="newPsw" type="password"  maxlength="16" placeholder="6-20个字符，可使用字母或数字" required>
+      <input id="newPsw" type="password"  maxlength="16" [(ngModel)]="pswData.password" placeholder="6-16个字符，可使用字母或数字" required>
     </div>
     <div class="cf-row">
       <label for="comfirmPsw">确认密码</label>
-      <input id="comfirmPsw" type="password"  maxlength="16" placeholder="6-20个字符，可使用字母或数字" required>
+      <input id="comfirmPsw" type="password"  maxlength="16" [(ngModel)]="pswData.password_confirmation" placeholder="6-16个字符，可使用字母或数字" required>
     </div>
     <div class="submit-row">
-      <button class="submit-button" >下一步</button>
+      <button class="submit-button" (click)="submitPsw()">下一步</button>
     </div>
   </div>
 </ion-content>

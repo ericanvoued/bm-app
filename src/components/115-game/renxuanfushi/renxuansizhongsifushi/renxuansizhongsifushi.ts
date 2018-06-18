@@ -26,32 +26,18 @@ export class RenxuansizhongsifushiComponent extends commonMethod{
     this.text = 'Hello World';
   }
 
-  randomChoose(number?){
-    if(number){
-       let temp = this.tool.produceRandom5(4)
-       this.common.ballData = this.common.ballData.map((item,index) => {
-           item.value = item.value.map((ele,index) => temp.indexOf(index) != -1 ? 1 : 0)
-           return item
-       })
-       this.calculate()
-       this.basket.addBetData()
-       if(number == 1) return
-       this.randomChoose(--number)
-    }else{
-       let temp = this.tool.produceRandom5(4)
-       this.common.ballData = this.common.ballData.map((item,index) => {
-           item.value = item.value.map((ele,index) => temp.indexOf(index) != -1 ? 1 : 0)
-           return item
-       })
-       this.calculate()
-    }  
+  randomOneOrder(){
+    let temp = this.tool.produceRandom5(4)
+    this.common.ballData = this.common.ballData.map((item,index) => {
+        item.value = item.value.map((ele,index) => temp.indexOf(index) != -1 ? 1 : 0)
+        return item
+    })
+    this.calculate()
   }
 
-  calculate(){
+  getCount(){
     let temp = this.common.ballData[0].value.filter(ele => ele == 1).length
     let count = temp  < 4 ? 0 : this.tool.zuhe1(temp,4)
-    this.common.count = count
-    let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
-    this.common.betPrice = this.common.count*2*percent
- }
+    return count
+  }
 }

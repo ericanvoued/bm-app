@@ -30,19 +30,7 @@ export class HousanzhixuanzuheComponent extends commonMethod{
     return this.choose.indexOf(choice) > -1
   }
 
-  randomChoose(){
-    this.common.ballData = this.common.ballData.map(item => {
-      // let arr = [0,1,2,3,4,5,6,7,8,9]
-      let random = Math.floor(Math.random()*10)
-      //let arr = this.generateTwo(number)
-      let balls = item.value.map((ele,index) => index == random ? 1 : 0)
-      item.value = balls
-      return item
-    })
-    this.calculate()
-  }
-
-  calculate(){
+  getCount(){
     let flag = this.common.ballData.every(item => {
       return item.value.some(ele => ele == 1)
     }), count = 3
@@ -54,9 +42,7 @@ export class HousanzhixuanzuheComponent extends commonMethod{
     }else{
       count = 0
     }
-      
-    this.common.count = count 
-    let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
-    this.common.betPrice = this.common.count*2*percent
+    return count
   }
+
 }

@@ -10,8 +10,9 @@ import { IonicPage, NavController, NavParams,  Slides } from 'ionic-angular';
 import { UtilProvider } from '../../providers/util/util'
 import { CommonProvider } from "../../providers/common/common";
 import { WuxingComponent } from '../../components/gametrend/wuxing/wuxing'
-import { config } from '../../components/gameTrend.config'
+import { config, judgeTrend } from '../../components/gameTrend.config'
 import { BasketDataProvider } from '../../providers/basket-data/basket-data'
+import { gameConfig } from '../../components/ssc-config'
 
 
 @IonicPage()
@@ -23,6 +24,7 @@ export class GameTrendPage {
   componentRef: ComponentRef<any>;
   @ViewChild('contentSlides') contentSlides: Slides;
   @ViewChild("gameTrendContainer", { read: ViewContainerRef }) container: ViewContainerRef;
+  @ViewChild("noshowContainer", { read: ViewContainerRef }) nocontainer: ViewContainerRef;
 
   observable: Observable<any>;
   observer: Observer<any>;
@@ -41,18 +43,11 @@ export class GameTrendPage {
       })
     })
 
-    //方法切换 改变走势图
-    this.events.subscribe('changeTrend',(val) => {
-      setTimeout(() => {
-        console.log('wcnnvmfmf')
-        this.drawTrend()
-
-      },0)
- })
-
     this.events.subscribe('changeIndex', (val) => {
        this.segmentChanged(val)
     })
+
+    this.common.fetchRecord()
   }
 
   ionViewWillEnter(){
@@ -65,45 +60,40 @@ export class GameTrendPage {
    }
 
   drawCanvas(){
-    if(this.common.smallMethod == '直选和值'){
-      let containers = document.getElementsByClassName('hezhi-container')
+    let methodName = this.common.method + this.common.smallMethod
+    if(["前三直选和值", "前三组选和值", "中三直选和值", "中三组选和值", "后三直选和值", "后三组选和值", "二星后二和值", "二星前二和值"].indexOf(methodName) != -1){
+    //if(this.common.smallMethod == '直选和值'){
+      //let container = document.getElementsByClassName('trend-container')[0],canvas = container.getElementsByTagName('canvas')[0]
+      let container = document.getElementById('trend-container'),canvas = container.querySelector('canvas')
       // 加载新数据后需要清楚canvas
-      for(let i = 0;i<containers.length;i++){
-           let canvas = containers[i].querySelector('canvas')
-           if(canvas){
-              let ctx = canvas.getContext('2d')
-              ctx.clearRect(0,0,canvas.width,canvas.height)
-              containers[i].removeChild(canvas)
-           }
+     // for(let i = 0;i<containers.length;i++){
+          
+      if(canvas){
+          let ctx = canvas.getContext('2d')
+          ctx.clearRect(0,0,canvas.width,canvas.height)
+          container.removeChild(canvas)
+      } 
+      canvas = document.createElement('canvas')
+      canvas.width = container.offsetWidth
+      canvas.height = container.offsetHeight
+      canvas.setAttribute('id','canvas')
+      container.appendChild(canvas)
+      let ctx = canvas.getContext('2d')
+      ctx.strokeStyle = '#7ED321'
+      ctx.lineWidth = 1
+      ctx.beginPath();
+      let nodes = container.querySelectorAll('.highlight')
+      for(let i=0; i< nodes.length; i++){
+
+          if(i == 0)
+            ctx.moveTo(nodes[i].offsetLeft + 10,nodes[i].offsetTop + 10)
+          else
+            ctx.lineTo(nodes[i].offsetLeft + 10,nodes[i].offsetTop + 10)
       }
-
-      console.log(containers.length)
-      for(let i = 0;i<containers.length;i++){
-
-        let container = containers[i]
-        let canvas = document.createElement('canvas')
-        canvas.width = container[0].offsetWidth
-        canvas.height = container[0].offsetHeight
-        canvas.setAttribute('id','canvas')
-        container.appendChild(canvas)
-        let ctx = canvas.getContext('2d')
-        ctx.strokeStyle = this.getCtxColor(i)
-        console.log(this.getCtxColor(i))
-        ctx.lineWidth = 1
-        ctx.beginPath();
-        let nodes = container.querySelectorAll('.highlight')
-        for(let i=0; i< nodes.length; i++){
-            console.log(nodes.length)
-            if(i == 0)
-              ctx.moveTo(nodes[i][0].offsetLeft + 14,nodes[i][0].offsetTop + 14)
-            else
-              ctx.lineTo(nodes[i][0].offsetLeft + 14,nodes[i][0].offsetTop + 14)
-        }
-        ctx.stroke()
-        ctx.closePath()
-    }
-}
-else{
+      ctx.stroke()
+      ctx.closePath()
+    
+   }else{
       let containers = document.getElementsByClassName('trend-container')
       // 加载新数据后需要清楚canvas
       for(let i = 0;i<containers.length;i++){
@@ -119,8 +109,8 @@ else{
 
               let container = document.getElementsByClassName('trend-container')[i]
               let canvas = document.createElement('canvas')
-              canvas.width = container[0].offsetWidth
-              canvas.height = container[0].offsetHeight
+              canvas.width = container.offsetWidth
+              canvas.height = container.offsetHeight
               container.appendChild(canvas)
               let ctx = canvas.getContext('2d')
               ctx.strokeStyle = this.getCtxColor(i)
@@ -129,28 +119,30 @@ else{
               ctx.beginPath();
               let nodes = container.querySelectorAll('.highlight')
               for(let i=0; i< nodes.length; i++){
-                  console.log(nodes.length)
                   if(i == 0)
-                    ctx.moveTo(nodes[i][0].offsetLeft + 14,nodes[i][0].offsetTop + 14)
+                    ctx.moveTo(nodes[i].offsetLeft + 10,nodes[i].offsetTop + 10)
                   else
-                    ctx.lineTo(nodes[i][0].offsetLeft + 14,nodes[i][0].offsetTop + 14)
+                    ctx.lineTo(nodes[i].offsetLeft + 10,nodes[i].offsetTop + 10)
               }
               ctx.stroke()
               ctx.closePath()
             }
     }
-
 }
 
   create(gameMethod:string):Promise<any>{
+    console.log('create trend')
+    console.log(gameMethod)
 
-
-    let trendComponent = config[gameMethod]
-    const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(trendComponent)
+    let trendComponent:any = judgeTrend('SSC', gameMethod)
+    console.log(trendComponent)
+    const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(trendComponent.component)
     this.componentRef = this.container.createComponent(factory)
     this.componentRef.instance.chooseIndex = this.navParams.get('index')
+    this.componentRef.instance.menus = trendComponent.menus
+    this.componentRef.instance.position = trendComponent.position
     //上拉加载数据 canvas重回
-    this.componentRef.instance.output.subscribe(() => setTimeout(() => this.drawCanvas(),0))
+    //this.componentRef.instance.output.subscribe(() => setTimeout(() => this.drawCanvas(),0))
     return new Promise((resolve,reject) => {
         setTimeout(resolve,0)
     })
@@ -161,23 +153,22 @@ else{
     if(this.common.method == '前三'){
         this.observer.next(this.create(this.common.method + this.common.smallMethod))
     }else{
-        this.observer.next(this.create(this.common.method))
+        this.observer.next(this.create(this.common.method + this.common.smallMethod))
     }
-
   }
 
   getCtxColor(i){
     switch(this.util.trendKind[this.common.method][i]) {
        case '万位走势':
-            return 'yellow'
+            return '#F84F1E'
        case '千位走势':
-            return 'orange'
+            return '#F84F1E'
        case '百位走势':
-            return 'green'
+            return '#F84F1E'
        case '十位走势':
-            return 'purple'
+            return '#F84F1E'
        case '个位走势':
-            return 'pink'
+            return '#F84F1E'
 
     }
  }
@@ -195,7 +186,25 @@ else{
   }
 
   goBasket(){
+    if(!this.common.count)
+      return
     this.basket.addBetData()
     this.navCtrl.push('BasketPage')
+  }
+
+  methodChange($event){
+    console.log('trend change')
+
+    //this.drawTrend()
+
+    console.log($event)
+    let component = gameConfig[$event]
+    console.log(component)
+    this.nocontainer.clear()
+    const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(component)
+    this.componentRef = this.nocontainer.createComponent(factory)
+    this.common.componentRef = this.componentRef
+    this.drawTrend()
+    //this.componentRef.instance.choose = this.haveChoosen
   }
 }

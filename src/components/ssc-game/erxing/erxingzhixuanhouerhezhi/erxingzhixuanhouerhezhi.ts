@@ -26,40 +26,20 @@ export class ErxingzhixuanhouerhezhiComponent extends commonMethod{
       ]
   }
 
-  randomChoose(number?){
-    if(number){
-        let target = Math.floor(Math.random()*19)
-        
-        this.common.ballData = this.common.ballData.map((ele,index) => {
-            ele.value = ele.value.map((item,index1) => {
-                if(index*7 + index1 == target){
-                    return 1
-                }else{
-                    return 0
-                }
-            })
-            return ele
+  randomOneOrder(){
+    let target = Math.floor(Math.random()*19)
+    
+    this.common.ballData = this.common.ballData.map((ele,index) => {
+        ele.value = ele.value.map((item,index1) => {
+            if(index*7 + index1 == target){
+                return 1
+            }else{
+                return 0
+            }
         })
-        this.calculate()
-        this.basket.addBetData()
-        if(number == 1) return
-        this.randomChoose(--number)
-    }else{
-        let target = Math.floor(Math.random()*19)
-        
-        this.common.ballData = this.common.ballData.map((ele,index) => {
-            ele.value = ele.value.map((item,index1) => {
-                if(index*7 + index1 == target){
-                    return 1
-                }else{
-                    return 0
-                }
-            })
-            return ele
-        })
-        this.calculate()
-    }
-   
+        return ele
+    })
+    this.calculate()
   }
 
    getOriginData(){
@@ -80,16 +60,12 @@ export class ErxingzhixuanhouerhezhiComponent extends commonMethod{
     return arr.join('| ')
    }
 
-
-   calculate(){
-      let count = 0
-      this.getOriginData().forEach(item => {
-          count += this.mathResult(item,0,9).length
-      })
-
-      this.common.count = count 
-      let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
-      this.common.betPrice = this.common.count*2*percent
+   getCount(){
+        let count = 0
+        this.getOriginData().forEach(item => {
+            count += this.mathResult(item,0,9).length
+        })
+        return count
    }
 
    changeAll(line){  

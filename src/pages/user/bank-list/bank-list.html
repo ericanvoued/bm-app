@@ -9,21 +9,10 @@
 <ion-content>
   <div class="bank-list">
     <ul class="">
-      <li class="current"><img src="../../../assets/bank-icon/abc-icon.png" alt=""></li>
-      <li><img src="../../../assets/bank-icon/icbc-icon.png" alt=""></li>
-      <li><img src="../../../assets/bank-icon/cmb-icon.png" alt=""></li>
-      <li><img src="../../../assets/bank-icon/cmbc-icon.png" alt=""></li>
-      <li><img src="../../../assets/bank-icon/bc-icon.png" alt=""></li>
-      <li><img src="../../../assets/bank-icon/ceb-icon.png" alt=""></li>
-      <li><img src="../../../assets/bank-icon/CHAINABANK-icon.png" alt=""></li>
-      <li><img src="../../../assets/bank-icon/psbc-icon.png" alt=""></li>
-      <li><img src="../../../assets/bank-icon/pb-icon.png" alt=""></li>
-      <li><img src="../../../assets/bank-icon/ccb-icon.png" alt=""></li>
-      <li><img src="../../../assets/bank-icon/ib-icon.png" alt=""></li>
-      <li><img src="../../../assets/bank-icon/construtorbank-icon.png" alt=""></li>
-      <li><img src="../../../assets/bank-icon/hxb-icon.png" alt=""></li>
-      <li><img src="../../../assets/bank-icon/cgb-icon.png" alt=""></li>
-      <li><img src="../../../assets/bank-icon/cb-icon.png" alt=""></li>
+      <li *ngFor="let bank of bankList" [ngClass]="{'current':currentBank.identifier==bank.identifier}" (click)="selectBank(bank)">
+        <img src="../../../assets/bank-icon/{{bank.identifier}}-icon.png" alt="">
+      </li>
+
     </ul>
   </div>
 </ion-content>

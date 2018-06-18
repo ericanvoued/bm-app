@@ -40,7 +40,11 @@ page-bank-card {
 
     }
     .card-list{
-
+      &.isLocked{
+        .card-unit{
+          filter: grayscale(90%);
+        }
+      }
       .card-unit{
         margin: 0 7px 8px;
         height: 24vw;
@@ -50,6 +54,7 @@ page-bank-card {
         box-shadow: 0 2px 4px rgba(0,0,0,.35);
         border-radius: 10px;
         display: flex;
+
         .bank-logo{
           width: 80px;
           height: 100%;
@@ -63,74 +68,61 @@ page-bank-card {
             background-color: #FFFFFF;
             background-size: 50% auto;
           }
-          .s-abc-icon {
+          .s-ABC-icon {
             background-size: 31px auto;
           }
 
-          .s-bc-icon {
+          .s-BOCOM-icon {
             background-size: 36px auto;
           }
 
-          .s-cb-icon {
+          .s-SPDB-icon {
             background-size: 33px auto;
           }
 
-          .s-ccb-icon {
+          .s-CITIC-icon {
             background-size: 31px auto;
           }
 
-          .s-ceb-icon {
+          .s-CEB-icon {
             background-size: 35px auto;
           }
 
-          .s-cgb-icon {
+          .s-GDB-icon {
             background-size: 33px auto;
           }
 
-          .s-CHAINABANK-icon {
+          .s-BOC-icon {
             background-size: 31px auto;
           }
 
-          .s-cmb-icon {
+          .s-CMB-icon {
             background-size: 31px auto;
           }
 
-          .s-cmbc-icon {
+          .s-CMBC-icon {
             background-size: 28px auto;
           }
 
-          .s-construtorbank-icon {
+          .s-CCB-icon {
             background-size: 26px auto;
           }
-          .s-ctbc-icon {
+          .s-ICBC-icon {
             background-size: 31px auto;
           }
 
-          .s-hxb-icon {
+          .s-HXB-icon {
             background-size: 32.8px auto;
           }
-          .s-ib-icon {
+          .s-CIB-icon {
             background-size: 34.5px auto;
           }
-          .s-psbc-icon {
+          .s-PSBC-icon {
             background-size: 31.3px auto;
           }
-          .s-pb-icon {
+          .s-PAB-icon {
             background-size: 32px auto;
           }
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
         .bank-info{
           width: 100%;
@@ -154,11 +146,7 @@ page-bank-card {
           }
         }
       }
-      &.isLocked{
-        .card-unit{
-          filter: grayscale(90%);
-        }
-      }
+
     }
 
   }

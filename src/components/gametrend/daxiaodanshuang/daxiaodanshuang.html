@@ -1,0 +1,133 @@
+<!-- Generated template for the DaxiaodanshuangComponent component -->
+<div class="segment">
+  <ion-segment [(ngModel)]="choose" (ionChange)="ionChange($event)">
+    <ion-segment-button *ngFor="let name of menus;let ii = index" value="{{name}}">{{name}}</ion-segment-button>  
+  </ion-segment>
+</div>
+
+<ion-slides #contentSlides  (ionSlideDidChange)="slideChanged()">
+  <ion-slide>
+        <div [ngSwitch]="common.smallMethod">
+            <div *ngSwitchCase="'后二大小单双'">
+                    <div class="kai-jiang">
+                            <div >期号</div><div >开奖号码</div><div>十位</div><div>个位</div>
+                    </div>
+               
+                    <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
+                        <div >{{item.number}}</div>
+                        <div class="wuxing"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                        <div >{{item.shi}}</div>
+                        <div >{{item.ge}}</div>
+                    </div>
+            </div> 
+        </div>    
+
+        <div [ngSwitch]="common.smallMethod">
+            <div *ngSwitchCase="'后三大小单双'">
+                    <div class="kai-jiang">
+                            <div >期号</div><div>开奖号码</div><div>百位</div><div>十位</div><div>个位</div><div>后三形态</div>
+                    </div>
+               
+                    <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
+                        <div >{{item.number}}</div>
+                        <div class="wuxing"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                        <div >{{item.bai}}</div>
+                        <div >{{item.shi}}</div>
+                        <div >{{item.ge}}</div>
+                        <div >{{item.xingtai}}</div>
+                    </div>
+            </div> 
+         </div>    
+
+         <div [ngSwitch]="common.smallMethod">
+            <div *ngSwitchCase="'前二大小单双'">
+                    <div class="kai-jiang">
+                            <div >期号</div><div>开奖号码</div><div>万位</div><div>千位</div>
+                    </div>
+               
+                    <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
+                        <div >{{item.number}}</div>
+                        <div class="wuxing"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                        <div >{{item.wan}}</div>
+                        <div >{{item.qian}}</div>
+                    </div>
+            </div> 
+         </div>   
+         
+         <div [ngSwitch]="common.smallMethod">
+            <div *ngSwitchCase="'前三大小单双'">
+                    <div class="kai-jiang">
+                            <div >期号</div><div>开奖号码</div><div>万位</div><div>千位</div><div>百位</div><div>前三形态</div>
+                    </div>
+               
+                    <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
+                        <div >{{item.number}}</div>
+                        <div class="wuxing"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                        <div >{{item.wan}}</div>
+                        <div >{{item.qian}}</div>
+                        <div >{{item.bai}}</div>
+                        <div >{{item.xingtai}}</div>
+                    </div>
+            </div> 
+         </div>   
+         
+         <div [ngSwitch]="common.smallMethod">
+            <div *ngSwitchCase="'中三大小单双'">
+                    <div class="kai-jiang">
+                            <div >期号</div><div>开奖号码</div><div>千位</div><div>百位</div><div>十位</div><div>前三形态</div>
+                    </div>
+               
+                    <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
+                        <div >{{item.number}}</div>
+                        <div class="wuxing"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                        <div >{{item.qian}}</div>
+                        <div >{{item.bai}}</div>
+                        <div >{{item.shi}}</div>
+                        <div >{{item.xingtai}}</div>
+                    </div>
+            </div> 
+         </div>    
+    </ion-slide>  
+
+    <ion-slide>
+        <div style="display:flex;width:100%">
+             <div style="width:30%;display:flex;font-size:14px">
+                  <div style="width:40%">
+                       <ul>
+                          <li style="height:80px;line-height:80px">期号</li>
+                          <li *ngFor="let item of historyRecord">{{item.number}}</li>
+                       </ul>
+                  </div>
+
+                  <div style="width:60%">
+                       <ul>
+                          <li style="height:80px;line-height:80px">开奖号</li>
+                          <li *ngFor="let item of historyRecord">{{item.history}}</li>
+                       </ul>
+                  </div>
+             </div>
+
+             <div style="width:70%;position:relative;overflow:scroll">
+                  <div [ngStyle]="{'width':weiData.length*50 + '%'}" style="display:flex">
+                      <div [ngStyle]="{'width':1/weiData.length*100 + '%'}" *ngFor="let item of weiData">
+                           <ul>
+                              <li style="height:80px">
+                                 <div style="height:40px;line-height:40px">{{item}}</div>
+                                 <div style="height:40px;line-height:40px;display:inline-block" *ngFor="let item of rangeData">{{item}}</div>
+                              </li>
+                              <li *ngFor="let item of daxiaoData" style="display:flex">
+                                  <div *ngFor="let do of item;let i = index" style="width:25%" [class.active]="do === true"> 
+                                      {{do === true ? qq(i) : do}}
+                                  </div>
+                              </li>
+                           </ul>
+                      </div>
+
+                  </div>
+             </div>
+        </div>
+      
+    </ion-slide>  
+
+
+</ion-slides>      

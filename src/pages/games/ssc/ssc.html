@@ -7,8 +7,8 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>
-       <div style="position:relative;z-index:1300" #methodName (click)="common.toggle()">{{common.method}} {{common.smallMethod}}</div>
+    <ion-title (click)="common.toggle()">
+       <div style="position:relative;z-index:1300">{{common.method}} {{common.smallMethod}}</div>
        <div class="tri-arrow"></div>
     </ion-title>
 
@@ -16,15 +16,18 @@
   </ion-navbar>
 
 </ion-header>
+<gamemenu (switch)="methodChange($event)"> </gamemenu>
+
 <rightmenu [menus]="menus" (switch)="change($event)" [open]="common.open"></rightmenu>
 
 <gamemenu (switch)="methodChange($event)"> </gamemenu>
 <menumodal [hasChoosen]="haveChoosen" (toggle)="changeMenu($event)"></menumodal>
 
 <ion-content >
+  
     <div class="body-bg"></div>
-  <p class="l-info" text-center>距23058期截止 {{countTime.minutes}}:{{countTime.seconds}}</p>
-  <!-- <div class="table" id="touch" [ngStyle]="{'height':(110 + high) + 'px'}" style="overflow:hidden;transition:all .3s ease-in;"> -->
+  <p class="l-info" text-center *ngIf="!common.countEnd">距{{common.currentNumber}}期截止 {{common.countTime.minutes}}:{{common.countTime.seconds}}</p>
+  <p class="l-info" text-center *ngIf="common.countEnd">本期已截止</p>
   <div class="table" id="touch" >
     <div class="thead clearfix">
       <div class="tr clearfix">
@@ -54,29 +57,6 @@
               
         </ng-template>
 
-        <!-- <div [ngSwitch]="common.smallMethod">
-                <div *ngSwitchCase="'乱选和值'" class="l-game l-hezhi" style="height:230px">
-                        <div class="ball-list hezhi">
-                          <ul *ngFor="let item of common.ballData;let i = index">
-                            <li *ngFor="let todo of item;let j = index" [class.current]="todo == 1">{{7*i + j}}</li>
-                          </ul>
-
-                       </div> 
-                </div>   
-
-                   <div *ngSwitchDefault>
-                        <div class="l-game" *ngFor="let data of common.ballData;let ii = index" >
-                          <div class="l">
-                              <p><span></span>{{data.key}}</p>
-                              <p style="margin-top:18px"><span></span>遗漏</p>
-                              <p *ngIf="check('30期冷热')" style="margin-top:18px"><span></span>冷热</p>
-                          </div>
-
-                      </div>
-                   </div>   
-        </div>     -->
-
-        <!-- 和值 -->
     </div>
 
 </ion-content>

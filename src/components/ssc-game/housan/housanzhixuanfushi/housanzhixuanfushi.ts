@@ -31,13 +31,4 @@ export class HousanzhixuanfushiComponent extends commonMethod{
     return this.choose.indexOf(choice) > -1
   }
 
-   calculate(){
-    let count = 1;
-    this.common.ballData.forEach((item,index) => {
-        count *=  item.value.filter(ele => ele == 1).length
-    })
-    this.common.count = count
-    let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
-    this.common.betPrice = this.common.count*2*percent
-  }
 }

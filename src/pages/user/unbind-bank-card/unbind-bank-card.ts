@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,AlertController,LoadingController,ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,AlertController,ToastController,LoadingController,ViewController } from 'ionic-angular';
 import { LoadingProvider } from '../../../providers/loading/loading';
+import { HttpClientProvider } from '../../../providers/http-client/http-client'
 
 @IonicPage()
 @Component({
@@ -8,11 +9,13 @@ import { LoadingProvider } from '../../../providers/loading/loading';
   templateUrl: './unbind-bank-card.html',
 })
 export class UnbindBankCardPage {
+
+  userInfo;
   bankData = {
     bankStr:'**',
     bankName:'**',
     bankType:'**',
-    bankNum:'**** **** **** **** ***',
+    bankNum:'*******************',
     userName:'***'
   }
   constructor(
@@ -20,9 +23,13 @@ export class UnbindBankCardPage {
     public alertCtrl: AlertController,
     public loadPrd: LoadingProvider,
     public viewCtrl: ViewController,
+    public http:HttpClientProvider,
     public loadingCtrl:LoadingController,
+    public toastCtrl:ToastController,
     public navParams: NavParams) {
     this.bankData = this.navParams.data
+    console.log(this.bankData)
+    this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
   }
 
   unBindCard(){
@@ -39,11 +46,12 @@ export class UnbindBankCardPage {
         {
           text: '确定',
           handler: () => {
-            this.loadPrd.showLoading(this.loadingCtrl,'解绑中...')
-            setTimeout(()=>{
-              this.showAlert()
-              this.viewCtrl.dismiss()
-            },2000)
+            // this.loadPrd.showLoading(this.loadingCtrl,'解绑中...')
+            // setTimeout(()=>{
+            //   this.showAlert()
+            //   this.viewCtrl.dismiss()
+            // },2000)
+            this.inputPayPsw()
           }
         }
       ]
@@ -63,4 +71,67 @@ export class UnbindBankCardPage {
     },1000)
   }
 
+  formatBankNumber(bankNumber){
+    return bankNumber.substr(0,4)+"********"+bankNumber.substr(-4);
+  }
+
+
+  //创建支付资金密码表单
+  inputPayPsw() {
+    let prompt = this.alertCtrl.create({
+      title: '请输入支付密码',
+      inputs: [
+        {
+          name: 'password',
+          type: 'password',
+          placeholder: '至少6位，字母和数字组合'
+        }
+      ],
+      buttons: [
+        {
+          text: '取消',
+          handler: data => {
+
+          }
+        },
+        {
+          text: '确认',
+          handler: data => {
+            this.sendFoundPsw({psw1:data.password}).then(data=>{
+              if (data.IsSuccess == 1) {
+                console.log(data)
+                this.unbindAction().then(val=>{
+                  if(val.IsSuccess){
+                    this.loadPrd.showToast(this.toastCtrl,'解绑成功')
+                    this.navCtrl.pop();
+                  }else {
+                    this.loadPrd.showToast(this.toastCtrl,'解绑失败，请重试')
+                  }
+                })
+              } else {
+
+              }
+            })
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+
+  //发送资金密码
+  async sendFoundPsw(params) {
+    return await this.http.postData('/h5api-users/checkfundpassword?_t=' + this.userInfo.auth_token, {
+      'fund_password': params.psw1,
+      '_token': this.userInfo.token
+    })
+  }
+
+  async unbindAction(){
+    return await this.http.postData('/h5api-bank-cards/destroy?_t='+this.userInfo.auth_token,{
+      '_token': this.userInfo.token,
+      'id':this.bankData.id
+    })
+  }
 }

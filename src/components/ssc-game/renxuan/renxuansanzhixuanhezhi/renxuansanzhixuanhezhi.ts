@@ -33,37 +33,19 @@ export class RenxuansanzhixuanhezhiComponent extends commonMethod{
     ]
   }
 
-  randomChoose(number?){
-    if(number){
-        let arr = [Math.floor(Math.random()*4),Math.floor(Math.random()*7)]
-        console.log(arr)
-        this.common.ballData = this.common.ballData.map((ele,index) => {
-            ele.value = ele.value.map((item,index1) => {
-                if(index == arr[0] && index1 == arr[1])
-                    return 1
-                else
-                    return 0   
-            })
-            return ele
+  randomOneOrder(){
+    let arr = [Math.floor(Math.random()*4),Math.floor(Math.random()*7)]
+    console.log(arr)
+    this.common.ballData = this.common.ballData.map((ele,index) => {
+        ele.value = ele.value.map((item,index1) => {
+            if(index == arr[0] && index1 == arr[1])
+               return 1
+            else
+               return 0   
         })
-        this.calculate()
-        this.basket.addBetData()
-        if(number == 1) return
-        this.randomChoose(--number)
-    }else{
-       let arr = [Math.floor(Math.random()*4),Math.floor(Math.random()*7)]
-       console.log(arr)
-       this.common.ballData = this.common.ballData.map((ele,index) => {
-           ele.value = ele.value.map((item,index1) => {
-               if(index == arr[0] && index1 == arr[1])
-                  return 1
-               else
-                  return 0   
-           })
-           return ele
-       })
-       this.calculate()
-    }  
+        return ele
+    })
+    this.calculate()
   }
 
   getOriginData(){
@@ -77,16 +59,79 @@ export class RenxuansanzhixuanhezhiComponent extends commonMethod{
     return arr
  }
 
- calculate(){
+ getCount(){
     let count = 0
     this.getOriginData().forEach(item => {
          count += this.util.mathHezhiResult(item,0,9).length
     })
     
     let total = this.choices.filter(ele => ele.choose).length
-    this.common.count = count*this.tool.zuhe1(total,3)
-    let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
-    this.common.betPrice = this.common.count*2*percent
+    count = count*this.tool.zuhe1(total,3)
+    return count
  }
 
+
+ changeAll(line){  
+    this.common.ballData = this.common.ballData.map((item,index) => {
+        item.value = item.value.map(ele => 1)
+        return item      
+    })      
+  }
+
+ changeOdd(line){
+     this.common.ballData = this.common.ballData.map((ele,index) => {
+          ele.value = ele.value.map((item,index1) => {
+              return (index*7 + index1) % 2 ? 1:0 
+          })
+          return ele
+     })
+ }
+
+ changeEven(line){
+      this.common.ballData = this.common.ballData.map((ele,index) => {
+          ele.value = ele.value.map((item,index1) => {
+              return (index*7 + index1) % 2 ? 0:1 
+          })
+          return ele
+      })      
+ }
+
+ changeBig(line){
+    
+      this.common.ballData = this.common.ballData.map((item,index) => {
+          item.value = item.value.map((ele,index2) => {
+              let temp = index*7 + index2 > 13 ? 1 : 0
+              return temp
+          })
+          return item
+      })
+  }
+
+  changeSmall(line){
+  
+      this.common.ballData = this.common.ballData.map((item,index) => {
+          item.value = item.value.map((ele,index2) => {
+              let temp = index*7 + index2 <= 13 ? 1 : 0
+              return temp
+          })
+          return item
+      })
+  }
+
+  changeClear(line){
+      this.common.ballData = this.common.ballData.map((item,index) => {
+          item.value = item.value.map(ele => 0)
+          return item            
+      })
+  }
+
+  changeChooseStatus(index1,index2){   
+      this.common.singleBtn = this.common.singleBtn.map((item,index) => {
+              if(index2 == index)
+               return {...item, flag:true}
+              else
+               return {...item, flag:false}   
+      })
+      console.log(this.common.singleBtn)        
+  }
 }

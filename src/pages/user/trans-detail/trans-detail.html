@@ -7,27 +7,20 @@
 <ion-content>
   <div class="lh-head">
     <div class="lh-Picker">
-      <ion-datetime cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="followData.timeStarts"></ion-datetime>
+      <ion-datetime cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="transData.timeStarts"></ion-datetime>
       <i class="firecat-icon dropdown-icon"></i>
     </div>
     <div class="mid-line"></div>
     <div class="lh-Picker">
-      <ion-datetime cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="followData.timeEnds"></ion-datetime>
+      <ion-datetime cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="transData.timeEnds"></ion-datetime>
       <i class="firecat-icon dropdown-icon"></i>
     </div>
     <div class="mid-line"></div>
     <div class="lh-Picker game-picker">
       <ion-item>
-        <ion-select cancelText="取消" okText="确认" placeholder="全部账变">
-          <ion-label>全部游戏</ion-label>
-          <ion-option value="全部游戏1">全部游戏1</ion-option>
-          <ion-option value="全部游戏2">全部游戏2</ion-option>
-          <ion-option value="全部游戏3">全部游戏3</ion-option>
-          <ion-option value="全部游戏4">全部游戏4</ion-option>
-          <ion-option value="全部游戏5">全部游戏5</ion-option>
-          <ion-option value="全部游戏6">全部游戏6</ion-option>
-          <ion-option value="全部游戏7">全部游戏7</ion-option>
-
+        <ion-select cancelText="取消" okText="确认" placeholder="{{currentLottory.friend_name}}" (ionChange)="selectChange(currentLottory)">
+          <ion-label>{{currentLottory.friend_name}}</ion-label>
+          <ion-option *ngFor="let lottory of lottorys" value="{{lottory.friend_name}}" (click)="selectLot(lottory)">{{lottory.friend_name}}</ion-option>
         </ion-select>
       </ion-item>
       <i class="firecat-icon dropdown-icon"></i>
@@ -35,10 +28,10 @@
   </div>
   <div class="lh-body">
     <div class="switch-case case-withdraw">
-      <div class="enpty" *ngIf="false">
+      <div class="enpty" *ngIf="transData.data.length==0">
         <p>暂无可浏览记录</p>
       </div>
-      <div class="month"  *ngIf="true">
+      <div class="month"  *ngIf="transData.data.length!=0">
         <div class="case-content switch-case">
           <div class="case-content-unit" *ngFor="let follow of followData.data;index as i">
             <div class="case-wrap">

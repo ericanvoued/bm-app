@@ -30,39 +30,20 @@ export class RenxuanerzhixuanhezhiComponent extends commonMethod{
       ]
     }
 
-    randomChoose(number?){
-      if(number){
-          let target = Math.floor(Math.random()*19)
-          this.common.ballData = this.common.ballData.map((ele,index) => {
-              ele.value = ele.value.map((item,index1) => {
-                  if(index*7 + index1 == target){
-                      return 1
-                  }else{
-                      return 0
-                  }
-              })
-              return ele
-          })
-          this.calculate()
-          this.basket.addBetData()
-          if(number == 1) return
-          this.randomChoose(--number)
-      }else{
-          let target = Math.floor(Math.random()*19)
-          
-          this.common.ballData = this.common.ballData.map((ele,index) => {
-              ele.value = ele.value.map((item,index1) => {
-                  if(index*7 + index1 == target){
-                      return 1
-                  }else{
-                      return 0
-                  }
-              })
-              return ele
-          })
-          this.calculate()
-      }
-     
+    randomOneOrder(){
+        let target = Math.floor(Math.random()*19)
+        
+        this.common.ballData = this.common.ballData.map((ele,index) => {
+            ele.value = ele.value.map((item,index1) => {
+                if(index*7 + index1 == target){
+                    return 1
+                }else{
+                    return 0
+                }
+            })
+            return ele
+        })
+        this.calculate()
     }
 
     getOriginData(){
@@ -77,16 +58,85 @@ export class RenxuanerzhixuanhezhiComponent extends commonMethod{
    } 
 
 
-   calculate(){
-      let count = 0
-      this.getOriginData().forEach(item => {
-          count += this.mathResult(item,0,9).length
-      })
-
-      let total = this.choices.filter(ele => ele.choose).length
-      this.common.count = count*this.tool.zuhe1(total,2)
-      let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
-      this.common.betPrice = this.common.count*2*percent
+   getCount(){
+        let count = 0
+        this.getOriginData().forEach(item => {
+            count += this.mathResult(item,0,9).length
+        })
+        let total = this.choices.filter(ele => ele.choose).length
+        count = count*this.tool.zuhe1(total,2)
+        return count
    }
+
+//    changeAll(line){  
+//     this.common.ballData = this.common.ballData.map((item,index) => {
+//         item.value = item.value.map(ele => 1)
+//         return item      
+//     })      
+//   }
+
+  changeAll(line){ 
+      this.common.ballData = this.common.ballData.map((item,index) => {
+          item.value = item.value.map((ele,index1) => index*7 + index1 <= 18 ? 1 : 0)
+          return item      
+      })      
+  }
+
+   changeOdd(line){
+    this.common.ballData = this.common.ballData.map((ele,index) => {
+         ele.value = ele.value.map((item,index1) => {
+             return (index*7 + index1) % 2 && index*7 + index1 <= 18? 1:0 
+         })
+         return ele
+    })
+  }
+
+  changeEven(line){
+    this.common.ballData = this.common.ballData.map((ele,index) => {
+        ele.value = ele.value.map((item,index1) => {
+            return (index*7 + index1) % 2 && index*7 + index1 <= 18 ? 0:1 
+        })
+        return ele
+    })      
+}
+
+ changeBig(line){
+    
+      this.common.ballData = this.common.ballData.map((item,index) => {
+          item.value = item.value.map((ele,index2) => {
+              let temp = index*7 + index2 > 9 && index*7 + index2 <= 18 ? 1 : 0
+              return temp
+          })
+          return item
+      })
+  }
+
+  changeSmall(line){
+  
+      this.common.ballData = this.common.ballData.map((item,index) => {
+          item.value = item.value.map((ele,index2) => {
+              let temp = index*7 + index2 <= 9 && index*7 + index2 <= 18? 1 : 0
+              return temp
+          })
+          return item
+      })
+  }
+
+  changeClear(line){
+      this.common.ballData = this.common.ballData.map((item,index) => {
+          item.value = item.value.map(ele => 0)
+          return item            
+      })
+  }
+
+  changeChooseStatus(index1,index2){   
+      this.common.singleBtn = this.common.singleBtn.map((item,index) => {
+              if(index2 == index)
+               return {...item, flag:true}
+              else
+               return {...item, flag:false}   
+      })
+      console.log(this.common.singleBtn)        
+  }
 
 }

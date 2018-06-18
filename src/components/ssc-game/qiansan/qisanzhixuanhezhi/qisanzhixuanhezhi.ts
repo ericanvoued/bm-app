@@ -29,39 +29,20 @@ constructor(public common:CommonProvider, public util:UtilProvider,public basket
     this.text = 'Hello World';
   }
 
-  randomChoose(number?){
-    if(number){
+   randomOneOrder(){
         let arr = [Math.floor(Math.random()*4),Math.floor(Math.random()*7)]
         console.log(arr)
         this.common.ballData = this.common.ballData.map((ele,index) => {
             ele.value = ele.value.map((item,index1) => {
                 if(index == arr[0] && index1 == arr[1])
-                    return 1
+                return 1
                 else
-                    return 0   
+                return 0   
             })
             return ele
         })
         this.calculate()
-        this.basket.addBetData()
-        if(number == 1) return
-        this.randomChoose(--number)
-    }else{
-       let arr = [Math.floor(Math.random()*4),Math.floor(Math.random()*7)]
-       console.log(arr)
-       this.common.ballData = this.common.ballData.map((ele,index) => {
-           ele.value = ele.value.map((item,index1) => {
-               if(index == arr[0] && index1 == arr[1])
-                  return 1
-               else
-                  return 0   
-           })
-           return ele
-       })
-       this.calculate()
-    }
-   
-  }
+   }
 
    getOriginData(){
       let arr = []
@@ -77,19 +58,15 @@ constructor(public common:CommonProvider, public util:UtilProvider,public basket
    getLotteryText(){
        let arr = []
        this.getCommonData().forEach((ele,index) => ele.forEach((item,index1) => arr.push(('0' + (index*7 + item)).slice(-2) + ' ')))
-       console.log(arr)
        return arr.join('| ')
    }
 
-   calculate(){
-      let count = 0
-      this.getOriginData().forEach(item => {
-           count += this.util.mathHezhiResult(item,0,9).length
-      })
-
-      this.common.count = count 
-      let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
-      this.common.betPrice = this.common.count*2*percent
+   getCount(){
+        let count = 0
+        this.getOriginData().forEach(item => {
+            count += this.util.mathHezhiResult(item,0,9).length
+        })
+        return count
    }
 
    changeAll(line){  

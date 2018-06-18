@@ -19,7 +19,7 @@ import * as md5 from 'md5';
 })
 export class LoginPage {
 
-  username: string = 'testjose';
+  username: string = 'testalice';
   password: string = '123qwe';
   loginData: any;
   nameInfoFlag: boolean = false
@@ -51,8 +51,8 @@ export class LoginPage {
       this.loading = this.loadPrd.showLoading(this.loadingCtrl, '登陆中...');
       this.logins.loginApp({
         'Content-Type':'application/x-www-form-urlencoded',
-        username: this.username,
-        password: md5(md5(md5(this.username + this.password)))
+        'username': this.username,
+        'password': md5(md5(md5(this.username + this.password)))
       }).subscribe((data) => {
         console.log(data)
         if (data.isSuccess) {

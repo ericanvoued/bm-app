@@ -89,13 +89,14 @@ page-home {
     }
     ul {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: flex-start;
       min-height: 105px;
       flex-wrap: wrap;
       li {
         width: 25%;
         height: 24.8vw;
+        //float: left;
         &:nth-child(4n) {
           border-right: none;
         }

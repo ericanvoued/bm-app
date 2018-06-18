@@ -9,7 +9,6 @@ import { DirectivesModule } from '../../../directives/directives.module'
     SscPage
     ],
   imports: [
-    DirectivesModule,
     IonicPageModule.forChild(SscPage),ComponentsModule
   ]
 })

@@ -16,10 +16,16 @@ function easeOutCubic(t, b, c, d) {
 }
 
 export class Effect{
+    @ViewChild("gameContainer", { read: ViewContainerRef }) gameContainer: ViewContainerRef;
+    
     timer:any;
     componentRef: ComponentRef<any>;
     haveChoosen:any[] = ['当前遗漏']
-    
+
+    gameConfig:any;
+    list: any ;
+
+    maxNumber:number;
     
     countTime:any = {
         'total': '',
@@ -29,10 +35,13 @@ export class Effect{
         'seconds': ''
     }
 
-    constructor(public common:CommonProvider, public gamemenu:GamemenuComponent, public modalCtrl: ModalController,public navCtrl:NavController){
+    constructor(public common:CommonProvider, public gamemenu:GamemenuComponent, public modalCtrl: ModalController,public navCtrl:NavController,public resolver: ComponentFactoryResolver){
         let self = this;
 
-        this.produce()
+        //this.produce()
+
+        //拉去倒计时
+        this.common.produce()
         
         $(document).on('click','.body-bg',function(){
             if(self.common.visible = 'visable'){
@@ -42,6 +51,15 @@ export class Effect{
             
         });
         //this.addDynamicComponent()
+
+        this.common.fetchRecord().then(() => {
+            this.list = this.common.historyList.map(this.handleBall).slice(0,10)
+            if(this.list.length > 2){
+                this.maxNumber = Math.ceil(this.list.length/5)
+            }else{
+                this.maxNumber = 0
+            }
+        })  
     }
 
     move(){
@@ -74,48 +92,9 @@ export class Effect{
         }
     }
 
-    produce(){
-        // console.log(this.common.getCountDownTime()['current_number_time'])
-        this.common.getCountDownTime().then((data) => {
-            this.countDown(new Date(data['current_number_time']).getTime() - new Date(data['current_time']).getTime())
-        })
-        
-    }
-
-    countDown(time){
-        this.timer = setInterval(()=> {
-        if(time <1000){
-            clearInterval(this.timer)
-            console.log('wcnmbmb')
-            let modal = this.modalCtrl.create(CountTipComponent, {qishu:123456})
-            modal.present()
-            //this.global.showToast('进入新一期开奖',2000)
-            this.produce()
-        } 
-        this.countTime = this.getTimeRemaining(time)
-        time -= 1000
-        },1000)
-    }
-
-    getTimeRemaining(t) {
-        let seconds = Math.floor((t / 1000) % 60);
-        let minutes = Math.floor((t / 1000 / 60) % 60);
-        let hours = Math.floor((t / (1000 * 60 * 60)) % 24);
-        let days = Math.floor(t / (1000 * 60 * 60 * 24));
-    
-        return {
-          'total': t,
-          'days': days,
-          'hours': ('0' + hours).slice(-2),
-          'minutes': ('0' + minutes).slice(-2),
-          'seconds': ('0' + seconds).slice(-2)
-        };
-    }
-
     goToBasket(){
         console.log('gobasket')
-        if(this.common.cartNumber > 0 )
-           this.navCtrl.push('BasketPage',{'index':this.componentRef})
+        this.navCtrl.push('BasketPage',{'index':this.componentRef})
     }
 
     changeMenu(val){
@@ -145,5 +124,22 @@ export class Effect{
    
    check(choice){
        return this.haveChoosen.indexOf(choice) > -1
+   }
+
+   //切换小玩法
+   methodChange($event){
+    //    this.haveChoosen = ['当前遗漏']
+       console.log($event)
+       let component = this.gameConfig[$event]
+       this.gameContainer.clear()
+       const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(component)
+       this.componentRef = this.gameContainer.createComponent(factory)
+       this.common.componentRef = this.componentRef
+       console.log(this.haveChoosen)
+       this.componentRef.instance.choose = this.haveChoosen
+   }
+
+   handleBall(ele){
+    
    }
 }

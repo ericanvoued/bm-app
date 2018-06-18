@@ -27,6 +27,7 @@ $.fn.Press = function(fn1,fn2) {
 
 export class commonMethod{
     choices:any[] = []
+    timer:any = null;
 
    constructor(public common:CommonProvider, public util:UtilProvider,public basket:BasketDataProvider) {
         $('body').on('touchstart', '.ball-choose li', function(){
@@ -36,10 +37,7 @@ export class commonMethod{
         })
    }
 
-   ngOnInit(){
-      
-   }
-
+  
    qqq(number){
     return number + 5
   }
@@ -86,8 +84,7 @@ export class commonMethod{
             else
               return ele
         })
-        if(this.getOriginData().length)
-           this.calculate()
+        this.calculate()
      }
 
       changeToggle(row,column){
@@ -108,6 +105,18 @@ export class commonMethod{
             }
         })
         }
+        this.common.btn = this.common.btn.map((ele,index) => {
+             if(row == index){
+                 ele = ele.map(item => {return {...item, flag:false}})
+                 return ele
+             }else{
+                 return ele
+             }   
+        })
+
+        this.common.singleBtn= this.common.singleBtn.map(ele => {     
+              return {...ele, flag:false}    
+        })
         this.calculate()
     } 
 
@@ -156,6 +165,10 @@ export class commonMethod{
        return this.getCommonData().filter(ele => ele.length > 0).map(ele => ele.map(item => ('0' + item).slice(-2) + ' ').join('')).join('| ')
    }
 
+   getOriginLotteryText(){
+       return this.getCommonData().filter(ele => ele.length > 0).map(ele => ele.join('')).join('|')  
+   }
+
    getPositionArr(){
        return this.choices.length == 0? [] : this.choices.map(ele => ele.choose ? 1 : 0)
    }
@@ -187,35 +200,62 @@ export class commonMethod{
         }
         return result
     }
-    //机选注单
-    randomChoose(number?){
-        if(number){
-                console.log('suiji 5zhu')
-                this.common.ballData = this.common.ballData.map(item => {
-            // let arr = [0,1,2,3,4,5,6,7,8,9]
-                let random = Math.floor(Math.random()*item.value.length)
-                //let arr = this.generateTwo(number)
-                let balls = item.value.map((ele,index) => index == random ? 1 : 0)
-                item.value = balls
-                return item
-               })
-               this.calculate()
-               this.basket.addBetData()
-               if(number == 1) return
 
-               this.randomChoose(--number)
-               
+    //机选注单
+    randomChoose(number?, tempData?){
+        let temp = tempData ? tempData : []
+        if(number){
+            this.randomOneOrder() 
+            temp.push(this.basket.processOrder())
+
+            if(number == 1){
+                console.log(temp)
+                this.basket.addBetData(temp) 
+                return 
+            }
+            this.randomChoose(--number,temp)
+            
         }else{
                // $("ul" ).not( ".statistic" ).find('li').removeClass('current');
-                this.common.ballData = this.common.ballData.map(item => {
-                let random = Math.floor(Math.random()*item.value.length)
-                //let arr = this.generateTwo(number)
-                let balls = item.value.map((ele,index) => index == random ? 1 : 0)
-                item.value = balls
-                return item
-            })
-            this.calculate()
+             this.randomOneOrder() 
         }   
+    }
+
+    randomOneOrder(){
+        this.common.ballData = this.common.ballData.map(item => {
+            let random = Math.floor(Math.random()*item.value.length)
+            //let arr = this.generateTwo(number)
+            let balls = item.value.map((ele,index) => index == random ? 1 : 0)
+            item.value = balls
+            return item
+        })
+        this.calculate()
+    }
+
+    //游戏随机动画
+    randomAnimateChoose(){
+        console.log('suiji 1zhu')
+        if(this.timer)
+            return 
+        this.util.resetData()
+        let count = 0
+        this.timer = setInterval(() => {
+            this.common.ballData.forEach((item,index) => {
+                if(index == count){
+                    let random = Math.floor(Math.random()*item.value.length)
+                    //let arr = this.generateTwo(number)
+                    item.value[random]= 1    
+                }       
+            })
+            console.log(this.common.ballData) 
+            if(count == this.common.ballData.length - 1){
+                clearInterval(this.timer)
+                this.timer = null
+                this.calculate()
+            }
+            count++
+           
+        },100)
     }
 
     createRandom(number):any[]{
@@ -265,6 +305,32 @@ export class commonMethod{
      }
      this.calculate()
      //this.common.calculate()
+    }
+
+    changeXuanActive(index,choice,name){
+        this.changeChooseStatus(index,choice)
+
+        switch(name){
+            case "全":
+                this.changeAll(index)
+                break;
+            case "奇":
+                this.changeXuanOdd(index)
+                break;
+            case "偶":
+                this.changeXuanEven(index)
+                break;
+            case "大":
+                this.changeBig(index)
+                break;
+            case "小":
+                this.changeSmall(index)
+                break;
+            case "清":
+                this.changeClear(index)
+                break;
+        }
+        this.calculate()
     }
 
     changeClear(line){
@@ -326,10 +392,32 @@ export class commonMethod{
         })   
     }
 
+    changeXuanOdd(line){
+        this.common.ballData = this.common.ballData.map((item,index) => {
+            if(index == line){
+                item.value = item.value.map((ele,index) => (index+1) %2 == 0 ? 0 : 1)
+                return item
+            }else{
+                return item
+            }
+        })   
+    }
+
     changeEven(line){    
         this.common.ballData = this.common.ballData.map((item,index) => {
             if(index == line){
                 item.value = item.value.map((ele,index) => index %2 == 0? 1 : 0)
+                return item
+            }else{
+                return item
+            }
+        })  
+    }
+
+    changeXuanEven(line){    
+        this.common.ballData = this.common.ballData.map((item,index) => {
+            if(index == line){
+                item.value = item.value.map((ele,index) => (index+1) %2 == 0? 1 : 0)
                 return item
             }else{
                 return item
@@ -348,15 +436,22 @@ export class commonMethod{
         }) 
     }
 
-     //计算注单
-    calculate(){
+    //计算注数
+     getCount(){
         let count = 1;
         this.common.ballData.forEach((item,index) => {
             count *=  item.value.filter(ele => ele == 1).length
         })
-        this.common.count = count
+        return count
+     }
+
+    //计算注单
+    calculate(){
+        this.common.count = this.getCount()
+        console.log(this.common.count)
         let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
         this.common.betPrice = this.common.count*2*percent
+        this.common.profits = this.util.formatMoney(this.common.bonus - this.common.betPrice)
     }
 
     mathResult(sum, nBegin, nEnd){
@@ -409,7 +504,4 @@ export class commonMethod{
           }
       }
 
-      dealHover(){
-     
-      }
 }

@@ -10,19 +10,22 @@
 
     <div class="r">
         <div class="ball-list">
-            <ul>
-                <li *ngFor="let item of data.value.slice(0,6);let i = index" [class.current]="item == 1" (click)="changeToggle(ii,i)">{{('0' + (i + 1)).slice(-2)}}</li>
+            <ul class="ball-choose">
+                <li *ngFor="let item of data.value.slice(0,6);let i = index" [class.current]="item == 1" (click)="changeToggle(ii,i)">{{('0' + (i + 1)).slice(-2)}}
+                        <span class="tip-block">{{('0' + (i + 1)).slice(-2)}}</span>
+                </li>
             </ul>
 
-            <ul>
-                <li *ngFor="let item of data.value.slice(6,12);let i = index" [class.current]="item == 1" [class.blank]="i > 4" >
+            <ul  class="ball-choose">
+                <li *ngFor="let item of [0,1,2,3,4,5];let i = index" [class.current]="data.value[i+6] == 1" [class.blank]="i > 4" >
                     <span *ngIf="i <= 4" (click)="changeToggle(ii,i+6)">{{ppp(i)}}</span>
                     <span *ngIf="i > 4"></span>  
+                    <span *ngIf="i <= 4" class="tip-block">{{ppp(i)}}</span>
                 </li>
             </ul>
         
             <div class="btn-list">
-                <a href="javascript:;" *ngFor="let detail of common.btn[ii];let j = index" [class.current]="detail.flag" >{{detail.name}} <span></span></a>
+                <a href="javascript:;" *ngFor="let detail of common.btn[ii];let j = index" [class.current]="detail.flag" (click)="changeXuanActive(ii,j,detail.name)">{{detail.name}} <span></span></a>
             </div>
         </div>
     </div>

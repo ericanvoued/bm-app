@@ -9,11 +9,11 @@
   <div class="gredient-bg">
     <ion-segment [(ngModel)]="infoCenter">
       <ion-segment-button value="info">
-        公告({{ infoData.unreadAnnouncements }})
+        公告({{ infoCenterProd.infoData.unreadAnnouncements }})
         <div class="underline"></div>
       </ion-segment-button>
       <ion-segment-button value="msg">
-        站内信({{ infoData.unreadLetter }})
+        站内信({{ infoCenterProd.infoData.unreadLetter }})
         <div class="underline"></div>
       </ion-segment-button>
     </ion-segment>
@@ -21,8 +21,8 @@
   <!--站内信-->
   <div [ngSwitch]="infoCenter" class="switch-body">
     <ion-list *ngSwitchCase="'msg'">
-      <div class="msg-content" *ngIf="infoData.letters.data.length!==0">
-        <ion-item-sliding #item *ngFor="let msg of infoData.letters.data;index as i">
+      <div class="msg-content" *ngIf="infoCenterProd.infoData.letters.data.length!==0">
+        <ion-item-sliding #item *ngFor="let msg of infoCenterProd.infoData.letters.data;index as i">
           <ion-item>
             <h2 (click)="pushPage('InfoDetailPage')"><span class="item-title">{{msg.msg_title}} <i class="red-coin"
                                                                                                    *ngIf="msg.is_readed==0"></i></span><span
@@ -38,15 +38,15 @@
           </ion-item-options>
         </ion-item-sliding>
       </div>
-      <div class="noInfo" *ngIf="infoData.letters.data.length==0">
+      <div class="noInfo" *ngIf="infoCenterProd.infoData.letters.data.length==0">
         暂无站内信
       </div>
     </ion-list>
 
     <!--公告-->
     <ion-list *ngSwitchCase="'info'">
-      <div class="info-content" *ngIf="infoData.announcements.data.length!==0">
-        <ion-item-sliding #item *ngFor="let info of infoData.announcements.data;index as i">
+      <div class="info-content" *ngIf="infoCenterProd.infoData.announcements.data.length!==0">
+        <ion-item-sliding #item *ngFor="let info of infoCenterProd.infoData.announcements.data;index as i">
           <ion-item>
             <h2 (click)="pushPage('InfoDetailPage')"><span class="item-title">{{info.articles_title}} <i
               class="red-coin" *ngIf="info.is_readed==0"></i></span><span class="item-date">{{info.created_at}}</span>
@@ -63,7 +63,7 @@
           </ion-item-options>
         </ion-item-sliding>
       </div>
-      <div class="noInfo"  *ngIf="infoData.announcements.data.length==0">
+      <div class="noInfo"  *ngIf="infoCenterProd.infoData.announcements.data.length==0">
         暂无公告
       </div>
     </ion-list>

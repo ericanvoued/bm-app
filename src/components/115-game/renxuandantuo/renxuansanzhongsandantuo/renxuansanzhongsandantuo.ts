@@ -26,69 +26,36 @@ export class RenxuansanzhongsandantuoComponent extends commonMethod{
     this.text = 'Hello World';
   }
 
-  randomChoose(number?){
-    if(number){
-      let temp,arr;
-      this.common.ballData = this.common.ballData.map((item,index) => {
-       
-        if(index == 0){
-            temp = Math.random() > 0.5 ? this.tool.produceRandom5(2) : this.tool.produceRandom5(1)
-            item.value = item.value.map((ele,index) => {
-                if(temp.indexOf(index) != -1){
-                    
-                    return 1
-                }else{
-                    return 0
-                }
-            })
-            return item
-        }else{
-            arr = this.tool.produceRandom5(temp.length == 2 ? 1 : 2,temp)
-            item.value = item.value.map((ele,index) => {
-              if(arr.indexOf(index) != -1){
+  randomOneOrder(){
+    let tempArr,arr;
+    this.common.ballData = this.common.ballData.map((item,index) => {
+     
+      if(index == 0){
+        this.arr = []
+        tempArr = Math.random() > 0.5 ? this.tool.produceRandom5(2) : this.tool.produceRandom5(1)
+        this.arr.push(...tempArr)            
+        item.value = item.value.map((ele,index) => {
+              if(tempArr.indexOf(index) != -1){
+                  
                   return 1
               }else{
                   return 0
               }
           })
-            return item
-        }
-      })
-      this.calculate()
-      this.basket.addBetData()
-      if(number == 1) return
-      this.randomChoose(--number)
-    }else{
-      let temp,arr;
-      this.common.ballData = this.common.ballData.map((item,index) => {
-       
-        if(index == 0){
-          this.arr = []
-          temp = Math.random() > 0.5 ? this.tool.produceRandom5(2) : this.tool.produceRandom5(1)
-          this.arr.push(...temp)            
+          return item
+      }else{
+          arr = this.tool.produceRandom5(tempArr.length == 2 ? 1 : 2,tempArr)
           item.value = item.value.map((ele,index) => {
-                if(temp.indexOf(index) != -1){
-                    
-                    return 1
-                }else{
-                    return 0
-                }
-            })
-            return item
-        }else{
-            arr = this.tool.produceRandom5(temp.length == 2 ? 1 : 2,temp)
-            item.value = item.value.map((ele,index) => {
-              if(arr.indexOf(index) != -1){
-                  return 1
-              }else{
-                  return 0
-              }
-          })
-            return item
-        }
-      })
-      this.calculate()
-    }
+            if(arr.indexOf(index) != -1){
+                return 1
+            }else{
+                return 0
+            }
+        })
+          return item
+      }
+    })
+    this.calculate()
   }
 
   changeToggle(row,column){
@@ -147,26 +114,7 @@ export class RenxuansanzhongsandantuoComponent extends commonMethod{
       this.calculate()
   } 
 
-  getOriginData():any{
-    // let erchong = [], danhao = []
-     let first = [], second = []
-     this.common.ballData.forEach((ele,index) => {
-          if(index == 0){
-             ele.value.forEach((item,index) => {
-                 if(item)
-                   first.push(index)
-             })
-          }else{
-             ele.value.forEach((item,index) => {
-                 if(item)
-                   second.push(index)
-              })
-          }
-     })
-     return {first, second}
-  }
-
-  calculate(){
+  getCount(){
     let count = 0;
     let data = this.getOriginData()
 
@@ -175,9 +123,6 @@ export class RenxuansanzhongsandantuoComponent extends commonMethod{
     }else if(data.first.length == 2){
        count =  data.second.length
     }
-    this.common.count = count
-    // this.common.count = count < 3 ? 0 : this.tool.zuhe1(count,3)
-    let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
-    this.common.betPrice = this.common.count*2*percent
+    return count
   }
 }

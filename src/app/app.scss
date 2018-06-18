@@ -1,4 +1,9 @@
 @import "../assets/animate.css";
+//@import '../assets/componentsStyle/lottory-11-ykaijiang.scss';
+//@import '../assets/componentsStyle/lottory-daxiao.scss';
+//@import '../assets/componentsStyle/lottory-distribute.scss';
+//@import '../assets/componentsStyle/lottory-kaijiang.scss';
+@import "../components/lottory-center/lottoryCenterComponents";
 
 ion-navbar.toolbar {
   height: 44px;
@@ -119,7 +124,7 @@ ul, li {
   background-position: center center;
 }
 
-
+div.not-enough{color: #4a4a4a; font-size: 16px}
 //个人中心的icon
 .kefu-icon {
   background-image: url(../assets/icon/kefu-icon.png);
@@ -222,60 +227,60 @@ ul, li {
 }
 
 //银行卡小logo
-.s-abc-icon {
-  background-image: url("../assets/bank-icon/s-abc-icon.png");
+.s-ABC-icon {
+  background-image: url("../assets/bank-icon/s-ABC-icon.png");
 }
 
-.s-bc-icon {
-  background-image: url("../assets/bank-icon/s-bc-icon.png");
+.s-BOCOM-icon {
+  background-image: url("../assets/bank-icon/s-BOCOM-icon.png");
 }
 
-.s-cb-icon {
-  background-image: url("../assets/bank-icon/s-cb-icon.png");
+.s-SPDB-icon {
+  background-image: url("../assets/bank-icon/s-SPDB-icon.png");
 }
 
-.s-ccb-icon {
-  background-image: url("../assets/bank-icon/s-ccb-icon.png");
+.s-CITIC-icon {
+  background-image: url("../assets/bank-icon/s-CITIC-icon.png");
 }
 
-.s-ceb-icon {
-  background-image: url("../assets/bank-icon/s-ceb-icon.png");
+.s-CEB-icon {
+  background-image: url("../assets/bank-icon/s-CEB-icon.png");
 }
 
-.s-cgb-icon {
-  background-image: url("../assets/bank-icon/s-cgb-icon.png");
+.s-GDB-icon {
+  background-image: url("../assets/bank-icon/s-GDB-icon.png");
 }
 
-.s-CHAINABANK-icon {
-  background-image: url("../assets/bank-icon/s-CHAINABANK-icon.png");
+.s-BOC-icon {
+  background-image: url("../assets/bank-icon/s-BOC-icon.png");
 }
 
-.s-cmb-icon {
-  background-image: url("../assets/bank-icon/s-cmb-icon.png");
+.s-CMB-icon {
+  background-image: url("../assets/bank-icon/s-CMB-icon.png");
 }
 
-.s-cmbc-icon {
-  background-image: url("../assets/bank-icon/s-cmbc-icon.png");
+.s-CMBC-icon {
+  background-image: url("../assets/bank-icon/s-CMBC-icon.png");
 }
 
-.s-construtorbank-icon {
-  background-image: url("../assets/bank-icon/s-construtorbank-icon.png");
+.s-CCB-icon {
+  background-image: url("../assets/bank-icon/s-CCB-icon.png");
 }
-.s-ctbc-icon {
-  background-image: url("../assets/bank-icon/s-ctbc-icon.png");
+.s-ICBC-icon {
+  background-image: url("../assets/bank-icon/s-ICBC-icon.png");
 }
 
-.s-hxb-icon {
-  background-image: url("../assets/bank-icon/s-hxb-icon.png");
+.s-HXB-icon {
+  background-image: url("../assets/bank-icon/s-HXB-icon.png");
 }
-.s-ib-icon {
-  background-image: url("../assets/bank-icon/s-ib-icon.png");
+.s-CIB-icon {
+  background-image: url("../assets/bank-icon/s-CIB-icon.png");
 }
-.s-psbc-icon {
-  background-image: url("../assets/bank-icon/s-psbc-icon.png");
+.s-PSBC-icon {
+  background-image: url("../assets/bank-icon/s-PSBC-icon.png");
 }
-.s-pb-icon {
-  background-image: url("../assets/bank-icon/s-pb-icon.png");
+.s-PAB-icon {
+  background-image: url("../assets/bank-icon/s-PAB-icon.png");
 }
 
 .unlocked-icon{
@@ -287,47 +292,47 @@ ul, li {
   background-image: url("../assets/icon/locked.png");
 }
 
-.bank-cmb{
-  background-image: url("../assets/bank-icon/cmb-bg.png");
+.bank-CMB{
+  background-image: url("../assets/bank-icon/CMB-bg.png");
 }
-.bank-abc{
-  background-image: url("../assets/bank-icon/abc-bg.png");
+.bank-ABC{
+  background-image: url("../assets/bank-icon/ABC-bg.png");
 }
-.bank-bc{
-  background-image: url("../assets/bank-icon/bc-bg.png");
+.bank-BOCOM{
+  background-image: url("../assets/bank-icon/BOCOM-bg.png");
 }
-.bank-ccb{
-  background-image: url("../assets/bank-icon/ccb-bg.png");
+.bank-CITIC{
+  background-image: url("../assets/bank-icon/CITIC-bg.png");
 }
-.bank-ceb{
-  background-image: url("../assets/bank-icon/ceb-bg.png");
+.bank-CEB{
+  background-image: url("../assets/bank-icon/CEB-bg.png");
 }
-.bank-cgb{
-  background-image: url("../assets/bank-icon/cgb-bg.png");
+.bank-GDB{
+  background-image: url("../assets/bank-icon/GDB-bg.png");
 }
-.bank-CHAINABANK{
-  background-image: url("../assets/bank-icon/CHAINABANK-bg.png");
+.bank-BOC{
+  background-image: url("../assets/bank-icon/BOC-bg.png");
 }
-.bank-cmbc{
-  background-image: url("../assets/bank-icon/cmbc-bg.png");
+.bank-CMBC{
+  background-image: url("../assets/bank-icon/CMBC-bg.png");
 }
-.bank-construtorbank{
-  background-image: url("../assets/bank-icon/construtorbank-bg.png");
+.bank-CCB{
+  background-image: url("../assets/bank-icon/CCB-bg.png");
 }
-.bank-hxb{
-  background-image: url("../assets/bank-icon/hxb-bg.png");
+.bank-HXB{
+  background-image: url("../assets/bank-icon/HXB-bg.png");
 }
-.bank-ib{
-  background-image: url("../assets/bank-icon/ib-bg.png");
+.bank-CIB{
+  background-image: url("../assets/bank-icon/CIB-bg.png");
 }
-.bank-icbc{
-  background-image: url("../assets/bank-icon/icbc-bg.png");
+.bank-ICBC{
+  background-image: url("../assets/bank-icon/ICBC-bg.png");
 }
-.bank-pb{
-  background-image: url("../assets/bank-icon/pb-bg.png");
+.bank-PAB{
+  background-image: url("../assets/bank-icon/PAB-bg.png");
 }
-.bank-psbc{
-  background-image: url("../assets/bank-icon/psbc-bg.png");
+.bank-PSBC{
+  background-image: url("../assets/bank-icon/PSBC-bg.png");
 }
 
 
@@ -362,6 +367,40 @@ ul, li {
 }
 .push-time-icon{
   background-image: url("../assets/icon/push-time-icon.png");
+}
+.kj-saizi{
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center center;
+  margin: 0 2px;
+}
+
+.kj-saizi-1 {
+  background-image: url("../assets/icon/saizi-1.svg");
+}
+
+.kj-saizi-2 {
+  background-image: url("../assets/icon/saizi-2.svg");
+}
+
+.kj-saizi-3 {
+  background-image: url("../assets/icon/saizi-3.svg");
+}
+
+.kj-saizi-4 {
+  background-image: url("../assets/icon/saizi-4.svg");
+}
+
+.kj-saizi-5 {
+  background-image: url("../assets/icon/saizi-5.svg");
+}
+
+.kj-saizi-6 {
+
+  background-image: url("../assets/icon/saizi-6.svg");
 }
 
 
@@ -585,3 +624,7 @@ ion-app.ios [padding] .scroll-content{
 .popover-content {
   overflow: visible;
 }
+
+.segment-ios .segment-button.segment-activated{background-color:#FFF9F5 }
+
+.swiper-container{height:100%}
