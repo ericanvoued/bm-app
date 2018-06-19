@@ -10,22 +10,80 @@
         <div [ngSwitch]="common.smallMethod">
             <div *ngSwitchCase="'后二大小单双'">
                     <div class="kai-jiang">
-                            <div >期号</div><div >开奖号码</div><div>十位</div><div>个位</div>
+                            <div>期号</div><div >开奖号码</div><div style="width:32%">十位</div><div style="width:32%">个位</div>
                     </div>
                
                     <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
                         <div >{{item.number}}</div>
-                        <div class="wuxing"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                        <div class="wuxing houer"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                        <div style="width:32%">{{item.shi}}</div>
+                        <div style="width:32%">{{item.ge}}</div>
+                    </div>
+            </div> 
+
+            <div *ngSwitchCase="'后三大小单双'">
+                    <div class="kai-jiang">
+                            <div>期号</div><div>开奖号码</div><div>百位</div><div>十位</div><div>个位</div><div>后三形态</div>
+                    </div>
+               
+                    <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
+                        <div >{{item.number}}</div>
+                        <div class="wuxing housan"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                        <div >{{item.bai}}</div>
                         <div >{{item.shi}}</div>
                         <div >{{item.ge}}</div>
+                        <div >{{item.xingtai}}</div>
+                    </div>
+            </div> 
+
+            <div *ngSwitchCase="'前二大小单双'">
+                    <div class="kai-jiang">
+                            <div >期号</div><div>开奖号码</div><div style="width:32%">万位</div><div style="width:32%">千位</div>
+                    </div>
+               
+                    <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
+                        <div >{{item.number}}</div>
+                        <div class="wuxing qianer"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                        <div style="width:32%">{{item.wan}}</div>
+                        <div style="width:32%">{{item.qian}}</div>
+                    </div>
+            </div> 
+
+            <div *ngSwitchCase="'前三大小单双'">
+                    <div class="kai-jiang">
+                            <div >期号</div><div>开奖号码</div><div>万位</div><div>千位</div><div>百位</div><div>前三形态</div>
+                    </div>
+               
+                    <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
+                        <div >{{item.number}}</div>
+                        <div class="wuxing qiansan"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                        <div >{{item.wan}}</div>
+                        <div >{{item.qian}}</div>
+                        <div >{{item.bai}}</div>
+                        <div >{{item.xingtai}}</div>
+                    </div>
+            </div> 
+
+            <div *ngSwitchCase="'中三大小单双'">
+                    <div class="kai-jiang">
+                            <div >期号</div><div>开奖号码</div><div>千位</div><div>百位</div><div>十位</div><div>中三形态</div>
+                    </div>
+               
+                    <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
+                        <div >{{item.number}}</div>
+                        <div class="wuxing zhongsan"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                        <div >{{item.qian}}</div>
+                        <div >{{item.bai}}</div>
+                        <div >{{item.shi}}</div>
+                        <div >{{item.xingtai}}</div>
                     </div>
             </div> 
         </div>    
 
-        <div [ngSwitch]="common.smallMethod">
+        <!-- <div [ngSwitch]="common.smallMethod">
             <div *ngSwitchCase="'后三大小单双'">
                     <div class="kai-jiang">
-                            <div >期号</div><div>开奖号码</div><div>百位</div><div>十位</div><div>个位</div><div>后三形态</div>
+                            <div>期号</div><div>开奖号码</div><div>百位</div><div>十位</div><div>个位</div><div>后三形态</div>
                     </div>
                
                     <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
@@ -86,7 +144,7 @@
                         <div >{{item.xingtai}}</div>
                     </div>
             </div> 
-         </div>    
+         </div>     -->
     </ion-slide>  
 
     <ion-slide>
@@ -94,16 +152,44 @@
              <div style="width:34%;display:flex;font-size:14px">
                   <div style="width:50%">
                        <ul>
-                          <li style="height:50px;line-height:50px;background:#D6DAFF;border-right:1px solid #ffffff">期号</li>
-                          <li *ngFor="let item of historyRecord" class="left-range qihao">{{item.number}}</li>
+                          <li class="qihao-number">期号</li>
+                          <li *ngFor="let item of historyRecord" class="left-range qihao" style="border-right:1px solid #F6F6F6">{{item.number}}</li>
                        </ul>
                   </div>
 
-                  <div style="width:50%">
-                       <ul *ngIf="common.smallMethod == '后二大小单双'">
-                          <li style="height:50px;line-height:50px;background:#E5E8FD;border-right:1px solid #ffffff">开奖号</li>
+                  <div style="width:50%" *ngIf="common.smallMethod == '后二大小单双'">
+                       <ul >
+                          <li class="kaijianghao">开奖号</li>
                           <li *ngFor="let item of historyRecord" class="left-range haoma">{{item.history.slice(-2).join(' ')}}</li>
                        </ul>
+                  </div>
+
+                  <div style="width:50%" *ngIf="common.smallMethod == '后三大小单双'">
+                        <ul >
+                           <li class="kaijianghao">开奖号</li>
+                           <li *ngFor="let item of historyRecord" class="left-range haoma">{{item.history.slice(-3).join(' ')}}</li>
+                        </ul>
+                  </div>
+
+                  <div style="width:50%" *ngIf="common.smallMethod == '前二大小单双'">
+                        <ul >
+                           <li class="kaijianghao">开奖号</li>
+                           <li *ngFor="let item of historyRecord" class="left-range haoma">{{item.history.slice(0,2).join(' ')}}</li>
+                        </ul>
+                  </div>
+
+                  <div style="width:50%" *ngIf="common.smallMethod == '前三大小单双'">
+                        <ul >
+                           <li class="kaijianghao">开奖号</li>
+                           <li *ngFor="let item of historyRecord" class="left-range haoma">{{item.history.slice(0,3).join(' ')}}</li>
+                        </ul>
+                  </div>
+
+                  <div style="width:50%" *ngIf="common.smallMethod == '中三大小单双'">
+                        <ul >
+                           <li class="kaijianghao">开奖号</li>
+                           <li *ngFor="let item of historyRecord" class="left-range haoma">{{item.history.slice(1,4).join(' ')}}</li>
+                        </ul>
                   </div>
              </div>
 

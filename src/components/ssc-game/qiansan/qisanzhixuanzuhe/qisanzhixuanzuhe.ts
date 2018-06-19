@@ -11,7 +11,7 @@ import { BasketDataProvider } from '../../../../providers/basket-data/basket-dat
  */
 @Component({
   selector: 'qisanzhixuanzuhe',
-  templateUrl: '../fushi.zuhe.html'
+  templateUrl: 'qisanzhixuanzuhe.html'
 })
 export class QisanzhixuanzuheComponent extends commonMethod{
   @Input('choose') choose: any[] = [];

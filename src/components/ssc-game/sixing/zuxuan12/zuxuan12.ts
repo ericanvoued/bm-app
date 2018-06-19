@@ -13,7 +13,7 @@ import { BasketDataProvider } from '../../../../providers/basket-data/basket-dat
  */
 @Component({
   selector: 'zuxuan12',
-  templateUrl: '../zuxuan.html'
+  templateUrl: 'zuxuan12.html'
 })
 export class Zuxuan12Component extends commonMethod{
 

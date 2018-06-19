@@ -23,7 +23,8 @@ export class DaxiaodanshuangComponent implements OnInit{
 
   kaijiangData:any[];
 
-  weiData:any = ['百位','十位']
+  //weiData:any = ['百位','十位']
+  weiData:any[];
 
   rangeData:any = ['大','小','单','双']
 
@@ -60,6 +61,7 @@ export class DaxiaodanshuangComponent implements OnInit{
   getKaijiang(){
       switch(this.common.smallMethod){
            case '后二大小单双':
+              this.weiData = ['十位','个位']
               this.kaijiangData = this.historyRecord.map((ele,index) => {
                 let shi = this.judgeKind(ele.history[3])
                 let ge = this.judgeKind(ele.history[4])
@@ -68,6 +70,7 @@ export class DaxiaodanshuangComponent implements OnInit{
             break  
 
            case '后三大小单双':
+              this.weiData = ['百位','十位','个位']
               this.kaijiangData = this.historyRecord.map((ele,index) => {
                 let bai = this.judgeKind(ele.history[2])
                 let shi = this.judgeKind(ele.history[3])
@@ -78,6 +81,7 @@ export class DaxiaodanshuangComponent implements OnInit{
             break    
 
             case '前二大小单双':
+              this.weiData = ['万位','千位']
               this.kaijiangData = this.historyRecord.map((ele,index) => {
                 let wan = this.judgeKind(ele.history[0])
                 let qian = this.judgeKind(ele.history[1])
@@ -86,6 +90,7 @@ export class DaxiaodanshuangComponent implements OnInit{
               break  
 
             case '前三大小单双':
+              this.weiData = ['万位','千位','百位']
               this.kaijiangData = this.historyRecord.map((ele,index) => {
                 let wan = this.judgeKind(ele.history[0])
                 let qian = this.judgeKind(ele.history[1])
@@ -96,6 +101,7 @@ export class DaxiaodanshuangComponent implements OnInit{
               break  
             
             case '中三大小单双':
+              this.weiData = ['千位','百位','个位']
               this.kaijiangData = this.historyRecord.map((ele,index) => {
                 let qian = this.judgeKind(ele.history[1])
                 let bai = this.judgeKind(ele.history[2])
