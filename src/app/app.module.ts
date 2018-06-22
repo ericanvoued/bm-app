@@ -5,6 +5,7 @@ import {MyApp} from './app.component';
 
 import {HttpClientModule} from "@angular/common/http";
 import {CountTipComponent} from '../components/count-tip/count-tip';
+import { BallTouchDirective } from './ball-touch.directive'
 
 import {HomePage} from '../pages/home/home';
 import {TabsPage} from '../pages/tabs/tabs';
@@ -13,7 +14,6 @@ import {ActivityPage} from '../pages/activity/activity'
 import {UserCenterPage} from '../pages/user/user-center/user-center'
 
 // import { HotGmageListPage } from '../pages/hot-gmage-list/hot-gmage-list'
-import {IonicStorageModule} from '@ionic/storage'
 import {Camera} from '@ionic-native/camera';
 import {File} from '@ionic-native/file';
 import {Transfer, TransferObject} from '@ionic-native/transfer';
@@ -45,6 +45,8 @@ import {WuxingComponent} from '../components/gametrend/wuxing/wuxing'
 import {SixingComponent} from '../components/gametrend/sixing/sixing'
 import {KuadutrendComponent} from '../components/gametrend/kuadutrend/kuadutrend'
 import {ZhixuanhezhiComponent} from '../components/gametrend/qiansan/zhixuanhezhi/zhixuanhezhi'
+import { ZufuComponent } from '../components/gametrend/zufu/zufu'
+
 import {gameConfig, lottoyCenter} from './gameComponent'
 import {DaxiaodanshuangComponent} from '../components/gametrend/daxiaodanshuang/daxiaodanshuang'
 
@@ -75,6 +77,7 @@ import {BaseToolProvider} from '../providers/base-tool/base-tool';
     KuadutrendComponent,
     ZhixuanhezhiComponent,
     DaxiaodanshuangComponent,
+    ZufuComponent,
     CountTipComponent,
     //LhcSlidePage,
     KsBasketPage,
@@ -89,14 +92,11 @@ import {BaseToolProvider} from '../providers/base-tool/base-tool';
     HttpClientModule,
     NoopAnimationsModule,
     BrowserAnimationsModule,
-
     IonicModule.forRoot(MyApp, {
       backButtonText: '',//按钮内容
       backButtonIcon: 'ios-arrow-back',//按钮图标样式
       tabsHideOnSubPages: 'true'
-    }),
-    IonicStorageModule.forRoot()
-  ],
+    })  ],
 
   bootstrap: [IonicApp],
   entryComponents: [
@@ -113,6 +113,7 @@ import {BaseToolProvider} from '../providers/base-tool/base-tool';
     KuadutrendComponent,
     ZhixuanhezhiComponent,
     DaxiaodanshuangComponent,
+    ZufuComponent,
    // LhcSlidePage,
     KsBasketPage,
      KsBasketPage,KstrendPage,

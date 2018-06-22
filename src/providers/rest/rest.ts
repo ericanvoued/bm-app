@@ -4,7 +4,7 @@ import {Observable} from "rxjs/Observable";
 import {Response} from '@angular/http';
 
 let baseUrl = 'http://www.zhenwin.com'
-
+//let baseUrl = 'http://user.firecat.com'
 
 @Injectable()
 export class RestProvider {

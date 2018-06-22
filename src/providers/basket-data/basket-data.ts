@@ -97,7 +97,7 @@ export class BasketDataProvider {
      
     }else{
       let processData = this.processOrder()
-      
+      console.log('wrnm')
       if(this.totalAmount + this.statistic.multiple**this.statistic.trace*percent*processData.amount > this.balance){
           this.presentRecharge()
           return false
@@ -116,12 +116,11 @@ export class BasketDataProvider {
   addToExist(processData){
     this.betData = this.betData.map(item => {
       if(item.wayId == processData.wayId && item.lotterysText == processData.lotterysText){
-          console.log('axiww')
-          return {...item, jsId:item.jsId, number:item.number + 1, amount:item.amount*(item.number + 1)/item.number}
+          return {...item, jsId:item.jsId, num:item.num + 1, amount:item.amount*(item.num + 1)/item.num}
       }else{
           return item
       }
-    })  
+    }) 
     this.calculateTotal()
   }
 
@@ -150,11 +149,13 @@ export class BasketDataProvider {
          jsId:this.betData.length + 1,
          mid:this.common.smallId,
          amount:this.common.betPrice,
+        
          //amountText:'',
          //lotterys:this.common.componentRef.instance.getLotteryData(),
          lotterysText:this.common.componentRef.instance.getOriginLotteryText(), 
          wayId:this.common.smallId,
          type:names,
+         gameName:this.common.method + this.common.smallMethod,
          position:this.common.componentRef.instance.getPositionArr(),    
          num:this.common.count,
          onePrice:2,

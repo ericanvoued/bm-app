@@ -33,13 +33,15 @@ export class HomePage {
     this.homePrv.loadbanner();
     this.homePrv.loadannouncements();
     this.homePrv.announcementsUnreadnum();
-
-    if(this.common.timer)
-       clearInterval(this.common.timer)
-
+   
   }
 
   ionViewDidEnter(){
+    if(this.common.timer){
+      clearInterval(this.common.timer)
+      this.common.resetLotteryData()
+      
+    }
     this.homePrv.loadHotLottory();
     this.swiper_init()
     console.log(this.homePrv.homeData.lottorys)
@@ -85,6 +87,7 @@ export class HomePage {
     console.log(lottory.id)
     if(lottory.url){
       this.common.gameId = lottory.id
+      this.common.series_id = lottory.series_id
       this.navCtrl.push(lottory.url)
     }else{
       alert('no pages')

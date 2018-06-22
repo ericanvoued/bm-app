@@ -2,13 +2,14 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { GameTrendPage } from './game-trend';
 import { ComponentsModule } from '../../components/components.module';
+import { DirectivesModule } from '../../directives/directives.module'
 
 @NgModule({
   declarations: [
     GameTrendPage,
   ],
   imports: [
-    IonicPageModule.forChild(GameTrendPage),ComponentsModule
+    IonicPageModule.forChild(GameTrendPage),ComponentsModule, DirectivesModule
   ],
 })
 export class GameTrendPageModule {}

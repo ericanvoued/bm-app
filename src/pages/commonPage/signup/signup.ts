@@ -5,7 +5,6 @@ import {
   LoadingController,
   ToastController,
   NavParams } from 'ionic-angular';
-import {Storage} from '@ionic/storage';
 import {TabsPage} from '../../tabs/tabs';
 import {LoadingProvider} from '../../../providers/loading/loading'
 import {SignupProvider} from '../../../providers/signup/signup';
@@ -39,7 +38,6 @@ export class SignupPage {
   constructor(
     public navCtrl: NavController,
     public signupPrd:SignupProvider,
-    public storage: Storage,
     public loadPrd: LoadingProvider,
     public loadingCtrl: LoadingController,
     public ToastCtrl: ToastController,
@@ -130,7 +128,7 @@ export class SignupPage {
         if (data.isSuccess == 1) {
           this.signData.loading.dismiss();
           this.signData.toast = this.loadPrd.showToast(this.ToastCtrl, '注册成功');
-          this.storage.set('userInfo', data['data']);
+          //this.storage.set('userInfo', data['data']);
 
           localStorage.userInfo = JSON.stringify(data['data']);
           this.navCtrl.setRoot(TabsPage, {

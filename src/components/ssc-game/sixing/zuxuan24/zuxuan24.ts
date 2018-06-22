@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component ,Input} from '@angular/core';
 import { CommonProvider } from '../../../../providers/common/common'
 import { UtilProvider } from '../../../../providers/util/util'
 
@@ -16,7 +16,7 @@ import { BasketDataProvider } from '../../../../providers/basket-data/basket-dat
   templateUrl: 'zuxuan24.html'
 })
 export class Zuxuan24Component extends commonMethod{
-
+  @Input('choose') choose: any[] = [];
   text: string;
 
   constructor(public common:CommonProvider, public util:UtilProvider,public tool:ToolsProvider, public basket:BasketDataProvider) {
@@ -27,7 +27,11 @@ export class Zuxuan24Component extends commonMethod{
 
   qqq(number){
     return number + 5
-}
+  }
+
+  check(choice){
+    return this.choose.indexOf(choice) > -1
+  }
 
   randomOneOrder(){
     this.common.ballData = this.common.ballData.map((item,index) => {

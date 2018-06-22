@@ -23,14 +23,13 @@ export class ZhixuanfushiComponent extends commonMethod implements AfterViewInit
   constructor(public common:CommonProvider, public util:UtilProvider,public basket:BasketDataProvider) {
     super(common,util,basket)
     console.log('Hello ZhixuanfushiComponent Component');
-    
+    console.log(this.common.missData)
     //this.util.shakePhone(this.randomChoose)
     //console.log(ssc.haveChoosen)  
   }
 
   ngAfterViewInit(){
   // this.dealHover()
-   
     //  setTimeout(() => {
        
     //       // setTimeout(() => {

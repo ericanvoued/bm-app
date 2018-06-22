@@ -323,6 +323,7 @@ export class UtilProvider {
             return item
         })
         //this.common.cartNumber = 0
+        console.log('reset data')
         this.common.calculate()
     }
 

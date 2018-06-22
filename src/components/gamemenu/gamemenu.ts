@@ -1,6 +1,8 @@
-import { Component,Input,Output,EventEmitter } from '@angular/core';
+import { Component,Input,Output,EventEmitter,OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { trigger ,state,transition,animate,style} from "@angular/animations";
 import { CommonProvider } from "../../providers/common/common";
+import { Events } from 'ionic-angular';
+
 import * as $ from 'jquery';
 import { UtilProvider } from '../../providers/util/util'
 
@@ -29,7 +31,7 @@ import { UtilProvider } from '../../providers/util/util'
       ])
   ]
 })
-export class GamemenuComponent {
+export class GamemenuComponent implements OnDestroy{
     @Output('switch') switch:EventEmitter<any> = new EventEmitter<any>()
     choosen:any;
 
@@ -42,15 +44,21 @@ export class GamemenuComponent {
     bigIndex:number;
 
 
-    constructor(public common:CommonProvider,public util:UtilProvider) {
+    constructor(public common:CommonProvider,public util:UtilProvider, public events:Events) {
        console.log('Hello GamemenuComponent Component');
-       this.common.initData().then(() => {
+   
+       this.events.subscribe('getMethod', () => {
         this.method = this.common.method
         this.small = this.common.small
         this.smallMethod = this.common.smallMethod
         this.bigIndex = this.common.bigIndex
-        console.log(this.method)
-       })    
+        console.log(this.method)           
+       })
+    }
+
+    ngOnDestroy(){
+        console.log('destroy')
+        this.events.unsubscribe('getMethod')
     }
 
     // dawan fa
@@ -68,8 +76,7 @@ export class GamemenuComponent {
   
             this.util.setData()
             this.common.visible = 'invisable';
-
-            $('.body-bg').fadeOut(1000)
+            $('.body-bg').fadeOut(300)
         }
         console.log('dddddd')
 
@@ -92,7 +99,7 @@ export class GamemenuComponent {
         this.util.resetData()
         this.util.setData()
         this.common.visible = 'invisable';
-        $('.body-bg').fadeOut(1000)
+        $('.body-bg').fadeOut(300)
         console.log(name)
 
         // 切换小玩法 判断是lhc
@@ -117,7 +124,7 @@ export class GamemenuComponent {
     toggle(){
         console.log('dddd')
         this.common.visible = 'invisable';
-        $('.body-bg').fadeOut(1000)
+        $('.body-bg').fadeOut(300)
     }
 
 }

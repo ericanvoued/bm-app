@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {IonicPage, ToastController, LoadingController, normalizeURL,NavController, NavParams, Platform} from 'ionic-angular';
-import {Storage} from '@ionic/storage';
 import { LoadingProvider } from '../../../providers/loading/loading'
 import {ActionSheetController} from 'ionic-angular';
 import { HttpClientProvider } from '../../../providers/http-client/http-client'
@@ -43,7 +42,7 @@ export class UserCenterPage {
   userId:string;
   // userInfo;
 
-  constructor(public storage: Storage,
+  constructor(
               public platform: Platform,
               private camera: Camera,
               private transfer: Transfer,

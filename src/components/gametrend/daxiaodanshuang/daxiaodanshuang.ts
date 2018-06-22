@@ -215,6 +215,19 @@ export class DaxiaodanshuangComponent implements OnInit{
         return '小单'
   }
 
+  judge(number){
+    switch(number){
+    case 0:
+        return '大'
+    case 1:
+        return '小'
+    case 2:
+        return '单'  
+    case 3:
+        return '双'           
+   }
+  }
+
   test(number){
     if(number>=5 && number%2)
        return [true,1,true,1]
@@ -240,6 +253,18 @@ export class DaxiaodanshuangComponent implements OnInit{
          return '双'      
      }
    }
+
+   existZuxuan(){
+    let data = this.common.componentRef.instance.getCommonData(),flag = false;
+    data.forEach(ele => {
+         if(ele.length){
+              flag = true
+              return flag
+         }
+            
+    })
+    return flag
+ }
 
    
 }

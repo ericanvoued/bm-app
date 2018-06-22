@@ -14,7 +14,7 @@ import { BasketDataProvider } from '../../../../providers/basket-data/basket-dat
   templateUrl: 'housanzhixuanhezhi.html'
 })
 export class HousanzhixuanhezhiComponent extends commonMethod{
-
+  @Input('choose') choose: any[] = [];
   text: string;
 
   constructor(public common:CommonProvider, public util:UtilProvider,public basket:BasketDataProvider) {
@@ -26,6 +26,10 @@ export class HousanzhixuanhezhiComponent extends commonMethod{
         },{"key":"十", "value":[0,0,0,0,0,0,0]
         }
       ]
+  }
+
+  check(choice){
+    return this.choose.indexOf(choice) > -1
   }
 
   randomOneOrder(){

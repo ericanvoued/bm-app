@@ -5,7 +5,6 @@ import { CommonStatusPage } from '../common-status/common-status';
 import { flyUp } from '../../../animation/flyUp'
 import { HttpClientProvider } from '../../../providers/http-client/http-client'
 
-import {Storage} from '@ionic/storage';
 import { BankCardProvider } from '../../../providers/bank-card/bank-card'
 
 @IonicPage()
@@ -74,7 +73,6 @@ export class AddBankCardPage {
   constructor(
     public navCtrl: NavController,
     public loadPrd: LoadingProvider,
-    public storage: Storage,
     public http:HttpClientProvider,
     public bankCardPrd:BankCardProvider,
     public loadingCtrl:LoadingController,

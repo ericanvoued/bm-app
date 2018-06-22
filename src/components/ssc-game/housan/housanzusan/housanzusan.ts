@@ -15,13 +15,18 @@ import { BasketDataProvider } from '../../../../providers/basket-data/basket-dat
   templateUrl: 'housanzusan.html'
 })
 export class HousanzusanComponent extends commonMethod{
-
+  @Input('choose') choose: any[] = [];
+  
   text: string;
 
   constructor(public common:CommonProvider, public tool:ToolsProvider,public util:UtilProvider,public basket:BasketDataProvider) {
     super(common,util,basket) 
     console.log('Hello HousanzusanComponent Component');
     this.text = 'Hello World';
+  }
+
+  check(choice){
+    return this.choose.indexOf(choice) > -1
   }
 
   qqq(number){

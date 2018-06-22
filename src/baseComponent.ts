@@ -7,6 +7,7 @@ import { CommonProvider } from './providers/common/common'
 import { GamemenuComponent } from './components/gamemenu/gamemenu'
 import { ModalController,NavController } from 'ionic-angular';
 import { CountTipComponent } from './components/count-tip/count-tip'
+import { Events } from 'ionic-angular';
 
 
 let tt = 0;
@@ -35,7 +36,7 @@ export class Effect{
         'seconds': ''
     }
 
-    constructor(public common:CommonProvider, public gamemenu:GamemenuComponent, public modalCtrl: ModalController,public navCtrl:NavController,public resolver: ComponentFactoryResolver){
+    constructor(public common:CommonProvider, public gamemenu:GamemenuComponent, public modalCtrl: ModalController,public navCtrl:NavController,public resolver: ComponentFactoryResolver,public events:Events){
         let self = this;
 
         //this.produce()
@@ -60,7 +61,39 @@ export class Effect{
                 this.maxNumber = 0
             }
         })  
+
+        this.events.subscribe('changeRecord', () => {
+            console.log('nmslbrwgbebrreberbe')
+            let length = this.common.historyList.length, historyList = this.common.historyList
+            //this.list = historyList.map(this.handleBall).slice(0,10)
+           // this.list = historyList.concat(1 - historyList.length).concat({number:historyList[length - 1]+1,code:'',time:''}).map(this.handleBall).slice(0,10)
+           this.list = this.list.slice(0,this.list.length - 1)
+           this.list.unshift({number:+(historyList[0].number) + 1,balls:'',time:''})
+
+            
+            if(this.list.length > 2){
+                this.maxNumber = Math.ceil(this.list.length/5)
+            }else{
+                this.maxNumber = 0
+            }
+           console.log(this.list)
+           this.timer =  setInterval(() => {
+                this.common.fetchRecord().then(() => {
+                     if(this.common.historyList[0].number == this.list[0].number){
+                        this.list = this.common.historyList.map(this.handleBall).slice(0,10)
+                        if(this.list.length > 2){
+                            this.maxNumber = Math.ceil(this.list.length/5)
+                        }else{
+                            this.maxNumber = 0
+                        }
+                        clearInterval(this.timer)
+                     }
+                })
+            },10000)
+        })
     }
+
+
 
     move(){
         tt += 1000/60;

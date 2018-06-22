@@ -15,7 +15,7 @@
                
                     <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
                         <div >{{item.number}}</div>
-                        <div class="wuxing houer"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                        <div class="houer"><span *ngFor="let aa of item.history">{{aa}}</span></div>
                         <div style="width:32%">{{item.shi}}</div>
                         <div style="width:32%">{{item.ge}}</div>
                     </div>
@@ -28,7 +28,7 @@
                
                     <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
                         <div >{{item.number}}</div>
-                        <div class="wuxing housan"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                        <div class="housan"><span *ngFor="let aa of item.history">{{aa}}</span></div>
                         <div >{{item.bai}}</div>
                         <div >{{item.shi}}</div>
                         <div >{{item.ge}}</div>
@@ -43,7 +43,7 @@
                
                     <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
                         <div >{{item.number}}</div>
-                        <div class="wuxing qianer"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                        <div class="qianer"><span *ngFor="let aa of item.history">{{aa}}</span></div>
                         <div style="width:32%">{{item.wan}}</div>
                         <div style="width:32%">{{item.qian}}</div>
                     </div>
@@ -56,7 +56,7 @@
                
                     <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
                         <div >{{item.number}}</div>
-                        <div class="wuxing qiansan"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                        <div class="qiansan"><span *ngFor="let aa of item.history">{{aa}}</span></div>
                         <div >{{item.wan}}</div>
                         <div >{{item.qian}}</div>
                         <div >{{item.bai}}</div>
@@ -71,7 +71,7 @@
                
                     <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
                         <div >{{item.number}}</div>
-                        <div class="wuxing zhongsan"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                        <div class="zhongsan"><span *ngFor="let aa of item.history">{{aa}}</span></div>
                         <div >{{item.qian}}</div>
                         <div >{{item.bai}}</div>
                         <div >{{item.shi}}</div>
@@ -80,71 +80,24 @@
             </div> 
         </div>    
 
-        <!-- <div [ngSwitch]="common.smallMethod">
-            <div *ngSwitchCase="'后三大小单双'">
-                    <div class="kai-jiang">
-                            <div>期号</div><div>开奖号码</div><div>百位</div><div>十位</div><div>个位</div><div>后三形态</div>
-                    </div>
-               
-                    <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
-                        <div >{{item.number}}</div>
-                        <div class="wuxing"><span *ngFor="let aa of item.history">{{aa}}</span></div>
-                        <div >{{item.bai}}</div>
-                        <div >{{item.shi}}</div>
-                        <div >{{item.ge}}</div>
-                        <div >{{item.xingtai}}</div>
-                    </div>
-            </div> 
-         </div>    
+        <div style="display:flex;align-items:center;height:40px">
+            <div style="color:#333333;font-size:12px">快速选号</div>
+            
+            <div *ngFor="let data of common.ballData;let row = index" style="display:flex;align-items:center">
+                    <ul style="display:flex">
+                        <li class="ball-choose" *ngFor="let item of data.value;let column = index" [class.current]="item == 1" style="width:25px;height:25px;display:flex;justify-content:center;align-items:center;margin-left:1px">
+                             <span [class.current]="item == 1" (click)="common.componentRef.instance.changeToggle(row,column)">{{judge(column)}}</span>
+                        </li>
+                    </ul>
+                    <div style="width:1px;height:20px;background:#F3F3F3"></div>
+            </div>
+        </div>
 
-         <div [ngSwitch]="common.smallMethod">
-            <div *ngSwitchCase="'前二大小单双'">
-                    <div class="kai-jiang">
-                            <div >期号</div><div>开奖号码</div><div>万位</div><div>千位</div>
-                    </div>
-               
-                    <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
-                        <div >{{item.number}}</div>
-                        <div class="wuxing"><span *ngFor="let aa of item.history">{{aa}}</span></div>
-                        <div >{{item.wan}}</div>
-                        <div >{{item.qian}}</div>
-                    </div>
-            </div> 
-         </div>   
-         
-         <div [ngSwitch]="common.smallMethod">
-            <div *ngSwitchCase="'前三大小单双'">
-                    <div class="kai-jiang">
-                            <div >期号</div><div>开奖号码</div><div>万位</div><div>千位</div><div>百位</div><div>前三形态</div>
-                    </div>
-               
-                    <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
-                        <div >{{item.number}}</div>
-                        <div class="wuxing"><span *ngFor="let aa of item.history">{{aa}}</span></div>
-                        <div >{{item.wan}}</div>
-                        <div >{{item.qian}}</div>
-                        <div >{{item.bai}}</div>
-                        <div >{{item.xingtai}}</div>
-                    </div>
-            </div> 
-         </div>   
-         
-         <div [ngSwitch]="common.smallMethod">
-            <div *ngSwitchCase="'中三大小单双'">
-                    <div class="kai-jiang">
-                            <div >期号</div><div>开奖号码</div><div>千位</div><div>百位</div><div>十位</div><div>前三形态</div>
-                    </div>
-               
-                    <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
-                        <div >{{item.number}}</div>
-                        <div class="wuxing"><span *ngFor="let aa of item.history">{{aa}}</span></div>
-                        <div >{{item.qian}}</div>
-                        <div >{{item.bai}}</div>
-                        <div >{{item.shi}}</div>
-                        <div >{{item.xingtai}}</div>
-                    </div>
-            </div> 
-         </div>     -->
+        <div  style="display:flex;align-items:center;height:20px">
+                <div style="width:17%;font-size:10px">已选</div>
+                <div *ngIf="existZuxuan()" style="color:#F84F1E;margin-left:5px">{{common.componentRef.instance.getOriginLotteryText()}}</div>
+        </div>
+
     </ion-slide>  
 
     <ion-slide>
@@ -211,8 +164,19 @@
                   </div>
              </div>
         </div>
+
+        <div style="display:flex;align-items:center;height:40px">
+                <div style="color:#333333;font-size:12px">快速选号</div>
+                
+                <div *ngFor="let data of common.ballData;let row = index" style="display:flex;align-items:center">
+                        <ul style="display:flex">
+                            <li class="ball-choose" *ngFor="let item of data.value;let column = index" [class.current]="item == 1" style="width:25px;height:25px;display:flex;justify-content:center;align-items:center;margin-left:1px">
+                                 <span [class.current]="item == 1" (click)="common.componentRef.instance.changeToggle(row,column)">{{judge(column)}}</span>
+                            </li>
+                        </ul>
+                        <div style="width:1px;height:20px;background:#F3F3F3"></div>
+                </div>
+        </div>
       
     </ion-slide>  
-
-
 </ion-slides>      
