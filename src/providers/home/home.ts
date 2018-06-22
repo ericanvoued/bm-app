@@ -32,7 +32,7 @@ export class HomeProvider {
     announcements: {data:['ddd']}
   }
 
-  
+
   homeData = {
     redicret_url:['SscPage','','','','','','Xuan5Page','','','','','KsPage','','','','','LhcSlidePage'],
     banner:[{'redirect_url':'','title':'','name':'','pic_url':''}],
@@ -49,7 +49,7 @@ export class HomeProvider {
 
   //彩种
   async lottoryInfo() {
-    
+
     this.homeData.lottoryList = (await this.http.fetchData('/api-lotteries-h5/lottery-info')).data;
     this.homeData.lottories = []
     for (let item in this.homeData.lottoryList) {
@@ -59,8 +59,8 @@ export class HomeProvider {
       }
       this.homeData.lottories.push(...this.homeData.lottoryList[item])
     }
-    
-    
+
+
     this.homeData.lottoryList.SSC[0].flag = true;
     // this.homeData.lottoryList.SSC.nav = [{name:'开奖',flag:true,c:'SscKaijiang'},{name:'大小',flag:false,c:'SscDaxiao'},{name:'单双',flag:false,c:'SscDanshuang'},{name:'形态',flag:false}];
     this.homeData.lottoryList.SSC.nav = [{name:'开奖',flag:true,c:SscKaijiangComponent},{name:'大小',flag:false,c:SscDaxiaoComponent},{name:'单双',flag:false,c:SscDanshuangComponent}];
@@ -68,7 +68,7 @@ export class HomeProvider {
     this.homeData.lottoryList.K3.nav = [{name:'开奖',flag:true,c:K3KaijiangComponent},{name:'基本走势',flag:false,c:K3BaseTrendComponent},{name:'形态走势',flag:false,c:K3ShapeTrendComponent},{name:'冷热',flag:false,c:K3CoodHotComponent}];
     this.homeData.lottoryList.PK10.nav = [{name:'开奖',flag:true,c:Pk10KaijiangComponent},{name:'大小',flag:false,c:Pk10daxiaoComponent},{name:'单双',flag:false,c:Pk10DanshuangComponent},{name:'冠亚军和',flag:false,c:Pk10ChanpiomComponent},{name:'龙虎',flag:false,c:Pk10LonghuComponent}];
     this.homeData.lottoryList.LHC.nav = [{name:'开奖',flag:true,c:LhcKaijiangComponent},{name:'生肖',flag:false,c:LhcShengxiaoComponent},{name:'两面/波色',flag:false,c:LhcBoseComponent}];
-    
+
     // for(let i=0,len1=this.homeData.lottories.length;i<len1;i++){
     //   console.log(this.redicret_url[i])
     //   this.homeData.lottories[i].url = this.redicret_url[i]
@@ -77,7 +77,7 @@ export class HomeProvider {
     this.addUrl(this.homeData.lottories)
     this.loadHotLottory(this.homeData.lottories)
 
-    
+
 
     console.log(this.homeData.lottories)
     console.log(this.homeData.lottoryList)
@@ -112,7 +112,7 @@ export class HomeProvider {
     if (this.homeData.lottorys) {
       return this.homeData.lottorys;
     } else {
-      
+
       this.homeData.lottorys = {hot: [], more: []};
       this.homeData.lottorys.hot = _lottory.slice(0, 18)
      // this.homeData.lottorys.more = _lottory.slice(-3)

@@ -1,10 +1,77 @@
 import {Injectable} from '@angular/core';
-@Injectable()
 
+import * as $ from 'jquery';
+
+@Injectable()
 export class Tpl {
 
   constructor() {
   }
+
+  initClick() {
+
+    let _this = this;
+    $('.select-d').on("click", ".ks-tab-top .ks-tab-unit", function () {
+      $('.current').removeClass('current');
+      let index = $(this).index();
+      $(this).addClass('current');
+
+    });
+  }
+
+
+  static recharge_tip = '<section class="basket-pop" style=" position: absolute;top: 0; bottom: 0;left: 0;right: 0;z-index: 123;background: rgba(0, 0, 0, 0.6);display: flex;justify-content: center;align-items: center;">\n' +
+    '  <div class="balance-pop" style="overflow: hidden;background: #ffffff;border-radius: 10px;text-align: center;width: 75vw;height: 160px;">\n' +
+    '    <h4 style="font-size: 14px;color: #000;letter-spacing: -0.22px;margin-top: 54px;">您的余额不足，请先去充值</h4>\n' +
+    '    <div style="height: 40px;float: left;width: 37.5vw;line-height: 40px;text-align: center;font-size: 16px;background-color: #ffffff; margin-top: 49px;border-top: 1px solid rgb(210, 210, 210);color: #666666;\n' +
+    '    border-right: 1px solid rgb(210, 210, 210);" class="offhand-btn cancel-btn">取消\n' +
+    '    </div>\n' +
+    '    <div style="height: 40px;float: left;width: 37.5vw;line-height: 40px;text-align: center;font-size: 16px;background-color: #ffffff;margin-top: 49px;border-top: 1px solid rgb(210, 210, 210);color: #FE5600;" class="offhand-btn bet-btn">确定\n' +
+    '    </div>\n' +
+    '  </div>\n' +
+    '</section>';
+  //投注成功提示
+  static success_tip = '<section class="basket-pop" style="position: absolute;top: 0;bottom: 0;left: 0;right: 0;z-index: 123;\n' +
+    '    background: rgba(0, 0, 0, 0.6);display: flex;justify-content: center;align-items: center;">\n' +
+    '  <div class="success-pop" style="background: #ffffff;border-radius: 10px;text-align: center;width: 75vw;height: 160px;">\n' +
+    '    <h2 style="margin-top: 50px;font-size: 15px;">恭喜您</h2>\n' +
+    '    <p style="margin: 10px 0;text-align: center;">投注已成功，祝您好运</p>\n' +
+    '  </div>\n' +
+    '</section>';
+
+  static fail_tip = '<section class="basket-pop" style="position: absolute;top: 0;bottom: 0;left: 0;right: 0;z-index: 123;\n' +
+    '    background: rgba(0, 0, 0, 0.6);display: flex;justify-content: center;align-items: center;">\n' +
+    '  <div class="success-pop" style="background: #ffffff;border-radius: 10px;text-align: center;width: 75vw;height: 100px;">\n' +
+    '    <h2 style="margin-top: 43px;font-size: 15px;" id="error-tip">恭喜您</h2>\n' +
+    '  </div>\n' +
+    '</section>';
+
+
+
+  //lhc trend
+  static trend_lhc_kj = '<li class="top-line">\n' +
+    '      <span>期号</span>\n' +
+    '      <span>一</span>\n' +
+    '      <span>二</span>\n' +
+    '      <span>三</span>\n' +
+    '      <span>四</span>\n' +
+    '      <span>五</span>\n' +
+    '      <span>六</span>\n' +
+    '      <span>特码</span>\n' +
+    '    </li>';
+  static trend_lhc_bose =
+
+    '    <li class="top-line bose">\n' +
+    '      <span>期号</span>\n' +
+    '      <span>特码</span>\n' +
+    '      <span>大小</span>\n' +
+    '      <span>单双</span>\n' +
+    '      <span>波色</span>\n' +
+    '    </li>';
+
+
+
+
 
   static trend_bom_hz = '<li class="hezhi">\n' +
     '        <p class="">3</p>\n' +
@@ -51,7 +118,7 @@ export class Tpl {
     '        <p class="">456</p>\n' +
     '      </li>';
 
-  static trend_bom_3bt = '<li class="sanbth dtys">\n' +
+  static trend_bom_3bt = '<li class="sanbth">\n' +
     '        <p class="">123</p>\n' +
     '        <p class="">124</p>\n' +
     '        <p class="">125</p>\n' +

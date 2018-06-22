@@ -1,24 +1,27 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 
-import {KstrendAction} from './kstrend-action';
 import * as $ from 'jquery';
 import {BaseToolProvider} from '../../../providers/base-tool/base-tool';
 import {KsBasketPage} from '../ks-basket/ks-basket';
 import {ViewController} from "ionic-angular/navigation/view-controller";
 import * as Hammer from 'hammerjs';
-
+import {Tpl} from '../../../providers/base-tool/tpl';
+// import {KstrendAction} from '../../../providers/base-tool/kstrend-action';
+import {KstrendAction} from './kstrend-action';
 @IonicPage()
 @Component({
   selector: 'page-kstrend',
   templateUrl: 'kstrend.html',
 })
-export class KstrendPage extends KstrendAction {
+export class KstrendPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public base: BaseToolProvider) {
-    super();
+              public base: BaseToolProvider,
+              public action:KstrendAction
+              ) {
+    // super();
   }
 
   arr = [9, 13, 14, 6, 10, 15, 16, 3, 8, 12, 17, 12, 15, 18, 5, 15];
@@ -40,15 +43,17 @@ export class KstrendPage extends KstrendAction {
     // indexOf
     //  length(): number;
 
-    console.log('this.navCtrl.first()===' + this.navCtrl.first())
-    console.log('this.navCtrl.getPrevious==' + this.navCtrl.getPrevious())
-    console.log('this.navCtrl.last()==' + this.navCtrl.last())
-    console.log('this.navCtrl.length()==' + this.navCtrl.length())
-
+    // console.log('this.navCtrl.first()===' + this.navCtrl.first())
+    // console.log('this.navCtrl.getPrevious==' + this.navCtrl.getPrevious())
+    // console.log('this.navCtrl.last()==' + this.navCtrl.last())
+    // console.log('this.navCtrl.length()==' + this.navCtrl.length())
 
     $('.alert-con').html(this.navParams.get('htm'));
-    this.initView(this.navParams.get('wanfa'),1);
-    this.changePlaySelect();
+    // this.initView(this.navParams.get('wanfa'),1);
+    // this.changePlaySelect();
+    this.action.initView(this.navParams.get('wanfa'),1);
+    this.action.changePlaySelect();
+
   }
 
   ionViewDidLoad() {
@@ -66,192 +71,12 @@ export class KstrendPage extends KstrendAction {
     });
 
     this.initany();
-    console.log(55555);
-
-    this.drawtrend();
-  }
-
-  drawtrend() {
-
-    // var c = document.getElementById("canvas");
-    // var table1  = document.getElementById("testtd");
-    // var  TDS = table1.getElementsByTagName("td");
-
-    // var cxt2= c.getContext("2d");
-    // cxt2.strokeStyle = 'rgba(255,0,0,0.5)';
-
-
-    // var icount =0;
-    // for(var i=0; i < TDS.length ; i++)
-    // {
-    //   if (TDS[i].innerHTML == "0")
-    //   {
-    //     var H = TDS[i].offsetHeight/2;
-    //     if (icount==0){
-    //       cxt2.moveTo(TDS[i].offsetLeft,TDS[i].offsetTop + H) ;
-    //     }
-    //     else
-    //     {
-    //       cxt2.lineTo(TDS[i].offsetLeft,TDS[i].offsetTop + H) ;
-    //     }
-    //     icount = icount +1;
-    //   }
-    // }
-
-    // var obj = $('.hzzs-container .his-line').eq(0).find(".t-5");
-    // cxt2.moveTo(obj.offsetLeft,obj.offsetTop + 30)
-    //  obj = $('.hzzs-container .his-line').eq(1).find(".t-7");
-    // cxt2.lineTo(obj.offsetLeft,obj.offsetTop + 20);
-    //  obj = $('.hzzs-container .his-line').eq(3).find(".t-3");
-    // cxt2.lineTo(obj.offsetLeft,obj.offsetTop + 20);
-
-    // cxt.beginPath();
-    // cxt.moveTo(f_left - cvs_left, f_top - cvs_top);
-    // cxt.lineTo(t_left - cvs_left, t_top - cvs_top);
-    // cxt.closePath();
-    // cxt.stroke();
-    // cxt.restore();
-    // $('#canvas').append(cvs);
-    // cxt2.stroke();
-
-
-    // var cvs = document.createElement("canvas");
-    // cvs.width = 100 ;//Math.abs(f_left - t_left) < w ? w : Math.abs(f_left - t_left);
-    // cvs.height = 200; //Math.abs(f_top - t_top);
-    // cvs.style.top = 150+'px';//cvs_top + parseInt(f_height / 2) + "px";
-    // cvs.style.left = 250+'px';  //cvs_left + parseInt(f_width / 2) + "px";
-    // cvs.style.position = "absolute";
-    // var cxt = cvs.getContext("2d");
-    // cxt.save();
-    // cxt.strokeStyle = '#ff6600';
-    // cxt.lineWidth = 5;
-    // cxt.lineJoin = "round";
-    // cxt.beginPath();
-    // cxt.moveTo(140, 250);
-    // cxt.lineTo(50, 200);
-    // cxt.closePath();
-    // cxt.stroke();
-    // cxt.restore();
-    // $('#canvas').append(cvs);
-    //
-    // var cvs = document.createElement("canvas");
-    // cvs.width = 100 ;//Math.abs(f_left - t_left) < w ? w : Math.abs(f_left - t_left);
-    // cvs.height = 200; //Math.abs(f_top - t_top);
-    // cvs.style.top = 50+'px';//cvs_top + parseInt(f_height / 2) + "px";
-    // cvs.style.left = 150+'px';  //cvs_left + parseInt(f_width / 2) + "px";
-    // cvs.style.position = "absolute";
-    // var cxt = cvs.getContext("2d");
-    // cxt.save();
-    // cxt.strokeStyle = '#ff6600';
-    // cxt.lineWidth = 5;
-    // cxt.lineJoin = "round";
-    // cxt.beginPath();
-    // cxt.moveTo(40, 150);
-    // cxt.lineTo(250, 100);
-    // cxt.closePath();
-    // cxt.stroke();
-    // cxt.restore();
-    // $('#canvas').append(cvs);
-
-
-    // var w = 25, bg = '#ff6600';
-    // for (var j = 0; j < 16; j++) {
-    //   // (Math.random() * (max - min) | 0) + min
-    //   var random = Math.floor(Math.random() * (16) + 3);
-    //   var tid = $('.hzzs-container .his-line').eq(j).find(".t-" + random);
-    //   random = Math.floor(Math.random() * (16) + 3);
-    //   var fid = $('.hzzs-container .his-line').eq(j + 1).find(".t-" + random);
-    //   var f_width = fid.outerWidth();
-    //   var f_height = fid.outerHeight();
-    //   var f_offset = fid.offset();
-    //   // var f_top = f_offset.top;
-    //   // var f_left = f_offset.left;
-    //   var f_top = fid[0].offsetTop;
-    //   var f_left = fid[0].offsetLeft;
-    //   var t_offset = tid.offset();
-    //   // var t_top = t_offset.top;
-    //   // var t_left = t_offset.left;
-    //   var t_top = tid[0].offsetTop;
-    //   var t_left = tid[0].offsetLeft;
-    //   var cvs_left = Math.min(f_left, t_left);
-    //   var cvs_top = Math.min(f_top, t_top);
-    //   tid.css("background", bg).css("color", "red");
-    //   fid.css("background", bg).css("color", "red");
-    //   var cvs = document.createElement("canvas");
-    //   cvs.width = Math.abs(f_left - t_left) < w ? w : Math.abs(f_left - t_left);
-    //   cvs.height = Math.abs(f_top - t_top);
-    //   cvs.style.top = cvs_top + parseInt(f_height / 2) + "px";
-    //   cvs.style.left = cvs_left + parseInt(f_width / 2) + "px";
-    //   cvs.style.position = "absolute";
-    //   var cxt = cvs.getContext("2d");
-    //   cxt.save();
-    //   cxt.strokeStyle = '#ff6600';
-    //   cxt.lineWidth = 4;
-    //   cxt.lineJoin = "round";
-    //   cxt.beginPath();
-    //   cxt.moveTo(f_left - cvs_left, f_top - cvs_top);
-    //   cxt.lineTo(t_left - cvs_left, t_top - cvs_top);
-    //   cxt.closePath();
-    //   cxt.stroke();
-    //   cxt.restore();
-    //   $('#canvas').append(cvs);
-    // }
-
-    // var w = 20, c = '#ff6600', bg = '#d5d5d5', div = 'canvas';
-    // $("#test1").after("<hr />");
-
-
-    // var list = ids.split(",");
-    // $('.his-line').eq(4).find(".t-7").after("<hr />");
-    // for (var j = 15; j > 0; j--) {
-    // var tid = $("#" + list[j]);
-    // var fid = $("#" + list[j - 1]);
-    // (Math.random() * (max - min) | 0) + min
-    //  var random =  Math.floor(Math.random()*(16)+3);
-    //   var tid = $('.his-line').eq(j).find(".t-" + random);
-    //   var fid = $('.his-line').eq(j - 1).find(".t-" + random);
-    //   var f_width = fid.outerWidth();
-    //   var f_height = fid.outerHeight();
-    //   var f_offset = fid.offset();
-    //   // var f_top = f_offset.top;
-    //   // var f_left = f_offset.left;
-    //   var f_top = fid.offsetTop;
-    //   var f_left = fid.offsetLeft;
-    //   var t_offset = tid.offset();
-    //   // var t_top = t_offset.top;
-    //   // var t_left = t_offset.left;
-    //   var t_top = tid.offsetTop;
-    //   var t_left = tid.offsetLeft;
-    //   var cvs_left = Math.min(f_left, t_left);
-    //   var cvs_top = Math.min(f_top, t_top);
-    //   tid.css("background", bg).css("color", "red");
-    //   fid.css("background", bg).css("color", "red");
-    //   var cvs = document.createElement("canvas");
-    //   cvs.width = Math.abs(f_left - t_left) < w ? w : Math.abs(f_left - t_left);
-    //   cvs.height = Math.abs(f_top - t_top);
-    //   cvs.style.top = cvs_top + parseInt(f_height / 2) + "px";
-    //   cvs.style.left = cvs_left + parseInt(f_width / 2) + "px";
-    //   cvs.style.position = "absolute";
-    //   var cxt = cvs.getContext("2d");
-    //   cxt.save();
-    //   cxt.strokeStyle = c;
-    //   cxt.lineWidth = 1;
-    //   cxt.lineJoin = "round";
-    //   cxt.beginPath();
-    //   cxt.moveTo(f_left - cvs_left, f_top - cvs_top);
-    //   cxt.lineTo(t_left - cvs_left, t_top - cvs_top);
-    //   cxt.closePath();
-    //   cxt.stroke();
-    //   cxt.restore();
-    //   $("#" + div).append(cvs);
-    //
-    // }
 
   }
+
+
 
   initany() {
-
-    console.log(44444);
 
     // var myElement = document.getElementsByClassName('ion-con')[0];
     // var mc = new Hammer(myElement);
@@ -274,13 +99,6 @@ export class KstrendPage extends KstrendAction {
 // //   $('.top-line .t-3').css('margin-left',offserleft-48+'px');
 // // }
 //  });
-
-    // mc.on("panstart", function(ev) {
-    //   $('.ks-tab-second').scrollLeft($('.hzzs-container').scrollLeft());
-    // });
-    // mc.on("panend pancancel", function(ev) {
-    //   $('.ks-tab-second').scrollLeft($('.hzzs-container').scrollLeft());
-    // });
 
 
 
@@ -351,27 +169,17 @@ export class KstrendPage extends KstrendAction {
 
   }
 
-  // dropdownClick(){
-  //
-  //
-  //
-  // }
 
   pushToBasket() {
 
 
     // 未 选号 并且 缓存未空 -->  按钮灰色
     // 否则 -->  按钮亮色
-
     // localStorage.moneyunit;
-
     // var ballstr = localStorage.balls;
-
-
     //购彩蓝 balls 数组添加数据 ，然后push
 
     this.addOrderEvent();
-
 
     this.navCtrl.push(KsBasketPage, {})
 
@@ -382,7 +190,6 @@ export class KstrendPage extends KstrendAction {
     var zhu = $('.ks-bom-ul .active').length;
     // if (zhu === 0) return;
     if (zhu > 0) {
-
       let wanfa = $('page-kstrend .wanfa').text();
       if (wanfa.search('二同号') != -1) {
           zhu = zhu*5;
@@ -392,11 +199,9 @@ export class KstrendPage extends KstrendAction {
       // } else {
         this.dealWithBallData(zhu);
       // }
-
       let balll = JSON.parse(localStorage.balls);
       // $('.bottom-r').css('background', '');
       this.cleanBalls();
-
     } else {
       //弹框提示
       alert('请选号~');
@@ -407,7 +212,7 @@ export class KstrendPage extends KstrendAction {
 
   dealWithBallData(zhu){
 
-    let wayId = 1;
+    let wayId = localStorage.wayId;
     let ballStr = this.getBallStr();
     let wanfa = $('page-kstrend .wanfa').text();
     var moneyunit = localStorage.moneyunit;
@@ -419,14 +224,14 @@ export class KstrendPage extends KstrendAction {
       {
         "jsId": jsid,
         "wayId": wayId,
-        "ballStr": ballStr,
+        "ball": ballStr,
         "viewBalls": ballStr,
         "num": zhu,
         "moneyunit": moneyunit,
         "position": [],
         "multiple": 1,
         "onePrice": 2,
-        "prize_group": 1,
+        "prize_group": localStorage.bet_max_prize_group,
         "wanfa": wanfa,
         "price": zhu * 2 * moneyunit
       };
@@ -460,13 +265,13 @@ export class KstrendPage extends KstrendAction {
     // 先得到新增号码
     // 遍历 存在号码数组
     var j = 0;
-    var ballstr = betinfo.ballStr;
+    var ballstr = betinfo.ball;
     var balldata = JSON.parse(localStorage.balls);
     for (var i = 0; i < balldata.length; i++) {
-      var str = balldata[i].ballStr;
+      var str = balldata[i].ball;
       if (str == ballstr) {
         j++;
-        balldata[i].num = parseInt(balldata[i].num) + parseInt(betinfo.num);
+        balldata[i].multiple = parseInt(balldata[i].multiple) + parseInt(betinfo.multiple);
         balldata[i].price += betinfo.price;
       }
     }
@@ -488,7 +293,7 @@ export class KstrendPage extends KstrendAction {
         arr.push(txt);
       }
       str = arr.join('|');
-    }else{
+    } else {
       for (var i = 0; i < len; i++) {
         var txt = $('.ks-bom-ul .active').eq(i).text();
         arr.push(parseInt(txt));
@@ -507,6 +312,12 @@ export class KstrendPage extends KstrendAction {
 
   }
 
+  addCover() {
+    $('.select-d').addClass('hide');
+    $('.body-bg').removeClass('hide');
+    $('.alert-con').removeClass('hide');
+    $('.after-con').addClass('active');
 
+  }
 
 }

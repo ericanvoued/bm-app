@@ -1,8 +1,13 @@
+import {Injectable} from '@angular/core';
 import * as $ from 'jquery';
-
 import {Tpl} from '../../../providers/base-tool/tpl';
+import {LoadingController} from 'ionic-angular';
 
+@Injectable()
 export class KstrendAction {
+
+  constructor(public loading: LoadingController) {
+  }
 
   hz = ['开奖', '基本走势', '和值走势', '冷热'];
   santh = ['开奖', '基本走势', '形态走势'];
@@ -24,9 +29,9 @@ export class KstrendAction {
     this.changeQueDing();
   }
 
-  setDefaultTitle(title, index) { //index来去区分开默认 选中 开奖 还是 走势
+  setDefaultTitle(title, index) { //index区分开默认选中 开奖 还是 走势
     $('page-kstrend .wanfa').text(title);
-//默认 标签选中
+    //默认 标签选中
     if (index == 1) {
       //顶部选中
       //默认开奖选中
@@ -95,13 +100,6 @@ export class KstrendAction {
 
   }
 
-  addCover() {
-    $('.select-d').addClass('hide');
-    $('.body-bg').removeClass('hide');
-    $('.alert-con').removeClass('hide');
-    $('.after-con').addClass('active');
-
-  }
 
   removeCover() {
     $('.select-d').removeClass('hide');
@@ -144,9 +142,23 @@ export class KstrendAction {
         // _this.calculateMoney();
         //根据玩法 切换 UI
         _this.changeBallUi(title, 0);
-
         //切花选球ui
         _this.changeBottomUiWhenPlayChanged();
+
+        var en_name1 = $('.play-list .play-yellow').next().val();
+        var en_name2 = $('.after-select .play-yellow').parent().parent().prev().children('input').val();
+        var str = $('.after-select .play-yellow').attr('data-index');
+        var arr = str.split("|");
+        var en_name3 = arr[1];
+        var typeStr = en_name1 + '.' + en_name2 + '.' + en_name3;
+        var wayId = arr[0]; //$('.after-select .play-yellow').next().attr('id');
+        localStorage.typeStr = typeStr;
+        localStorage.wayId = wayId;
+        localStorage.price = arr[2];
+        localStorage.bet_note = arr[3];
+        localStorage.bonus_note = arr[4];
+        localStorage.max_multiple = arr[5];
+        localStorage.is_enable_extra = arr[6];
 
       })
     });
@@ -187,10 +199,7 @@ export class KstrendAction {
 
   }
 
-  // changeBottomBall(){
-  //   var title = $('page-kstrend  .wanfa').text();
-  //
-  // }
+
   changeBallUi(title, index) {
 
     //1 改变 顶部tab
@@ -211,6 +220,10 @@ export class KstrendAction {
     // $('.ks-bom-ul').find('li').remove();
     // $('.bom_title').text(title);
 
+    // this.BaseTool.showLoading();
+    let loader = this.loading.create({});
+    loader.present();
+
     switch (title) {
       case '和值':
 
@@ -228,7 +241,7 @@ export class KstrendAction {
           this.createLrContent();
         }
 
-
+        // loader.dismiss();
         break;
       case '三同号':
       case'三连号':
@@ -305,7 +318,7 @@ export class KstrendAction {
         }
         break;
     }
-
+    loader.dismiss();
     // 创建 次顶级 tab
     for (let i = 0; i < arr.length; i++) {
       item = ' <div class="ks-tab-unit">\n' +
@@ -316,27 +329,18 @@ export class KstrendAction {
     }
     $('.ks-tab-top').html(htm);
 
-
-//3 设置 默认 选择按钮 状态  和  生成页面
-
+    //3 设置 默认 选择按钮 状态  和  生成页面
     this.setDefaultUiByIndex(index);
 
 
-//4 切换 内容ui    根据玩法 ---
-
-    // $('.content-d').addClass('hide');
-    // $('.content-d').eq(0).removeClass('hide');
-
-
+    //4 切换 内容ui    根据玩法 ---
     //根据 请求来的数据  画ui
-
     //1 画 开奖 content （分 和值 ，other）
     //2 画 基本走势content  -- 全部相同
     //3 画 形态走势content
     //4 画 号码分布
     //5 画 冷热content
     //6 画和值走势
-
     // 画完之后 再设置 当前 显示的～～～
 
   }
@@ -404,12 +408,10 @@ export class KstrendAction {
           htm += item;
         }
 
-
         break;
       case 'others':
         // trend.append(Tpl.kj_others_con_tpl);
-//形态： 三不同号，三同号，二同号，三连号
-
+        //形态： 三不同号，三同号，二同号，三连号
 
         var arr = JSON.parse(localStorage.hisissue).reverse();
         var code0, code1, code2, toltal, dx, jo, item, xt, code, reg_3t, reg_3l, reg_2t;
@@ -547,7 +549,6 @@ export class KstrendAction {
 
     //统计要 按照不同的玩法 取数据
     //判断玩法
-    //1
 
     var title = $('page-kstrend .wanfa').text();
     var ylarr = [];
@@ -672,26 +673,7 @@ export class KstrendAction {
 
     // 计算.t-1
 
-    //当前遗漏
-
-    // var current_1 = $('.xtzs-ul li:last').find('.t-1').text();
-    // if (current_1 == '') {
-    //   current_1 = $('.xtzs-ul li').eq(-2).find('.t-1').text();
-    // }
-
-    // //最大遗漏
-    // var max_1 = parseInt($('.xtzs-ul .t-1').eq(0).text()), v;
-    // var list = $('.xtzs-ul .t-1');
-    // list.each(function () {
-    //   v = parseInt($(this).text());
-    //   if (v > max_1) {
-    //     max_1 = v
-    //   }
-    // });
-
-    // //出现次数
-    // var hot = $('.xtzs-ul').find('.t-1.active').length;
-
+    // 出现次数
     // console.log('parseInt(xtzs-ul .eq(2).text())==='+parseInt($('.xtzs-ul .t-2').eq(2).text()))
 
     var duanshu, aver_1, aver_arr = [], hot_arr = [], max_arr = [], current_arr = [];

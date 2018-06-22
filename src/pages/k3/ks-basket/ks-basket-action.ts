@@ -11,6 +11,8 @@ export class KsBasketAction {
     this.beiJiaJian();
     this.initClick();
     this.initRebate();
+    this.calculateMoney();
+
   }
 
   initClick() {
@@ -35,14 +37,18 @@ export class KsBasketAction {
       $('.money-menu').toggleClass('hide');
     })
 
-    $('.win-select').on('click', function () {
 
-      console.log('win-select~~~')
+    $('.win-select').on('click', function () {
 
       if ($('.win-select input').attr('checked') == 'checked') {
         $('.win-select input').attr('checked', false);
-      }else{
+      } else {
         $('.win-select input').attr('checked', true);
+      }
+
+      if ($('#zhui_input').val() == 1) {
+        $('.win-select input').attr('checked', true);
+        $('.zhui_box').attr('checked', true);
       }
 
     })
@@ -109,7 +115,7 @@ export class KsBasketAction {
     let _this = this;
     var wanfa = $('.wanfa').text();
     wanfa = localStorage.wanfa;
-    console.log('randomMorewanfa===='+wanfa)
+    console.log('randomMorewanfa====' + wanfa)
     switch (wanfa) {
 
       case '和值':
@@ -221,16 +227,19 @@ export class KsBasketAction {
         _this.loadData();
         break;
     }
+
+    _this.calculateMoney();
   }
 
 
   dealWithRandom(no) {
 
+    console.log('随机数no====' + no);
+
     let _this = this;
-    let wayId = 1;
     let ballStr = no;
     let wanfa = $('.wanfa').text();
-    var moneyunit = localStorage.moneyunit;
+    console.log('localStorage.wanfa====' + localStorage.wanfa);
 
     var jsid = 1;
     if (localStorage.balls != null) {
@@ -239,15 +248,15 @@ export class KsBasketAction {
     let betinfo =
       {
         "jsId": jsid,
-        "wayId": wayId,
-        "ballStr": ballStr,
+        "wayId": localStorage.wayId,
+        "ball": ballStr,
         "viewBalls": ballStr,
         "num": 1,
         "moneyunit": localStorage.moneyunit,
         "position": [],
         "multiple": 1,
         "onePrice": 2,
-        "prize_group": 1,
+        "prize_group": localStorage.bet_max_prize_group,
         "wanfa": wanfa,
         "price": 2 * localStorage.moneyunit,
       };
@@ -258,6 +267,7 @@ export class KsBasketAction {
       balls.push(betinfo);
       ballsitem = JSON.stringify(balls);
     } else {
+
       let balldata = JSON.parse(ball);
 
       if (_this.isNumDuplication(betinfo).j == 1) {
@@ -267,19 +277,21 @@ export class KsBasketAction {
         ballsitem = JSON.stringify(balldata);
       }
     }
+
     localStorage.balls = ballsitem;
+
   }
 
   isNumDuplication(betinfo) {
 
     var j = 0;
-    var ballstr = betinfo.ballStr;
+    var ballstr = betinfo.ball;
     var balldata = JSON.parse(localStorage.balls);
     for (var i = 0; i < balldata.length; i++) {
-      var str = balldata[i].ballStr;
+      var str = balldata[i].ball;
       if (str == ballstr) {
         j++;
-        balldata[i].num = parseInt(balldata[i].num) + parseInt(betinfo.num);
+        balldata[i].multiple = parseInt(balldata[i].multiple) + parseInt(betinfo.multiple);
         balldata[i].price += betinfo.price;
       }
     }
@@ -291,12 +303,11 @@ export class KsBasketAction {
 
     localStorage.removeItem("balls");
     $('.buy-list').html("");
-    $('#bei input').val(0);
-    $('#zhui input').val(0);
-    $('.total-con .qi').text(0);
-    $('.total-con .zhu').text(0);
+    $('#bei input').val(1);
+    $('#zhui input').val(1);
+    $('.total-con .qi').text(1);
+    $('.total-con .zhu').text(1);
     $('.total-con .yuan').text(0);
-    $('.big-text .col').text(0);
   }
 
 
@@ -320,7 +331,7 @@ export class KsBasketAction {
         '        <div class="buy-con">\n' +
         '          <div class="number">\n' +
         '            <i style="color: #FE5600;width: auto; display: inline;">\n' +
-        '              <i>' + arr[i].ballStr + '</i>\n' +
+        '              <i>' + arr[i].ball + '</i>\n' +
         '            </i>\n' +
         '          </div>\n' +
         '          <div class="mt5"><span class="direct-select">' + arr[i].wanfa + '</span> <span>' + arr[i].num + '注' + arr[i].price + '元</span>\n' +
@@ -382,12 +393,34 @@ export class KsBasketAction {
           var num = obj.val();
           obj.val((num | 0) + 1);
 
+          var zhi = $('#zhui_input').val();
+
+          var times = localStorage.trace_max_times;
+          console.log('localStorage.trace_max_times===' + localStorage.trace_max_times);
+          if (parseInt(zhi) > parseInt(times)) {
+            $('#zhui_input').val(localStorage.trace_max_times);
+          }
+          $('.qi').text($('#zhui_input').val());
+
         }
         _this.calculateMoney();
 
       });
 
     });
+
+
+    $("#zhui_input").change(function(){
+
+      if(parseInt($(this).val()) > parseInt(localStorage.trace_max_times)){
+        $(this).val(localStorage.trace_max_times);
+      }else{
+        $(this).val(parseInt($(this).val()));
+      }
+      $('.qi').text($('#zhui_input').val());
+      _this.calculateMoney();
+    });
+
   }
 
 
@@ -405,12 +438,20 @@ export class KsBasketAction {
           if (num == 1) {
             obj.val(1);
           } else {
-            obj.val((num | 0) - 1);
+            obj.val((num|0)-1);
           }
         } else if ($(this).index() == 2) { //加
 
           var num = obj.val();
-          obj.val((num | 0) + 1);
+          obj.val((num|0)+1);
+
+          var zhi =  $('#bei_input').val();
+          var min = localStorage.min_multiple;
+
+          console.log('localStorage.min_multiple=='+localStorage.min_multiple)
+          if(parseInt(zhi) > parseInt(min)) {
+            $('#bei_input').val(localStorage.min_multiple);
+          }
         }
 
         _this.calculateMoney();
@@ -427,10 +468,61 @@ export class KsBasketAction {
     //   }else {
     //     calculateMoney();
     //     loadBuylist();
-    //
     //   }
     // });
   }
+
+
+   initMinMultiple() {
+
+    //     "max_multiple":localStorage.max_multiple 最大限制倍数
+
+    // alert(localStorage.balls);
+    $('.buy-balance').text('余额： '+localStorage.available);
+    var arr = JSON.parse(localStorage.balls);
+    var zhu=0,money=0,max_multiple=arr[0].max_multiple;
+
+    // min_multiple 这个是动态变化的！ === 最大倍数/当前倍数
+    // 找出这个 max_multiple 最小的值 对应的 最大的投注数
+    // alert("min_multiple=======111"+min_multiple);
+
+    var min_max_arr = [];
+    for(var i=0;i<arr.length;i++){
+      zhu = zhu + parseInt(arr[i].num);
+      var price = parseInt(arr[i].multiple) *parseInt(arr[i].onePrice) * parseInt(arr[i].num) * parseFloat(arr[i].moneyunit);
+      // alert(price);
+      money = money + price;
+      if(arr[i].max_multiple < max_multiple){
+        max_multiple = arr[i].max_multiple;
+      }
+    }
+    for(var j=0;j<arr.length;j++){
+      if(arr[j].max_multiple == max_multiple){
+        min_max_arr.push(arr[j].multiple);
+      }
+    }
+    var max_touzhushu = min_max_arr[0];
+    for(var k=0;k<min_max_arr.length;k++){
+      if(min_max_arr[j]>max_touzhushu){
+        max_touzhushu = min_max_arr[j];
+      }
+    }
+
+    // min_multiple 这个是动态变化的 === 最大倍数/当前倍数
+    var  min_multiple = max_multiple /max_touzhushu ;
+    localStorage.min_multiple = min_multiple;
+
+    var qi =$('#zhuihaodiv input').val();
+    $('.total-con .qi').text(qi);
+    $('.total-con .zhu').text(zhu);
+    $('.big-text .col').text(money);
+    // firstMoney = money;
+
+    //获取当前最小的倍数
+
+  }
+
+
 
 
   /*
@@ -450,6 +542,11 @@ export class KsBasketAction {
 
   }
 
+
+
+
+
+
   shuffle(a) {
     var len = a.length;
     for (var i = 0; i < len - 1; i++) {
@@ -460,4 +557,6 @@ export class KsBasketAction {
     }
     return a;
   }
+
+
 }

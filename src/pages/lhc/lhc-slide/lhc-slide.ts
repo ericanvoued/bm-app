@@ -1,26 +1,27 @@
 import {Component, ViewChild} from '@angular/core';
-import {IonicPage, NavController, NavParams, Slides} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, Slides,LoadingController,Navbar} from 'ionic-angular';
 import {LhcAction} from "./lhc-action";
 
 import {HttpClient} from '@angular/common/http';
 import {RestProvider} from '../../../providers/rest/rest';
 import {BaseToolProvider} from '../../../providers/base-tool/base-tool';
-
+// import {LhctrendPage} from '../lhctrend/lhctrend';
 import {TabsPage} from "../../tabs/tabs";
 import * as $ from 'jquery';
+import {Tpl} from "../../../providers/base-tool/tpl";
 
 declare var Swiper;
-
+declare var encrypt;
 @IonicPage()
 @Component({
   selector: 'page-lhc-slide',
   templateUrl: 'lhc-slide.html',
 })
 export class LhcSlidePage extends LhcAction {
+  @ViewChild(Navbar) navBar: Navbar;
   color = {
     red: ['01', '02', '07', '08', '12', '13', '18', '19', '23', '24', '29', '30', '34', '35', '40', '45', '46'],
     blue: ['03', '04', '09', '10', '14', '15', '20', '25', '26', '31', '36', '37', '41', '42', '47', '48']
-
   };
   menus: Array<string> = ["快捷下注", "自选下注"];
   @ViewChild('contentSlides') contentSlides: Slides;
@@ -31,16 +32,49 @@ export class LhcSlidePage extends LhcAction {
               public navParams: NavParams,
               public http: HttpClient,
               public rest: RestProvider,
-              public base: BaseToolProvider) {
+              public base: BaseToolProvider,
+              public loading:LoadingController) {
 
     super();
+  }
+
+  backButtonClick = (e: UIEvent) => {
+
+    for(var i=0;i<localStorage.length;i++){
+      var key=localStorage.key(i);
+      console.log(key);
+    }
+
+    localStorage.removeItem('balls');
+    localStorage.removeItem('self_balls');
+    localStorage.removeItem('wanfa');
+    localStorage.removeItem('wayId');
+    localStorage.removeItem('typeStr');
+    localStorage.removeItem('nextDate');
+    localStorage.removeItem('bet_max_prize_group');
+    localStorage.removeItem('bet_min_prize_group');
+    localStorage.removeItem('bet_note');
+    localStorage.removeItem('bonus_note');
+    localStorage.removeItem('lhchisdata');
+    localStorage.removeItem('moneyunit');
+    localStorage.removeItem('max_multiple');
+
+    // localStorage.removeItem('hisissue');
+    this.navCtrl.pop();
+  }
+
+  pushToTrend() {
+
+    this.navCtrl.push("LhctrendPage");
+    $('.right-popover').css('height', '0px')
   }
 
   ionViewDidLoad() {
 
     this.initSwiper();
+    this.navBar.backButtonClick = this.backButtonClick;
     this.initView();
-    this.base.requestPlayData('61','6').then(()=>{
+    this.base.requestPlayData('61', '6').then(() => {
         this.changePlaySelect();
       }
     );
@@ -48,18 +82,79 @@ export class LhcSlidePage extends LhcAction {
     this.initAny();
   }
 
-
   ionViewWillEnter() {
-
-    this.base.requestJiangQiData('61', '6','play').then(() => {
-      }
-    );
-
+    this.base.requestJiangQiData('61', '6', 'play').then(() => {});
   }
 
   ionViewDidLeave() {
     clearInterval(this.base.timeIddd);
   }
+
+
+  betClick() {
+
+    console.log('localStorage.balls=='+localStorage.balls)
+    const loader = this.loading.create({});
+    loader.present();
+
+    var gameId = 61;//localStorage.idStr;
+
+    var obj = {};
+    obj['gameId'] = gameId;
+    obj['isTrace'] = "0";
+    obj['traceWinStop'] = "1";
+    obj['traceStopValue'] =  "1";
+    var balls = localStorage.balls;
+    console.log('balls====' + balls)
+    obj['balls'] = encrypt(balls);
+    var nextDat = localStorage.nextDate;
+    obj['orders'] = {}
+    obj['orders'][nextDat] = 1;
+    obj['is_encoded'] = 1;
+    obj['bet_source'] = "h5";
+    obj['multiple'] = 1;
+    obj['amount'] = parseInt($('.money').text());
+
+    obj['_token'] = JSON.parse(localStorage.getItem('userInfo')).token;
+    let url = '/api-lotteries-h5/bet/' + gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token
+
+    this.rest.postUrlReturn(url, obj)
+      .subscribe((data) => {
+
+        loader.dismiss();
+
+        console.log('data～～～～～' + JSON.stringify(data));
+        if (data.isSuccess) {
+          // JSON.parse(localStorage.getItem('userInfo'))['available'] = data.data.available;
+
+          var arr = JSON.parse(localStorage.userInfo);
+          arr['available'] = data.data.available;
+          localStorage.userInfo = JSON.stringify(arr);
+          $('.lhc-popup').addClass('hide');
+          $('.current').removeClass('current');
+          $('.currunt').removeClass('currunt');
+          $('.r-input').val('');
+          $('#yue').text(data.data.available);
+          $('body').append(Tpl.success_tip);
+          setTimeout(function () {
+            $('.basket-pop').remove();
+          }, 1500);
+
+        } else {
+          $('body').append(Tpl.fail_tip);
+          $('#error-tip').text(data.Msg);
+          setTimeout(function () {
+            $('.basket-pop').remove();
+          }, 1500);
+
+
+        }
+      });
+
+  }
+
+
+
 
 
   requestHisData() {
@@ -71,6 +166,8 @@ export class LhcSlidePage extends LhcAction {
       .subscribe((data) => {
         console.log(data);
         if (data.IsSuccess) {
+
+          localStorage.lhchisdata = JSON.stringify(data.data);
 
           var htm = '';
           for (var i = 0; i < data.data.length; i++) {
@@ -92,6 +189,8 @@ export class LhcSlidePage extends LhcAction {
   }
 
   initAny() {
+    localStorage.wayId = 290;
+    $('#yue').text(JSON.parse(localStorage.getItem('userInfo')).available);
     this.base.initHisBox('lhc-content-child');
     if ($('.lhc-content-child .section.active').offset().top < 156) {
       $(".his-box").stop().animate({height: "0px"}, 0);
@@ -99,36 +198,9 @@ export class LhcSlidePage extends LhcAction {
     }
   }
 
-  initViewData() {
 
-    //生肖
-    // var color = JSON.parse(localStorage.color);
-    // console.log('initViewData');
-    // console.log(color.hongda);
-    // var obj = $('.section.lhc-tm .b-box');
-    // var len = obj.find('.tm-unit').length;
-    // for(var i=0;i<len ;i++){
-    //   var clas ;
-    //   var txt =  obj.find('.tm-unit').eq(i).find('span').eq(0).text();
-    //   var v = parseInt(txt);
-    //   if (color.hongda.indexOf(v) != -1 || color.hongdan.indexOf(v) != -1 ||
-    //     color.honghedan.indexOf(v) != -1 || color.hongheshuang.indexOf(v) != -1
-    //     || color.hongshuang.indexOf(v) != -1 || color.hongxiao.indexOf(v) != -1) {
-    //     clas = 'red-ball';
-    //   } else if (color.landa.indexOf(v) != -1 || color.landan.indexOf(v) != -1 ||
-    //     color.lanhedan.indexOf(v) != -1 || color.lanheshuang.indexOf(v) != -1
-    //     || color.lanshuang.indexOf(v) != -1 || color.lanxiao.indexOf(v) != -1) {
-    //     clas = 'blue-ball';
-    //   } else {
-    //     clas = 'green-ball';
-    //   }
-    //   var item = '<span class="topball '+clas+' hide">'+txt+'</span>\n' +
-    //     '                <span class="ball '+ clas +' ">'+txt+'</span>';
-    //   obj.find('.tm-unit').eq(i).html(item);
-    //
-    // }
 
-  }
+  initViewData() {}
 
   initSwiper() {
     this.swiper = new Swiper('.pageMenuSlides .swiper-container', {

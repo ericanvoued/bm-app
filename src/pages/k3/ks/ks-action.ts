@@ -162,7 +162,6 @@ export class KsAction {
   dealWithErthBallData(zhu, str) {
 
     let _this = this;
-    let wayId = 1;
     let ballStr = str;
     let wanfa = $('.wanfa').text();
     var moneyunit = 1;
@@ -181,15 +180,15 @@ export class KsAction {
     let betinfo =
       {
         "jsId": jsid,
-        "wayId": wayId,
-        "ballStr": ballStr,
+        "wayId": localStorage.wayId,
+        "ball": ballStr,
         "viewBalls": ballStr,
         "num": zhu,
         "moneyunit": moneyunit,
         "position": [],
         "multiple": 1,
         "onePrice": 2,
-        "prize_group": 1,
+        "prize_group":  localStorage.bet_max_prize_group,
         "wanfa": wanfa,
         "price": zhu * 2 * moneyunit
       };
@@ -215,48 +214,6 @@ export class KsAction {
 
   }
 
-  // shake: boolean = false;
-  // shaked() {
-  //   let _this = this;
-  //   // if (window.DeviceMotionEvent) {
-  //   // 移动浏览器支持运动传感事件
-  //   // window.addEventListener('devicemotion', _this.deviceMotionHandler, false);
-  //   // }
-  //   var speed = 15, self = this;    // 用来判定的加速度阈值，太大了则很难触发
-  //   var x, y, z, lastX, lastY, lastZ;
-  //   x = y = z = lastX = lastY = lastZ = 0;
-  //   //func()
-  //   window.addEventListener('devicemotion', ((event) => {
-  //     var acceleration = event.accelerationIncludingGravity;
-  //     x = acceleration.x;
-  //     y = acceleration.y;
-  //     //alert(this.shake)
-  //     if (Math.abs(x - lastX) > speed || Math.abs(y - lastY) > speed) {
-  //       alert(1111);
-  //       self.shake = true;
-  //     }
-  //   }))
-  // }
-//   deviceMotionHandler(eventData) {
-//     let _this = this;
-//     var SHAKE_THRESHOLD = 20;
-// // 定义一个变量保存上次更新的时间
-//     var last_update = 0;
-// // 紧接着定义x、y、z记录三个轴的数据以及上一次出发的时间
-//     var x, y, z, last_x, last_y, last_z;
-// // 为了增加这个例子的一点无聊趣味性，增加一个计数器
-//     var count = 0;
-//     var acceleration = eventData.accelerationIncludingGravity;
-//     // var curTime = new Date().getTime();
-//     var x, y, z, lastX, lastY, lastZ, speed = 15;
-//     x = y = z = lastX = lastY = lastZ = 0;
-//     x = acceleration.x;
-//     y = acceleration.y;
-//     if ((Math.abs(x - lastX) > speed || Math.abs(y - lastY) > speed)) {
-//       _this.shakeClick();
-//       // alert('yaole~~~')
-//     }
-//   }
 
 
   shakeAnimation(no1, no2, no3, num) {
@@ -415,7 +372,9 @@ export class KsAction {
   dealWithBallData(zhu) {
 
     let _this = this;
-    let wayId = 1;
+    let wayId = localStorage.wayId;
+    console.log('wayId===='+wayId)
+
     let ballStr = _this.getBallStr();
     let wanfa = $('.wanfa').text();
     var moneyunit = 1;
@@ -427,6 +386,7 @@ export class KsAction {
     } else if (txt == '分') {
       moneyunit = 0.01;
     }
+    localStorage.moneyunit = moneyunit;
     var jsid = 1;
     if (localStorage.balls != null) {
       jsid = JSON.parse(localStorage.balls).length + 1;
@@ -434,17 +394,17 @@ export class KsAction {
     let betinfo =
       {
         "jsId": jsid,
-        "wayId": wayId,
-        "ballStr": ballStr,
+        "ball": ballStr,
         "viewBalls": ballStr,
         "num": zhu,
         "moneyunit": moneyunit,
         "position": [],
         "multiple": 1,
         "onePrice": 2,
-        "prize_group": 1,
+        "prize_group": localStorage.bet_max_prize_group,
         "wanfa": wanfa,
-        "price": zhu * 2 * moneyunit
+        "price": zhu * 2 * moneyunit,
+        "wayId": wayId,
       };
     let balls = [];
     let ballsitem = "";
@@ -477,13 +437,13 @@ export class KsAction {
 
 
     var j = 0;
-    var ballstr = betinfo.ballStr;
+    var ballstr = betinfo.ball;
     var balldata = JSON.parse(localStorage.balls);
     for (var i = 0; i < balldata.length; i++) {
-      var str = balldata[i].ballStr;
+      var str = balldata[i].ball;
       if (str == ballstr) {
         j++;
-        balldata[i].num = parseInt(balldata[i].num) + parseInt(betinfo.num);
+        balldata[i].multiple = parseInt(balldata[i].multiple) + parseInt(betinfo.multiple);
         balldata[i].price += betinfo.price;
       }
     }
@@ -679,9 +639,31 @@ export class KsAction {
         //清空当前页面
         $('.active').removeClass('active');
         $('.wanfa').text(title);
+        localStorage.wanfa = title;
         _this.changeBallUi(title);
         _this.removeCover();
         _this.calculateMoney();
+
+
+        var en_name1 = $('.play-list .play-yellow').next().val();
+        var en_name2 = $('.after-select .play-yellow').parent().parent().prev().children('input').val();
+        var str = $('.after-select .play-yellow').attr('data-index');
+        var arr = str.split("|");
+        var en_name3 = arr[1];
+        var typeStr = en_name1 + '.' + en_name2 + '.' + en_name3;
+        var wayId = arr[0]; //$('.after-select .play-yellow').next().attr('id');
+
+        localStorage.typeStr = typeStr;
+        localStorage.wayId = wayId;
+        localStorage.price = arr[2];
+        localStorage.bet_note = arr[3];
+        localStorage.bonus_note = arr[4];
+        localStorage.max_multiple = arr[5];
+        localStorage.is_enable_extra = arr[6];
+        // 237|hezhi|2||至少选择1个和值（3个号码之和）进行投注，所选和值与开奖的3个号码的和值相同即中奖|25510|0
+        // play_id + '|' + name_en + '|' + price + '|' + bet_note + '|' + bonus_note + '|' + max_multiple + '|' + is_enable_extra
+
+
       })
 
     });
@@ -836,5 +818,5 @@ export class KsAction {
     $('.alert-con').addClass('hide');
   }
 
-//11
+
 }

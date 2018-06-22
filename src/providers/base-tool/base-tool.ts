@@ -5,6 +5,8 @@ import {RestProvider} from '../rest/rest';
 
 import * as $ from 'jquery';
 
+import { LoadingController } from 'ionic-angular';
+
 @Injectable()
 export class BaseToolProvider {
   timeIddd;
@@ -14,12 +16,25 @@ export class BaseToolProvider {
   };
 
   constructor(public http: HttpClient,
-              public rest: RestProvider) {
+              public rest: RestProvider,
+              public loading: LoadingController) {
 
   }
 
+
+  showLoading() {
+    console.log(3333333)
+    const loader = this.loading.create({});
+    loader.present();
+
+  };
+
+
+
+
   requestPlayData(idstr, lottery) {
 
+    // this.showLoading();
     console.log(1231231231)
     var userInfo = JSON.parse(localStorage.userInfo);
     console.log(userInfo);
@@ -70,8 +85,8 @@ export class BaseToolProvider {
             this.setDefultPlayedUi(lottery);
             if (lottery.search('6') != -1) {
               localStorage.ani = JSON.stringify(data.data.game_ways[3].children[0].children[0].bet_number);
+              // this.initViewData();
             }
-            // this.initViewData();
             resolve();
           } else {
             // reject();
@@ -93,7 +108,7 @@ export class BaseToolProvider {
 
       this.rest.postUrlReturn(url, {_token: data.token})
         .subscribe((data) => {
-          // console.log(data);
+          console.log('data==='+JSON.stringify( data));
           if (data.IsSuccess) {
 
             localStorage.trace_max_times = data.data.trace_max_times;
@@ -102,35 +117,37 @@ export class BaseToolProvider {
             localStorage.bet_max_prize_group = data.data.bet_max_prize_group;
             localStorage.user_prize_group = data.data.user_prize_group;
             localStorage.series_amount = data.data.series_amount;
-            var currentstr = data.data.current_number; //当前奖期
+            var currentstr = data.data.current_number;
+            var last_number = data.data.last_number;
+            var lottery_balls = data.data.lottery_balls;
 
-            // console.log("currentstr=====" + currentstr);
-            var part2 = parseInt(currentstr.substr(currentstr.length - 2)) + 1;
-            var nextDate = currentstr.substr(0, currentstr.length - 2) + part2;
-            // console.log("nextDate=====" + nextDate);
+            localStorage.nextDate = currentstr;
+
+            // var part2 = parseInt(currentstr.substr(currentstr.length - 2)) + 1;
+            // var nextDate = currentstr.substr(0, currentstr.length - 2) + part2;
             // var title = localStorage.nameStr;
             // data.data.lottery_balls
 
             if (from == 'trend') {
-
-              $('.ks-nextissue').text(nextDate);
-
+              $('.ks-nextissue').text(currentstr);
             } else if(from == 'basket'){
-
-              $('.basket-issue').text('距'+nextDate+'期截止');
-
-            } else {
-
-              $('.currentdate').text(currentstr + '期开奖');
-              $('.nextdate').text(nextDate + '截止:');
+              $('.basket-issue').text('距'+currentstr+'期截止');
+            } else { //play
+              $('.currentdate').text(last_number + '期开奖');
+              $('.nextdate').text(currentstr + '截止:');
               if (lottery.search('3') != -1) {
                 // $('.currentdate').text(currentstr + '期开奖:'+ data.data.lottery_balls );
+
+                if(data.data.lottery_balls==null){
+                  data.data.lottery_balls ='123';
+                }
                 var htm = '', s = data.data.lottery_balls.split("");
                 for (var i = 0; i < s.length; i++) {
                   var item = '<i class="saizi saizi-' + s[i] + '"></i>';
                   htm = htm + item;
                 }
                 $('.k3-result').html(htm);
+
               } else if (lottery.search('6') != -1) {
 
                 var s = data.data.lottery_balls.split(" ");
@@ -177,6 +194,7 @@ export class BaseToolProvider {
                   $('.status-box').find('.status-number').eq(i).html(item);
                   $('#score').text(score);
                 }
+
               }
             }
             resolve();

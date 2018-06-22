@@ -91,20 +91,22 @@
   <div class="footer-con" style="">
     <div class="clear">
       <div class="fl">
-        <span class="multiple-num">追号:</span>
-        <div class="multiple" id="zhui">
-          <ion-icon class="zhui_min ion" ios="ios-remove-outline" md="md-remove"></ion-icon>
-          <input maxlength="6" type="tel" value="1">
-          <ion-icon style="float: right" class="zhui_more ion" ios="ios-add-outline" md="md-add"></ion-icon>
-        </div>
-      </div>
-      <div class="fr">
         <span class="multiple-num">倍数: </span>
         <div class="multiple" id="bei">
           <ion-icon class="bei_min ion" ios="ios-remove-outline" md="md-remove"></ion-icon>
-          <input maxlength="6" type="tel" value="1">
+          <input id="bei_input" maxlength="6" type="tel" value="1">
           <ion-icon style="float: right" class="bei_more ion" ios="ios-add-outline" md="md-add"></ion-icon>
         </div>
+      </div>
+
+      <div class="fr">
+        <span class="multiple-num">追号:</span>
+        <div class="multiple" id="zhui">
+          <ion-icon class="zhui_min ion" ios="ios-remove-outline" md="md-remove"></ion-icon>
+          <input id="zhui_input" maxlength="6" type="tel" value="1">
+          <ion-icon style="float: right" class="zhui_more ion" ios="ios-add-outline" md="md-add"></ion-icon>
+        </div>
+
       </div>
     </div>
 
@@ -134,11 +136,11 @@
       </div>
       <div class="fr">
         <label class="win-select">
-          <input type="checkbox" class="zhui_input"  disabled="disabled" checked="checked"/>
+          <input type="checkbox" class="zhui_box" disabled="disabled" checked="checked"/>
           <!--<span class="traceWinStop"-->
-                <!--style="width: 18px;height: 18px;-->
-                <!--background: url(./assets/img/win-bg-checked.svg) no-repeat;-->
-                <!--background-size: 100% 100%;">-->
+          <!--style="width: 18px;height: 18px;-->
+          <!--background: url(./assets/img/win-bg-checked.svg) no-repeat;-->
+          <!--background-size: 100% 100%;">-->
           <!--</span>-->
           <strong>中奖后停止追号</strong>
         </label>
@@ -157,8 +159,31 @@
         <div class="buy-balance">余额：¥ <span class="balance">2222</span></div>
       </div>
       <div class="fr">
-        <div class="bet-btn" style="">立即下注</div>
+        <div class="bet-btn" (click)="betClick()" style="">立即下注</div>
       </div>
     </div>
   </div>
 </ion-footer>
+
+
+<!--弹窗-->
+
+
+<!--<section class="basket-pop" style=" position: absolute;top: 0; bottom: 0;left: 0;right: 0;z-index: 123;background: rgba(0, 0, 0, 0.6);display: flex;justify-content: center;align-items: center;">-->
+  <!--<div class="balance-pop" style="overflow: hidden;background: #ffffff;border-radius: 10px;text-align: center;width: 75vw;height: 160px;">-->
+    <!--<h4 style="font-size: 14px;color: #000;letter-spacing: -0.22px;margin-top: 54px;">您的余额不足，请先去充值</h4>-->
+    <!--<div style="height: 40px;float: left;width: 37.5vw;line-height: 40px;text-align: center;font-size: 16px;background-color: #ffffff; margin-top: 49px;border-top: 1px solid rgb(210, 210, 210);color: #666666;-->
+    <!--border-right: 1px solid rgb(210, 210, 210);" class="offhand-btn cancel-btn">取消-->
+    <!--</div>-->
+    <!--<div style="height: 40px;float: left;width: 37.5vw;line-height: 40px;text-align: center;font-size: 16px;background-color: #ffffff;margin-top: 49px;border-top: 1px solid rgb(210, 210, 210);color: #FE5600;" class="offhand-btn bet-btn">确定-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</section>-->
+
+<!--<section class="basket-pop" style="position: absolute;top: 0;bottom: 0;left: 0;right: 0;z-index: 123;-->
+<!--background: rgba(0, 0, 0, 0.6);display: flex;justify-content: center;align-items: center;">-->
+<!--<div class="success-pop" style="background: #ffffff;border-radius: 10px;text-align: center;width: 75vw;height: 160px;">-->
+<!--<h2 style="margin-top: 50px;font-size: 15px;">恭喜您</h2>-->
+<!--<p style="margin: 10px 0;text-align: center;">投注已成功，祝您好运</p>-->
+<!--</div>-->
+<!--</section>-->

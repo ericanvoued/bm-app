@@ -29,7 +29,7 @@ export class HomePage {
               public modalCtrl: ModalController, public common:CommonProvider) {
 
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    
+
     this.homePrv.loadbanner();
     this.homePrv.loadannouncements();
     this.homePrv.announcementsUnreadnum();
@@ -91,7 +91,7 @@ export class HomePage {
       this.navCtrl.push(lottory.url)
     }else{
       alert('no pages')
-    }   
+    }
   }
 
   goToSsc(){
