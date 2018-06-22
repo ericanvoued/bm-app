@@ -21,15 +21,12 @@ export class BaseToolProvider {
 
   }
 
-
   showLoading() {
     console.log(3333333)
     const loader = this.loading.create({});
     loader.present();
 
   };
-
-
 
 
   requestPlayData(idstr, lottery) {
