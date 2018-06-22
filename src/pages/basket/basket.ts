@@ -22,14 +22,14 @@ declare var encrypt
   animations:[
     trigger('show',[
        state('visable',style({
-         opacity: 1,
-         transform:'translate3d(0, 0, 0)'
+        opacity: 1,
+        // transform:'translate3d(0, 0, 0)'
        })),
        state('invisable', style({
          opacity: 0,
-        transform:'translate3d(0, 100%, 0)'
+       // transform:'translate3d(0, 100%, 0)'
        })),
-       transition('* => *',animate('.3s'))
+       //transition('* => *',animate('.3s'))
     ])
    ]
 })
@@ -158,7 +158,7 @@ export class BasketPage {
      result['is_encoded'] = 1
      result['bet_source'] = 'h5'
      result['_token'] = JSON.parse(localStorage.getItem('userInfo')).token
-
+     console.log(result)
      result['balls'] = []
      for (; i < len; i++){
        console.log('ddd')
@@ -186,13 +186,14 @@ export class BasketPage {
       this.http.postData(url,result).then(data => {
         console.log(data)
         window.alert('eee')
+        if(data.isSuccess == 1){
           let alert = this.alertCtrl.create({
             title: '恭喜您',
             message: '投注已成功，祝你好运!',
           });
           alert.present();
-         
-       }
+          }     
+        }
       )
     }
 }

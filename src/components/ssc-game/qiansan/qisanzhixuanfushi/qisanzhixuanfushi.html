@@ -21,20 +21,21 @@
 
             <ul class="yilou statistic" *ngIf="check('当前遗漏')">
                 <!-- <li *ngFor ="let detail of common.missLottery.five.current[ii].slice(0,5)" [class.active]="checkMax(detail,common.missLottery.five.current[ii])">{{detail}}</li>              -->
-                <li *ngFor ="let detail of common.missData.five.slice(0,3).current[ii].slice(0,5)" [class.active]="checkMax(detail,common.missData.five.slice(0,3).current[ii])">{{detail}}</li>             
+                <!-- <li *ngFor ="let detail of (common.missData | async)?.data.five.current[ii].slice(0,5)">{{detail}}</li>              -->
+                <!-- <li *ngFor ="let detail of common.missData.five.current[ii].slice(0,5)">{{detail}}</li>              -->
             </ul>
             
             <ul class="lengre statistic" *ngIf="check('30期冷热')">
-                <li *ngFor ="let detail of common.missData.five.slice(0,3).hot[ii].slice(0,5)" [ngClass]="checkLengRe(detail,common.missData.five.slice(0,3).hot[ii])">{{detail}}</li>
+                <li *ngFor ="let detail of common.missLottery.five.hot[ii].slice(0,5)" [ngClass]="checkLengRe(detail,common.missLottery.five.hot[ii])">{{detail}}</li>
             </ul>
 
             <ul class="lengre statistic" *ngIf="check('平均遗漏')">
                 <!-- <li *ngFor ="let detail of util.avgYi[getWei(data.key)].slice(0,5)">{{detail}}</li> -->
-                <li *ngFor ="let detail of common.missData.five.slice(0,3).average[ii].slice(0,5)">{{detail}}</li>
+                <li *ngFor ="let detail of common.missLottery.five.average[ii].slice(0,5)">{{detail}}</li>
             </ul>
 
             <ul class="lengre statistic" *ngIf="check('最大遗漏')">
-                <li *ngFor ="let detail of common.missData.five.slice(0,3).max[ii].slice(0,5)">{{detail}}</li>
+                <li *ngFor ="let detail of util.maxYi[getWei(data.key)].slice(0,5)">{{detail}}</li>
             </ul>
   
             <ul class="ball-choose">
@@ -45,19 +46,21 @@
             </ul>
 
             <ul class="yilou statistic" *ngIf="check('当前遗漏')">
-                <li *ngFor ="let detail of common.missData.five.slice(0,3).current[ii].slice(-5)" [class.active]="checkMax(detail,common.missData.five.slice(0,3).current[ii])">{{detail}}</li>  
+                <!-- <li *ngFor ="let detail of (common.missData | async)?.data.five.current[ii].slice(-5)">{{detail}}</li>   -->
+                <!-- <li *ngFor ="let detail of common.missLottery.five.current[ii].slice(-5)" [class.active]="checkMax(detail,common.missLottery.five.current[ii])">{{detail}}</li>        -->
             </ul>
 
             <ul class="lengre statistic" *ngIf="check('30期冷热')">
-                <li *ngFor ="let detail of common.missData.five.slice(0,3).hot[ii].slice(-5)" [ngClass]="checkLengRe(detail,common.missData.five.slice(0,3).hot[ii])">{{detail}}</li>                
+                <li *ngFor ="let detail of common.missLottery.five.hot[ii].slice(-5)" [ngClass]="checkLengRe(detail,common.missLottery.five.hot[ii])">{{detail}}</li>                
             </ul>
 
             <ul class="lengre statistic" *ngIf="check('平均遗漏')">
-                <li *ngFor ="let detail of common.missData.five.slice(0,3).average[ii].slice(-5)">{{detail}}</li>
+                <li *ngFor ="let detail of common.missLottery.five.average[ii].slice(-5)">{{detail}}</li>
+                <!-- <li *ngFor ="let detail of util.avgYi[getWei(data.key)].slice(-5)">{{detail}}</li> -->
             </ul>
 
             <ul class="lengre statistic" *ngIf="check('最大遗漏')">
-                <li *ngFor ="let detail of common.missData.five.slice(0,3).max[ii].slice(-5)">{{detail}}</li>
+                <li *ngFor ="let detail of util.maxYi[getWei(data.key)].slice(-5)">{{detail}}</li>
             </ul>
 
             <div class="btn-list">

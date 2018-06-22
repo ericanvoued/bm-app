@@ -16,11 +16,16 @@ import { BasketDataProvider } from '../../../../providers/basket-data/basket-dat
   templateUrl: 'zhongsanhezhiweishu.html'
 })
 export class ZhongsanhezhiweishuComponent extends commonMethod{
-
+  @Input('choose') choose: any[] = [];
+  
   text: string;
 
   constructor(public common:CommonProvider, public util:UtilProvider, public tool:ToolsProvider,public basket:BasketDataProvider) {
     super(common,util,basket) 
     this.text = 'Hello World';
+  }
+
+  check(choice){
+    return this.choose.indexOf(choice) > -1
   }
 }

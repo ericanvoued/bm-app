@@ -1,7 +1,6 @@
 import {Component, ViewChild,Output, EventEmitter,OnInit } from '@angular/core';
 import { UtilProvider } from '../../../providers/util/util'
-
-import { CommonProvider } from "../../../providers/common/common";
+import { CommonProvider } from "../../../providers/common/common"
 import { Slides } from 'ionic-angular';
 
 /**
@@ -37,28 +36,53 @@ export class WuxingComponent implements OnInit {
 
    zhixuan:boolean;
 
+   fakeTrend:any
+
+   sumData:any[]
+
   constructor(public common:CommonProvider,public util:UtilProvider) {
     console.log('Hello WuxingComponent Component');
     console.log(this.common.historyList)
     
-    this.historyRecord = this.util.historyNumbers.slice(0,11)
-   
+   // this.historyRecord = this.util.historyNumbers.slice(0,11)
+    this.historyRecord = this.common.historyList.map(ele => {
+      return {...ele, number:ele.number.substr(2,ele.number.length),
+        history: this.common.series_id == 2 ? ele.code.split(' ').map(ele => parseInt(ele)) : ele.code.split('').map(ele => parseInt(ele))}
+    })
+
+    console.log(this.historyRecord)
   }
 
   ngOnInit(){
     console.log(this.chooseIndex)
     console.log(this.position)
+    this.fakeTrend = this.initialArr(this.position[1], this.position[0]).reduce((a,b) =>{
+      let arr = []
+      for(let i = 0;i<this.historyRecord.length;i++){
+          arr.push(+this.historyRecord[i].history[b])
+      }
+      a.push(arr)
+      return a
+    },[])
+    console.log(this.fakeTrend)
+
     this.contentSlides.initialSlide = this.chooseIndex
     this.choose = this.menus[this.chooseIndex]
     this.getKaijiang()
+    this.generateFake()
+   
+  }
+
+  initialArr(end, start = 0){
+     return Array.apply(null, Array(end - start)).map((v,i) => i + start)
   }
 
    //huoqu kaijiang
    getKaijiang(){
       console.log(this.common.method)
-      if(this.common.method == '五星' || this.common.method == '一星' || this.common.method == '任选'){
+      if(this.common.method == '五星' || this.common.method == '一星' || this.common.method == '任选' || this.common.method == '三码'){
             this.kaijiangData = this.historyRecord.map((ele,index) => {
-              let sum = ele.history.reduce((l,r) => l+r)
+              let sum = ele.history.reduce((l,r) => (+l) + (+r))
               let max = Math.max(...ele.history)
               let min = Math.min(...ele.history)
               let gap = max - min
@@ -164,10 +188,6 @@ export class WuxingComponent implements OnInit {
       this.choose = this.menus[index]
   }
 
-  doInfinite(infiniteScroll){
-
-  }
-
   existNumber(arr){
      return arr.filter(ele => ele == 1).length ? true : false
   }
@@ -203,5 +223,63 @@ export class WuxingComponent implements OnInit {
        case 'sichonghao':
             return '四重号';                       
      }
+  }
+
+   //生成走势统计数据
+   generateFake(){
+    let sumData = [] 
+    for(let k = 0; k<this.fakeTrend.length;k++){
+      let tempData = this.fakeTrend[k]
+      let arr = []
+      for(let i = 0; i<tempData.length; i++){
+        let inner = []
+       // inner.push({number:this.historyNumbers[i-1].number, choose:false})
+        if(this.common.series_id == 2) {
+          for(let j = 1; j<=11;j++){
+            if(j == tempData[i]){
+               inner.push({number:tempData[i], choose:true})
+            }else{
+               if(i == 0){
+                 inner.push({number:1,choose:false})
+               }else{
+                 if(arr[i-1][j-1].choose){
+                    inner.push({number:1, choose:false})
+                 }else{
+                    inner.push({number:arr[i-1][j-1].number+1, choose:false})
+                 }
+               }
+            }  
+           }  
+        }
+       
+        if(this.common.series_id == 1){
+          for(let j = 0; j<10; j++){
+            if(j == tempData[i]){
+               inner.push({number:tempData[i], choose:true})
+            }else{
+               if(i == 0){
+                 inner.push({number:1,choose:false})
+               }else{
+                 if(arr[i-1][j].choose){
+                    inner.push({number:1, choose:false})
+                 }else{
+                    inner.push({number:arr[i-1][j].number+1, choose:false})
+                 }
+               }
+            }  
+           }  
+        }  
+        arr.push(inner)
+       }
+
+       for(let i=0;i<arr.length;i++){
+           arr[i].unshift({number:this.historyRecord[i].number, choose:false})
+       }
+
+       console.log(arr)
+       sumData.push(arr)
+    }
+    this.sumData = sumData
+    console.log(sumData)
   }
 }

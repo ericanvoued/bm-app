@@ -25,7 +25,7 @@ export class HouerdaxiaodanshuangComponent extends commonMethod{
      {"key":"个位", "value":[0,0,0,0]}]
   }
 
-  getLotteryText(){
+  getOriginLotteryText(){
     return this.getCommonData().map(ele => ele.map(item => this.judge(item) + ' ').join('')).join('| ')
   }
 }

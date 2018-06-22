@@ -4,7 +4,7 @@
 <div>{{common.smallKind.bonus_note}} {{util.formatMoney(common.bonus)}} 元</div>
 <div class="l-game" *ngFor="let data of common.ballData;let ii = index" >
                 <div class="l">
-                    <p><span></span>{{data.key}}</p>
+                    <p><span></span>选号</p>
                     <p style="margin-top:18px" *ngIf="check('当前遗漏')"><span></span>遗漏</p>
                     <p style="margin-top:18px" *ngIf="check('30期冷热')"><span></span>冷热</p>
                     <p style="margin-top:18px" *ngIf="check('平均遗漏')"><span></span>平均</p>
@@ -20,8 +20,7 @@
                                     </li>
                             </ul>
 
-                            <ul class="yilou statistic" *ngIf="check('当前遗漏')">
-                                <!-- <li *ngFor ="let detail of common.missLottery.five.current[ii].slice(0,5)" [class.active]="checkMax(detail,common.missLottery.five.current[ii])">{{detail}}</li>              -->
+                            <!-- <ul class="yilou statistic" *ngIf="check('当前遗漏')">
                                 <li *ngFor ="let detail of common.missData.qshzws.current.slice(0,5)" [class.active]="checkMax(detail,common.missData.qshzws.current)">{{detail}}</li>             
                             </ul>
                             
@@ -30,13 +29,12 @@
                             </ul>
                 
                             <ul class="lengre statistic" *ngIf="check('平均遗漏')">
-                                <!-- <li *ngFor ="let detail of util.avgYi[getWei(data.key)].slice(0,5)">{{detail}}</li> -->
                                 <li *ngFor ="let detail of common.missData.qshzws.average.slice(0,5)">{{detail}}</li>
                             </ul>
                 
                             <ul class="lengre statistic" *ngIf="check('最大遗漏')">
                                 <li *ngFor ="let detail of common.missData.qshzws.max.slice(0,5)">{{detail}}</li>
-                            </ul>
+                            </ul> -->
                   
         
                             <ul class="ball-choose">
@@ -46,8 +44,7 @@
                                 </li>
                             </ul>
 
-                            <ul class="yilou statistic" *ngIf="check('当前遗漏')">
-                                <!-- <li *ngFor ="let detail of common.missLottery.five.current[ii].slice(0,5)" [class.active]="checkMax(detail,common.missLottery.five.current[ii])">{{detail}}</li>              -->
+                            <!-- <ul class="yilou statistic" *ngIf="check('当前遗漏')">
                                 <li *ngFor ="let detail of common.missData.qshzws.current.slice(-5)" [class.active]="checkMax(detail,common.missData.qshzws.current)">{{detail}}</li>             
                             </ul>
                             
@@ -56,13 +53,12 @@
                             </ul>
                 
                             <ul class="lengre statistic" *ngIf="check('平均遗漏')">
-                                <!-- <li *ngFor ="let detail of util.avgYi[getWei(data.key)].slice(0,5)">{{detail}}</li> -->
                                 <li *ngFor ="let detail of common.missData.qshzws.average.slice(-5)">{{detail}}</li>
                             </ul>
                 
                             <ul class="lengre statistic" *ngIf="check('最大遗漏')">
                                 <li *ngFor ="let detail of common.missData.qshzws.max.slice(-5)">{{detail}}</li>
-                            </ul>
+                            </ul> -->
                     
                         <div class="btn-list">
                             <a href="javascript:;" *ngFor="let detail of common.btn[ii];let j = index" [class.current]="detail.flag" (click)="changeActive(ii,j,detail.name)">{{detail.name}} <span></span></a>

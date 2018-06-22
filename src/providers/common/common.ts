@@ -9,7 +9,6 @@ import {ToastController, ModalController} from "ionic-angular";
 import { CountTipComponent } from '../../components/count-tip/count-tip'
 import { RestProvider } from '../../providers/rest/rest'
 import { HttpClientProvider } from '../http-client/http-client'
-import {Storage} from '@ionic/storage';
 
 import * as $ from 'jquery'
 import {observe} from "../tools/observe";
@@ -31,6 +30,9 @@ export class CommonProvider {
   pid = new Subject();
 
   gameId:any;
+
+  //ssc 115 系列
+  series_id:any
 
   bonus:number;
   open:boolean = false
@@ -82,21 +84,6 @@ export class CommonProvider {
 
   missData:any
 
-  //历史遗漏
-//   missLottery:any = {
-//       five:{
-//           current:[
-//                   ['','','','','','','','','',''],['','','','','','','','','',''],['','','','','','','','','',''],['','','','','','','','','',''],['','','','','','','','','','']
-//           ],
-//           hot:[
-//             ['','','','','','','','','',''],['','','','','','','','','',''],['','','','','','','','','',''],['','','','','','','','','',''],['','','','','','','','','','']
-//           ],
-//           average:[
-//             ['','','','','','','','','',''],['','','','','','','','','',''],['','','','','','','','','',''],['','','','','','','','','',''],['','','','','','','','','','']
-//           ]
-//       }
-//   }
-
   //倒计时是否结束
   countEnd:boolean = false
 
@@ -118,7 +105,7 @@ export class CommonProvider {
   }
 
 
-  constructor(public tools:ToolsProvider, public http:HttpClientProvider,public modalCtrl: ModalController, public events:Events,private toastCtrl:ToastController,public storage:Storage) {
+  constructor(public tools:ToolsProvider, public http:HttpClientProvider,public modalCtrl: ModalController, public events:Events,private toastCtrl:ToastController) {
     console.log('Hello CommonProvider Provider');
     //this.missData = this.getMissObservable()
     this.pid.subscribe((val) => {
@@ -159,6 +146,7 @@ export class CommonProvider {
 
 
     async initData():Promise<any>{
+        console.log('wcnmb')
         let url = '/api-lotteries-h5/load-data/2/' + this.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token
         let params = {_token:JSON.parse(localStorage.getItem('userInfo')).token}
         this.gameMethodConfig = (await this.http.postData(url,params)).data.game_ways
@@ -200,6 +188,8 @@ export class CommonProvider {
         this.singleBtn = this.tools.copy([
             {name:"全",flag:false},{name:"大",flag:false},{name:"小",flag:false},{name:"奇",flag:false},{name:"偶",flag:false},{name:"清",flag:false}
             ],true)
+
+        this.events.publish('getMethod')    
 
         return new Promise((resolve,reject) =>{
             resolve()
@@ -283,7 +273,7 @@ export class CommonProvider {
     toggle(){
         console.log('dddd')
         this.visible = this.visible == 'invisable' ? 'visable':'invisable'
-        this.visible == 'visable' ? $('.body-bg').fadeIn(1000) : $('.body-bg').fadeOut(1000)
+        this.visible == 'visable' ? $('.body-bg').fadeIn(300) : $('.body-bg').fadeOut(300)
     }
 
     openTab(){
@@ -322,6 +312,8 @@ export class CommonProvider {
                 modal.present()
                 //this.global.showToast('进入新一期开奖',2000)
                 this.produce()
+                this.events.publish('changeRecord')
+                return
             } 
             this.countTime = this.getTimeRemaining(time)
             time -= 1000
@@ -356,9 +348,10 @@ export class CommonProvider {
         let data = (await this.http.postData('/api-lotteries-h5/load-data/1/' + this.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token, {_token:JSON.parse(localStorage.getItem('userInfo')).token})).data
         console.log(data)
         this.prizeGroup = []
-        this.prizeGroup.push(data.bet_max_prize_group + '-' + Number((data.user_prize_group - data.bet_max_prize_group)/data.series_amount.toFixed(2)) + '%')
-        this.prizeGroup.push(data.bet_min_prize_group + '-' + Number((data.user_prize_group - data.bet_min_prize_group)/data.series_amount.toFixed(2)) + '%')
+        this.prizeGroup.push(data.bet_max_prize_group + '-' + Number((data.user_prize_group - data.bet_max_prize_group)/data.series_amount).toFixed(2) + '%')
+        this.prizeGroup.push(data.bet_min_prize_group + '-' + Number((data.user_prize_group - data.bet_min_prize_group)/data.series_amount).toFixed(2) + '%')
         this.chooseGroup = this.prizeGroup[0]
+        console.log(this.prizeGroup)
         return new Promise((resolve,reject) =>{
             resolve(data)
         })
@@ -367,6 +360,7 @@ export class CommonProvider {
     async getMissObservable(){
       // this.missData =  this.http.fetchData('/api-lotteries-h5/getnewlottterymissed/' + this.gameId + '/30?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)
        this.missData =  (await this.http.fetchData('/api-lotteries-h5/getnewlottterymissed/' + this.gameId + '/30?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)).data
+
     }
 
     //获取遗漏等数据

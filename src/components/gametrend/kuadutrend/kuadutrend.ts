@@ -231,11 +231,11 @@ export class KuadutrendComponent {
                         return a
                   },0)
 
-                  let max = Math.max(...temp.filter(ele => !ele.choose).map(item => item.number))
-                  let avg = Math.floor(local.reduce((a,b) => a + b.number,0)/local.length)
+                  let max = temp.filter(ele => !ele.choose).length ? Math.max(...temp.filter(ele => !ele.choose).map(item => item.number)) : 0 
+                  let avg = local.length == 0 ? 0 : Math.floor(local.reduce((a,b) => a + b.number,0)/local.length)
                   let tempArr = temp.filter(ele => !ele.choose)
                   // let length = temp.filter(ele => !ele.choose).length
-                  yilou.push(tempArr[tempArr.length - 1].number)
+                  yilou.push(tempArr.length ? tempArr[tempArr.length - 1].number : 0 )
                   maxYi.push(max)
                   avgYi.push(avg)
                   lengre.push(leng)     

@@ -6,7 +6,6 @@ import {
   ModalController,
   LoadingController,
   NavParams } from 'ionic-angular';
-import {Storage} from '@ionic/storage';
 import { LoadingProvider } from '../../../providers/loading/loading'
 import { App } from 'ionic-angular';
 
@@ -39,7 +38,7 @@ export class ChargePage {
     status: [0, 0, 0, 0, 0]
   }
 
-  constructor(public storage: Storage,
+  constructor(
               public toastCtrl: ToastController,
               public loadPrd: LoadingProvider,
               public modalCtrl: ModalController,

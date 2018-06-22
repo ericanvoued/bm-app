@@ -2,12 +2,11 @@ import {
     Component, ViewChild, ViewContainerRef, ComponentFactory,
     ComponentRef, ComponentFactoryResolver, OnDestroy
   } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, App, LoadingController } from 'ionic-angular';
 import { CommonProvider } from "../../../providers/common/common";
 import { Effect } from '../../../baseComponent'
 import { Events } from 'ionic-angular';
 import { CountTipComponent } from '../../../components/count-tip/count-tip'
-
 import { BasketDataProvider } from '../../../providers/basket-data/basket-data'
 import { GamemenuComponent } from '../../../components/gamemenu/gamemenu'
 import { MenumodalComponent } from '../../../components/menumodal/menumodal'
@@ -42,7 +41,8 @@ export class SscPage extends Effect{
     menus:any =  ['走势图','近期开奖','号码统计','玩法说明']
 
     list: any ;
-    // =  [{number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
+    loadInfo:any;
+    // 
     // {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'},
     // {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
 
@@ -54,9 +54,9 @@ export class SscPage extends Effect{
 
     gameConfig:any;
 
-    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, public resolver: ComponentFactoryResolver,public app:App,
+    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, public resolver: ComponentFactoryResolver,public app:App,public loadingCtrl:LoadingController,
     public common:CommonProvider, public gamemenu:GamemenuComponent, public util:UtilProvider,public basket:BasketDataProvider,public ssc:SscServiceProvider, public events:Events) {
-        super(common,gamemenu,modalCtrl,navCtrl,resolver)
+        super(common,gamemenu,modalCtrl,navCtrl,resolver,events)
         this.gameConfig = gameConfig
 
         let self = this
@@ -88,8 +88,10 @@ export class SscPage extends Effect{
             }   
         })
 
+      
         this.common.getMissObservable()
-
+        this.loadInfo = this.presentLoadingDefault()
+        //$('.loading').show()
         this.common.initData().then(
             () => {
                 this.gameContainer.clear()
@@ -100,6 +102,8 @@ export class SscPage extends Effect{
                     method = this.common.method + this.common.smallMethod
                 }
                 console.log(method)
+               // $('.loading').hide()
+                this.loadInfo.dismiss()
                 const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(gameConfig[method])
                 this.componentRef = this.gameContainer.createComponent(factory)
                 this.componentRef.instance.choose = this.haveChoosen
@@ -146,7 +150,6 @@ export class SscPage extends Effect{
 
         console.log(document.getElementById('qq'))
         this.watchScroll()
-        document.getElementsByClassName('tbody')[0].addEventListener('click', function(){console.log('fffffff')}, false)
         
         // let touch = new Hammer(document.getElementById('touch'));
         // touch.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
@@ -177,7 +180,7 @@ export class SscPage extends Effect{
 
     ionViewWillLeave(){
         console.log('dwfqwfwqef')
-        clearInterval(this.timer)
+       // clearInterval(this.timer)
     }
 
     watchScroll(){
@@ -223,19 +226,34 @@ export class SscPage extends Effect{
            this.navCtrl.push('GameTrendPage',{'index':1}) 
           // this.navCtrl.push('GameTrendPage',{'index':1})
 
+        if(val == '近期开奖')
+           this.navCtrl.push('GameTrendPage',{'index':0})   
+
         if(val == '号码统计'){
             if($('.modal').hasClass('active')){
-                $('.body-bg').fadeOut(1000)
+                $('.body-bg').fadeOut(300)
             }else{
-                $('.body-bg').fadeIn(1000)
+                $('.body-bg').fadeIn(300)
             }
             $('.modal').toggleClass('active')
 
         }         
-   }
+    }
 
+    goKaiJiang(){
+        this.navCtrl.push('GameTrendPage',{'index':0})   
+    }
+   
     resetData(){
         this.util.resetData()
     }
+
+    presentLoadingDefault() {
+        let loading = this.loadingCtrl.create({
+          content: '数据加载中...'
+        });
+        loading.present()
+        return loading
+      }
 
 }

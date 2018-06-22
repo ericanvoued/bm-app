@@ -60,7 +60,7 @@ export class Xuan5Page extends Effect{
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, public resolver: ComponentFactoryResolver,public app:App,
     public common:CommonProvider, public gamemenu:GamemenuComponent, public util:UtilProvider,public basket:BasketDataProvider,public events:Events) {
-        super(common,gamemenu,modalCtrl,navCtrl,resolver)
+        super(common,gamemenu,modalCtrl,navCtrl,resolver,events)
         this.gameConfig = gameConfig
         this.list = this.record.slice(0, 2)
 

@@ -16,7 +16,7 @@ import { BasketDataProvider } from '../../../../providers/basket-data/basket-dat
   templateUrl: 'qisanzuxuan3.html'
 })
 export class Qisanzuxuan3Component extends commonMethod{
-
+  @Input('choose') choose: any[] = [];
   text: string;
 
   constructor(public common:CommonProvider, public util:UtilProvider, public tool:ToolsProvider,public basket:BasketDataProvider) {
@@ -27,6 +27,10 @@ export class Qisanzuxuan3Component extends commonMethod{
  
   qqq(number){
     return number + 5
+  }
+
+  check(choice){
+    return this.choose.indexOf(choice) > -1
   }
 
   randomOneOrder(){

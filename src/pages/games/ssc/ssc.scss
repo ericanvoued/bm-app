@@ -118,7 +118,8 @@ page-ssc {
     z-index: 5;
    // box-shadow: 0 1px 2px 1px #B6B6B6;
     padding: 0 10px 0 10px;
-    min-height: 100%
+    // min-height: 100%;
+    margin-bottom: 20px
   }
   .l-game.l-hezhi{display: block}
 
@@ -156,6 +157,8 @@ page-ssc {
 
       }
     }
+
+    .l.hezi{width:64px}
     .r {
       width: 100%;
       flex: 1;

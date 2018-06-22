@@ -6,7 +6,6 @@ import {
   NavController,
   NavParams
 } from 'ionic-angular';
-import {Storage} from '@ionic/storage';
 import {TabsPage} from '../../tabs/tabs';
 import {LoginProvider} from '../../../providers/login/login';
 import {LoadingProvider} from '../../../providers/loading/loading'
@@ -33,7 +32,6 @@ export class LoginPage {
               public navCtrl: NavController,
               public loadPrd: LoadingProvider,
               public loadingCtrl: LoadingController,
-              public storage: Storage,
               public ToastCtrl: ToastController,
               public navParams: NavParams) {
 
@@ -58,7 +56,7 @@ export class LoginPage {
         if (data.isSuccess) {
           this.loading.dismiss();
           this.tost = this.loadPrd.showToast(this.ToastCtrl, data.Msg);
-          this.storage.set('userInfo', data['data']);
+          // this.storage.set('userInfo', data['data']);
 
           localStorage.userInfo = JSON.stringify(data['data']);
           this.navCtrl.setRoot(TabsPage, {

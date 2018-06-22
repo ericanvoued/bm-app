@@ -23,7 +23,7 @@ import { FooterComponent } from './footer/footer';
     GamemenuComponent,
     ZuxuanhezhiComponent,
     ZuxuanliuComponent,
-    FooterComponent
+    FooterComponent,
     ],
 	imports: [CommonModule],
 	exports: [
@@ -33,7 +33,7 @@ import { FooterComponent } from './footer/footer';
     GamemenuComponent,
     ZuxuanhezhiComponent,
     ZuxuanliuComponent,
-    FooterComponent
+    FooterComponent,
     ]
 })
 

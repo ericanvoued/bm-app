@@ -24,12 +24,23 @@ export class LoadingProvider {
     this.loader.present();
     return this.loader;
   }
+
+   //通用 loading 组件
+   showLoadingDefault(loadingCtrl: LoadingController,
+    message: string): Loading {
+    this.loader = loadingCtrl.create({
+    content: message
+    });
+    this.loader.present();
+    return this.loader;
+    }
+
   //通用 toast 组件
   showToast(toastCtrl: ToastController, massage: string): Toast {
     this.toast = toastCtrl.create({
       message: massage,
       duration:2000,
-      position: 'buttom'
+      position: 'bottom'
     })
     this.toast.present();
     return this.toast;

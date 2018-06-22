@@ -15,7 +15,8 @@ import { BasketDataProvider } from '../../../../providers/basket-data/basket-dat
   templateUrl: 'zhongsanzuxuan3.html'
 })
 export class Zhongsanzuxuan3Component extends commonMethod{
-
+  @Input('choose') choose: any[] = [];
+  
   text: string;
 
   constructor(public common:CommonProvider, public tool:ToolsProvider,public util:UtilProvider,public basket:BasketDataProvider) {
@@ -28,6 +29,9 @@ export class Zhongsanzuxuan3Component extends commonMethod{
     return number + 5
   }
 
+  check(choice){
+    return this.choose.indexOf(choice) > -1
+  }
 
   randomOneOrder(){
       this.common.ballData = this.common.ballData.map((item,index) => {

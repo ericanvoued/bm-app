@@ -12,8 +12,11 @@ import { CommonProvider } from "../../providers/common/common";
 import { WuxingComponent } from '../../components/gametrend/wuxing/wuxing'
 import { config, judgeTrend } from '../../components/gameTrend.config'
 import { BasketDataProvider } from '../../providers/basket-data/basket-data'
-import { gameConfig } from '../../components/ssc-config'
+import * as ssc from '../../components/ssc-config'
+import * as d5 from '../../components/115-config'
+import * as $ from 'jquery'
 
+const gameConfig = Object.assign(ssc.gameConfig, d5.gameConfig)
 
 @IonicPage()
 @Component({
@@ -37,6 +40,17 @@ export class GameTrendPage {
       this.observer = observer;
     })
 
+    
+
+    $('body').on('touchstart', '.ball-choose', function(){
+       let text = $(this).find('span').text()
+       let dom = $('<span class="tip">'  + text + '</span>')
+       $(this).append(dom)
+
+    }).on('touchend', '.ball-choose', function(){
+       $(this).find('.tip').remove()
+    })
+
     this.observable.subscribe((val:Promise<any>) => {
       val.then(() => {
           this.drawCanvas()
@@ -53,6 +67,7 @@ export class GameTrendPage {
   ionViewWillEnter(){
      //this.contentSlides.slideTo(this.navParams.get('index'))
      this.drawTrend()
+     this.events.publish('getMethod')
   }
 
   ionViewDidLeave(){
@@ -179,10 +194,17 @@ export class GameTrendPage {
 }
 
   create(gameMethod:string):Promise<any>{
-    console.log('create trend')
     console.log(gameMethod)
+    let trendComponent:any;
 
-    let trendComponent:any = judgeTrend('SSC', gameMethod)
+    switch(this.common.series_id){
+        case 1:
+           trendComponent = judgeTrend('SSC', gameMethod)
+           break
+        case 2:
+           trendComponent= judgeTrend('Xuan5', gameMethod)  
+           break
+    }
     console.log(trendComponent)
     const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(trendComponent.component)
     this.componentRef = this.container.createComponent(factory)
@@ -246,6 +268,7 @@ export class GameTrendPage {
     //this.drawTrend()
 
     console.log($event)
+    console.log(gameConfig)
     let component = gameConfig[$event]
     console.log(component)
     this.nocontainer.clear()

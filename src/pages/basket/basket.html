@@ -18,15 +18,15 @@
     <div style="text-align:center;margin-bottom:10px">
         距{{common.currentNumber}}期开奖 {{common.countTime.minutes}}:{{common.countTime.seconds}}
     </div>
-   <div class="top-header" style="display:flex;justify-content:space-between;margin-bottom:10px">
+   <div class="top-header" style="display:flex;justify-content:space-between;margin:0 auto 10px auto;width:94%;">
       <div class="top-menu" (click)="randomChoose()">+ 机选1注</div>
       <div class="top-menu" (click)="randomChoose(5)">+ 机选5注</div>
-      <div class="top-menu" (click)="basket.randomChoose()">继续追号</div>
+      <div class="top-menu" (click)="navCtrl.pop()">继续追号</div>
   </div> 
    
    <div>
        <ul style="width:94%;margin:0 auto">
-          <li *ngFor="let item of basket.betData;let i = index" style="display:flex;padding:10px;margin-bottom:10px;position:relative;background:#ffffff">
+          <li class="basket-content" *ngFor="let item of basket.betData;let i = index" >
               <div style="width:15%;display:flex;align-items:center;justify-content:center">
                 <img src="assets/imgs/games/delete.png" alt="" (click)="basket.removeByIndex(i)">
               </div>
@@ -35,12 +35,10 @@
                       <span class="bet-ball">{{item.viewBalls}}</span>
                   </div>
                  <div style="display:flex;justify-content:space-between">
-                    <span>{{item.type}}</span>    共{{item.num}}注 {{item.num*item.moneyUnit}}元
+                    <span>{{item.gameName}}</span>    共{{item.num}}注 {{item.amount}}元
                  </div>
               </div>
-              <!-- <div><span>{{item.gameName}}</span>    共{{item.count}}注 {{item.price}}元
-                 <span style="float:right" (click)="basket.removeByIndex(i)">delete</span>   
-              </div> -->
+           
                <div style="width:300px;height:5px;display:flex;overflow:hidden;position:absolute;left:calc(50% - 150px);bottom:0">
                     <div *ngFor="let ii of arr" style="width:10px;height:10px;border-radius:50%;background:#f0f0f0"></div>
                </div>
@@ -88,8 +86,7 @@
                      <!-- <li>1800-7.50%</li>
                      <li>1800-7.50%</li>
                      <li>1800-7.50%</li> -->
-                 </ul>
-               
+                 </ul>      
             </div> 
         </div>
 

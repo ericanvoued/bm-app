@@ -1,7 +1,4 @@
-/**
- * Created by richard on 1/4/17.
- * thanks:https://github.com/mennovanslooten/underscore-observe
- */
+
 import * as _ from 'underscore';
 
 var _detect_timeout;

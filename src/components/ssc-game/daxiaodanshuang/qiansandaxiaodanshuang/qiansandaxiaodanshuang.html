@@ -1,6 +1,8 @@
 <!-- Generated template for the QiansandaxiaodanshuangComponent component -->
 <div class="shakePhone" (click)="randomChoose()"></div>  
 
+<div>{{common.smallKind.bonus_note}} {{util.formatMoney(common.bonus)}} 元</div>
+
 <div class="l-game" *ngFor="let data of common.ballData;let ii = index" >
     <div class="l">
         <p><span></span>{{data.key}}</p>      
