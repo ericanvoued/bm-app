@@ -3,7 +3,6 @@ import * as $ from 'jquery';
 export class LhcAction {
 
   // ani = {
-  //
   //   shu: ['10', '22', '34', '46'],
   //   niu: ['9', '21', '33', '45'],
   //   hu: ['8', '20', '32', '44'],
@@ -16,7 +15,6 @@ export class LhcAction {
   //   ji: ['1', '13', '25', '37', '49'],
   //   gou: ['12', '24', '36', '48'],
   //   pig: ['11', '23', '35', '47']
-  //
   // };
 
 
@@ -28,7 +26,6 @@ export class LhcAction {
     this.tmboxBtnClick();
     this.changePlaySelect();
     this.betBtnClick();
-    this.alertBetBtnClick();
 
     //取消按钮
     this.alertCancelBtnClick();
@@ -39,9 +36,7 @@ export class LhcAction {
     this.ani_BallClick();
     this.ws_BallClick();
     this.points_BallClick();
-
     this.calculateProfit();
-
 
   }
 
@@ -64,47 +59,47 @@ export class LhcAction {
 
       //理论奖金=注单金额*赔率
 
-      var wanfa = $('.wanfa').text(),bonus=0,profit;
-      if(wanfa.search('特码')!=-1){
+      var wanfa = $('.wanfa').text(), bonus = 0, profit;
+      if (wanfa.search('特码') != -1) {
         bonus = money * 46.55;
         profit = bonus - money;
 
-      }else if(wanfa.search('半波')!=-1){
+      } else if (wanfa.search('半波') != -1) {
 
         var balldata = JSON.parse(localStorage.balls);
-        for(var i =0 ;i<balldata.length;i++){
+        for (var i = 0; i < balldata.length; i++) {
           bonus += balldata[i].odds * moneyunit;
         }
         profit = bonus - money;
 
-      }else if(wanfa.search('肖')!=-1){
+      } else if (wanfa.search('肖') != -1) {
 
         var balldata = JSON.parse(localStorage.balls);
-        for(var i =0 ;i<balldata.length;i++){
+        for (var i = 0; i < balldata.length; i++) {
           bonus += balldata[i].odds * moneyunit;
         }
         profit = bonus - money;
 
-      }else if(wanfa.search('尾数')!=-1){
+      } else if (wanfa.search('尾数') != -1) {
 
         var balldata = JSON.parse(localStorage.balls);
-        for(var i =0 ;i<balldata.length;i++){
+        for (var i = 0; i < balldata.length; i++) {
           bonus += balldata[i].odds * moneyunit;
         }
         profit = bonus - money;
 
-      }else if(wanfa.search('总分')!=-1){
+      } else if (wanfa.search('总分') != -1) {
 
         var balldata = JSON.parse(localStorage.balls);
-        for(var i =0 ;i<balldata.length;i++){
+        for (var i = 0; i < balldata.length; i++) {
           bonus += balldata[i].odds * moneyunit;
         }
         profit = bonus - money;
 
-      }else if(wanfa.search('不中')!=-1){
+      } else if (wanfa.search('不中') != -1) {
 
         var balldata = JSON.parse(localStorage.balls);
-        for(var i =0 ;i<balldata.length;i++){
+        for (var i = 0; i < balldata.length; i++) {
           bonus += balldata[i].odds * moneyunit;
         }
         profit = bonus - money;
@@ -112,7 +107,7 @@ export class LhcAction {
       }
 
       $('.bonus').text(bonus.toFixed(2));
-      $('.profit').text(parseFloat(profit));
+      $('.profit').text(profit.toFixed(2));
 
     })
 
@@ -128,7 +123,7 @@ export class LhcAction {
   trendClick() {
 
     $('.trend-div').on('click', function () {
-      $('.right-popover').css('height')=='200px'? $('.right-popover').css('height','0px'):$('.right-popover').css('height','200px');
+      $('.right-popover').css('height') == '200px' ? $('.right-popover').css('height', '0px') : $('.right-popover').css('height', '200px');
     })
     $('.side-nav a').on('click', function () {
       var index = $(this).index();
@@ -143,7 +138,7 @@ export class LhcAction {
           //玩法说明
           break;
       }
-      $('.right-popover').css('height','0px');
+      $('.right-popover').css('height', '0px');
       // $('.popover-wrapper').addClass('hide');
     })
 
@@ -216,14 +211,12 @@ export class LhcAction {
 
           console.log('.transform==' + $('.slide_one .swiper-wrapper').css('transform'));
           console.log('localStorage.transform==' + localStorage.transform);
-          console.log('isfast===' + _this.isfast());
 
           if (!_this.isfast() && $('.slide_one .swiper-wrapper').css('transform') == 'matrix(1, 0, 0, 1, 0, 0)') {
 
             $('.slide_one .swiper-wrapper').css('transform', localStorage.transform);
           }
         }
-
         if (title.search('码') != -1) {
           $('.lhc-tm .t-box').removeClass('current');
         }
@@ -243,6 +236,24 @@ export class LhcAction {
         $('.status-box').css('display', 'block');
         $('.buy-input').val('');
         $('.money-text').addClass('hide');
+
+
+        var en_name1 = $('.play-list .play-yellow').next().val();
+        var en_name2 = $('.after-select .play-yellow').parent().parent().prev().children('input').val();
+        var str = $('.after-select .play-yellow').attr('data-index');
+        var arr = str.split("|");
+        var en_name3 = arr[1];
+        var typeStr = en_name1 + '.' + en_name2 + '.' + en_name3;
+        var wayId = arr[0];
+        localStorage.typeStr = typeStr;
+        localStorage.wayId = wayId;
+        localStorage.price = arr[2];
+        localStorage.bet_note = arr[3];
+        localStorage.bonus_note = arr[4];
+        localStorage.max_multiple = arr[5];
+        localStorage.is_enable_extra = arr[6]
+
+
       })
 
     });
@@ -278,20 +289,16 @@ export class LhcAction {
         //matrix(1, 0, 0, 1, 0, 0),matrix(1, 0, 0, 1, -414, 0)
         if ($('.slide_one .swiper-wrapper').css('transform') != 'matrix(1, 0, 0, 1, 0, 0)') {
 
-          // console.log(11111);
           // console.log('transform=='+$('.slide_one .swiper-wrapper').css('transform'));
           localStorage.transform = $('.slide_one .swiper-wrapper').css('transform');
           $('.slide_one .swiper-wrapper').css('transform', 'matrix(1, 0, 0, 1, 0, 0)');
-
         }
 
         $('.lhc-tm .t-box').addClass('hide');
         break;
-
       case '半波':
         $('.lhc-bb').addClass('active');
         $('.self-bb').addClass('active');
-
         break;
       case '生肖':
         $('.lhc-sx').addClass('active');
@@ -326,19 +333,19 @@ export class LhcAction {
     // $('.b-box .tm-unit').on('click', function () {
     //   $(this).toggleClass('currunt');
     // });
-    var timeOutEvent=0;
+    var timeOutEvent = 0;
     $(".b-box .tm-unit").on({
-      touchstart: function(e){
+      touchstart: function (e) {
         timeOutEvent = setTimeout(function () {
-          var clas =   e.currentTarget.children[0].className;
-          if(clas.search('red-ball')!=-1){
-            e.currentTarget.children[0].className='topball red-ball';
-          }else if(clas.search('blue-ball')!=-1){
-            e.currentTarget.children[0].className='topball blue-ball';
-          }else{
-            e.currentTarget.children[0].className='topball green-ball';
+          var clas = e.currentTarget.children[0].className;
+          if (clas.search('red-ball') != -1) {
+            e.currentTarget.children[0].className = 'topball red-ball';
+          } else if (clas.search('blue-ball') != -1) {
+            e.currentTarget.children[0].className = 'topball blue-ball';
+          } else {
+            e.currentTarget.children[0].className = 'topball green-ball';
           }
-        },0);
+        }, 0);
         e.preventDefault();
       },
       // touchmove: function(){
@@ -347,9 +354,9 @@ export class LhcAction {
       //   $(".b-box .tm-unit").eq($(this).index()).find('.topball').addClass('hide');
       //   $(".b-box .tm-unit").eq($(this).index()).toggleClass('currunt');
       // },
-      touchend: function(){
+      touchend: function () {
         clearTimeout(timeOutEvent);
-        if(timeOutEvent!=0){
+        if (timeOutEvent != 0) {
           $(".b-box .tm-unit").eq($(this).index()).find('.topball').addClass('hide');
           $(".b-box .tm-unit").eq($(this).index()).toggleClass('currunt');
         }
@@ -442,7 +449,7 @@ export class LhcAction {
       clas = clas.split(' ')[1];
       var ani = JSON.parse(localStorage.ani);
       var len = obj.find('.ball').length;
-console.log(ani);
+      console.log(ani);
       switch (clas) {
         case 'shu':
           _this.dealWithTmAniBoxClick(ani.shu, flag);
@@ -514,20 +521,20 @@ console.log(ani);
       for (var i = 0; i < len; i++) {
         var str, zhu, odds, txt;
         if (type.search('特码') != -1 || type.search('正') != -1 || type.search('不') != -1) {
-          str = $('.b-box .currunt').eq(i).find('span').text();
+          str = $('.b-box .currunt').eq(i).find('span').eq(1).text();
           zhu = 1;
           odds = 46.55;
           txt = str;
         } else if (type.search('波') != -1) {
 
-          str = $('.currunt').eq(i).attr('id');
+          str = $('.currunt').eq(i).attr('data-index');
           zhu = 1;
           odds = $('.currunt').eq(i).find('h2').text().split(' ')[1];
           odds = odds.substr(2, odds.length - 2);
           txt = $('.currunt').eq(i).find('h2').text().split(' ')[0];
 
         } else if (type.search('肖') != -1) {
-          str = $('.currunt').eq(i).attr('id');
+          str = $('.currunt').eq(i).attr('data-index');
           zhu = 1;
           odds = $('.currunt').eq(i).find('h2').text().split(' ')[1];
           odds = odds.substr(2, odds.length - 2);
@@ -535,7 +542,7 @@ console.log(ani);
 
         } else if (type.search('尾') != -1) {
 
-          str = $('.currunt').eq(i).attr('id');
+          str = $('.currunt').eq(i).attr('data-index');
           zhu = 1;
           odds = $('.currunt').eq(i).find('h2').text().split(' ')[1];
           odds = odds.substr(2, odds.length - 2);
@@ -548,11 +555,12 @@ console.log(ani);
           odds = $('.currunt').eq(i).find('span').text();
           odds = odds.substr(3, odds.length - 3);
           txt = $('.currunt').eq(i).find('h2').text();
-
         }
-        _this.dealWithBallData(str, zhu, odds, txt);
 
+        _this.dealWithBallData(str, zhu, odds, txt);
       }
+
+
       //自选 ～
     } else {
 
@@ -630,14 +638,59 @@ console.log(ani);
     }
   }
 
+  dealWithBallData(str, num, odds, text) {
+
+    var ballStr = str;
+    // var multiple = num;
+    var num = num;
+    var wayId = localStorage.wayId;
+    var prize_group = localStorage.bet_max_prize_group;
+    // var price = localStorage.price;
+    var jsid = 1;
+    if (localStorage.balls != null) {
+      jsid = JSON.parse(localStorage.balls).length + 1;
+    }
+
+    var betinfo =
+      {
+        "jsId": jsid,
+        "wayId":wayId,
+        "ball": ballStr,
+        "multiple": 1,
+        "num": num,
+        "type": '',
+        "onePrice": 1,
+        "prize_group":prize_group,
+        "moneyunit": 1,
+        "viewBalls": ballStr,
+        "position": [],
+        // "max_multiple":localStorage.max_multiple,
+        'odds': odds,
+        'text': text
+      };
+
+    var balls = [];
+    var ballsitem = "";
+    var ball = localStorage.balls;
+    if (ball == null) {
+      balls.push(betinfo);
+      ballsitem = JSON.stringify(balls);
+    } else {
+      var balldata = JSON.parse(ball);
+      balldata.push(betinfo);
+      ballsitem = JSON.stringify(balldata);
+    }
+    localStorage.balls = ballsitem;
+
+  }
 
   dealWitSelfBallData(str, num, odds, text) {
 
     var ballStr = str;
     // var multiple = num;
     var num = num;
-    // var wayId = localStorage.wayId;
-    // var prize_group = localStorage.bet_max_prize_group;
+    var wayId = localStorage.wayId;
+    var prize_group = localStorage.bet_max_prize_group;
     // var price = localStorage.price;
     var jsid = 1;
     if (localStorage.self_balls != null) {
@@ -647,13 +700,13 @@ console.log(ani);
     var betinfo =
       {
         "jsId": jsid,
-        // "wayId":wayId,
+        "wayId":wayId,
         "ball": ballStr,
         "multiple": 1,
         "num": num,
         "type": '',
         "onePrice": 1,
-        // "prize_group":prize_group,
+        "prize_group":prize_group,
         "moneyunit": 1,
         "viewBalls": ballStr,
         "position": [],
@@ -677,53 +730,7 @@ console.log(ani);
     localStorage.self_balls = ballsitem;
   }
 
-  dealWithBallData(str, num, odds, text) {
 
-    var ballStr = str;
-    // var multiple = num;
-    var num = num;
-    // var wayId = localStorage.wayId;
-    // var prize_group = localStorage.bet_max_prize_group;
-    // var price = localStorage.price;
-    var jsid = 1;
-    if (localStorage.balls != null) {
-      jsid = JSON.parse(localStorage.balls).length + 1;
-    }
-
-    var betinfo =
-      {
-        "jsId": jsid,
-        // "wayId":wayId,
-        "ball": ballStr,
-        "multiple": 1,
-        "num": num,
-        "type": '',
-        "onePrice": 1,
-        // "prize_group":prize_group,
-        "moneyunit": 1,
-        "viewBalls": ballStr,
-        "position": [],
-        // "max_multiple":localStorage.max_multiple,
-        'odds': odds,
-        'text': text
-      };
-
-    var balls = [];
-    var ballsitem = "";
-
-
-    var ball = localStorage.balls;
-    if (ball == null) {
-      balls.push(betinfo);
-      ballsitem = JSON.stringify(balls);
-    } else {
-      var balldata = JSON.parse(ball);
-      balldata.push(betinfo);
-      ballsitem = JSON.stringify(balldata);
-    }
-    localStorage.balls = ballsitem;
-
-  }
 
 
   calculateNum() {
@@ -1072,28 +1079,24 @@ console.log(ani);
     })
   }
 
-
   removeTopSlide() {
     $('.pageMenuSlides').addClass('hide');
     $('.lhc-content').children('.fixed-content').eq(0).next('.scroll-content').css('margin-top', '124px');
     $('.lhc-content .swiper-wrapper .swiper-slide').eq(0).addClass('swiper-no-swiping');
   }
 
-
   recoverTopSlide() {
     $('.pageMenuSlides').removeClass('hide');
     $('.lhc-content').children('.fixed-content').eq(0).next('.scroll-content').css('margin-top', '159px');
     $('.lhc-content .swiper-wrapper .swiper-slide').eq(0).removeClass('swiper-no-swiping');
-
   }
-
 
   initPopup() {
 
     let _this = this;
     var play = $('.wanfa').text();
     $('.lhc-popup').removeClass('hide');
-
+    $('#yue').text();
     if (_this.isfast()) {
 
       //赋值
@@ -1123,27 +1126,15 @@ console.log(ani);
       //注数
       $('.zhu').text(_this.calculateNum());
       $('.money').text(_this.calculateNum() * 2 + '元');
-
     }
 
   }
 
 
-  alertBetBtnClick() {
-
-    //下单请求数据
-
-  }
-
-
   alertCancelBtnClick() {
-
     $('.cancel-btn').on('click', function () {
-
       $('.lhc-popup').addClass('hide');
-
     })
-
   }
 
 

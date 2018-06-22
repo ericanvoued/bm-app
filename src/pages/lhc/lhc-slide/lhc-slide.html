@@ -105,10 +105,9 @@
 <div class="right-popover">
   <div class="popover-arrow"></div>
   <ul id="menu">
-    <li class="side-nav-a j-btn" >走势图</li>
-    <li class="side-nav-a j-btn" >近期开奖</li>
-    <li class="side-nav-a j-btn" >号码统计</li>
-    <li class="side-nav-a j-btn" >玩法说明</li>
+    <li class="side-nav-a j-btn"  (click)="pushToTrend()">走势图</li>
+    <li class="side-nav-a j-btn"  (click)="pushToTrend()">近期开奖</li>
+    <li class="side-nav-a j-btn"  (click)="pushToTrend()">玩法说明</li>
   </ul>
 </div>
 
@@ -361,7 +360,7 @@
 
             <ul class="cl">
 
-              <li class="dxds da current">大</li>
+              <li class="dxds da">大</li>
               <li class="dxds xiao">小</li>
               <li class="dxds dan">单</li>
               <li class="dxds ou">双</li>
@@ -1043,108 +1042,108 @@
                 <h5 class="red a" index="1">01</h5>
                 <span class="b">x<span class="odds animated">11.94</span>
             </span>
-                <input type="text" class="c r-input">
+                <input type="number"  class="c r-input">
               </li>
               <li class="animated">
                 <h5 class="green a" index="11">11</h5>
                 <span class="b">x<span class="odds animated">11.94</span>
               </span>
-                <input type="text" class="c r-input">
+                <input type="number" class="c r-input">
               </li>
               <li class="animated"><h5 class="green a" index="21">21</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="31">31</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="41">41</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="2">02</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="12">12</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="green a" index="22">22</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="green a" index="32">32</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="42">42</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="3">03</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="13">13</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="23">23</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="green a" index="33">33</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="green a" index="43">43</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="4">04</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="14">14</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="24">24</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="34">34</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="green a" index="44">44</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="green a" index="5">05</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="15">15</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="25">25</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="35">35</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="45">45</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="green a" index="6">06</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="green a" index="16">16</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="26">26</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="36">36</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="46">46</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="7">07</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="green a" index="17">17</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="green a" index="27">27</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="37">37</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="47">47</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="8">08</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="18">18</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="green a" index="28">28</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="green a" index="38">38</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="48">48</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="9">09</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="19">19</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="29">29</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="green a" index="39">39</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="green a" index="49">49</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="10">10</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="20">20</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="30">30</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="40">40</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
             </ul>
           </div>
         </section>
@@ -1167,58 +1166,58 @@
                 <h5 class="red a" index="1">红大</h5>
                 <span class="b">x<span class="odds animated">6.68</span>
                 </span>
-                <input type="text" class="c r-input">
+                <input type="number" class="c r-input">
               </li>
               <li class="animated">
                 <h5 class="green a" index="5">红单</h5>
                 <span class="b">x<span class="odds animated">5.85</span>
                  </span>
-                <input type="text" class="c r-input">
+                <input type="number" class="c r-input">
               </li>
               <li class="animated"><h5 class="green a" index="9">红合单</h5><span class="b">x<span
-                class="odds animated">5.19</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">5.19</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="3">红小</h5><span class="b">x<span
-                class="odds animated">4.68</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">4.68</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="7">红双</h5><span class="b">x<span
-                class="odds animated">5.19</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">5.19</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="11">红合双</h5><span class="b">x<span
-                class="odds animated">5.85</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">5.85</span></span><input type="number" class="c r-input"></li>
 
               <li class="animated">
                 <img class="rgb g" src="../../../assets/imgs/green-arrow.png"/>
                 <h5 class="red a" index="13">绿大</h5>
                 <span class="b">x<span class="odds animated">5.85</span>
                 </span>
-                <input type="text" class="c r-input">
+                <input type="number" class="c r-input">
               </li>
               <li class="animated"><h5 class="green a" index="17">绿单</h5><span class="b">x<span
-                class="odds animated">5.85</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">5.85</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="green a" index="4">绿合单</h5><span class="b">x<span
-                class="odds animated">6.68</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">6.68</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="15">绿小</h5><span class="b">x<span
-                class="odds animated">6.68</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">6.68</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="2">绿双</h5><span class="b">x<span
-                class="odds animated">6.68</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">6.68</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="green a" index="6">绿合双</h5><span class="b">x<span
-                class="odds animated">5.85</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">5.85</span></span><input type="number" class="c r-input"></li>
 
               <li class="animated">
                 <img class="rgb b" src="../../../assets/imgs/blue-arrow.png"/>
 
                 <h5 class="red a" index="12">蓝大</h5><span class="b">x<span
                 class="odds animated">5.19</span></span>
-                <input type="text" class="c r-input">
+                <input type="number" class="c r-input">
               </li>
               <li class="animated"><h5 class="green a" index="12">蓝单</h5><span class="b">x<span
-                class="odds animated">5.85</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">5.85</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="green a" index="16">蓝合单</h5><span class="b">x<span
-                class="odds animated">5.85</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">5.85</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="10">蓝小</h5><span class="b">x<span
-                class="odds animated">6.68</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">6.68</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="14">蓝双</h5><span class="b">x<span
-                class="odds animated">5.85</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">5.85</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="green a" index="18">蓝合双</h5><span class="b">x<span
-                class="odds animated">5.85</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">5.85</span></span><input type="number" class="c r-input"></li>
 
             </ul>
           </div>
@@ -1237,34 +1236,34 @@
                 <h5 class="red a" index="11,23,35,47">鼠</h5>
                 <span class="b">x<span class="odds animated">11.94</span>
             </span>
-                <input type="text" class="c r-input">
+                <input type="number" class="c r-input">
               </li>
               <li class="animated">
                 <h5 class="green a" index="10.22.34.46">牛</h5>
                 <span class="b">x<span class="odds animated">11.94</span>
               </span>
-                <input type="text" class="c r-input">
+                <input type="number" class="c r-input">
               </li>
               <li class="animated"><h5 class="green a" index="09,21,33,45">虎</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="08,20,32,44">兔</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="07,19,31,43">龙</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="08,18,30,42">蛇</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="05,17,29,41">马</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="green a" index="04,16,28,40">羊</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="green a" index="03,15,27,39">猴</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="02,14,26,38">鸡</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="green a" index="01,13,25,37,49">狗</h5><span class="b">x<span
-                class="odds animated">9.65</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">9.65</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="12,24,36,48">猪</h5><span class="b">x<span
-                class="odds animated">11.94</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">11.94</span></span><input type="number" class="c r-input"></li>
             </ul>
           </div>
         </section>
@@ -1281,30 +1280,30 @@
                 <h5 class="red a" index="0">0尾</h5>
                 <span class="b">x<span class="odds animated">2.01</span>
             </span>
-                <input type="text" class="c r-input">
+                <input type="number" class="c r-input">
               </li>
               <li class="animated">
                 <h5 class="green a" index="1">1尾</h5>
                 <span class="b">x<span class="odds animated">1.71</span>
               </span>
-                <input type="text" class="c r-input">
+                <input type="number" class="c r-input">
               </li>
               <li class="animated"><h5 class="green a" index="2">2尾</h5><span class="b">x<span
-                class="odds animated">1.71</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">1.71</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="3">3尾</h5><span class="b">x<span
-                class="odds animated">1.71</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">1.71</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="4">4尾</h5><span class="b">x<span
-                class="odds animated">1.71</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">1.71</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="5">5尾</h5><span class="b">x<span
-                class="odds animated">1.71</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">1.71</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="6">6尾</h5><span class="b">x<span
-                class="odds animated">1.71</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">1.71</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="green a" index="7">7尾</h5><span class="b">x<span
-                class="odds animated">1.71</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">1.71</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="green a" index="8">8尾</h5><span class="b">x<span
-                class="odds animated">1.71</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">1.71</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="9">9尾</h5><span class="b">x<span
-                class="odds animated">1.71</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">1.71</span></span><input type="number" class="c r-input"></li>
             </ul>
           </div>
         </section>
@@ -1322,26 +1321,26 @@
                 <h5 class="red a" index="1">大</h5>
                 <span class="b">x<span class="odds animated">1.90</span>
               </span>
-                <input type="text" class="c r-input">
+                <input type="number" class="c r-input">
               </li>
               <li class="animated">
                 <h5 class="green a" index="2">小</h5>
                 <span class="b">x<span class="odds animated">1.90</span>
               </span>
-                <input type="text" class="c r-input">
+                <input type="number" class="c r-input">
               </li>
               <li class="animated"><h5 class="green a" index="3">单</h5><span class="b">x<span
-                class="odds animated">1.90</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">1.90</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="4">双</h5><span class="b">x<span
-                class="odds animated">1.90</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">1.90</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="purple a" index="5">大单</h5><span class="b">x<span
-                class="odds animated">3.80</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">3.80</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="6">大双</h5><span class="b">x<span
-                class="odds animated">3.80</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">3.80</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="red a" index="7">小单</h5><span class="b">x<span
-                class="odds animated">3.80</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">3.80</span></span><input type="number" class="c r-input"></li>
               <li class="animated"><h5 class="green a" index="8">小双</h5><span class="b">x<span
-                class="odds animated">3.80</span></span><input type="text" class="c r-input"></li>
+                class="odds animated">3.80</span></span><input type="number" class="c r-input"></li>
             </ul>
           </div>
         </section>
@@ -1380,7 +1379,7 @@
       <!--<li class="box-ball ">特码02</li>-->
       <!--<li class="box-ball ">特码02</li>-->
     </ul>
-    <input placeholder="输入购买金额" type="text" class="buy-input"/>
+    <input placeholder="输入购买金额" type="number" class="buy-input"/>
     <p class="yuan">元</p>
     <!--<h2>确认信息</h2>-->
     <h4 class="money-text hide">
@@ -1388,11 +1387,11 @@
       class="profit">1000元</span>
     </h4>
 
-    <h4 class="balace-text">余额：¥ <span>333333</span></h4>
+    <h4 class="balace-text">余额：¥ <span id="yue">333333</span></h4>
     <!--<button class="offhand-btn">取消</button>-->
     <!--<div class="offhand-btn">-->
     <div class="offhand-btn cancel-btn">取消</div>
-    <div class="offhand-btn bet-btn">下注</div>
+    <div class="offhand-btn bet-btn" (click)="betClick()" >下注</div>
     <!--</div>-->
   </div>
   <div class="second-popup hide">
@@ -1429,17 +1428,6 @@
           <li><i class="play-black play-opacity play-yellow">特码</i></li>
         </ul>
       </div>
-      <!--<div class="after-list clear after-list-3">-->
-      <!--<div class="after-l"><i class="after-text">组选:</i></div>-->
-      <!--<ul class="lastchina">-->
-      <!--<li><i class="play-black play-opacity">组选120</i></li>-->
-      <!--<li><i class="play-black play-opacity">组选60</i></li>-->
-      <!--<li><i class="play-black play-opacity">组选30</i></li>-->
-      <!--<li><i class="play-black play-opacity">组选20</i></li>-->
-      <!--<li><i class="play-black play-opacity">组选10</i></li>-->
-      <!--<li><i class="play-black play-opacity">组选5</i></li>-->
-      <!--</ul>-->
-      <!--</div>-->
     </div>
 
     <div class="after-con">
@@ -1454,17 +1442,8 @@
           <li><i class="play-black play-opacity">正码6</i></li>
         </ul>
       </div>
-      <!--<div class="after-list clear after-list-3">-->
-      <!--<div class="after-l"><i class="after-text">组选:</i></div>-->
-      <!--<ul class="lastchina">-->
-      <!--<li><i class="play-black play-opacity">组选24</i></li>-->
-      <!--<li><i class="play-black play-opacity">组选12</i></li>-->
-      <!--<li><i class="play-black play-opacity">组选6</i></li>-->
-      <!--<li><i class="play-black play-opacity">组选4</i></li>-->
-      <!--</ul>-->
-      <!--</div>-->
-    </div>
 
+    </div>
     <div class="after-con">
       <div class="after-list clear after-list-3">
         <div class="after-l"><i class="after-text">半波:</i></div>
@@ -1472,22 +1451,8 @@
           <li><i class="play-black play-opacity">半波</i></li>
         </ul>
       </div>
-      <!--<div class="after-list clear after-list-3">-->
-      <!--<div class="after-l"><i class="after-text">组选:</i></div>-->
-      <!--<ul class="lastchina">-->
-      <!--<li><i class="play-black play-opacity">组三</i></li>-->
-      <!--<li><i class="play-black play-opacity">组六</i></li>-->
-      <!--<li><i class="play-black play-opacity">组选和值</i></li>-->
-      <!--<li><i class="play-black play-opacity">包胆</i></li>-->
-      <!--</ul>-->
-      <!--</div>-->
-      <!--<div class="after-list clear after-list-3">-->
-      <!--<div class="after-l"><i class="after-text">其它:</i></div>-->
-      <!--<ul class="lastchina">-->
-      <!--<li><i class="play-black play-opacity">和值尾数</i></li>-->
-      <!--<li><i class="play-black play-opacity">特殊号码</i></li>-->
-      <!--</ul>-->
-      <!--</div>-->
+
+
     </div>
     <div class="after-con">
       <div class="after-list clear after-list-3">
@@ -1498,22 +1463,8 @@
           <li><i class="play-black play-opacity">六肖</i></li>
         </ul>
       </div>
-      <!--<div class="after-list clear after-list-3">-->
-      <!--<div class="after-l"><i class="after-text">组选:</i></div>-->
-      <!--<ul class="lastchina">-->
-      <!--<li><i class="play-black play-opacity">组三</i></li>-->
-      <!--<li><i class="play-black play-opacity">组六</i></li>-->
-      <!--<li><i class="play-black play-opacity">组选和值</i></li>-->
-      <!--<li><i class="play-black play-opacity">包胆</i></li>-->
-      <!--</ul>-->
-      <!--</div>-->
-      <!--<div class="after-list clear after-list-3">-->
-      <!--<div class="after-l"><i class="after-text">其它:</i></div>-->
-      <!--<ul class="lastchina">-->
-      <!--<li><i class="play-black play-opacity">和值尾数</i></li>-->
-      <!--<li><i class="play-black play-opacity">特殊号码</i></li>-->
-      <!--</ul>-->
-      <!--</div>-->
+
+
     </div>
     <div class="after-con">
       <div class="after-list clear after-list-3">
@@ -1522,22 +1473,8 @@
           <li><i class="play-black play-opacity">尾数</i></li>
         </ul>
       </div>
-      <!--<div class="after-list clear after-list-3">-->
-      <!--<div class="after-l"><i class="after-text">组选:</i></div>-->
-      <!--<ul class="lastchina">-->
-      <!--<li><i class="play-black play-opacity">组三</i></li>-->
-      <!--<li><i class="play-black play-opacity">组六</i></li>-->
-      <!--<li><i class="play-black play-opacity">组选和值</i></li>-->
-      <!--<li><i class="play-black play-opacity">包胆</i></li>-->
-      <!--</ul>-->
-      <!--</div>-->
-      <!--<div class="after-list clear after-list-3">-->
-      <!--<div class="after-l"><i class="after-text">其它:</i></div>-->
-      <!--<ul class="lastchina">-->
-      <!--<li><i class="play-black play-opacity">和值尾数</i></li>-->
-      <!--<li><i class="play-black play-opacity">特殊号码</i></li>-->
-      <!--</ul>-->
-      <!--</div>-->
+
+
     </div>
     <div class="after-con">
       <div class="after-list clear after-list-3">
@@ -1573,103 +1510,5 @@
       </div>
     </div>
 
-    <!--<div class="after-con">-->
-    <!--<div class="after-list clear after-list-6">-->
-    <!--<div class="after-l"><i class="after-text">三星不定位:</i></div>-->
-    <!--<ul class="lastchina">-->
-    <!--<li><i class="play-black play-opacity">后三一码不定位</i></li>-->
-    <!--<li><i class="play-black play-opacity">后三二码不定位</i></li>-->
-    <!--<li><i class="play-black play-opacity">前三一码不定位</i></li>-->
-    <!--<li><i class="play-black play-opacity">前三二码不定位</i></li>-->
-    <!--<li><i class="play-black play-opacity">中三一码不定位</i></li>-->
-    <!--<li><i class="play-black play-opacity">中三二码不定位</i></li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--<div class="after-list clear after-list-6">-->
-    <!--<div class="after-l"><i class="after-text">四星不定位:</i></div>-->
-    <!--<ul class="lastchina">-->
-    <!--<li><i class="play-black play-opacity">四星一码不定位</i></li>-->
-    <!--<li><i class="play-black play-opacity">四星二码不定位</i></li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--<div class="after-list clear after-list-6">-->
-    <!--<div class="after-l"><i class="after-text">五星不定位:</i></div>-->
-    <!--<ul class="lastchina">-->
-    <!--<li><i class="play-black play-opacity">五星二码不定位</i></li>-->
-    <!--<li><i class="play-black play-opacity">五星三码不定位</i></li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--</div>-->
-
-    <!--<div class="after-con">-->
-    <!--<div class="after-list clear after-list-5">-->
-    <!--<div class="after-l"><i class="after-text">大小单双:</i></div>-->
-    <!--<ul class="lastchina">-->
-    <!--<li><i class="play-black play-opacity">后二大小单双</i></li>-->
-    <!--<li><i class="play-black play-opacity">后三大小单双</i></li>-->
-    <!--<li><i class="play-black play-opacity">前二大小单双</i></li>-->
-    <!--<li><i class="play-black play-opacity">前三大小单双</i></li>-->
-    <!--<li><i class="play-black play-opacity">中三大小单双</i></li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="after-con">-->
-    <!--<div class="after-list clear after-list-3">-->
-    <!--<div class="after-l"><i class="after-text">趣味:</i></div>-->
-    <!--<ul class="lastchina">-->
-    <!--<li><i class="play-black play-opacity">五码趣味三星</i></li>-->
-    <!--<li><i class="play-black play-opacity">四码趣味三星</i></li>-->
-    <!--<li><i class="play-black play-opacity">后三趣味二星</i></li>-->
-    <!--<li><i class="play-black play-opacity">前三趣味二星</i></li>-->
-    <!--<li><i class="play-black play-opacity">中三趣味二星</i></li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--<div class="after-list clear after-list-3">-->
-    <!--<div class="after-l"><i class="after-text">区间:</i></div>-->
-    <!--<ul class="lastchina">-->
-    <!--<li><i class="play-black play-opacity">五码区间三星</i></li>-->
-    <!--<li><i class="play-black play-opacity">四码区间三星</i></li>-->
-    <!--<li><i class="play-black play-opacity">后三区间二星</i></li>-->
-    <!--<li><i class="play-black play-opacity">前三区间二星</i></li>-->
-    <!--<li><i class="play-black play-opacity">中三区间二星</i></li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--<div class="after-list clear after-list-3">-->
-    <!--<div class="after-l"><i class="after-text">特殊:</i></div>-->
-    <!--<ul class="lastchina">-->
-    <!--<li><i class="play-black play-opacity">一帆风顺</i></li>-->
-    <!--<li><i class="play-black play-opacity">好事成双</i></li>-->
-    <!--<li><i class="play-black play-opacity">三星报喜</i></li>-->
-    <!--<li><i class="play-black play-opacity">四季发财</i></li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="after-con">-->
-    <!--<div class="after-list clear after-list-4">-->
-    <!--<div class="after-l"><i class="after-text">龙虎和:</i></div>-->
-    <!--<ul class="lastchina">-->
-    <!--<li><i class="play-black play-opacity">万千</i></li>-->
-    <!--<li><i class="play-black play-opacity">万百</i></li>-->
-    <!--<li><i class="play-black play-opacity">万十</i></li>-->
-    <!--<li><i class="play-black play-opacity">万个</i></li>-->
-    <!--<li><i class="play-black play-opacity">千百</i></li>-->
-    <!--<li><i class="play-black play-opacity">千十</i></li>-->
-    <!--<li><i class="play-black play-opacity">千个</i></li>-->
-    <!--<li><i class="play-black play-opacity">百十</i></li>-->
-    <!--<li><i class="play-black play-opacity">百个</i></li>-->
-    <!--<li><i class="play-black play-opacity">十个</i></li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--</div>-->
-
-    <!--<div class="after-con">-->
-    <!--<div class="after-list clear after-list-5">-->
-    <!--<div class="after-l"><i class="after-text">五星玩法:</i></div>-->
-    <!--<ul class="lastchina">-->
-    <!--<li><i class="play-black play-opacity">五星和值</i></li>-->
-    <!--<li><i class="play-black play-opacity">大小单双</i></li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--</div>-->
   </div>
 </div>

@@ -60,6 +60,8 @@ import {TabYuanComponent} from '../components/tab-yuan/tab-yuan';
 import {UserCenterProvider} from '../providers/user-center/user-center';
 import {LottoryCenterProvider} from '../providers/lottory-center/lottory-center';
 import {BaseToolProvider} from '../providers/base-tool/base-tool';
+import {KstrendAction} from '../pages/k3/kstrend/kstrend-action';
+
 
 @NgModule({
   declarations: [
@@ -147,7 +149,7 @@ import {BaseToolProvider} from '../providers/base-tool/base-tool';
     SignupProvider,
     UserCenterProvider,
     LottoryCenterProvider,
-    BaseToolProvider
+    BaseToolProvider,KstrendAction
 
   ]
 })
