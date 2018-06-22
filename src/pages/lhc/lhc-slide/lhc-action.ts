@@ -17,7 +17,6 @@ export class LhcAction {
   //   pig: ['11', '23', '35', '47']
   // };
 
-
   initView() {
 
 

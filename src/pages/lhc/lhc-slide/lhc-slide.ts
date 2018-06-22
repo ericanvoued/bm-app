@@ -6,7 +6,6 @@ import {HttpClient} from '@angular/common/http';
 import {RestProvider} from '../../../providers/rest/rest';
 import {BaseToolProvider} from '../../../providers/base-tool/base-tool';
 // import {LhctrendPage} from '../lhctrend/lhctrend';
-import {TabsPage} from "../../tabs/tabs";
 import * as $ from 'jquery';
 import {Tpl} from "../../../providers/base-tool/tpl";
 
