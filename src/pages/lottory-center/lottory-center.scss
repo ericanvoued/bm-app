@@ -84,17 +84,19 @@ page-lottory-center {
       transition: all .35s;
       .underline{
         position: absolute;
-        left: 0;
+        left: 50%;
         right: 100%;
         bottom: 0px;
         background-color: #F6374E;
-        height: 2px;
+        height: 0px;
         transition: all 0.35s;
       }
       &.current{
         color: #F6374E;
         .underline{
           right: 0;
+          left: 0;
+          height: 2px;
         }
       }
     }

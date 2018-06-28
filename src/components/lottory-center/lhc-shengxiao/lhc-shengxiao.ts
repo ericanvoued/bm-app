@@ -26,7 +26,7 @@ export class LhcShengxiaoComponent {
     gou: ['12', '24', '36', '48'],
     pig: ['11', '23', '35', '47']
   }
-  resultsData = {data: [{code: ['01','05'], number: '180605031', sum: 0}]}
+  resultsData = {data:[]}
 
   constructor() {
 

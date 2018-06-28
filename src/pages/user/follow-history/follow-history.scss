@@ -211,6 +211,20 @@ page-follow-history {
       }
     }
   }
+  .stopFollow{
+    display: inline-block;
+    background: #F0F0F0;
+    border-radius: 3px;
+    font-size: 12px;
+    color: #666666;
+    letter-spacing: 0;
+    text-align: center;
+    line-height:24px;
+    height: 24px;
+    position: relative;
+    top: -2px;
+    width: 78px;
+  }
 }
 
 .alert-ios .alert-tappable {

@@ -32,7 +32,7 @@ export class LottoryCenterPage {
     isK3: false,
     currentNavIndex: 0,
     isDrop: false,
-    resultsData: null
+    resultsData: {data: []}
   }
   navData: any
 
@@ -49,7 +49,7 @@ export class LottoryCenterPage {
 
     this.lcData.currentLottory = this.homeprv.homeData.lottoryList.SSC[0];//默认显示重庆时时彩开奖
 
-    this.changeNav()
+    this.changeNav(this.homeprv.homeData.lottoryList.SSC.nav)
   }
 
   ngAfterContentInit() {
@@ -61,16 +61,15 @@ export class LottoryCenterPage {
     this.lcData.isDrop = !this.lcData.isDrop;
   }
 
-
   //创建动态组件
   createDynComponent(componentName, id) {
     this.dynLottoryComponent.clear()
     const dynComp = this.resolver.resolveComponentFactory(componentName)
     this.dynComponent = this.dynLottoryComponent.createComponent(dynComp, 0);
-
+    this.lcData.resultsData = {data: []};
     this.homeprv.http.fetchData('/api-lotteries-h5/load-issues/' + id + '?count=90').then(data => {
       if (data.IsSuccess == 1) {
-        console.log(data)
+
         console.log(this.lcData.currentLottory.group)
         this.lcData.resultsData = data;
         if (this.lcData.currentLottory.group == 'SSC') {
@@ -85,17 +84,27 @@ export class LottoryCenterPage {
 
         } else if (this.lcData.currentLottory.group == 'K3') {
 
+          let k3numList = ['1', '2', '3', '4', '5', '6']
           this.lcData.resultsData.data = data.data.reverse()
           // this.lcData.resultsDatadata[i].shapeData = []
           for (let i = 0, len = data.data.length; i < len; i++) {
+            this.lcData.resultsData.data[i].blanket = [0, 0, 0, 0, 0, 0]
             this.lcData.resultsData.data[i].code = data.data[i].code.split('');
             this.lcData.resultsData.data[i].sum = 0;
             //跨度
             this.lcData.resultsData.data[i].spacing = parseInt(this.lcData.resultsData.data[i].code[2]) - parseInt(this.lcData.resultsData.data[i].code[0]);
             //形态数组去重
-            this.lcData.resultsData.data[i].shapeData =  Array.from(new Set(this.lcData.resultsData.data[i].code));
+            this.lcData.resultsData.data[i].shapeData = Array.from(new Set(this.lcData.resultsData.data[i].code));
             for (let j = 0, len1 = this.lcData.resultsData.data[i].code.length; j < len1; j++) {
               this.lcData.resultsData.data[i].sum += parseInt(this.lcData.resultsData.data[i].code[j])
+
+              for (let k = 0, len2 = k3numList.length; k < len2; k++) {
+
+                if (this.lcData.resultsData.data[i].code[j] == k3numList[k]) {
+                  // console.log(this.lcData.resultsData.data[i].code[j])
+                  this.lcData.resultsData.data[i].blanket[k3numList[k] - 1]++
+                }
+              }
             }
 
           }
@@ -135,30 +144,25 @@ export class LottoryCenterPage {
 
         } else {
 
-          for(let i = 0, len = data.data.length; i < len; i++) {
+          for (let i = 0, len = data.data.length; i < len; i++) {
             this.lcData.resultsData.data[i].code = data.data[i].code.split(',');
-            this.lcData.resultsData.data[i].sum = parseInt(this.lcData.resultsData.data[i].code[0])+parseInt(this.lcData.resultsData.data[i].code[1]);
+            this.lcData.resultsData.data[i].sum = parseInt(this.lcData.resultsData.data[i].code[0]) + parseInt(this.lcData.resultsData.data[i].code[1]);
           }
 
         }
-
         this.dynComponent.instance.resultsData = this.lcData.resultsData;
+        console.log(this.lcData.resultsData)
       } else {
         this.loadingPrvd.showToast(this.toastCtrl, '哎呦喂，网络是不是开小差了')
       }
     })
   }
 
-  // sum(totle,arr){
-  //   for(let i=0,len=arr.length;i<len;i++){
-  //     totle += arr[i]
-  //   }
-  //   return totle;
-  // }
 
   //改变导航
-  changeNav(data: any = this.homeprv.homeData.lottoryList.SSC.nav) {
-    this.navData = data
+  changeNav(data) {
+    console.log(data)
+    return this.navData = data
   }
 
   //改变动态组件

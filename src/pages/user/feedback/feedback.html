@@ -6,9 +6,9 @@
 
 
 <ion-content>
-  <form action="" method="post" class="feedBack-form">
-    <textarea name="feedBack-text" id="" cols="30" rows="10" placeholder="想跟我们说些什么呢？"></textarea>
-    <input type="number" maxlength="11" placeholder="联系方式"/>
-    <input type="submit" value="提交">
-  </form>
+  <div class="feedBack-form">
+    <textarea name="feedBack-text" id="" [(ngModel)]="content" cols="30" rows="10" placeholder="想跟我们说些什么呢？"></textarea>
+    <input type="number" maxlength="11" [(ngModel)]="contact" placeholder="联系方式"/>
+    <input type="submit" value="提交" (click)="feedBack()">
+  </div>
 </ion-content>

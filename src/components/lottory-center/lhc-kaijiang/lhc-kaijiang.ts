@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
 })
 export class LhcKaijiangComponent {
 
-  resultsData = {data: [{code: ['01','05'], number: '180605031', sum: 0}]}
+  resultsData = {data:[]}
 
   constructor() {
 

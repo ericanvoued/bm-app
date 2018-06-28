@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
 })
 export class LhcBoseComponent {
 
-  resultsData = {data: [{code: ['01','05'], number: '180605031', sum: 0}]}
+  resultsData = {data:[]}
   bose = {
     red: ['01', '02', '07', '08', '12', '13', '18', '19', '23', '24', '29', '30', '34', '35', '40', '45', '46'],
     blue: ['03', '04', '09', '10', '14', '15', '20', '25', '26', '31', '36', '37', '41', '42', '47', '48'],

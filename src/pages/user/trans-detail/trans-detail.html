@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <h2 class="DIY-title">追号记录</h2>
+    <h2 class="DIY-title">帐变明细</h2>
   </ion-navbar>
 </ion-header>
 
@@ -18,9 +18,9 @@
     <div class="mid-line"></div>
     <div class="lh-Picker game-picker">
       <ion-item>
-        <ion-select cancelText="取消" okText="确认" placeholder="{{currentLottory.friend_name}}" (ionChange)="selectChange(currentLottory)">
-          <ion-label>{{currentLottory.friend_name}}</ion-label>
-          <ion-option *ngFor="let lottory of lottorys" value="{{lottory.friend_name}}" (click)="selectLot(lottory)">{{lottory.friend_name}}</ion-option>
+        <ion-select cancelText="取消" okText="确认" placeholder="{{currentLottory.cn_title}}" (ionChange)="selectChange(currentLottory)">
+          <ion-label>{{currentLottory.cn_title}}</ion-label>
+          <ion-option *ngFor="let lottory of lottorys" (ionSelect)="changeCurrent(lottory)" value="{{lottory.cn_title}}">{{lottory.cn_title}}</ion-option>
         </ion-select>
       </ion-item>
       <i class="firecat-icon dropdown-icon"></i>
@@ -33,17 +33,17 @@
       </div>
       <div class="month"  *ngIf="transData.data.length!=0">
         <div class="case-content switch-case">
-          <div class="case-content-unit" *ngFor="let follow of followData.data;index as i">
+          <div class="case-content-unit" *ngFor="let transfer of transData.data;index as i">
             <div class="case-wrap">
-              <p>编号：<span>{{follow.series}}</span></p>
-              <p>{{follow.date}}</p>
+              <p style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden">编号：<span>{{transfer.serial_number.slice(0,20)}}</span></p>
+              <p>{{transfer.created_at}}</p>
             </div>
             <div class="case-wrap ball-wrap border-bottom">
-              <p>金额：<span [ngClass]="{'green':follow.money<0,'red':follow.money>0}">{{follow.money>0?'+':''}}{{follow.money.toFixed(2)}}：</span></p>
-              <p>{{follow.group}} {{follow.type}}</p>
+              <p>金额：<span [ngClass]="{'green':transfer.is_income=='-','red':transfer.is_income=='+'}">{{transfer.is_income}}{{transfer.amount}}</span></p>
+              <p>{{transfer.lottery_name}} {{transfer.friendly_name}}</p>
             </div>
             <div class="case-wrap case-wrap-big">
-              <p text-left>余额：<span>{{follow.rest_money}}</span></p>
+              <p text-left>余额：<span>{{transfer.friendly_name}}</span></p>
             </div>
           </div>
         </div>

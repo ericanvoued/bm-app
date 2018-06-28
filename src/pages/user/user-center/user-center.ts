@@ -61,7 +61,9 @@ export class UserCenterPage {
 
   async announcementsUnreadnum() {
     if(this.userData!=null){
-      this.unreadAnnouncements = (await this.http.fetchData('/h5api-announcements/unreadnum?_t=' + this.userData.auth_token)).data.tplData.successful.Num;
+      this.unreadAnnouncements = (await this.http.fetchData('/h5api-announcements/unreadnum?_t=' + this.userData.auth_token)).data.num;
+    }else {
+      this.unreadAnnouncements = (await this.http.fetchData('/h5api-announcements/unreadnum')).data.num;
     }
   }
 

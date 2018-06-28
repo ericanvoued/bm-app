@@ -7,13 +7,13 @@
 
 <ion-content>
   <div class="gredient-bg">
-    <ion-segment [(ngModel)]="infoCenter">
+    <ion-segment [(ngModel)]="infoCenter" (ionChange)="infoCenterProd.infoChanged($event)">
       <ion-segment-button value="info">
-        公告({{ infoCenterProd.infoData.unreadAnnouncements }})
+        公告({{ infoCenterProd.IcCenter.unreadAnnouncements }})
         <div class="underline"></div>
       </ion-segment-button>
       <ion-segment-button value="msg">
-        站内信({{ infoCenterProd.infoData.unreadLetter }})
+        站内信({{ infoCenterProd.IcCenter.unreadLetter }})
         <div class="underline"></div>
       </ion-segment-button>
     </ion-segment>
@@ -24,14 +24,14 @@
       <div class="msg-content" *ngIf="infoCenterProd.infoData.letters.data.length!==0">
         <ion-item-sliding #item *ngFor="let msg of infoCenterProd.infoData.letters.data;index as i">
           <ion-item>
-            <h2 (click)="pushPage('InfoDetailPage')"><span class="item-title">{{msg.msg_title}} <i class="red-coin"
+            <h2 (click)="pushPage('InfoDetailPage',msg.id)"><span class="item-title">{{msg.msg_title}} <i class="red-coin"
                                                                                                    *ngIf="msg.is_readed==0"></i></span><span
               class="item-date">{{msg.created_at}}</span></h2>
             <p class="item-text">{{msg.content}} <i class="firecat-icon stick-icon" *ngIf="msg.is_top==1"></i></p>
           </ion-item>
           <ion-item-options side="right">
             <button ion-button class="Stick"
-                    (click)="infoCenterProd.setTop('/h5api-station-letters/settop?_t=',msg.id,msg.is_top==1?0:1)">
+                    (click)="infoCenterProd.letterSetTop(msg.id,msg.is_top==1?0:1)">
               {{msg.is_top==1?'取消置顶':'置顶'}}
             </button>
             <button ion-button color="danger" class="delete" (click)="infoCenterProd.letterDelete(msg.id)">删除</button>
@@ -48,14 +48,14 @@
       <div class="info-content" *ngIf="infoCenterProd.infoData.announcements.data.length!==0">
         <ion-item-sliding #item *ngFor="let info of infoCenterProd.infoData.announcements.data;index as i">
           <ion-item>
-            <h2 (click)="pushPage('InfoDetailPage')"><span class="item-title">{{info.articles_title}} <i
+            <h2 (click)="pushPage('InfoDetailPage',info.id)"><span class="item-title">{{info.title}} <i
               class="red-coin" *ngIf="info.is_readed==0"></i></span><span class="item-date">{{info.created_at}}</span>
             </h2>
             <p class="item-text">{{info.content}} <i class="firecat-icon stick-icon" *ngIf="info.is_top==1"></i></p>
           </ion-item>
-          <ion-item-options side="right">
+          <ion-item-options side="right" *ngIf="userInfo!=null">
             <button ion-button class="Stick"
-                    (click)="infoCenterProd.setTop('/h5api-announcements/settop?_t=',info.id,info.is_top==1?0:1)">
+                    (click)="infoCenterProd.announcementsSetTop(info.id,info.is_top==1?0:1)">
               {{info.is_top==1?'取消置顶':'置顶'}}
             </button>
             <button ion-button color="danger" class="delete" (click)="infoCenterProd.announcementDelete(info.id)">删除

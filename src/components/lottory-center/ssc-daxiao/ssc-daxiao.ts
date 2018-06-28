@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
 })
 export class SscDaxiaoComponent {
 
-  resultsData = {data: [{code: ['1','3'], number: '180605031'}]}
+  resultsData = {data:[]}
 
   constructor() {
 

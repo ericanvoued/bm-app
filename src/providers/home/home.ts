@@ -29,14 +29,24 @@ export class HomeProvider {
   userInfo ;
   infoData = {
     unreadAnnouncements:0,
-    announcements: {data:['ddd']}
+    announcements: {data:['']}
   }
 
+  currentLottory=null
 
   homeData = {
     redicret_url:['SscPage','','','','','','Xuan5Page','','','','','KsPage','','','','','LhcSlidePage'],
     banner:[{'redirect_url':'','title':'','name':'','pic_url':''}],
-    lottoryList:null,
+    lottoryList: {
+      SSC: [{
+        friend_name: "重庆时时彩",
+        group: "SSC",
+        id: 1,
+        identifier: "CQSSC",
+        series_id: 1,
+        url: "SscPage"
+      }]
+    },
     lottories:[{url:''}],
     lottorys:{hot:[{friend_name:"",identifier:''}]},
   }
@@ -45,12 +55,14 @@ export class HomeProvider {
   constructor(public http: HttpClientProvider,public rest: RestProvider) {
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
     this.lottoryInfo();
+    this.homeData.lottoryList.SSC.nav = [{name:'开奖',flag:true,c:SscKaijiangComponent},{name:'大小',flag:false,c:SscDaxiaoComponent},{name:'单双',flag:false,c:SscDanshuangComponent}]
   }
 
   //彩种
   async lottoryInfo() {
 
     this.homeData.lottoryList = (await this.http.fetchData('/api-lotteries-h5/lottery-info')).data;
+
     this.homeData.lottories = []
     for (let item in this.homeData.lottoryList) {
       for (let i = 0; i < this.homeData.lottoryList[item].length; i++) {
@@ -93,11 +105,16 @@ export class HomeProvider {
 
   //通知
   async loadannouncements() {
-    // this.infoData.announcements = (await this.http.fetchData('/h5api-announcements?_t=' + this.userInfo.auth_token)).data;
+    this.infoData.announcements = (await this.http.fetchData('/h5api-announcements')).data;
+    console.log(this.infoData.announcements)
   }
 
   async announcementsUnreadnum() {
-    // this.infoData.unreadAnnouncements = (await this.http.fetchData('/h5api-announcements/unreadnum?_t=' + this.userInfo.auth_token)).data.tplData.successful.Num;
+    if(this.userInfo){
+      this.infoData.unreadAnnouncements = (await this.http.fetchData('/h5api-announcements/unreadnum?_t='+this.userInfo.auth_token)).data.num;
+    }else {
+      this.infoData.unreadAnnouncements = (await this.http.fetchData('/h5api-announcements/unreadnum')).data.num;
+    }
   }
 
   //通知轮播内容
@@ -114,8 +131,8 @@ export class HomeProvider {
     } else {
 
       this.homeData.lottorys = {hot: [], more: []};
-      this.homeData.lottorys.hot = _lottory.slice(0, 18)
-     // this.homeData.lottorys.more = _lottory.slice(-3)
+      this.homeData.lottorys.hot = _lottory.slice(0, 15)
+     this.homeData.lottorys.more = _lottory.slice(-3)
       localStorage.lottorys = JSON.stringify(this.homeData.lottorys)
     }
   }

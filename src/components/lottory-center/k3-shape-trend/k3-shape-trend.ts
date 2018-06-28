@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
 })
 export class K3ShapeTrendComponent {
 
-  resultsData = {data: [{code: [1], number: '180605031', sum: 0,shapeData:['1']}]}
+  resultsData = {data:[]}
 
   constructor() {
 

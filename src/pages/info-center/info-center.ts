@@ -11,12 +11,12 @@ import { HttpClientProvider } from '../../providers/http-client/http-client'
   templateUrl: 'info-center.html',
 })
 export class InfoCenterPage {
-
+  userInfo;
   infoData = {
     unreadLetter: 0,
     unreadAnnouncements: 0,
-    announcements: {data:['ddd']},
-    letters: {data:['ddd']}
+    announcements: {data:['']},
+    letters: {data:['']}
   };
   infoCenter:string = 'info';
 
@@ -26,15 +26,16 @@ export class InfoCenterPage {
     public http:HttpClientProvider,
     public alertCtrl: AlertController,
     public navParams: NavParams) {
-
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
   }
 
   ionViewWillEnter(){
     this.infoCenterProd.loadannouncements();
-    this.infoCenterProd.letterUnreadnum();
-    this.infoCenterProd.loadLetters();
     this.infoCenterProd.announcementsUnreadnum();
+    if(this.userInfo){
+      this.infoCenterProd.letterUnreadnum();
+      this.infoCenterProd.loadLetters();
+    }
   }
 
 
@@ -50,7 +51,16 @@ export class InfoCenterPage {
         {
           text: '确认',
           handler: () => {
-            this.infoData[group] = [];
+            if (this.infoCenter == 'info' && this.infoCenterProd.infoData.announcements_id.length !== 0) {
+              this.infoCenterProd.announcementDelete(this.infoCenterProd.infoData.announcements_id)
+            } else if (this.infoCenter == 'msg' && this.infoCenterProd.infoData.letters_id.length !== 0) {
+              this.infoCenterProd.letterDelete(this.infoCenterProd.infoData.letters_id)
+            } else if (this.infoCenter == 'info' && this.infoCenterProd.infoData.announcements_id.length == 0) {
+              this.infoCenterProd.LoadPrvd.showToast(this.infoCenterProd.toastCtrl, '没有公告啦')
+            } else if (this.infoCenter == 'msg' && this.infoCenterProd.infoData.letters_id.length == 0) {
+              this.infoCenterProd.LoadPrvd.showToast(this.infoCenterProd.toastCtrl, '没有站内信啦')
+            }
+
           }
         }
       ]
@@ -59,15 +69,43 @@ export class InfoCenterPage {
   }
 
 
-  delete(group,_index){
-    this.infoData[group].splice(_index,1);
+  delete(group, _index) {
+    this.infoData[group].splice(_index, 1);
   }
 
 
-
   //页面跳转
-  pushPage(page) {
-    this.navCtrl.push(page);
+  async pushPage(page, _id) {
+    if (this.infoCenter == 'info') {
+      if(this.userInfo){
+        await this.infoCenterProd.http.fetchData('/h5api-announcements/view/' + _id +'?_t=' + this.userInfo.auth_token).then(data => {
+          if (data.IsSuccess == 1) {
+            this.navCtrl.push(page, {
+              title:'公告详情',
+              detail:data.data
+            });
+          }
+        })
+      }else {
+        await this.infoCenterProd.http.fetchData('/h5api-announcements/view/' + _id).then(data => {
+          if (data.IsSuccess == 1) {
+            this.navCtrl.push(page, {
+              title:'公告详情',
+              detail:data.data
+            });
+          }
+        })
+      }
+    } else {
+      await this.infoCenterProd.http.fetchData('/h5api-station-letters/view/' + _id + '?_t=' + this.userInfo.auth_token).then(data => {
+        if (data.IsSuccess == 1) {
+          this.navCtrl.push(page,{
+            title:'站内信详情',
+            detail:data.data
+          });
+        }
+      })
+    }
   }
 
 }

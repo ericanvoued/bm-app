@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
 })
 export class Pk10LonghuComponent {
 
-  resultsData = {data: [{code: [1], number: '180605031', sum: 0}]}
+  resultsData = {data:[]}
 
   constructor() {
 

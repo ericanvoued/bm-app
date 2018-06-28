@@ -18,16 +18,9 @@
     <div class="mid-line"></div>
     <div class="lh-Picker game-picker">
       <ion-item>
-        <ion-select cancelText="取消" okText="确认" placeholder="全部游戏">
-          <ion-label>全部游戏</ion-label>
-          <ion-option value="全部游戏1">全部游戏1</ion-option>
-          <ion-option value="全部游戏2">全部游戏2</ion-option>
-          <ion-option value="全部游戏3">全部游戏3</ion-option>
-          <ion-option value="全部游戏4">全部游戏4</ion-option>
-          <ion-option value="全部游戏5">全部游戏5</ion-option>
-          <ion-option value="全部游戏6">全部游戏6</ion-option>
-          <ion-option value="全部游戏7">全部游戏7</ion-option>
-
+        <ion-select cancelText="取消" okText="确认" placeholder="{{followData.currentLottory.friend_name}}" (ionChange)="selectLottory(followData.currentLottory)">
+          <ion-label>{{followData.currentLottory.friend_name}}</ion-label>
+          <ion-option *ngFor="let lottory of followData.lottorys" value="{{lottory.friend_name}}" (ionSelect)="changeCurrent(lottory)">{{lottory.friend_name}}</ion-option>
         </ion-select>
       </ion-item>
       <i class="firecat-icon dropdown-icon"></i>
@@ -40,60 +33,60 @@
       </div>
       <div class="month"  *ngIf="true">
         <div class="case-content switch-case">
-          <div class="case-content-unit" [ngClass]="{'isSlide':follow.isSlide==true}" *ngFor="let follow of followData.data;index as i">
+          <div class="case-content-unit" [ngClass]="{'isSlide':follow.isSlide==true}" *ngFor="let follow of followData.datas;index as i">
             <div class="case-wrap">
-              <p><span>{{follow.name}}</span> <span>{{follow.date}}</span> {{follow.qihao}}期</p>
-              <p><span class="grey" [ngClass]="{'blue':follow.is_continue==true,'red':follow.is_finish==true}">{{follow.is_finish==true?'已完成':follow.is_continue==true?"进行中":"用户终止"}}</span></p>
+              <p><span>{{follow.lottery_name}}</span> <span>{{follow.bought_at.substring(5,10)}}</span> {{follow.qihao}}期</p>
+              <!--<p><span class="grey" [ngClass]="{'blue':follow.is_continue==true,'red':follow.is_finish==true}">{{follow.is_finish==true?'已完成':follow.is_continue==true?"进行中":"用户终止"}}</span></p>-->
             </div>
-            <div class="case-wrap ball-wrap border-bottom">
-              <p><span>{{follow.ball_group}}：</span></p>
-              <p class="ball-list">
-                <span *ngFor="let ball of follow.balls">{{ball}}</span>
-              </p>
-              <p>金额：{{follow.money.toFixed(2)}}元</p>
-            </div>
-            <div class="content-detail">
-              <div class="case-wrap ">
-                <p class="right">编&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号： <span>{{follow.detail.serial}}</span></p>
-              </div>
-              <div class="case-wrap ">
-                <p class="right">追号时间： <span>{{follow.detail.follow_time}}</span></p>
-              </div>
-              <div class="case-wrap ">
-                <p class="right">开始期号： <span>{{follow.detail.follow_start_qihao}}</span></p>
-              </div>
-              <div class="case-wrap">
-                <p class="right">追号期数： <span>{{follow.detail.follow_qishu}}</span>期</p>
-              </div>
-              <div class="case-wrap">
-                <p class="right">完成期数： <span>{{follow.detail.follow_finish_qishu}}</span>期</p>
-              </div>
-              <div class="case-wrap">
-                <p class="right">追号金额： <span>{{follow.detail.follow_money}}</span>元</p>
-              </div>
-              <div class="case-wrap">
-                <p class="right">完成金额： <span>{{follow.detail.follow_finish_model}}</span>元</p>
-              </div>
-              <div class="case-wrap">
-                <p class="right">取消金额： <span>{{follow.detail.follow_concel_money}}</span>元</p>
-              </div>
-              <div class="case-wrap">
-                <p class="right">中奖金额： <span>{{follow.detail.follow_reward_money}}元</span></p>
-              </div>
-              <div class="case-wrap">
-                <p class="right">追号奖金组： <span>{{follow.detail.follow_reward_money}}</span></p>
-              </div>
-              <div class="case-wrap">
-                <p class="right">模式： <span>{{follow.detail.follow_reward_money}}</span></p>
-              </div>
-            </div>
-            <div class="case-wrap case-wrap-big">
-              <p *ngIf="follow.is_continue">中奖后停止追号</p>
-              <p>
-                <!--<span>充值成功</span>-->
-                <button class="detail-btn" (click)="toggleDetail(i)"><i class="trangle"></i>详情</button>
-              </p>
-            </div>
+            <!--<div class="case-wrap ball-wrap border-bottom">-->
+              <!--<p style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden"><span>{{follow.ball_group}}：</span></p>-->
+              <!--<p class="ball-list">-->
+                <!--<span *ngFor="let ball of follow.balls">{{ball}}</span>-->
+              <!--</p>-->
+              <!--<p>投注金额：{{follow.money.toFixed(2)}}元</p>-->
+            <!--</div>-->
+            <!--<div class="content-detail">-->
+              <!--<div class="case-wrap ">-->
+                <!--<p class="right">编&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号： <span>{{follow.detail.serial}}</span></p>-->
+              <!--</div>-->
+              <!--<div class="case-wrap ">-->
+                <!--<p class="right">追号时间： <span>{{follow.detail.follow_time}}</span></p>-->
+              <!--</div>-->
+              <!--<div class="case-wrap ">-->
+                <!--<p class="right">开始期号： <span>{{follow.detail.follow_start_qihao}}</span></p>-->
+              <!--</div>-->
+              <!--<div class="case-wrap">-->
+                <!--<p class="right">追号期数： <span>{{follow.detail.follow_qishu}}</span>期</p>-->
+              <!--</div>-->
+              <!--<div class="case-wrap">-->
+                <!--<p class="right">完成期数： <span>{{follow.detail.follow_finish_qishu}}</span>期</p>-->
+              <!--</div>-->
+              <!--<div class="case-wrap">-->
+                <!--<p class="right">追号金额： <span>{{follow.detail.follow_money}}</span>元</p>-->
+              <!--</div>-->
+              <!--<div class="case-wrap">-->
+                <!--<p class="right">完成金额： <span>{{follow.detail.follow_finish_model}}</span>元</p>-->
+              <!--</div>-->
+              <!--<div class="case-wrap">-->
+                <!--<p class="right">取消金额： <span>{{follow.detail.follow_concel_money}}</span>元</p>-->
+              <!--</div>-->
+              <!--<div class="case-wrap">-->
+                <!--<p class="right">中奖金额： <span>{{follow.detail.follow_reward_money}}元</span></p>-->
+              <!--</div>-->
+              <!--<div class="case-wrap">-->
+                <!--<p class="right">追号奖金组： <span>{{follow.detail.follow_reward_money}}</span></p>-->
+              <!--</div>-->
+              <!--<div class="case-wrap">-->
+                <!--<p class="right">模式： <span>{{follow.detail.follow_reward_money}}</span></p>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="case-wrap case-wrap-big">-->
+              <!--<p *ngIf="follow.is_continue">中奖后停止追号</p>-->
+              <!--<p>-->
+                <!--<span class="stopFollow">终止追号</span>-->
+                <!--<button class="detail-btn" (click)="toggleDetail(i)"><i class="trangle"></i>详情</button>-->
+              <!--</p>-->
+            <!--</div>-->
           </div>
         </div>
       </div>

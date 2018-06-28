@@ -8,8 +8,8 @@ import {HttpClientProvider} from '../../../providers/http-client/http-client'
 })
 export class YDistributeComponent {
   userInfo;
-  resultsData = {data: [{code: ['01', '05'], number: '180605031', sum: 0}]}
-  lottoryId = '0' 
+  resultsData = {data:[]}
+  lottoryId = '0'
 
   distribute = {
     sazi: [1, 2, 3, 4, 5, 6],
@@ -18,7 +18,7 @@ export class YDistributeComponent {
       current: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       hot: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       max: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    } 
+    }
   }
 
   constructor(public http: HttpClientProvider) {

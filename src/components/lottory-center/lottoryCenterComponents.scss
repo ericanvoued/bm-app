@@ -254,6 +254,7 @@ lottory-kaijiang {
       flex: 1;
       display: flex;
       align-items: center;
+      position: relative;
       justify-content: center;
       border-right: 1px solid #00582E;
       span{
@@ -265,6 +266,7 @@ lottory-kaijiang {
         justify-content: center;
       }
       &.current{
+
         span{
           background-image: linear-gradient(0deg, #F74511 0%, #F98A6A 100%);
           border: 0 solid #E64C20;
@@ -277,6 +279,23 @@ lottory-kaijiang {
     color: #ffffff;
     height: 32px;
     line-height:31px;
+  }
+  .k3blankit{
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    width: 16px;
+    margin: 0;
+    height: 16px;
+    line-height:16px;
+    border-radius: 50%;
+    background-color: #c56161;
+    display: none;
+    font-style: normal;
+    font-size: 12px;
+    &.current{
+      display: inline-block;
+    }
   }
 }
 .k3-shape{

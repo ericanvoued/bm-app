@@ -12,18 +12,37 @@
     <h2>邀请好友，得双份奖励</h2>
     <p>邀请好友加入博猫游戏，但激活后你将获得相应的消费返点，邀请越多返点越多，赶快和好友一起享受双倍奖励吧！</p>
   </div>
-  <div class="set-reward">
+  <div class="set-reward" *ngIf="!invitedata.showQrcode">
     <h2>设置奖金组</h2>
-    <input type="text" [(ngModel)]="contrast">
-    <p>预计平均返点率 {{rewardPoint}}%</p>
+    <input type="text" [(ngModel)]="invitedata.iCurrentUserPrizeGroup">
+    <p>预计平均返点率 {{invitedata.rewardPoint}}%</p>
   </div>
-  <div class="slide-bar">
-    <div class="bar-hash">1800</div>
+  <div class="slide-bar" *ngIf="!invitedata.showQrcode">
+    <div class="bar-hash">{{invitedata.iAgentMinPrizeGroup}}</div>
     <ion-item>
-      <ion-range min="1800" max="1950" pin="true" step="2" [(ngModel)]="contrast" color="secondary" (ionChange)="dragRange()"></ion-range>
+      <ion-range min="{{invitedata.iAgentMinPrizeGroup}}" max="{{invitedata.iAgentMaxPrizeGroup}}" pin="true" step="2" [(ngModel)]="invitedata.iCurrentUserPrizeGroup" color="secondary" (ionChange)="dragRange()"></ion-range>
     </ion-item>
-    <div class="bar-hash">1950</div>
+    <div class="bar-hash">{{invitedata.iAgentMaxPrizeGroup}}</div>
   </div>
-
-  <div class="invite-btn"><button>生成二维码邀请</button></div>
+  <div class="qrcode-container" *ngIf="invitedata.showQrcode">
+    <img src="http://qr.liantu.com/api.php?&w=200&bg=F3F3F3&fg=000000&text={{invitedata.qrCodeUrl}}" />
+  </div>
+  <div class="invite-btn" (click)="getQRCode()" *ngIf="!invitedata.showQrcode"><button>生成二维码邀请</button></div>
+  <div class="invite-btn" (click)="shareQRCode()" *ngIf="invitedata.showQrcode"><button>分享邀请链接</button></div>
 </ion-content>
+<div class="invite-list" *ngIf="invitedata.showList" [ngStyle]="{bottom:invitedata.listPosition+'px'}">
+  <h2><span class="mid-line"></span><span class="title-text">分享给朋友</span><span class="mid-line"></span></h2>
+  <div class="link-list">
+    <span><img src="../../../assets/icon/qq-icon.png" alt=""></span>
+    <span><img src="../../../assets/icon/wechat-icon.png" alt=""></span>
+    <span><img src="../../../assets/icon/moment-icon.png" alt=""></span>
+  </div>
+  <div class="concel-btn" (click)="concelShare()">
+    取消
+  </div>
+</div>
+<div class="invite-mask" (click)="concelShare()" *ngIf="invitedata.showList">
+
+</div>
+
+

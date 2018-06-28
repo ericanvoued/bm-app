@@ -33,18 +33,21 @@ export class HomePage {
     this.homePrv.loadbanner();
     this.homePrv.loadannouncements();
     this.homePrv.announcementsUnreadnum();
-   
+
   }
 
   ionViewDidEnter(){
     if(this.common.timer){
       clearInterval(this.common.timer)
       this.common.resetLotteryData()
-      
     }
     this.homePrv.loadHotLottory();
-    this.swiper_init()
+    // this.swiper_init()
     console.log(this.homePrv.homeData.lottorys)
+  }
+
+  ngAfterContentInit(){
+    this.swiper_init()
   }
 
 
@@ -67,7 +70,7 @@ export class HomePage {
       spaceBetween: 0,
       loop: true,
       autoplay: {
-        delay: 5000,
+        delay: 1000,
         disableOnInteraction: false,
       }
     })

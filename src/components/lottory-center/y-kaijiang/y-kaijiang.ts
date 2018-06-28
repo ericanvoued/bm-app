@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
 })
 export class YKaijiangComponent {
 
-  resultsData = {data: [{code: [1], number: '180605031', sum: 0,big:0,small:0,odd:0,even:0}]}
+  resultsData = {data:[]}
 
   constructor() {
 
