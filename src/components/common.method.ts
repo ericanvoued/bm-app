@@ -74,6 +74,17 @@ export class commonMethod{
            }
     }
 
+    getDWei(str){
+        switch(str){
+            case 'yiwei':
+                return '一位'
+            case 'erwei':
+                return '二位'
+            case 'sanwei':
+                return '三位'               
+           }
+    }
+
     toggle(index,number){
         // 少于2个 选择
         if(this.choices.filter(ele => ele.choose).length == number && this.choices[index].choose )
@@ -166,11 +177,15 @@ export class commonMethod{
    }
 
    getOriginLotteryText(){
-       return this.getCommonData().filter(ele => ele.length > 0).map(ele => ele.join('')).join('|')  
+        if(this.common.series_id == 1)
+            return this.getCommonData().filter(ele => ele.length > 0).map(ele => ele.join('')).join('|')  
+        if(this.common.series_id == 2)
+            return this.getCommonData().map(ele => ele.map(item => ('0' + (item + 1)).slice(-2)).join(' ')).join('|')
+            //return this.getCommonData().filter(ele => ele.length > 0).map(ele => ele.map(item => item + 1).join('')).join('|')
    }
 
    getPositionArr(){
-       return this.choices.length == 0? [] : this.choices.map(ele => ele.choose ? 1 : 0)
+       return this.choices.length == 0? '' : this.choices.map(ele => ele.choose ? 1 : 0)
    }
 
    combination(arr2) {

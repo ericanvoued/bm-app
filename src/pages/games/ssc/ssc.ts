@@ -110,7 +110,7 @@ export class SscPage extends Effect{
                 this.common.componentRef = this.componentRef
                 $('.table').css('height','327px')
                            this.util.shakePhone(() => {
-                               this.util.randomChoose(this.componentRef)
+                               this.util.randomChoose(this.common.componentRef)
                            })
             }
         )
@@ -248,6 +248,7 @@ export class SscPage extends Effect{
         this.util.resetData()
     }
 
+   
     presentLoadingDefault() {
         let loading = this.loadingCtrl.create({
           content: '数据加载中...'
@@ -255,5 +256,4 @@ export class SscPage extends Effect{
         loading.present()
         return loading
       }
-
 }

@@ -14,7 +14,8 @@ import { BasketDataProvider } from '../../../../providers/basket-data/basket-dat
   templateUrl: 'erxingzuxuanqianerhezhi.html'
 })
 export class ErxingzuxuanqianerhezhiComponent extends commonMethod{
-
+  @Input('choose') choose: any[] = [];
+    
   text: string;
 
   constructor(public common:CommonProvider, public util:UtilProvider,public basket:BasketDataProvider) {
@@ -26,7 +27,9 @@ export class ErxingzuxuanqianerhezhiComponent extends commonMethod{
       ]
   }
 
-  
+  check(choice){
+    return this.choose.indexOf(choice) > -1
+  }
 
   randomChoose(number?){
     if(number){

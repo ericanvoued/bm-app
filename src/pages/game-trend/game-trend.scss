@@ -100,8 +100,10 @@ page-game-trend {
     ul.choose-area{display:flex;flex-direction:column;height:40px;justify-content:center;padding-left:10px}
     span.little-circle{background:#999999;width:5px;height:5px;border-radius:50%;margin-right:5px}
 
-    #confirm{width:80px;height:30px;background-image: linear-gradient(137deg, #F3361B  0%, #EC6432 1%, #F5AD58 100%);
+    #confirm{width:80px;height:30px;background:grey;
         border-radius: 4px;text-align:center;line-height:30px;color:#ffffff}
+
+    #confirm.active{background: linear-gradient(137deg, #F33318  0%, #EC6432 1%, #F5AD58 100%);}  
 
 
     //跨度 和值    

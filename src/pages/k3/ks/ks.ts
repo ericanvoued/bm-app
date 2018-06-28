@@ -57,6 +57,10 @@ export class KsPage extends KsAction {
 
   ionViewDidLoad() {
 
+
+    this.util.shakePhone(() => {
+      this.shakeClick();
+    })
     this.navBar.backButtonClick = this.backButtonClick;
     this.initView();
     this.requestHisData();
@@ -71,10 +75,6 @@ export class KsPage extends KsAction {
       }
     );
 
-
-    this.util.shakePhone(() => {
-      this.shakeClick();
-    })
     this.initAny();
   }
 
@@ -1266,9 +1266,7 @@ export class KsPage extends KsAction {
         $('.dtys-section').addClass('current');
       }
 
-
     }
-
 
   }
 
@@ -1276,6 +1274,8 @@ export class KsPage extends KsAction {
   initAny() {
     localStorage.wayId=237;
     localStorage.moneyunit=1;
+    localStorage.wanfa = '和值';
+    localStorage.max_multiple = 949;
     this.base.initHisBox('ks-content');
     if ($('#ks-content .section.current').offset().top < 97) {
       $(".his-box").stop().animate({height: "0px"}, 0);

@@ -37,7 +37,7 @@ export class BaseToolProvider {
     console.log(userInfo);
     var url = '/api-lotteries-h5/load-data/2/' + idstr + '?_t=' + userInfo.auth_token;
     return new Promise((resolve, reject) => {
-      this.rest.postUrlReturn(url, {_token: userInfo.token})
+      this.rest.getUrlReturn(url)
         .subscribe((data) => {
           console.log(data)
           if (data.IsSuccess) {
@@ -102,10 +102,10 @@ export class BaseToolProvider {
     var url = '/api-lotteries-h5/load-data/1/' + idstr + '?_t=' + data.auth_token;
     return new Promise((resolve, reject) => {
 
-
-      this.rest.postUrlReturn(url, {_token: data.token})
+      // this.rest.postUrlReturn(url, {_token: data.token})
+      this.rest.getUrlReturn(url)
         .subscribe((data) => {
-          console.log('data==='+JSON.stringify( data));
+          console.log('data==='+JSON.stringify(data));
           if (data.IsSuccess) {
 
             localStorage.trace_max_times = data.data.trace_max_times;

@@ -33,6 +33,19 @@ constructor(public common:CommonProvider, public util:UtilProvider,public basket
     return this.choose.indexOf(choice) > -1
   }
 
+  getOriginLotteryText(){
+     let total = []
+     this.getCommonData().forEach((item,index) => {
+          let arr = []
+          if(item.length)
+            // arr.push(item*index*7 + 1)
+             arr.push(...item.map(ele => 7*index + ele))
+         
+          total.push(arr)
+     }) 
+     return total.filter(ele => ele.length > 0).map(ele => ele.join('|')).join('|')
+  }
+
    randomOneOrder(){
         let arr = [Math.floor(Math.random()*4),Math.floor(Math.random()*7)]
         console.log(arr)

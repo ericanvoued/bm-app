@@ -15,7 +15,8 @@ import { BasketDataProvider } from '../../../../providers/basket-data/basket-dat
   templateUrl: 'erxingzuxuanhouerbaodan.html'
 })
 export class ErxingzuxuanhouerbaodanComponent extends commonMethod{
-
+  @Input('choose') choose: any[] = [];
+  
   text: string;
 
   constructor(public common:CommonProvider, public tool:ToolsProvider, public util:UtilProvider,public basket:BasketDataProvider){
@@ -25,6 +26,10 @@ export class ErxingzuxuanhouerbaodanComponent extends commonMethod{
 
   qqq(number){
     return number + 5
+  }
+
+  check(choice){
+    return this.choose.indexOf(choice) > -1
   }
 
   changeToggle(row,column){

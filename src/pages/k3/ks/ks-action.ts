@@ -156,7 +156,6 @@ export class KsAction {
 
     //循环  调用存储球
 
-
   }
 
   dealWithErthBallData(zhu, str) {
@@ -189,6 +188,7 @@ export class KsAction {
         "multiple": 1,
         "onePrice": 2,
         "prize_group":  localStorage.bet_max_prize_group,
+        "max_multiple": localStorage.max_multiple,
         "wanfa": wanfa,
         "price": zhu * 2 * moneyunit
       };
@@ -202,10 +202,8 @@ export class KsAction {
       let balldata = JSON.parse(ball);
       //检测号码重复性～～
       if (_this.isNumDuplication(betinfo).j == 1) {
-
         ballsitem = JSON.stringify(_this.isNumDuplication(betinfo).data);
       } else {
-
         balldata.push(betinfo);
         ballsitem = JSON.stringify(balldata);
       }
@@ -227,14 +225,12 @@ export class KsAction {
     $('.saizi-pop').removeClass('hide');
     var obj = $('.section.current .content-box');
     var len = obj.find('.ball-unit').length;
-
     setTimeout(function () {
       for (var i = 0; i < len; i++) {
         if (parseInt(obj.find('span').eq(i).text()) == num) {
           obj.find('.ball-num').eq(i).addClass('active');
         }
       }
-
       var fx = obj.find('.active').offset().left;
       var fy = obj.find('.active').offset().top;
       var selfx = $('.sz-left').offset().left;
@@ -308,7 +304,6 @@ export class KsAction {
       console.log('len===' + len);
       setTimeout(function () {
         for (var i = 0; i < len; i++) {
-          // console.log('i===' + i);
           // console.log('text=str==' + obj.find('span').eq(i).text());
           // console.log('text===' + parseInt(obj.find('span').eq(i).text()));
           if (parseInt(obj.find('span').eq(i).text()) == num1 || parseInt(obj.find('span').eq(i).text()) == num2) {
@@ -325,13 +320,12 @@ export class KsAction {
         $('.animate-0').removeClass('animate-0');
         $('.animate-1').removeClass('animate-1');
         $('.animate-2').removeClass('animate-2');
+        _this.calculateMoney();
         var player = $('#mp3')[0];
         player.play();
-
-      }, 2500);
+      },2500);
 
       setTimeout(function () {
-
         $('.saizi-pop').css('transform', "scale(1)");
         $('.saizi-pop').addClass('hide');
       }, 3500);
@@ -402,6 +396,7 @@ export class KsAction {
         "multiple": 1,
         "onePrice": 2,
         "prize_group": localStorage.bet_max_prize_group,
+        "max_multiple": localStorage.max_multiple,
         "wanfa": wanfa,
         "price": zhu * 2 * moneyunit,
         "wayId": wayId,
@@ -434,7 +429,6 @@ export class KsAction {
   }
 
   isNumDuplication(betinfo) {
-
 
     var j = 0;
     var ballstr = betinfo.ball;
@@ -658,7 +652,12 @@ export class KsAction {
         localStorage.price = arr[2];
         localStorage.bet_note = arr[3];
         localStorage.bonus_note = arr[4];
-        localStorage.max_multiple = arr[5];
+        if(title=='和值'){
+          localStorage.max_multiple = 949;
+        }else{
+          localStorage.max_multiple = arr[5];
+        }
+
         localStorage.is_enable_extra = arr[6];
         // 237|hezhi|2||至少选择1个和值（3个号码之和）进行投注，所选和值与开奖的3个号码的和值相同即中奖|25510|0
         // play_id + '|' + name_en + '|' + price + '|' + bet_note + '|' + bonus_note + '|' + max_multiple + '|' + is_enable_extra

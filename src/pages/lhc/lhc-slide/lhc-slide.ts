@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {IonicPage, NavController, NavParams, Slides,LoadingController,Navbar} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, Slides, LoadingController, Navbar} from 'ionic-angular';
 import {LhcAction} from "./lhc-action";
 
 import {HttpClient} from '@angular/common/http';
@@ -11,6 +11,7 @@ import {Tpl} from "../../../providers/base-tool/tpl";
 
 declare var Swiper;
 declare var encrypt;
+
 @IonicPage()
 @Component({
   selector: 'page-lhc-slide',
@@ -32,15 +33,15 @@ export class LhcSlidePage extends LhcAction {
               public http: HttpClient,
               public rest: RestProvider,
               public base: BaseToolProvider,
-              public loading:LoadingController) {
+              public loading: LoadingController) {
 
     super();
   }
 
   backButtonClick = (e: UIEvent) => {
 
-    for(var i=0;i<localStorage.length;i++){
-      var key=localStorage.key(i);
+    for (var i = 0; i < localStorage.length; i++) {
+      var key = localStorage.key(i);
       console.log(key);
     }
 
@@ -59,7 +60,7 @@ export class LhcSlidePage extends LhcAction {
     localStorage.removeItem('max_multiple');
 
     // localStorage.removeItem('hisissue');
-    this.navCtrl.pop();
+    this.navCtrl.pop({animate: false});
   }
 
   pushToTrend() {
@@ -82,17 +83,31 @@ export class LhcSlidePage extends LhcAction {
   }
 
   ionViewWillEnter() {
-    this.base.requestJiangQiData('61', '6', 'play').then(() => {});
+    this.base.requestJiangQiData('61', '6', 'play').then(() => {
+    });
   }
 
   ionViewDidLeave() {
     clearInterval(this.base.timeIddd);
   }
 
+  dealWithBallMultiple() {
+
+    var moneyunit = parseInt($('.buy-input').val());
+    if (moneyunit > 1) {
+      var ballarr = JSON.parse(localStorage.balls);
+      console.log('balls====' + ballarr)
+      for (var i = 0; i < ballarr.length; i++) {
+        ballarr[i].multiple = parseInt(ballarr[i].multiple) *moneyunit;
+      }
+      localStorage.balls = JSON.stringify(ballarr);
+    }
+  }
 
   betClick() {
 
-    console.log('localStorage.balls=='+localStorage.balls)
+    this.dealWithBallMultiple();
+    console.log('localStorage.balls==' + localStorage.balls)
     const loader = this.loading.create({});
     loader.present();
 
@@ -102,10 +117,33 @@ export class LhcSlidePage extends LhcAction {
     obj['gameId'] = gameId;
     obj['isTrace'] = "0";
     obj['traceWinStop'] = "1";
-    obj['traceStopValue'] =  "1";
+    obj['traceStopValue'] = "1";
     var balls = localStorage.balls;
     console.log('balls====' + balls)
     obj['balls'] = encrypt(balls);
+
+    var ballarr = JSON.parse(balls);
+    var type = $('.wanfa').text();
+    if (type.search('不中') != -1 || type.search('六肖') != -1) {
+      // 01|02|03|04|05
+      var ballstr = [];
+      for (var i = 0; i < ballarr.length; i++) {
+        ballstr.push(ballarr[i].ball);
+      }
+      var ball = ballstr.join('|');
+      ballarr[0].ball = ball;
+      ballarr[0].moneyunit = 1;
+      ballarr[0].num = $('.money-text .zhu').text();
+      ballarr[0].multiple = 1;
+      ballarr[0].viewBalls = '';
+      console.log('ballarr[0]====' + ballarr[0]);
+      ballstr = [];
+      ballstr.push(ballarr[0]);
+      balls = JSON.stringify(ballstr);
+      console.log('balls====' + balls);
+      obj['balls'] = encrypt(balls);
+    }
+
     var nextDat = localStorage.nextDate;
     obj['orders'] = {}
     obj['orders'][nextDat] = 1;
@@ -115,13 +153,12 @@ export class LhcSlidePage extends LhcAction {
     obj['amount'] = parseInt($('.money').text());
 
     obj['_token'] = JSON.parse(localStorage.getItem('userInfo')).token;
-    let url = '/api-lotteries-h5/bet/' + gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token
+
+    let url = '/api-lotteries-h5/bet/' + gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token;
 
     this.rest.postUrlReturn(url, obj)
       .subscribe((data) => {
-
         loader.dismiss();
-
         console.log('data～～～～～' + JSON.stringify(data));
         if (data.isSuccess) {
           // JSON.parse(localStorage.getItem('userInfo'))['available'] = data.data.available;
@@ -132,6 +169,9 @@ export class LhcSlidePage extends LhcAction {
           $('.lhc-popup').addClass('hide');
           $('.current').removeClass('current');
           $('.currunt').removeClass('currunt');
+          $('.red-active').removeClass('red-active');
+          $('.green-active').removeClass('green-active');
+          $('.blue-active').removeClass('blue-active');
           $('.r-input').val('');
           $('#yue').text(data.data.available);
           $('body').append(Tpl.success_tip);
@@ -146,14 +186,9 @@ export class LhcSlidePage extends LhcAction {
             $('.basket-pop').remove();
           }, 1500);
 
-
         }
       });
-
   }
-
-
-
 
 
   requestHisData() {
@@ -198,8 +233,8 @@ export class LhcSlidePage extends LhcAction {
   }
 
 
-
-  initViewData() {}
+  initViewData() {
+  }
 
   initSwiper() {
     this.swiper = new Swiper('.pageMenuSlides .swiper-container', {

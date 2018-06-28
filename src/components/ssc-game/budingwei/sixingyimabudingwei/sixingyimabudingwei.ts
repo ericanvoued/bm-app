@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component,Input} from '@angular/core';
 import { CommonProvider } from '../../../../providers/common/common'
 import { ToolsProvider } from '../../../../providers/tools/tools'
 import { UtilProvider } from '../../../../providers/util/util'
@@ -16,7 +16,8 @@ import { BasketDataProvider } from '../../../../providers/basket-data/basket-dat
   templateUrl: 'sixingyimabudingwei.html'
 })
 export class SixingyimabudingweiComponent extends commonMethod{
-
+  @Input('choose') choose: any[] = [];
+  
   text: string;
 
   constructor(public common:CommonProvider, public tool:ToolsProvider, public util:UtilProvider,public basket:BasketDataProvider){
@@ -24,4 +25,7 @@ export class SixingyimabudingweiComponent extends commonMethod{
     this.text = 'Hello World';
   }
 
+  check(choice){
+    return this.choose.indexOf(choice) > -1
+  }
 }

@@ -21,27 +21,34 @@
                                 </li>                                   
                         </ul>
 
-                          <!-- 
                         <ul class="yilou statistic" *ngIf="check('当前遗漏')">
-                            <li *ngFor ="let detail of common.missData.qszxhz.current.slice(ii*7,(ii+1)*7)" [class.active]="checkMax(detail,common.missData.qszxhz.current)">{{detail}}</li>             
-                        </ul>
-                            
-                        <ul class="lengre statistic" *ngIf="check('30期冷热')">
-                            <li *ngFor ="let detail of common.missData.qszxhz.hot.slice(ii*7,(ii+1)*7)" [ngClass]="checkLengRe(detail,common.missData.qszxhz.hot)">{{detail}}</li>
-                        </ul>
-            
-                        <ul class="lengre statistic" *ngIf="check('平均遗漏')">
-                            <li *ngFor ="let detail of common.missData.qszxhz.average.slice(ii*7,(ii+1)*7)">{{detail}}</li>
-                        </ul>
-            
-                        <ul class="lengre statistic" *ngIf="check('最大遗漏')">
-                            <li *ngFor ="let detail of common.missData.qszxhz.max.slice(ii*7,(ii+1)*7)">{{detail}}</li>
-                        </ul>                -->
+                                <li *ngFor ="let detail of common.missData.zszuxhz.current.slice(ii*7,(ii+1)*7)" [class.active]="checkMax(detail,common.missData.qszxhz.current)">{{detail}}</li>   
+                                <li *ngIf="ii == common.ballData.length - 1 "></li>          
+                                <li *ngIf="ii == common.ballData.length - 1 "></li>          
+                            </ul>
+                                    
+                            <ul class="lengre statistic" *ngIf="check('30期冷热')">
+                                <li *ngFor ="let detail of common.missData.zszuxhz.hot.slice(ii*7,(ii+1)*7)" [ngClass]="checkLengRe(detail,common.missData.qszxhz.hot)">{{detail}}</li>
+                                <li *ngIf="ii == common.ballData.length - 1 "></li>          
+                                <li *ngIf="ii == common.ballData.length - 1 "></li> 
+                            </ul>
+                
+                            <ul class="lengre statistic" *ngIf="check('平均遗漏')">
+                                <li *ngFor ="let detail of common.missData.zszuxhz.average.slice(ii*7,(ii+1)*7)">{{detail}}</li>
+                                <li *ngIf="ii == common.ballData.length - 1 "></li>          
+                                <li *ngIf="ii == common.ballData.length - 1 "></li> 
+                            </ul>
+                
+                            <ul class="lengre statistic" *ngIf="check('最大遗漏')">
+                                <li *ngFor ="let detail of common.missData.zszuxhz.max.slice(ii*7,(ii+1)*7)">{{detail}}</li>
+                                <li *ngIf="ii == common.ballData.length - 1 "></li>          
+                                <li *ngIf="ii == common.ballData.length - 1 "></li> 
+                            </ul>               
                     
                     </div>
                 </div>              
 </div>
 
-<div class="btn-list" style="margin:10px auto">
+<div class="btn-list" style="margin:10px auto 40px auto">
     <a href="javascript:;" *ngFor="let detail of common.singleBtn;let j = index" [class.current]="detail.flag" (click)="changeActive(null,j,detail.name)">{{detail.name}} <span></span></a>
  </div>

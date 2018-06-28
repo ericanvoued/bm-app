@@ -49,4 +49,7 @@ export class QisantesuhaomaComponent extends commonMethod{
     return count
   }
 
+  getOriginLotteryText(){
+    return this.getCommonData().map(ele => ele.map(item => this.qqq(item) + ' ').join('')).join('| ')
+  }
 }

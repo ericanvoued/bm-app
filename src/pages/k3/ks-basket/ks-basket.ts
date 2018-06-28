@@ -35,8 +35,25 @@ export class KsBasketPage extends KsBasketAction {
     $('.balance').text(JSON.parse(localStorage.getItem('userInfo')).available);
   }
 
+  dealWithPrizegroup() {
+
+    var prize_group = parseInt($('.money-btn-1 i').text());
+    console.log('prize_group====' + prize_group)
+    var ballarr = JSON.parse(localStorage.balls);
+    console.log('balls====' + ballarr)
+    var total_multiple = $('#bei_input').val();
+    for (var i = 0; i < ballarr.length; i++) {
+
+      ballarr[i].multiple = parseInt(total_multiple) * parseInt(ballarr[i].multiple);
+      ballarr[i].prize_group = prize_group;
+    }
+    localStorage.balls = JSON.stringify(ballarr);
+
+  }
+
 
   betClick() {
+    this.dealWithPrizegroup();
     const that = this;
     if (localStorage.balls == null || JSON.parse(localStorage.balls).length == 0) {
       return;
