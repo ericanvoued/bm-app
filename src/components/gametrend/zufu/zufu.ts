@@ -53,6 +53,7 @@ export class ZufuComponent {
       })
   
       console.log(this.historyRecord)
+      console.log(this.common.ballData)
   }
 
   ngOnInit(){
@@ -79,7 +80,7 @@ export class ZufuComponent {
   getKaijiang(){
     console.log(this.common.method)
     this.kaijiangData = this.historyRecord.map((ele,index) => {
-      let sum = ele.history.reduce((l,r) => (+l) + (+r))
+      let sum = ele.history.slice(this.position[0], this.position[1]).reduce((l,r) => (+l) + (+r))
       let max = Math.max(...ele.history)
       let min = Math.min(...ele.history)
       let gap = max - min

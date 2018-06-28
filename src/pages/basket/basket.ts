@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { BasketDataProvider } from '../../providers/basket-data/basket-data'
 import { CommonProvider } from "../../providers/common/common";
 import { trigger ,state,transition,animate,style} from "@angular/animations";
+import * as $ from 'jquery'
 import { UtilProvider } from '../../providers/util/util'
 import { HttpClientProvider } from '../../providers/http-client/http-client'
 
@@ -22,11 +23,11 @@ declare var encrypt
   animations:[
     trigger('show',[
        state('visable',style({
-        opacity: 1,
+        display: 'block',
         // transform:'translate3d(0, 0, 0)'
        })),
        state('invisable', style({
-         opacity: 0,
+         display: 'none',
        // transform:'translate3d(0, 100%, 0)'
        })),
        //transition('* => *',animate('.3s'))
@@ -38,7 +39,7 @@ export class BasketPage {
   show:string = "invisable"
   arr:any[] = []
 
-  balance:number = 100
+  balance:any
 
   componentRef:ComponentRef<any>
 
@@ -46,10 +47,20 @@ export class BasketPage {
     for(let i = 0;i<30;i++){
        this.arr.push(i)
     }
+    let self = this
+
+    $(document).on('click','body',function(){
+       if(self.show == 'visable' && !$(this).hasClass('fandian-number')){
+         self.show = 'invisable'
+         console.log('fffff')
+       }  
+    })
+    this.balance = this.common.getBalance()
     //此处获取需要机选注单的实例  
     //this.componentRef = this.navParams.get('index')
-   
   }
+
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BasketPage');
@@ -64,7 +75,7 @@ export class BasketPage {
        return
 
     let mutiple = this.basket.statistic.multiple + number
-    if(this.basket.totalAmount*(mutiple/this.basket.statistic.multiple) > this.balance){
+    if(this.basket.totalAmount*(mutiple/this.basket.statistic.multiple) > +JSON.parse(localStorage.getItem('userInfo')).available){
         this.presentRecharge()
         return 
     }
@@ -77,7 +88,7 @@ export class BasketPage {
       return
 
    let trace = this.basket.statistic.trace + number
-   if(this.basket.totalAmount*(trace/this.basket.statistic.trace) > this.balance){
+   if(this.basket.totalAmount*(trace/this.basket.statistic.trace) > +JSON.parse(localStorage.getItem('userInfo')).available){
        this.presentRecharge()
        return 
    }
@@ -147,13 +158,26 @@ export class BasketPage {
 }
 
   confirmBet(){
-     let result = {}, ballsData = this.basket.betData, len = ballsData.length, i = 0;
+     console.log(this.basket.betData)
+
+     if($('#trace').attr('checked')){
+         console.log('ooooo')
+     }
+
+     let result = {}, ballsData = this.basket.betData, len = ballsData.length, i = 0, total = [];
      result['gameId'] = this.common.gameId
-     result['isTrace'] = 0
-     result['traceStopValue'] = 1
-     result['traceWinStop'] = 1
+     result['isTrace'] = this.basket.statistic.trace > 1 ? 1 : 0
+     result['traceStopValue'] = this.basket.statistic.trace
+     result['traceWinStop'] = $('#trace').attr('checked') ? 1 : 0
      result['orders'] = {}
-     result['orders'][this.common.currentNumber] = 1
+     
+     for(let i = 0; i < this.basket.statistic.trace; i++){
+            let key =  +this.common.currentNumber + i + ''
+            let qq = {[key]:1}
+            result['orders'] = {...result['orders'],[key]:1}
+     }
+
+    // result['orders'] = total
      result['amount'] = this.basket.totalAmount
      result['is_encoded'] = 1
      result['bet_source'] = 'h5'
@@ -182,11 +206,14 @@ export class BasketPage {
       result['balls'] = encrypt(JSON.stringify(result['balls']))
 
       let url = '/api-lotteries-h5/bet/' + this.common.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token
-      alert('sss')
+
+    
       this.http.postData(url,result).then(data => {
         console.log(data)
-        window.alert('eee')
         if(data.isSuccess == 1){
+          this.basket.clearBasket()
+
+          this.balance = this.common.getBalance()
           let alert = this.alertCtrl.create({
             title: '恭喜您',
             message: '投注已成功，祝你好运!',

@@ -27,6 +27,11 @@ export class QiansanzuxuandantuoComponent extends commonMethod{
     this.text = 'Hello World';
   }
 
+  getOriginLotteryText(){
+    return this.getCommonData().map(ele => ele.map(item => ('0' + (item + 1)).slice(-2)).join(' ')).join('|')
+   // return this.getCommonData()[0].map(ele => ('0' + (ele + 1)).slice(-2)).join(' ')
+  }
+
   randomOneOrder(){
     let temp,arr;
     this.common.ballData = this.common.ballData.map((item,index) => {

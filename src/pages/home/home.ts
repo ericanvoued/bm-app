@@ -5,7 +5,7 @@ import { CommonProvider } from "../../providers/common/common";
 
 import {HotGmageListPage} from '../hot-gmage-list/hot-gmage-list';
 import { InfoCenterPage } from '../info-center/info-center'
-
+import { BasketDataProvider } from '../../providers/basket-data/basket-data'
 import {LhcSlidePage} from "../lhc/lhc-slide/lhc-slide";
 import {KsPage } from "../k3/ks/ks";
 declare var Swiper;
@@ -26,7 +26,7 @@ export class HomePage {
 
   constructor(public navCtrl: NavController,
               public homePrv: HomeProvider,
-              public modalCtrl: ModalController, public common:CommonProvider) {
+              public modalCtrl: ModalController, public common:CommonProvider, public basket:BasketDataProvider) {
 
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
@@ -39,9 +39,11 @@ export class HomePage {
   ionViewDidEnter(){
     if(this.common.timer){
       clearInterval(this.common.timer)
-      this.common.resetLotteryData()
-      
+      this.common.resetLotteryData()   
     }
+    console.log('clear')
+    this.basket.clearBasket()
+    
     this.homePrv.loadHotLottory();
     this.swiper_init()
     console.log(this.homePrv.homeData.lottorys)

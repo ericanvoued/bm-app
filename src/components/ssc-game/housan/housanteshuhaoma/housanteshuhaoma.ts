@@ -41,4 +41,8 @@ export class HousanteshuhaomaComponent extends commonMethod{
     return this.getCommonData().map(ele =>  ele.map(item => this.qqq(item))).join(' ')
   }
 
+  getOriginLotteryText(){
+    return this.getCommonData().map(ele => ele.map(item => this.qqq(item) + ' ').join('')).join('| ')
+  }
+
 }

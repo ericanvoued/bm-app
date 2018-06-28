@@ -34,7 +34,7 @@ export class HomeProvider {
 
 
   homeData = {
-    redicret_url:['SscPage','','','','','','Xuan5Page','','','','','KsPage','','','','','LhcSlidePage'],
+    redicret_url:['SscPage','','','','','','','Xuan5Page','','','','KsPage','','','','','LhcSlidePage'],
     banner:[{'redirect_url':'','title':'','name':'','pic_url':''}],
     lottoryList:null,
     lottories:[{url:''}],
@@ -107,7 +107,7 @@ export class HomeProvider {
   }
 
   // 获取热门彩种
-  loadHotLottory(_lottory) {
+  loadHotLottory(_lottory?) {
     this.homeData.lottorys = JSON.parse(localStorage.getItem('lottorys'));
     if (this.homeData.lottorys) {
       return this.homeData.lottorys;

@@ -17,13 +17,22 @@ import { BasketDataProvider } from '../../../../providers/basket-data/basket-dat
   templateUrl: 'qiansanzuxuanfushi.html'
 })
 export class QiansanzuxuanfushiComponent extends commonMethod{
-
+  @Input('choose') choose: any[] = [];
+  
   text: string;
 
   constructor(public common:CommonProvider, public util:UtilProvider,public tool:ToolsProvider,public basket:BasketDataProvider) {
     super(common,util,basket)     
     console.log('Hello QiansanzuxuanfushiComponent Component');
     this.text = 'Hello World'
+  }
+
+  check(choice){
+    return this.choose.indexOf(choice) > -1
+  }
+
+  getOriginLotteryText(){
+      return this.getCommonData()[0].map(ele => ('0' + (ele + 1)).slice(-2)).join(' ')
   }
 
   randomOneOrder(){

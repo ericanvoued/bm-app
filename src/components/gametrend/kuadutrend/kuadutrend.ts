@@ -42,6 +42,8 @@ export class KuadutrendComponent {
 
     chooseIndex:number;
 
+    complexData:any
+
     constructor(public common:CommonProvider,public util:UtilProvider) {
       console.log('Hello KuadutrendComponent Component');
       console.log(this.common.historyList)
@@ -59,6 +61,7 @@ export class KuadutrendComponent {
       console.log(this.position)
       this.contentSlides.initialSlide = this.chooseIndex
       this.choose = this.menus[this.chooseIndex]
+      this.judgeHeadTitle()
       this.getKaijiang()
       this.getNumberTrend()
       this.getKuaduData()
@@ -75,7 +78,7 @@ export class KuadutrendComponent {
       this.choose = this.menus[index]
     }
 
-    getKaijiang(){
+    getKaijiang1(){
       if(this.common.method == '二星'){
           if(this.common.smallMethod == '前二跨度')
               this.kaijiangData = this.historyRecord.map((ele,index) => {
@@ -124,6 +127,34 @@ export class KuadutrendComponent {
         }
     }
 
+    getKaijiang(){
+        this.kaijiangData = this.historyRecord.map((ele,index) => {
+            let arr = []
+
+            if(this.common.secondKind == '五星不定位'){
+                let sum = ele.history.slice(this.position[0], this.position[1]).reduce((l,r) => (+l) + (+r))
+                let max = Math.max(...ele.history)
+                let min = Math.min(...ele.history)
+                let gap = max - min
+                let da = ele.history.filter(el => el >= 5).length
+                let daxiao = da + ':' + (5 - da)
+                let odd = ele.history.filter(el => el%2 != 0).length
+                let oddeven = odd + ':' + (5 -odd)
+                arr.push(...[sum,gap,daxiao,oddeven])
+            }else{
+                for(let i = this.position[0]; i<this.position[1]; i++){
+                    arr.push(this.judgeKind(ele.history[i]))
+                }
+                if(this.position[1] - this.position[0] == 3)
+                arr.push(this.tellZu(ele.history.slice(this.position[0],this.position[1])))
+            }
+               
+            
+            return {...ele, data:arr}
+          })      
+    }
+
+
     tellZu(balls){
       let temp = []
       for(let i = 0;i<balls.length;i++){
@@ -143,6 +174,37 @@ export class KuadutrendComponent {
           return '大单'
       if(number%2 != 0 && number < 5)
           return '小单'
+    }
+
+    judgeHeadTitle(){
+        if(this.position[0] == 0 && this.position[1] == 3){
+            this.complexData =  {title:['万位','千位','百位','前三形态'], class:'qiansan'}
+        }
+
+        if(this.position[0] == 1 && this.position[1] == 4){
+            this.complexData =  {title:['千位','百位','十位','中三形态'], class:'zhongsan'}
+        }
+
+        if(this.position[0] == 2 && this.position[1] == 5){
+            this.complexData =  {title:['百位','十位','个位','后三形态'], class:'housan'}
+        }
+
+        if(this.position[0] == 1 && this.position[1] == 5){
+            this.complexData =  {title:['千位','百位','十位','个位'], class:'sixing'}
+        }
+
+        if(this.position[0] == 0 && this.position[1] == 5){
+            console.log('fwgwgwefwef')
+            this.complexData =  {title:['和值','跨度','大小比','奇偶比'], class:'wuxing'}
+        }
+
+        if(this.position[0] == 0 && this.position[1] == 2){
+            this.complexData =  {title:['万位','千位'], class:'qianer'}
+        }
+
+        if(this.position[0] == 3 && this.position[1] == 5){
+            this.complexData =  {title:['十位','个位'], class:'houer'}
+        }
     }
 
     existZuxuan(){

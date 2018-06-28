@@ -63,8 +63,13 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
 
   sumArr:any[]
 
+  category:any[] = ['hot','average','max','current']
+  
+  //遗漏数据
+  statisticData:any[]
+
   constructor(public common:CommonProvider,public util:UtilProvider, public ssc:SscServiceProvider) {
-    console.log(this.common.ballData);
+    console.log(this.common.ballData)
     console.log(this.common.historyList) 
     //this.historyRecord = this.util.historyNumbers.slice(0,this.page*30)
    
@@ -72,7 +77,7 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
       return {...ele, number:ele.number.substr(2,ele.number.length),history:ele.code.split('').map(ele => parseInt(ele))}
     })
 
- console.log(this.historyRecord)
+    console.log(this.historyRecord)
     //this.qishu = this.qishu.slice(0,1).concat()
   }
 
@@ -108,7 +113,7 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
 
     this.getKaijiang()
     this.getNumberTrend()
-
+    this.getStatisticData()
     this.getHezhiTrend()
     this.getColdHot()
 
@@ -354,5 +359,34 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
      else
         return false
     // return this.common.ballData[Math.floor(number/7)].value[number%7] == 1
+  }
+
+  getStatisticData(){
+     switch(this.common.method){
+          case '前三':
+               return this.statisticData = this.common.missData.qszx
+          case '中三':
+               return this.statisticData = this.common.missData.zszx  
+          case '后三':
+               return this.statisticData = this.common.missData.hszx  
+          case '二星':
+               if(this.common.smallMethod == '后二和值')  
+                  return this.statisticData = this.common.missData.hezuxfs    
+               else   
+                  return this.statisticData = this.common.missData.qezuxfs
+     }          
+  }
+
+  getTitle(item){
+    switch(item) {
+      case 'hot':
+           return '出现次数';
+      case 'average':
+           return '平均遗漏';
+      case 'max':
+           return '最大遗漏';
+      case 'current':
+           return '当前遗漏';                       
+    }
   }
 }

@@ -2,6 +2,14 @@
 <div class="shakePhone" (click)="randomChoose()"></div>  
 <div>{{common.smallKind.bonus_note}} {{util.formatMoney(common.bonus)}} 元</div>
 <div class="l-game" *ngFor="let data of common.ballData;let ii = index" style="margin-bottom:0">
+        <div class="l hezi">
+                <p><span></span>和值</p>
+                <p style="margin-top:18px" *ngIf="check('当前遗漏')"><span></span>遗漏</p>
+                <p style="margin-top:18px" *ngIf="check('30期冷热')"><span></span>冷热</p>
+                <p style="margin-top:18px" *ngIf="check('平均遗漏')"><span></span>平均</p>
+                <p style="margin-top:18px" *ngIf="check('最大遗漏')"><span></span>最大</p>     
+        </div>
+
                 <div class="r" style="padding-right:10px">
                     <div class="ball-list">
                         <ul class="ball-choose">
@@ -12,9 +20,37 @@
                             </li>
                         </ul>
                     
-                        <!-- <div class="btn-list">
-                            <a href="javascript:;" *ngFor="let detail of common.btn[ii];let j = index" [class.current]="detail.flag" >{{detail.name}} <span></span></a>
-                        </div> -->
+                        <ul class="yilou statistic" *ngIf="check('当前遗漏')">
+                                <li *ngFor ="let detail of common.missData.qezuxhz.current.slice(ii*7,(ii+1)*7)" [class.active]="checkMax(detail,common.missData.qezuxhz.current)">{{detail}}</li>   
+                                <li *ngIf="ii == common.ballData.length - 1 "></li>          
+                                <li *ngIf="ii == common.ballData.length - 1 "></li>          
+                                <li *ngIf="ii == common.ballData.length - 1 "></li>          
+                                <li *ngIf="ii == common.ballData.length - 1 "></li>          
+                            </ul>
+                                    
+                            <ul class="lengre statistic" *ngIf="check('30期冷热')">
+                                <li *ngFor ="let detail of common.missData.qezuxhz.hot.slice(ii*7,(ii+1)*7)" [ngClass]="checkLengRe(detail,common.missData.qezuxhz.hot)">{{detail}}</li>
+                                <li *ngIf="ii == common.ballData.length - 1 "></li>          
+                                <li *ngIf="ii == common.ballData.length - 1 "></li> 
+                                <li *ngIf="ii == common.ballData.length - 1 "></li> 
+                                <li *ngIf="ii == common.ballData.length - 1 "></li> 
+                            </ul>
+                
+                            <ul class="lengre statistic" *ngIf="check('平均遗漏')">
+                                <li *ngFor ="let detail of common.missData.qezuxhz.average.slice(ii*7,(ii+1)*7)">{{detail}}</li>
+                                <li *ngIf="ii == common.ballData.length - 1 "></li>          
+                                <li *ngIf="ii == common.ballData.length - 1 "></li> 
+                                <li *ngIf="ii == common.ballData.length - 1 "></li> 
+                                <li *ngIf="ii == common.ballData.length - 1 "></li> 
+                            </ul>
+                
+                            <ul class="lengre statistic" *ngIf="check('最大遗漏')">
+                                <li *ngFor ="let detail of common.missData.qezuxhz.max.slice(ii*7,(ii+1)*7)">{{detail}}</li>
+                                <li *ngIf="ii == common.ballData.length - 1 "></li>          
+                                <li *ngIf="ii == common.ballData.length - 1 "></li> 
+                                <li *ngIf="ii == common.ballData.length - 1 "></li> 
+                                <li *ngIf="ii == common.ballData.length - 1 "></li> 
+                            </ul>  
                     </div>
                 </div>              
 </div>

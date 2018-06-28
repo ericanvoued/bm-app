@@ -3,8 +3,11 @@
 
 <div class="l-game" *ngFor="let data of common.ballData;let ii = index" >
     <div class="l">
-        <p><span></span>{{data.key}}</p>
-        <p style="margin-top:18px"><span></span>遗漏</p>
+        <p><span></span>{{getDWei(data.key)}}</p>
+        <p style="margin-top:18px" *ngIf="check('当前遗漏')"><span></span>遗漏</p>
+        <p style="margin-top:18px" *ngIf="check('30期冷热')"><span></span>冷热</p>
+        <p style="margin-top:18px" *ngIf="check('平均遗漏')"><span></span>平均</p>
+        <p style="margin-top:18px" *ngIf="check('最大遗漏')"><span></span>最大</p> 
       
     </div>
 
@@ -16,12 +19,52 @@
                 </li>
             </ul>
 
+            <ul class="yilou statistic" *ngIf="check('当前遗漏')">
+                <li *ngFor ="let detail of common.missData.qszxfs.current[ii].slice(0,6)" [class.active]="checkMax(detail,common.missData.qszxfs.current[ii])">{{detail}}</li>  
+                   
+            </ul>
+                
+            <ul class="lengre statistic" *ngIf="check('30期冷热')">
+                <li *ngFor ="let detail of common.missData.qszxfs.hot[ii].slice(0,6)" [ngClass]="checkLengRe(detail,common.missData.qszxfs.hot[ii])">{{detail}}</li>
+               
+            </ul>
+
+            <ul class="lengre statistic" *ngIf="check('平均遗漏')">
+                <li *ngFor ="let detail of common.missData.qszxfs.average[ii].slice(0,6)">{{detail}}</li>
+               
+            </ul>
+
+            <ul class="lengre statistic" *ngIf="check('最大遗漏')">
+                <li *ngFor ="let detail of common.missData.qszxfs.max[ii].slice(0,6)">{{detail}}</li>
+               
+            </ul>
+
             <ul  class="ball-choose">
                 <li *ngFor="let item of [0,1,2,3,4,5];let i = index" [class.current]="data.value[i+6] == 1" [class.blank]="i > 4" >
                     <span *ngIf="i <= 4" (click)="changeToggle(ii,i+6)">{{ppp(i)}}</span>
                     <span *ngIf="i > 4"></span>  
                     <span *ngIf="i <= 4" class="tip-block">{{ppp(i)}}</span>
                 </li>
+            </ul>
+
+            <ul class="yilou statistic" *ngIf="check('当前遗漏')">
+                <li *ngFor ="let detail of common.missData.qszxfs.current[ii].slice(-5)" [class.active]="checkMax(detail,common.missData.qszxfs.current[ii])">{{detail}}</li>             
+                <li></li>             
+            </ul>
+
+            <ul class="lengre statistic" *ngIf="check('30期冷热')">
+                <li *ngFor ="let detail of common.missData.qszxfs.hot[ii].slice(-5)" [ngClass]="checkLengRe(detail,common.missData.qszxfs.hot[ii])">{{detail}}</li>
+                <li></li>
+            </ul>
+
+            <ul class="lengre statistic" *ngIf="check('平均遗漏')">
+                <li *ngFor ="let detail of common.missData.qszxfs.average[ii].slice(-5)">{{detail}}</li>
+                <li></li>
+            </ul>
+
+            <ul class="lengre statistic" *ngIf="check('最大遗漏')">
+                <li *ngFor ="let detail of common.missData.qszxfs.max[ii].slice(-5)">{{detail}}</li>  
+                <li></li>          
             </ul>
         
             <div class="btn-list">

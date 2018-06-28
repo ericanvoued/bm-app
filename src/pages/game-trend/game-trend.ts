@@ -40,7 +40,7 @@ export class GameTrendPage {
       this.observer = observer;
     })
 
-    
+    this.common.getMissObservable()
 
     $('body').on('touchstart', '.ball-choose', function(){
        let text = $(this).find('span').text()
@@ -275,6 +275,7 @@ export class GameTrendPage {
     const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(component)
     this.componentRef = this.nocontainer.createComponent(factory)
     this.common.componentRef = this.componentRef
+    this.common.getMissObservable()
     this.drawTrend()
     //this.componentRef.instance.choose = this.haveChoosen
   }

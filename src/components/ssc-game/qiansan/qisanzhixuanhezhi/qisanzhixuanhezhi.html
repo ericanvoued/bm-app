@@ -18,7 +18,7 @@
                                 <span class="tip-block">{{ii*7 + i}}</span>
                             </li>
                         </ul>
-<!-- 
+
                         <ul class="yilou statistic" *ngIf="check('当前遗漏')">
                             <li *ngFor ="let detail of common.missData.qszxhz.current.slice(ii*7,(ii+1)*7)" [class.active]="checkMax(detail,common.missData.qszxhz.current)">{{detail}}</li>             
                         </ul>
@@ -28,17 +28,17 @@
                         </ul>
             
                         <ul class="lengre statistic" *ngIf="check('平均遗漏')">
-                            <li *ngFor ="let detail of common.missData.qszxhz.average.slice(ii*7,(ii+1)*7)">{{detail}}</li>
+                            <li *ngFor ="let detail of common.missData.qszxhz.average.slice(ii*7,(ii+1)*7)">{{detail}}</li> 
                         </ul>
             
                         <ul class="lengre statistic" *ngIf="check('最大遗漏')">
                             <li *ngFor ="let detail of common.missData.qszxhz.max.slice(ii*7,(ii+1)*7)">{{detail}}</li>
-                        </ul>                -->
+                        </ul>               
                     </div>
                 </div>              
 </div>
 
-<div class="btn-list" style="margin:10px auto">
+<div class="btn-list" style="margin:10px auto 40px auto">
     <a href="javascript:;" *ngFor="let detail of common.singleBtn;let j = index" [class.current]="detail.flag" (click)="changeActive(null,j,detail.name)">{{detail.name}} <span></span></a>
 </div>
 

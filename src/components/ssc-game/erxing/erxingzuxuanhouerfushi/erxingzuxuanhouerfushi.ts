@@ -17,11 +17,17 @@ import { BasketDataProvider } from '../../../../providers/basket-data/basket-dat
   templateUrl: 'erxingzuxuanhouerfushi.html'
 })
 export class ErxingzuxuanhouerfushiComponent extends commonMethod{
+  @Input('choose') choose: any[] = [];
+  
   text: string;
 
   constructor(public common:CommonProvider, public tool:ToolsProvider,public util:UtilProvider,public basket:BasketDataProvider) {
     super(common,util,basket) 
     this.text = 'Hello World';
+  }
+
+  check(choice){
+    return this.choose.indexOf(choice) > -1
   }
 
   randomOneOrder(){

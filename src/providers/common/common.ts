@@ -149,7 +149,7 @@ export class CommonProvider {
         console.log('wcnmb')
         let url = '/api-lotteries-h5/load-data/2/' + this.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token
         let params = {_token:JSON.parse(localStorage.getItem('userInfo')).token}
-        this.gameMethodConfig = (await this.http.postData(url,params)).data.game_ways
+        this.gameMethodConfig = (await this.http.fetchData(url)).data.game_ways
         
         console.log(this.gameMethodConfig )
         // this.data = (await this.http.fetchData(name)).list;
@@ -338,14 +338,14 @@ export class CommonProvider {
     async fetchRecord():Promise<any>{
         console.log('fetchdata')
         this.historyList = (await this.http.fetchData('/api-lotteries-h5/load-issues/' + this.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)).data
-        console.log(this.historyList)
         return new Promise((resolve,reject) =>{
             resolve()
         })
     }
     
     async getCountDownTime():Promise<any>{
-        let data = (await this.http.postData('/api-lotteries-h5/load-data/1/' + this.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token, {_token:JSON.parse(localStorage.getItem('userInfo')).token})).data
+        //let data = (await this.http.postData('/api-lotteries-h5/load-data/1/' + this.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token, {_token:JSON.parse(localStorage.getItem('userInfo')).token})).data
+        let data = (await this.http.fetchData('/api-lotteries-h5/load-data/1/' + this.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)).data
         console.log(data)
         this.prizeGroup = []
         this.prizeGroup.push(data.bet_max_prize_group + '-' + Number((data.user_prize_group - data.bet_max_prize_group)/data.series_amount).toFixed(2) + '%')
@@ -359,14 +359,14 @@ export class CommonProvider {
 
     async getMissObservable(){
       // this.missData =  this.http.fetchData('/api-lotteries-h5/getnewlottterymissed/' + this.gameId + '/30?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)
-       this.missData =  (await this.http.fetchData('/api-lotteries-h5/getnewlottterymissed/' + this.gameId + '/30?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)).data
+       this.missData =  (await this.http.fetchData('/api-lotteries-h5/getnewlottterymissed/' + this.gameId + '/30')).data
+       console.log(this.missData)
 
     }
 
-    //获取遗漏等数据
-    // async getLotteryMiss(){
-    //     console.log('fetchdata')
-    //     this.missLottery = (await this.http.fetchData('/api-lotteries-h5/getnewlottterymissed/' + this.gameId + '/30?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)).data
-    //     console.log(this.missLottery)
-    // }
+    async getBalance(){
+       let balance =  (await this.http.fetchData('/h5api-withdrawals/withdraw?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)).data.accounts.available
+       console.log(balance)
+       return balance
+    }
 }
