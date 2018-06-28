@@ -5,14 +5,14 @@ export class KsBasketAction {
 
   initView() {
 
-
     this.loadData();
     this.zhuiJiaJian();
     this.beiJiaJian();
     this.initClick();
     this.initRebate();
-    this.calculateMoney();
 
+    this.initMinMultiple();
+    this.calculateMoney();
   }
 
   initClick() {
@@ -37,7 +37,6 @@ export class KsBasketAction {
       $('.money-menu').toggleClass('hide');
     })
 
-
     $('.win-select').on('click', function () {
 
       if ($('.win-select input').attr('checked') == 'checked') {
@@ -52,7 +51,6 @@ export class KsBasketAction {
       }
 
     })
-
 
   }
 
@@ -103,9 +101,7 @@ export class KsBasketAction {
       // localStorage.balls = JSON.stringify(arr);
     });
 
-
   }
-
 
   /*
    机选
@@ -227,8 +223,9 @@ export class KsBasketAction {
         _this.loadData();
         break;
     }
-
+    _this.initMinMultiple();
     _this.calculateMoney();
+
   }
 
 
@@ -257,6 +254,7 @@ export class KsBasketAction {
         "multiple": 1,
         "onePrice": 2,
         "prize_group": localStorage.bet_max_prize_group,
+        "max_multiple":localStorage.max_multiple,
         "wanfa": wanfa,
         "price": 2 * localStorage.moneyunit,
       };
@@ -269,7 +267,6 @@ export class KsBasketAction {
     } else {
 
       let balldata = JSON.parse(ball);
-
       if (_this.isNumDuplication(betinfo).j == 1) {
         ballsitem = JSON.stringify(_this.isNumDuplication(betinfo).data);
       } else {
@@ -277,7 +274,6 @@ export class KsBasketAction {
         ballsitem = JSON.stringify(balldata);
       }
     }
-
     localStorage.balls = ballsitem;
 
   }
@@ -314,16 +310,19 @@ export class KsBasketAction {
   loadData() {
 
     let list = "";
-
     if (localStorage.balls == null)
       return;
     let arr = JSON.parse(localStorage.balls);
-
     console.log(arr);
+    var total_multiple = $('#bei_input').val();
+
     for (let i = 0; i < arr.length; i++) {
 
-      let price = parseInt(arr[i].num) * 2;
-
+      let mutiple = parseInt(total_multiple) * parseInt(arr[i].multiple);
+      arr[i].multiple = mutiple;
+      // let price = parseInt(arr[i].num) * 2;
+      let price = mutiple * parseInt(arr[i].onePrice) * parseInt(arr[i].num) * parseFloat(arr[i].moneyunit);
+      arr[i].price = price;
       let item = '<li class="buy-li clear">\n' +
         '        <div class="li-close">\n' +
         '         <ion-icon name="ios-close-circle-outline" role="img" class="icon icon-ios ion-ios-close-circle-outline" aria-label="close circle-outline" ng-reflect-name="ios-close-circle-outline"></ion-icon>' +
@@ -334,13 +333,13 @@ export class KsBasketAction {
         '              <i>' + arr[i].ball + '</i>\n' +
         '            </i>\n' +
         '          </div>\n' +
-        '          <div class="mt5"><span class="direct-select">' + arr[i].wanfa + '</span> <span>' + arr[i].num + '注' + arr[i].price + '元</span>\n' +
+        '          <div class="mt5"><span class="direct-select">' + arr[i].wanfa + '</span> <span>' + arr[i].num + '注' + arr[i].multiple + '倍' + price + '元</span>\n' +
         '          </div>\n' +
         '        </div><div class="dian"></div>\n' +
         '      </li>';
       list += item;
     }
-
+    // localStorage.balls = JSON.stringify(arr);
     $('.buy-list').html(list);
     this.closeBtnClick();
   }
@@ -353,8 +352,6 @@ export class KsBasketAction {
 
       $(this).on('click', function () {
 
-        console.log('======')
-
         let indexx = $(this).parent().index();
         $('.buy-list .buy-li').eq(indexx).remove();
         //记录索引，删除缓存数组中对应的值， 并且删除对应ui
@@ -366,6 +363,7 @@ export class KsBasketAction {
         localStorage.balls = JSON.stringify(dataa);
         // let arr = JSON.parse(localStorage.balls);
         // alert(arr.length);
+        _this.initMinMultiple();
         _this.calculateMoney();
 
       });
@@ -400,9 +398,11 @@ export class KsBasketAction {
           if (parseInt(zhi) > parseInt(times)) {
             $('#zhui_input').val(localStorage.trace_max_times);
           }
-          $('.qi').text($('#zhui_input').val());
+          // $('.qi').text($('#zhui_input').val());
 
         }
+
+        $('.qi').text($('#zhui_input').val());
         _this.calculateMoney();
 
       });
@@ -410,11 +410,11 @@ export class KsBasketAction {
     });
 
 
-    $("#zhui_input").change(function(){
+    $("#zhui_input").change(function () {
 
-      if(parseInt($(this).val()) > parseInt(localStorage.trace_max_times)){
+      if (parseInt($(this).val()) > parseInt(localStorage.trace_max_times)) {
         $(this).val(localStorage.trace_max_times);
-      }else{
+      } else {
         $(this).val(parseInt($(this).val()));
       }
       $('.qi').text($('#zhui_input').val());
@@ -438,91 +438,110 @@ export class KsBasketAction {
           if (num == 1) {
             obj.val(1);
           } else {
-            obj.val((num|0)-1);
+            obj.val((num | 0) - 1);
           }
         } else if ($(this).index() == 2) { //加
 
           var num = obj.val();
-          obj.val((num|0)+1);
-
-          var zhi =  $('#bei_input').val();
+          obj.val((num | 0) + 1);
+          var zhi = $('#bei_input').val();
           var min = localStorage.min_multiple;
 
-          console.log('localStorage.min_multiple=='+localStorage.min_multiple)
-          if(parseInt(zhi) > parseInt(min)) {
+          console.log('localStorage.min_multiple==' + localStorage.min_multiple)
+          if (parseInt(zhi) > parseInt(min)) {
             $('#bei_input').val(localStorage.min_multiple);
           }
         }
 
+        _this.loadData();
         _this.calculateMoney();
-
       });
 
     });
 
-    // $("#beishudiv input").change(function(){
-    //   if(parseInt($(this).val()) > parseInt(localStorage.min_multiple)){
-    //     $(this).val(localStorage.min_multiple);
-    //     calculateMoney();
-    //     loadBuylist();
-    //   }else {
-    //     calculateMoney();
-    //     loadBuylist();
-    //   }
-    // });
+    $("#bei_input").change(function () {
+      console.log('localStorage.min_multipl==='+localStorage.min_multipl)
+      if (parseInt($(this).val()) > parseInt(localStorage.min_multiple)) {
+        $(this).val(localStorage.min_multiple);
+        _this.loadData();
+        _this.calculateMoney();
+
+      } else {
+        _this.loadData();
+        _this.calculateMoney();
+
+      }
+    });
   }
 
-
-   initMinMultiple() {
+  firstMoney;
+  initMinMultiple() {
 
     //     "max_multiple":localStorage.max_multiple 最大限制倍数
-
     // alert(localStorage.balls);
-    $('.buy-balance').text('余额： '+localStorage.available);
+    // $('.buy-balance').text('余额： '+localStorage.available);
     var arr = JSON.parse(localStorage.balls);
-    var zhu=0,money=0,max_multiple=arr[0].max_multiple;
+    var zhu = 0, money = 0, max_multiple = arr[0].max_multiple;
 
     // min_multiple 这个是动态变化的！ === 最大倍数/当前倍数
     // 找出这个 max_multiple 最小的值 对应的 最大的投注数
     // alert("min_multiple=======111"+min_multiple);
-
     var min_max_arr = [];
-    for(var i=0;i<arr.length;i++){
+    for (var i = 0; i < arr.length; i++) {
       zhu = zhu + parseInt(arr[i].num);
-      var price = parseInt(arr[i].multiple) *parseInt(arr[i].onePrice) * parseInt(arr[i].num) * parseFloat(arr[i].moneyunit);
-      // alert(price);
+      var price = parseInt(arr[i].multiple) * parseInt(arr[i].onePrice) * parseInt(arr[i].num) * parseFloat(arr[i].moneyunit);
       money = money + price;
-      if(arr[i].max_multiple < max_multiple){
+      console.log('arr[i].max_multiple==='+arr[i].max_multiple);
+      console.log('max_multiple=='+max_multiple);
+
+      if (parseInt( arr[i].max_multiple) <parseInt( max_multiple)) {
+        // console.log('~~~~~~~~~~~~~')
         max_multiple = arr[i].max_multiple;
+        console.log('~~~~~~~max_multiple~~~~~~'+max_multiple)
       }
     }
-    for(var j=0;j<arr.length;j++){
-      if(arr[j].max_multiple == max_multiple){
+    for (var j = 0; j < arr.length; j++) {
+      // console.log('===arr[j].max_multiple===='+arr[j].max_multiple )
+      // console.log('===max_multiple===='+max_multiple )
+      if (arr[j].max_multiple == max_multiple) {
+        // console.log('!!!!!arr[j].multiple!!!!'+arr[j].multiple )
         min_max_arr.push(arr[j].multiple);
       }
     }
+
+    console.log('min_max_arr=='+min_max_arr);
+
     var max_touzhushu = min_max_arr[0];
-    for(var k=0;k<min_max_arr.length;k++){
-      if(min_max_arr[j]>max_touzhushu){
-        max_touzhushu = min_max_arr[j];
+    for (var k = 0; k < min_max_arr.length; k++) {
+
+      console.log('min_max_arr[j]=='+min_max_arr[k])
+
+      console.log('max_touzhushu=='+max_touzhushu)
+
+      if (parseInt( min_max_arr[k]) > parseInt(max_touzhushu)) {
+        max_touzhushu = min_max_arr[k];
       }
     }
-
+    console.log('max_multiple=='+max_multiple)
+    console.log('max_touzhushu=='+max_touzhushu)
     // min_multiple 这个是动态变化的 === 最大倍数/当前倍数
-    var  min_multiple = max_multiple /max_touzhushu ;
+    var min_multiple = max_multiple / max_touzhushu;
     localStorage.min_multiple = min_multiple;
 
-    var qi =$('#zhuihaodiv input').val();
+    console.log('localStorage.min_multiple=='+localStorage.min_multiple)
+
+    var qi = $('#zhui_input').val();
     $('.total-con .qi').text(qi);
     $('.total-con .zhu').text(zhu);
     $('.big-text .col').text(money);
-    // firstMoney = money;
 
+    this.firstMoney = money;
     //获取当前最小的倍数
 
+    console.log('max_multiple =='+max_multiple )
+    console.log('tlocalStorage.min_multiple =='+localStorage.min_multiple )
+
   }
-
-
 
 
   /*
@@ -534,17 +553,15 @@ export class KsBasketAction {
     var zhu = 0, money = 0;
     for (var i = 0; i < arr.length; i++) {
       zhu = zhu + parseInt(arr[i].num);
-      money = money + arr[i].price;
+      // money = money + arr[i].price;
     }
-    var total = $('#zhui input').val() * $('#bei input').val() * money;
-    $('.yuan').text(total);
+    // var total = $('#zhui input').val() * $('#bei input').val() * money;
+    // $('.yuan').text(total);
     $('.zhu').text(zhu);
+    var total = $('#zhui_input').val() * $('#bei_input').val() * this.firstMoney;
+    $('.yuan').text(total);
 
   }
-
-
-
-
 
 
   shuffle(a) {

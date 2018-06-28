@@ -33,14 +33,12 @@ export class HomePage {
     this.homePrv.loadbanner();
     this.homePrv.loadannouncements();
     this.homePrv.announcementsUnreadnum();
-   
   }
 
   ionViewDidEnter(){
     if(this.common.timer){
       clearInterval(this.common.timer)
       this.common.resetLotteryData()
-      
     }
     this.homePrv.loadHotLottory();
     this.swiper_init()
@@ -104,7 +102,13 @@ export class HomePage {
   // }
 
   gotoLhc() {
-    this.navCtrl.push(LhcSlidePage, {})
+    this.navCtrl.push(LhcSlidePage,
+      null,
+      {
+        direction:'up',
+        animate:false,
+        animation:'md-transition',
+      });
   }
 
   gotoKs() {

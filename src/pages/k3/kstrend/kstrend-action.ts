@@ -379,7 +379,7 @@ export class KstrendAction {
           code2 = arr[i].code.split('')[2];
           toltal = parseInt(code0) + parseInt(code1) + parseInt(code2);
           toltal > 10 ? dx = '大' : dx = '小';
-          toltal % 2 == 0 ? jo = '偶' : jo = '奇';
+          toltal % 2 == 0 ? jo = '双' : jo = '单';
           //20180602015  20180602015--  0602015期
           if (arr[i].code == '') {
             item = '<li class="his-line">\n' +

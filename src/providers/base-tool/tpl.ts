@@ -291,7 +291,7 @@ export class Tpl {
     '      <p class="t-hz">和值</p>\n' +
     '      <p class="t-30lr">30期冷热</p>\n' +
     '      <p class="t-60lr">60期冷热</p>\n' +
-    '      <p class="t-100lr">100期冷热</p>\n' +
+    '      <p class="t-100lr">90期冷热</p>\n' +
     '      <p class="t-yl">遗漏</p>\n' +
     '    </li>\n' +
     '  </ul>';

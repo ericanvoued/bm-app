@@ -1,4 +1,5 @@
 import * as $ from 'jquery';
+import {Tpl} from '../../../providers/base-tool/tpl';
 
 export class LhcAction {
 
@@ -37,8 +38,20 @@ export class LhcAction {
     this.points_BallClick();
     this.calculateProfit();
 
+    this.initClick();
+
   }
 
+  initClick() {
+    $('.r-input').on('input',function(){
+      $(this).val( parseInt($(this).val()));
+    })
+
+    // $(".r-input").on("change",funciton(){
+    //   console.log('$(this).index()==='+$(this).index())
+    //   $(".r-input").eq($(this).index()).val(parseInt($(this).val()));
+    // });
+  }
 
   calculateProfit() {
 
@@ -50,19 +63,16 @@ export class LhcAction {
       }
       $('.money-text').removeClass('hide');
       var moneyunit = parseInt($(this).val());
-      $('.zhu').text(_this.calculateNum());
-
-      $('.money').text(_this.calculateNum() * moneyunit + '元');
-
-      var money = _this.calculateNum() * moneyunit;
+      $('.zhu').text(_this.calculateNum().zhu);
+      $('.money').text(_this.calculateNum().money * moneyunit + '元');
+      var money = _this.calculateNum().money * moneyunit;
 
       //理论奖金=注单金额*赔率
 
       var wanfa = $('.wanfa').text(), bonus = 0, profit;
-      if (wanfa.search('特码') != -1) {
+      if (wanfa.search('特码') != -1 || wanfa.search('正') != -1 || wanfa.search('不') != -1) {
         bonus = money * 46.55;
         profit = bonus - money;
-
       } else if (wanfa.search('半波') != -1) {
 
         var balldata = JSON.parse(localStorage.balls);
@@ -167,15 +177,12 @@ export class LhcAction {
         $(this).addClass('play-yellow');
         $('.after-select .after-con').removeClass('active');
         $('.after-select .after-con').eq($(this).parent().index()).addClass('active');
-
       })
     });
 
     //子玩法选择
     $('.after-list .play-black').each(function () {
-
       $(this).on('click', function () {
-
         //清空当前页面选中
         var wanfa = $('.wanfa').text();
         if (wanfa.search('半波') != -1) {
@@ -183,22 +190,22 @@ export class LhcAction {
           $('.currunt .ball-box .red-active').removeClass('red-active');
           $('.currunt .ball-box .green-active').removeClass('green-active');
           $('.currunt .ball-box .blue-active').removeClass('blue-active');
-          //还要清空自选数据。。。
 
-        } else if (wanfa.search('生肖') != -1) {
+        } else if (wanfa.search('肖') != -1) {
           $('.currunt .ball-box .red-active').removeClass('red-active');
           $('.currunt .ball-box .green-active').removeClass('green-active');
           $('.currunt .ball-box .blue-active').removeClass('blue-active');
-          //还要清空自选数据。。
+          $('.currunt').removeClass('currunt');
+          $('.red-active').removeClass('red-active');
+          $('.green-active').removeClass('green-active');
+          $('.blue-active').removeClass('blue-active');
 
         } else if (wanfa.search('尾数') != -1) {
           $('.currunt .ball-box .red-active').removeClass('red-active');
           $('.currunt .ball-box .green-active').removeClass('green-active');
           $('.currunt .ball-box .blue-active').removeClass('blue-active');
-          //还要清空自选数据。。
-
         }
-
+        $('.r-input').val('');
         $('.currunt').removeClass('currunt');
         $('.after-list .play-black').removeClass('play-yellow');
         $(this).addClass('play-yellow');
@@ -211,7 +218,7 @@ export class LhcAction {
           console.log('.transform==' + $('.slide_one .swiper-wrapper').css('transform'));
           console.log('localStorage.transform==' + localStorage.transform);
 
-          if (!_this.isfast() && $('.slide_one .swiper-wrapper').css('transform') == 'matrix(1, 0, 0, 1, 0, 0)') {
+          if (!_this.isfast()&& $('.slide_one .swiper-wrapper').css('transform')== 'matrix(1, 0, 0, 1, 0, 0)') {
 
             $('.slide_one .swiper-wrapper').css('transform', localStorage.transform);
           }
@@ -251,8 +258,8 @@ export class LhcAction {
         localStorage.bonus_note = arr[4];
         localStorage.max_multiple = arr[5];
         localStorage.is_enable_extra = arr[6]
-
-
+        localStorage.removeItem('balls');
+        localStorage.removeItem('self_balls');
       })
 
     });
@@ -262,37 +269,30 @@ export class LhcAction {
 
   changeBallUi(title) {
 
-
     let _this = this;
     var wanfa = $('.wanfa').text();
     $('.section').removeClass('active');
-
     switch (title) {
-
       case '特码':
         $('.lhc-tm').addClass('active');
         $('.self-tm').addClass('active');
         $('.lhc-tm .t-box').removeClass('hide');
         break;
-
       case '正码':
         $('.lhc-tm').addClass('active');
         $('.self-tm').addClass('active');
         $('.lhc-tm .t-box').removeClass('hide');
         break;
-
       case '不中':
         $('.lhc-tm').addClass('active');
         $('.self-tm').addClass('active');
         _this.removeTopSlide();
         //matrix(1, 0, 0, 1, 0, 0),matrix(1, 0, 0, 1, -414, 0)
         if ($('.slide_one .swiper-wrapper').css('transform') != 'matrix(1, 0, 0, 1, 0, 0)') {
-
           // console.log('transform=='+$('.slide_one .swiper-wrapper').css('transform'));
           localStorage.transform = $('.slide_one .swiper-wrapper').css('transform');
           $('.slide_one .swiper-wrapper').css('transform', 'matrix(1, 0, 0, 1, 0, 0)');
         }
-
         $('.lhc-tm .t-box').addClass('hide');
         break;
       case '半波':
@@ -305,8 +305,12 @@ export class LhcAction {
         console.log(wanfa);
         if (wanfa.search('六肖') != -1) {
           _this.removeTopSlide();
+          if ($('.slide_one .swiper-wrapper').css('transform') != 'matrix(1, 0, 0, 1, 0, 0)') {
+            // console.log('transform=='+$('.slide_one .swiper-wrapper').css('transform'));
+            localStorage.transform = $('.slide_one .swiper-wrapper').css('transform');
+            $('.slide_one .swiper-wrapper').css('transform', 'matrix(1, 0, 0, 1, 0, 0)');
+          }
         }
-
         break;
       case '尾数':
         $('.lhc-ws').addClass('active');
@@ -408,11 +412,11 @@ export class LhcAction {
       var len = obj.find('.ball').length;
       switch (clas) {
         case 'da':
-          var num = Math.ceil(len / 2) - 1;
+          var num = Math.ceil(len / 2)-2 ;
           obj.find('.tm-unit:gt(' + num + ')').addClass('currunt');
           break;
         case 'xiao':
-          var num = Math.ceil(len / 2);
+          var num = Math.ceil(len / 2)-1;
           obj.find('.tm-unit:lt(' + num + ')').addClass('currunt');
           break;
         case 'dan':
@@ -572,8 +576,8 @@ export class LhcAction {
         for (var i = 0; i < length; i++) {
           if (obj.eq(i).val() != '') {
             var str = $('.self-tm li').eq(i).find('h5').text();
-            zhu = parseInt(obj.eq(i).val());
-            _this.dealWitSelfBallData(str, zhu, odds, str);
+            zhu = parseInt(obj.eq(i).val()); //mutiple
+            _this.dealWithBallData(str, zhu, odds, str);
           }
         }
 
@@ -587,7 +591,7 @@ export class LhcAction {
             var txt = $('.self-bb li').eq(i).find('h5').text();
             var odds = $('.self-bb li').eq(i).find('.odds').text();
             zhu = parseInt(obj.eq(i).val());
-            _this.dealWitSelfBallData(str, zhu, odds, txt);
+            _this.dealWithBallData(str, zhu, odds, txt);
           }
         }
 
@@ -601,7 +605,7 @@ export class LhcAction {
             var txt = $('.self-sx li').eq(i).find('h5').text();
             var odds = $('.self-sx li').eq(i).find('.odds').text();
             zhu = parseInt(obj.eq(i).val());
-            _this.dealWitSelfBallData(str, zhu, odds, txt);
+            _this.dealWithBallData(str, zhu, odds, txt);
           }
         }
       } else if (type.search('尾') != -1) {
@@ -614,7 +618,7 @@ export class LhcAction {
             var txt = $('.self-ws li').eq(i).find('h5').text();
             var odds = $('.self-ws li').eq(i).find('.odds').text();
             zhu = parseInt(obj.eq(i).val());
-            _this.dealWitSelfBallData(str, zhu, odds, txt);
+            _this.dealWithBallData(str, zhu, odds, txt);
           }
         }
       } else if (type.search('总') != -1) {
@@ -627,12 +631,11 @@ export class LhcAction {
             var txt = $('.self-points li').eq(i).find('h5').text();
             var odds = $('.self-points li').eq(i).find('.odds').text();
             zhu = parseInt(obj.eq(i).val());
-            _this.dealWitSelfBallData(str, zhu, odds, txt);
+            _this.dealWithBallData(str, zhu, odds, txt);
           }
         }
-      } else if (type.search('不') != -1) {
-
       }
+
 
     }
   }
@@ -653,13 +656,13 @@ export class LhcAction {
     var betinfo =
       {
         "jsId": jsid,
-        "wayId":wayId,
+        "wayId": wayId,
         "ball": ballStr,
-        "multiple": 1,
-        "num": num,
+        "multiple": num,
+        "num": 1,
         "type": '',
         "onePrice": 1,
-        "prize_group":prize_group,
+        "prize_group": prize_group,
         "moneyunit": 1,
         "viewBalls": ballStr,
         "position": [],
@@ -699,13 +702,13 @@ export class LhcAction {
     var betinfo =
       {
         "jsId": jsid,
-        "wayId":wayId,
+        "wayId": wayId,
         "ball": ballStr,
         "multiple": 1,
         "num": num,
         "type": '',
         "onePrice": 1,
-        "prize_group":prize_group,
+        "prize_group": prize_group,
         "moneyunit": 1,
         "viewBalls": ballStr,
         "position": [],
@@ -716,7 +719,6 @@ export class LhcAction {
 
     var balls = [];
     var ballsitem = "";
-
     var ball = localStorage.self_balls;
     if (ball == null) {
       balls.push(betinfo);
@@ -727,266 +729,138 @@ export class LhcAction {
       ballsitem = JSON.stringify(balldata);
     }
     localStorage.self_balls = ballsitem;
+
   }
-
-
 
 
   calculateNum() {
 
     let _this = this;
     var type = $('.wanfa').text();
-
+    var zhu, money = 0;
     if (_this.isfast()) {
 
+      console.log('_this.isfast~~~~~')
+
       if (type.search('波') != -1) {
-
-        var zhu = $('.currunt').length;
-        return zhu;
-
+        zhu = $('.currunt').length;
       } else if ((type.search('肖') != -1 && type.search('六肖') == -1) || (type.search('尾数') != -1)) {
-
-        var zhu = $('.currunt').length;
-        return zhu;
-
+        zhu = $('.currunt').length;
       } else if (type.search('总分') != -1) {
-
-        var zhu = $('.currunt').length;
-        return zhu;
-
-      } else if (type.search('六肖') != -1) {
-
-        //Cn6 遍历高亮数量，
-        var len = $('.currunt').length;
-        var zhu = _this.jc(len, 6);
-        if (zhu < 0) {
-          zhu = 0;
-        }
-        var moneyunit = $('#input-box').val();
-        var money = parseInt(moneyunit) * zhu;
-        var t = '共计：￥ ' + money + ' / ' + zhu + '注';
-        $('.t-box .l').text(t);
-
-      } else if (type.search('五不中') != -1) {
-
-        var len = $('.currunt').length;
-        var zhu = _this.jc(len, 5);
-        if (zhu < 0) {
-          zhu = 0;
-        }
-        var moneyunit = $('#input-box').val();
-        var money = parseInt(moneyunit) * zhu;
-        var t = '共计：￥ ' + money + ' / ' + zhu + '注';
-        $('.t-box .l').text(t);
-
-      } else if (type.search('六不中') != -1) {
-
-        var len = $('.currunt').length;
-        var zhu = _this.jc(len, 6);
-        if (zhu < 0) {
-          zhu = 0;
-        }
-        var moneyunit = $('#input-box').val();
-        var money = parseInt(moneyunit) * zhu;
-        var t = '共计：￥ ' + money + ' / ' + zhu + '注';
-        $('.t-box .l').text(t);
-
-      } else if (type.search('七不中') != -1) {
-
-        var len = $('.currunt').length;
-        var zhu = _this.jc(len, 7);
-        if (zhu < 0) {
-          zhu = 0;
-        }
-        var moneyunit = $('#input-box').val();
-        var money = parseInt(moneyunit) * zhu;
-        var t = '共计：￥ ' + money + ' / ' + zhu + '注';
-        $('.t-box .l').text(t);
-      } else if (type.search('八不中') != -1) {
-
-        var len = $('.currunt').length;
-        var zhu = _this.jc(len, 8);
-        if (zhu < 0) {
-          zhu = 0;
-        }
-        var moneyunit = $('#input-box').val();
-        var money = parseInt(moneyunit) * zhu;
-        var t = '共计：￥ ' + money + ' / ' + zhu + '注';
-        $('.t-box .l').text(t);
-      } else if (type.search('九不中') != -1) {
-        var len = $('.currunt').length;
-        var zhu = _this.jc(len, 9);
-        if (zhu < 0) {
-          zhu = 0;
-        }
-        var moneyunit = $('#input-box').val();
-        var money = parseInt(moneyunit) * zhu;
-        var t = '共计：￥ ' + money + ' / ' + zhu + '注';
-        $('.t-box .l').text(t);
-
-      } else if (type.search('十不中') != -1) {
-        var len = $('.currunt').length;
-        var zhu = _this.jc(len, 10);
-        if (zhu < 0) {
-          zhu = 0;
-        }
-        var moneyunit = $('#input-box').val();
-        var money = parseInt(moneyunit) * zhu;
-        var t = '共计：￥ ' + money + ' / ' + zhu + '注';
-        $('.t-box .l').text(t);
-
+        zhu = $('.currunt').length;
       } else {
         //特码
-        var zhu = $('.currunt').length;
-        return zhu;
+        zhu = $('.currunt').length;
       }
+      money = zhu;
 
       //自选～
     } else {
 
+      console.log('//自选～~~~')
       if (type.search('波') != -1) {
-
-        var zhu = 0, obj = $('.self-bb .r-input');
+        var obj = $('.self-bb .r-input');
         var len = obj.length;
-        // console.log('len='+len);
+        zhu = 0, money = 0;
+
+        console.log('len=' + len);
         for (var i = 0; i < len; i++) {
           if (obj.eq(i).val() != '') {
             // console.log('obj=' + obj.eq(i).val());
-            zhu = zhu + parseInt(obj.eq(i).val());
+            zhu += 1; //= zhu + parseInt(obj.eq(i).val());
+            money += parseInt(obj.eq(i).val());
           }
         }
-        return zhu;
-
       } else if ((type.search('肖') != -1 && type.search('六肖') == -1)) {
-
-        var zhu = 0, obj = $('.self-sx .r-input');
+        zhu = 0, obj = $('.self-sx .r-input');
         var len = obj.length;
         for (var i = 0; i < len; i++) {
           if (obj.eq(i).val() != '') {
-            zhu = zhu + parseInt(obj.eq(i).val());
+            zhu += 1; //= zhu + parseInt(obj.eq(i).val());
+            money += parseInt(obj.eq(i).val());
+            // zhu = zhu + parseInt(obj.eq(i).val());
           }
         }
-        return zhu;
-
       } else if ((type.search('尾数') != -1)) {
-
-        var zhu = 0, obj = $('.self-ws .r-input');
+        zhu = 0, obj = $('.self-ws .r-input');
         var len = obj.length;
         for (var i = 0; i < len; i++) {
           if (obj.eq(i).val() != '') {
-            zhu = zhu + parseInt(obj.eq(i).val());
+            zhu += 1; //= zhu + parseInt(obj.eq(i).val());
+            money += parseInt(obj.eq(i).val());
           }
         }
-        return zhu;
-
       } else if (type.search('总分') != -1) {
-        var zhu = 0, obj = $('.self-points .r-input');
+        zhu = 0, obj = $('.self-points .r-input');
         var len = obj.length;
         for (var i = 0; i < len; i++) {
           if (obj.eq(i).val() != '') {
-            zhu = zhu + parseInt(obj.eq(i).val());
+            zhu += 1; //= zhu + parseInt(obj.eq(i).val());
+            money += parseInt(obj.eq(i).val());
           }
         }
-        return zhu;
-
-      } else if (type.search('六肖') != -1) {
-
-        //Cn6 遍历高亮数量，
-        var len = $('.currunt').length;
-        var zhu = _this.jc(len, 6);
-        if (zhu < 0) {
-          zhu = 0;
-        }
-        var moneyunit = $('#input-box').val();
-        var money = parseInt(moneyunit) * zhu;
-        var t = '共计：￥ ' + money + ' / ' + zhu + '注';
-        $('.t-box .l').text(t);
-
-      } else if (type.search('五不中') != -1) {
-
-        var len = $('.currunt').length;
-        var zhu = _this.jc(len, 5);
-        if (zhu < 0) {
-          zhu = 0;
-        }
-        var moneyunit = $('#input-box').val();
-        var money = parseInt(moneyunit) * zhu;
-        var t = '共计：￥ ' + money + ' / ' + zhu + '注';
-        $('.t-box .l').text(t);
-
-      } else if (type.search('六不中') != -1) {
-
-        var len = $('.currunt').length;
-        var zhu = _this.jc(len, 6);
-        if (zhu < 0) {
-          zhu = 0;
-        }
-        var moneyunit = $('#input-box').val();
-        var money = parseInt(moneyunit) * zhu;
-        var t = '共计：￥ ' + money + ' / ' + zhu + '注';
-        $('.t-box .l').text(t);
-
-      } else if (type.search('七不中') != -1) {
-
-        var len = $('.currunt').length;
-        var zhu = _this.jc(len, 7);
-        if (zhu < 0) {
-          zhu = 0;
-        }
-        var moneyunit = $('#input-box').val();
-        var money = parseInt(moneyunit) * zhu;
-        var t = '共计：￥ ' + money + ' / ' + zhu + '注';
-        $('.t-box .l').text(t);
-      } else if (type.search('八不中') != -1) {
-
-        var len = $('.currunt').length;
-        var zhu = _this.jc(len, 8);
-        if (zhu < 0) {
-          zhu = 0;
-        }
-        var moneyunit = $('#input-box').val();
-        var money = parseInt(moneyunit) * zhu;
-        var t = '共计：￥ ' + money + ' / ' + zhu + '注';
-        $('.t-box .l').text(t);
-      } else if (type.search('九不中') != -1) {
-        var len = $('.currunt').length;
-        var zhu = _this.jc(len, 9);
-        if (zhu < 0) {
-          zhu = 0;
-        }
-        var moneyunit = $('#input-box').val();
-        var money = parseInt(moneyunit) * zhu;
-        var t = '共计：￥ ' + money + ' / ' + zhu + '注';
-        $('.t-box .l').text(t);
-
-      } else if (type.search('十不中') != -1) {
-        var len = $('.currunt').length;
-        var zhu = _this.jc(len, 10);
-        if (zhu < 0) {
-          zhu = 0;
-        }
-        var moneyunit = $('#input-box').val();
-        var money = parseInt(moneyunit) * zhu;
-        var t = '共计：￥ ' + money + ' / ' + zhu + '注';
-        $('.t-box .l').text(t);
-
       } else {
-
-        //特码 遍历，累加
-        var zhu = 0, obj = $('.self-tm .r-input');
+        //特码 正码 遍历，累加
+        zhu = 0, obj = $('.self-tm .r-input');
         var len = obj.length;
         // console.log('len='+len);
         for (var i = 0; i < len; i++) {
           if (obj.eq(i).val() != '') {
-            console.log('obj=' + obj.eq(i).val());
-            zhu = zhu + parseInt(obj.eq(i).val());
+            zhu += 1; //= zhu + parseInt(obj.eq(i).val());
+            money += parseInt(obj.eq(i).val());
           }
         }
         // console.log('zhu='+zhu);
-        return zhu;
       }
-
     }
+
+
+    if (type.search('六肖') != -1) {
+      //Cn6 遍历高亮数量
+      var len = $('.currunt').length;
+      zhu = _this.jc(len, 6);
+      if (zhu < 0) {
+        zhu = 0;
+      } money = zhu;
+    } else if (type.search('五不中') != -1) {
+      var len = $('.currunt').length;
+      zhu = _this.jc(len, 5);
+      if (zhu < 0) {
+        zhu = 0;
+      } money = zhu;
+    } else if (type.search('六不中') != -1) {
+      var len = $('.currunt').length;
+      zhu = _this.jc(len, 6);
+      if (zhu < 0) {
+        zhu = 0;
+      } money = zhu;
+    } else if (type.search('七不中') != -1) {
+      var len = $('.currunt').length;
+      zhu = _this.jc(len, 7);
+      if (zhu < 0) {
+        zhu = 0;
+      } money = zhu;
+    } else if (type.search('八不中') != -1) {
+      var len = $('.currunt').length;
+      zhu = _this.jc(len, 8);
+      if (zhu < 0) {
+        zhu = 0;
+      } money = zhu;
+    } else if (type.search('九不中') != -1) {
+      var len = $('.currunt').length;
+      zhu = _this.jc(len, 9);
+      if (zhu < 0) {
+        zhu = 0;
+      } money = zhu;
+    } else if (type.search('十不中') != -1) {
+      var len = $('.currunt').length;
+      zhu = _this.jc(len, 10);
+      if (zhu < 0) {
+        zhu = 0;
+      } money = zhu;
+    }
+
+    return {zhu: zhu, money: money};
   }
 
 
@@ -1026,6 +900,9 @@ export class LhcAction {
       $('.currunt').removeClass('currunt');
       $('.r-input').val('');
 
+      $('.red-active').removeClass('red-active');
+      $('.green-active').removeClass('green-active');
+      $('.blue-active').removeClass('blue-active');
     })
   }
 
@@ -1037,45 +914,59 @@ export class LhcAction {
 
     $('.confirm-btn').on('click', function () {
 
+      $('.buy-input').val('');
+      $('.money-text').addClass('hide');
+      $('.money-text .zhu').text(_this.calculateNum().zhu);
+      $('.money-text .money').text('0元');
+      $('.money-text .bonus').text(0);
+      $('.money-text .profit').text(0);
       //快捷选号
       if (_this.isfast()) {
 
-        localStorage.removeItem('balls');
+        localStorage.removeItem('balls');//移除之前选择的数据
         // var arr = JSON.parse(localStorage.balls);
         // console.log('是否删除'+localStorage.balls);
-        var zhu = _this.calculateNum();
+        var zhu = _this.calculateNum().zhu;
+
+        console.log('zhu===='+zhu);
         if (zhu < 1) {
           //弹框提示
-          alert('请选择有效注单');
+          _this.failedTip();
           return;
-
         } else {
-
           _this.dealWithManyBallData();
           _this.initPopup();
-
         }
 
         //自选
       } else {
 
-        localStorage.removeItem('self_balls');
-        var zhu = _this.calculateNum();
+        localStorage.removeItem('self_balls');//移除之前选择的数据
+        localStorage.removeItem('balls');
+        var zhu = _this.calculateNum().zhu;
         if (zhu < 1) {
           //弹框提示
-          alert('请选择有效注单');
+          _this.failedTip();
+          // alert('请选择有效注单');
           return;
         } else {
-
           _this.dealWithManyBallData();
           _this.initPopup();
-
         }
-
       }
 
-
     })
+  }
+
+
+  failedTip() {
+
+    $('body').append(Tpl.fail_tip);
+    $('#error-tip').text('请选则有效注单～');
+    setTimeout(function () {
+      $('.basket-pop').remove();
+    }, 1500);
+
   }
 
   removeTopSlide() {
@@ -1090,6 +981,7 @@ export class LhcAction {
     $('.lhc-content .swiper-wrapper .swiper-slide').eq(0).removeClass('swiper-no-swiping');
   }
 
+
   initPopup() {
 
     let _this = this;
@@ -1097,7 +989,6 @@ export class LhcAction {
     $('.lhc-popup').removeClass('hide');
     $('#yue').text();
     if (_this.isfast()) {
-
       //赋值
       var arr = JSON.parse(localStorage.balls);
       console.log(arr);
@@ -1114,7 +1005,8 @@ export class LhcAction {
     } else {
 
       //自选
-      var arr = JSON.parse(localStorage.self_balls);
+      // var arr = JSON.parse(localStorage.self_balls);
+      var arr = JSON.parse(localStorage.balls);
       console.log(arr);
       var html = '';
       for (var i = 0; i < arr.length; i++) {
@@ -1123,8 +1015,8 @@ export class LhcAction {
       $('.lhc-popup .box').html(html);
 
       //注数
-      $('.zhu').text(_this.calculateNum());
-      $('.money').text(_this.calculateNum() * 2 + '元');
+      $('.zhu').text(_this.calculateNum().zhu);
+      $('.money').text(_this.calculateNum().money * 1 + '元');
     }
 
   }
@@ -1222,7 +1114,6 @@ export class LhcAction {
     } else {
       return false;
     }
-
   }
 
 
