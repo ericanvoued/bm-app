@@ -27,7 +27,7 @@ function test(target){
 
 @Injectable()
 export class CommonProvider {
-  pid = new Subject();
+ // pid = new Subject();
 
   gameId:any;
 
@@ -44,7 +44,7 @@ export class CommonProvider {
   ballData:any = [];
   small:any;
   method:any;
-
+  balance:number = 10000
   //xiao wan fa
   smallKind:any;
 
@@ -108,12 +108,12 @@ export class CommonProvider {
   constructor(public tools:ToolsProvider, public http:HttpClientProvider,public modalCtrl: ModalController, public events:Events,private toastCtrl:ToastController) {
     console.log('Hello CommonProvider Provider');
     //this.missData = this.getMissObservable()
-    this.pid.subscribe((val) => {
+    // this.pid.subscribe((val) => {
       
-        this.gameId = val
-        this.initData()
+    //     this.gameId = val
+    //     this.initData()
         
-    })
+    // })
     // this.singleBtn = this.tools.copy([
     // {name:"全",flag:false},{name:"大",flag:false},{name:"小",flag:false},{name:"奇",flag:false},{name:"偶",flag:false},{name:"清",flag:false}
     // ],true)

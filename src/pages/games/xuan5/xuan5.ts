@@ -35,7 +35,7 @@ import * as Hammer from 'hammerjs';
 export class Xuan5Page extends Effect{
    @ViewChild("gameContainer", { read: ViewContainerRef }) gameContainer: ViewContainerRef;
    componentRef: ComponentRef<any>;
-   haveChoosen:any[] = ['当前遗漏']
+   haveChoosen:any[] = ['']
    gameConfig:any;
    record: any = [
     {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},

@@ -125,7 +125,7 @@ export class BasketDataProvider {
   addToExist(processData){
     this.betData = this.betData.map(item => {
       if(item.wayId == processData.wayId && item.lotterysText == processData.lotterysText){
-          return {...item, jsId:item.jsId, beishu:item.beishu + 1, amount:item.amount*(item.num + 1)/item.num}
+          return {...item, jsId:item.jsId, beishu:item.beishu + 1, amount:item.amount*(item.beishu + 1)/item.beishu}
       }else{
           return item
       }

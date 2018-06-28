@@ -168,19 +168,19 @@
           </ul>
       </div>
      
-              <!-- <ul *ngFor="let item of util.statisticCategory" class="trend-category">
+              <ul *ngFor="let item of util.statisticCategory" class="trend-category">
                 <li class="head-num head-category" style="width:17%;font-size:10px">{{item}}</li>
                 <li class="head-num" style="width:8.5%" *ngFor="let todo of util.trendData[item][ii]">
                     {{todo}}
                 </li>
-              </ul> -->
+              </ul>
 
-              <ul *ngFor="let item of category" class="trend-category">
+              <!-- <ul *ngFor="let item of category" class="trend-category">
                     <li class="head-num head-category" style="width:17%;font-size:10px">{{getTitle(item)}}</li>
                     <li class="head-num" style="width:8.5%" *ngFor="let todo of common.missData[weiData[i]][item]">
                         {{todo}}
                     </li>
-              </ul>
+              </ul> -->
           
             <div *ngIf="common.method != '任选'">
                     <div *ngIf="common.bigKind == '直选' || common.method == '定位胆'">
