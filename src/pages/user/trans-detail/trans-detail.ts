@@ -20,32 +20,6 @@ export class TransDetailPage {
     data:[]
   }
 
-  // followData ={
-  //   timeStarts:'2018-01-01',
-  //   timeEnds:'2018-01-02',
-  //   data:[{
-  //     series:"645456465465",
-  //     date:'01-09 16:21:32',
-  //     money:200.00,
-  //     group:'腾讯分分彩',
-  //     type:'派发奖金',
-  //     rest_money:100000.00
-  //   },{
-  //     series:"645456465465",
-  //     date:'01-09 16:21:32',
-  //     money:-200.00,
-  //     group:'腾讯分分彩',
-  //     type:'追号',
-  //     rest_money:100000.00
-  //   },{
-  //     series:"645456465465",
-  //     date:'01-09 16:21:32',
-  //     money:200.00,
-  //     group:'银行卡充值',
-  //     type:'',
-  //     rest_money:100000.00
-  //   }]
-  // }
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public http:HttpClientProvider) {
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
@@ -53,9 +27,7 @@ export class TransDetailPage {
     this.loadLottory()
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TransDetailPage');
-  }
+
 
   //所有帐变类型列表
   async loadLottory(){
@@ -97,4 +69,6 @@ export class TransDetailPage {
   changeCurrent(lottory) {
     this.currentLottory = lottory
   }
+
+
 }

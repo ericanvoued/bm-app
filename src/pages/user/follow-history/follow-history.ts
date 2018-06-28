@@ -102,10 +102,10 @@ export class FollowHistoryPage {
     console.log('ionViewDidLoad FollowHistoryPage');
   }
 
-  toggleDetail(_index){
+  toggleDetail(follow){
+    follow.isSlide = !follow.isSlide
+    // this.followData.data[_index].isSlide = !this.followData.data[_index].isSlide;
 
-    this.followData.data[_index].isSlide = !this.followData.data[_index].isSlide;
-    // this.followData.data[_index].isSlide==true?this.followData.data[_index].detail_btn_text ='收起':this.followData.data[_index].detail_btn_text = '详情'
   }
 
 
@@ -151,4 +151,5 @@ export class FollowHistoryPage {
     this.followData.currentLottory = lottory
     console.log(this.followData.currentLottory)
   }
+
 }
