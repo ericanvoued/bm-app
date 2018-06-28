@@ -15,7 +15,8 @@ import { BasketDataProvider } from '../../../../providers/basket-data/basket-dat
   templateUrl: 'houerdaxiaodanshuang.html'
 })
 export class HouerdaxiaodanshuangComponent extends commonMethod{
-
+  @Input('choose') choose: any[] = [];
+  
   text: string;
 
   constructor(public common:CommonProvider, public util:UtilProvider,public basket:BasketDataProvider) {
@@ -23,6 +24,10 @@ export class HouerdaxiaodanshuangComponent extends commonMethod{
     this.common.ballData =  [{
       "key":"十位", "value":[0,0,0,0]},
      {"key":"个位", "value":[0,0,0,0]}]
+  }
+
+  check(choice){
+    return this.choose.indexOf(choice) > -1
   }
 
   getOriginLotteryText(){

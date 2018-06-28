@@ -20,8 +20,8 @@ let _ = new observe();
 export class BasketDataProvider {
   betData:Array<any> = []
   totalAmount:number;
-
-  balance:number = 100
+  totalCount:number;
+  balance:number = 10000
   /**
    *  {
    *    amount: ,
@@ -63,20 +63,28 @@ export class BasketDataProvider {
   }
 
   calculateTotal(){
-    console.log('change')
+    console.log('change') 
+   
       if(this.betData.length>0){
           console.log(this.betData)
           this.totalAmount = this.betData.reduce((r1,r2) => {
             return {...r1, amount:r1.amount + r2.amount}
         }).amount*this.statistic.multiple*this.statistic.trace
+
+        this.totalCount = this.betData.reduce((a,b) => {
+             return a + b.num
+        },0)
         console.log('dddd')
         console.log(this.totalAmount)
         // if(this.totalAmount > this.balance){
         //   this.presentRecharge()
         // }
 
-     } else
-        this.totalAmount = 0   
+     } else{
+          this.totalAmount = 0   
+          this.totalCount = 0   
+     }
+        
   }
 
   addBetData(betData?){
@@ -84,7 +92,7 @@ export class BasketDataProvider {
     let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
 
     if(betData){
-      if(this.totalAmount + this.statistic.multiple*this.statistic.trace*percent*2*betData.length > this.balance){
+      if(this.totalAmount + this.statistic.multiple*this.statistic.trace*percent*2*betData.length > +JSON.parse(localStorage.getItem('userInfo')).available){
         this.presentRecharge()
         return false
       }
@@ -97,8 +105,8 @@ export class BasketDataProvider {
      
     }else{
       let processData = this.processOrder()
-      console.log('wrnm')
-      if(this.totalAmount + this.statistic.multiple**this.statistic.trace*percent*processData.amount > this.balance){
+      console.log(+JSON.parse(localStorage.getItem('userInfo')).available)
+      if(this.totalAmount + this.statistic.multiple*this.statistic.trace*percent*processData.amount > +JSON.parse(localStorage.getItem('userInfo')).available){
           this.presentRecharge()
           return false
       }
@@ -109,6 +117,7 @@ export class BasketDataProvider {
          this.betData.push(processData)
       }
     }  
+    
     return true
   }
 
@@ -116,7 +125,7 @@ export class BasketDataProvider {
   addToExist(processData){
     this.betData = this.betData.map(item => {
       if(item.wayId == processData.wayId && item.lotterysText == processData.lotterysText){
-          return {...item, jsId:item.jsId, num:item.num + 1, amount:item.amount*(item.num + 1)/item.num}
+          return {...item, jsId:item.jsId, beishu:item.beishu + 1, amount:item.amount*(item.num + 1)/item.num}
       }else{
           return item
       }
@@ -161,6 +170,7 @@ export class BasketDataProvider {
          onePrice:2,
          moneyUnit:this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01,
          prize_group:1800,
+         beishu:1,
          multiple:this.statistic.multiple,
         // postParameter: this.common.componentRef.instance.getLotteryText(),
          viewBalls:this.common.componentRef.instance.getOriginLotteryText()     
@@ -188,6 +198,7 @@ export class BasketDataProvider {
         i--
     }
     this.common.cartNumber = 0
+    this.totalCount = 0
   }
 
   removeByIndex(index:number){

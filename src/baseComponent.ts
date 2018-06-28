@@ -67,8 +67,8 @@ export class Effect{
             let length = this.common.historyList.length, historyList = this.common.historyList
             //this.list = historyList.map(this.handleBall).slice(0,10)
            // this.list = historyList.concat(1 - historyList.length).concat({number:historyList[length - 1]+1,code:'',time:''}).map(this.handleBall).slice(0,10)
-           this.list = this.list.slice(0,this.list.length - 1)
-           this.list.unshift({number:+(historyList[0].number) + 1,balls:'',time:''})
+           this.list = this.list.slice(0,this.list.length - 2)
+           this.list.unshift({number:(+(historyList[0].number) + 1 +'').slice(-7),balls:'',time:''})
 
             
             if(this.list.length > 2){
@@ -79,7 +79,8 @@ export class Effect{
            console.log(this.list)
            this.timer =  setInterval(() => {
                 this.common.fetchRecord().then(() => {
-                     if(this.common.historyList[0].number == this.list[0].number){
+                     console.log('fetch arrive')
+                     if(this.common.historyList[0].number.slice(-7) == this.list[0].number){
                         this.list = this.common.historyList.map(this.handleBall).slice(0,10)
                         if(this.list.length > 2){
                             this.maxNumber = Math.ceil(this.list.length/5)
@@ -172,7 +173,5 @@ export class Effect{
        this.componentRef.instance.choose = this.haveChoosen
    }
 
-   handleBall(ele){
-    
-   }
+   handleBall(ele){}
 }

@@ -15,7 +15,10 @@
       
           <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
               <div >{{item.number.slice(-7)}}</div>
-              <div class="wuxing"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+              <div class="qiansan" *ngIf="['不定位', '三码'].includes(common.method)"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+              <div class="qianer" *ngIf="common.method == '二码'"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+              <div class="wuxing" *ngIf="common.method == '任选复式'"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+              <!-- <div class="wuxing"><span *ngFor="let aa of item.history">{{aa}}</span></div> -->
               <div >{{item.sum}}</div>
               <div >{{item.gap}}</div>
               <div >{{item.daxiao}}</div>
@@ -62,14 +65,17 @@
               <div  style="display:flex;align-items:center" *ngIf="common.smallMethod.indexOf('胆拖') == -1">
                    <div style="width:17%;font-size:10px">已选</div>
                    <div *ngIf="existNumber(common.ballData[i].value)" style="display:flex;align-items:center">
-                      <div *ngFor="let item of common.componentRef.instance.getCommonData()[i]" style="color:#F84F1E;margin-left:5px">{{item+1}}</div>              
+                      <div *ngFor="let item of common.componentRef.instance.getCommonData()[i]" style="color:#F84F1E;margin-left:5px">{{item+1}} </div>              
                    </div>
+                 
               </div>
 
-              <div  style="display:flex;align-items:center" *ngIf="common.smallMethod.indexOf('胆拖') != -1">
+
+
+              <!-- <div  style="display:flex;align-items:center" *ngIf="common.smallMethod.indexOf('胆拖') != -1">
                   <div style="width:17%;font-size:10px">已选</div>
                   <div *ngIf="existZuxuan()" style="color:#F84F1E;margin-left:5px">{{common.componentRef.instance.getLotteryText()}}</div>                  
-             </div>
+             </div> -->
           </div>
       </div>
   </ion-slide> 

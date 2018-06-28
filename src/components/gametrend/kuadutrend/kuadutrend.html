@@ -10,40 +10,21 @@
   <ion-slide>
         <!--<ng-template #alertContainer></ng-template>-->
         
-        <div [ngSwitch]="true">
-                <div *ngSwitchCase="['五星','一星','任选'].includes(common.method)">
+        <div [ngSwitch]="true">    
+                <div>
                         <div class="kai-jiang">
-                                <div >期号</div><div >开奖号码</div><div >和值</div><div >跨度</div>
-                                <div >大小比</div><div >奇偶比</div>
-                             </div>
-                   
-                             <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
-                                  <div >{{item.number}}</div>
-                                  <div class="wuxing"><span *ngFor="let aa of item.history">{{aa}}</span></div>
-                                  <div >{{item.sum}}</div>
-                                  <div >{{item.gap}}</div>
-                                  <div >{{item.daxiao}}</div>
-                                  <div >{{item.oddeven}}</div>
-                             </div>
-                </div> 
-            
-                <div *ngSwitchCase="common.method == '前三'">
-                        <div class="kai-jiang">
-                                <div >期号</div><div >开奖号码</div> <div>万位</div><div >千位</div>
-                                <div >百位</div><div >前三形态</div>
+                                <div >期号</div><div >开奖号码</div>
+                                <div *ngFor="let item of complexData.title">{{item}}</div>
                         </div>
                    
                         <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
                             <div >{{item.number}}</div>
-                            <div class="qiansan"><span *ngFor="let aa of item.history">{{aa}}</span></div>
-                            <div >{{item.wan}}</div>
-                            <div >{{item.qian}}</div>
-                            <div >{{item.bai}}</div>
-                            <div >{{item.zu}}</div>
+                            <div class="{{complexData.class}}"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                            <div *ngFor="let detail of item.data">{{detail}}</div>
                         </div>
                 </div> 
                 
-                <div *ngSwitchCase="common.method == '中三'">
+                <!-- <div *ngSwitchCase="common.method == '中三'">
                         <div class="kai-jiang">
                                 <div >期号</div><div >开奖号码</div> <div>千位</div><div >百位</div>
                                 <div >十位</div><div >中三形态</div>
@@ -97,17 +78,9 @@
                         <div >{{item.shi}}</div>
                         <div >{{item.ge}}</div>
                     </div>
-                </div>  
+                </div>   -->
                  
-                <div *ngSwitchDefault>
-                    <div class="l-game" *ngFor="let data of common.ballData;let ii = index" >
-                        <div class="l">
-                            <p><span></span>{{data.key}}</p>
-                            <p style="margin-top:18px"><span></span>遗漏</p>
-                            <p *ngIf="check('30期冷热')" style="margin-top:18px"><span></span>冷热</p>
-                        </div>
-                    </div>
-                </div>   
+              
         </div> 
 
      

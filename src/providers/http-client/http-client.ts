@@ -8,8 +8,8 @@ import { Injectable } from '@angular/core';
   and Angular DI.
 */
 
-//let baseUrl = 'http://user.firecat.com'
-let baseUrl = 'http://www.zhenwin.com'
+let baseUrl = 'http://user.firecat.com'
+//let baseUrl = 'http://www.zhenwin.com'
 //let baseUrl = '/api'
 
 @Injectable()

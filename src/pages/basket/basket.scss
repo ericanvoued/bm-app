@@ -2,7 +2,7 @@ page-basket {
     .top-menu{width:30%;padding:3px;background: #ffffff;border:1px solid #f0f0f0;text-align: center}
 
     .bet-ball{color:#F6374E;margin-right:5px}
-    ul.fandian{position:absolute;bottom:0;background:#F0F0F0;width:100%;border-radius:10px;opacity: 0,}
+    ul.fandian{position:absolute;bottom:0;background:#F0F0F0;width:100%;border-radius:10px;display: none}
     ul.fandian li{display: block;text-align: center}
 
     ul.fandian li:nth-of-type(1){border-top-right-radius: 10px;border-top-left-radius: 10px}

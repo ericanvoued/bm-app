@@ -54,4 +54,7 @@ export class RenxuanerzhixuanfushiComponent extends commonMethod{
     return count
   }
 
+  getOriginLotteryText(){
+    return this.getCommonData().map(ele => ele.length > 0 ? ele.join('') : '').join('|')
+  }
 }

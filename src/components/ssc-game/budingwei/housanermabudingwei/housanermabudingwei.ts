@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component, Input} from '@angular/core';
 import { CommonProvider } from '../../../../providers/common/common'
 import { ToolsProvider } from '../../../../providers/tools/tools'
 import { UtilProvider } from '../../../../providers/util/util'
@@ -16,13 +16,18 @@ import { BasketDataProvider } from '../../../../providers/basket-data/basket-dat
   templateUrl: 'housanermabudingwei.html'
 })
 export class HousanermabudingweiComponent extends commonMethod{
-
+  @Input('choose') choose: any[] = [];
+  
   text: string;
 
   constructor(public common:CommonProvider, public tool:ToolsProvider, public util:UtilProvider,public basket:BasketDataProvider){
     super(common,util,basket)
     console.log('Hello HousanermabudingweiComponent Component');
     this.text = 'Hello World';
+  }
+
+  check(choice){
+    return this.choose.indexOf(choice) > -1
   }
 
   randomOneOrder(){

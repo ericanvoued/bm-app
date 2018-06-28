@@ -40,15 +40,19 @@ export class WuxingComponent implements OnInit {
 
    sumData:any[]
 
+   weiData:any[] 
+
+   category:any[] = ['hot','average','max','current']
+
   constructor(public common:CommonProvider,public util:UtilProvider) {
     console.log('Hello WuxingComponent Component');
     console.log(this.common.historyList)
     
    // this.historyRecord = this.util.historyNumbers.slice(0,11)
-    this.historyRecord = this.common.historyList.map(ele => {
-      return {...ele, number:ele.number.substr(2,ele.number.length),
-        history: this.common.series_id == 2 ? ele.code.split(' ').map(ele => parseInt(ele)) : ele.code.split('').map(ele => parseInt(ele))}
-    })
+    // this.historyRecord = this.common.historyList.map(ele => {
+    //   return {...ele, number:ele.number.substr(2,ele.number.length),
+    //     history: this.common.series_id == 2 ? ele.code.split(' ').map(ele => parseInt(ele)) : ele.code.split('').map(ele => parseInt(ele))}
+    // })
 
     console.log(this.historyRecord)
   }
@@ -56,6 +60,14 @@ export class WuxingComponent implements OnInit {
   ngOnInit(){
     console.log(this.chooseIndex)
     console.log(this.position)
+
+    this.weiData = ['w','q','b','s','g'].slice(this.position[0], this.position[1])
+
+    this.historyRecord = this.common.historyList.map(ele => {
+      return {...ele, number:ele.number.substr(2,ele.number.length),
+        history: this.common.series_id == 2 ? ele.code.split(' ').map(ele => parseInt(ele)) : ele.code.split('').map(ele => parseInt(ele))}
+    })
+
     this.fakeTrend = this.initialArr(this.position[1], this.position[0]).reduce((a,b) =>{
       let arr = []
       for(let i = 0;i<this.historyRecord.length;i++){
@@ -64,6 +76,7 @@ export class WuxingComponent implements OnInit {
       a.push(arr)
       return a
     },[])
+
     console.log(this.fakeTrend)
 
     this.contentSlides.initialSlide = this.chooseIndex
@@ -80,13 +93,13 @@ export class WuxingComponent implements OnInit {
    //huoqu kaijiang
    getKaijiang(){
       console.log(this.common.method)
-      if(this.common.method == '五星' || this.common.method == '一星' || this.common.method == '任选' || this.common.method == '三码'){
+      if(this.common.method == '五星' || this.common.method == '一星' || this.common.method == '任选' || this.common.method == '三码' || this.common.method == '二码' || this.common.method == '定位胆'){
             this.kaijiangData = this.historyRecord.map((ele,index) => {
-              let sum = ele.history.reduce((l,r) => (+l) + (+r))
+              let sum = ele.history.slice(this.position[0], this.position[1]).reduce((l,r) => (+l) + (+r))
               let max = Math.max(...ele.history)
               let min = Math.min(...ele.history)
               let gap = max - min
-              let da = ele.history.filter(el => el >= 5).length
+              let da = ele.history.filter(el => this.common.series_id == 1 ? el >= 5 : el > 5).length
               let daxiao = da + ':' + (5 - da)
               let odd = ele.history.filter(el => el%2 != 0).length
               let oddeven = odd + ':' + (5 -odd)
@@ -281,5 +294,18 @@ export class WuxingComponent implements OnInit {
     }
     this.sumData = sumData
     console.log(sumData)
+  }
+
+  getTitle(item){
+    switch(item) {
+      case 'hot':
+           return '出现次数';
+      case 'average':
+           return '平均遗漏';
+      case 'max':
+           return '最大遗漏';
+      case 'current':
+           return '当前遗漏';                       
+    }
   }
 }

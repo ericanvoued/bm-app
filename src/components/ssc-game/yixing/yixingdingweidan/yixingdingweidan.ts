@@ -30,6 +30,10 @@ export class YixingdingweidanComponent extends commonMethod{
     return this.choose.indexOf(choice) > -1
   }
 
+  getOriginLotteryText(){
+      console.log('yixing')
+      return this.getCommonData().map(ele => ele.length > 0 ? ele.join('') : '').join('|')
+  }
 
  randomOneOrder(){
      let arr = this.createRandom(1)

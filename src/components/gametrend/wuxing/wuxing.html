@@ -11,7 +11,7 @@
         <!--<ng-template #alertContainer></ng-template>-->
         
         <div [ngSwitch]="true">
-                <div *ngSwitchCase="['五星','一星','任选','三码'].includes(common.method)">
+                <div *ngSwitchCase="['五星','一星','任选','三码','二码','定位胆'].includes(common.method)">
                         <div class="kai-jiang">
                                 <div >期号</div><div >开奖号码</div><div >和值</div><div >跨度</div>
                                 <div >大小比</div><div >奇偶比</div>
@@ -19,14 +19,16 @@
                    
                              <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
                                   <div >{{item.number.slice(-7)}}</div>
-                                  <div class="wuxing"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                                  <div class="wuxing" *ngIf="!['三码','二码','定位胆'].includes(common.method)"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                                  <div class="qiansan" *ngIf="['三码','定位胆'].includes(common.method)"><span *ngFor="let aa of item.history">{{aa}}</span></div>
+                                  <div class="qianer" *ngIf="common.method == '二码'"><span *ngFor="let aa of item.history">{{aa}}</span></div>
                                   <div >{{item.sum}}</div>
                                   <div >{{item.gap}}</div>
                                   <div >{{item.daxiao}}</div>
                                   <div >{{item.oddeven}}</div>
                              </div>
                 </div> 
-            
+
                 <div *ngSwitchCase="common.method == '四星'">
                         <div class="kai-jiang">
                                 <div >期号</div><div >开奖号码</div> <div>千位</div><div >百位</div>
@@ -43,7 +45,7 @@
                         </div>
                 </div>   
 
-                <div *ngSwitchCase="common.method == '前三'">
+                <div *ngSwitchCase="['前三'].includes(common.method)">
                         <div class="kai-jiang">
                                 <div >期号</div><div >开奖号码</div> <div>万位</div><div >千位</div>
                                 <div >百位</div><div >前三形态</div>
@@ -119,15 +121,7 @@
                      </div>         
                 </div> 
                 
-                <div *ngSwitchDefault>
-                    <div class="l-game" *ngFor="let data of common.ballData;let ii = index" >
-                        <div class="l">
-                            <p><span></span>{{data.key}}</p>
-                            <p style="margin-top:18px"><span></span>遗漏</p>
-                            <p *ngIf="check('30期冷热')" style="margin-top:18px"><span></span>冷热</p>
-                        </div>
-                    </div>
-                </div>   
+              
         </div> 
 
      
@@ -174,15 +168,22 @@
           </ul>
       </div>
      
-              <ul *ngFor="let item of util.statisticCategory" class="trend-category">
+              <!-- <ul *ngFor="let item of util.statisticCategory" class="trend-category">
                 <li class="head-num head-category" style="width:17%;font-size:10px">{{item}}</li>
                 <li class="head-num" style="width:8.5%" *ngFor="let todo of util.trendData[item][ii]">
                     {{todo}}
                 </li>
+              </ul> -->
+
+              <ul *ngFor="let item of category" class="trend-category">
+                    <li class="head-num head-category" style="width:17%;font-size:10px">{{getTitle(item)}}</li>
+                    <li class="head-num" style="width:8.5%" *ngFor="let todo of common.missData[weiData[i]][item]">
+                        {{todo}}
+                    </li>
               </ul>
           
             <div *ngIf="common.method != '任选'">
-                    <div *ngIf="common.bigKind == '直选'">
+                    <div *ngIf="common.bigKind == '直选' || common.method == '定位胆'">
                             <ul class="choose-content">
                                     <li class="head-num" style="width:17%;font-size:10px">{{ii}}</li>
 
@@ -206,7 +207,7 @@
                             </div>
                     </div>
             
-                    <div  *ngIf="common.bigKind != '直选'">
+                    <div  *ngIf="common.bigKind != '直选' && common.method != '定位胆'">
                         <ul class="choose-content" *ngFor="let item of common.ballData;let row=index">
                             <li class="head-num" style="width:17%;color:#333333;font-size:12px">{{processName(item.key)}}</li>
                             <li class="head-num ball-choose" style="width:8.5%;position:relative"  *ngFor="let item of item.value;let column=index" >

@@ -1,6 +1,7 @@
 page-xuan5 {
   .toggle-menu{background: url('../assets/imgs/toggle.png') center center no-repeat; position:relative;float:right;top:10px;width:21px;height:21px;margin-right: 10px}
-  
+  ul.statistic li.active, ul.statistic li.low{color:#F3361B}
+  ul.statistic li.high{color: #20BA36}
     .bet-box{
         margin:20px auto;
         padding: 0 10px 0 10px
@@ -21,6 +22,8 @@ page-xuan5 {
         .basket{width:92px;background:url('/assets/imgs/games/basket.png') center center no-repeat;background-size:auto 50px;position: relative}
       
         .bet-number{width:18px;height:18px;background: #ffffff;text-align: center;line-height: 18px;position: absolute;top:15px;left:15px;border-radius: 50%}
+
+       
 
     .l-info{
         line-height:26px;

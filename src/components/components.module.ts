@@ -11,6 +11,7 @@ import { ZuxuanliuComponent } from './ssc-game/zuxuanliu/zuxuanliu';
 
 import { WuxingzhixuanzuheComponent } from './ssc-game/wuxing/wuxingzhixuanzuhe/wuxingzhixuanzuhe';
 import { FooterComponent } from './footer/footer';
+import { RenxuanbazhongwudantuoComponent } from './renxuanbazhongwudantuo/renxuanbazhongwudantuo';
 
 
 
@@ -24,6 +25,7 @@ import { FooterComponent } from './footer/footer';
     ZuxuanhezhiComponent,
     ZuxuanliuComponent,
     FooterComponent,
+    RenxuanbazhongwudantuoComponent,
     ],
 	imports: [CommonModule],
 	exports: [
@@ -34,6 +36,7 @@ import { FooterComponent } from './footer/footer';
     ZuxuanhezhiComponent,
     ZuxuanliuComponent,
     FooterComponent,
+    RenxuanbazhongwudantuoComponent,
     ]
 })
 

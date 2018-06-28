@@ -3,6 +3,7 @@ menumodal {
   
    .modal.active{left:calc(50% - 150px)}
 
-   .small-menu span:nth-of-type(1){width:20px;height: 20px;background: url('assets/imgs/games/nochoose.png') center center no-repeat;float:left;margin-right: 5px}
-   .small-menu span:nth-of-type(1).active{background: url('assets/imgs/games/choosen.png') center center no-repeat}
+   .small-menu span:nth-of-type(1){width:20px;height: 20px;background: url('../assets/imgs/games/nochoose.png') center center no-repeat;float:left;margin-right: 5px}
+   .small-menu span:nth-of-type(1).active{background: url('../assets/imgs/games/choosen.png') center center no-repeat}
 }
+  

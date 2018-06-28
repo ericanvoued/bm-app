@@ -33,6 +33,19 @@ export class ZhongsanzuxuanhezhiComponent extends commonMethod{
     return this.choose.indexOf(choice) > -1
   }
 
+  getOriginLotteryText(){
+    let total = []
+    this.getCommonData().forEach((item,index) => {
+         let arr = []
+         if(item.length)
+           // arr.push(item*index*7 + 1)
+            arr.push(...item.map(ele => 7*index + ele + 1))
+        
+         total.push(arr)
+    }) 
+    return total.filter(ele => ele.length > 0).map(ele => ele.join('|')).join('|')
+  }
+
  randomOneOrder(){
     let target = Math.floor(Math.random()*26)
     

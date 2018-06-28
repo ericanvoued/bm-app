@@ -17,7 +17,8 @@ import { BasketDataProvider } from '../../../../providers/basket-data/basket-dat
   templateUrl: 'erxingzuxuanqianerfushi.html'
 })
 export class ErxingzuxuanqianerfushiComponent extends commonMethod{
-
+  @Input('choose') choose: any[] = [];
+  
   text: string;
 
   constructor(public common:CommonProvider, public tool:ToolsProvider,public util:UtilProvider,public basket:BasketDataProvider) {
@@ -27,6 +28,10 @@ export class ErxingzuxuanqianerfushiComponent extends commonMethod{
 
   qqq(number){
     return number + 5
+  }
+
+  check(choice){
+    return this.choose.indexOf(choice) > -1
   }
 
   randomOneOrder(){
