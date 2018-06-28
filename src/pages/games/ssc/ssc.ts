@@ -34,7 +34,7 @@ export class SscPage extends Effect{
     @ViewChild("gameContainer", { read: ViewContainerRef }) gameContainer: ViewContainerRef;
     componentRef: ComponentRef<any>;
     //showTip:any = ['当前遗漏', '30期冷热', '平均遗漏', '最大遗漏']
-    haveChoosen:any[] = ['当前遗漏']
+    haveChoosen:any[] = ['']
 
     record: any ;
     //助手菜单
