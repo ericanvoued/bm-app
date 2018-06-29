@@ -52,7 +52,12 @@ export class MoreOptionPage {
         {
           text: '确定',
           handler: () => {
-            this.logout();
+            if(this.userInfo){
+              this.logout();
+            }else {
+              this.loadingProd.showToast(this.toastCtrl,'您未登陆，退出无效！')
+            }
+
           }
         },
         {
