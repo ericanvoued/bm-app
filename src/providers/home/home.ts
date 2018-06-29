@@ -92,7 +92,6 @@ export class HomeProvider {
 
     this.addUrl(this.homeData.lottories)
     console.log(this.homeData.lottories)
-    debugger
     this.loadHotLottory(this.homeData.lottories)
 
 
