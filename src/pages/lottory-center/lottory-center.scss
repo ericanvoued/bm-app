@@ -77,6 +77,13 @@ page-lottory-center {
     color: #333333;
     text-align: center;
     background-color: #FFF9F5;
+
+    position: sticky;
+    left: 0;
+    right: 0;
+    top: 0;
+    box-shadow: 0 5px 5px rgba(125, 89, 89, 0.35);
+
     .lc-tab-unit{
       flex: 1;
       width: 100%;
