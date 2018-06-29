@@ -58,19 +58,7 @@ export class HomePage {
   }
 
   swiper_init() {
-    setTimeout(()=>{
-      this.banner_swiper = new Swiper('.swiper-container', {
-        slidesPerView: 'auto',
-        centeredSlides: true,
-        spaceBetween: 5,
-        loop: true,
-        pagination: {
-          el: '.swiper-pagination',
-        },
-      });
-    },800)
-
-
+  
     this.info_swiper = new Swiper('.info-slider', {
       direction: 'vertical',
       spaceBetween: 0,
@@ -80,6 +68,18 @@ export class HomePage {
         disableOnInteraction: false,
       }
     })
+
+    setTimeout(()=>{
+      this.banner_swiper = new Swiper('.swiper-container', {
+        slidesPerView: 'auto',
+      //  centeredSlides: true,
+        spaceBetween: 5,
+        loop: true,
+        pagination: {
+          el: '.swiper-pagination',
+        },
+      });
+    },1000)
   }
 
   //页面跳转
