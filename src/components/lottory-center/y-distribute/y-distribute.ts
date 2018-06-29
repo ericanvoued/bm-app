@@ -28,10 +28,14 @@ export class YDistributeComponent {
   }
 
   async loadthirty(group, num, id) {
-    await this.http.fetchData('/api-lotteries-h5/getnewlottterymissed/' + id + '/' + num + '?_t=' + this.userInfo.auth_token).then(data => {
-      // this.distribute[group]=data.data.k3dtys.hot;
-      this.distribute.missed = data.data.eleven
+    await this.http.fetchData('/api-lotteries-h5/getnewlottterymissed/' + id + '/' + num ).then(data => {
       console.log(data)
+      // this.distribute[group]=data.data.k3dtys.hot;
+      if(data.IsSuccess){
+        this.distribute.missed = data.data.eleven
+      }
+
+
     })
   }
 
