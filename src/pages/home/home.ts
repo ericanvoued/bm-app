@@ -53,7 +53,6 @@ export class HomePage {
     this.swiper_init()
   }
 
-
   swiper_init() {
     setTimeout(()=>{
       this.banner_swiper = new Swiper('.swiper-container', {
@@ -89,43 +88,15 @@ export class HomePage {
   }
 
   toLottory(lottory){
-    console.log(lottory.url)
+    console.log(lottory.redirect_url)
     console.log(lottory.id)
-    if(lottory.url){
+    if(lottory.redirect_url){
       this.common.gameId = lottory.id
       this.common.series_id = lottory.series_id
-      this.navCtrl.push(lottory.url)
+      this.navCtrl.push(lottory.redirect_url)
     }else{
       alert('no pages')
     }
   }
 
-  goToSsc(){
-    // this.common.pid.next('./assets/ssc.json')
-     this.navCtrl.push('SscPage')
-  }
-  // goToSsc() {
-  //   this.common.pid.next('./assets/ssc.json')
-  //   this.navCtrl.push('SscPage')
-  // }
-
-  gotoLhc() {
-    this.navCtrl.push(LhcSlidePage, {},{animate:false})
-  }
-
-  gotoKs() {
-
-    this.navCtrl.push(KsPage, {})
-
-  }
-
-  goToxuan5(){
-     //this.common.pid.next('./assets/115.json')
-     this.navCtrl.push('Xuan5Page')
-  }
-  // goToxuan5() {
-  //   console.log('wcndmd')
-  //   this.common.pid.next('./assets/115.json')
-  //   this.navCtrl.push('Xuan5Page')
-  // }
 }
