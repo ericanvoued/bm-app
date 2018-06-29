@@ -58,18 +58,6 @@ export class HomePage {
   }
 
   swiper_init() {
-    setTimeout(()=>{
-      this.banner_swiper = new Swiper('.swiper-container', {
-        slidesPerView: 'auto',
-        centeredSlides: true,
-        spaceBetween: 5,
-        loop: true,
-        pagination: {
-          el: '.swiper-pagination',
-        },
-      });
-    },800)
-
 
     this.info_swiper = new Swiper('.info-slider', {
       direction: 'vertical',
@@ -80,6 +68,22 @@ export class HomePage {
         disableOnInteraction: false,
       }
     })
+
+    setTimeout(()=>{
+      this.banner_swiper = new Swiper('.swiper-container', {
+        slidesPerView: 'auto',
+        centeredSlides: true,
+        spaceBetween: 5,
+        loop: true,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: '.swiper-pagination',
+        },
+      });
+    },800)
   }
 
   //页面跳转
