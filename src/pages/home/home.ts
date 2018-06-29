@@ -36,17 +36,21 @@ export class HomePage {
 
   }
 
+  ionViewWillEnter(){
+    this.homePrv.lottoryInfo();
+    this.homePrv.loadHotLottory();
+  }
+
   ionViewDidEnter(){
     if(this.common.timer){
       clearInterval(this.common.timer)
       this.common.resetLotteryData()
     }
-    console.log('clear')
+
     this.basket.clearBasket()
 
-    this.homePrv.loadHotLottory();
-    // this.swiper_init()
-    console.log(this.homePrv.homeData.lottorys)
+
+
   }
 
   ngAfterContentInit(){
