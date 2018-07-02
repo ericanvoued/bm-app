@@ -77,13 +77,13 @@
           </div>
         </div>
       </div>
-      <div class="enpty">
+      <div class="enpty" *ngIf="false">
         <p>暂无可浏览记录</p>
       </div>
     </div>
     <div class="switch-case case-charge" *ngSwitchCase="'charge'">
 
-      <div class="enpty">
+      <div class="enpty" *ngIf="false">
         <p>暂无可浏览记录</p>
         <div class="fix-sure-btn">
           <button (click)="pushPage('ChargePage')">立即充值</button>
