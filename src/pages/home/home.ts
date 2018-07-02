@@ -48,9 +48,6 @@ export class HomePage {
     }
 
     this.basket.clearBasket()
-
-
-
   }
 
   ngAfterContentInit(){
@@ -59,6 +56,7 @@ export class HomePage {
 
   swiper_init() {
   
+
     this.info_swiper = new Swiper('.info-slider', {
       direction: 'vertical',
       spaceBetween: 0,
@@ -75,11 +73,16 @@ export class HomePage {
       //  centeredSlides: true,
         spaceBetween: 5,
         loop: true,
+        centeredSlides: true,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+        },
         pagination: {
           el: '.swiper-pagination',
         },
       });
-    },1000)
+    },800)
   }
 
   //页面跳转
