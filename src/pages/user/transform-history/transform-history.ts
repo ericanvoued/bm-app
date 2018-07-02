@@ -48,7 +48,6 @@ export class TransformHistoryPage {
   }
 
   toggleDetail(){
-    console.log(1)
     this.isSlide = !this.isSlide;
     this.isSlide==true?this.detail_btn_text ='收起':this.detail_btn_text = '详情'
   }

@@ -27,6 +27,56 @@
 
   <div [ngSwitch]="transformHistory" id="switchBody" class="switch-body">
     <div class="switch-case case-all" *ngSwitchCase="'all'">
+      <div class="month"  *ngIf="true">
+        <div class="month-title">本月</div>
+        <div class="case-content">
+          <div class="case-content-unit">
+            <div class="case-wrap">
+              <p>编号：<span>1234567898</span></p>
+              <p><span>账户充值</span></p>
+            </div>
+            <div class="case-wrap border-bottom">
+              <p>金额：<span class="green">+200.00</span></p>
+              <p>余额：<span class="red">1800.00</span></p>
+            </div>
+            <div class="case-wrap case-wrap-big">
+              <p class="wp70">发起时间: <span>2018-01-04 16:21:37</span></p>
+              <p>
+                <span>充值成功</span>
+                <!--<button class="detail-btn"><i class="trangle"></i>详情</button>-->
+              </p>
+            </div>
+          </div>
+          <div class="case-content-unit" [ngClass]="{'isSlide':isSlide==true}">
+            <div class="case-wrap">
+              <p>编号：<span>1234567898</span></p>
+              <p><span>账户提现</span></p>
+            </div>
+            <div class="case-wrap border-bottom">
+              <p>金额：<span class="red">-200.00</span></p>
+              <p>余额：<span class="red">1800.00</span></p>
+            </div>
+            <div class="content-detail">
+              <div class="case-wrap ">
+                <p class="right">提现银行： <span>工商银行</span></p>
+              </div>
+              <div class="case-wrap ">
+                <p class="right">提现账户： <span>尾号3790 xxx</span></p>
+              </div>
+              <div class="case-wrap ">
+                <p class="right">金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额： <span class="red">200.00</span></p>
+              </div>
+              <div class="case-wrap">
+                <p class="right">提现状态： <span class="red">提现失败</span></p>
+              </div>
+            </div>
+            <div class="case-wrap case-wrap-big">
+              <p class="wp70">发起时间: <span>2018-01-04 16:21:37</span></p>
+              <p><button class="detail-btn" (click)="toggleDetail()"><i class="trangle"></i>{{detail_btn_text}}</button></p>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="enpty">
         <p>暂无可浏览记录</p>
       </div>

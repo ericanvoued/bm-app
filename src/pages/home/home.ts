@@ -69,7 +69,7 @@ export class HomePage {
       }
     })
 
-    setTimeout(()=>{
+    // setTimeout(()=>{
       this.banner_swiper = new Swiper('.swiper-container', {
         slidesPerView: 'auto',
         centeredSlides: true,
@@ -83,7 +83,7 @@ export class HomePage {
           el: '.swiper-pagination',
         },
       });
-    },800)
+    // },800)
   }
 
   //页面跳转
