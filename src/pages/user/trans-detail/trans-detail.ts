@@ -23,7 +23,7 @@ export class TransDetailPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public http:HttpClientProvider) {
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    this.transData.timeEnds += (new Date().getMonth()+1)>9?(new Date().getMonth()+1):('0'+(new Date().getMonth()+1))+'-'+(new Date().getDate())
+    this.transData.timeEnds += (new Date().getMonth()+1)>9?(new Date().getMonth()+1):('0'+(new Date().getMonth()+1))+'-'+((new Date().getDate())>9?(new Date().getDate()):('0'+new Date().getDate()))
     this.loadLottory()
   }
 
