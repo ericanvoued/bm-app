@@ -49,7 +49,6 @@ export class InfoCenterProvider {
   async loadLetters() {
     this.infoData.letters_id = [];
     this.infoData.letters = (await this.http.fetchData('/h5api-station-letters/?_t=' + this.userInfo.auth_token)).data;
-    //
     if(this.infoData.letters.data.length!=0){
       for(let i=0,len=this.infoData.letters.data.length;i<len;i++){
         this.infoData.letters_id.push(this.infoData.letters.data[i].id)
@@ -106,7 +105,7 @@ export class InfoCenterProvider {
       id: _id,
       is_top: _is_top
     }).then(data => {
-      if (data.isSuccess == 1) {
+      if (data.isSuccess) {
         this.loadLetters()
       }
     })
@@ -122,7 +121,7 @@ export class InfoCenterProvider {
         id: _id,
         is_top: _is_top
       }).then(data => {
-        if (data.isSuccess == 1) {
+        if (data.isSuccess) {
           this.loadannouncements()
         }
       })
@@ -143,7 +142,7 @@ export class InfoCenterProvider {
       id: _id
     }).then(data => {
       loading.dismiss()
-      if (data.IsSuccess == 1) {
+      if (data.IsSuccess) {
         loading = this.LoadPrvd.showToast(this.toastCtrl, '删除成功')
         this.letterUnreadnum();
         this.loadLetters();
@@ -164,7 +163,7 @@ export class InfoCenterProvider {
         id: _id
       }).then(data => {
         loading.dismiss()
-        if (data.IsSuccess==1) {
+        if (data.IsSuccess) {
           loading = this.LoadPrvd.showToast(this.toastCtrl,'删除成功')
           this.loadannouncements();
           this.announcementsUnreadnum();

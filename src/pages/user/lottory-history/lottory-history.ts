@@ -28,10 +28,10 @@ export class LottoryHistoryPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public loadingPrvd: LoadingProvider,
-              loadingCtrl: LoadingController,
-              toastCtrl: ToastController,
+              public loadingCtrl: LoadingController,
+              public toastCtrl: ToastController,
               public http: HttpClientProvider) {
-    this.lrecord.timeEnds += (new Date().getMonth()+1)>9?(new Date().getMonth()+1):('0'+(new Date().getMonth()+1))+'-'+(new Date().getDate())
+    this.lrecord.timeEnds += (new Date().getMonth()+1)>9?(new Date().getMonth()+1):('0'+(new Date().getMonth()+1))+'-'+((new Date().getDate())>9?(new Date().getDate()):('0'+new Date().getDate()))
     console.log(this.lrecord.timeEnds)
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
     this.loadLottory()
@@ -40,9 +40,6 @@ export class LottoryHistoryPage {
 
   toggleDetail(record) {
     record.isSlide = !record.isSlide
-
-    // this.lhRecord.data[_index].isSlide = !this.lhRecord.data[_index].isSlide;
-    // this.lhRecord.data[_index].isSlide == true ? this.lhRecord.data[_index].detail_btn_text = '收起' : this.lhRecord.data[_index].detail_btn_text = '详情'
   }
 
   //所有游戏列表
