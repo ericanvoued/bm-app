@@ -32,10 +32,19 @@ export class BaseToolProvider {
   requestPlayData(idstr, lottery) {
 
     // this.showLoading();
-    console.log(1231231231)
-    var userInfo = JSON.parse(localStorage.userInfo);
-    console.log(userInfo);
-    var url = '/api-lotteries-h5/load-data/2/' + idstr + '?_t=' + userInfo.auth_token;
+
+    // var userInfo = JSON.parse(localStorage.userInfo);
+    // var url = '/api-lotteries-h5/load-data/2/' + idstr + '?_t=' + userInfo.auth_token;
+
+    var url,data;
+    if(localStorage.userInfo){
+      data = JSON.parse(localStorage.userInfo);
+      url = '/api-lotteries-h5/load-data/2/' + idstr + '?_t=' + data.auth_token;
+    }else{
+      url = '/api-lotteries-h5/load-data/2/' + idstr + '?_t=' ;
+    }
+
+
     return new Promise((resolve, reject) => {
       this.rest.getUrlReturn(url)
         .subscribe((data) => {
@@ -84,7 +93,12 @@ export class BaseToolProvider {
               localStorage.ani = JSON.stringify(data.data.game_ways[3].children[0].children[0].bet_number);
               // this.initViewData();
             }
-            resolve();
+            if(lottery.search('6') != -1){
+              resolve(data.data['game_ways']);
+            }else{
+              resolve(data.data['game_ways'][0].children[0].children);
+            }
+
           } else {
             // reject();
           }
@@ -97,9 +111,15 @@ export class BaseToolProvider {
 
   requestJiangQiData(idstr, lottery, from) {
 
-    console.log('requestJiangQiData');
-    var data = JSON.parse(localStorage.userInfo);
-    var url = '/api-lotteries-h5/load-data/1/' + idstr + '?_t=' + data.auth_token;
+    var data,url;
+    if(localStorage.userInfo){
+      data = JSON.parse(localStorage.userInfo);
+      url = '/api-lotteries-h5/load-data/1/' + idstr + '?_t=' + data.auth_token;
+    }else{
+      url = '/api-lotteries-h5/load-data/1/' + idstr + '?_t='
+    }
+
+    // var url = '/api-lotteries-h5/load-data/1/' + idstr + '?_t=' + data.auth_token;
     return new Promise((resolve, reject) => {
 
       // this.rest.postUrlReturn(url, {_token: data.token})
@@ -224,9 +244,6 @@ export class BaseToolProvider {
       var minute = Math.floor(totalSec % 3600 / 60);
       var sec = totalSec % 60;
 
-      liArr[0].innerHTML = hour;
-      liArr[1].innerHTML = minute;
-      liArr[2].innerHTML = sec;
       if(from=='trend'){
 
         $('.ks-cuttime').text(minute+':'+sec);
@@ -234,7 +251,9 @@ export class BaseToolProvider {
 
         $('.basket-time').text(minute+':'+sec);
       }else{
-
+        liArr[0].innerHTML = hour;
+        liArr[1].innerHTML = minute;
+        liArr[2].innerHTML = sec;
         var scale = totalSec / ttt * 100;
         $('.time-bar').css('width', scale + '%');
       }

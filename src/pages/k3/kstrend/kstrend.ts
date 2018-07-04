@@ -3,7 +3,7 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 
 import * as $ from 'jquery';
 import {BaseToolProvider} from '../../../providers/base-tool/base-tool';
-import {KsBasketPage} from '../ks-basket/ks-basket';
+// import {KsBasketPage} from '../ks-basket/ks-basket';
 import {ViewController} from "ionic-angular/navigation/view-controller";
 import * as Hammer from 'hammerjs';
 import {Tpl} from '../../../providers/base-tool/tpl';
@@ -181,7 +181,7 @@ export class KstrendPage {
 
     this.addOrderEvent();
 
-    this.navCtrl.push(KsBasketPage, {})
+    this.navCtrl.push("KsBasketPage")
 
   }
 

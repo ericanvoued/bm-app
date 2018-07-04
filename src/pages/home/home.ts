@@ -101,6 +101,7 @@ export class HomePage {
     if(lottory.redirect_url){
       this.common.gameId = lottory.id
       this.common.series_id = lottory.series_id
+      localStorage.idstr = lottory.id
       this.navCtrl.push(lottory.redirect_url)
     }else{
       alert('no pages')
