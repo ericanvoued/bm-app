@@ -53,6 +53,7 @@ import {DaxiaodanshuangComponent} from '../components/gametrend/daxiaodanshuang/
 
 import {BankCardProvider} from '../providers/bank-card/bank-card';
 import {SignupProvider} from '../providers/signup/signup';
+import { ChargePage } from '../pages/user/charge/charge'
 
 
 import {RightmenuComponent} from '../components/rightmenu/rightmenu';
@@ -83,10 +84,10 @@ import {KstrendAction} from '../pages/k3/kstrend/kstrend-action';
     CountTipComponent,
     //LhcSlidePage,
     KsBasketPage,
-     KsBasketPage,KstrendPage,
-    ...gameConfig.ssc,
-    ...gameConfig.d5,
-    ...lottoyCenter.lcList
+     KsBasketPage,KstrendPage,ChargePage,
+    //...gameConfig.ssc,
+    //...gameConfig.d5,
+    //...lottoyCenter.lcList
     // LoginPage,
   ],
   imports: [
@@ -118,11 +119,11 @@ import {KstrendAction} from '../pages/k3/kstrend/kstrend-action';
     ZufuComponent,
    // LhcSlidePage,
     KsBasketPage,
-     KsBasketPage,KstrendPage,
+     KsBasketPage,KstrendPage,ChargePage,
     CountTipComponent,
-    ...gameConfig.ssc,
-    ...gameConfig.d5,
-    ...lottoyCenter.lcList
+    //...gameConfig.ssc,
+    //...gameConfig.d5,
+    //...lottoyCenter.lcList
 
   ],
   providers: [
