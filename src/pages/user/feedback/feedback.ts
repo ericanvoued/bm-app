@@ -23,16 +23,31 @@ export class FeedbackPage {
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
   }
 
-  async feedBack(){
-    let loading = this.loadPrvd.showLoading(this.loadCtrl,'意见提交中')
-    await this.http.postData('/h5api-suggestion/0/addsuggestion?_t='+this.userInfo.auth_token,{
-      'Content-Type':'application/x-www-form-urlencoded',
-      '_token':this.userInfo.token,
-      'comment':this.content,
-      'contact':this.contact
-    }).then(data=>{
-      console.log(data)
+  async postFeedBack() {
+    let loading = this.loadPrvd.showLoading(this.loadCtrl, '意见提交中')
+    await this.http.postData('/h5api-suggestion/0/addsuggestion?_t=' + this.userInfo.auth_token, {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      '_token': this.userInfo.token,
+      'comment': this.content,
+      'contact': this.contact
+    }).then(data => {
+      loading.dismiss();
+      if (data.isSuccess == 1) {
+        this.loadPrvd.showToast(this.toastCtrl, '意见提交成功')
+      } else {
+        this.loadPrvd.showToast(this.toastCtrl, data.type)
+      }
     })
+  }
+
+  feedBack(){
+    if(this.content.length==0){
+      this.loadPrvd.showToast(this.toastCtrl, '您还没有填写反馈的内容喔')
+    }else if(this.contact.length==0){
+      this.loadPrvd.showToast(this.toastCtrl, '麻烦留下您的联系方式')
+    }else {
+      this.postFeedBack();
+    }
   }
 
 

@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
+import {IonicPage} from 'ionic-angular';
 
-/**
- * Generated class for the Pk10daxiaoComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
+
+@IonicPage()
 @Component({
   selector: 'pk10daxiao',
   templateUrl: './pk10daxiao.html'

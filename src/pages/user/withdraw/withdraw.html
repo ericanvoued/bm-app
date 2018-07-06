@@ -21,7 +21,7 @@
     <div class="bank-content">
       <div class="bank-unit" *ngFor="let bank of ucPrd.withdrewApiData.data.bank_cards" (click)="selectBank(bank)" [ngClass]="{'current':bank.flag}">
         <div class="capture">
-          <img src="../../../assets/bank-icon/s-{{bank.identifier}}-icon.png" alt="">
+          <img src="../assets/bank-icon/s-{{bank.identifier}}-icon.png" alt="">
         </div>
         <div class="bank-text">
           <h4>{{bank.account_name}}</h4>

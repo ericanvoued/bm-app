@@ -10,7 +10,7 @@
     <p class="date-info">博猫 | {{detail.updated_at.slice(5)}}</p>
     <p class="hello">尊敬的博猫用户您好：</p>
     <div class="info-detail-content">
-      <p>{{detail.content}}</p>
+      <p [innerHTML]='detail.content'></p>
     </div>
     <p class="info-detail-group" text-right>博猫运营团队</p>
     <p class="info-detail-date" text-right>{{detail.updated_at.slice(0,10)|date:'yyyy年MM月dd日'}}</p>

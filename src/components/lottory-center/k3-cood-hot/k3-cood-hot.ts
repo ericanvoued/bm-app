@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { HttpClientProvider } from '../../../providers/http-client/http-client'
+import {IonicPage} from 'ionic-angular';
 
+
+@IonicPage()
 @Component({
   selector: 'k3-cood-hot',
   templateUrl: './k3-cood-hot.html'

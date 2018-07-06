@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {IonicPage, ToastController, LoadingController, NavController, NavParams} from 'ionic-angular';
 
-import {InviteRulePage} from '../invite-rule/invite-rule'
 import {HttpClientProvider} from '../../../providers/http-client/http-client'
 import {LoadingProvider} from '../../../providers/loading/loading'
 

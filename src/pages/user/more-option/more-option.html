@@ -12,7 +12,7 @@
     <div class="option" (click)="pushPage('HelpCenterPage')">
       <p>帮助中心</p>
       <i class="firecat-icon toRight-icon"></i></div>
-    <div class="option">
+    <div class="option" (click)="http.lineService(userInfo.username)">
       <p>在线客服</p>
       <i class="firecat-icon toRight-icon"></i></div>
     <div class="option" (click)="pushPage('FeedbackPage')">

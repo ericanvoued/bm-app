@@ -3,7 +3,7 @@ import {IonicPage,LoadingController, ToastController, NavController, NavParams} 
 
 import {HttpClientProvider} from '../../../providers/http-client/http-client'
 import { LoadingProvider } from '../../../providers/loading/loading'
-
+import Clipboard from 'clipboard'
 
 @IonicPage()
 @Component({
@@ -12,15 +12,19 @@ import { LoadingProvider } from '../../../providers/loading/loading'
 })
 export class LottoryHistoryPage {
 
-  _index = -1;
+  // _index = -1;
   userInfo = null;
+
+  isNomore = false;
+  loadmore = false;
+
   lrecord = {
     currentpage:1,
-    currentLottory: {friend_name: ''},
+    currentLottory: {friend_name: '全部游戏'},
     bet_model: {'1.00': '元', '0.10': '角', '0.01': '分'},
     statusName: {'0': '待开奖', '1': '已撤销', '2': '未中奖', '3': '已中奖', '4': '已派奖', '5': '系统撤销'},
     lottorys: [{friend_name: ''}],
-    timeStarts:new Date().getFullYear()+'-01-01',
+    timeStarts:new Date().getFullYear()+'-',
     timeEnds:new Date().getFullYear()+'-',
     data: []
   }
@@ -31,6 +35,8 @@ export class LottoryHistoryPage {
               public loadingCtrl: LoadingController,
               public toastCtrl: ToastController,
               public http: HttpClientProvider) {
+    this.lrecord.timeStarts += (new Date().getMonth())>9?(new Date().getMonth()):((new Date().getMonth())==0?12:('0'+(new Date().getMonth())))+'-'+((new Date().getDate())>9?(new Date().getDate()):('0'+new Date().getDate()))
+
     this.lrecord.timeEnds += (new Date().getMonth()+1)>9?(new Date().getMonth()+1):('0'+(new Date().getMonth()+1))+'-'+((new Date().getDate())>9?(new Date().getDate()):('0'+new Date().getDate()))
     console.log(this.lrecord.timeEnds)
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
@@ -50,31 +56,68 @@ export class LottoryHistoryPage {
       for (let item in data.data) {
         this.lrecord.lottorys.push(...data.data[item])
       }
-      this.lrecord.currentLottory = this.lrecord.lottorys[0]
-      if (this._index == 0) {
+      // this.lrecord.currentLottory = this.lrecord.lottorys[0]
+      // if (this._index == 0) {
         this.selectLottory(this.lrecord.currentLottory)
-      }
+      // }
     })
   }
 
 
-  async selectLottory(_lottory) {
-    console.log(_lottory)
+  async selectLottory(_lottory,page,isChange) {
+
 
     await this.http.postData('/h5api-projects?_t=' + this.userInfo.auth_token, {
       'Content-Type': 'application/x-www-form-urlencoded',
       '_token': this.userInfo.token,
-      'start': this.lrecord.timeStarts,
-      'end': this.lrecord.timeEnds,
+      'start': this.lrecord.timeStarts+' 00:00:00',
+      'end': this.lrecord.timeEnds+' 23:59:59',
       'page':this.lrecord.currentpage,
-      'lottery_id': _lottory.id
+      'lottery_id': _lottory.id?_lottory.id:null
     }).then(data => {
-      console.log(data)
-      this.lrecord.data = data.data.data;
-      for (let i = 0, len = this.lrecord.data.length; i < len; i++) {
-        this.lrecord.data[i].isSlide = false;
+
+      if(isChange){
+        if(data.data.data.length<20){
+          if(data.data.data.length==0){
+            this.isNomore = false;
+            this.loadmore = false;
+          }else {
+            this.isNomore = true;
+            this.loadmore = false;
+          }
+
+        }else {
+          this.isNomore = false;
+          this.loadmore = true;
+        }
+        this.lrecord.data = data.data.data;
+        for (let i = 0, len = this.lrecord.data.length; i < len; i++) {
+          this.lrecord.data[i].isSlide = false;
+        }
+
+      }else {
+        if(data.data.data.length!=0){
+          if(data.data.length<20){
+            this.isNomore = true;
+            this.loadmore = false;
+          }else {
+            this.isNomore = false;
+            this.loadmore = true;
+          }
+
+          let len = this.lrecord.data.length
+          this.lrecord.data.push(...data.data.data);
+          for (let i = len, len1 = this.lrecord.data.length; i < len1; i++) {
+            this.lrecord.data[i].isSlide = false;
+          }
+        }else {
+          this.isNomore = true;
+          this.loadmore = false;
+        }
+
       }
-      console.log(this.lrecord.data)
+
+
     })
   }
 
@@ -100,4 +143,43 @@ export class LottoryHistoryPage {
     })
   }
 
+
+
+  doInfinite(): Promise<any>{
+    this.lrecord.currentpage ++
+    return new Promise((resolve,reject)=>{
+      setTimeout(() => {
+        this.selectLottory(this.lrecord.currentLottory,this.lrecord.currentpage,false)
+        resolve()
+      }, 500);
+    })
+  }
+
+  copyText(e:event) {
+    // const _input = document.querySelector(txt);
+    // console.log(_input.value)
+    // _input.setAttribute('value',_input.value)
+    // _input.select();
+    // if (document.execCommand('copy')) {
+    //   document.execCommand('copy');
+    //
+    //   console.log('复制成功');
+    // }
+    // })
+    // window.clipboardData.setData('text',t.value);
+
+    console.log(e)
+
+    var cpTxt = '22';
+    var clipboardData = window.clipboardData; //for IE
+    if (!clipboardData) { // for chrome
+      console.log(e.originalEvent)
+      clipboardData = e.originalEvent.clipboardData;
+    }
+    //e.clipboardData.getData('text');//可以获取用户选中复制的数据
+    clipboardData.setData('Text', cpTxt);
+    // alert(cpTxt);
+    // $('#message').text('Copy Data : ' + cpTxt);
+    return false;//否则设不生效
+  }
 }

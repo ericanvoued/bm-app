@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import {IonicPage} from 'ionic-angular';
 
 
+@IonicPage()
 @Component({
   selector: 'k3-base-trend',
   templateUrl: './k3-base-trend.html'

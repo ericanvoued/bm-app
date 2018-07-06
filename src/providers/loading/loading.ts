@@ -35,6 +35,18 @@ export class LoadingProvider {
     return this.loader;
     }
 
+  //通用 loading 组件
+  showMidToast(toastCtrl: ToastController, massage: string): Toast {
+    this.toast = toastCtrl.create({
+      message: massage,
+      duration:1500,
+      position: 'middle'
+    })
+    this.toast.present();
+    return this.toast;
+  }
+
+
   //通用 toast 组件
   showToast(toastCtrl: ToastController, massage: string): Toast {
     this.toast = toastCtrl.create({

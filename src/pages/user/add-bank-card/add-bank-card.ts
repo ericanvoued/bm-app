@@ -5,6 +5,7 @@ import { CommonStatusPage } from '../common-status/common-status';
 import { flyUp } from '../../../animation/flyUp'
 import { HttpClientProvider } from '../../../providers/http-client/http-client'
 
+
 import { BankCardProvider } from '../../../providers/bank-card/bank-card'
 
 @IonicPage()
@@ -19,6 +20,7 @@ export class AddBankCardPage {
 
   userInfo;
   bcData = {
+    branch_id:null,
     authToken:'init',
     toast:null,
     loading:null,
@@ -100,6 +102,9 @@ export class AddBankCardPage {
       this.bcData.province = data.data
     })
   }
+  falseFocus(){
+    return false
+  }
 
   async showBranch(){
     this.bcData['searchFlag'] = true;
@@ -145,8 +150,10 @@ export class AddBankCardPage {
     this.bcData.cityModelFlag = false;
   }
 
-  selectBranch(_branch){
+  selectBranch(_branch,event){
+    this.bcData.branch_id = _branch.id;
     this.bcData.subData.branchName = _branch.text;
+
     this.dismissModel('searchFlag')
   }
 
@@ -189,6 +196,7 @@ export class AddBankCardPage {
         'account_confirmation': this.bcData.subData.cardNum,
         'account_name': this.bcData.subData.userName,
         'account': this.bcData.subData.cardNum,
+        'branch_id': this.bcData.branch_id,
         '_token': this.userInfo.token
       }).then(data => {
         if(data.isSuccess==0){

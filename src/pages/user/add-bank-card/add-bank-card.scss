@@ -40,6 +40,16 @@ page-add-bank-card {
     }
 
   }
+  .disable-submit-button{
+    background-color: #B4B4B4!important;
+    color: #ffffff;
+  }
+  #branchName{
+    width: 100%;
+    flex: 1;
+    line-height:51px;
+  }
+
 }
 .bankList-model{
   position: fixed;
@@ -137,6 +147,7 @@ page-add-bank-card {
         width: auto;
         float: left;
         flex: none;
+        line-height:35px;
         background-color: transparent;
         border: none;
         color: #333333;

@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
+import {IonicPage} from 'ionic-angular';
 
-/**
- * Generated class for the Pk10LonghuComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
+
+@IonicPage()
 @Component({
   selector: 'pk10-longhu',
   templateUrl: './pk10-longhu.html'

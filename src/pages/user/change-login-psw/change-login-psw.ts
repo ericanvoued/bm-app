@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams,LoadingController, ToastController 
 import {UserCenterProvider } from '../../../providers/user-center/user-center'
 import {LoadingProvider} from '../../../providers/loading/loading'
 
-import {TabsPage} from '../../tabs/tabs'
 
 
 @IonicPage()
@@ -49,9 +48,7 @@ export class ChangeLoginPswPage {
         if (data.isSuccess == 1) {
           toast = this.loadPrd.showToast(this.ToastCtrl,data.data.tplData.msg+'请重新登录')
           localStorage.userInfo = null;
-          this.navCtrl.setRoot(TabsPage, {
-            pageIndex: 3
-          });
+          this.navCtrl.push('TabsPage');
         }else {
           toast = this.loadPrd.showToast(this.ToastCtrl,data.data.tplData.msg)
         }

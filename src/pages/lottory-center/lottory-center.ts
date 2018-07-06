@@ -26,6 +26,8 @@ import {LhcBoseComponent} from '../../components/lottory-center/lhc-bose/lhc-bos
   selector: 'page-lottory-center',
   templateUrl: 'lottory-center.html',
 })
+
+
 export class LottoryCenterPage {
   lcData = {
     currentLottory: null,//当前彩种

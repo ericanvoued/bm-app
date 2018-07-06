@@ -3,10 +3,6 @@ import { IonicPage, NavController, ToastController, NavParams } from 'ionic-angu
 
 import { LoadingProvider } from '../../../providers/loading/loading'
 
-import { BankCardPage } from '../bank-card/bank-card'
-import { ChangePayPswPage } from '../change-pay-psw/change-pay-psw'
-import { ChangeLoginPswPage } from '../change-login-psw/change-login-psw'
-
 @IonicPage()
 @Component({
   selector: 'page-safe-center',

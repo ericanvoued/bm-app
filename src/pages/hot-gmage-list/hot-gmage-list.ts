@@ -47,7 +47,7 @@ export class HotGmageListPage {
       this.lottorys.data.more.push(_lottory)
       this.lottorys.data.hot.splice(_index,1)
     }else{
-      this.loadPrd.showToast(this.toastCtrl,'最少保留3个彩种')
+      this.loadPrd.showMidToast(this.toastCtrl,'最少保留3个彩种')
     }
 
   }
