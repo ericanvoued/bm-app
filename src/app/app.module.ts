@@ -17,8 +17,6 @@ import {LoginProvider} from '../providers/login/login';
 import {RestProvider} from '../providers/rest/rest';
 import {LoadingProvider} from '../providers/loading/loading';
 import {InfoCenterProvider} from '../providers/info-center/info-center';
-import {KsBasketPage} from '../pages/k3/ks-basket/ks-basket'
-import {KstrendPage} from '../pages/k3/kstrend/kstrend'
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {CommonProvider} from '../providers/common/common';
@@ -69,9 +67,6 @@ import {KstrendAction} from '../pages/k3/kstrend/kstrend-action';
     DaxiaodanshuangComponent,
     ZufuComponent,
     CountTipComponent,
-    //LhcSlidePage,
-    KsBasketPage,
-     KsBasketPage,KstrendPage,
     ...gameConfig.ssc,
     ...gameConfig.d5
   ],
@@ -96,9 +91,6 @@ import {KstrendAction} from '../pages/k3/kstrend/kstrend-action';
     ZhixuanhezhiComponent,
     DaxiaodanshuangComponent,
     ZufuComponent,
-   // LhcSlidePage,
-    KsBasketPage,
-     KsBasketPage,KstrendPage,
     CountTipComponent,
     ...gameConfig.ssc,
     ...gameConfig.d5

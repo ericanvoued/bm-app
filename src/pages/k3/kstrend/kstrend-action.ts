@@ -461,8 +461,6 @@ export class KstrendAction {
         break;
     }
 
-    // console.log('htim===' + htm);
-
     trend.find('.kj-ul').html(htm);
   }
 
@@ -477,7 +475,6 @@ export class KstrendAction {
     // reg =eval("/"+re+"/ig")
     for (var i = 0; i < arr.length; i++) {
       code = arr[i].code;
-
       if (code == '') {
         item = '<li class="his-line">\n' +
           '        <p class="t-issue">' + arr[i].number.slice(8) + '期</p>\n' +
@@ -486,7 +483,6 @@ export class KstrendAction {
         $('.jbzs-container .jbzs-ul').append(item);
         continue;
       } else {
-
         code0 = code.split('')[0];
         code1 = code.split('')[1];
         code2 = code.split('')[2];
@@ -503,7 +499,6 @@ export class KstrendAction {
           '      </li>';
         $('.jbzs-container .jbzs-ul').append(item);
       }
-
       for (var j = 0; j < 6; j++) {
         var it, num = j + 1;
         // var len = code.length - code.replace(new RegExp(num, 'g'), '').length;
@@ -528,8 +523,9 @@ export class KstrendAction {
             '          <span class="t">' + txt + '</span>\n' +
             '          <span class="corner hide">0</span>\n' +
             '        </p>';
-// console.log('txt==='+txt);
+
         } else if (len == 1) {
+
           it = '<p class="t-' + num + '">\n' +
             '          <span class="t active">' + num + '</span>\n' +
             '          <span class="corner hide">1</span>\n' +
@@ -540,7 +536,6 @@ export class KstrendAction {
             '          <span class="corner">' + len + '</span>\n' +
             '        </p>';
         }
-
         $('.jbzs-ul').find('.his-line').eq(i).append(it);
 
       }
@@ -596,7 +591,6 @@ export class KstrendAction {
       '        <p class="t-6">' + ylarr['current']['6'] + '</p>\n' +
       '      </li>\n' +
       '    </ul>';
-
 
     $('.jbzs-container').append(statistic);
 
@@ -837,12 +831,10 @@ export class KstrendAction {
       //1 判断是否二不同号
       //2 是二不同号 --》   对应for 循环时候就 active属性
       //3 不是二不同号 --》 对应for 循环 直接 统计
-
       if ((code.match(reg_2bt) != null)) {
         //二不同号
         for (var k = 0; k < 15; k++) {
           num = arr2bt[k];
-
 
           if (code01.search(num) != -1 || code02.search(num) != -1 || code12.search(num) != -1) {
             it = '<p class="t"><span class="active">' + num + '</span></p>';
@@ -882,85 +874,83 @@ export class KstrendAction {
           it = '<p class="t"><span>' + txt + '</span></p>';
           htm += it;
         }
-
       }
-
       $('.hmfb-container .hmfb-ul').find('.his-line').eq(i).append(htm);
     }
 
-
+    var lr90 = JSON.parse(localStorage.yldata90).k3ebth;
     var statistics = '<ul class="bottom-hmfb">\n' +
       '      <li class="his-line">\n' +
       '        <p class="txt">出现次数</p>\n' +
-      '        <p class="t t-12">12</p>\n' +
-      '        <p class="t t-13">13</p>\n' +
-      '        <p class="t t-14">14</p>\n' +
-      '        <p class="t t-15">15</p>\n' +
-      '        <p class="t t-16">16</p>\n' +
-      '        <p class="t t-23">23</p>\n' +
-      '        <p class="t t-24">24</p>\n' +
-      '        <p class="t t-25">25</p>\n' +
-      '        <p class="t t-26">26</p>\n' +
-      '        <p class="t t-34">34</p>\n' +
-      '        <p class="t t-35">35</p>\n' +
-      '        <p class="t t-36">36</p>\n' +
-      '        <p class="t t-45">45</p>\n' +
-      '        <p class="t t-46">46</p>\n' +
-      '        <p class="t t-56">56</p>\n' +
+      '        <p class="t t-12">'+lr90['hot']['ebth']['12']+'</p>\n' +
+      '        <p class="t t-13">'+lr90['hot']['ebth']['13']+'</p>\n' +
+      '        <p class="t t-14">'+lr90['hot']['ebth']['14']+'</p>\n' +
+      '        <p class="t t-15">'+lr90['hot']['ebth']['15']+'</p>\n' +
+      '        <p class="t t-16">'+lr90['hot']['ebth']['16']+'</p>\n' +
+      '        <p class="t t-23">'+lr90['hot']['ebth']['23']+'</p>\n' +
+      '        <p class="t t-24">'+lr90['hot']['ebth']['24']+'</p>\n' +
+      '        <p class="t t-25">'+lr90['hot']['ebth']['25']+'</p>\n' +
+      '        <p class="t t-26">'+lr90['hot']['ebth']['26']+'</p>\n' +
+      '        <p class="t t-34">'+lr90['hot']['ebth']['34']+'</p>\n' +
+      '        <p class="t t-35">'+lr90['hot']['ebth']['35']+'</p>\n' +
+      '        <p class="t t-36">'+lr90['hot']['ebth']['36']+'</p>\n' +
+      '        <p class="t t-45">'+lr90['hot']['ebth']['45']+'</p>\n' +
+      '        <p class="t t-46">'+lr90['hot']['ebth']['46']+'</p>\n' +
+      '        <p class="t t-56">'+lr90['hot']['ebth']['56']+'</p>\n' +
       '      </li>\n' +
       '      <li class="his-line">\n' +
       '        <p class="txt">平均遗漏</p>\n' +
-      '        <p class="t t-12">12</p>\n' +
-      '        <p class="t t-13">13</p>\n' +
-      '        <p class="t t-14">14</p>\n' +
-      '        <p class="t t-15">15</p>\n' +
-      '        <p class="t t-16">16</p>\n' +
-      '        <p class="t t-23">23</p>\n' +
-      '        <p class="t t-24">24</p>\n' +
-      '        <p class="t t-25">25</p>\n' +
-      '        <p class="t t-26">26</p>\n' +
-      '        <p class="t t-34">34</p>\n' +
-      '        <p class="t t-35">35</p>\n' +
-      '        <p class="t t-36">36</p>\n' +
-      '        <p class="t t-45">45</p>\n' +
-      '        <p class="t t-46">46</p>\n' +
-      '        <p class="t t-56">56</p>\n' +
+      '        <p class="t t-12">'+lr90['average']['ebth']['12']+'</p>\n' +
+      '        <p class="t t-13">'+lr90['average']['ebth']['13']+'</p>\n' +
+      '        <p class="t t-14">'+lr90['average']['ebth']['14']+'</p>\n' +
+      '        <p class="t t-15">'+lr90['average']['ebth']['15']+'</p>\n' +
+      '        <p class="t t-16">'+lr90['average']['ebth']['16']+'</p>\n' +
+      '        <p class="t t-23">'+lr90['average']['ebth']['23']+'</p>\n' +
+      '        <p class="t t-24">'+lr90['average']['ebth']['24']+'</p>\n' +
+      '        <p class="t t-25">'+lr90['average']['ebth']['25']+'</p>\n' +
+      '        <p class="t t-26">'+lr90['average']['ebth']['26']+'</p>\n' +
+      '        <p class="t t-34">'+lr90['average']['ebth']['34']+'</p>\n' +
+      '        <p class="t t-35">'+lr90['average']['ebth']['35']+'</p>\n' +
+      '        <p class="t t-36">'+lr90['average']['ebth']['36']+'</p>\n' +
+      '        <p class="t t-45">'+lr90['average']['ebth']['45']+'</p>\n' +
+      '        <p class="t t-46">'+lr90['average']['ebth']['46']+'</p>\n' +
+      '        <p class="t t-56">'+lr90['average']['ebth']['56']+'</p>\n' +
       '      </li>\n' +
       '      <li class="his-line">\n' +
       '        <p class="txt">最大遗漏</p>\n' +
-      '        <p class="t t-12">12</p>\n' +
-      '        <p class="t t-13">13</p>\n' +
-      '        <p class="t t-14">14</p>\n' +
-      '        <p class="t t-15">15</p>\n' +
-      '        <p class="t t-16">16</p>\n' +
-      '        <p class="t t-23">23</p>\n' +
-      '        <p class="t t-24">24</p>\n' +
-      '        <p class="t t-25">25</p>\n' +
-      '        <p class="t t-26">26</p>\n' +
-      '        <p class="t t-34">34</p>\n' +
-      '        <p class="t t-35">35</p>\n' +
-      '        <p class="t t-36">36</p>\n' +
-      '        <p class="t t-45">45</p>\n' +
-      '        <p class="t t-46">46</p>\n' +
-      '        <p class="t t-56">56</p>\n' +
+      '        <p class="t t-12">'+lr90['max']['ebth']['12']+'</p>\n' +
+      '        <p class="t t-13">'+lr90['max']['ebth']['13']+'</p>\n' +
+      '        <p class="t t-14">'+lr90['max']['ebth']['14']+'</p>\n' +
+      '        <p class="t t-15">'+lr90['max']['ebth']['15']+'</p>\n' +
+      '        <p class="t t-16">'+lr90['max']['ebth']['16']+'</p>\n' +
+      '        <p class="t t-23">'+lr90['max']['ebth']['23']+'</p>\n' +
+      '        <p class="t t-24">'+lr90['max']['ebth']['24']+'</p>\n' +
+      '        <p class="t t-25">'+lr90['max']['ebth']['25']+'</p>\n' +
+      '        <p class="t t-26">'+lr90['max']['ebth']['26']+'</p>\n' +
+      '        <p class="t t-34">'+lr90['max']['ebth']['34']+'</p>\n' +
+      '        <p class="t t-35">'+lr90['max']['ebth']['35']+'</p>\n' +
+      '        <p class="t t-36">'+lr90['max']['ebth']['36']+'</p>\n' +
+      '        <p class="t t-45">'+lr90['max']['ebth']['45']+'</p>\n' +
+      '        <p class="t t-46">'+lr90['max']['ebth']['46']+'</p>\n' +
+      '        <p class="t t-56">'+lr90['max']['ebth']['56']+'</p>\n' +
       '      </li>\n' +
       '      <li class="his-line">\n' +
       '        <p class="txt">当前遗漏</p>\n' +
-      '        <p class="t t-12">12</p>\n' +
-      '        <p class="t t-13">13</p>\n' +
-      '        <p class="t t-14">14</p>\n' +
-      '        <p class="t t-15">15</p>\n' +
-      '        <p class="t t-16">16</p>\n' +
-      '        <p class="t t-23">23</p>\n' +
-      '        <p class="t t-24">24</p>\n' +
-      '        <p class="t t-25">25</p>\n' +
-      '        <p class="t t-26">26</p>\n' +
-      '        <p class="t t-34">34</p>\n' +
-      '        <p class="t t-35">35</p>\n' +
-      '        <p class="t t-36">36</p>\n' +
-      '        <p class="t t-45">45</p>\n' +
-      '        <p class="t t-46">46</p>\n' +
-      '        <p class="t t-56">56</p>\n' +
+      '        <p class="t t-12">'+lr90['current']['ebth']['12']+'</p>\n' +
+      '        <p class="t t-13">'+lr90['current']['ebth']['13']+'</p>\n' +
+      '        <p class="t t-14">'+lr90['current']['ebth']['14']+'</p>\n' +
+      '        <p class="t t-15">'+lr90['current']['ebth']['15']+'</p>\n' +
+      '        <p class="t t-16">'+lr90['current']['ebth']['16']+'</p>\n' +
+      '        <p class="t t-23">'+lr90['current']['ebth']['23']+'</p>\n' +
+      '        <p class="t t-24">'+lr90['current']['ebth']['24']+'</p>\n' +
+      '        <p class="t t-25">'+lr90['current']['ebth']['25']+'</p>\n' +
+      '        <p class="t t-26">'+lr90['current']['ebth']['26']+'</p>\n' +
+      '        <p class="t t-34">'+lr90['current']['ebth']['34']+'</p>\n' +
+      '        <p class="t t-35">'+lr90['current']['ebth']['35']+'</p>\n' +
+      '        <p class="t t-36">'+lr90['current']['ebth']['36']+'</p>\n' +
+      '        <p class="t t-45">'+lr90['current']['ebth']['45']+'</p>\n' +
+      '        <p class="t t-46">'+lr90['current']['ebth']['46']+'</p>\n' +
+      '        <p class="t t-56">'+lr90['current']['ebth']['56']+'</p>\n' +
       '      </li>\n' +
       '    </ul>';
 
@@ -1050,75 +1040,57 @@ export class KstrendAction {
           htm += it;
         }
       }
-
       $('.hmfb-container .hmfb-ul').find('.his-line').eq(i).append(htm);
     }
 
-
+    var lr90 = JSON.parse(localStorage.yldata90).k3eth;
     var statistics = '<ul class="bottom-hmfb">\n' +
       '      <li class="his-line">\n' +
       '        <p class="txt">出现次数</p>\n' +
-      '        <p class="t-1">11</p>\n' +
-      '        <p class="t-2">22</p>\n' +
-      '        <p class="t-3">33</p>\n' +
-      '        <p class="t-4">44</p>\n' +
-      '        <p class="t-5">55</p>\n' +
-      '        <p class="t-6">66</p>\n' +
+      '        <p class="t-1">' + lr90['hot']['eth']['11'] + '</p>\n' +
+      '        <p class="t-2">' + lr90['hot']['eth']['22'] + '</p>\n' +
+      '        <p class="t-3">' + lr90['hot']['eth']['33'] + '</p>\n' +
+      '        <p class="t-4">' + lr90['hot']['eth']['44'] + '</p>\n' +
+      '        <p class="t-5">' + lr90['hot']['eth']['55'] + '</p>\n' +
+      '        <p class="t-6">' + lr90['hot']['eth']['66'] + '</p>\n' +
       '      </li>\n' +
       '      <li class="his-line">\n' +
       '        <p class="txt">平均遗漏</p>\n' +
-      '        <p class="t-1">11</p>\n' +
-      '        <p class="t-2">22</p>\n' +
-      '        <p class="t-3">33</p>\n' +
-      '        <p class="t-4">44</p>\n' +
-      '        <p class="t-5">55</p>\n' +
-      '        <p class="t-6">66</p>\n' +
+      '        <p class="t-1">' + lr90['average']['eth']['11'] + '</p>\n' +
+      '        <p class="t-2">' + lr90['average']['eth']['22'] + '</p>\n' +
+      '        <p class="t-3">' + lr90['average']['eth']['33'] + '</p>\n' +
+      '        <p class="t-4">' + lr90['average']['eth']['44'] + '</p>\n' +
+      '        <p class="t-5">' + lr90['average']['eth']['55'] + '</p>\n' +
+      '        <p class="t-6">' + lr90['average']['eth']['66'] + '</p>\n' +
       '      </li>\n' +
       '      <li class="his-line">\n' +
       '        <p class="txt">最大遗漏</p>\n' +
-      '        <p class="t-1">11</p>\n' +
-      '        <p class="t-2">22</p>\n' +
-      '        <p class="t-3">33</p>\n' +
-      '        <p class="t-4">44</p>\n' +
-      '        <p class="t-5">55</p>\n' +
-      '        <p class="t-6">66</p>\n' +
+      '        <p class="t-1">' + lr90['max']['eth']['11'] + '</p>\n' +
+      '        <p class="t-2">' + lr90['max']['eth']['22'] + '</p>\n' +
+      '        <p class="t-3">' + lr90['max']['eth']['33'] + '</p>\n' +
+      '        <p class="t-4">' + lr90['max']['eth']['44'] + '</p>\n' +
+      '        <p class="t-5">' + lr90['max']['eth']['55'] + '</p>\n' +
+      '        <p class="t-6">' + lr90['max']['eth']['66'] + '</p>\n' +
       '      </li>\n' +
       '      <li class="his-line">\n' +
       '        <p class="txt">当前遗漏</p>\n' +
-      '        <p class="t-1">11</p>\n' +
-      '        <p class="t-2">22</p>\n' +
-      '        <p class="t-3">33</p>\n' +
-      '        <p class="t-4">44</p>\n' +
-      '        <p class="t-5">55</p>\n' +
-      '        <p class="t-6">66</p>\n' +
+      '        <p class="t-1">' + lr90['current']['eth']['11'] + '</p>\n' +
+      '        <p class="t-2">' + lr90['current']['eth']['22'] + '</p>\n' +
+      '        <p class="t-3">' + lr90['current']['eth']['33'] + '</p>\n' +
+      '        <p class="t-4">' + lr90['current']['eth']['44'] + '</p>\n' +
+      '        <p class="t-5">' + lr90['current']['eth']['55'] + '</p>\n' +
+      '        <p class="t-6">' + lr90['current']['eth']['66'] + '</p>\n' +
       '      </li>\n' +
       '    </ul>';
 
     $('.hmfb-container').append(statistics);
-
-    // for (var i = 0; i < 10; i++) {
-    //   item = ' <li class="his-line">\n' +
-    //     '      <p class="t-issue">12345期</p>\n' +
-    //     '      <p class="t-kjh">1 2 3</p>\n' +
-    //     '      <p class="t t-1"><span>11</span></p>\n' +
-    //     '      <p class="t t-2"><span>22</span></p>\n' +
-    //     '      <p class="t t-3"><span>33</span></p>\n' +
-    //     '      <p class="t t-4"><span>44</span></p>\n' +
-    //     '      <p class="t t-5"><span>55</span></p>\n' +
-    //     '      <p class="t t-6"><span>66</span></p>\n' +
-    //     '      </li>';
-    //   htm += item;
-    // }
-    // trend.find('.hmfb-ul').html(htm);
 
   }
 
 
   createLrContent() {
 
-
     // 和值 ， 三不同 ， 二不同 ，单挑
-
     // 3-18 ， 1-6  ，1-6   ，1-6   遗漏 30 期
     var title = $('page-kstrend .wanfa').text();
     var lr30 = [], lr60 = [], lr90 = [], ylarr = [];
@@ -1172,10 +1144,10 @@ export class KstrendAction {
           var inx = hot[i];
           item = '<li class="his-line">\n' +
             '        <p class="t-hz">' + inx + '</p>\n' +
-            '        <p class="t-30lr">' + lr30[inx] + '</p>\n' +
-            '        <p class="t-60lr">' + lr60[inx] + '</p>\n' +
-            '        <p class="t-100lr">' + lr90[inx] + '</p>\n' +
-            '        <p class="t-yl">' + ylarr[inx] + '</p>\n' +
+            '        <p class="t-30lr">' +  lr30['ebth'][inx] + '</p>\n' +
+            '        <p class="t-60lr">' +  lr60['ebth'][inx] + '</p>\n' +
+            '        <p class="t-100lr">' + lr90['ebth'][inx] + '</p>\n' +
+            '        <p class="t-yl">' + ylarr['ebth'][inx] + '</p>\n' +
             '      </li>';
           htm += item;
         }
@@ -1199,54 +1171,155 @@ export class KstrendAction {
         }
         break;
     }
-
-
-    // var trend = $('.trend-content'), htm = '', item;
-    // trend.append(Tpl.lr_con_tpl);
-    // for (var i = 0; i < 10; i++) {
-    //   item = '<li class="his-line">\n' +
-    //     '        <p class="t-hz">1</p>\n' +
-    //     '        <p class="t-30lr">7</p>\n' +
-    //     '        <p class="t-60lr">13</p>\n' +
-    //     '        <p class="t-100lr">21</p>\n' +
-    //     '        <p class="t-yl">13</p>\n' +
-    //     '      </li>';
-    //   htm += item;
-    // }
-
-
     trend.find('.lr-ul').html(htm);
-
   }
 
+
   createHzzsContent() {
+
     var trend = $('.trend-content'), htm = '', item;
     trend.append(Tpl.hz_con_tpl);
-    for (var i = 0; i < 10; i++) {
-      item = '<li class="his-line">\n' +
-        '        <p class="t-issue">12345期</p>\n' +
-        '        <p class="t-3">3</p>\n' +
-        '        <p class="t-4">4</p>\n' +
-        '        <p class="t-5">5</p>\n' +
-        '        <p class="t-6">6</p>\n' +
-        '        <p class="t-7">7</p>\n' +
-        '        <p class="t-8">8</p>\n' +
-        '        <p class="t-9">9</p>\n' +
-        '        <p class="t-10">10</p>\n' +
-        '        <p class="t-11">11</p>\n' +
-        '        <p class="t-12">12</p>\n' +
-        '        <p class="t-13">13</p>\n' +
-        '        <p class="t-14">14</p>\n' +
-        '        <p class="t-15">15</p>\n' +
-        '        <p class="t-16">16</p>\n' +
-        '        <p class="t-17">17</p>\n' +
-        '        <p class="t-18">18</p>\n' +
-        '      </li>';
-      htm += item;
+
+    var arr = JSON.parse(localStorage.hisissue).reverse();
+    var code, code0, code1, code2, codestr, hezhi;
+    for (var i = 0; i < arr.length; i++) {
+
+      code = arr[i].code;
+
+      if (code == '') {
+
+        item = '<li class="his-line">\n' +
+          '        <p class="t-issue">' + arr[i].number.slice(8) + '期</p>\n' +
+          '        <p class="kj-ing" style="width: 85vw;">正在开奖...</p>\n' +
+          '      </li>';
+        $('.hzzs-container .hzzs-ul').append(item);
+        continue;
+
+      } else {
+
+
+        item = '<li class="his-line">\n' +
+          '        <p class="t-issue">' + arr[i].number.slice(8) + '期</p>\n' +
+          '      </li>';
+        $('.hzzs-container .hzzs-ul').append(item);
+        for (var j = 0; j < 16; j++) {
+          var it, inx = j + 3, txt;
+          code0 = code.split('')[0];
+          code1 = code.split('')[1];
+          code2 = code.split('')[2];
+          codestr = code0 + ' ' + code1 + ' ' + code2;
+          hezhi = parseInt(code0) + parseInt(code1) + parseInt(code2);
+          if (inx == hezhi) {
+            it = '<p class="t-' + inx + '"><span class="t active">' + inx + '</span></p>';
+          } else {
+            if (i == 0) {
+              txt = 1;
+            } else {
+              //判断上个 球是否 active  如何选中，则1 否则 +1
+              var obj = $('.hzzs-ul').find('.his-line').eq(i - 1).find('p').eq(j + 1);
+              txt = obj.find('span').text();
+              // console.log('上一期 对应球 ===' + txt);
+              if (obj.find('span').hasClass('active')) {
+                txt = 1;
+              } else {
+                txt = parseInt(txt) + 1;
+              }
+            }
+            it = '<p class="t-' + inx + '"><span class="t">' + txt + '</span></p>';
+          }
+          $('.hzzs-ul').find('.his-line').eq(i).append(it);
+
+        }
+
+      }
     }
-    trend.find('.hzzs-ul').html(htm);
 
-
+    //统计要 按照不同的玩法 取数据
+    //判断玩法
+    var ylarr = [];
+    ylarr = JSON.parse(localStorage.yldata90).hz;
+    var it;
+    // for(var m =0;m<ylarr.length;m++){
+    // }
+    var statistic = '<ul class="bottom-hzzs">\n' +
+      '      <li class="his-line">\n' +
+      '        <p class="txt">出现次数</p>\n' +
+      '        <p class="t-3">' + ylarr['hot']['3'] + '</p>\n' +
+      '        <p class="t-4">' + ylarr['hot']['4'] + '</p>\n' +
+      '        <p class="t-5">' + ylarr['hot']['5'] + '</p>\n' +
+      '        <p class="t-6">' + ylarr['hot']['6'] + '</p>\n' +
+      '        <p class="t-7">' + ylarr['hot']['7'] + '</p>\n' +
+      '        <p class="t-8">' + ylarr['hot']['8'] + '</p>\n' +
+      '        <p class="t-9">' + ylarr['hot']['9'] + '</p>\n' +
+      '        <p class="t-10">' + ylarr['hot']['10'] + '</p>\n' +
+      '        <p class="t-11">' + ylarr['hot']['11'] + '</p>\n' +
+      '        <p class="t-12">' + ylarr['hot']['12'] + '</p>\n' +
+      '        <p class="t-13">' + ylarr['hot']['13'] + '</p>\n' +
+      '        <p class="t-14">' + ylarr['hot']['14'] + '</p>\n' +
+      '        <p class="t-15">' + ylarr['hot']['15'] + '</p>\n' +
+      '        <p class="t-16">' + ylarr['hot']['16'] + '</p>\n' +
+      '        <p class="t-17">' + ylarr['hot']['17'] + '</p>\n' +
+      '        <p class="t-18">' + ylarr['hot']['18'] + '</p>\n' +
+      '      </li>\n' +
+      '      <li class="his-line">\n' +
+      '        <p class="txt">平均遗漏</p>\n' +
+      '        <p class="t-3">' + ylarr['average']['3'] + '</p>\n' +
+      '        <p class="t-4">' + ylarr['average']['4'] + '</p>\n' +
+      '        <p class="t-5">' + ylarr['average']['5'] + '</p>\n' +
+      '        <p class="t-6">' + ylarr['average']['6'] + '</p>\n' +
+      '        <p class="t-7">' + ylarr['average']['7'] + '</p>\n' +
+      '        <p class="t-8">' + ylarr['average']['8'] + '</p>\n' +
+      '        <p class="t-9">' + ylarr['average']['9'] + '</p>\n' +
+      '        <p class="t-10">' + ylarr['average']['10'] + '</p>\n' +
+      '        <p class="t-11">' + ylarr['average']['11'] + '</p>\n' +
+      '        <p class="t-12">' + ylarr['average']['12'] + '</p>\n' +
+      '        <p class="t-13">' + ylarr['average']['13'] + '</p>\n' +
+      '        <p class="t-14">' + ylarr['average']['14'] + '</p>\n' +
+      '        <p class="t-15">' + ylarr['average']['15'] + '</p>\n' +
+      '        <p class="t-16">' + ylarr['average']['16'] + '</p>\n' +
+      '        <p class="t-17">' + ylarr['average']['17'] + '</p>\n' +
+      '        <p class="t-18">' + ylarr['average']['18'] + '</p>\n' +
+      '      </li>\n' +
+      '      <li class="his-line">\n' +
+      '        <p class="txt">最大遗漏</p>\n' +
+      '        <p class="t-3">' + ylarr['max']['3'] + '</p>\n' +
+      '        <p class="t-4">' + ylarr['max']['4'] + '</p>\n' +
+      '        <p class="t-5">' + ylarr['max']['5'] + '</p>\n' +
+      '        <p class="t-6">' + ylarr['max']['6'] + '</p>\n' +
+      '        <p class="t-7">' + ylarr['max']['7'] + '</p>\n' +
+      '        <p class="t-8">' + ylarr['max']['8'] + '</p>\n' +
+      '        <p class="t-9">' + ylarr['max']['9'] + '</p>\n' +
+      '        <p class="t-10">' + ylarr['max']['10'] + '</p>\n' +
+      '        <p class="t-11">' + ylarr['max']['11'] + '</p>\n' +
+      '        <p class="t-12">' + ylarr['max']['12'] + '</p>\n' +
+      '        <p class="t-13">' + ylarr['max']['13'] + '</p>\n' +
+      '        <p class="t-14">' + ylarr['max']['14'] + '</p>\n' +
+      '        <p class="t-15">' + ylarr['max']['15'] + '</p>\n' +
+      '        <p class="t-16">' + ylarr['max']['16'] + '</p>\n' +
+      '        <p class="t-17">' + ylarr['max']['17'] + '</p>\n' +
+      '        <p class="t-18">' + ylarr['max']['18'] + '</p>\n' +
+      '      </li>\n' +
+      '      <li class="his-line">\n' +
+      '        <p class="txt">当前遗漏</p>\n' +
+      '        <p class="t-3">' + ylarr['current']['3'] + '</p>\n' +
+      '        <p class="t-4">' + ylarr['current']['4'] + '</p>\n' +
+      '        <p class="t-5">' + ylarr['current']['5'] + '</p>\n' +
+      '        <p class="t-6">' + ylarr['current']['6'] + '</p>\n' +
+      '        <p class="t-7">' + ylarr['current']['7'] + '</p>\n' +
+      '        <p class="t-8">' + ylarr['current']['8'] + '</p>\n' +
+      '        <p class="t-9">' + ylarr['current']['9'] + '</p>\n' +
+      '        <p class="t-10">' + ylarr['current']['10'] + '</p>\n' +
+      '        <p class="t-11">' + ylarr['current']['11'] + '</p>\n' +
+      '        <p class="t-12">' + ylarr['current']['12'] + '</p>\n' +
+      '        <p class="t-13">' + ylarr['current']['13'] + '</p>\n' +
+      '        <p class="t-14">' + ylarr['current']['14'] + '</p>\n' +
+      '        <p class="t-15">' + ylarr['current']['15'] + '</p>\n' +
+      '        <p class="t-16">' + ylarr['current']['16'] + '</p>\n' +
+      '        <p class="t-17">' + ylarr['current']['17'] + '</p>\n' +
+      '        <p class="t-18">' + ylarr['current']['18'] + '</p>\n' +
+      '      </li>\n' +
+      '    </ul>';
+    $('.hzzs-container').append(statistic);
   }
 
 

@@ -482,49 +482,27 @@ export class KsBasketAction {
     // $('.buy-balance').text('余额： '+localStorage.available);
     var arr = JSON.parse(localStorage.balls);
     var zhu = 0, money = 0, max_multiple = arr[0].max_multiple;
-
     // min_multiple 这个是动态变化的！ === 最大倍数/当前倍数
-    // 找出这个 max_multiple 最小的值 对应的 最大的投注数
-    // alert("min_multiple=======111"+min_multiple);
     var min_max_arr = [];
     for (var i = 0; i < arr.length; i++) {
       zhu = zhu + parseInt(arr[i].num);
       var price = parseInt(arr[i].multiple) * parseInt(arr[i].onePrice) * parseInt(arr[i].num) * parseFloat(arr[i].moneyunit);
       money = money + price;
-      console.log('arr[i].max_multiple==='+arr[i].max_multiple);
-      console.log('max_multiple=='+max_multiple);
-
       if (parseInt( arr[i].max_multiple) <parseInt( max_multiple)) {
-        // console.log('~~~~~~~~~~~~~')
         max_multiple = arr[i].max_multiple;
-        console.log('~~~~~~~max_multiple~~~~~~'+max_multiple)
       }
     }
     for (var j = 0; j < arr.length; j++) {
-      // console.log('===arr[j].max_multiple===='+arr[j].max_multiple )
-      // console.log('===max_multiple===='+max_multiple )
       if (arr[j].max_multiple == max_multiple) {
-        // console.log('!!!!!arr[j].multiple!!!!'+arr[j].multiple )
         min_max_arr.push(arr[j].multiple);
       }
     }
-
-    console.log('min_max_arr=='+min_max_arr);
-
     var max_touzhushu = min_max_arr[0];
     for (var k = 0; k < min_max_arr.length; k++) {
-
-      console.log('min_max_arr[j]=='+min_max_arr[k])
-
-      console.log('max_touzhushu=='+max_touzhushu)
-
       if (parseInt( min_max_arr[k]) > parseInt(max_touzhushu)) {
         max_touzhushu = min_max_arr[k];
       }
     }
-    console.log('max_multiple=='+max_multiple)
-    console.log('max_touzhushu=='+max_touzhushu)
-    // min_multiple 这个是动态变化的 === 最大倍数/当前倍数
     var min_multiple = max_multiple / max_touzhushu;
     localStorage.min_multiple = min_multiple;
 
