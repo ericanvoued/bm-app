@@ -42,8 +42,6 @@ import { ZufuComponent } from '../components/gametrend/zufu/zufu'
 import {gameConfig} from './gameComponent'
 import {DaxiaodanshuangComponent} from '../components/gametrend/daxiaodanshuang/daxiaodanshuang'
 
-
-import {BankCardProvider} from '../providers/bank-card/bank-card';
 import {SignupProvider} from '../providers/signup/signup';
 
 
@@ -117,7 +115,6 @@ import {KstrendAction} from '../pages/k3/kstrend/kstrend-action';
     UtilProvider,
     SscServiceProvider,
     BasketDataProvider,
-    BankCardProvider,
     SignupProvider,
     UserCenterProvider,
     LottoryCenterProvider,

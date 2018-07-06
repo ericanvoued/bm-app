@@ -30,7 +30,6 @@ export class BankCardPage {
               public alertCtrl: AlertController,
               public loadPrd: LoadingProvider,
               public http: HttpClientProvider,
-              public bankCardPrd: BankCardProvider,
               public loadingCtrl: LoadingController,
               public toastCtrl: ToastController,
               public navParams: NavParams) {
