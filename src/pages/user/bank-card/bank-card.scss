@@ -221,7 +221,17 @@ page-bank-card {
 .button-inner{
   justify-content: center!important;
 }
-
+.bankCardModel{
+  .alert-button-group{
+    height: auto!important;
+  }
+  .alert-message{
+    padding-bottom: 0!important;
+  }
+  .alert-title{
+    line-height:50px!important;
+  }
+}
 
 
 

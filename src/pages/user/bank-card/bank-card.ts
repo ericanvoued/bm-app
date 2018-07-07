@@ -83,6 +83,7 @@ export class BankCardPage {
   setPayPsw() {
     let prompt = this.alertCtrl.create({
       title: '请设置支付密码',
+      cssClass:'bankCardModel',
       inputs: [
         {
           name: 'password',
@@ -162,6 +163,7 @@ export class BankCardPage {
   inputPayPsw() {
     let prompt = this.alertCtrl.create({
       title: '请输入支付密码',
+      cssClass:'bankCardModel',
       inputs: [
         {
           name: 'password',

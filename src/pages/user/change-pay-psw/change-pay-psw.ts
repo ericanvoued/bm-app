@@ -47,7 +47,9 @@ export class ChangePayPswPage {
         if (data.isSuccess == 1) {
           toast = this.loadPrd.showToast(this.ToastCtrl, data.data.tplData.msg)
           localStorage.userInfo = null;
-          this.navCtrl.push(TabsPage);
+          this.navCtrl.push(TabsPage,{
+            pageIndex: 3
+          });
         } else {
           toast = this.loadPrd.showToast(this.ToastCtrl, data.data.tplData.msg)
         }
