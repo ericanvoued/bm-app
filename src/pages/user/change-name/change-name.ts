@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController} from 'ionic-angular';
 import { LoadingProvider } from '../../../providers/loading/loading'
 import { HttpClientProvider } from '../../../providers/http-client/http-client'
+import {TabsPage} from '../../tabs/tabs'
 
 @IonicPage()
 @Component({
@@ -58,7 +59,7 @@ export class ChangeNamePage{
         if(data.isSuccess==1){
           localStorage.userInfo = JSON.stringify(this.userData.data);
           this.userData.loading = this.loadPrd.showToast(this.toastCtrl, '昵称修改成功');
-          this.navCtrl.setRoot('TabsPage',{
+          this.navCtrl.push(TabsPage,{
             pageIndex:3
           });
         }

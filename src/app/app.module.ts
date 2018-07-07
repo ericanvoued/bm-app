@@ -4,8 +4,13 @@ import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
 import {MyApp} from './app.component';
 
 import {HttpClientModule} from "@angular/common/http";
-// import {CountTipComponent} from '../components/count-tip/count-tip';
-import { BallTouchDirective } from './ball-touch.directive'
+import {TabsPage} from '../pages/tabs/tabs'
+import {HomePage} from '../pages/home/home'
+// import {LottoryCenterPage} from '../pages/lottory-center/lottory-center'
+import {ActivityPage} from '../pages/activity/activity'
+import {UserCenterPage} from '../pages/user/user-center/user-center'
+
+
 
 
 import {Camera} from '@ionic-native/camera';
@@ -21,33 +26,17 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {CommonProvider} from '../providers/common/common';
 import {SscServiceProvider} from '../providers/games/ssc-service/ssc-service'
-import {CountTipComponent} from '../components/count-tip/count-tip';
 
 import {HttpClientProvider} from '../providers/http-client/http-client';
 import {ToolsProvider} from '../providers/tools/tools';
-import {ComponentsModule} from '../components/components.module'
 //动画模块
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {UtilProvider} from '../providers/util/util';
 import {BasketDataProvider} from '../providers/basket-data/basket-data';
 import {Vibration} from '@ionic-native/vibration';
-import {TrendHeadComponent} from '../components/gametrend/trend-head/trend-head'
-import {WuxingComponent} from '../components/gametrend/wuxing/wuxing'
-import {SixingComponent} from '../components/gametrend/sixing/sixing'
-import {KuadutrendComponent} from '../components/gametrend/kuadutrend/kuadutrend'
-import {ZhixuanhezhiComponent} from '../components/gametrend/qiansan/zhixuanhezhi/zhixuanhezhi'
-import { ZufuComponent } from '../components/gametrend/zufu/zufu'
-
-import {gameConfig} from './gameComponent'
-import {DaxiaodanshuangComponent} from '../components/gametrend/daxiaodanshuang/daxiaodanshuang'
 
 import {SignupProvider} from '../providers/signup/signup';
-import { ChargePage } from '../pages/user/charge/charge'
-
-
-import {RightmenuComponent} from '../components/rightmenu/rightmenu';
-import {TabYuanComponent} from '../components/tab-yuan/tab-yuan';
 
 //module模块
 import {UserCenterProvider} from '../providers/user-center/user-center';
@@ -59,15 +48,11 @@ import {KstrendAction} from '../pages/k3/kstrend/kstrend-action';
 @NgModule({
   declarations: [
     MyApp,
-    // WuxingComponent,
-    // SixingComponent,
-    // KuadutrendComponent,
-    // ZhixuanhezhiComponent,
-    // DaxiaodanshuangComponent,
-    // ZufuComponent,
-    // CountTipComponent,
-    // ...gameConfig.ssc,
-    // ...gameConfig.d5
+    TabsPage,
+    HomePage,
+    // LottoryCenterPage,
+    ActivityPage,
+    UserCenterPage,
   ],
   imports: [
     BrowserModule,
@@ -84,16 +69,11 @@ import {KstrendAction} from '../pages/k3/kstrend/kstrend-action';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    // WuxingComponent,
-    // SixingComponent,
-    // KuadutrendComponent,
-    // ZhixuanhezhiComponent,
-    // DaxiaodanshuangComponent,
-    // ZufuComponent,
-    // CountTipComponent,
-    // ...gameConfig.ssc,
-    // ...gameConfig.d5
-
+    TabsPage,
+    HomePage,
+    // LottoryCenterPage,
+    ActivityPage,
+    UserCenterPage,
   ],
   providers: [
     StatusBar,

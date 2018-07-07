@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, ModalController} from 'ionic-angular';
+import { NavController, ModalController} from 'ionic-angular';
 import { HomeProvider } from '../../providers/home/home'
 import { CommonProvider } from "../../providers/common/common";
 import { LoadingProvider } from '../../providers/loading/loading'
@@ -11,7 +11,6 @@ import { BasketDataProvider } from '../../providers/basket-data/basket-data'
 
 declare var Swiper;
 
-@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -45,12 +44,12 @@ export class HomePage {
   }
 
   ionViewDidEnter(){
-    
+
     if(this.common.timer){
       clearInterval(this.common.timer)
       this.common.resetLotteryData()
     }
-   
+
     this.basket.clearBasket()
   }
 
@@ -59,7 +58,7 @@ export class HomePage {
   }
 
   swiper_init() {
-  
+
 
     this.info_swiper = new Swiper('.info-slider', {
       direction: 'vertical',

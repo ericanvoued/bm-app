@@ -154,6 +154,27 @@ page-invite {
       display: inline-block;
     }
   }
+
+  .item-md{
+    padding-left: 0;
+  }
+  .item-block{
+    overflow: visible;
+  }
+  .item-md.item-block .item-inner{
+    padding-right: 0;
+  }
+  .range-md .range-bar{
+    border: none!important;
+    border-top: 1px solid #ff3f00!important;
+  }
+  .range-md{
+    padding-right: 25px;
+    padding-left: 13px;
+  }
+  .range-md.range-has-pin{
+    padding-top: 40px;
+  }
 }
 .invite-list{
   height: 187px;
@@ -214,6 +235,7 @@ page-invite {
     letter-spacing: -0.22px;
     margin-top: 5px;
   }
+
 
 }
 .invite-mask{
