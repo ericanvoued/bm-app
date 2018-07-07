@@ -28,6 +28,7 @@ $.fn.Press = function(fn1,fn2) {
 export class commonMethod{
     choices:any[] = []
     timer:any = null;
+    arr:any = []
 
    constructor(public common:CommonProvider, public util:UtilProvider,public basket:BasketDataProvider) {
         $('body').on('touchstart', '.ball-choose li', function(){
@@ -99,7 +100,6 @@ export class commonMethod{
      }
 
       changeToggle(row,column){
-        console.log('wwww')
         if(column!=null){
         this.common.ballData = this.common.ballData.map((item,index) => {
             if(index == row){

@@ -9,7 +9,6 @@ import {ToastController, ModalController} from "ionic-angular";
 import { CountTipComponent } from '../../components/count-tip/count-tip'
 import { RestProvider } from '../../providers/rest/rest'
 import { HttpClientProvider } from '../http-client/http-client'
-
 import * as $ from 'jquery'
 import {observe} from "../tools/observe";
 let _ = new observe();
@@ -87,6 +86,9 @@ export class CommonProvider {
   //倒计时是否结束
   countEnd:boolean = false
 
+  //已经加载了的游戏
+  hasLoad:number[] = [];
+
   // odd even big small
   btn:any[];
   singleBtn:Array<any>;
@@ -103,11 +105,10 @@ export class CommonProvider {
     'minutes': '',
     'seconds': ''
   }
-
+  trace_max_times:number;
 
   constructor(public tools:ToolsProvider, public http:HttpClientProvider,public modalCtrl: ModalController, public events:Events,private toastCtrl:ToastController) {
     console.log('Hello CommonProvider Provider');
-    //this.missData = this.getMissObservable()
     // this.pid.subscribe((val) => {
       
     //     this.gameId = val
@@ -147,8 +148,8 @@ export class CommonProvider {
 
     async initData():Promise<any>{
         console.log('wcnmb')
-        let url = '/api-lotteries-h5/load-data/2/' + this.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token
-        let params = {_token:JSON.parse(localStorage.getItem('userInfo')).token}
+        let url = '/api-lotteries-h5/load-data/2/' + this.gameId
+        //let params = {_token:JSON.parse(localStorage.getItem('userInfo')).token}
         this.gameMethodConfig = (await this.http.fetchData(url)).data.game_ways
         
         console.log(this.gameMethodConfig )
@@ -225,9 +226,9 @@ export class CommonProvider {
         console.log(this.small)
         console.log(this.bigKind)
         let temp;
-        this.small.forEach((ele,index) => {
+        this.small.forEach((ele,count) => {
             ele.children.forEach(item => {
-                if(item.name_cn == name)
+                if(item.name_cn == name && count == index2)
                    temp = item
             })
         })
@@ -272,6 +273,7 @@ export class CommonProvider {
 
     toggle(){
         console.log('dddd')
+        $('.tri-arrow').toggleClass('current')
         this.visible = this.visible == 'invisable' ? 'visable':'invisable'
         this.visible == 'visable' ? $('.body-bg').fadeIn(300) : $('.body-bg').fadeOut(300)
     }
@@ -308,9 +310,13 @@ export class CommonProvider {
                 this.countEnd = true
                 clearInterval(this.timer)
                 console.log('wwwevevevev')
-                let modal = this.modalCtrl.create(CountTipComponent, {qishu:123456})
-                modal.present()
+                // let modal = this.modalCtrl.create(CountTipComponent, {qishu:this.currentNumber})
+                // modal.present()
+                // setTimeout(function(){
+                //     modal.dismiss()
+                // },3000)
                 //this.global.showToast('进入新一期开奖',2000)
+                this.showCountTip(this.currentNumber)
                 this.produce()
                 this.events.publish('changeRecord')
                 return
@@ -337,7 +343,7 @@ export class CommonProvider {
 
     async fetchRecord():Promise<any>{
         console.log('fetchdata')
-        this.historyList = (await this.http.fetchData('/api-lotteries-h5/load-issues/' + this.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)).data
+        this.historyList = (await this.http.fetchData('/api-lotteries-h5/load-issues/' + this.gameId)).data
         return new Promise((resolve,reject) =>{
             resolve()
         })
@@ -345,13 +351,15 @@ export class CommonProvider {
     
     async getCountDownTime():Promise<any>{
         //let data = (await this.http.postData('/api-lotteries-h5/load-data/1/' + this.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token, {_token:JSON.parse(localStorage.getItem('userInfo')).token})).data
-        let data = (await this.http.fetchData('/api-lotteries-h5/load-data/1/' + this.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)).data
+        let data = (await this.http.fetchData('/api-lotteries-h5/load-data/1/' + this.gameId)).data
         console.log(data)
         this.prizeGroup = []
         this.prizeGroup.push(data.bet_max_prize_group + '-' + Number((data.user_prize_group - data.bet_max_prize_group)/data.series_amount).toFixed(2) + '%')
         this.prizeGroup.push(data.bet_min_prize_group + '-' + Number((data.user_prize_group - data.bet_min_prize_group)/data.series_amount).toFixed(2) + '%')
         this.chooseGroup = this.prizeGroup[0]
         console.log(this.prizeGroup)
+        this.trace_max_times = data.trace_max_times
+
         return new Promise((resolve,reject) =>{
             resolve(data)
         })
@@ -368,5 +376,25 @@ export class CommonProvider {
        let balance =  (await this.http.fetchData('/h5api-withdrawals/withdraw?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)).data.accounts.available
        console.log(balance)
        return balance
+    }
+
+    showCountTip(countNum){
+        // <div>进入第<div style="color:#FD6000;line-height:20px">{{text}}</div>期</div>
+        // <div>请留意期号变化( <div style="color:#FD6000;line-height:20px">{{count}}s</div>)</div>
+        let tip = '<div class="count-tip">'+
+        '<div>进入第<div style="color:#FD6000;line-height:20px">' + countNum + '</div>期</div>' + 
+        '<div>请留意期号变化( <div id="count-time" style="color:#FD6000;line-height:20px">3s</div>)</div>'
+        '</div>'
+
+        $('body').append(tip)
+        let count = 3
+        let timer = setInterval(function(){
+             count--
+             $('#count-time').text(count + 's')
+             if(count == 0){
+                $('.count-tip').remove()
+                clearInterval(timer)
+             }          
+        },1000)
     }
 }

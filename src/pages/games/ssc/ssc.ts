@@ -20,7 +20,6 @@ import * as Hammer from 'hammerjs';
  * Generated class for the SscPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
  */
 
 @IonicPage()
@@ -34,7 +33,7 @@ export class SscPage extends Effect{
     @ViewChild("gameContainer", { read: ViewContainerRef }) gameContainer: ViewContainerRef;
     componentRef: ComponentRef<any>;
     //showTip:any = ['当前遗漏', '30期冷热', '平均遗漏', '最大遗漏']
-    haveChoosen:any[] = ['']
+    haveChoosen:any[] = ['当前遗漏']
 
     record: any ;
     //助手菜单
@@ -60,35 +59,33 @@ export class SscPage extends Effect{
         this.gameConfig = gameConfig
 
         let self = this
+        console.log('boeegwgjep[rbm')
+        // $('body').on('touchmove', '.bet-box', function(){
+        //    console.log($('#qq').offset().top)
+        //    console.log($(this).offset().top)
+        //    if($('#qq').offset().top < 70){
+        //       $('#qq').addClass('fixed')
+        //    }
 
-        $('body').on('touchmove', '.bet-box', function(){
-           console.log($('#qq').offset().top)
-           console.log($(this).offset().top)
-           if($('#qq').offset().top < 70){
-              $('#qq').addClass('fixed')
-           }
+        //    if($(this).offset().top > 70){
+        //       $('#qq').removeClass('fixed')
+        //    }      
+        // })
 
-           if($(this).offset().top > 70){
-              $('#qq').removeClass('fixed')
-           }      
-        })
-
-        $('body').on('click', '#qq', function(){
-            console.log($('.bet-box').scrollTop())
-            if(!$(this).hasClass('fixed')){
-                if(self.loadNumber){
-                    self.high = 0
-                    self.loadNumber = 0
-                }         
-            }else{
-                $(this).removeClass('fixed')
-                $('.scroll-content').animate({  
-                    scrollTop: 0
-                }, 200)
-            }   
-        })
-
-      
+        // $('body').on('click', '#qq', function(){
+        //     console.log($('.bet-box').scrollTop())
+        //     if(!$(this).hasClass('fixed')){
+        //         if(self.loadNumber){
+        //             self.high = 0
+        //             self.loadNumber = 0
+        //         }         
+        //     }else{
+        //         $(this).removeClass('fixed')
+        //         $('.scroll-content').animate({  
+        //             scrollTop: 0
+        //         }, 200)
+        //     }   
+        // })
         this.common.getMissObservable()
         this.loadInfo = this.presentLoadingDefault()
         //$('.loading').show()
@@ -108,14 +105,11 @@ export class SscPage extends Effect{
                 this.componentRef = this.gameContainer.createComponent(factory)
                 this.componentRef.instance.choose = this.haveChoosen
                 this.common.componentRef = this.componentRef
-                $('.table').css('height','327px')
-                           this.util.shakePhone(() => {
-                               this.util.randomChoose(this.common.componentRef)
-                           })
+                $('#qq').show()
+                //$('.table').css('height','327px')
+                           
             }
         )
-
-        //this.common.getLotteryMiss()
     }
   
     handleBall(ele){
@@ -147,10 +141,15 @@ export class SscPage extends Effect{
 
     ionViewDidLoad() {
         this.trHeight = document.querySelector('.tr').offsetHeight
-
+        this.initHisBox('ssc-content')
         console.log(document.getElementById('qq'))
-        this.watchScroll()
-        
+        console.log('wgwgeggg3ggergergg')
+        console.log($('body').css('height'))
+ 
+        $('.modify').css('height', (parseInt($('body').css('height')) - 202) + 'px')
+        $('.modify').css('top',  '152px')
+        //this.watchScroll()
+        console.log($('.bet-box').offset().top)
         // let touch = new Hammer(document.getElementById('touch'));
         // touch.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
         // touch.on('swipeup',()=>{
@@ -178,8 +177,20 @@ export class SscPage extends Effect{
         // })
       }
 
+    ionViewDidEnter(){
+    
+       this.util.shakePhone()
+    }  
+
     ionViewWillLeave(){
         console.log('dwfqwfwqef')
+        //console.log(window.getEventListeners(window))
+        if(this.util.listeners.length){
+            this.util.listeners.forEach(element => {
+                 window.removeEventListener('devicemotion',element,false)
+            })
+        }
+        this.util.listeners = []
        // clearInterval(this.timer)
     }
 
@@ -219,9 +230,22 @@ export class SscPage extends Effect{
 
     }
 
+    getBack(){
+        console.log('cwcwc')
+        var obj = $(".his-box"),his = obj.css('height');
+        console.log(his)
+        if(his > 54)
+            obj.animate({height: "54px"}, 100);
+   }
+
+
     change(val){
         console.log(val)
         this.common.open = false
+
+        $('.tri-arrow').removeClass('current')
+        this.common.visible = 'invisable'
+        $('.body-bg').fadeOut(300)
         if(val == '走势图')
            this.navCtrl.push('GameTrendPage',{'index':1}) 
           // this.navCtrl.push('GameTrendPage',{'index':1})

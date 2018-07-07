@@ -43,7 +43,7 @@
                     <li class="head-num" style="width:8.5%">9</li>
             </ul>
                 <ul *ngFor="let item of trendData" class="ball-line" style="display:flex">
-                    <li *ngFor="let ele of item.slice(0,1)" style="line-height:30px;font-size:15px;width:17%">
+                    <li *ngFor="let ele of item.slice(0,1)" style="line-height:30px;font-size:12px;width:17%">
                         {{ele.number}}
                      </li>
                     <li *ngFor="let ele of item.slice(1)" style="position:relative;display:flex;width:8.5%;align-items:center;justify-content:center;border-left:1px solid #f0f0f0">
@@ -67,23 +67,23 @@
             </li>
        </ul>
 
-        <div style="display:flex;width:100%">
+        <!-- <div style="display:flex;width:100%">
             <div style="width:17%">和值选号</div>
             <div style="width:83%;overflow:hidden">
                 <ul style="width:280%;" #drag [ngStyle]="{'transform': 'translateX(' + gap + 'px)'}">
-                    <li *ngFor="let item of numbers" class="head-num ball-choose" style="width:3.57%;display:inline-block">
+                    <li *ngFor="let item of numbers" class="head-num  choose-ball" style="width:3.57%;display:inline-block">
                         <span [class.current]="checkCurrent(i)" (click)="toggle(i)">{{number}}</span>
                     </li>
                 </ul>
             </div>       
-        </div>
+        </div> -->
   </ion-slide>    
 
   <ion-slide  style="min-height:100%">
             <div style="width:100%;display:flex">
                     <div style="width:17%;">
                             <ul style="display:flex;flex-direction:column">
-                                <li *ngFor="let item of qishu" class="qihao-number"> {{item}} </li>
+                                <li *ngFor="let item of qishu" class="qihao-number" style="font-size:12px"> {{item}} </li>
                             </ul>
                             <div style="font-size:15px;line-height:30px">和值选号</div>
                             <div>已选</div>
@@ -106,7 +106,7 @@
                             </div>
                            
                             <ul style="width:100%;display:flex;height:30px">
-                                <li *ngFor="let number of numbers;let i = index" class="head-num ball-choose" [ngStyle]="{'width':100/numbers.length + '%'}">
+                                <li *ngFor="let number of numbers;let i = index" class="head-num ball-choose ball-tap" [ngStyle]="{'width':100/numbers.length + '%'}">
                                     <span [class.current]="checkCurrent(i)" (click)="toggle(i)">{{number}}</span>
                                 </li>
                             </ul>
@@ -134,8 +134,8 @@
 
     <ion-slide> 
             <div class="menus-head" style="display:flex;font-size:14px">
-                    <div style="width:16%">和值</div> <div style="width:21%">10期冷热</div> <div style="width:21%">20期冷热</div> 
-                    <div style="width:21%">30期冷热</div> <div style="width:21%">遗漏</div>
+                    <div style="width:16%">和值</div> <div style="width:21%">30期冷热</div> <div style="width:21%">60期冷热</div> 
+                    <div style="width:21%">100期冷热</div> <div style="width:21%">遗漏</div>
             </div>
             
                 <ul>
@@ -144,7 +144,7 @@
                             <span>{{item.number}}</span>
                         </div> 
                         <div style="width:21%">{{item.leng30}}</div>  
-                        <div style="width:21%">{{item.leng20}}</div> <div style="width:21%">{{item.leng10}}</div>  <div style="width:21%">{{item.yilou}}</div>   
+                        <div style="width:21%">{{item.leng60}}</div> <div style="width:21%">{{item.leng100}}</div>  <div style="width:21%">{{item.yilou}}</div>   
                     </li>
                 </ul>    
    </ion-slide>          

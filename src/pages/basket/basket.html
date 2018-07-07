@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>购彩蓝</ion-title>
+    <ion-title>购彩篮</ion-title>
     <div style="position:absolute;top:10px;right:10px;float:right;z-index:10" (click)="presentConfirm()">清空</div>
   </ion-navbar>
 
@@ -18,14 +18,14 @@
     <div style="text-align:center;margin-bottom:10px">
         距{{common.currentNumber}}期开奖 {{common.countTime.minutes}}:{{common.countTime.seconds}}
     </div>
-   <div class="top-header" style="display:flex;justify-content:space-between;margin:0 auto 10px auto;width:94%;">
+   <div class="top-header" style="display:flex;justify-content:space-between;margin:0 auto 10px auto;width:100%;">
       <div class="top-menu" (click)="randomChoose()">+ 机选1注</div>
       <div class="top-menu" (click)="randomChoose(5)">+ 机选5注</div>
       <div class="top-menu" (click)="navCtrl.pop()">继续追号</div>
   </div> 
    
    <div>
-       <ul style="width:94%;margin:0 auto">
+       <ul style="width:100%;margin:0 auto">
           <li class="basket-content" *ngFor="let item of basket.betData;let i = index" >
               <div style="width:15%;display:flex;align-items:center;justify-content:center">
                 <img src="assets/imgs/games/delete.png" alt="" (click)="basket.removeByIndex(i)">
@@ -55,7 +55,9 @@
                 <div class="down" (click)="change(-1)">
                     -
                 </div>
-                    <div class="mutiple-number">{{basket.statistic.multiple}}</div>
+                    <div class="mutiple-number">
+                        <input type="text" class="add-input" (keyup)="checkMutiple($event)" (blur)="onBlurMethod($event,'multiple')" value="{{basket.statistic.multiple}}">
+                    </div>
                   <div class="up" (click)="change(1)">
                         +
                 </div>
@@ -68,8 +70,10 @@
                 <div class="down" (click)="changeTrace(-1)">
                     -
                 </div>
-                    <div class="trace-number">{{basket.statistic.trace}}</div>
-                  <div class="up" (click)="changeTrace(1)">
+                    <div class="trace-number">
+                        <input type="text" class="add-input" (keyup)="checkTrace($event)" (blur)="onBlurMethod($event,'trace')" value="{{basket.statistic.trace}}">          
+                    </div>
+                <div class="up" (click)="changeTrace(1)">
                         +
                 </div>
               </div> 
@@ -92,14 +96,14 @@
 
        <div>
           <div style="float:right">中奖后停止追号</div>
-          <input type="checkbox" name="trace" checked="checked" id="trace" style="float:right">
+          <input type="checkbox" name="trace" id="trace" style="float:right" disabled>
        </div>
   </div>
 
   <div style="display:flex;justify-content:space-between;height:50px">
        <div style="padding-left:5px">
           <div>追号 <span style="color:#F6374E">{{basket.statistic.trace}}</span> 期 共 <span style="color:#F6374E">{{basket.totalCount}}</span> 注</div> 
-          <div>余额：¥{{ balance | async }}</div>
+          <div>余额：¥{{ balance ? (balance | async) : ''}}</div>
         </div>
        <div>共 {{basket.totalAmount}} 元</div> 
        <div style="width:100px;background:url('assets/imgs/games/now-bet.png')" (click)="confirmBet()">

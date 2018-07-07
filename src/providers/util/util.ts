@@ -52,28 +52,7 @@ export class UtilProvider {
     {number:'08期', history:[4,5,7,1,5]},
     {number:'09期', history:[3,5,6,8,2]},
     {number:'10期', history:[7,5,3,9,3]},
-    {number:'11期', history:[6,2,4,8,7]},
-    {number:'12期', history:[2,5,5,3,4]},
-    {number:'13期', history:[6,5,5,1,4]},
-    {number:'14期', history:[7,1,3,2,4]},
-    {number:'15期', history:[1,3,2,1,7]},
-    {number:'16期', history:[8,9,2,1,3]},
-    {number:'17期', history:[5,1,3,6,7]},
-    {number:'18期', history:[9,8,7,3,5]},
-    {number:'19期', history:[7,8,9,1,2]},
-    {number:'20期', history:[4,5,6,7,8]},
-    {number:'21期', history:[2,3,5,2,4]},
-    {number:'22期', history:[1,2,3,1,4]},
-    {number:'23期', history:[7,3,4,1,3]},
-    {number:'24期', history:[4,5,3,2,4]},
-    {number:'25期', history:[1,7,5,5,3]},
-    {number:'26期', history:[2,3,9,8,7]},
-    {number:'27期', history:[3,6,7,3,6]},
-    {number:'28期', history:[6,7,3,9,5]},
-    {number:'29期', history:[7,8,2,8,3]},
-    {number:'30期', history:[8,2,6,6,2]},
-    {number:'31期', history:[6,7,3,9,5]},
-    {number:'32期', history:[7,8,2,8,3]},
+
     {number:'33期', history:[8,2,6,6,2]}
   ]
   fakeData:any = {}
@@ -132,17 +111,16 @@ export class UtilProvider {
   //统计冷热
   lengre:any;
 
+  listeners:any = []
 
   fakeTrend:Array<any> = []
 
   //http://user.firecat.com/api-lotteries-h5/load-issues/1?_t=e182334981f44d206cc70ddd6c05293a
 
   constructor(public http: HttpClientProvider,public common:CommonProvider, public vibration: Vibration) {
-    console.log('Hello UtilProvider Provider');
-
     
 
-    this.fakeTrend = [0,1,2,3,4].reduce((a,b) =>{
+this.fakeTrend = [0,1,2,3,4].reduce((a,b) =>{
         let arr = []
         for(let i = 0;i<this.historyNumbers.length;i++){
             arr.push(this.historyNumbers[i].history[b])
@@ -150,10 +128,10 @@ export class UtilProvider {
         a.push(arr)
         return a
     },[])
-    console.log(this.fakeTrend)
+    
 
-    this.generateFake()
-    console.log(this.fakeData)
+   // this.generateFake()
+    //console.log(this.fakeData)
 
     //遗漏冷热  yilou 当前遗漏 
     let yilou = {},lengre = {},maxYi = {},avgYi = {}
@@ -200,23 +178,14 @@ export class UtilProvider {
     this.lengre = lengre
     this.maxYi = maxYi
     this.avgYi = avgYi
-    console.log(this.yilou)
-    console.log(this.lengre)
-    console.log(this.maxYi)
-    console.log(this.avgYi)
-    console.log(this.common.ballData)
-
-    this.generateFake()
+  
+   // this.generateFake()
   }
 
   async fetchRecord():Promise<any>{
       console.log('fetchdata')
       this.historyList = (await this.http.fetchData('/api-lotteries-h5/load-issues/1?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)).data
       
-    //   this.http.fetchData('api-lotteries-h5/load-issues/1?_t=4b5dbcc45a38784ce1aabaaa03ae806a').then(data => {
-    //        console.log(data)
-    //        this.historyList = data
-    //   })
       console.log(this.historyList)
       return new Promise((resolve,reject) =>{
         resolve()
@@ -252,12 +221,9 @@ export class UtilProvider {
        for(let i=0;i<arr.length;i++){
            arr[i].unshift({number:this.historyNumbers[i].number, choose:false})
        }
-
-       console.log(arr)
-      // this.fakeData.push({[this.deal(k)]:arr})
        this.fakeData[this.deal(k)] = arr
     }
-    console.log(this.fakeData)
+   
   }
 
     deal(number){
@@ -291,32 +257,32 @@ export class UtilProvider {
    }
 
     //单个选球
-    changeToggle(row,column?){
-        console.log('wcnmbg')
-        if(column!=null){
-            this.common.ballData = this.common.ballData.map((item,index) => {
-                if(index == row){
-                    item.value = item.value.map((ele,index) => {
-                        if(index == column){
-                            return ele == 1 ? 0 : 1
-                        }else{
-                            return ele
-                        }
-                    })
-                    return item
-                }else{
-                    return item
-                }
-            })
-        }else{
+    // changeToggle(row,column?){
+    //     if(column!=null){
+    //         this.common.ballData = this.common.ballData.map((item,index) => {
+    //             if(index == row){
+    //                 item.value = item.value.map((ele,index) => {
+    //                     if(index == column){
+    //                         return ele == 1 ? 0 : 1
+    //                     }else{
+    //                         return ele
+    //                     }
+    //                 })
+    //                 return item
+    //             }else{
+    //                 return item
+    //             }
+    //         })
+    //     }else{
 
-        }
+    //     }
        
-        this.common.calculate()
-    }
+    //     this.common.calculate()
+    // }
 
     // 重置选球数据
     resetData(){
+        this.common.componentRef.instance.arr = []
         this.common.ballData = this.common.ballData.map(item => {
             let balls = item.value.map(ele => 0)
             item.value = balls
@@ -342,48 +308,35 @@ export class UtilProvider {
     }
 
    
-   processOrder(name?){
-    let dataArr = []
-    this.common.ballData.forEach(item => {
-         let arr = []
-         item.value.forEach((ele,index) => {
-              ele == 1 ? arr.push(('0'+index).slice(-2)):''
-         })
-         dataArr.push(arr.join(' '))
-    })
-    console.log(dataArr)
-    // dataArr = dataArr.map(item => item.join(''))
+//    processOrder(name?){
+//     let dataArr = []
+//     this.common.ballData.forEach(item => {
+//          let arr = []
+//          item.value.forEach((ele,index) => {
+//               ele == 1 ? arr.push(('0'+index).slice(-2)):''
+//          })
+//          dataArr.push(arr.join(' '))
+//     })
+//     console.log(dataArr)
+//     // dataArr = dataArr.map(item => item.join(''))
    
-    return {
-         betData:dataArr,
-         gameName:name?name:this.common.method + this.common.smallMethod,
-         count:this.common.count,
-         price:this.common.betPrice
-    }
-  }
+//     return {
+//          betData:dataArr,
+//          gameName:name?name:this.common.method + this.common.smallMethod,
+//          count:this.common.count,
+//          price:this.common.betPrice
+//     }
+//   }
 
-     // 机选注单
-   randomChoose(number:any){
-    console.log(number)   
-    number.instance.randomAnimateChoose()
-    // this.common.ballData = this.common.ballData.map(item => {
-    //     // let arr = [0,1,2,3,4,5,6,7,8,9]
-    //     let random = Math.floor(Math.random()*10)
-    //     //let arr = this.generateTwo(number)
-    //     let balls = item.value.map((ele,index) => index == random ? 1 : 0)
-    //     item.value = balls
-    //     return item
-    // })
-    // this.common.calculate()
-  }
 
-   shakePhone(func:Function){
+
+   shakePhone(){
      var speed = 15,self = this;    // 用来判定的加速度阈值，太大了则很难触发
      var x, y, z, lastX, lastY, lastZ;
      x = y = z = lastX = lastY = lastZ = 0;
      //func()
 
-     window.addEventListener('devicemotion', ((event) => {
+     function shake(event){
         var acceleration = event.accelerationIncludingGravity;
         x = acceleration.x;
         y = acceleration.y;
@@ -395,16 +348,19 @@ export class UtilProvider {
             new Observable(observer => {
                 setTimeout(() => {
                   observer.next();
-                   }, 500);
+                   }, 300);
             }).subscribe(value => {
-                  func.bind(self)()
+                  //func.bind(self)()
+                  self.common.componentRef.instance.randomChoose()
                   self.shake = false
                   self.vibration.vibrate(500)
             })
         }
         lastX = x;
         lastY = y;
-    }).bind(self), false);
+    }
+     this.listeners.push(shake)
+     window.addEventListener('devicemotion',shake,false);
   }
 
   checkResult(data, array){

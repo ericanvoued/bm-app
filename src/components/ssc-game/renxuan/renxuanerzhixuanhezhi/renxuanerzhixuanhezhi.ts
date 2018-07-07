@@ -68,6 +68,19 @@ export class RenxuanerzhixuanhezhiComponent extends commonMethod{
         return count
    }
 
+   getOriginLotteryText(){
+    let total = []
+    this.getCommonData().forEach((item,index) => {
+         let arr = []
+         if(item.length)
+           // arr.push(item*index*7 + 1)
+            arr.push(...item.map(ele => 7*index + ele))
+        
+         total.push(arr)
+    }) 
+    return total.filter(ele => ele.length > 0).map(ele => ele.join('|')).join('|')
+   }
+
 //    changeAll(line){  
 //     this.common.ballData = this.common.ballData.map((item,index) => {
 //         item.value = item.value.map(ele => 1)

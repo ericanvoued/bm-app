@@ -3,10 +3,13 @@ page-xuan5 {
   ul.statistic li.active, ul.statistic li.low{color:#F3361B}
   ul.statistic li.high{color: #20BA36}
     .bet-box{
-        margin:20px auto;
-        padding: 0 10px 0 10px
+        position: relative;
+        padding: 0 10px 0 10px;
       }
 
+      .his-box{height: 54px}
+
+      .see-more{background: #ffffff;padding: 5px 0;display: flex;justify-content: center;align-items: center}
       //悬浮球
       .tip-block{display: none;position:absolute;width:30px;height:30px;border-radius:50%;background-image: linear-gradient(0deg, #F74511 0%, #F98A6A 100%);top:-30px;left:0;color:#000333}
       
@@ -15,26 +18,38 @@ page-xuan5 {
         #ball{width:20px;height:20px;background:yellow;position:absolute;top:0px;left:50px;border-radius:50%;}
         #bet-statistic.can{background: lightblue}
       
-        .shakePhone{background: url('/assets/imgs/games/shake.png') no-repeat;width:110px;height:30px}
+        .shakePhone{background: url('../assets/imgs/games/shake.svg') no-repeat;width:110px;height:30px}
       
         .tab-mode{width:70px;display:flex;flex-direction:column;align-items:center;justify-content:space-around;background:#ffffff}
-      
-        .basket{width:92px;background:url('/assets/imgs/games/basket.png') center center no-repeat;background-size:auto 50px;position: relative}
-      
+            
         .bet-number{width:18px;height:18px;background: #ffffff;text-align: center;line-height: 18px;position: absolute;top:15px;left:15px;border-radius: 50%}
 
-       
+        #qq{
+          width:70px;height:20px;box-shadow:0 2px 2px  #B6B6B6;border-top:none;border-bottom-left-radius: 8px;border-bottom-right-radius: 8px;margin: 0 auto;z-index:100;
+          text-align: center;line-height: 20px;background: url('../assets/imgs/games/return.png') center center no-repeat;position: relative;top:-2px;background-color: #ffffff
+        }    
 
     .l-info{
         line-height:26px;
         font-size: 12px;
         color: #666666;
+        width: 100%;
+        background: #f0f0f0;
+        position: fixed;
+        z-index:10;
         border-bottom: 1px solid #EAEAEA;
         }
-   
+
+        .notice{width:15px;height: 15px;background: url(../assets/imgs/games/notice.png) center center no-repeat}
+        
+        .scroll{overflow: scroll}
         
         .table{
           text-align: center;
+          top:70px;
+          position: fixed;
+          z-index:1;
+          width: 100%;
       
           .tbody{
       

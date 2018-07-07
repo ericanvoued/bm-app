@@ -73,9 +73,9 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
     console.log(this.common.historyList) 
     //this.historyRecord = this.util.historyNumbers.slice(0,this.page*30)
    
-    this.historyRecord = this.common.historyList.map(ele => {
+    this.historyRecord = this.common.historyList.filter(ele => ele.code != '').map(ele => {
       return {...ele, number:ele.number.substr(2,ele.number.length),history:ele.code.split('').map(ele => parseInt(ele))}
-    })
+    }).reverse()
 
     console.log(this.historyRecord)
     //this.qishu = this.qishu.slice(0,1).concat()
@@ -120,7 +120,7 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
     console.log(this.lengreData)
 
     this.hezhiTrendData.forEach(ele => {
-         this.qishu.push(ele[0])
+         this.qishu.push(ele[0].number)
     })
 
     console.log(this.qishu)
@@ -132,35 +132,34 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
     console.log('axivababsbeen')
     this.contentSlides.lockSwipes(true)
    
-     this.domWidth = this.drag.nativeElement.offsetWidth
-     console.log(this.domWidth)
-     //console.log(this.drag.nativeElement)
-     console.log(document.querySelector('.hezhi-container'))
+    //  this.domWidth = this.drag.nativeElement.offsetWidth
+    //  console.log(this.domWidth)
+    //  console.log(document.querySelector('.hezhi-container'))
 
 
-     this.drag.nativeElement.addEventListener('touchstart', (e)=>{
-        this.originX = e.changedTouches[0].pageX
-        console.log('begin')
+    //  this.drag.nativeElement.addEventListener('touchstart', (e)=>{
+    //     this.originX = e.changedTouches[0].pageX
+    //     console.log('begin')
        
-        if(!this.canvas){
-          this.canvas = document.getElementById('canvas')
-          console.log(this.canvas)
-        }
+    //     if(!this.canvas){
+    //       this.canvas = document.getElementById('canvas')
+    //       console.log(this.canvas)
+    //     }
        
-     }, false)
+    //  }, false)
 
-      this.drag.nativeElement.addEventListener('touchmove', 
-        (e)=>{
-          let x = e.changedTouches[0].pageX
-          let total = this.gap + x - this.originX
-          console.log(total)
-          if( total > 0 || total < -18*this.domWidth/28){
-            return
-          }
-          this.gap = this.gap + x - this.originX
-          this.canvas.style.transform = "translate(" + this.gap + "px,0)"
+    //   this.drag.nativeElement.addEventListener('touchmove', 
+    //     (e)=>{
+    //       let x = e.changedTouches[0].pageX
+    //       let total = this.gap + x - this.originX
+    //       console.log(total)
+    //       if( total > 0 || total < -18*this.domWidth/28){
+    //         return
+    //       }
+    //       this.gap = this.gap + x - this.originX
+    //       this.canvas.style.transform = "translate(" + this.gap + "px,0)"
          
-      }, false)
+    //   }, false)
      
   }
 
@@ -229,7 +228,7 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
       }
 
       for(let i =0;i<totals.length;i++){
-          totals[i].unshift({number:('00' + i).slice(-2) + '期'})
+          totals[i].unshift({number:this.historyRecord[i].number, choose:false})
       }
       console.log(totals)
       this.trendData = totals
@@ -314,7 +313,7 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
           totals.push(arr)
      }
      for(let i =0;i<totals.length;i++){
-         totals[i].unshift(('00' + i).slice(-2) + '期')
+         totals[i].unshift({number:this.historyRecord[i].number, choose:false})
      }
 
     //  totals.unshift(['',{number:1},{number:2},{number:3},{number:4},{number:5},{number:6},{number:7},{number:8},{number:9},{number:10},
@@ -337,10 +336,10 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
 
      this.lengreData = this.numbers.map(number => {
          let leng30 = asd.slice(-30).filter(item => number == item).length
-         let leng20 = asd.slice(-20).filter(item => number == item).length
-         let leng10 = asd.slice(-10).filter(item => number == item).length
-         let yilou = asd.length - asd.lastIndexOf(number)
-         return {number, leng30, leng20, leng10, yilou}
+         let leng60 = asd.slice(-60).filter(item => number == item).length
+         let leng100 = asd.slice(-100).filter(item => number == item).length
+         let yilou = asd.length - asd.lastIndexOf(number) - 1
+         return {number, leng30, leng60, leng100, yilou}
      })
   } 
 
@@ -353,7 +352,6 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
   }
 
   checkCurrent(number){
-    // console.log(number)
      if(number)
         return this.common.ballData[Math.floor(number/7)].value[number%7] == 1
      else

@@ -5,10 +5,10 @@
 <div class="l-game" *ngFor="let data of common.ballData;let ii = index" >
     <div class="l">
         <p><span></span>{{getWei(data.key)}}</p>
-        <p style="margin-top:18px" *ngIf="check('当前遗漏')"><span></span>遗漏</p>
-        <p style="margin-top:18px" *ngIf="check('30期冷热')"><span></span>冷热</p>
-        <p style="margin-top:18px" *ngIf="check('平均遗漏')"><span></span>平均</p>
-        <p style="margin-top:18px" *ngIf="check('最大遗漏')"><span></span>最大</p>    
+        <p class="statistic-data" *ngIf="check('当前遗漏')">遗漏</p>
+        <p class="statistic-data" *ngIf="check('30期冷热')">冷热</p>
+        <p class="statistic-data" *ngIf="check('平均遗漏')">平均</p>
+        <p class="statistic-data" *ngIf="check('最大遗漏')">最大</p>   
     </div>
 
     <div class="r">

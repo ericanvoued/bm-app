@@ -3,10 +3,12 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { BasketDataProvider } from '../../providers/basket-data/basket-data'
 import { CommonProvider } from "../../providers/common/common";
 import { trigger ,state,transition,animate,style} from "@angular/animations";
+import {TabsPage} from '../tabs/tabs';
 import * as $ from 'jquery'
 import { UtilProvider } from '../../providers/util/util'
 import { HttpClientProvider } from '../../providers/http-client/http-client'
-
+import {Tpl} from '../../providers/base-tool/tpl'
+import { ChargePage } from '../user/charge/charge'
 declare var encrypt
 //import { encrypt } from '../../assets/js/Encrypt.js'
 /**
@@ -43,6 +45,8 @@ export class BasketPage {
 
   componentRef:ComponentRef<any>
 
+  min_multiple:number;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,  public basket:BasketDataProvider, public common:CommonProvider, private alertCtrl: AlertController,public util:UtilProvider, public http:HttpClientProvider) {
     for(let i = 0;i<30;i++){
        this.arr.push(i)
@@ -55,7 +59,22 @@ export class BasketPage {
          console.log('fffff')
        }  
     })
-    this.balance = this.common.getBalance()
+
+    if(JSON.parse(localStorage.getItem('userInfo'))){
+      console.log('ddddddefwff')
+      this.balance = this.common.getBalance()
+    }
+      
+
+    //算出总倍数限制
+
+    // let tempData = this.basket.betData.sort((a,b) => a.max_multiple/a.beishu -  b.max_multiple/b.beishu)[0]
+
+    // this.min_multiple = tempData.max_multiple/tempData.beishu
+
+    // this.basket.statistic.multiple = this.basket.statistic.multiple > this.min_multiple ? this.min_multiple : this.basket.statistic.multiple
+
+    // console.log(this.min_multiple)
     //此处获取需要机选注单的实例  
     //this.componentRef = this.navParams.get('index')
   }
@@ -73,8 +92,12 @@ export class BasketPage {
   change(number){
     if(number < 0 && this.basket.statistic.multiple == 1)
        return
-
+    console.log(this.basket.statistic.multiple)
     let mutiple = this.basket.statistic.multiple + number
+    console.log(mutiple)
+    if(mutiple > this.basket.min_multiple)
+        return
+
     if(this.basket.totalAmount*(mutiple/this.basket.statistic.multiple) > +JSON.parse(localStorage.getItem('userInfo')).available){
         this.presentRecharge()
         return 
@@ -88,6 +111,10 @@ export class BasketPage {
       return
 
    let trace = this.basket.statistic.trace + number
+
+   if(trace > this.common.trace_max_times)
+       return
+
    if(this.basket.totalAmount*(trace/this.basket.statistic.trace) > +JSON.parse(localStorage.getItem('userInfo')).available){
        this.presentRecharge()
        return 
@@ -112,10 +139,50 @@ export class BasketPage {
      this.util.resetData()
   }
 
+  checkMutiple(dom){
+    console.log(dom.target.value)
+    dom.target.value=dom.target.value.replace(/[^\d]/g,'')
+
+    if(parseInt(dom.target.value) === 0){
+       dom.target.value = 1
+    }
+   
+   // dom.target.value = dom.target.value === 0 ? 1 : dom.target.value
+    if(dom.target.value > this.basket.min_multiple)
+       dom.target.value = this.basket.min_multiple
+
+    this.basket.statistic.multiple = dom.target.value == '' ? '' : parseInt(dom.target.value)
+  }
+
+  checkTrace(dom){
+    console.log(dom.target.value)
+    dom.target.value=dom.target.value.replace(/[^\d]/g,'')
+
+    if(parseInt(dom.target.value) === 0){
+      dom.target.value = 1
+    }
+
+    if(dom.target.value > this.common.trace_max_times)
+       dom.target.value = this.common.trace_max_times
+
+    this.basket.statistic.trace = dom.target.value == '' ? '' : parseInt(dom.target.value)
+  }
+
+  onBlurMethod(dom,key){
+    if(dom.target.value == ''){
+        dom.target.value = 1
+        this.basket.statistic[key] = 1
+    }    
+
+    console.log(this.basket.statistic)
+  }
+
   presentConfirm() {
-    console.log('ssss')
+    if(!this.basket.betData.length)
+       return 
     let alert = this.alertCtrl.create({
-      message: '确认清空所有注单',
+      message: '<div class="not-enough">确认清空所有注单</div>',
+      cssClass:'my-alert',
       buttons: [
         {
           text: '取消',
@@ -139,6 +206,7 @@ export class BasketPage {
   console.log('ssss')
   let alert = this.alertCtrl.create({
     message: '<div class="not-enough">您的余额不足，请先去充值</div>',
+    cssClass:'my-alert',
     buttons: [
       {
         text: '取消',
@@ -150,6 +218,7 @@ export class BasketPage {
       {
         text: '确认',
         handler: () => {
+            this.navCtrl.push(ChargePage)
         }
       }
     ]
@@ -158,26 +227,43 @@ export class BasketPage {
 }
 
   confirmBet(){
-     console.log(this.basket.betData)
+   
+    if(!JSON.parse(localStorage.getItem('userInfo'))){
+      //this.navCtrl.parent.select(3);
+      this.navCtrl.push('LoginPage',{page:'SscPage'})
+      return
+    }
 
-     if($('#trace').attr('checked')){
+    if(this.basket.totalAmount > +JSON.parse(localStorage.getItem('userInfo')).available){
+      this.presentRecharge()
+      return false
+    }
+      
+    
+     this.basket.betData = this.basket.betData.map(ele => {return {...ele,prize_group:this.common.chooseGroup.split('-')[0]}})
+     console.log(this.basket.betData)
+     console.log($('#trace').is(':checked'))
+     if($('#trace').is(':checked')){
          console.log('ooooo')
      }
+
+     //$('#checkbox-id').is(':checked')
 
      let result = {}, ballsData = this.basket.betData, len = ballsData.length, i = 0, total = [];
      result['gameId'] = this.common.gameId
      result['isTrace'] = this.basket.statistic.trace > 1 ? 1 : 0
-     result['traceStopValue'] = this.basket.statistic.trace
-     result['traceWinStop'] = $('#trace').attr('checked') ? 1 : 0
+     result['traceStopValue'] = 1
+     result['traceWinStop'] = $('#trace').is(':checked') ? 1 : 0
      result['orders'] = {}
      
      for(let i = 0; i < this.basket.statistic.trace; i++){
-            let key =  +this.common.currentNumber + i + ''
+            let commonNumber = this.common.currentNumber
+            let key =  this.common.series_id == 1 ? +commonNumber + i + '' : commonNumber.split('-')[0] + '-' + (+commonNumber.split('-')[1] + i) 
             let qq = {[key]:1}
             result['orders'] = {...result['orders'],[key]:1}
      }
 
-    // result['orders'] = total
+     console.log(result)
      result['amount'] = this.basket.totalAmount
      result['is_encoded'] = 1
      result['bet_source'] = 'h5'
@@ -185,7 +271,7 @@ export class BasketPage {
      console.log(result)
      result['balls'] = []
      for (; i < len; i++){
-       console.log('ddd')
+       console.log(ballsData[i]['prize_group'])
         result['balls'].push({
           'jsId': ballsData[i]['jsId'],
           'wayId': ballsData[i]['mid'],
@@ -214,12 +300,23 @@ export class BasketPage {
           this.basket.clearBasket()
 
           this.balance = this.common.getBalance()
-          let alert = this.alertCtrl.create({
-            title: '恭喜您',
-            message: '投注已成功，祝你好运!',
-          });
-          alert.present();
-          }     
+
+          $('body').append(Tpl.success_tip)
+          setTimeout(function () {
+            $('.basket-pop').remove();
+          }, 1500);
+          // let alert = this.alertCtrl.create({
+          //   title: '恭喜您',
+          //   message: '投注已成功，祝你好运!',
+          // });
+          // alert.present();
+          }else{
+            $('body').append(Tpl.fail_tip);
+            $('#error-tip').text(data.Msg);
+            setTimeout(function () {
+              $('.basket-pop').remove()
+            }, 1500)
+          }    
         }
       )
     }

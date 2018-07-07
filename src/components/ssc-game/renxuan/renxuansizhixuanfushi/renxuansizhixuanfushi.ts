@@ -30,6 +30,10 @@ export class RenxuansizhixuanfushiComponent extends commonMethod{
   check(choice){
     return this.choose.indexOf(choice) > -1
   }
+
+  getOriginLotteryText(){
+    return this.getCommonData().map(ele => ele.length > 0 ? ele.join('') : '').join('|')
+  }
   
   randomOneOrder(){
     let arr = this.createRandom(4)

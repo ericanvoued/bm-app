@@ -33,17 +33,19 @@ export class FooterComponent {
   }
 
    //添加至购彩篮
-   addToCart(dom){
+   addToCart(){
       // console.log(dom.innerText)
       if(this.common.count == 0){return}
       console.log(this.common.cartNumber)
       // 把数据放进购彩蓝  如果超过余额
-      if(!this.basket.addBetData())
-         return 
-      
-      $('<div id="ball"></div>').appendTo($('#bet-statistic'));
-      this.move()
-      this.util.resetData()
+      let flag = this.basket.addBetData()
+        
+      if(flag){
+        $('<div id="ball"></div>').appendTo($('#bet-statistic'));
+        console.log('move')
+        this.move()
+        this.util.resetData()
+      }  
    }
 
    goToBasket(){

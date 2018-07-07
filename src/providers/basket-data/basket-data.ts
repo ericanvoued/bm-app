@@ -4,10 +4,12 @@ import { AlertController } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 import { CommonProvider } from '../common/common'
 import { UtilProvider } from '../util/util'
+import { LoadingProvider } from '../../providers/loading/loading'
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { observe } from "../tools/observe";
-import { commonMethod } from '../../components/common.method'
+import * as $ from 'jquery'
+
 let _ = new observe();
 
 /*
@@ -22,6 +24,7 @@ export class BasketDataProvider {
   totalAmount:number;
   totalCount:number;
   balance:number = 10000
+  min_multiple:number;
   /**
    *  {
    *    amount: ,
@@ -48,7 +51,7 @@ export class BasketDataProvider {
   changeDetect:(option:any) => void;
 
 
-  constructor(public http: HttpClient, public util:UtilProvider, public common:CommonProvider, private alertCtrl: AlertController) {
+  constructor(public http: HttpClient, public util:UtilProvider, public common:CommonProvider, private alertCtrl: AlertController, public loading:LoadingProvider) {
     console.log('Hello BasketDataProvider Provider');
     this.observable = new Observable((observer: Observer<any>) => {
          this.observer = observer;
@@ -58,28 +61,41 @@ export class BasketDataProvider {
          }
     });
     _.observe([this.betData,this.statistic],()=> this.calculateTotal())
-    //_.observe(this.statistic,()=> console.log('axiba'))
-
   }
 
   calculateTotal(){
     console.log('change') 
-   
-      if(this.betData.length>0){
-          console.log(this.betData)
-          this.totalAmount = this.betData.reduce((r1,r2) => {
-            return {...r1, amount:r1.amount + r2.amount}
-        }).amount*this.statistic.multiple*this.statistic.trace
 
-        this.totalCount = this.betData.reduce((a,b) => {
-             return a + b.num
-        },0)
-        console.log('dddd')
-        console.log(this.totalAmount)
-        // if(this.totalAmount > this.balance){
-        //   this.presentRecharge()
-        // }
+    if(this.statistic.trace == 1)
+       $('#trace').prop('disabled', true)
+    else
+       $('#trace').prop('disabled', false)
 
+
+    /**
+     * 1  判断购彩蓝能够添加的最大倍数
+     * 2  计算当前购彩蓝总金额
+     */
+    if(this.betData.length>0){
+        console.log(this.betData)
+
+        let tempData = this.betData.sort((a,b) => a.max_multiple/a.beishu -  b.max_multiple/b.beishu)[0]
+        
+        this.min_multiple = tempData.max_multiple/tempData.beishu
+        
+        // if(this.common.smallKind.max_multiple == this.min_multiple)
+        this.statistic.multiple = this.statistic.multiple > this.min_multiple ? this.min_multiple : this.statistic.multiple
+
+        this.totalAmount = this.betData.reduce((r1,r2) => {
+          return {...r1, amount:r1.amount + r2.amount}
+      }).amount*this.statistic.multiple*this.statistic.trace
+
+      this.totalCount = this.betData.reduce((a,b) => {
+            return a + b.num
+      },0)
+      console.log('dddd')
+      console.log(this.totalAmount)
+  
      } else{
           this.totalAmount = 0   
           this.totalCount = 0   
@@ -88,14 +104,13 @@ export class BasketDataProvider {
   }
 
   addBetData(betData?){
-    console.log('sssss')
-    let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01
+    let percent = this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01, flag = true;
 
     if(betData){
-      if(this.totalAmount + this.statistic.multiple*this.statistic.trace*percent*2*betData.length > +JSON.parse(localStorage.getItem('userInfo')).available){
-        this.presentRecharge()
-        return false
-      }
+      // if(this.totalAmount + this.statistic.multiple*this.statistic.trace*percent*2*betData.length > +JSON.parse(localStorage.getItem('userInfo')).available){
+      //   this.presentRecharge()
+      //   return false
+      // }
       betData.forEach(ele => {
           if(this.checkRepeat(ele))
              this.addToExist(ele)
@@ -105,32 +120,49 @@ export class BasketDataProvider {
      
     }else{
       let processData = this.processOrder()
-      console.log(+JSON.parse(localStorage.getItem('userInfo')).available)
-      if(this.totalAmount + this.statistic.multiple*this.statistic.trace*percent*processData.amount > +JSON.parse(localStorage.getItem('userInfo')).available){
-          this.presentRecharge()
-          return false
-      }
+
+     // console.log(+JSON.parse(localStorage.getItem('userInfo')).available)
+      // if(this.totalAmount + this.statistic.multiple*this.statistic.trace*percent*processData.amount > +JSON.parse(localStorage.getItem('userInfo')).available){
+      //     this.presentRecharge()
+      //     return false
+      // }
       if(this.checkRepeat(processData)){
-         this.addToExist(processData)
+         flag = this.addToExist(processData)
       }else{
          console.log('wccruruurur')
          this.betData.push(processData)
+         this.calculateTotal()
+         console.log(this.betData)
       }
     }  
-    
+    if(!flag)
+        return false
     return true
   }
 
   //添加至已存在的注单
   addToExist(processData){
+    let flag = true
     this.betData = this.betData.map(item => {
       if(item.wayId == processData.wayId && item.lotterysText == processData.lotterysText){
-          return {...item, jsId:item.jsId, beishu:item.beishu + 1, amount:item.amount*(item.beishu + 1)/item.beishu}
+          if((item.beishu + 1)*this.statistic.multiple > item.max_multiple){
+               flag = false
+               console.log('超过倍数限制')
+               
+               return item
+          }else{
+            return {...item, jsId:item.jsId, beishu:item.beishu + 1, amount:item.amount +  processData.amount}
+          }     
       }else{
           return item
       }
     }) 
-    this.calculateTotal()
+
+    if(flag)
+       this.calculateTotal()
+    else 
+       this.loading.showTip('当前投注超过最大倍数')
+    return flag
   }
 
   checkRepeat(processData){
@@ -169,9 +201,10 @@ export class BasketDataProvider {
          num:this.common.count,
          onePrice:2,
          moneyUnit:this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01,
-         prize_group:1800,
+        // prize_group:this.common.chooseGroup,
          beishu:1,
          multiple:this.statistic.multiple,
+         max_multiple:this.common.smallKind.max_multiple,
         // postParameter: this.common.componentRef.instance.getLotteryText(),
          viewBalls:this.common.componentRef.instance.getOriginLotteryText()     
     }
@@ -191,37 +224,52 @@ export class BasketDataProvider {
   }
 
   clearBasket(){
+  //   this.statistic = {
+  //     multiple: 1,
+  //     trace:1
+  //  }
+   this.common.cartNumber = 0
+   this.common.count = 0
+   this.common.betPrice = 0
+   for(let i in this.statistic){
+           this.statistic[i] = 1 
+   }
+   if(!this.betData.length)
+      return
     console.log('dwefewfeqf')
    // this.betData = []
     for(let i = 0;i<this.betData.length;i++){
         this.betData.splice(i,1)
         i--
     }
-    this.common.cartNumber = 0
+   
+    this.calculateTotal()
     this.totalCount = 0
+   
   }
 
   removeByIndex(index:number){
     this.betData.splice(index,1)
+    this.calculateTotal()
     this.common.cartNumber--
   }
 
-  randomChoose(number){
-    //  let randomData = this.common.ballData.map(item => {
-    //     let random = Math.floor(Math.random()*10)
-    //     let balls = item.ball.map((ele,index) => index == random ? 1 : 0)
-    //     item.ball = balls
-    //     return item
-    // })
-    for(let i=0;i<number;i++){
-      this.util.randomChoose(number)
-      this.betData.push(this.util.processOrder())
-    }
-    this.common.cartNumber += number
-    //this.calculateTotal()
+  // randomChoose(number){
+  //   //  let randomData = this.common.ballData.map(item => {
+  //   //     let random = Math.floor(Math.random()*10)
+  //   //     let balls = item.ball.map((ele,index) => index == random ? 1 : 0)
+  //   //     item.ball = balls
+  //   //     return item
+  //   // })
+  //   for(let i=0;i<number;i++){
+  //     this.util.randomChoose(number)
+  //     this.betData.push(this.util.processOrder())
+  //   }
+  //   this.common.cartNumber += number
+  //   //this.calculateTotal()
    
-    this.util.resetData()
-  }
+  //   this.util.resetData()
+  // }
 
   presentRecharge() {
     console.log('ssss')

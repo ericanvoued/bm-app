@@ -85,12 +85,13 @@ export class GamemenuComponent implements OnDestroy{
 
     //小玩法切换
     setSmallIndex(j,name){
+        this.common.toggle()
         if(this.common.gameMethodConfig[this.bigIndex].name_cn == this.common.method 
             && this.common.secondKind == this.common.gameMethodConfig[this.bigIndex].children[j].name_cn
             && this.common.smallMethod == name
         ){
             console.log('same')
-            this.toggle()
+            //this.toggle()
             return 
         }
 
@@ -98,18 +99,10 @@ export class GamemenuComponent implements OnDestroy{
         this.common.setGameConfig(this.bigIndex,j,name)
         this.util.resetData()
         this.util.setData()
-        this.common.visible = 'invisable';
-        $('.body-bg').fadeOut(300)
-        console.log(name)
 
-        // 切换小玩法 判断是lhc
-        // if(this.nav.getActive().name == "LhcPage"){
-        //     this.lhc.resetData()
-        //     this.lhc.setGameKind(name)
-        // }
-
-        //重新设置遗漏
-
+        // this.common.visible = 'invisable';
+        // $('.body-bg').fadeOut(300)
+        // console.log(name)
         console.log(this.common.secondKind)
 
         if(this.common.method == '二星' || this.common.method == '任选'){

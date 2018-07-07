@@ -36,7 +36,7 @@ export class DaxiaodanshuangComponent implements OnInit{
   constructor(public common:CommonProvider,public util:UtilProvider) {
     console.log('Hello DaxiaodanshuangComponent Component');
 
-    this.historyRecord = this.common.historyList.map(ele => {
+    this.historyRecord = this.common.historyList.filter(ele => ele.code != '').map(ele => {
       return {...ele, number:ele.number.substr(2,ele.number.length),history:ele.code.split('').map(ele => parseInt(ele))}
     })
     console.log(this.historyRecord)

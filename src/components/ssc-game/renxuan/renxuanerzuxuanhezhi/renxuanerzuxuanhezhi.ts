@@ -47,6 +47,19 @@ export class RenxuanerzuxuanhezhiComponent extends commonMethod{
     this.calculate() 
   }
 
+  getOriginLotteryText(){
+    let total = []
+    this.getCommonData().forEach((item,index) => {
+         let arr = []
+         if(item.length)
+           // arr.push(item*index*7 + 1)
+            arr.push(...item.map(ele => 7*index + ele + 1))
+        
+         total.push(arr)
+    }) 
+    return total.filter(ele => ele.length > 0).map(ele => ele.join('|')).join('|')
+  }
+
   getOriginData(){
     let arr = []
     this.common.ballData.forEach((ele,number) => {

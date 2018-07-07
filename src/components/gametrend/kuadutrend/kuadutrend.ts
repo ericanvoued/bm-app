@@ -36,7 +36,9 @@ export class KuadutrendComponent {
 
     //平均 最大 当前 冷热统计
     sumData:any[];
+    weiData:any[] 
 
+    category:any[] = ['hot','average','max','current']
     //位置记录
     position:any;
 
@@ -48,9 +50,9 @@ export class KuadutrendComponent {
       console.log('Hello KuadutrendComponent Component');
       console.log(this.common.historyList)
 
-      this.historyRecord = this.common.historyList.map(ele => {
+      this.historyRecord = this.common.historyList.filter(ele => ele.code != '').map(ele => {
            return {...ele, number:ele.number.substr(2,ele.number.length),history:ele.code.split('').map(ele => parseInt(ele))}
-      })
+      }).reverse()
 
       console.log(this.historyRecord)
       //this.historyRecord = this.util.historyNumbers.slice(0,11)
@@ -59,6 +61,8 @@ export class KuadutrendComponent {
     ngOnInit(){
       console.log(this.chooseIndex)
       console.log(this.position)
+
+      this.weiData = ['w','q','b','s','g'].slice(this.position[0], this.position[1])
       this.contentSlides.initialSlide = this.chooseIndex
       this.choose = this.menus[this.chooseIndex]
       this.judgeHeadTitle()
@@ -78,54 +82,54 @@ export class KuadutrendComponent {
       this.choose = this.menus[index]
     }
 
-    getKaijiang1(){
-      if(this.common.method == '二星'){
-          if(this.common.smallMethod == '前二跨度')
-              this.kaijiangData = this.historyRecord.map((ele,index) => {
-                let wan = this.judgeKind(ele.history[0])
-                let qian = this.judgeKind(ele.history[1])
-                return {...ele,wan,qian}   
-              })
-          else if(this.common.smallMethod == '后二跨度')  
-              this.kaijiangData = this.historyRecord.map((ele,index) => {
-                let shi = this.judgeKind(ele.history[3])
-                let ge = this.judgeKind(ele.history[4])
-                return {...ele,shi,ge}   
-              }) 
+    // getKaijiang1(){
+    //   if(this.common.method == '二星'){
+    //       if(this.common.smallMethod == '前二跨度')
+    //           this.kaijiangData = this.historyRecord.map((ele,index) => {
+    //             let wan = this.judgeKind(ele.history[0])
+    //             let qian = this.judgeKind(ele.history[1])
+    //             return {...ele,wan,qian}   
+    //           })
+    //       else if(this.common.smallMethod == '后二跨度')  
+    //           this.kaijiangData = this.historyRecord.map((ele,index) => {
+    //             let shi = this.judgeKind(ele.history[3])
+    //             let ge = this.judgeKind(ele.history[4])
+    //             return {...ele,shi,ge}   
+    //           }) 
 
-          return    
-      }
+    //       return    
+    //   }
         
-      switch(this.common.method){
-          case "前三":
-              this.kaijiangData = this.historyRecord.map((ele,index) => {
-                let wan = this.judgeKind(ele.history[0])
-                let qian = this.judgeKind(ele.history[1])
-                let bai = this.judgeKind(ele.history[2])
-                let zu = this.tellZu(ele.history.slice(0,3))
-                return {...ele, wan,qian,bai,zu}   
-                })      
-                break  
-          case "中三":   
-                this.kaijiangData = this.historyRecord.map((ele,index) => {
-                  let qian = this.judgeKind(ele.history[1])
-                  let bai = this.judgeKind(ele.history[2])
-                  let shi = this.judgeKind(ele.history[3])
-                  let zu = this.tellZu(ele.history.slice(1,4))
-                  return {...ele,qian,bai,shi,zu}   
-                })      
-                break 
-          case "后三":   
-                this.kaijiangData = this.historyRecord.map((ele,index) => {
-                  let bai = this.judgeKind(ele.history[2])
-                  let shi = this.judgeKind(ele.history[3])
-                  let ge = this.judgeKind(ele.history[4])
-                  let zu = this.tellZu(ele.history.slice(2,5))
-                  return {...ele,bai,shi,ge,zu}   
-                })      
-                break    
-        }
-    }
+    //   switch(this.common.method){
+    //       case "前三":
+    //           this.kaijiangData = this.historyRecord.map((ele,index) => {
+    //             let wan = this.judgeKind(ele.history[0])
+    //             let qian = this.judgeKind(ele.history[1])
+    //             let bai = this.judgeKind(ele.history[2])
+    //             let zu = this.tellZu(ele.history.slice(0,3))
+    //             return {...ele, wan,qian,bai,zu}   
+    //             })      
+    //             break  
+    //       case "中三":   
+    //             this.kaijiangData = this.historyRecord.map((ele,index) => {
+    //               let qian = this.judgeKind(ele.history[1])
+    //               let bai = this.judgeKind(ele.history[2])
+    //               let shi = this.judgeKind(ele.history[3])
+    //               let zu = this.tellZu(ele.history.slice(1,4))
+    //               return {...ele,qian,bai,shi,zu}   
+    //             })      
+    //             break 
+    //       case "后三":   
+    //             this.kaijiangData = this.historyRecord.map((ele,index) => {
+    //               let bai = this.judgeKind(ele.history[2])
+    //               let shi = this.judgeKind(ele.history[3])
+    //               let ge = this.judgeKind(ele.history[4])
+    //               let zu = this.tellZu(ele.history.slice(2,5))
+    //               return {...ele,bai,shi,ge,zu}   
+    //             })      
+    //             break    
+    //     }
+    // }
 
     getKaijiang(){
         this.kaijiangData = this.historyRecord.map((ele,index) => {
@@ -259,7 +263,7 @@ export class KuadutrendComponent {
             }
 
             for(let i =0;i<totals.length;i++){
-                totals[i].unshift({number:('00' + i).slice(-2) + '期'})
+                totals[i].unshift({number:this.historyRecord[i].number, choose:false})
             }
             console.log(totals)
             this.trendData = totals
@@ -338,7 +342,7 @@ export class KuadutrendComponent {
         }
 
         for(let i =0;i<totals.length;i++){
-            totals[i].unshift({number:('00' + i).slice(-2) + '期'})
+            totals[i].unshift({number:this.historyRecord[i].number, choose:false})
         }
         console.log(totals)
            this.kuaDuData = totals
@@ -358,10 +362,10 @@ export class KuadutrendComponent {
 
     this.lengreData = arr.map(number => {
         let leng30 = asd.slice(-30).filter(item => number == item).length
-        let leng20 = asd.slice(-20).filter(item => number == item).length
-        let leng10 = asd.slice(-10).filter(item => number == item).length
-        let yilou = asd.length - asd.lastIndexOf(number)
-        return {number, leng30, leng20, leng10, yilou}
+        let leng60 = asd.slice(-60).filter(item => number == item).length
+        let leng100 = asd.slice(-100).filter(item => number == item).length
+        let yilou = asd.length - asd.lastIndexOf(number) - 1
+        return {number, leng30, leng60, leng100, yilou}
     })
   }  
 }

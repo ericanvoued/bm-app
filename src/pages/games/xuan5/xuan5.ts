@@ -35,7 +35,7 @@ import * as Hammer from 'hammerjs';
 export class Xuan5Page extends Effect{
    @ViewChild("gameContainer", { read: ViewContainerRef }) gameContainer: ViewContainerRef;
    componentRef: ComponentRef<any>;
-   haveChoosen:any[] = ['']
+   haveChoosen:any[] = ['当前遗漏']
    gameConfig:any;
    record: any = [
     {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
@@ -45,9 +45,6 @@ export class Xuan5Page extends Effect{
     {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
     {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'},
     {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
-    // {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'},
-    // {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
-    // {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'}
    ]
    loadInfo:any;
    list: any = []
@@ -82,9 +79,7 @@ export class Xuan5Page extends Effect{
                 this.componentRef = this.gameContainer.createComponent(factory)
                 this.componentRef.instance.choose = this.haveChoosen
                 this.common.componentRef = this.componentRef
-                           this.util.shakePhone(() => {
-                               this.util.randomChoose(this.common.componentRef)
-                           })
+                           this.util.shakePhone()
             }
         )
 
@@ -112,13 +107,15 @@ export class Xuan5Page extends Effect{
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Xuan5Page');
+    $('.modify').css('height', (parseInt($('body').css('height')) - 202) + 'px')
+    $('.modify').css('top',  '152px')
+    this.initHisBox('d5-content')
   }
 
   change(val){
     console.log(val)
     if(val == '走势图')
        this.app.getRootNav().push('GameTrendPage',{'index':1}) 
-      // this.navCtrl.push('GameTrendPage',{'index':1})
 
     if(val == '号码统计'){
         if($('.modal').hasClass('active')){

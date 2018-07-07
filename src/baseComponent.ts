@@ -26,6 +26,8 @@ export class Effect{
     gameConfig:any;
     list: any ;
 
+    canDrag:boolean = true
+
     maxNumber:number;
     
     countTime:any = {
@@ -55,6 +57,7 @@ export class Effect{
 
         this.common.fetchRecord().then(() => {
             this.list = this.common.historyList.map(this.handleBall).slice(0,10)
+            console.log(this.list)
             if(this.list.length > 2){
                 this.maxNumber = Math.ceil(this.list.length/5)
             }else{
@@ -119,7 +122,6 @@ export class Effect{
 
             requestAnimationFrame(this.move.bind(this))
         }else{
-            console.log('你妈死额')
             this.common.cartNumber++
             $('#ball').remove()
             tt = 0
@@ -174,4 +176,125 @@ export class Effect{
    }
 
    handleBall(ele){}
+
+  
+
+   getAngle(angx, angy) {
+    return Math.atan2(angy, angx) * 180 / Math.PI;
+  }
+
+   getDirection(startx, starty, endx, endy) {
+    var angx = endx - startx;
+    var angy = endy - starty;
+    var result = 0;
+    if (Math.abs(angx) < 2 && Math.abs(angy) < 2) {
+      return result;
+    }
+    var angle = this.getAngle(angx, angy);
+    if (angle >= -135 && angle <= -45) {
+      result = 1;
+    } else if (angle > 45 && angle < 135) {
+      result = 2;
+    }
+    return result;
+  }
+
+  initHisBox(idstr) {
+    let self = this;
+    var startx, starty;
+    console.log($('.bet-box').offset().top)
+    console.log(document.getElementById('qq'))
+   
+    document.getElementById('qq').addEventListener("click", function(e){
+        var obj = $(".his-box"),his = obj.css('height');
+        if(parseInt(his) > 54){
+            obj.animate({height: "54px"}, 100)
+            $('.modify').css('height', (parseInt($('body').css('height')) - 202) + 'px')
+            $('.modify').css('top',  '152px')
+            $('.modify').addClass('scroll')
+        }         
+    },true)
+  
+    document.getElementById(idstr).addEventListener("touchstart",
+      function (e) {
+        startx = e.touches[0].pageX;
+        starty = e.touches[0].pageY;
+      }, false);
+    document.getElementById(idstr).addEventListener("touchend",
+      function (e) {
+        var endx, endy;
+        endx = e.changedTouches[0].pageX;
+        endy = e.changedTouches[0].pageY;
+        // var kscroll = $('#ks-content .scroll-content');
+        // var lscroll = $('.lhc-content-child .scroll-content');
+        var direction = self.getDirection(startx, starty, endx, endy);
+        var len = $('.his-box .his-line').length;
+        var obj = $(".his-box");
+        var his = obj.css('height');
+        console.log(his)
+        switch (direction) {
+          case 0:
+            break;
+          case 1:
+            console.log('vgwgwgwgwegw')
+            console.log($('.bet-box').offset().top)
+            if (parseInt(his) <= 135 && parseInt(his) > 54) {
+              obj.animate({height: "54px"}, 100);
+              var h = len >= 5 ? 135 : (len - 2)*27 + 54  
+              var top = parseInt($('.modify').css('top'))
+              var height = parseInt($('.modify').css('height'))
+              $('.modify').css('top', top + 54 - h + 'px')
+              $('.modify').css('height', height + h - 54 + 'px')
+              $('.modify').addClass('scroll')
+
+            } else if (parseInt(his) > 135 && parseInt(his) <= len*27) {
+                obj.stop().animate({height: "135px"}, 100)
+                var top = parseInt($('.modify').css('top'))
+                var height = parseInt($('.modify').css('height'))
+                $('.modify').css('top', top + 135 - len*27 + 'px')
+                $('.modify').css('height', height + len*27 - 135 + 'px')
+
+            } else if (parseInt(his) == (len*27 + 30)){
+                console.log('ednd')
+                obj.stop().animate({height: (parseInt(his) - 30) + 'px'}, 100)
+                var top = parseInt($('.modify').css('top'))
+                var height = parseInt($('.modify').css('height'))
+                $('.modify').css('top', top - 30 + 'px')
+                $('.modify').css('height', height + 30 + 'px')
+            }
+            break;
+          case 2:
+            if (his == '54px' && len > 2){
+                console.log('frggrweg') 
+                console.log($('.bet-box').offset().top)
+                if($('.bet-box').offset().top < 151)
+                    break
+                var h = len >= 5 ? 135 : (len - 2)*27 + 54  
+                obj.animate({height:h + 'px'}, 100)   
+                var top = parseInt($('.modify').css('top'))
+                var height = parseInt($('.modify').css('height'))
+                $('.modify').css('top', top + h - 54 + 'px')
+                $('.modify').css('height', height + 54 - h + 'px')
+                $('.modify').removeClass('scroll')
+                 
+            } else if (obj.css('height') == '135px' && len > 5) {
+              var h = len >= 10 ? 270 : (len - 5)*27 + 135
+              obj.animate({height: h + 'px'}, 100);
+              var top = parseInt($('.modify').css('top'))
+              var height = parseInt($('.modify').css('height'))
+              $('.modify').css('top', top + h - 135 + 'px')
+              $('.modify').css('height', height + 135 - h + 'px')
+
+            } else if (parseInt(his) == len*27){
+                var h = parseInt(his) + 30
+                obj.animate({height: h + 'px'}, 100)
+                var top = parseInt($('.modify').css('top'))
+                var height = parseInt($('.modify').css('height'))
+                $('.modify').css('top', top + 30 + 'px')
+                $('.modify').css('height', height - 30 + 'px')
+            }
+            break;
+        }
+      }, false);
+  }
 }

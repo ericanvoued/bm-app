@@ -119,9 +119,7 @@
                                 <div >{{item.ge}}</div>
                             </div>
                      </div>         
-                </div> 
-                
-              
+                </div>         
         </div> 
 
      
@@ -129,7 +127,7 @@
   <!-- swiper-slide-active -->
   <ion-slide *ngFor="let ii of menus.slice(1,menus.length);let i = index" style="min-height:100%" class="swiper-slide-active">
       <div class="trend-container">
-          <ul style="display:flex" *ngIf="common.series_id == 1" class="top-line">
+          <ul *ngIf="common.series_id == 1" class="top-line">
               <li class="head-num" style="width:17%">期号</li>
               <li class="head-num" style="width:8.5%">0</li>
               <li class="head-num" style="width:8.5%">1</li>
@@ -143,7 +141,7 @@
               <li class="head-num" style="width:8.5%">9</li>
           </ul>
 
-          <ul style="display:flex" *ngIf="common.series_id == 2" class="top-line">
+          <ul *ngIf="common.series_id == 2" class="top-line">
             <li class="head-num" style="width:14.2%">期号</li>
             <li class="head-num" style="width:7.8%">01</li>
             <li class="head-num" style="width:7.8%">02</li>
@@ -168,26 +166,26 @@
           </ul>
       </div>
      
-              <ul *ngFor="let item of util.statisticCategory" class="trend-category">
+              <!-- <ul *ngFor="let item of util.statisticCategory" class="trend-category" style="line-height:30px">
                 <li class="head-num head-category" style="width:17%;font-size:10px">{{item}}</li>
-                <li class="head-num" style="width:8.5%" *ngFor="let todo of util.trendData[item][ii]">
+                <li class="head-num head-content"  *ngFor="let todo of util.trendData[item][ii]">
                     {{todo}}
                 </li>
-              </ul>
+              </ul> -->
 
-              <!-- <ul *ngFor="let item of category" class="trend-category">
+              <ul *ngFor="let item of category" class="trend-category">
                     <li class="head-num head-category" style="width:17%;font-size:10px">{{getTitle(item)}}</li>
                     <li class="head-num" style="width:8.5%" *ngFor="let todo of common.missData[weiData[i]][item]">
                         {{todo}}
                     </li>
-              </ul> -->
-          
-            <div *ngIf="common.method != '任选'">
-                    <div *ngIf="common.bigKind == '直选' || common.method == '定位胆'">
+              </ul>
+              <div class="cl bottom-choose">
+                <div *ngIf="common.method != '任选'" >
+                    <div *ngIf="common.bigKind == '直选' || common.method == '一星'">
                             <ul class="choose-content">
                                     <li class="head-num" style="width:17%;font-size:10px">{{ii}}</li>
-
-                                    <li class="head-num ball-choose" style="width:8.5%;position:relative" *ngFor="let item of common.ballData[i].value;let j=index" >
+                
+                                    <li class="head-num ball-choose ball-tap" style="width:8.5%;position:relative" *ngFor="let item of common.ballData[i].value;let j=index" >
                                         <span *ngIf="common.series_id == 1" [class.current]="item == 1" (click)="toggle(i,j)">{{j}}</span>
                                         <span *ngIf="common.series_id == 2" [class.current]="item == 1" (click)="toggle(i,j)">{{j+1}}</span>
                                     </li>
@@ -199,31 +197,36 @@
                                         <div *ngIf="common.series_id == 1" style="display:flex;align-items:center">
                                             <div  *ngFor="let item of common.componentRef.instance.getCommonData()[i]" style="color:#F84F1E;margin-left:5px">{{item}}</div>            
                                         </div>
-
+                
                                         <div *ngIf="common.series_id == 2" style="display:flex;align-items:center">
                                             <div  *ngFor="let item of common.componentRef.instance.getCommonData()[i]" style="color:#F84F1E;margin-left:5px">{{item+1}}</div>            
                                         </div>
                                     </div>
                             </div>
                     </div>
-            
-                    <div  *ngIf="common.bigKind != '直选' && common.method != '定位胆'">
+                
+                    <div  *ngIf="common.bigKind != '直选' && common.method != '一星'">
                         <ul class="choose-content" *ngFor="let item of common.ballData;let row=index">
                             <li class="head-num" style="width:17%;color:#333333;font-size:12px">{{processName(item.key)}}</li>
-                            <li class="head-num ball-choose" style="width:8.5%;position:relative"  *ngFor="let item of item.value;let column=index" >
+                            <li class="head-num ball-choose ball-tap" style="width:8.5%;position:relative"  *ngFor="let item of item.value;let column=index" >
                                 <span [class.current]="item == 1" (click)="common.componentRef.instance.changeToggle(row,column)">{{column}}</span>
                             </li>
                         </ul>
-        
+                
                         <div  style="display:flex;align-items:center;height:20px">
                             <div style="width:17%;font-size:10px">已选</div>
                             <div *ngIf="existZuxuan()" style="color:#F84F1E;margin-left:5px">{{common.componentRef.instance.getLotteryText()}}</div>
                         </div>
                     </div>
-            </div>  
+                </div> 
+               
+              </div>
+             
            
   </ion-slide> 
 </ion-slides> 
+
+ 
   <!-- <ion-infinite-scroll  *ngIf="!finish" (ionInfinite)="doInfinite($event)" immediate-check="false" >
             <ion-infinite-scroll-content
                 loadingSpinner="bubbles"

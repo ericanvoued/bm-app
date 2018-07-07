@@ -85,7 +85,7 @@
             
             <div *ngFor="let data of common.ballData;let row = index" style="display:flex;align-items:center">
                     <ul style="display:flex">
-                        <li class="ball-choose" *ngFor="let item of data.value;let column = index" [class.current]="item == 1" style="width:25px;height:25px;display:flex;justify-content:center;align-items:center;margin-left:1px">
+                        <li class="ball-choose ball-tap" *ngFor="let item of data.value;let column = index" [class.current]="item == 1" style="width:25px;height:25px;display:flex;justify-content:center;align-items:center;margin-left:1px;position:relative">
                              <span [class.current]="item == 1" (click)="common.componentRef.instance.changeToggle(row,column)">{{judge(column)}}</span>
                         </li>
                     </ul>
@@ -170,7 +170,7 @@
                 
                 <div *ngFor="let data of common.ballData;let row = index" style="display:flex;align-items:center">
                         <ul style="display:flex">
-                            <li class="ball-choose" *ngFor="let item of data.value;let column = index" [class.current]="item == 1" style="width:25px;height:25px;display:flex;justify-content:center;align-items:center;margin-left:1px">
+                            <li class="ball-choose ball-tap" *ngFor="let item of data.value;let column = index" [class.current]="item == 1" style="width:25px;height:25px;display:flex;position:relative;justify-content:center;align-items:center;margin-left:1px">
                                  <span [class.current]="item == 1" (click)="common.componentRef.instance.changeToggle(row,column)">{{judge(column)}}</span>
                             </li>
                         </ul>

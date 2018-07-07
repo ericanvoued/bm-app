@@ -21,6 +21,7 @@ import { RenxuansizhongsidantuoComponent } from './115-game/renxuandantuo/renxua
 import { RenxuanwuzhongwudantuoComponent } from './115-game/renxuandantuo/renxuanwuzhongwudantuo/renxuanwuzhongwudantuo'
 import { RenxuanliuzhongwudantuoComponent } from './115-game/renxuandantuo/renxuanliuzhongwudantuo/renxuanliuzhongwudantuo'
 import { RenxuanqizhongwudantuoComponent } from './115-game/renxuandantuo/renxuanqizhongwudantuo/renxuanqizhongwudantuo'
+import { RenxuanbazhongwudantuoComponent } from './115-game/renxuandantuo/renxuanbazhongwudantuo/renxuanbazhongwudantuo'
 
 export const gameConfig = {
        '三码前三直选复式':QiansanzhixuanfushiComponent,
@@ -44,5 +45,6 @@ export const gameConfig = {
        '任选胆拖任选四中四胆拖':RenxuansizhongsidantuoComponent,
        '任选胆拖任选五中五胆拖':RenxuanwuzhongwudantuoComponent, 
        '任选胆拖任选六中五胆拖':RenxuanliuzhongwudantuoComponent,
-       '任选胆拖任选七中五胆拖': RenxuanqizhongwudantuoComponent
+       '任选胆拖任选七中五胆拖': RenxuanqizhongwudantuoComponent,
+       '任选胆拖任选八中五胆拖': RenxuanbazhongwudantuoComponent
 }

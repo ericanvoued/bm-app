@@ -8,10 +8,10 @@ import { RightmenuComponent } from './rightmenu/rightmenu';
 import { MenumodalComponent } from './menumodal/menumodal';
 import { ZuxuanhezhiComponent } from './ssc-game/zuxuanhezhi/zuxuanhezhi';
 import { ZuxuanliuComponent } from './ssc-game/zuxuanliu/zuxuanliu';
-
 import { WuxingzhixuanzuheComponent } from './ssc-game/wuxing/wuxingzhixuanzuhe/wuxingzhixuanzuhe';
 import { FooterComponent } from './footer/footer';
-import { RenxuanbazhongwudantuoComponent } from './renxuanbazhongwudantuo/renxuanbazhongwudantuo';
+
+import { ZhixuanfushiComponent } from './ssc-game/wuxing/zhixuanfushi/zhixuanfushi'
 
 
 
@@ -25,7 +25,6 @@ import { RenxuanbazhongwudantuoComponent } from './renxuanbazhongwudantuo/renxua
     ZuxuanhezhiComponent,
     ZuxuanliuComponent,
     FooterComponent,
-    RenxuanbazhongwudantuoComponent,
     ],
 	imports: [CommonModule],
 	exports: [
@@ -36,7 +35,6 @@ import { RenxuanbazhongwudantuoComponent } from './renxuanbazhongwudantuo/renxua
     ZuxuanhezhiComponent,
     ZuxuanliuComponent,
     FooterComponent,
-    RenxuanbazhongwudantuoComponent,
     ]
 })
 

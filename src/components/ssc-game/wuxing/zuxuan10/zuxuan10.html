@@ -4,7 +4,7 @@
 <div>{{common.smallKind.bonus_note}} {{util.formatMoney(common.bonus)}} 元</div>
 <div class="l-game" *ngFor="let data of common.ballData;let ii = index" >
                 <div class="l">
-                    <p><span></span>{{data.key}}</p>
+                    <p><span></span>{{i == 0 ? '三重号':'二重号'}}</p>
                 </div>
 
                 <div class="r">

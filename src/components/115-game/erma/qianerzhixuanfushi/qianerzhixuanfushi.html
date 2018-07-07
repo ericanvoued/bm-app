@@ -19,7 +19,7 @@
                 </li>
             </ul>
 
-            <!-- <ul class="yilou statistic" *ngIf="check('当前遗漏')">
+            <ul class="yilou statistic" *ngIf="check('当前遗漏')">
                 <li *ngFor ="let detail of common.missData.qezxfs.current[ii].slice(0,6)" [class.active]="checkMax(detail,common.missData.qezxfs.current[ii])">{{detail}}</li>  
                    
             </ul>
@@ -37,7 +37,7 @@
             <ul class="lengre statistic" *ngIf="check('最大遗漏')">
                 <li *ngFor ="let detail of common.missData.qezxfs.max[ii].slice(0,6)">{{detail}}</li>
                
-            </ul> -->
+            </ul>
 
             <ul  class="ball-choose">
                 <li *ngFor="let item of [0,1,2,3,4,5];let i = index" [class.current]="data.value[i+6] == 1" [class.blank]="i > 4" >
@@ -47,7 +47,7 @@
                 </li>
             </ul>
 
-            <!-- <ul class="yilou statistic" *ngIf="check('当前遗漏')">
+            <ul class="yilou statistic" *ngIf="check('当前遗漏')">
                 <li *ngFor ="let detail of common.missData.qezxfs.current[ii].slice(-5)" [class.active]="checkMax(detail,common.missData.qezxfs.current[ii])">{{detail}}</li>             
                 <li></li>             
             </ul>
@@ -65,7 +65,7 @@
             <ul class="lengre statistic" *ngIf="check('最大遗漏')">
                 <li *ngFor ="let detail of common.missData.qezxfs.max[ii].slice(-5)">{{detail}}</li>  
                 <li></li>          
-            </ul> -->
+            </ul>
         
             <div class="btn-list">
                 <a href="javascript:;" *ngFor="let detail of common.btn[ii];let j = index" [class.current]="detail.flag" (click)="changeXuanActive(ii,j,detail.name)">{{detail.name}} <span></span></a>

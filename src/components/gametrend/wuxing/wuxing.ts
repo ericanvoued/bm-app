@@ -63,10 +63,10 @@ export class WuxingComponent implements OnInit {
 
     this.weiData = ['w','q','b','s','g'].slice(this.position[0], this.position[1])
 
-    this.historyRecord = this.common.historyList.map(ele => {
+    this.historyRecord = this.common.historyList.filter(ele => ele.code != '').map(ele => {
       return {...ele, number:ele.number.substr(2,ele.number.length),
         history: this.common.series_id == 2 ? ele.code.split(' ').map(ele => parseInt(ele)) : ele.code.split('').map(ele => parseInt(ele))}
-    })
+    }).reverse()
 
     this.fakeTrend = this.initialArr(this.position[1], this.position[0]).reduce((a,b) =>{
       let arr = []
@@ -164,8 +164,6 @@ export class WuxingComponent implements OnInit {
                       break    
                   }      
          }
-
-         //console.log(this.kaijiangData)
      }
 
 
@@ -225,7 +223,6 @@ export class WuxingComponent implements OnInit {
   }
 
   processName(name){
-     let temp;
      switch(name) {
        case 'erchonghao':
             return '二重号';
@@ -234,7 +231,9 @@ export class WuxingComponent implements OnInit {
        case 'sanchonghao':
             return '三重号';
        case 'sichonghao':
-            return '四重号';                       
+            return '四重号';  
+       case 'no_digit':
+            return '选号';                          
      }
   }
 

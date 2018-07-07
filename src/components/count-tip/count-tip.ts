@@ -20,7 +20,6 @@ export class CountTipComponent {
                this.count--
                if(this.count == 0){
                      clearInterval(timmers)
-                     this.viewCtrl.dismiss()
                }
       },1000)
   }

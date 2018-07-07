@@ -42,12 +42,12 @@ export class GameTrendPage {
 
     this.common.getMissObservable()
 
-    $('body').on('touchstart', '.ball-choose', function(){
+    $('body').on('touchstart', '.ball-tap', function(){
        let text = $(this).find('span').text()
        let dom = $('<span class="tip">'  + text + '</span>')
        $(this).append(dom)
 
-    }).on('touchend', '.ball-choose', function(){
+    }).on('touchend', '.ball-tap', function(){
        $(this).find('.tip').remove()
     })
 
