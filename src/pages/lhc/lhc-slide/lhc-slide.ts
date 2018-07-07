@@ -74,16 +74,23 @@ export class LhcSlidePage extends LhcAction {
     this.initSwiper();
     this.navBar.backButtonClick = this.backButtonClick;
     this.initView();
-    this.base.requestPlayData('61', '6').then(() => {
-        this.changePlaySelect();
+    this.base.requestPlayData(localStorage.idstr, '6').then((response) => {
+        this.initOdds(response);
+      this.changePlaySelect();
       }
     );
     this.requestHisData();
     this.initAny();
   }
 
+  initOdds(data){
+
+    var tm_prize,zm_prize,bb_prize,sx_prize,ws_prize,zf_prize,bz_pirze;
+
+  }
+
   ionViewWillEnter() {
-    this.base.requestJiangQiData('61', '6', 'play').then(() => {
+    this.base.requestJiangQiData(localStorage.idstr, '6', 'play').then(() => {
     });
   }
 
@@ -106,13 +113,24 @@ export class LhcSlidePage extends LhcAction {
 
   betClick() {
 
+    const that = this;
+    if(localStorage.userInfo==null){
+      $('body').append(Tpl.fail_tip);
+      $('#error-tip').text('您还未登录～');
+      setTimeout(function () {
+        $('.basket-pop').remove();
+        localStorage.clear();
+        that.navCtrl.push("LoginPage");
+      }, 1000);
+      return;
+    }
+
     this.dealWithBallMultiple();
     console.log('localStorage.balls==' + localStorage.balls)
     const loader = this.loading.create({});
     loader.present();
 
-    var gameId = 61;//localStorage.idStr;
-
+    var gameId = localStorage.idstr;
     var obj = {};
     obj['gameId'] = gameId;
     obj['isTrace'] = "0";
@@ -192,17 +210,23 @@ export class LhcSlidePage extends LhcAction {
 
 
   requestHisData() {
-    var userInfo = JSON.parse(localStorage.userInfo);
-    console.log('userInfo==' + userInfo);
-    var url = '/api-lotteries-h5/load-issues/61?_t=' + userInfo.auth_token;
-    // http://user.firecat.com/api-lotteries-h5/load-issues/1?_t=4b5dbcc45a38784ce1aabaaa03ae806a
+
+    // var userInfo = JSON.parse(localStorage.userInfo);
+    // var url,data;
+    // if(localStorage.userInfo){
+    //   data = JSON.parse(localStorage.userInfo);
+    //   url = '/api-lotteries-h5/load-issues/21?_t=' + data.auth_token;
+    // }else{
+    //   url = '/api-lotteries-h5/load-issues/21?_t=';
+    // }
+
+    var url = '/api-lotteries-h5/load-issues/61?_t=';
     this.rest.getUrlReturn(url)
       .subscribe((data) => {
         console.log(data);
         if (data.IsSuccess) {
 
           localStorage.lhchisdata = JSON.stringify(data.data);
-
           var htm = '';
           for (var i = 0; i < data.data.length; i++) {
             var it = '<li class="his-line">\n' +
@@ -223,14 +247,21 @@ export class LhcSlidePage extends LhcAction {
   }
 
   initAny() {
+
     localStorage.wayId = 290;
-    $('#yue').text(JSON.parse(localStorage.getItem('userInfo')).available);
+    if(localStorage.userInfo){
+      $('#yue').text(JSON.parse(localStorage.getItem('userInfo')).available);
+    }else{
+      $('#yue').text(0);
+    }
     this.base.initHisBox('lhc-content-child');
     if ($('.lhc-content-child .section.active').offset().top < 156) {
       $(".his-box").stop().animate({height: "0px"}, 0);
       return;
     }
   }
+
+
 
 
   initViewData() {
@@ -258,7 +289,6 @@ export class LhcSlidePage extends LhcAction {
           spaceBetween: 0
         }
       }
-
     });
   }
 
@@ -271,11 +301,9 @@ export class LhcSlidePage extends LhcAction {
     let index = this.contentSlides.getActiveIndex();
     this.setStyle(index);
     this.swiper.slideTo(index, 300);
-
   }
 
   setStyle(index) {
-
     var slides = document.getElementsByClassName('pageMenuSlides')[0].getElementsByClassName('swiper-slide');
     if (index < slides.length) {
       for (var i = 0; i < slides.length; i++) {
@@ -287,36 +315,9 @@ export class LhcSlidePage extends LhcAction {
   }
 
 
-  // timeIddd;
-  // cutDownTime(a, b) {
-  //   var totalSec = this.getRemainTime(a, b);
-  //   var ttt = totalSec;
-  //   var liArr = $('.r-time span');
-  //   this.timeIddd = setInterval(function () {
-  //     if (totalSec <= 0) {
-  //       //--奖期
-  //       // requestJiangQiData(1);
-  //       clearInterval(this.timeIddd);
-  //       return;
-  //     }
-  //     totalSec--;
-  //     var hour = Math.floor(totalSec / 3600);
-  //     var minute = Math.floor(totalSec % 3600 / 60);
-  //     var sec = totalSec % 60;
-  //     //显示
-  //     liArr[0].innerHTML = hour;
-  //     liArr[1].innerHTML = minute;
-  //     liArr[2].innerHTML = sec;
-  //     var scale = totalSec / ttt * 100;
-  //     $('.time-bar').css('width', scale + '%');
-  //   }, 1000)
-  // }
-  //
-  // getRemainTime(startime, endtime) {
-  //   var a = new Date(startime.replace(/-/g, '/')).getTime();
-  //   var b = new Date(endtime.replace(/-/g, '/')).getTime();
-  //   var t = (b - a) / 1000;
-  //   return t;
-  // }
+
+
+
+
 
 }

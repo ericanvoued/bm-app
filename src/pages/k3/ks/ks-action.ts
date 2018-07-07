@@ -20,32 +20,6 @@ export class KsAction {
   }
 
 
-  // cutDownTime() {
-  //   //ewee
-  //   let _this = this;
-  //   var totalSec = _this.getRemainTime('2017-09-11 15:39:31', '2017-09-11 15:40:30');
-  //   var ttt = totalSec;
-  //   var liArr = $('.r-time span');
-  //   var timeId = setInterval(function () {
-  //     _this.timeIddd = timeId;
-  //     if (totalSec <= 0) {
-  //       //--奖期
-  //       // requestJiangQiData(1);
-  //       clearInterval(timeId);
-  //       return;
-  //     }
-  //     totalSec--;
-  //     var hour = Math.floor(totalSec / 3600);
-  //     var minute = Math.floor(totalSec % 3600 / 60);
-  //     var sec = totalSec % 60;
-  //     //显示
-  //     liArr[0].innerHTML = hour;
-  //     liArr[1].innerHTML = minute;
-  //     liArr[2].innerHTML = sec;
-  //     var scale = totalSec / ttt * 100;
-  //     $('.time-bar').css('width', scale + '%');
-  //   }, 1000)
-  // }
 
 
 

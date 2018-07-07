@@ -4,7 +4,7 @@ import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
 import {MyApp} from './app.component';
 
 import {HttpClientModule} from "@angular/common/http";
-import {CountTipComponent} from '../components/count-tip/count-tip';
+// import {CountTipComponent} from '../components/count-tip/count-tip';
 import { BallTouchDirective } from './ball-touch.directive'
 
 import {HomePage} from '../pages/home/home';
@@ -23,13 +23,11 @@ import {LoginProvider} from '../providers/login/login';
 import {RestProvider} from '../providers/rest/rest';
 import {LoadingProvider} from '../providers/loading/loading';
 import {InfoCenterProvider} from '../providers/info-center/info-center';
-import {KsBasketPage} from '../pages/k3/ks-basket/ks-basket'
-import {KstrendPage} from '../pages/k3/kstrend/kstrend'
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {CommonProvider} from '../providers/common/common';
 import {SscServiceProvider} from '../providers/games/ssc-service/ssc-service'
-
+import {CountTipComponent} from '../components/count-tip/count-tip';
 
 import {HttpClientProvider} from '../providers/http-client/http-client';
 import {ToolsProvider} from '../providers/tools/tools';
@@ -70,24 +68,26 @@ import {KstrendAction} from '../pages/k3/kstrend/kstrend-action';
   declarations: [
     MyApp,
     HomePage,
+    CountTipComponent,
     LottoryCenterPage,
     ActivityPage,
     UserCenterPage,
     TabsPage,
     // HotGmageListPage,
-    WuxingComponent,
-    SixingComponent,
-    KuadutrendComponent,
-    ZhixuanhezhiComponent,
-    DaxiaodanshuangComponent,
-    ZufuComponent,
-    CountTipComponent,
+    // WuxingComponent,
+    // SixingComponent,
+    // KuadutrendComponent,
+    // ZhixuanhezhiComponent,
+    // DaxiaodanshuangComponent,
+    // ZufuComponent,
+    //CountTipComponent,
     //LhcSlidePage,
-    KsBasketPage,
-     KsBasketPage,KstrendPage,ChargePage,
-    //...gameConfig.ssc,
-    //...gameConfig.d5,
+    // KsBasketPage,
+    //  KsBasketPage,KstrendPage,ChargePage,
+    // ...gameConfig.ssc,
+    // ...gameConfig.d5,
     //...lottoyCenter.lcList
+  
     // LoginPage,
   ],
   imports: [
@@ -107,22 +107,23 @@ import {KstrendAction} from '../pages/k3/kstrend/kstrend-action';
     HomePage,
     LottoryCenterPage,
     ActivityPage,
+    CountTipComponent,
     UserCenterPage,
     TabsPage,
     // HotGmageListPage,
     // LoginPage,
-    WuxingComponent,
-    SixingComponent,
-    KuadutrendComponent,
-    ZhixuanhezhiComponent,
-    DaxiaodanshuangComponent,
-    ZufuComponent,
+    // WuxingComponent,
+    // SixingComponent,
+    // KuadutrendComponent,
+    // ZhixuanhezhiComponent,
+    // DaxiaodanshuangComponent,
+    // ZufuComponent,
    // LhcSlidePage,
-    KsBasketPage,
-     KsBasketPage,KstrendPage,ChargePage,
-    CountTipComponent,
-    //...gameConfig.ssc,
-    //...gameConfig.d5,
+    // KsBasketPage,
+    //  KsBasketPage,KstrendPage,ChargePage,
+   // CountTipComponent,
+    // ...gameConfig.ssc,
+    // ...gameConfig.d5,
     //...lottoyCenter.lcList
 
   ],

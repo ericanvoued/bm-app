@@ -260,7 +260,6 @@ page-kstrend {
     .his-line:nth-child(even) {
       background: rgb(36, 113, 76);
     }
-
     .txt {
       width: 48vw;
     }
@@ -288,9 +287,8 @@ page-kstrend {
         position: absolute;
         //border-bottom: 0.5px solid #2d5c37;
       }
-
       .t-3 {
-        margin-left: 50px
+        margin-left: 54px
       }
       .t-num {
         padding-left: 0px;
@@ -324,8 +322,8 @@ page-kstrend {
     .his-line:nth-child(even) {
       background: rgb(36, 113, 76);
     }
-
   }
+
   .hzzs-container {
     margin-top: 0px;
     .t-issue:nth-child(odd) {
@@ -336,7 +334,6 @@ page-kstrend {
         height: 1px;
         background: #2d5c37;
         margin-top: -29px;
-
         //width: 100%;
         //height: 0.5px;
         //background: #2d5c37;
@@ -345,6 +342,32 @@ page-kstrend {
     .t-issue:nth-child(even) {
       background: rgb(36, 113, 76);
     }
+
+    .his-line{
+      .t.active{
+        background-image: linear-gradient(0deg, #F74511 0%, #F98A6A 100%);
+      }
+      .t{
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        line-height: 22px;
+      }
+    }
+
+  .bottom-hzzs{
+    .txt{
+      width:15vw;
+      font-size:12px;
+      position: absolute;
+      border-bottom: 0.5px solid #2d5c37;
+      background: #35764b;
+    }
+ .t-3{
+      margin-left: 54px;
+    }
+  }
+
   }
 
   //  -- 冷热
