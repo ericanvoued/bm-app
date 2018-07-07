@@ -1,19 +1,23 @@
 import {Component} from '@angular/core';
-import {NavController, ModalController} from 'ionic-angular';
+import {IonicPage, NavController, ModalController} from 'ionic-angular';
 import { HomeProvider } from '../../providers/home/home'
 import { CommonProvider } from "../../providers/common/common";
 import { LoadingProvider } from '../../providers/loading/loading'
 import {HotGmageListPage} from '../hot-gmage-list/hot-gmage-list';
 import { InfoCenterPage } from '../info-center/info-center'
+
 import { BasketDataProvider } from '../../providers/basket-data/basket-data'
-import {LhcSlidePage} from "../lhc/lhc-slide/lhc-slide";
-import {KsPage } from "../k3/ks/ks";
+
+
 declare var Swiper;
 
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
+
+
 export class HomePage {
   userInfo:any;
   banner_swiper: any;
@@ -37,7 +41,7 @@ export class HomePage {
 
   ionViewWillEnter(){
     this.homePrv.lottoryInfo();
-    this.homePrv.loadHotLottory();
+    // this.homePrv.loadHotLottory();
   }
 
   ionViewDidEnter(){
@@ -67,7 +71,7 @@ export class HomePage {
       }
     })
 
-    // setTimeout(()=>{
+    setTimeout(()=>{
       this.banner_swiper = new Swiper('.swiper-container', {
         slidesPerView: 'auto',
       //  centeredSlides: true,
@@ -82,7 +86,7 @@ export class HomePage {
           el: '.swiper-pagination',
         },
       });
-    // },800)
+    },800)
   }
 
   //页面跳转

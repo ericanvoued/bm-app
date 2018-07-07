@@ -1,8 +1,8 @@
 <ion-header>
   <ion-navbar>
-    <a href="javascript:;" class="firecat-icon kefu-icon"></a>
+    <a href="javascript:;" class="firecat-icon kefu-icon" (click)="http.lineService(userInfo.username)"></a>
     <h2 class="DIY-title">个人中心</h2>
-    <a href="javascript:;" class="firecat-icon msg-icon" (click)="pushPage('InfoCenterPage',false)"><i class="myBadge">{{unreadAnnouncements}}</i></a>
+    <a href="javascript:;" class="firecat-icon msg-icon" (click)="pushPage('InfoCenterPage',false,true)"><i class="myBadge">{{unreadAnnouncements}}</i></a>
     <a href="javascript:;" class="firecat-icon qrcode-icon"> </a>
   </ion-navbar>
 </ion-header>
@@ -11,11 +11,11 @@
 <ion-content>
   <div class="gredient-bg"></div>
   <!--未登陆-->
-  <div class="sc-card" *ngIf="userData == null">
+  <div class="sc-card" *ngIf="userInfo == null">
     <div class="head-row">
-      <img src="../../assets/imgs/default-head.png" alt="">
+      <img src="../assets/imgs/default-head.png" alt="">
       <div class="head-info">
-        <h2 (click)="pushPage('LoginPage',false)">用户登陆</h2>
+        <h2 (click)="pushPage('LoginPage',false,true)">用户登陆</h2>
         <!--<p>安全指数: <a class="safe-info" href="javascript:;">70分</a></p>-->
       </div>
       <!--<div class="sign-in">-->
@@ -40,11 +40,11 @@
     </div>
   </div>
   <!--已登陆-->
-  <div class="sc-card"  *ngIf="userData != null">
+  <div class="sc-card"  *ngIf="userInfo != null">
     <div class="head-row">
-      <img src="../../assets/imgs/default-head.png" alt="">
+      <img src="{{userInfo.avatar==null?'../assets/imgs/default-head.png':userInfo.avatar}}" alt="" (click)="changePic()">
       <div class="head-info">
-        <h2>{{userData.nickname}}<i  (click)="pushPage('ChangeNamePage',false)" class="firecat-icon edit-name-icon"></i></h2>
+        <h2>{{userInfo.nickname}}<i  (click)="pushPage('ChangeNamePage',false,true)" class="firecat-icon edit-name-icon"></i></h2>
         <!--<p>安全指数: <a class="safe-info" href="javascript:;">70分</a></p>-->
       </div>
       <!--<div class="sign-in">-->
@@ -54,7 +54,7 @@
     <div class="money-row">
       <div class="money-unit">
         <h4><i class="firecat-icon yue-icon"></i>余额</h4>
-        <p>{{userData.available}}元</p>
+        <p>{{userInfo.available}}元</p>
       </div>
       <span class="mid-line"></span>
       <div class="money-unit">
@@ -69,54 +69,54 @@
     </div>
   </div>
   <div class="with-charge-card">
-    <a href="javascript:;" (click)="pushPage('ChargePage',true)"><i class="firecat-icon charge-icon"></i>充值</a>
+    <a href="javascript:;" (click)="pushPage('ChargePage',true,true)"><i class="firecat-icon charge-icon"></i>充值</a>
     <span class="mid-line"></span>
-    <a href="javascript:;" (click)="pushPage('WithdrawPage',true)"><i class="firecat-icon withdrew-icon"></i>提款</a>
+    <a href="javascript:;" (click)="pushPage('WithdrawPage',true,true)"><i class="firecat-icon withdrew-icon"></i>提款</a>
   </div>
   <div class="f-items">
-    <a href="javascript:;" class="item-unit" (click)="pushPage('TransformHistoryPage',true)">
+    <a href="javascript:;" class="item-unit" (click)="pushPage('TransformHistoryPage',true,true)">
       <i class="firecat-icon tran-his-icon"></i>
       <p>充提记录</p>
       <i class="firecat-icon toRight-icon"></i>
     </a>
-    <a href="javascript:;" class="item-unit" (click)="pushPage('LottoryHistoryPage',true)">
+    <a href="javascript:;" class="item-unit" (click)="pushPage('LottoryHistoryPage',true,true)">
       <i class="firecat-icon ltr-his-icon"></i>
       <p>购彩记录</p>
       <i class="firecat-icon toRight-icon"></i>
     </a>
-    <a href="javascript:;" class="item-unit" (click)="pushPage('FollowHistoryPage',true)">
+    <a href="javascript:;" class="item-unit" (click)="pushPage('FollowHistoryPage',true,true)">
       <i class="firecat-icon follow-his-icon"></i>
       <p>追号记录</p>
       <i class="firecat-icon toRight-icon"></i>
     </a>
-    <a href="javascript:;" class="item-unit" (click)="pushPage('TransDetailPage',true)">
+    <a href="javascript:;" class="item-unit" (click)="pushPage('TransDetailPage',true,true)">
       <i class="firecat-icon trans-detail-icon"></i>
-      <p>帐变明细</p>
+      <p>账变明细</p>
       <i class="firecat-icon toRight-icon"></i>
     </a>
   </div>
   <div class="f-items">
-    <a href="javascript:;" class="item-unit">
+    <a href="javascript:;" class="item-unit" (click)="pushPage('SafeCenterPage',true,false)">
       <i class="firecat-icon lucky-task-icon"></i>
       <p>福利任务</p>
       <i class="firecat-icon toRight-icon"></i>
     </a>
-    <a href="javascript:;" class="item-unit" (click)="pushPage('SafeCenterPage',true)">
+    <a href="javascript:;" class="item-unit" (click)="pushPage('SafeCenterPage',true,true)">
       <i class="firecat-icon safe-cen-icon"></i>
       <p>安全中心</p>
       <i class="firecat-icon toRight-icon"></i>
     </a>
-    <a href="javascript:;" class="item-unit" (click)="pushPage('PushSetPage',true)">
+    <a href="javascript:;" class="item-unit" (click)="pushPage('PushSetPage',true,true)">
       <i class="firecat-icon push-set-icon"></i>
       <p>推送设置</p>
       <i class="firecat-icon toRight-icon"></i>
     </a>
-    <a href="javascript:;" class="item-unit" (click)="pushPage('InvitePage',true)">
+    <a href="javascript:;" class="item-unit" (click)="pushPage('InvitePage',true,true)">
       <i class="firecat-icon invite-icon"></i>
       <p>邀请有礼</p>
       <i class="firecat-icon toRight-icon"></i>
     </a>
-    <a href="javascript:;" class="item-unit" (click)="pushPage('MoreOptionPage',false)">
+    <a href="javascript:;" class="item-unit" (click)="pushPage('MoreOptionPage',false,true)">
       <i class="firecat-icon more-icon"></i>
       <p>更多选项</p>
       <i class="firecat-icon toRight-icon"></i>

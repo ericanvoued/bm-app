@@ -129,25 +129,6 @@ import { DiermingfushiComponent } from '../components/pk10/caiqianer/diermingfus
 import { RenxuanbazhongwudantuoComponent } from '../components/115-game/renxuandantuo/renxuanbazhongwudantuo/renxuanbazhongwudantuo'
 
 
-//开奖中心
-import {SscKaijiangComponent} from '../components/lottory-center/ssc-kaijiang/ssc-kaijiang'
-import {SscDanshuangComponent} from '../components/lottory-center/ssc-danshuang/ssc-danshuang'
-import {SscDaxiaoComponent} from '../components/lottory-center/ssc-daxiao/ssc-daxiao'
-import {YKaijiangComponent} from '../components/lottory-center/y-kaijiang/y-kaijiang'
-import {YDistributeComponent} from '../components/lottory-center/y-distribute/y-distribute'
-import {K3KaijiangComponent} from '../components/lottory-center/k3-kaijiang/k3-kaijiang'
-import {K3BaseTrendComponent} from '../components/lottory-center/k3-base-trend/k3-base-trend'
-import {K3ShapeTrendComponent} from '../components/lottory-center/k3-shape-trend/k3-shape-trend'
-import {K3CoodHotComponent} from '../components/lottory-center/k3-cood-hot/k3-cood-hot'
-import {Pk10KaijiangComponent} from '../components/lottory-center/pk10-kaijiang/pk10-kaijiang'
-import {Pk10daxiaoComponent} from '../components/lottory-center/pk10daxiao/pk10daxiao'
-import {Pk10DanshuangComponent} from '../components/lottory-center/pk10-danshuang/pk10-danshuang'
-import {Pk10ChanpiomComponent} from '../components/lottory-center/pk10-chanpiom/pk10-chanpiom'
-import {Pk10LonghuComponent} from '../components/lottory-center/pk10-longhu/pk10-longhu'
-import {LhcKaijiangComponent} from '../components/lottory-center/lhc-kaijiang/lhc-kaijiang'
-import {LhcShengxiaoComponent} from '../components/lottory-center/lhc-shengxiao/lhc-shengxiao'
-import {LhcBoseComponent} from '../components/lottory-center/lhc-bose/lhc-bose'
-
 export const gameConfig = {
    'ssc':[
       ZhixuanfushiComponent,WuxingzhixuanzuheComponent,Zuxuan20Component,Zuxuan30Component,Zuxuan60Component,Zuxuan120Component,Zuxuan10Component,Zuxuan5Component,
@@ -182,13 +163,6 @@ export const gameConfig = {
 
 }
 
-export const lottoyCenter = {
-  'lcList': [
-    SscKaijiangComponent, SscDanshuangComponent, SscDaxiaoComponent, YKaijiangComponent, YDistributeComponent, K3KaijiangComponent,
-    K3BaseTrendComponent, K3ShapeTrendComponent, K3CoodHotComponent, LhcKaijiangComponent, LhcShengxiaoComponent, LhcBoseComponent, Pk10KaijiangComponent,
-    Pk10daxiaoComponent, Pk10DanshuangComponent, Pk10ChanpiomComponent, Pk10LonghuComponent
-  ]
-}
 
 
 

@@ -1,13 +1,9 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, LoadingController, ToastController, AlertController, NavParams} from 'ionic-angular';
 import {LoadingProvider} from '../../../providers/loading/loading';
-import {CommonStatusPage} from '../common-status/common-status';
+
 import {flyUp} from '../../../animation/flyUp'
-
 import {BankCardProvider} from '../../../providers/bank-card/bank-card'
-import {AddBankCardPage} from '../add-bank-card/add-bank-card'
-import {UnbindBankCardPage} from '../unbind-bank-card/unbind-bank-card'
-
 import {HttpClientProvider} from '../../../providers/http-client/http-client'
 
 @IonicPage()
@@ -34,7 +30,6 @@ export class BankCardPage {
               public alertCtrl: AlertController,
               public loadPrd: LoadingProvider,
               public http: HttpClientProvider,
-              public bankCardPrd: BankCardProvider,
               public loadingCtrl: LoadingController,
               public toastCtrl: ToastController,
               public navParams: NavParams) {
@@ -113,21 +108,21 @@ export class BankCardPage {
           handler: data => {
             this.bcData.toast = this.loadPrd.showLoading(this.loadingCtrl, '资金密码设置中')
             if (data.password != data.comfirmPsw) {
-              this.bcData.toast = this.loadPrd.showToast(this.toastCtrl, '两次输入的密码不一致');
+              this.bcData.toast = this.loadPrd.showMidToast(this.toastCtrl, '两次输入的密码不一致');
               return false
             } else if (data.password.length < 6 || data.password.length > 16) {
-              this.bcData.toast = this.loadPrd.showToast(this.toastCtrl, '输入的密码长度不对');
+              this.bcData.toast = this.loadPrd.showMidToast(this.toastCtrl, '输入的密码长度不对');
               return false
             } else {
-              this.bcData.toast = this.loadPrd.showToast(this.toastCtrl, '输入的密码长度不对');
+              this.bcData.toast = this.loadPrd.showMidToast(this.toastCtrl, '输入的密码长度不对');
               this.postFoundPsw({psw1: data.password, psw2: data.comfirmPsw}).then(data => {
                 this.bcData.toast.dismiss()
                 console.log(data)
                 if (data.isSuccess == 1) {
-                  this.bcData.toast = this.loadPrd.showToast(this.toastCtrl, data.Msg);
+                  this.bcData.toast = this.loadPrd.showMidToast(this.toastCtrl, data.Msg);
                   this.navCtrl.push('AddBankCardPage')
                 } else {
-                  this.bcData.toast = this.loadPrd.showToast(this.toastCtrl, data.Msg);
+                  this.bcData.toast = this.loadPrd.showMidToast(this.toastCtrl, data.Msg);
                 }
               })
               // this.navCtrl.push('CommonStatusPage',{
@@ -186,10 +181,10 @@ export class BankCardPage {
           handler: data => {
             this.sendFoundPsw({psw1: data.password}).then(data => {
               console.log(data)
-              if (data.IsSuccess == 1) {
+              if (data.IsSuccess) {
                 this.navCtrl.push('AddBankCardPage')
               } else {
-                this.bcData.toast = this.loadPrd.showToast(this.toastCtrl, '资金密码错误');
+                this.bcData.toast = this.loadPrd.showMidToast(this.toastCtrl, data.Msg);
               }
             })
           }

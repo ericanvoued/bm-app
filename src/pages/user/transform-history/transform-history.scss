@@ -18,6 +18,10 @@ page-transform-history {
     height: 40px;
     line-height: 40px;
     background-color: #FFFFFF;
+    position: sticky;
+    z-index: 1000;
+    box-shadow: 0 1px 6px rgba(66,66,66,.5);
+    top:0;
     .segment-ios .segment-button,.segment-md .segment-button{
       border: none;
       color: #333333;

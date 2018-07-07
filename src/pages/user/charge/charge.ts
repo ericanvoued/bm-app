@@ -7,12 +7,11 @@ import {
   LoadingController,
   NavParams } from 'ionic-angular';
 import { LoadingProvider } from '../../../providers/loading/loading'
-import { App } from 'ionic-angular';
 
-import { BankListPage } from '../bank-list/bank-list'
-import { TabsPage } from '../../tabs/tabs';
-import { ChargeStatusPage } from '../charge-status/charge-status'
-import {UserCenterProvider } from '../../../providers/user-center/user-center'
+// import {UserCenterProvider } from '../../../providers/user-center/user-center'
+
+import { HttpClientProvider } from '../../../providers/http-client/http-client'
+
 
 @IonicPage()
 @Component({
@@ -21,7 +20,12 @@ import {UserCenterProvider } from '../../../providers/user-center/user-center'
 })
 export class ChargePage {
 
-
+  userInfo;
+  chargeList = {
+    bankflag: null,
+    currentBank:null,
+    data: []
+  }
 
   userData: any = {
     loading: null,
@@ -33,22 +37,21 @@ export class ChargePage {
     status: [0, 0, 0, 0, 0, 0],
     money: [100, 300, 500, 1000, 3000, 5000]
   }
-  bankList: any = {
-    currentBank:null,
-    status: [0, 0, 0, 0, 0]
-  }
+
 
   constructor(
               public toastCtrl: ToastController,
               public loadPrd: LoadingProvider,
               public modalCtrl: ModalController,
-              private app: App,
-              public ucPrd: UserCenterProvider,
+              // public ucPrd: UserCenterProvider,
               public LoadingCtrl: LoadingController,
+              public http: HttpClientProvider,
               public navCtrl: NavController,
               public navParams: NavParams) {
 
-    this.ucPrd.getcChargeList()
+    this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    this.getcChargeList()
+
 
   }
 
@@ -56,12 +59,23 @@ export class ChargePage {
     return new Promise((resolve, reject) => {
       if(currentBank){
         resolve('成功取到B页面返回的参数');
-        ucPrd.chargeList.data.banks.ABOC = currentBank
-        this.bankList.currentBank = currentBank
+        this.ucPrd.chargeList.data.banks.ABOC = currentBank
+        this.chargeList.currentBank = currentBank
       }else{
         reject('取回参失败')
       }
     });
+  }
+
+
+  //银行卡充值
+  //充值列表
+  async getcChargeList(){
+    await this.http.fetchData('/h5api-recharges/rechargeinfo?_t=' + this.userInfo.auth_token).then(data=>{
+      this.chargeList.data = data.data;
+      this.chargeList.payment_setting_data = data.payment_setting_data
+      console.log(this.chargeList.data)
+    })
   }
 
 
@@ -91,23 +105,25 @@ export class ChargePage {
 
   //选择支付方式
   selectBank(_index,bank) {
-    console.log(this.ucPrd.chargeList)
-    // if (this.bankList.data[_index].isRepaire != false) {
+
+    this.chargeList.bankflag = _index;
+    this.chargeList.currentBank = bank;
+
+
+    // if (this.chargeList.data[_index].isRepaire != false) {
     //   this.userData.toast = this.loadPrd.showToast(this.toastCtrl, '维护中');
     //   return;
     // } else {
-    for (let i = 0; i < this.ucPrd.chargeList.bankflag.length; i++) {
-      this.ucPrd.chargeList.bankflag[i] = 0;
-    }
-    if(bank.name=='银联快捷'){
-      this.ucPrd.chargeList.bankflag[_index] = 1;
-      this.bankList.currentBank = this.ucPrd.chargeList.data.banks.ABOC;
-      // this.bankList.currentBank.banks = this.ucPrd.chargeList.data.banks
-    }else {
-      this.ucPrd.chargeList.bankflag[_index] = 1;
-      this.bankList.currentBank = bank;
-      console.log(this.bankList.currentBank)
-    }
+
+    // if(bank.name=='银联快捷'){
+    //   this.ucPrd.chargeList.bankflag[_index] = 1;
+    //   this.chargeList.currentBank = this.ucPrd.chargeList.data.banks.ABOC;
+    //   // this.chargeList.currentBank.banks = this.ucPrd.chargeList.data.banks
+    // }else {
+    //   this.ucPrd.chargeList.bankflag[_index] = 1;
+    //   this.chargeList.currentBank = bank;
+    //   console.log(this.chargeList.currentBank)
+    // }
 
     // }
   }
@@ -120,34 +136,34 @@ export class ChargePage {
   }
 
   showModal() {
-    console.log(this.bankList.currentBank)
+    console.log(this.chargeList.currentBank)
     if(Number(this.numList.chargeMoney)<=0 ){
       this.loadPrd.showToast(this.toastCtrl,'请输入要充值的金额');
       return;
-    }else if(!this.bankList.currentBank){
+    }else if(!this.chargeList.currentBank){
       this.loadPrd.showToast(this.toastCtrl,'请选择要支付方式');
       return;
-    }else if(this.numList.chargeMoney>this.bankList.currentBank.currency_max){
+    }else if(this.numList.chargeMoney>this.chargeList.currentBank.currency_max){
       this.loadPrd.showToast(this.toastCtrl,'充值金额已超上限');
       return;
     }else {
-      this.ucPrd.postChargeReq({
+      this.http.postData('/h5api-recharges/confirmMobileJd?_t='+ this.userInfo.auth_token,{
         'Content-Type':'application/x-www-form-urlencoded',
-        'deposit_mode':this.bankList.currentBank.mode,
-        'bank_code':this.bankList.currentBank.identifier,
-        'bank':this.bankList.currentBank.id,
+        'deposit_mode':this.chargeList.currentBank.mode,
+        'bank_code':this.chargeList.currentBank.identifier,
+        'bank':this.chargeList.currentBank.id,
         'amount':this.numList.chargeMoney,
-        'payment_data_json':this.ucPrd.chargeList.payment_setting_data,
-        '_token':this.ucPrd.userInfo.token
+        'payment_data_json':this.chargeList.payment_setting_data,
+        '_token':this.userInfo.token
       }).then(data=>{
-        // console.log(data)
-        this.navCtrl.push('ChargeStatusPage',
-          {
-            bank:this.bankList.currentBank.name,
-            money: (this.numList.chargeMoney).toFixed(2) ,
-            status:data.isSuccess,
-            statusText:data.Msg
-          });
+        console.log(data)
+        // this.navCtrl.push('ChargeStatusPage',
+        //   {
+        //     bank:this.chargeList.currentBank.name,
+        //     money: (this.numList.chargeMoney).toFixed(2) ,
+        //     status:data.isSuccess,
+        //     statusText:data.Msg
+        //   });
       })
 
 

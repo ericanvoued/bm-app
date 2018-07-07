@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
+import {IonicPage} from 'ionic-angular';
 
-/**
- * Generated class for the SscDaxiaoComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
+
+@IonicPage()
 @Component({
   selector: 'ssc-daxiao',
   templateUrl: './ssc-daxiao.html'

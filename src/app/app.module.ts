@@ -7,13 +7,7 @@ import {HttpClientModule} from "@angular/common/http";
 // import {CountTipComponent} from '../components/count-tip/count-tip';
 import { BallTouchDirective } from './ball-touch.directive'
 
-import {HomePage} from '../pages/home/home';
-import {TabsPage} from '../pages/tabs/tabs';
-import {LottoryCenterPage} from '../pages/lottory-center/lottory-center'
-import {ActivityPage} from '../pages/activity/activity'
-import {UserCenterPage} from '../pages/user/user-center/user-center'
 
-// import { HotGmageListPage } from '../pages/hot-gmage-list/hot-gmage-list'
 import {Camera} from '@ionic-native/camera';
 import {File} from '@ionic-native/file';
 import {Transfer, TransferObject} from '@ionic-native/transfer';
@@ -45,11 +39,9 @@ import {KuadutrendComponent} from '../components/gametrend/kuadutrend/kuadutrend
 import {ZhixuanhezhiComponent} from '../components/gametrend/qiansan/zhixuanhezhi/zhixuanhezhi'
 import { ZufuComponent } from '../components/gametrend/zufu/zufu'
 
-import {gameConfig, lottoyCenter} from './gameComponent'
+import {gameConfig} from './gameComponent'
 import {DaxiaodanshuangComponent} from '../components/gametrend/daxiaodanshuang/daxiaodanshuang'
 
-
-import {BankCardProvider} from '../providers/bank-card/bank-card';
 import {SignupProvider} from '../providers/signup/signup';
 import { ChargePage } from '../pages/user/charge/charge'
 
@@ -67,28 +59,15 @@ import {KstrendAction} from '../pages/k3/kstrend/kstrend-action';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    CountTipComponent,
-    LottoryCenterPage,
-    ActivityPage,
-    UserCenterPage,
-    TabsPage,
-    // HotGmageListPage,
     // WuxingComponent,
     // SixingComponent,
     // KuadutrendComponent,
     // ZhixuanhezhiComponent,
     // DaxiaodanshuangComponent,
     // ZufuComponent,
-    //CountTipComponent,
-    //LhcSlidePage,
-    // KsBasketPage,
-    //  KsBasketPage,KstrendPage,ChargePage,
+    // CountTipComponent,
     // ...gameConfig.ssc,
-    // ...gameConfig.d5,
-    //...lottoyCenter.lcList
-  
-    // LoginPage,
+    // ...gameConfig.d5
   ],
   imports: [
     BrowserModule,
@@ -98,33 +77,22 @@ import {KstrendAction} from '../pages/k3/kstrend/kstrend-action';
     IonicModule.forRoot(MyApp, {
       backButtonText: '',//按钮内容
       backButtonIcon: 'ios-arrow-back',//按钮图标样式
-      tabsHideOnSubPages: 'true'
-    })  ],
+      tabsHideOnSubPages: true
+    })
+  ],
 
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    LottoryCenterPage,
-    ActivityPage,
-    CountTipComponent,
-    UserCenterPage,
-    TabsPage,
-    // HotGmageListPage,
-    // LoginPage,
     // WuxingComponent,
     // SixingComponent,
     // KuadutrendComponent,
     // ZhixuanhezhiComponent,
     // DaxiaodanshuangComponent,
     // ZufuComponent,
-   // LhcSlidePage,
-    // KsBasketPage,
-    //  KsBasketPage,KstrendPage,ChargePage,
-   // CountTipComponent,
+    // CountTipComponent,
     // ...gameConfig.ssc,
-    // ...gameConfig.d5,
-    //...lottoyCenter.lcList
+    // ...gameConfig.d5
 
   ],
   providers: [
@@ -148,7 +116,6 @@ import {KstrendAction} from '../pages/k3/kstrend/kstrend-action';
     UtilProvider,
     SscServiceProvider,
     BasketDataProvider,
-    BankCardProvider,
     SignupProvider,
     UserCenterProvider,
     LottoryCenterProvider,

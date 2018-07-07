@@ -11,21 +11,27 @@ import { HttpClientProvider } from '../../../providers/http-client/http-client'
 export class TransDetailPage {
 
   userInfo;
+  isNomore = false;
+  loadmore = false;
   lottorys=[{'cn_title':''}];
-  currentLottory={'cn_title':''};
+  currentLottory={'cn_title':'全部记录'};
   transData={
-    timeStarts:new Date().getFullYear()+'-01-01',
+    timeStarts:new Date().getFullYear()+'-',
     timeEnds:new Date().getFullYear()+'-',
     page:1,
     data:[]
   }
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public http:HttpClientProvider) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public http:HttpClientProvider) {
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    this.transData.timeStarts += (new Date().getMonth())>9?(new Date().getMonth()):((new Date().getMonth())==0?12:('0'+(new Date().getMonth())))+'-'+((new Date().getDate())>9?(new Date().getDate()):('0'+new Date().getDate()))
     this.transData.timeEnds += (new Date().getMonth()+1)>9?(new Date().getMonth()+1):('0'+(new Date().getMonth()+1))+'-'+((new Date().getDate())>9?(new Date().getDate()):('0'+new Date().getDate()))
     this.loadLottory()
   }
+
 
 
 
@@ -42,27 +48,69 @@ export class TransDetailPage {
           }
 
         }
-        console.log(this.lottorys)
-        this.currentLottory = this.lottorys[0]
-        this.selectChange(this.currentLottory)
+        // this.currentLottory = this.lottorys[0]
+        this.selectChange(this.currentLottory,this.transData.page,true)
       }
     })
   }
 
 
-  async selectChange(_lottory){
+  async selectChange(_lottory,page,isChange){
     this.transData.data = []
     await this.http.postData('/h5api-reports/0/getmobileusertransaction/?_t='+this.userInfo.auth_token,{
       'Content-Type':'application/x-www-form-urlencoded',
       '_token':this.userInfo.token,
-      'page':this.transData.page,
-      'start':this.transData.timeStarts,
-      'end':this.transData.timeEnds,
+      'page':page,
+      'start':this.transData.timeStarts+' 00:00:00',
+      'end':this.transData.timeEnds+' 23:59:59',
       'bet_status':1,
-      'lottery_id':_lottory.id
+      'lottery_id':_lottory.id?_lottory.id:null
     }).then(data=>{
       this.transData.data = data.data.data;
       console.log(this.transData.data)
+
+      if(isChange){
+        if(data.data.data.length<20){
+          if(data.data.data.length==0){
+            this.isNomore = false;
+            this.loadmore = false;
+          }else {
+            this.isNomore = true;
+            this.loadmore = false;
+          }
+
+        }else {
+          this.isNomore = false;
+          this.loadmore = true;
+        }
+        this.transData.data = data.data.data;
+        for (let i = 0, len = this.transData.data.length; i < len; i++) {
+          this.transData.data[i].isSlide = false;
+        }
+
+      }else {
+        if(data.data.data.length!=0){
+          if(data.data.length<20){
+            this.isNomore = true;
+            this.loadmore = false;
+          }else {
+            this.isNomore = false;
+            this.loadmore = true;
+          }
+
+          let len = this.transData.data.length
+          this.transData.data.push(...data.data.data);
+          for (let i = len, len1 = this.transData.data.length; i < len1; i++) {
+            this.transData.data[i].isSlide = false;
+          }
+        }else {
+          this.isNomore = true;
+          this.loadmore = false;
+        }
+
+      }
+
+
     })
   }
 
@@ -71,4 +119,13 @@ export class TransDetailPage {
   }
 
 
+  doInfinite(): Promise<any>{
+    this.transData.currentpage ++
+    return new Promise((resolve,reject)=>{
+      setTimeout(() => {
+        this.selectChange(this.transData.currentLottory,this.transData.page,false)
+        resolve()
+      }, 500);
+    })
+  }
 }

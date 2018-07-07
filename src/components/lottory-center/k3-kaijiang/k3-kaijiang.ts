@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
+import {IonicPage} from 'ionic-angular';
 
-/**
- * Generated class for the K3KaijiangComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
+
+@IonicPage()
 @Component({
   selector: 'k3-kaijiang',
   templateUrl: './k3-kaijiang.html'

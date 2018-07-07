@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
+import {IonicPage} from 'ionic-angular';
 
-/**
- * Generated class for the LhcKaijiangComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
+
+@IonicPage()
 @Component({
   selector: 'lhc-kaijiang',
   templateUrl: './lhc-kaijiang.html'

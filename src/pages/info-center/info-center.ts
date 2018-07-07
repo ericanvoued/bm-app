@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, AlertController, NavController, NavParams } from 'ionic-angular';
 import { InfoCenterProvider } from '../../providers/info-center/info-center'
-import { InfoDetailPage } from '../info-detail/info-detail'
 
 import { HttpClientProvider } from '../../providers/http-client/http-client'
 

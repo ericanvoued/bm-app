@@ -2,11 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage,ToastController,AlertController,LoadingController, NavController, NavParams } from 'ionic-angular';
 import { HttpClientProvider } from '../../../providers/http-client/http-client'
 import { LoadingProvider } from '../../../providers/loading/loading'
-import { AboutUsPage } from '../about-us/about-us'
-import { HelpCenterPage } from '../help-center/help-center'
-import { FeedbackPage } from '../feedback/feedback'
-import { AgreementPage } from '../agreement/agreement'
-import {TabsPage} from '../../tabs/tabs';
+
 
 @IonicPage()
 @Component({
@@ -35,12 +31,12 @@ export class MoreOptionPage {
       loading.dismissAll();
       if(data.isSuccess){
         localStorage.clear();
-        this.loadingProd.showToast(this.toastCtrl,'您已退出登陆！')
-        this.navCtrl.setRoot(TabsPage, {
+        this.loadingProd.showToast(this.toastCtrl,data.Msg)
+        this.navCtrl.push('TabsPage', {
           pageIndex: 3
         });
       }else {
-        this.loadingProd.showToast(this.toastCtrl,'退出失败，请重试！')
+        this.loadingProd.showToast(this.toastCtrl,data.Msg)
       }
     })
   }
@@ -55,7 +51,7 @@ export class MoreOptionPage {
             if(this.userInfo){
               this.logout();
             }else {
-              this.loadingProd.showToast(this.toastCtrl,'您未登陆，退出无效！')
+              this.loadingProd.showToast(this.toastCtrl,'您未登录，退出无效！')
             }
 
           }

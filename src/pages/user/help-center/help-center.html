@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <h2 class="DIY-title">帮助中心</h2>
-    <a href="javascript:;" class="firecat-icon kefu-icon"></a>
+    <a href="javascript:;" class="firecat-icon kefu-icon" (click)="http.lineService(userInfo.username)"></a>
   </ion-navbar>
 </ion-header>
 
@@ -10,15 +10,15 @@
   <div class="gradient-bg clearfix">
     <div class="icon-list">
       <div class="list-unit">
-        <img src="../../../assets/icon/help1.png" width="64" alt="">
+        <img src="../assets/icon/help1.png" width="64" alt="">
         <p>资金安全</p>
       </div>
       <div class="list-unit">
-        <img src="../../../assets/icon/help2.png" width="53" style="margin-top: 11px" alt="">
+        <img src="../assets/icon/help2.png" width="53" style="margin-top: 11px" alt="">
         <p>购彩协议</p>
       </div>
       <div class="list-unit">
-        <img src="../../../assets/icon/help3.png" width="60" style="margin-top: 6px;" alt="">
+        <img src="../assets/icon/help3.png" width="60" style="margin-top: 6px;" alt="">
         <p>提款便捷</p>
       </div>
     </div>
@@ -27,38 +27,31 @@
   <div class="type-list">
     <h4>问题类型：</h4>
     <ul>
-      <li><i class="firecat-icon help-sign-icon"></i><span>注册</span></li>
-      <li><i class="firecat-icon help-charge-icon"></i><span>充值</span></li>
-      <li><i class="firecat-icon help-lottory-icon"></i><span>购彩</span></li>
+
+      <li *ngFor="let question of questionList.slice(0,3),index as i" (click)="pushPage(question)"><i class="firecat-icon hc-{{iconList[i]}}-icon"></i><span>{{question.name}}</span></li>
+      <!--<li><i class="firecat-icon help-sign-icon"></i><span>注册</span></li>-->
+      <!--<li><i class="firecat-icon help-charge-icon"></i><span>充值</span></li>-->
+      <!--<li><i class="firecat-icon help-lottory-icon"></i><span>购彩</span></li>-->
     </ul>
     <ul>
-      <li><i class="firecat-icon help-win-icon"></i><span>中奖</span></li>
-      <li><i class="firecat-icon help-withdrew-icon"></i><span>提款</span></li>
-      <li (click)="pushPage('OtherQuestionsPage')"><i class="firecat-icon help-others-icon"></i><span>其它</span></li>
+      <li *ngFor="let question of questionList.slice(3,6);index as i" (click)="pushPage(question)"><i class="firecat-icon  hc-{{iconList[i+3]}}-icon"></i><span>{{question.name}}</span></li>
+      <!--<li><i class="firecat-icon help-win-icon"></i><span>中奖</span></li>-->
+      <!--<li><i class="firecat-icon help-withdrew-icon"></i><span>提款</span></li>-->
+      <!--<li (click)="pushPage('OtherQuestionsPage')"><i class="firecat-icon help-others-icon"></i><span>其它</span></li>-->
+    </ul>
+    <ul>
+      <li *ngFor="let question of questionList.slice(6,9);index as i" (click)="pushPage(question)"><i class="firecat-icon  hc-{{iconList[i+6]}}-icon"></i><span>{{question.name}}</span></li>
+      <!--<li><i class="firecat-icon help-win-icon"></i><span>中奖</span></li>-->
+      <!--<li><i class="firecat-icon help-withdrew-icon"></i><span>提款</span></li>-->
+      <!--<li (click)="pushPage('OtherQuestionsPage')"><i class="firecat-icon help-others-icon"></i><span>其它</span></li>-->
     </ul>
   </div>
   <div class="question-content clearfixl">
-    <h4>常见问题：</h4>
+    <h4>{{questionList[0].name}}：</h4>
     <ul>
-      <li>
-        <h5>充值提示超限，或者提示无法向该商户付款</h5>
-        <!--<p>1）延期比赛如何处理：推迟时间未超过36小时，则正常算奖；推迟时间超过36小时或无法确定时间，则该场为无效场次，按比赛取消算奖；取消赛事算奖：单关固定玩法返还投注金额，过关投注该场赔率值按1.0计算奖金； 2）中断比赛如何处理： 36小时内继续完成比赛则正常算奖：36小时内未完成比赛则该场为无效场次，按比赛取消算奖：取消赛事算奖：单关固定玩法返还投注金额，过关投注该场赔率值按1.0计算奖金。</p>-->
-      </li>
-      <li>
-        <h5>延期、中断、取消的比赛，如何算奖</h5>
-        <!--<p>1）延期比赛如何处理：推迟时间未超过36小时，则正常算奖；推迟时间超过36小时或无法确定时间，则该场为无效场次，按比赛取消算奖；取消赛事算奖：单关固定玩法返还投注金额，过关投注该场赔率值按1.0计算奖金； 2）中断比赛如何处理： 36小时内继续完成比赛则正常算奖：36小时内未完成比赛则该场为无效场次，按比赛取消算奖：取消赛事算奖：单关固定玩法返还投注金额，过关投注该场赔率值按1.0计算奖金。</p>-->
-      </li>
-      <li>
-        <h5>中奖奖金如何扣税</h5>
-        <!--<p>1）延期比赛如何处理：推迟时间未超过36小时，则正常算奖；推迟时间超过36小时或无法确定时间，则该场为无效场次，按比赛取消算奖；取消赛事算奖：单关固定玩法返还投注金额，过关投注该场赔率值按1.0计算奖金； 2）中断比赛如何处理： 36小时内继续完成比赛则正常算奖：36小时内未完成比赛则该场为无效场次，按比赛取消算奖：取消赛事算奖：单关固定玩法返还投注金额，过关投注该场赔率值按1.0计算奖金。</p>-->
-      </li>
-      <li>
-        <h5>关于提款手续费</h5>
-        <!--<p>1）延期比赛如何处理：推迟时间未超过36小时，则正常算奖；推迟时间超过36小时或无法确定时间，则该场为无效场次，按比赛取消算奖；取消赛事算奖：单关固定玩法返还投注金额，过关投注该场赔率值按1.0计算奖金； 2）中断比赛如何处理： 36小时内继续完成比赛则正常算奖：36小时内未完成比赛则该场为无效场次，按比赛取消算奖：取消赛事算奖：单关固定玩法返还投注金额，过关投注该场赔率值按1.0计算奖金。</p>-->
-      </li>
-      <li>
-        <h5>竞彩 足球/篮球 开停售时间</h5>
-        <p>1）延期比赛如何处理：推迟时间未超过36小时，则正常算奖；推迟时间超过36小时或无法确定时间，则该场为无效场次，按比赛取消算奖；取消赛事算奖：单关固定玩法返还投注金额，过关投注该场赔率值按1.0计算奖金； 2）中断比赛如何处理： 36小时内继续完成比赛则正常算奖：36小时内未完成比赛则该场为无效场次，按比赛取消算奖：取消赛事算奖：单关固定玩法返还投注金额，过关投注该场赔率值按1.0计算奖金。</p>
+      <li *ngFor="let question of commonList">
+        <h5 [ngClass]="{'current':question.flag}" (click)="toggleDetail(question)">{{question.title}}<ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon></h5>
+        <p [innerHTML]="question.content"></p>
       </li>
     </ul>
   </div>

@@ -6,8 +6,9 @@ import {
   NavController,
   NavParams, App
 } from 'ionic-angular';
-import {TabsPage} from '../../tabs/tabs';
+
 import {LoginProvider} from '../../../providers/login/login';
+import {HttpClientProvider} from '../../../providers/http-client/http-client'
 import {LoadingProvider} from '../../../providers/loading/loading'
 import * as md5 from 'md5';
 
@@ -30,6 +31,7 @@ export class LoginPage {
 
   constructor(private logins: LoginProvider,
               public navCtrl: NavController,
+              public http: HttpClientProvider,
               public loadPrd: LoadingProvider,
               public loadingCtrl: LoadingController,
               public ToastCtrl: ToastController,
@@ -48,35 +50,34 @@ export class LoginPage {
       this.nameInfoFlag = false;
       this.pswInfoFlag = false;
       this.loading = this.loadPrd.showLoading(this.loadingCtrl, '登陆中...');
-      this.logins.loginApp({
+      this.http.postData('/h5-api-auth/login?_t=init',{
         'Content-Type':'application/x-www-form-urlencoded',
         username: this.username,
         password: md5(md5(md5(this.username + this.password)))
-      }).subscribe((data) => {
+      }).then((data) => {
         console.log(data)
         if (data.isSuccess) {
           this.loading.dismiss();
-          this.tost = this.loadPrd.showToast(this.ToastCtrl, data.Msg);
+          this.tost = this.loadPrd.showMidToast(this.ToastCtrl, data.Msg);
           // this.storage.set('userInfo', data['data']);
 
           localStorage.userInfo = JSON.stringify(data['data']);
 
-          if(this.navParams.get('page')){
-            //this.navCtrl.push(TabsPage)
-            this.appCtrl.getRootNav().push(TabsPage)
-          }else  
-            this.navCtrl.setRoot(TabsPage, {
-              pageIndex: 3
-            })
+          // if(this.navParams.get('page')){
+          //   //this.navCtrl.push(TabsPage)
+          //   this.appCtrl.getRootNav().push(TabsPage)
+          // }else  
+          //   this.navCtrl.setRoot(TabsPage, {
+          //     pageIndex: 3
+          //   })
+          this.navCtrl.push('TabsPage', {
+            pageIndex: 3
+          });
         } else {
           this.loading.dismiss();
-          this.tost = this.loadPrd.showToast(this.ToastCtrl, data.Msg);
+          this.tost = this.loadPrd.showMidToast(this.ToastCtrl, data.Msg);
         }
-      },
-       error => {
-
-       }
-      )
+      })
     }
   }
 

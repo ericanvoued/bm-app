@@ -1,6 +1,7 @@
-import { Component, ComponentRef } from '@angular/core';
+import { Component } from '@angular/core';
+import {IonicPage} from 'ionic-angular';
 
-
+@IonicPage()
 @Component({
   selector: 'ssc-kaijiang',
   templateUrl: './ssc-kaijiang.html'

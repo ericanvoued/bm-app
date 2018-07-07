@@ -4,8 +4,6 @@ import { IonicPage, NavController, LoadingController, ToastController,NavParams,
 import {UserCenterProvider } from '../../../providers/user-center/user-center';
 import { LoadingProvider } from '../../../providers/loading/loading'
 
-import {AddBankCardPage} from '../add-bank-card/add-bank-card'
-import { CommonStatusPage } from '../common-status/common-status'
 
 @IonicPage()
 @Component({

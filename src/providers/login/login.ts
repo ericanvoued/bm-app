@@ -7,7 +7,7 @@ import { RestProvider } from '../rest/rest'
 @Injectable()
 export class LoginProvider {
 
-  loginApi:string = '/mobile-h5-auth/login?_t=init'
+  loginApi:string = '/h5-api-auth/login?_t=init'
 
   constructor(public rest: RestProvider) {
       //  this.storage.get('userInfo').then((data) => {

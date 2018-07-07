@@ -7,18 +7,18 @@
 <ion-content>
   <div class="lh-head">
     <div class="lh-Picker">
-      <ion-datetime cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="followData.timeStarts"></ion-datetime>
+      <ion-datetime min="2013" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="followData.timeStarts"></ion-datetime>
       <i class="firecat-icon dropdown-icon"></i>
     </div>
     <div class="mid-line"></div>
     <div class="lh-Picker">
-      <ion-datetime cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="followData.timeEnds"></ion-datetime>
+      <ion-datetime min="2013" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="followData.timeEnds"></ion-datetime>
       <i class="firecat-icon dropdown-icon"></i>
     </div>
     <div class="mid-line"></div>
     <div class="lh-Picker game-picker">
       <ion-item>
-        <ion-select cancelText="取消" okText="确认" placeholder="{{followData.currentLottory.friend_name}}" (ionChange)="selectLottory(followData.currentLottory)">
+        <ion-select cancelText="取消" okText="确认" placeholder="{{followData.currentLottory.friend_name}}" (ionChange)="selectLottory(followData.currentLottory,followData.currentpage,true)">
           <ion-label>{{followData.currentLottory.friend_name}}</ion-label>
           <ion-option *ngFor="let lottory of followData.lottorys" value="{{lottory.friend_name}}" (ionSelect)="changeCurrent(lottory)">{{lottory.friend_name}}</ion-option>
         </ion-select>
@@ -28,10 +28,13 @@
   </div>
   <div class="lh-body">
     <div class="switch-case case-withdraw">
-      <div class="enpty" *ngIf="false">
+      <div class="enpty" *ngIf="followData.datas.length==0">
         <p>暂无可浏览记录</p>
+        <div class="fix-sure-btn">
+          <button>立即购彩</button>
+        </div>
       </div>
-      <div class="month"  *ngIf="true">
+      <div class="month"  *ngIf="followData.datas.length!=0">
         <div class="case-content switch-case">
           <div class="case-content-unit" [ngClass]="{'isSlide':follow.isSlide==true}" *ngFor="let follow of followData.datas;index as i">
             <div class="case-wrap">
@@ -81,12 +84,18 @@
               <p *ngIf="follow.stop_on_won">中奖后停止追号</p>
               <p>
                 <span class="stopFollow" (click)="stopFollow(follow)" *ngIf="follow.status==0">终止追号</span>
-                <button class="detail-btn" (click)="toggleDetail(follow)"><i class="trangle"></i>详情</button>
+                <button class="detail-btn" (click)="toggleDetail(follow)"><i class="trangle"></i>{{follow.isSlide==true?'收起':'详情'}}</button>
               </p>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" *ngIf="loadmore==true">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <div *ngIf="isNomore==true" style="line-height: 50px;text-align: center;font-size: 14px;margin-top: -10px">
+    没有更多了
   </div>
 </ion-content>

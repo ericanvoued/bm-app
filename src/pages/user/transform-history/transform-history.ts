@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ChargePage } from '../charge/charge'
+
 import {HttpClientProvider} from '../../../providers/http-client/http-client'
 
 import * as Hammer from  'hammerjs';
-
+import * as $ from 'jquery'
 
 @IonicPage()
 @Component({
@@ -14,19 +14,48 @@ import * as Hammer from  'hammerjs';
 export class TransformHistoryPage {
 
   userInfo;
+  allcurrentPage=1;
+  chargecurrentPage=1;
+  withcurrentPage=1;
   isSlide:boolean = false;
-  detail_btn_text:string = '详情'
-
   segmentsArray = ['all','charge','withdraw'];
   transformHistory: string = this.segmentsArray[0];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public http:HttpClientProvider) {
+  transData = {
+    all:[],
+    charge:[],
+    withdraw:[],
+    withDrawStatus: {
+      '0': '待审核',
+      '1': '客服待定',
+      '2': '审核通过, 待处理',
+      '3': '未通过审核',
+      '4': '成功',
+      '5': '失败',
+      '6': '扣游戏币异常失败',
+      '7': 'mc部分成功, 扣减部分游戏币',
+      '8': '已退款',
+      '9': 'MC处理中',
+      '10': 'MC异常返回',
+      '12': '已认领'
+    }
+  }
+
+
+
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public http:HttpClientProvider) {
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    this.getChargeHis()
+    this.getChargeHis(3,this.allcurrentPage)
+    this.getChargeHis(1,this.chargecurrentPage)
+    this.getChargeHis(2,this.withcurrentPage)
+
   }
 
   ionViewDidLoad() {
     this.swipeEvent()
+    // this.swiperUpEvent()
   }
 
   swipeEvent(){
@@ -47,20 +76,56 @@ export class TransformHistoryPage {
 
   }
 
-  toggleDetail(){
-    this.isSlide = !this.isSlide;
-    this.isSlide==true?this.detail_btn_text ='收起':this.detail_btn_text = '详情'
+  toggleDetail(data){
+    data.flag = !data.flag
   }
 
   //获取充值历史
-  async getChargeHis(){
-    await this.http.postData('/h5api-reports/0/mydeposit?_t='+this.userInfo.auth_token,{
+  async getChargeHis(type ,_page){
+    await this.http.postData('/h5api-reports/0/getmydeposits?_t='+this.userInfo.auth_token,{
       'Content-Type':'application/x-www-form-urlencoded',
-      'page':1,
-      '_token':this.userInfo.token
+      '_token':this.userInfo.token,
+      'page':_page,
+      'type':type
     }).then(data=>{
-      console.log(data)
+      if(data.isSuccess==1){
+        switch (type){
+          case 1:
+            this.transData.charge.push(...data.data.data);
+            break;
+          case 2:
+            this.transData.withdraw.push(...data.data.data);
+            for(let item of this.transData.withdraw){
+              item.flag = false
+            }
+            console.log(this.transData.withdraw)
+            break;
+          default:
+            this.transData.all.push(...data.data[0]);
+            for(let item of this.transData.all){
+              item.flag = false
+            }
+            console.log(this.transData.all)
+        }
+      }
+
     })
+  }
+
+  switchTab(_case){
+    // switch (_case){
+    //   case 'all':
+    //     this.getChargeHis(3)
+    //     break;
+    //
+    //   case 'charge':
+    //     this.getChargeHis(1)
+    //     break;
+    //
+    //   default:
+    //     this.getChargeHis(2)
+    //     break;
+    // }
   }
 
   //页面跳转
@@ -72,4 +137,35 @@ export class TransformHistoryPage {
     }
   }
 
+  swiperUpEvent(){
+    $('body').on('scroll','#allContent',function () {
+      console.log(2)
+    })
+  }
+
+
+  doInfinite(item): Promise<any>{
+    console.log(item)
+    return new Promise((resolve,reject)=>{
+      setTimeout(() => {
+        switch (item){
+          case 'all':
+            this.allcurrentPage ++
+            this.getChargeHis(3,this.allcurrentPage)
+            break;
+
+          case 'charge':
+            this.chargecurrentPage ++
+            this.getChargeHis(1,this.chargecurrentPage)
+            break;
+
+          default:
+            this.withcurrentPage ++
+            this.getChargeHis(2,this.withcurrentPage)
+            break;
+        }
+        resolve();
+      }, 500);
+    })
+  }
 }

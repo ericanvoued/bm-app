@@ -7,19 +7,19 @@
 <ion-content>
   <div class="lh-head">
     <div class="lh-Picker">
-      <ion-datetime cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="lrecord.timeStarts"></ion-datetime>
+      <ion-datetime min="2013" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="lrecord.timeStarts"></ion-datetime>
       <i class="firecat-icon dropdown-icon"></i>
     </div>
     <div class="mid-line"></div>
     <div class="lh-Picker">
-      <ion-datetime cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="lrecord.timeEnds"></ion-datetime>
+      <ion-datetime min="2013" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="lrecord.timeEnds"></ion-datetime>
       <i class="firecat-icon dropdown-icon"></i>
     </div>
     <div class="mid-line"></div>
     <div class="lh-Picker game-picker">
       <ion-item>
-        <ion-select (ionChange)="selectLottory(lrecord.currentLottory)" cancelText="取消" okText="确认" placeholder="{{lrecord.currentLottory.friend_name}}">
-          <ion-label>{{lrecord.currentLottory.friend_name}}</ion-label>
+        <ion-select (ionChange)="selectLottory(lrecord.currentLottory,lrecord.currentpage,true)" cancelText="取消" okText="确认" placeholder="{{lrecord.currentLottory.friend_name}}">
+          <ion-label>全部游戏</ion-label>
           <ion-option *ngFor="let lottory of lrecord.lottorys" value="{{lottory.friend_name}}" (ionSelect)="changeCurrent(lottory)">{{lottory.friend_name}}</ion-option>
         </ion-select>
       </ion-item>
@@ -29,7 +29,10 @@
   <div class="lh-body">
     <div class="switch-case case-withdraw">
       <div class="enpty" *ngIf="lrecord.data.length==0">
-        <p>暂无可浏览记录</p>
+        <p>暂无相关记录</p>
+        <div class="fix-sure-btn">
+          <button>立即购彩</button>
+        </div>
       </div>
       <div class="month"  *ngIf="lrecord.data.length!=0">
         <div class="case-content switch-case">
@@ -52,7 +55,10 @@
                 <p class="right">开奖号码： <span>{{record.winning_number==null?'正在开奖':record.winning_number}}</span></p>
               </div>
               <div class="case-wrap ">
-                <p class="right" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden">编&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号： <span>{{record.serial_number}}</span></p>
+                <!--<p class="right" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden">编&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号： <input style="background: none;text-overflow: ellipsis;border: none;user-select: text" id="{{'copy-text-'+i}}" [ngModel]="record.serial_number" disabled/></p>-->
+                <p class="right" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden">编&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号： <span>{{record.id}}</span></p>
+                <!--<p class="copy-btn" id="{{'copy-btn-'+i}}" data-clipboard-action="cut" data-clipboard-target="'#copy-text-'+i">复制</p>-->
+                <!--<p class="copy-btn" data-clipboard-text="record.serial_number">复 制</p>-->
               </div>
               <div class="case-wrap ">
                 <p class="right">投注时间： <span>{{record.bought_at}}</span></p>
@@ -81,12 +87,18 @@
               <p>
                 <!--<span>充值成功</span>-->
                 <button class="detail-btn concel-btn" *ngIf="record.status==0" (click)="concelBill(record)">撤单</button>
-                <button class="detail-btn" (click)="toggleDetail(record)"><i class="trangle"></i>详情</button>
+                <button class="detail-btn" (click)="toggleDetail(record)"><i class="trangle"></i>{{record.isSlide==true?'收起':'详情'}}</button>
               </p>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" *ngIf="loadmore==true">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <div *ngIf="isNomore==true" style="line-height: 50px;text-align: center;font-size: 14px;margin-top: -40px">
+    没有更多了
   </div>
 </ion-content>
