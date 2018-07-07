@@ -24,6 +24,8 @@ export class TabsPage {
 
   ionViewDidEnter() {
     let pageIndex = this.navParams.get('pageIndex');
+    console.log(pageIndex)
     pageIndex ? this.tabRef.select(pageIndex) : this.tabRef.select(0);
+  
   }
 }

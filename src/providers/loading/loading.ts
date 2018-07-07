@@ -9,7 +9,7 @@ export class LoadingProvider {
 
   loader:any;
   toast:any;
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, public loadingCtrl: LoadingController) {
 
   }
 
@@ -34,6 +34,26 @@ export class LoadingProvider {
     this.loader.present();
     return this.loader;
     }
+
+
+    showTip(message,time?){
+        let loader = this.loadingCtrl.create({
+          content: message,
+          duration: time || 2000,
+          dismissOnPageChange: true
+        });
+        loader.present()
+        
+    }
+
+    showWarn(message){
+      let loader = this.loadingCtrl.create({
+        content: message,
+        dismissOnPageChange: true
+      });
+      loader.present()
+      return loader
+   }
 
   //通用 toast 组件
   showToast(toastCtrl: ToastController, massage: string): Toast {
