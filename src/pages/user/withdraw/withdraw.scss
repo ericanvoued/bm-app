@@ -188,4 +188,14 @@ page-withdraw {
   border: 1px solid#EAEAEA!important;
   background-color: #FFFFFF!important;
 }
-
+.inputPayModel{
+  .alert-title{
+    line-height:50px;
+  }
+  .alert-message{
+    padding-bottom: 0!important;
+  }
+  .alert-button-group{
+    height: auto!important;
+  }
+}

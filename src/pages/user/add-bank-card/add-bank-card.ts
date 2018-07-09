@@ -5,9 +5,6 @@ import { CommonStatusPage } from '../common-status/common-status';
 import { flyUp } from '../../../animation/flyUp'
 import { HttpClientProvider } from '../../../providers/http-client/http-client'
 
-
-import { BankCardProvider } from '../../../providers/bank-card/bank-card'
-
 @IonicPage()
 @Component({
   selector: 'page-add-bank-card',
@@ -76,7 +73,6 @@ export class AddBankCardPage {
     public navCtrl: NavController,
     public loadPrd: LoadingProvider,
     public http:HttpClientProvider,
-    public bankCardPrd:BankCardProvider,
     public loadingCtrl:LoadingController,
     public toastCtrl:ToastController,
     public navParams: NavParams) {

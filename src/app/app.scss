@@ -132,6 +132,7 @@ div.not-enough{color: #4a4a4a; font-size: 16px}
 
 .qrcode-icon {
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAiCAMAAAAJbCvNAAAAflBMVEUAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////vroaSAAAAKXRSTlMAtMHW7nX7x4gNr6B6aGZTDyIV6QW94quR9tDM3LinmXhvRCgJW1EpCm57mg0AAADiSURBVDjLxdLZboMwFIThYQkENy0UbNbsSZd5/xesXXQsS2mVKLnIdzn6JQQH1F2TirbXgO5bPzRdjYihPbBiSGGgWYo1DRAz8UPMAeQCImIM5FQQK2a3BTWt5MlBY8X/BI+/5sDpRbTcAIatHyam6Bg6AAeGtqj6MRG5e5re534Y+wKP0wsViW0J7zhPCjuGPiDe5iFDynUsUkZh4CZz8aGCoIL1lOBY/tq54FR+/nVNUblr3hVs3mc3/jAZu1cx0vjgyw3KBjlDSx/4W5wmepkqLgPgXAgN67s4w9LFDNf8AP10NljxzQp1AAAAAElFTkSuQmCC');
+  background-size: 100% auto;
 }
 
 .msg-icon {
@@ -716,3 +717,6 @@ padding-top: 25px;}
 .swiper-container{height:100%}
 
 .alert-button-group{height:0}
+.alert-md .alert-button{
+  padding: 10px!important;
+}

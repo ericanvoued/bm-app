@@ -40,13 +40,28 @@ page-invite {
   }
   .set-reward{
     text-align: center;
+    position: relative;
+    .datetime-text{
+      width: 100%;
+      flex: none;
+      height: 42px;
+      line-height:40px;
+      position: relative;
+    }
+    .item-cover{
+      height: 42px;
+      width: 196px;
+      position: relative;
+      left: -6px;
+      right: 0px;
+    }
     h2{
       font-weight: 500;
       font-size: 14px;
       color: #333333;
       letter-spacing: -0.25px;
     }
-    input{
+    input,.datetime{
       height: 42px;
       width: 196px;
       margin: 8px auto;

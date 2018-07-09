@@ -46,7 +46,6 @@ export class ChangeNamePage{
       this.userData.nameInfo = '新旧昵称相同';
       return
     }else {
-      console.log(this.userData.data)
       this.userData.loading = this.loadPrd.showLoading(this.LoadingCtrl, '昵称修改中...');
 
       await this.http.postData('/h5api-users/resetpersonalinfo?_t='+this.userData.data.auth_token,{
@@ -62,6 +61,8 @@ export class ChangeNamePage{
           this.navCtrl.push(TabsPage,{
             pageIndex:3
           });
+        }else {
+          this.userData.loading = this.loadPrd.showToast(this.toastCtrl, data.type)
         }
 
       })

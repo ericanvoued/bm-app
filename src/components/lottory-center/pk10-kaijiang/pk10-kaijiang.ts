@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import {IonicPage} from 'ionic-angular';
-
-
-@IonicPage()
+// import {IonicPage} from 'ionic-angular';
+//
+//
+// @IonicPage()
 @Component({
   selector: 'pk10-kaijiang',
   templateUrl: './pk10-kaijiang.html'

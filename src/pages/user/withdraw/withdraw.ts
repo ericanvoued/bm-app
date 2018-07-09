@@ -45,6 +45,7 @@ export class WithdrawPage {
   showPrompt() {
     let prompt = this.alertCtrl.create({
       title: '请输入支付密码',
+      cssClass:'inputPayModel',
       inputs: [
         {
           name: 'psw',
@@ -79,7 +80,7 @@ export class WithdrawPage {
                   console.log(val1)
                 })
               }else {
-                this.toast = this.loadPrd.showToast(this.toastCtrl,'资金密码有误')
+                this.toast = this.loadPrd.showToast(this.toastCtrl,val.Msg)
               }
             })
 
@@ -114,7 +115,37 @@ export class WithdrawPage {
   }
 
   addBankCard(){
-    this.navCtrl.push('AddBankCardPage')
+    let prompt = this.alertCtrl.create({
+      title: '请输入支付密码',
+      cssClass:'inputPayModel',
+      inputs: [
+        {
+          name: 'psw',
+          type:'password',
+          placeholder: '至少6位，字母和数字组合'
+        },
+      ],
+      buttons: [
+        {
+          text: '取消'
+        },
+        {
+          text: '确定',
+          handler: data => {
+            // this.ucPrd.http.postData('')
+            this.sendFoundPsw({psw1:data.psw}).then(val=>{
+              if(val.IsSuccess){
+                this.navCtrl.push('AddBankCardPage')
+              }else {
+                this.toast = this.loadPrd.showToast(this.toastCtrl,'资金密码有误')
+              }
+            })
+
+          }
+        }
+      ]
+    });
+    prompt.present();
   }
 
   //发送资金密码
