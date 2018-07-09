@@ -2,7 +2,7 @@ import {
   Component, ViewChild, ViewContainerRef, ComponentFactory,
   ComponentRef, ComponentFactoryResolver, OnDestroy
 } from '@angular/core';
-import { Events } from 'ionic-angular';
+import { Events, Navbar } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { TrendHeadComponent } from '../../components/gametrend/trend-head/trend-head'
@@ -28,7 +28,8 @@ export class GameTrendPage {
   @ViewChild('contentSlides') contentSlides: Slides;
   @ViewChild("gameTrendContainer", { read: ViewContainerRef }) container: ViewContainerRef;
   @ViewChild("noshowContainer", { read: ViewContainerRef }) nocontainer: ViewContainerRef;
-
+  @ViewChild(Navbar) navbar: Navbar;
+  
   observable: Observable<any>;
   observer: Observer<any>;
 
@@ -67,7 +68,15 @@ export class GameTrendPage {
   ionViewWillEnter(){
      //this.contentSlides.slideTo(this.navParams.get('index'))
      this.drawTrend()
-     this.events.publish('getMethod')
+     //this.events.publish('getMethod')
+  }
+
+  ionViewDidLoad() {
+    //当退回到游戏页面  需要重新加载玩法
+    this.navbar.backButtonClick = (e)=>{
+      this.navCtrl.pop()
+      this.events.publish('reload')
+    }
   }
 
   ionViewDidLeave(){
@@ -264,9 +273,7 @@ export class GameTrendPage {
 
   methodChange($event){
     console.log('trend change')
-
     //this.drawTrend()
-
     console.log($event)
     console.log(gameConfig)
     let component = gameConfig[$event]

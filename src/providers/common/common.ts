@@ -33,6 +33,8 @@ export class CommonProvider {
   //ssc 115 系列
   series_id:any
 
+  percent:any;
+
   bonus:number;
   open:boolean = false
   //倒计时
@@ -41,9 +43,15 @@ export class CommonProvider {
   gameMethodConfig:Array<any> = [];
   data:any;
   ballData:any = [];
+
+  //所有小种类
   small:any;
+
+  //暂存小种类
+  tempSmall:any;
+
   method:any;
-  balance:number = 10000
+  balance:any = '0';
   //xiao wan fa
   smallKind:any;
 
@@ -61,6 +69,15 @@ export class CommonProvider {
 
   //小玩法id
   smallId:any
+
+  //小玩法id
+  tempSmallId:any
+
+  //大玩法id
+  bigId:any
+
+  //暂存大玩法id
+  tempBigId:any;
 
   visible:string = 'invisable';
   tabYuan:string = "元";
@@ -115,21 +132,26 @@ export class CommonProvider {
     //     this.initData()
         
     // })
-    // this.singleBtn = this.tools.copy([
-    // {name:"全",flag:false},{name:"大",flag:false},{name:"小",flag:false},{name:"奇",flag:false},{name:"偶",flag:false},{name:"清",flag:false}
-    // ],true)
-
+   
       this.events.subscribe('changeYuan',(val) => {
           console.log('wefwewf')
-          let origin = this.tabYuan == '元' ? 1 : this.tabYuan == '角' ? 0.1 : 0.01
-          let percent = val == '元' ? 1 : val == '角' ? 0.1 : 0.01
+          //let origin = this.tabYuan == '元' ? 1 : this.tabYuan == '角' ? 0.1 : 0.01
+          let percent = this.percent = val == '元' ? 1 : val == '角' ? 0.1 : 0.01
           this.betPrice = this.count*2*percent
-          console.log(origin)
+         
+          console.log(val)
           console.log(percent)
           this.bonus = this.smallKind.prize*percent
+
+        //   if(this.smallKind.extra_prize){
+        //       console.log('cccccdddddd')
+        //       console.log(this.smallKind.extra_prize)
+        //     this.smallKind.extra_prize = this.smallKind.extra_prize.map(ele => percent*Number(ele))
+        //     console.log(this.smallKind.extra_prize)
+            
+        //   }
           console.log(this.bonus)
           this.tabYuan = val
-
       })
   }
 
@@ -149,38 +171,34 @@ export class CommonProvider {
     async initData():Promise<any>{
         console.log('wcnmb')
         let url = '/api-lotteries-h5/load-data/2/' + this.gameId
-        //let params = {_token:JSON.parse(localStorage.getItem('userInfo')).token}
         this.gameMethodConfig = (await this.http.fetchData(url)).data.game_ways
         
         console.log(this.gameMethodConfig )
-        // this.data = (await this.http.fetchData(name)).list;
-
-        // this.gameMethodConfig = this.data;
-        
-        this.small = this.gameMethodConfig[0].children;
+     
         this.bigKind = this.gameMethodConfig[0].children[0].name_cn
         this.bigKindEn = this.gameMethodConfig[0].children[0].name_en
 
         this.smallKind = this.gameMethodConfig[0].children[0].children[0]
-        this.smallId = this.smallKind.id
+
+        this.small = this.tempSmall = this.gameMethodConfig[0].children
+        this.smallId = this.tempSmallId = this.smallKind.id
+        this.bigId = this.tempBigId = this.gameMethodConfig[0].id
+        
         console.log(this.smallKind)
         console.log(this.bigKind)
         console.log(this.smallId)
-        let percent = this.tabYuan == '元' ? 1 : this.tabYuan == '角' ? 0.1 : 0.01
+        let percent = this.percent = this.tabYuan == '元' ? 1 : this.tabYuan == '角' ? 0.1 : 0.01
         this.bonus = this.smallKind.prize*percent
 
         if(this.small.length){
-            if(this.small.length){
+            if(this.small[0].children.length){
                 this.ballData = this.tools.copy(
                     this.processBall(this.gameMethodConfig[0].children[0].children[0].bet_number), true)
                     console.log(this.ballData)
                 this.secondKind = this.gameMethodConfig[0].children[0].name_cn
             }
         }
-           
-        //this.ballData = arr
         this.method = this.gameMethodConfig[0].name_cn;
-        this.bigIndex = 0
 
         if(this.small.length)
             this.smallMethod = this.small[0].children[0].name_cn;
@@ -190,57 +208,40 @@ export class CommonProvider {
             {name:"全",flag:false},{name:"大",flag:false},{name:"小",flag:false},{name:"奇",flag:false},{name:"偶",flag:false},{name:"清",flag:false}
             ],true)
 
-        this.events.publish('getMethod')    
-
         return new Promise((resolve,reject) =>{
             resolve()
         })
     }
 
-    setGameConfig(index,index2,name){
+    setGameConfig(i,j,k){
         let flag, tempMethod = this.method;
-        if(this.bigIndex!=index || name!=this.smallMethod || this.gameMethodConfig[index].children[index2].name_cn != this.secondKind){
-            this.secondKind = this.gameMethodConfig[index].children[index2].name_cn
-            // console.log(this.gameMethodConfig[index].children[index2].children.filter(ele => ele.name == name)[0].bet_numberArrObj)
-            this.ballData = this.tools.copy(this.processBall(this.gameMethodConfig[index].children[index2].children.filter(ele => ele.name_cn == name)[0].bet_number), true)
-                        console.log(this.ballData)
-
-            this.btn = this.ballData.map(ele => [{name:"全",flag:false},{name:"大",flag:false},{name:"小",flag:false},{name:"奇",flag:false},{name:"偶",flag:false},{name:"清",flag:false}])
-            console.log(this.btn)
-        }
+      
+        this.ballData = this.tools.copy(this.processBall(this.gameMethodConfig[i].children[j].children[k].bet_number), true)
+        this.btn = this.ballData.map(ele => [{name:"全",flag:false},{name:"大",flag:false},{name:"小",flag:false},{name:"奇",flag:false},{name:"偶",flag:false},{name:"清",flag:false}])
+        
+        console.log(this.ballData)
 
         this.singleBtn = this.tools.copy([
             {name:"全",flag:false},{name:"大",flag:false},{name:"小",flag:false},{name:"奇",flag:false},{name:"偶",flag:false},{name:"清",flag:false}
             ],true)
-
-        this.bigIndex = index
-        // if(this.method + this.smallMethod != this.gameMethodConfig[index].name_cn + name){
-        //     this.events.publish('changeTrend')
-           
-        // }
-        this.method = this.gameMethodConfig[index].name_cn
-
-        //console.log(this.gameMethodConfig[index].children[index2])
-        this.small = this.gameMethodConfig[index].children
-        this.bigKind = this.gameMethodConfig[index].children[index2].name_cn
+       
+        this.method = this.gameMethodConfig[i].name_cn
+        this.bigKind = this.gameMethodConfig[i].children[j].name_cn
+        this.bigKindEn = this.gameMethodConfig[i].children[j].name_en
         console.log(this.small)
         console.log(this.bigKind)
-        let temp;
-        this.small.forEach((ele,count) => {
-            ele.children.forEach(item => {
-                if(item.name_cn == name && count == index2)
-                   temp = item
-            })
-        })
-        console.log(temp)
-        this.smallKind = temp
-        this.smallId = this.smallKind.id
+        this.secondKind = this.gameMethodConfig[i].children[j].name_cn
+      
+        this.smallKind = this.gameMethodConfig[i].children[j].children[k]
+        this.bigId = this.tempBigId = this.gameMethodConfig[i].id
+        this.small = this.tempSmall = this.gameMethodConfig[i].children
+        this.smallId = this.tempSmallId = this.gameMethodConfig[i].children[j].children[k].id
+       
         console.log(this.smallKind)
-        console.log(this.smallId)
-        let percent = this.tabYuan == '元' ? 1 : this.tabYuan == '角' ? 0.1 : 0.01
+        console.log(this.gameMethodConfig)
+        let percent = this.percent = this.tabYuan == '元' ? 1 : this.tabYuan == '角' ? 0.1 : 0.01
         this.bonus = this.smallKind.prize*percent
-     
-        this.smallMethod = name
+        this.smallMethod = this.gameMethodConfig[i].children[j].children[k].name_cn
     }
 
     create(aa){
@@ -274,6 +275,8 @@ export class CommonProvider {
     toggle(){
         console.log('dddd')
         $('.tri-arrow').toggleClass('current')
+        this.small = this.tempSmall
+        this.bigId = this.tempBigId
         this.visible = this.visible == 'invisable' ? 'visable':'invisable'
         this.visible == 'visable' ? $('.body-bg').fadeIn(300) : $('.body-bg').fadeOut(300)
     }
@@ -354,8 +357,8 @@ export class CommonProvider {
         let data = (await this.http.fetchData('/api-lotteries-h5/load-data/1/' + this.gameId)).data
         console.log(data)
         this.prizeGroup = []
-        this.prizeGroup.push(data.bet_max_prize_group + '-' + Number((data.user_prize_group - data.bet_max_prize_group)/data.series_amount).toFixed(2) + '%')
-        this.prizeGroup.push(data.bet_min_prize_group + '-' + Number((data.user_prize_group - data.bet_min_prize_group)/data.series_amount).toFixed(2) + '%')
+        this.prizeGroup.push(data.bet_max_prize_group + '-' + Number((data.user_prize_group - data.bet_max_prize_group)/data.series_amount*100).toFixed(2) + '%')
+        this.prizeGroup.push(data.bet_min_prize_group + '-' + Number((data.user_prize_group - data.bet_min_prize_group)/data.series_amount*100).toFixed(2) + '%')
         this.chooseGroup = this.prizeGroup[0]
         console.log(this.prizeGroup)
         this.trace_max_times = data.trace_max_times
@@ -373,9 +376,8 @@ export class CommonProvider {
     }
 
     async getBalance(){
-       let balance =  (await this.http.fetchData('/h5api-withdrawals/withdraw?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)).data.accounts.available
-       console.log(balance)
-       return balance
+       this.balance =  (await this.http.fetchData('/h5api-withdrawals/withdraw?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)).data.accounts.available
+    //    return balance
     }
 
     showCountTip(countNum){

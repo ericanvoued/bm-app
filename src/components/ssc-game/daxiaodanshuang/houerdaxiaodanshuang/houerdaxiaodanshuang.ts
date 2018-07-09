@@ -31,6 +31,22 @@ export class HouerdaxiaodanshuangComponent extends commonMethod{
   }
 
   getOriginLotteryText(){
-    return this.getCommonData().map(ele => ele.map(item => this.judge(item) + ' ').join('')).join('| ')
+    return this.getCommonData().map(ele => ele.map(item => this.judge(item) + '').join('')).join('|')
+  }
+
+  getLotteryText(){
+    let ss = this.getCommonData().map(ele => ele.map(item => {
+              if(item == 0)
+                 return 1
+              else if(item == 1)
+                 return 0
+              else if(item == 2)
+                 return 3
+              else
+                 return 2
+       
+    }).join('')).join('|')
+    console.log(ss)
+    return ss
   }
 }

@@ -61,35 +61,24 @@ export class Xuan5Page extends Effect{
         this.gameConfig = gameConfig
         this.list = this.record.slice(0, 2)
 
+        this.events.subscribe('reload',()=>{
+            this.renderMethodContainer()
+        })
+
         this.common.getMissObservable()
         this.loadInfo = this.presentLoadingDefault()
 
         this.common.initData().then(
             () => {
-                this.gameContainer.clear()
-                let method
-                if(this.common.method == '二星'){
-                    method = this.common.method + this.common.secondKind + this.common.smallMethod
-                }else{
-                    method = this.common.method + this.common.smallMethod
-                }
-                console.log(method)
+                this.renderMethodContainer()
                 this.loadInfo.dismiss()
-                const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(gameConfig[method])
-                this.componentRef = this.gameContainer.createComponent(factory)
-                this.componentRef.instance.choose = this.haveChoosen
-                this.common.componentRef = this.componentRef
-                           this.util.shakePhone()
+                $('#qq').show()  
             }
         )
-
   }
 
   handleBall(ele){
     let tempArr = ele.code.split(' ').map(ele => Number(ele))
-    // function calTotal(str){
-    //     return str.split(' ').reduce((a,b) => Number(a) + Number(b))
-    // }
     let total = tempArr.reduce((a,b) => a + b)
     let kuadu = Math.max(...tempArr) - Math.min(...tempArr)
    
@@ -112,21 +101,9 @@ export class Xuan5Page extends Effect{
     this.initHisBox('d5-content')
   }
 
-  change(val){
-    console.log(val)
-    if(val == '走势图')
-       this.app.getRootNav().push('GameTrendPage',{'index':1}) 
-
-    if(val == '号码统计'){
-        if($('.modal').hasClass('active')){
-            $('.body-bg').fadeOut(1000)
-        }else{
-            $('.body-bg').fadeIn(1000)
-        }
-        $('.modal').toggleClass('active')
-
-    }
-   }
+  ionViewDidEnter(){
+    this.util.shakePhone(this.util.randomChoose)
+ }  
 
    resetData(){
        if(this.common.smallMethod.indexOf('组选胆拖') != -1){

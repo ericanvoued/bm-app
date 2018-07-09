@@ -9,6 +9,10 @@ import { ModalController,NavController } from 'ionic-angular';
 import { CountTipComponent } from './components/count-tip/count-tip'
 import { Events } from 'ionic-angular';
 
+import * as ssc from './components/ssc-config'
+import * as d5 from './components/115-config'
+
+const gameConfig = Object.assign(ssc.gameConfig, d5.gameConfig)
 
 let tt = 0;
 
@@ -50,10 +54,12 @@ export class Effect{
             if(self.common.visible = 'visable'){
                 console.log('fff');self.gamemenu.toggle()
             }
+            self.common.small = self.common.tempSmall
+            self.common.bigId = self.common.tempBigId
+            self.common.smallId = self.common.tempBigId
             $('.modal').removeClass('active')
-            
+            $('.tri-arrow').removeClass('current')
         });
-        //this.addDynamicComponent()
 
         this.common.fetchRecord().then(() => {
             this.list = this.common.historyList.map(this.handleBall).slice(0,10)
@@ -97,7 +103,20 @@ export class Effect{
         })
     }
 
-
+    renderMethodContainer(){
+        this.gameContainer.clear()
+        let method
+        if(this.common.method == '二星'){
+            method = this.common.method + this.common.secondKind + this.common.smallMethod
+        }else{
+            method = this.common.method + this.common.smallMethod
+        }
+        console.log(method)
+        const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(gameConfig[method])
+        this.componentRef = this.gameContainer.createComponent(factory)
+        this.componentRef.instance.choose = this.haveChoosen
+        this.common.componentRef = this.componentRef
+    }
 
     move(){
         tt += 1000/60;
@@ -166,7 +185,7 @@ export class Effect{
    methodChange($event){
     //    this.haveChoosen = ['当前遗漏']
        console.log($event)
-       let component = this.gameConfig[$event]
+       let component = gameConfig[$event]
        this.gameContainer.clear()
        const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(component)
        this.componentRef = this.gameContainer.createComponent(factory)

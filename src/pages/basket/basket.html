@@ -56,7 +56,7 @@
                     -
                 </div>
                     <div class="mutiple-number">
-                        <input type="text" class="add-input" (keyup)="checkMutiple($event)" (blur)="onBlurMethod($event,'multiple')" value="{{basket.statistic.multiple}}">
+                        <input type="number" class="add-input" (keyup)="checkMutiple($event)" (blur)="onBlurMethod($event,'multiple')" value="{{basket.statistic.multiple}}">
                     </div>
                   <div class="up" (click)="change(1)">
                         +
@@ -71,7 +71,7 @@
                     -
                 </div>
                     <div class="trace-number">
-                        <input type="text" class="add-input" (keyup)="checkTrace($event)" (blur)="onBlurMethod($event,'trace')" value="{{basket.statistic.trace}}">          
+                        <input type="number" class="add-input" (keyup)="checkTrace($event)" (blur)="onBlurMethod($event,'trace')" value="{{basket.statistic.trace}}">          
                     </div>
                 <div class="up" (click)="changeTrace(1)">
                         +
@@ -87,9 +87,6 @@
                  {{common.chooseGroup}}
                  <ul class="fandian" [@show]="show" >
                      <li *ngFor="let item of common.prizeGroup" (click)="common.chooseGroup = item" [class.current]="common.chooseGroup == item">{{item}}</li>
-                     <!-- <li>1800-7.50%</li>
-                     <li>1800-7.50%</li>
-                     <li>1800-7.50%</li> -->
                  </ul>      
             </div> 
         </div>
@@ -103,10 +100,11 @@
   <div style="display:flex;justify-content:space-between;height:50px">
        <div style="padding-left:5px">
           <div>追号 <span style="color:#F6374E">{{basket.statistic.trace}}</span> 期 共 <span style="color:#F6374E">{{basket.totalCount}}</span> 注</div> 
-          <div>余额：¥{{ balance ? (balance | async) : ''}}</div>
+          <!-- <div>余额：¥{{ balance ? (balance | async) : ''}}</div> -->
+          <div>余额：¥{{util.formatMoney(common.balance)}}</div>
         </div>
        <div>共 {{basket.totalAmount}} 元</div> 
-       <div style="width:100px;background:url('assets/imgs/games/now-bet.png')" (click)="confirmBet()">
+       <div style="width:100px;background:url('assets/imgs/games/now-bet.svg')" (click)="confirmBet()">
 
        </div>
   </div>

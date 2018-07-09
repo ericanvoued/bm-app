@@ -4,6 +4,9 @@ import {
   } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, App, LoadingController } from 'ionic-angular';
 import { CommonProvider } from "../../../providers/common/common";
+
+import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
 import { Effect } from '../../../baseComponent'
 import { Events } from 'ionic-angular';
 import { CountTipComponent } from '../../../components/count-tip/count-tip'
@@ -35,6 +38,8 @@ export class SscPage extends Effect{
     //showTip:any = ['当前遗漏', '30期冷热', '平均遗漏', '最大遗漏']
     haveChoosen:any[] = ['当前遗漏']
 
+    observable: Observable<any>;
+    observer: Observer<any>;
     record: any ;
     //助手菜单
     menus:any =  ['走势图','近期开奖','号码统计','玩法说明']
@@ -42,9 +47,7 @@ export class SscPage extends Effect{
     list: any ;
     loadInfo:any;
     // 
-    // {number: 23056, balls: '34567', shiwei: '大单', gewei: '小双', housan: '组六'},
-    // {number: 23057, balls: '12345', shiwei: '大单', gewei: '小双', housan: '组六'},
-
+   
     maxNumber:number;
     loadNumber:number = 0
     over:boolean;
@@ -58,60 +61,22 @@ export class SscPage extends Effect{
         super(common,gamemenu,modalCtrl,navCtrl,resolver,events)
         this.gameConfig = gameConfig
 
-        let self = this
-        console.log('boeegwgjep[rbm')
-        // $('body').on('touchmove', '.bet-box', function(){
-        //    console.log($('#qq').offset().top)
-        //    console.log($(this).offset().top)
-        //    if($('#qq').offset().top < 70){
-        //       $('#qq').addClass('fixed')
-        //    }
-
-        //    if($(this).offset().top > 70){
-        //       $('#qq').removeClass('fixed')
-        //    }      
-        // })
-
-        // $('body').on('click', '#qq', function(){
-        //     console.log($('.bet-box').scrollTop())
-        //     if(!$(this).hasClass('fixed')){
-        //         if(self.loadNumber){
-        //             self.high = 0
-        //             self.loadNumber = 0
-        //         }         
-        //     }else{
-        //         $(this).removeClass('fixed')
-        //         $('.scroll-content').animate({  
-        //             scrollTop: 0
-        //         }, 200)
-        //     }   
-        // })
+        this.events.subscribe('reload',()=>{
+             this.renderMethodContainer()
+        })
+      
         this.common.getMissObservable()
         this.loadInfo = this.presentLoadingDefault()
-        //$('.loading').show()
+       
         this.common.initData().then(
             () => {
-                this.gameContainer.clear()
-                let method
-                if(this.common.method == '二星'){
-                    method = this.common.method + this.common.secondKind + this.common.smallMethod
-                }else{
-                    method = this.common.method + this.common.smallMethod
-                }
-                console.log(method)
-               // $('.loading').hide()
+                this.renderMethodContainer()
                 this.loadInfo.dismiss()
-                const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(gameConfig[method])
-                this.componentRef = this.gameContainer.createComponent(factory)
-                this.componentRef.instance.choose = this.haveChoosen
-                this.common.componentRef = this.componentRef
-                $('#qq').show()
-                //$('.table').css('height','327px')
-                           
+                $('#qq').show()                           
             }
         )
     }
-  
+
     handleBall(ele){
         function judge(number){
             if(number%2 == 0 && number >=5)
@@ -178,8 +143,7 @@ export class SscPage extends Effect{
       }
 
     ionViewDidEnter(){
-    
-       this.util.shakePhone()
+        this.util.shakePhone(this.util.randomChoose)
     }  
 
     ionViewWillLeave(){
@@ -195,21 +159,6 @@ export class SscPage extends Effect{
     }
 
     watchScroll(){
-        // let mc = new Hammer(document.getElementById('touch'));
-        // mc.get('swipe').set({direction: Hammer.DIRECTION_VERTICAL});
-        // mc.on('swipedown', () => {
-        //     console.log('axiba')
-        //     //this.record.push( {number:23056,balls:'34567',shiwei:'大单',gewei:'小双',housan:'组六'})
-        //     if(this.loadNumber == this.maxNumber)
-        //         return
-        //     this.loadNumber ++
-               
-        //     if (this.loadNumber)
-        //         this.high = (this.record.slice(0,this.loadNumber*5).length - 2)*this.trHeight
-
-        //     this.list = this.record.slice(0, this.loadNumber * 5)
-        // })
-
         let mc = new Hammer(document.getElementById('ball-area'));
         mc.get('swipe').set({direction: Hammer.DIRECTION_VERTICAL});
         mc.on('swipedown', () => {
@@ -272,7 +221,6 @@ export class SscPage extends Effect{
         this.util.resetData()
     }
 
-   
     presentLoadingDefault() {
         let loading = this.loadingCtrl.create({
           content: '数据加载中...'

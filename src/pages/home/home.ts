@@ -108,7 +108,7 @@ export class HomePage {
 
       if(this.common.hasLoad.indexOf(this.common.series_id) == -1){
          this.common.hasLoad.push(this.common.series_id)
-         this.loading.showWarn('正在获取玩法哦诶址')
+         this.loading.showWarn('正在获取玩法配置')
       }
       this.navCtrl.push(lottory.redirect_url).then(aa => console.log('rwggweagsvsv'))
     }else{

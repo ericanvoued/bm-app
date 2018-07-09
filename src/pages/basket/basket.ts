@@ -61,11 +61,9 @@ export class BasketPage {
     })
 
     if(JSON.parse(localStorage.getItem('userInfo'))){
-      console.log('ddddddefwff')
-      this.balance = this.common.getBalance()
+        this.common.getBalance()
     }
       
-
     //算出总倍数限制
 
     // let tempData = this.basket.betData.sort((a,b) => a.max_multiple/a.beishu -  b.max_multiple/b.beishu)[0]
@@ -76,13 +74,7 @@ export class BasketPage {
 
     // console.log(this.min_multiple)
     //此处获取需要机选注单的实例  
-    //this.componentRef = this.navParams.get('index')
-  }
-
-
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad BasketPage');
+  
   }
 
   toggle(){
@@ -272,14 +264,16 @@ export class BasketPage {
      result['balls'] = []
      for (; i < len; i++){
        console.log(ballsData[i]['prize_group'])
+       console.log(ballsData[i]['viewBalls'])
         result['balls'].push({
           'jsId': ballsData[i]['jsId'],
           'wayId': ballsData[i]['mid'],
-          'ball': ballsData[i]['lotterysText'],
+          'ball':  ballsData[i].gameName.indexOf('大小单双') != -1 ?  ballsData[i]['lotterysText'] :ballsData[i]['viewBalls'],
           'position':ballsData[i]['position'],
-          'viewBalls':ballsData[i]['viewBalls'],
+          'viewBalls': ballsData[i].gameName.indexOf('大小单双') != -1 ?  ballsData[i]['lotterysText'] :ballsData[i]['viewBalls'],
+          //'viewBalls':ballsData[i]['viewBalls'],
           'num': ballsData[i]['num'],
-          'type': ballsData[i]['type'],
+          'type': ballsData[i]['gameName'],
           'onePrice': ballsData[i]['onePrice'],
           'prize_group':ballsData[i]['prize_group'],
           'moneyunit': ballsData[i]['moneyUnit'],
@@ -319,5 +313,18 @@ export class BasketPage {
           }    
         }
       )
+    }
+
+    replace(ele){
+       return ele.split('|').map(item => {
+           if(item == '小')
+              return 0
+           if(item == '大')
+              return 1
+           if(item == '双')
+              return 2
+           if(item == '单')
+              return 3
+       }).join('|')
     }
 }
