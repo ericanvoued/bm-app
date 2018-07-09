@@ -76,16 +76,39 @@ export class LhcSlidePage extends LhcAction {
     this.initView();
     this.base.requestPlayData(localStorage.idstr, '6').then((response) => {
         this.initOdds(response);
-      this.changePlaySelect();
+        this.changePlaySelect();
       }
     );
     this.requestHisData();
     this.initAny();
   }
 
-  initOdds(data){
+  initOdds(data) {
 
-    var tm_prize,zm_prize,bb_prize,sx_prize,ws_prize,zf_prize,bz_pirze;
+    var tm_prize, zm_prize, bb_prize, tx_prize, yx_prize, lx_prize, ws_prize, zf_prize, bz_pirze;
+    // new Number(data[1].prize).toFixed(2);
+    tm_prize = new Number(data[0].children[0].children[0]['prize']).toFixed(2);
+    bb_prize = new Number(data[2].children[0].children[0]['prize']).toFixed(2);
+    tx_prize = new Number(data[3].children[0].children[0]['prize']).toFixed(2);
+    yx_prize = new Number(data[3].children[0].children[1]['prize']).toFixed(2);
+    lx_prize = new Number(data[3].children[0].children[2]['prize']).toFixed(2);
+    ws_prize = new Number(data[4].children[0].children[0]['prize']).toFixed(2);
+    zf_prize = new Number(data[5].children[0].children[0]['prize']).toFixed(2);
+    bz_pirze = new Number(data[6].children[0].children[0]['prize']).toFixed(2);
+
+    $('.peilv-tip').text('赔率 *' + tm_prize);
+    $('.lhc-bb .pl').text(' 赔率 ' + bb_prize);
+    $('.lhc-ws .pl').text(' 赔率 ' + ws_prize);
+    $('.lhc-points .pl').text(' 赔率 ' + zf_prize);
+    $('.self-points .odds.animated').text(zf_prize);
+    $('.self-ws .odds.animated').text(ws_prize);
+    $('.self-bb .odds.animated').text(bb_prize);
+    $('.self-tm .odds.animated').text(tm_prize);
+    localStorage.tx_prize = tx_prize;
+    localStorage.yx_prize = yx_prize;
+    localStorage.lx_prize = lx_prize;
+    localStorage.tm_prize = tm_prize;
+    localStorage.bz_pirze = bz_pirze;
 
   }
 
@@ -105,7 +128,7 @@ export class LhcSlidePage extends LhcAction {
       var ballarr = JSON.parse(localStorage.balls);
       console.log('balls====' + ballarr)
       for (var i = 0; i < ballarr.length; i++) {
-        ballarr[i].multiple = parseInt(ballarr[i].multiple) *moneyunit;
+        ballarr[i].multiple = parseInt(ballarr[i].multiple) * moneyunit;
       }
       localStorage.balls = JSON.stringify(ballarr);
     }
@@ -114,7 +137,7 @@ export class LhcSlidePage extends LhcAction {
   betClick() {
 
     const that = this;
-    if(localStorage.userInfo==null){
+    if (localStorage.userInfo == null) {
       $('body').append(Tpl.fail_tip);
       $('#error-tip').text('您还未登录～');
       setTimeout(function () {
@@ -126,7 +149,7 @@ export class LhcSlidePage extends LhcAction {
     }
 
     this.dealWithBallMultiple();
-    console.log('localStorage.balls==' + localStorage.balls)
+    // console.log('localStorage.balls==' + localStorage.balls)
     const loader = this.loading.create({});
     loader.present();
 
@@ -211,36 +234,37 @@ export class LhcSlidePage extends LhcAction {
 
   requestHisData() {
 
-    // var userInfo = JSON.parse(localStorage.userInfo);
-    // var url,data;
-    // if(localStorage.userInfo){
-    //   data = JSON.parse(localStorage.userInfo);
-    //   url = '/api-lotteries-h5/load-issues/21?_t=' + data.auth_token;
-    // }else{
-    //   url = '/api-lotteries-h5/load-issues/21?_t=';
-    // }
-
-    var url = '/api-lotteries-h5/load-issues/61?_t=';
+    var url = '/api-lotteries-h5/load-issues/' + localStorage.idstr + '?_t=';
     this.rest.getUrlReturn(url)
       .subscribe((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.IsSuccess) {
 
           localStorage.lhchisdata = JSON.stringify(data.data);
-          var htm = '';
+          var htm = '', it;
           for (var i = 0; i < data.data.length; i++) {
-            var it = '<li class="his-line">\n' +
-              '              <span>' + data.data[i].number + '</span>\n' +
-              '              <span>' + data.data[i].code.split(' ')[0] + '</span>\n' +
-              '              <span>' + data.data[i].code.split(' ')[1] + '</span>\n' +
-              '              <span>' + data.data[i].code.split(' ')[2] + '</span>\n' +
-              '              <span>' + data.data[i].code.split(' ')[3] + '</span>\n' +
-              '              <span>' + data.data[i].code.split(' ')[4] + '</span>\n' +
-              '              <span>' + data.data[i].code.split(' ')[5] + '</span>\n' +
-              '              <span>' + data.data[i].code.split(' ')[6] + '</span>\n' +
-              '            </li>';
+
+            if (data.data[i].code == '') {
+
+              it = '<li class="his-line">\n' +
+                '        <span class="kj-issue">' + data.data[i].number + '</span>\n' +
+                '        <span class="kj-ing">等待开奖...</span>\n' +
+                '      </li>';
+            } else {
+              it = '<li class="his-line">\n' +
+                '              <span>' + data.data[i].number + '</span>\n' +
+                '              <span>' + data.data[i].code.split(' ')[0] + '</span>\n' +
+                '              <span>' + data.data[i].code.split(' ')[1] + '</span>\n' +
+                '              <span>' + data.data[i].code.split(' ')[2] + '</span>\n' +
+                '              <span>' + data.data[i].code.split(' ')[3] + '</span>\n' +
+                '              <span>' + data.data[i].code.split(' ')[4] + '</span>\n' +
+                '              <span>' + data.data[i].code.split(' ')[5] + '</span>\n' +
+                '              <span>' + data.data[i].code.split(' ')[6] + '</span>\n' +
+                '            </li>';
+            }
             htm = htm + it;
           }
+
           $('.his-ul').html(htm);
         }
       });
@@ -249,9 +273,9 @@ export class LhcSlidePage extends LhcAction {
   initAny() {
 
     localStorage.wayId = 290;
-    if(localStorage.userInfo){
+    if (localStorage.userInfo) {
       $('#yue').text(JSON.parse(localStorage.getItem('userInfo')).available);
-    }else{
+    } else {
       $('#yue').text(0);
     }
     this.base.initHisBox('lhc-content-child');
@@ -260,8 +284,6 @@ export class LhcSlidePage extends LhcAction {
       return;
     }
   }
-
-
 
 
   initViewData() {
@@ -313,11 +335,6 @@ export class LhcSlidePage extends LhcAction {
       slides[index].className = "swiper-slide bottomLine";
     }
   }
-
-
-
-
-
 
 
 }

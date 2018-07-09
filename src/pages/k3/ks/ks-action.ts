@@ -20,9 +20,6 @@ export class KsAction {
   }
 
 
-
-
-
   /**
    * 添加注单
    */
@@ -161,7 +158,7 @@ export class KsAction {
         "position": [],
         "multiple": 1,
         "onePrice": 2,
-        "prize_group":  localStorage.bet_max_prize_group,
+        "prize_group": localStorage.bet_max_prize_group,
         "max_multiple": localStorage.max_multiple,
         "wanfa": wanfa,
         "price": zhu * 2 * moneyunit
@@ -185,7 +182,6 @@ export class KsAction {
     localStorage.balls = ballsitem;
 
   }
-
 
 
   shakeAnimation(no1, no2, no3, num) {
@@ -230,7 +226,9 @@ export class KsAction {
 
   shakeClick() {
 
+
     let _this = this;
+    _this.removeCover();
     if (!$('.saizi-pop').hasClass('hide')) {
       return;
     }
@@ -297,7 +295,7 @@ export class KsAction {
         _this.calculateMoney();
         var player = $('#mp3')[0];
         player.play();
-      },2500);
+      }, 2500);
 
       setTimeout(function () {
         $('.saizi-pop').css('transform', "scale(1)");
@@ -341,7 +339,7 @@ export class KsAction {
 
     let _this = this;
     let wayId = localStorage.wayId;
-    console.log('wayId===='+wayId)
+    console.log('wayId====' + wayId)
 
     let ballStr = _this.getBallStr();
     let wanfa = $('.wanfa').text();
@@ -598,7 +596,6 @@ export class KsAction {
 
       $(this).on('click', function () {
 
-        console.log('~~~~~~~~~~~~')
 
         $('.after-list .play-black').removeClass('play-yellow');
         $(this).addClass('play-yellow');
@@ -626,9 +623,9 @@ export class KsAction {
         localStorage.price = arr[2];
         localStorage.bet_note = arr[3];
         localStorage.bonus_note = arr[4];
-        if(title=='和值'){
+        if (title == '和值') {
           localStorage.max_multiple = 949;
-        }else{
+        } else {
           localStorage.max_multiple = arr[5];
         }
 
@@ -777,7 +774,11 @@ export class KsAction {
   }
 
   addCover() {
-
+    let _this = this;
+    if ($('.header-top').hasClass('hide')) {
+      _this.removeCover();
+      return;
+    }
     $('.header-top').addClass('hide');
     $('.body-bg').removeClass('hide');
     $('.alert-con').removeClass('hide');

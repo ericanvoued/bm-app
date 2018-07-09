@@ -64,7 +64,7 @@
 
 <ion-content id="ks-content" name="contents" padding>
 
-  <div class="his-box">
+  <div class="his-box" (click)="pushToTrend()">
     <ul>
       <li class="top-line">
 
@@ -473,7 +473,7 @@
 
       <div class="tips-dx">
         <img src="./assets/imgs/ks/erth-dx.png"/>
-        <p>选择同号和不同号的组合，奖金80元</p>
+        <p>选择同号和不同号的组合，奖金<span class="eth_prize">80</span>元</p>
       </div>
 
 
@@ -605,7 +605,7 @@
 
       <div class="tips-dx tips-dx-2">
         <img src="./assets/imgs/ks/fuxuan.png"/>
-        <p>猜开奖中2个指定的相同号码，奖金15元</p>
+        <p>猜开奖中2个指定的相同号码，奖金<span class="eth_prize">15</span>元</p>
       </div>
 
       <div class="ball-unit double">
@@ -673,7 +673,7 @@
       <img src="./assets/imgs/ks/phone.png"/>
       <span>摇一摇机选</span>
     </div>
-    <p class="title-tip">选3个不同号吗，与开奖相同即中70.20</p>
+    <p class="title-tip">选3个不同号吗，与开奖相同即中<span class="sbt_prize">70.20</span>元</p>
 
     <div class="content-box">
 
@@ -904,7 +904,7 @@
       <img src="./assets/imgs/ks/phone.png"/>
       <span>摇一摇机选</span>
     </div>
-    <p class="title-tip">选2个不同号码，猜中开奖的任意2位即中14.04元</p>
+    <p class="title-tip">选2个不同号码，猜中开奖的任意2位即中<span class="ebt_prize">14.04</span>元</p>
     <div class="content-box">
       <div class="ball-unit">
         <div class="ball-num">

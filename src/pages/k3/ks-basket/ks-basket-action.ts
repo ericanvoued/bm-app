@@ -86,12 +86,12 @@ export class KsBasketAction {
       } else if (i == resultdata.length - 1) {
         html.push('<li>' + (this) + '-' + per + '%</li>');
       }
+
     });
 
     $('.return-point .money-menu').html(html.join(''));
-
+    $('.money-btn-1 i').text($('.return-point .money-menu li').eq(1).text())
     $('.return-point .money-menu li').click(function () {
-
       $('.money-menu').addClass('hide');
       $('.money-btn-1 i').text($(this).text());
       // var arr = JSON.parse(localStorage.balls);
@@ -481,6 +481,9 @@ export class KsBasketAction {
     // alert(localStorage.balls);
     // $('.buy-balance').text('余额： '+localStorage.available);
     var arr = JSON.parse(localStorage.balls);
+    if(arr.length==0){
+      return;
+    }
     var zhu = 0, money = 0, max_multiple = arr[0].max_multiple;
     // min_multiple 这个是动态变化的！ === 最大倍数/当前倍数
     var min_max_arr = [];
