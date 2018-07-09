@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import {
   IonicPage,
   NavController,
-  ToastController,
   ModalController,
+  ToastController,
   LoadingController,
   NavParams } from 'ionic-angular';
 import { LoadingProvider } from '../../../providers/loading/loading'
@@ -11,6 +11,7 @@ import { LoadingProvider } from '../../../providers/loading/loading'
 // import {UserCenterProvider } from '../../../providers/user-center/user-center'
 
 import { HttpClientProvider } from '../../../providers/http-client/http-client'
+import {win} from "@angular/platform-browser/src/browser/tools/browser";
 
 
 @IonicPage()
@@ -108,24 +109,6 @@ export class ChargePage {
 
     this.chargeList.bankflag = _index;
     this.chargeList.currentBank = bank;
-
-
-    // if (this.chargeList.data[_index].isRepaire != false) {
-    //   this.userData.toast = this.loadPrd.showToast(this.toastCtrl, '维护中');
-    //   return;
-    // } else {
-
-    // if(bank.name=='银联快捷'){
-    //   this.ucPrd.chargeList.bankflag[_index] = 1;
-    //   this.chargeList.currentBank = this.ucPrd.chargeList.data.banks.ABOC;
-    //   // this.chargeList.currentBank.banks = this.ucPrd.chargeList.data.banks
-    // }else {
-    //   this.ucPrd.chargeList.bankflag[_index] = 1;
-    //   this.chargeList.currentBank = bank;
-    //   console.log(this.chargeList.currentBank)
-    // }
-
-    // }
   }
 
   //页面跳转
@@ -135,8 +118,9 @@ export class ChargePage {
     })
   }
 
-  showModal() {
+  showModal(url) {
     console.log(this.chargeList.currentBank)
+    let loading = this.loadPrd.showLoading(this.LoadingCtrl,'正在转入第三方充值渠道')
     if(Number(this.numList.chargeMoney)<=0 ){
       this.loadPrd.showToast(this.toastCtrl,'请输入要充值的金额');
       return;
@@ -147,7 +131,7 @@ export class ChargePage {
       this.loadPrd.showToast(this.toastCtrl,'充值金额已超上限');
       return;
     }else {
-      this.http.postData('/h5api-recharges/confirmMobileJd?_t='+ this.userInfo.auth_token,{
+      this.http.postData(url+'?_t='+ this.userInfo.auth_token,{
         'Content-Type':'application/x-www-form-urlencoded',
         'deposit_mode':this.chargeList.currentBank.mode,
         'bank_code':this.chargeList.currentBank.identifier,
@@ -156,7 +140,12 @@ export class ChargePage {
         'payment_data_json':this.chargeList.payment_setting_data,
         '_token':this.userInfo.token
       }).then(data=>{
-        console.log(data)
+        // loading.dismiss()
+        if(data.isSuccess==1){
+          this.lineService(data.data.break_url)
+        }else {
+          loading = this.loadPrd.showToast(this.toastCtrl,data.type);
+        }
         // this.navCtrl.push('ChargeStatusPage',
         //   {
         //     bank:this.chargeList.currentBank.name,
@@ -171,8 +160,14 @@ export class ChargePage {
     }
   }
 
-  //跳到没有tab的页面
-  // pushRootPage(page, param) {
-  //   this.app.getRootNav().push(page, param);
-  // }
+  lineService(url) {
+    if (this.plat = 'ios') {
+      window.open(url+'&_t='+this.userInfo.auth_token, '_blank')
+      return;
+    }
+    let profileModal = this.modalCtrl.create('Onlineservice', {
+      deepLinker:url+'&_t='+this.userInfo.auth_token
+    });
+    profileModal.present();
+  }
 }

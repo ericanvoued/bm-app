@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import {IonicPage} from 'ionic-angular';
 
-
-@IonicPage()
 @Component({
   selector: 'lhc-bose',
   templateUrl: './lhc-bose.html'

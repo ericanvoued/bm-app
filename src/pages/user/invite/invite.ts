@@ -12,6 +12,12 @@ import {LoadingProvider} from '../../../providers/loading/loading'
 export class InvitePage {
 
   userInfo;
+  loading= null;
+  win_group = {
+    current: {a: 18, b: 50},
+    max:{a:18,b:60},
+    min:{a:18,b:50}
+  }
   invitedata = {
     listPosition: -187,
     showList: false,
@@ -67,13 +73,14 @@ export class InvitePage {
   }
 
   async getcreateprize() {
-    let loading = this.loadingPrvd.showLoading(this.loadingCtrl, '正在获取用户奖金组')
+    this.loading = this.loadingPrvd.showLoading(this.loadingCtrl, '正在获取用户奖金组')
     await this.http.fetchData('/h5api-users/getcreateprize?_t=' + this.userInfo.auth_token).then(data => {
-      loading.dismiss()
+      this.loading.dismiss()
       if (data.IsSuccess) {
         this.invitedata.iAgentMaxPrizeGroup = data.data.iAgentMaxPrizeGroup
         this.invitedata.iAgentMinPrizeGroup = data.data.iAgentMinPrizeGroup
-        this.invitedata.iCurrentUserPrizeGroup = data.data.iCurrentUserPrizeGroup
+        // this.invitedata.iCurrentUserPrizeGroup = data.data.iCurrentUserPrizeGroup
+        this.invitedata.iCurrentUserPrizeGroup = data.data.iAgentMaxPrizeGroup
         this.invitedata.iPlayerMaxPrizeGroup = data.data.iPlayerMaxPrizeGroup
         this.invitedata.iPlayerMinPrizeGroup = data.data.iPlayerMinPrizeGroup
         this.dragRange()
@@ -105,4 +112,8 @@ export class InvitePage {
     }, 1)
   }
 
+
+  selecGroup(){
+    console.log(this.invitedata.iCurrentUserPrizeGroup)
+  }
 }

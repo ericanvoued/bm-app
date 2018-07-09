@@ -56,7 +56,6 @@ export class LoginPage {
         username: this.username,
         password: md5(md5(md5(this.username + this.password)))
       }).then((data) => {
-        console.log(data)
         if (data.isSuccess) {
           this.loading.dismiss();
           this.tost = this.loadPrd.showMidToast(this.ToastCtrl, data.Msg);
@@ -75,7 +74,7 @@ export class LoginPage {
             pageIndex: 3
           });
         } else {
-          this.loading.dismiss();
+          // this.loading.dismiss();
           this.tost = this.loadPrd.showMidToast(this.ToastCtrl, data.Msg);
         }
       })
@@ -87,16 +86,20 @@ export class LoginPage {
     this.nameInfoFlag = false;
     this.pswInfoFlag = false;
     if (this.username.length == 0) {
-      this.nameInfoFlag = true;
-      this.nameInfo = '用户名不能为空';
+      this.loadPrd.showMidToast(this.ToastCtrl, '用户名不能为空');
+      // this.nameInfoFlag = true;
+      // this.nameInfo = '用户名不能为空';
+
       return false;
     } else if (this.password.length == 0) {
-      this.pswInfoFlag = true;
-      this.pswInfo = '密码不能为空';
+      // this.pswInfoFlag = true;
+      this.loadPrd.showMidToast(this.ToastCtrl, '密码不能为空');
+      // this.pswInfo = '密码不能为空';
       return false;
     } else if (!patt.test(this.password)) {
-      this.pswInfoFlag = true;
-      this.pswInfo = '密码格式不对';
+      // this.pswInfoFlag = true;
+      this.loadPrd.showMidToast(this.ToastCtrl, '密码格式不对');
+      // this.pswInfo = '密码格式不对';
       return false;
     } else {
       return true;

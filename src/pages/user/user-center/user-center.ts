@@ -11,6 +11,7 @@ import {File} from '@ionic-native/file';
 import {Transfer, TransferObject} from '@ionic-native/transfer';
 import {FilePath} from '@ionic-native/file-path';
 
+import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 
 
 declare var cordova: any;
@@ -28,8 +29,11 @@ export class UserCenterPage {
   toast:any = null;
   userId:string;
   // userInfo;
+  userBalance = 0.00;
+  timer = null;
 
   constructor(
+              private qrScanner: QRScanner,
               public platform: Platform,
               private camera: Camera,
               private transfer: Transfer,
@@ -54,6 +58,20 @@ export class UserCenterPage {
     }
   }
 
+  //实时获取余额
+  getBalance(){
+    if(this.userInfo!=null){
+      this.timer = setInterval(()=>{
+        this.http.fetchData('/h5api-users/user-account-info?_t='+this.userInfo.auth_token).then(data=>{
+          this.userInfo.available = data.data.available
+        })
+      },1500)
+
+    }else {
+      clearInterval(this.timer)
+    }
+
+  }
 
 
 
@@ -201,10 +219,19 @@ export class UserCenterPage {
 
 
   ionViewWillEnter() {
-
-    this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
-
+    // this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    // this.getBalance()
   }
+
+  ionViewDidEnter(){
+    this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    this.getBalance()
+  }
+  ionViewWillLeave(){
+    clearInterval(this.timer)
+  }
+
+
   //页面跳转
   pushPage(page,needLogin,isOpen) {
     if(isOpen){
@@ -220,6 +247,35 @@ export class UserCenterPage {
     }else {
       this.toast = this.loadPrd.showToast(this.toastCtrl, '功能逐步开放中，敬请期待！');
     }
+  }
 
+  //scan qrCode
+  scanQrcode(){
+    this.qrScanner.prepare()
+      .then((status: QRScannerStatus) => {
+        if (status.authorized) {
+          // alert(1)
+          // camera permission was granted
+
+
+          // start scanning
+          let scanSub = this.qrScanner.scan().subscribe((text: string) => {
+            alert('Scanned something', text);
+
+            this.qrScanner.hide(); // hide camera preview
+            scanSub.unsubscribe(); // stop scanning
+          });
+
+        } else if (status.denied) {
+          console.log('status.denied'+status.denied)
+          // camera permission was permanently denied
+          // you must use QRScanner.openSettings() method to guide the user to the settings page
+          // then they can grant the permission from there
+        } else {
+          console.log('status.authorized'+status.denied)
+          // permission was denied, but not permanently. You can ask for permission again at a later time.
+        }
+      })
+      .catch((e: any) => alert('没有打开相机的权限'));
   }
 }

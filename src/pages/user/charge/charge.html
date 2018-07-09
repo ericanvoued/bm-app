@@ -30,10 +30,9 @@
     <p class="info">请选择支付方式：</p>
     <div class="bank-content">
       <!--repaired  保留，等待后台开发-->
-      <!--<div class="bank-unit" [ngClass]="{'current':chargeList.bankflag==i}" (click)="selectBank(0,ucPrd.chargeList.data.mobile_weixin)">-->
       <div class="bank-unit" *ngFor="let bank of chargeList.data;index as i" (click)="selectBank(i,bank)" [ngClass]="{'current':chargeList.bankflag==i}">
         <div class="capture">
-          <img src="../assets/bank-icon/{{bank.gateway}}.png" alt="">
+          <img src="../../../assets/bank-icon/{{bank.gateway}}.png" alt="">
         </div>
         <div class="bank-text">
           <h4>{{bank.name}}</h4>
@@ -108,6 +107,6 @@
     </div>
   </div>
   <div class="fix-sure-btn">
-    <button (click)="showModal()">确认充值</button>
+    <button (click)="showModal(chargeList.currentBank.submit)">确认充值</button>
   </div>
 </ion-content>
