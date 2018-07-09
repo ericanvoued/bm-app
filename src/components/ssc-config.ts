@@ -175,7 +175,7 @@ export let gameConfig = {
     "大小单双后三大小单双":HousandaxiaodanshuangComponent,
     "大小单双前二大小单双":QianerdaxiaodanshuangComponent,
     "大小单双前三大小单双":QiansandaxiaodanshuangComponent,
-    "大小单双中三大小单双":QiansandaxiaodanshuangComponent,
+    "大小单双中三大小单双":ZhongsandaxiaodanshuangComponent,
 
     "任选任选二直选复式":RenxuanerzhixuanfushiComponent,
     "任选任选二直选和值":RenxuanerzhixuanhezhiComponent,

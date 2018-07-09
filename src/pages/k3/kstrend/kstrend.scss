@@ -381,6 +381,7 @@ page-kstrend {
       text-align: center;
     }
     .top-line, .his-line {
+
       width: 155%;
       height: 25px;
       line-height: 25px;
@@ -401,6 +402,9 @@ page-kstrend {
       }
     }
     .his-line {
+      .hot,.t-hz{
+        color:rgb(248,100,58);
+      }
       height: 32px;
       line-height: 32px;
     }

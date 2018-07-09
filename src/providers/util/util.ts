@@ -45,15 +45,6 @@ export class UtilProvider {
     {number:'01期', history:[5,7,7,5,7]},
     {number:'02期', history:[3,3,3,8,5]},
     {number:'03期', history:[9,6,6,9,5]},
-    {number:'04期', history:[6,3,3,2,2]},
-    {number:'05期', history:[8,5,5,1,3]},
-    {number:'06期', history:[2,2,2,4,4]},
-    {number:'07期', history:[9,8,3,5,7]},
-    {number:'08期', history:[4,5,7,1,5]},
-    {number:'09期', history:[3,5,6,8,2]},
-    {number:'10期', history:[7,5,3,9,3]},
-
-    {number:'33期', history:[8,2,6,6,2]}
   ]
   fakeData:any = {}
 
@@ -89,8 +80,6 @@ export class UtilProvider {
         '个位走势':[3,4,5,6,7,8,9,1,2,5]
     }  
   }
-
-
 
   //五星玩法
   wuxingData = []
@@ -296,9 +285,9 @@ this.fakeTrend = [0,1,2,3,4].reduce((a,b) =>{
     formatMoney(num){
         let re = /(-?\d+)(\d{3})/;
         if (Number.prototype.toFixed) {
-            num = (num).toFixed(2)
+            num = (+num).toFixed(2)
         } else {
-            num = Math.round(num * 100) / 100
+            num = Math.round(+num * 100) / 100
         }
         num = '' + num;
         while (re.test(num)) {
@@ -307,60 +296,39 @@ this.fakeTrend = [0,1,2,3,4].reduce((a,b) =>{
         return num
     }
 
-   
-//    processOrder(name?){
-//     let dataArr = []
-//     this.common.ballData.forEach(item => {
-//          let arr = []
-//          item.value.forEach((ele,index) => {
-//               ele == 1 ? arr.push(('0'+index).slice(-2)):''
-//          })
-//          dataArr.push(arr.join(' '))
-//     })
-//     console.log(dataArr)
-//     // dataArr = dataArr.map(item => item.join(''))
-   
-//     return {
-//          betData:dataArr,
-//          gameName:name?name:this.common.method + this.common.smallMethod,
-//          count:this.common.count,
-//          price:this.common.betPrice
-//     }
-//   }
+   randomChoose(){
+     this.common.componentRef.instance.randomChoose()
+   }  
 
-
-
-   shakePhone(){
+   shakePhone(func:Function){
      var speed = 15,self = this;    // 用来判定的加速度阈值，太大了则很难触发
      var x, y, z, lastX, lastY, lastZ;
      x = y = z = lastX = lastY = lastZ = 0;
-     //func()
 
      function shake(event){
         var acceleration = event.accelerationIncludingGravity;
         x = acceleration.x;
         y = acceleration.y;
         //alert(this.shake)
-        if((Math.abs(x-lastX) > speed || Math.abs(y-lastY) > speed) && !self.shake)  {
+        if((Math.abs(x-lastX) > speed || Math.abs(y-lastY) > speed) && !self.shake){
             // 用户设备摇动了，触发响应操作
             // 此处的判断依据是用户设备的加速度大于我们设置的阈值
-            self.shake = true;
+            this.shake = true;
             new Observable(observer => {
                 setTimeout(() => {
                   observer.next();
                    }, 300);
             }).subscribe(value => {
-                  //func.bind(self)()
-                  self.common.componentRef.instance.randomChoose()
-                  self.shake = false
-                  self.vibration.vibrate(500)
+                  func.bind(this)()
+                  this.shake = false
+                  this.vibration.vibrate(500)
             })
         }
         lastX = x;
         lastY = y;
     }
      this.listeners.push(shake)
-     window.addEventListener('devicemotion',shake,false);
+     window.addEventListener('devicemotion',shake.bind(self),false);
   }
 
   checkResult(data, array){

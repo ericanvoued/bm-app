@@ -3,7 +3,8 @@
     <tab-yuan ></tab-yuan>
     <div class="clear" (click)="clearData()"></div>
     <div class="tab-mode" (click)="common.openTab()" style="z-index:10">
-        <div>{{common.tabYuan}}</div><div>模式</div>
+        <div style="display:flex;align-items:center"><div>{{common.tabYuan}}</div> <div class="l-triangle"></div></div>
+        <div>模式</div>
     </div>
     <div id="bet-statistic" [class.can] = "common.count > 0" (click)="addToCart()">
         <div style="width:30px;padding-left:20px;line-height:50px;font-size:18px">+</div>

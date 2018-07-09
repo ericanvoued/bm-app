@@ -41,67 +41,60 @@ export class GamemenuComponent implements OnDestroy{
     //小玩法
     smallMethod:string;
 
-    bigIndex:number;
+    bigIndex:number = 0;
 
 
     constructor(public common:CommonProvider,public util:UtilProvider, public events:Events) {
        console.log('Hello GamemenuComponent Component');
    
-       this.events.subscribe('getMethod', () => {
-        this.method = this.common.method
-        this.small = this.common.small
-        this.smallMethod = this.common.smallMethod
-        this.bigIndex = this.common.bigIndex
-        console.log(this.method)           
-       })
     }
 
     ngOnDestroy(){
         console.log('destroy')
-        this.events.unsubscribe('getMethod')
+        //this.events.unsubscribe('getMethod')
     }
 
     // dawan fa
     setMethodIndex(index){
         this.bigIndex = index
-        this.method = this.common.gameMethodConfig[index].name_cn
-
+       // this.method = this.common.gameMethodConfig[index].name_cn
+        this.common.bigId = this.common.gameMethodConfig[index].id
         if(this.common.gameMethodConfig[index].children.length){
-            this.small = this.common.gameMethodConfig[index].children
-            this.smallMethod = this.common.gameMethodConfig[index].children[0].children[0].name_cn
-        }else{
-            this.small = this.common.small = []
-            this.smallMethod = this.common.smallMethod = ''
-            this.common.method = this.common.gameMethodConfig[index].name_cn
-  
-            this.util.setData()
-            this.common.visible = 'invisable';
-            $('.body-bg').fadeOut(300)
+            this.common.small = this.common.gameMethodConfig[index].children
+            console.log(this.common.smallId)
+            //this.smallMethod = this.common.gameMethodConfig[index].children[0].children[0].name_cn
         }
         console.log('dddddd')
-
         //this.switch.emit(this.method + this.smallMethod)
     }
 
     //小玩法切换
-    setSmallIndex(j,name){
+    setSmallIndex(j,k){
         this.common.toggle()
-        if(this.common.gameMethodConfig[this.bigIndex].name_cn == this.common.method 
-            && this.common.secondKind == this.common.gameMethodConfig[this.bigIndex].children[j].name_cn
-            && this.common.smallMethod == name
-        ){
+        let index ;
+     
+        // if(this.common.gameMethodConfig[this.bigIndex].name_cn == this.common.method 
+        //     && this.common.secondKind == this.common.gameMethodConfig[this.bigIndex].children[j].name_cn
+        //     && this.common.smallMethod == name
+        // ){
+        //     console.log('same')
+        //     //this.toggle()
+        //     return 
+        // }
+       // let index = $('.big-method li.active').index()
+console.log(this.bigIndex,j,k)
+console.log(this.common.gameMethodConfig[this.bigIndex].children[j].children[k])
+
+        if(this.common.tempSmallId == this.common.gameMethodConfig[this.bigIndex].children[j].children[k].id){
             console.log('same')
-            //this.toggle()
             return 
         }
 
-        this.smallMethod = name
-        this.common.setGameConfig(this.bigIndex,j,name)
+     
+        this.common.setGameConfig(this.bigIndex,j,k)
         this.util.resetData()
         this.util.setData()
 
-        // this.common.visible = 'invisable';
-        // $('.body-bg').fadeOut(300)
         // console.log(name)
         console.log(this.common.secondKind)
 
@@ -117,6 +110,7 @@ export class GamemenuComponent implements OnDestroy{
     toggle(){
         console.log('dddd')
         this.common.visible = 'invisable';
+      
         $('.body-bg').fadeOut(300)
     }
 

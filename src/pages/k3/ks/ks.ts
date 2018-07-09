@@ -58,7 +58,6 @@ export class KsPage extends KsAction {
 
   ionViewDidLoad() {
 
-    localStorage.idstr = localStorage.idstr;
     let that = this;
     this.util.shakePhone(() => {
       this.shakeClick();
@@ -78,7 +77,9 @@ export class KsPage extends KsAction {
     });
     this.initAny();
 
+
   }
+
 
   initOdds(data) {
 
@@ -91,23 +92,31 @@ export class KsPage extends KsAction {
     erbt_prize = new Number(data[4].prize).toFixed(2);
     slh_prize = new Number(data[5].prize).toFixed(2);
     dtys_prize = new Number(data[6].prize).toFixed(2);
-    // console.log('data[6]=='+JSON.stringify(data[6]))
+
 //hz
 //     $('.hz-section .content-box .ball-num')
+    for(var i=0;i<18;i++){
+      var inx = i+3;
+      $('.hz-section .prize').eq(i).text('奖金'+new Number(hz_extra_prize[inx]).toFixed(2)+'元');
+    }
 //三同号
     $('.santh-section .content-box .ball-num').find('.prize').text('奖金' + sth_prize + '元')
 //二同号
-//     $('.ert-section .content-box .ball-num').find('.prize').text('奖金'+erth_prize+'元')
+    $('.eth_prize').text(erth_prize);
 //三不同号
-//     $('.sanbth-section .content-box .ball-num').find('.prize').text('奖金'+sbt_prize+'元')
+    $('.sbt_prize').text(sbt_prize);
 //二不同号
-//     $('.erbth-section .content-box .ball-num').find('.prize').text('奖金'+erbt_prize+'元')
+    $('.ebt_prize').text(erbt_prize);
 //三连号
-    $('.sanlh-section .content-box .ball-num').find('.prize').text('奖金' + slh_prize + '元')
+    $('.sanlh-section .prize').text('奖金' + slh_prize + '元');
 //单挑一骰
-    $('.dtys-section .content-box .ball-num').find('.prize').text('奖金' + dtys_prize + '元')
+    $('.dtys-section .prize').text('奖金' + dtys_prize + '元');
+
 
   }
+
+
+
 
   getnewlotterymissed60() {
     var url = '/api-lotteries-h5/getnewlottterymissed/' + localStorage.idstr + '/60?_t=';// + userInfo.auth_token;
@@ -200,22 +209,18 @@ export class KsPage extends KsAction {
   }
 
   requestHisData() {
-    // localStorage.clear()
+
     // var userInfo = JSON.parse(localStorage.userInfo);
     var url, data;
     url = '/api-lotteries-h5/load-issues/' + localStorage.idstr + '?_t=';
-    // console.log('userInfo==' + userInfo);
-    // var url = '/api-lotteries-h5/load-issues/21?_t=' + userInfo.auth_token;
 
-    //load-issues/21?count=90&_t=' // + userInfo.auth_token;
-    // http://user.firecat.com/api-lotteries-h5/load-issues/1?_t=4b5dbcc45a38784ce1aabaaa03ae806a
     this.rest.getUrlReturn(url)
       .subscribe((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.IsSuccess) {
 
           localStorage.hisissue = JSON.stringify(data.data);
-          console.log('localStorage.hisissue===' + JSON.parse(localStorage.hisissue));
+          // console.log('localStorage.hisissue===' + JSON.parse(localStorage.hisissue));
           var htm = '', newary = [];
           if (data.data.length > 10) {
             newary = data.data.slice(0, 9);
@@ -236,7 +241,7 @@ export class KsPage extends KsAction {
               item = '<li class="his-line">\n' +
                 '        <p class="t-issue">' + newary[i].number.slice(4) + '期</p>\n' +
                 '        <p class="cutline"><span class="dom"></span></p>\n' +
-                '        <p class="kj-ing">正在开奖...</p>\n' +
+                '        <p class="kj-ing">等待开奖...</p>\n' +
                 '      </li>';
             } else {
               item = '<li class="his-line">\n' +
@@ -345,6 +350,10 @@ export class KsPage extends KsAction {
 
 
   initAny() {
+    // let that = this;
+    // $('.his-box').on('click', function () {
+    //   that.pushToTrend();
+    // });
     localStorage.wayId = 237;
     localStorage.moneyunit = 1;
     localStorage.wanfa = '和值';
@@ -354,7 +363,12 @@ export class KsPage extends KsAction {
       $(".his-box").stop().animate({height: "0px"}, 0);
       return;
     }
+
+
   }
+
+
+
 
   pushToBasket() {
 
@@ -392,6 +406,7 @@ export class KsPage extends KsAction {
     this.navCtrl.push("KsBasketPage")
 
   }
+
 
 
   pushToTrend() {

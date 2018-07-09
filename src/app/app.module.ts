@@ -35,6 +35,15 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {UtilProvider} from '../providers/util/util';
 import {BasketDataProvider} from '../providers/basket-data/basket-data';
 import {Vibration} from '@ionic-native/vibration';
+import {TrendHeadComponent} from '../components/gametrend/trend-head/trend-head'
+// import {WuxingComponent} from '../components/gametrend/wuxing/wuxing'
+import {SixingComponent} from '../components/gametrend/sixing/sixing'
+import {KuadutrendComponent} from '../components/gametrend/kuadutrend/kuadutrend'
+import {ZhixuanhezhiComponent} from '../components/gametrend/qiansan/zhixuanhezhi/zhixuanhezhi'
+import { ZufuComponent } from '../components/gametrend/zufu/zufu'
+
+import {gameConfig} from './gameComponent'
+import {DaxiaodanshuangComponent} from '../components/gametrend/daxiaodanshuang/daxiaodanshuang'
 
 import {SignupProvider} from '../providers/signup/signup';
 

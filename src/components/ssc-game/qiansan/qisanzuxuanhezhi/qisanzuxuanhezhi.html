@@ -4,7 +4,7 @@
  <div>{{common.smallKind.bonus_note}} {{util.formatMoney(common.bonus)}} 元</div>
  <div class="l-game" *ngFor="let data of common.ballData;let ii= index" style="margin-bottom:0">
                 <div class="l hezi">
-                    <p><span></span>{{getWei(data.key)}}</p>
+                    <p><span></span>选号</p>
                     <p class="statistic-data" *ngIf="check('当前遗漏')">遗漏</p>
                     <p class="statistic-data" *ngIf="check('30期冷热')">冷热</p>
                     <p class="statistic-data" *ngIf="check('平均遗漏')">平均</p>

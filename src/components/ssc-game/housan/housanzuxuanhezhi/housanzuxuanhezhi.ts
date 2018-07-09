@@ -69,6 +69,19 @@ export class HousanzuxuanhezhiComponent extends commonMethod{
     return arr.join('| ')
  }
 
+ getOriginLotteryText(){
+    let total = []
+    this.getCommonData().forEach((item,index) => {
+         let arr = []
+         if(item.length)
+           // arr.push(item*index*7 + 1)
+            arr.push(...item.map(ele => 7*index + ele + 1))
+        
+         total.push(arr)
+    }) 
+    return total.filter(ele => ele.length > 0).map(ele => ele.join('|')).join('|')
+  }
+
  getCount(){
     let count = 0
     this.getOriginData().forEach(item => {

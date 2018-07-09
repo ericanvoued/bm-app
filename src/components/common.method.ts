@@ -5,6 +5,7 @@ import { BasketDataProvider } from '../providers/basket-data/basket-data'
 import * as $ from 'jquery'
 
 
+
 $.fn.Press = function(fn1,fn2) {
     var timeout ;
     var $this = this;
@@ -173,7 +174,7 @@ export class commonMethod{
    }
 
    getLotteryText(){
-       return this.getCommonData().filter(ele => ele.length > 0).map(ele => ele.map(item => ('0' + item).slice(-2) + ' ').join('')).join('| ')
+       return this.getCommonData().filter(ele => ele.length > 0).map(ele => ele.map(item => ('0' + item).slice(-2) + '').join('')).join('|')
    }
 
    getOriginLotteryText(){
@@ -284,13 +285,6 @@ export class commonMethod{
         }
         return data
      }
-
-    //奇偶 全清
-    // changeActive(index,choice,name){
-    //      this.util.changeActive(index,choice,name)
-    //      this.calculate()
-    // }
-
 
      //奇偶 全清
      changeActive(index,choice,name){

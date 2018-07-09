@@ -17,7 +17,8 @@ import { BasketDataProvider } from '../../../../providers/basket-data/basket-dat
   templateUrl: 'qianerzuxuanfushi.html'
 })
 export class QianerzuxuanfushiComponent extends commonMethod{
-
+  @Input('choose') choose: any[] = [];
+  
   text: string;
 
   constructor(public common:CommonProvider, public util:UtilProvider,public tool:ToolsProvider,public basket:BasketDataProvider) {
@@ -41,6 +42,10 @@ export class QianerzuxuanfushiComponent extends commonMethod{
       }
     })
       this.calculate()
+  }
+
+  check(choice){
+    return this.choose.indexOf(choice) > -1
   }
 
   getCount(){

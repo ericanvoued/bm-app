@@ -176,8 +176,6 @@ export class BasketDataProvider {
 
   processOrder(){
     let dataArr = []
-    let names = name?name: this.common.gameMethodConfig[0].name_en + this.common.bigKindEn + ' ' + this.common.smallKind.name_en
-
     /**
      * lotterysText:this.common.componentRef.getLotteryText(), 
      * 
@@ -193,10 +191,10 @@ export class BasketDataProvider {
         
          //amountText:'',
          //lotterys:this.common.componentRef.instance.getLotteryData(),
-         lotterysText:this.common.componentRef.instance.getOriginLotteryText(), 
+         lotterysText:this.common.componentRef.instance.getLotteryText(), 
          wayId:this.common.smallId,
-         type:names,
-         gameName:this.common.method + this.common.smallMethod,
+        // type:names,
+         gameName:this.common.method == '二星' ? this.common.method + this.common.secondKind + this.common.smallMethod : this.common.method + this.common.smallMethod,
          position:this.common.componentRef.instance.getPositionArr(),    
          num:this.common.count,
          onePrice:2,
@@ -206,7 +204,8 @@ export class BasketDataProvider {
          multiple:this.statistic.multiple,
          max_multiple:this.common.smallKind.max_multiple,
         // postParameter: this.common.componentRef.instance.getLotteryText(),
-         viewBalls:this.common.componentRef.instance.getOriginLotteryText()     
+         viewBalls:this.common.componentRef.instance.getOriginLotteryText(),
+             
     }
   }
 

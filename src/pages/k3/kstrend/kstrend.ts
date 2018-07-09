@@ -4,9 +4,8 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import * as $ from 'jquery';
 import {BaseToolProvider} from '../../../providers/base-tool/base-tool';
 // import {KsBasketPage} from '../ks-basket/ks-basket';
-import {ViewController} from "ionic-angular/navigation/view-controller";
-import * as Hammer from 'hammerjs';
-import {Tpl} from '../../../providers/base-tool/tpl';
+// import {ViewController} from "ionic-angular/navigation/view-controller";
+// import {Tpl} from '../../../providers/base-tool/tpl';
 // import {KstrendAction} from '../../../providers/base-tool/kstrend-action';
 import {KstrendAction} from './kstrend-action';
 @IonicPage()

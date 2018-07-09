@@ -14,7 +14,6 @@ import * as $ from 'jquery'
  * See https://angular.io/api/core/Component for more info on Angular
  * Components.
  */
-@IonicPage()
 @Component({
   selector: 'zhixuanfushi',
   templateUrl: 'zhixuanfushi.html'
