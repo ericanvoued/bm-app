@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage,ToastController,AlertController,LoadingController, NavController, NavParams } from 'ionic-angular';
 import { HttpClientProvider } from '../../../providers/http-client/http-client'
 import { LoadingProvider } from '../../../providers/loading/loading'
-
+import {TabsPage} from '../../tabs/tabs'
 
 @IonicPage()
 @Component({
@@ -30,9 +30,9 @@ export class MoreOptionPage {
     await this.http.fetchData('/h5-api-auth/logout?_t='+ this.userInfo.auth_token).then(data=>{
       loading.dismissAll();
       if(data.isSuccess){
-        localStorage.clear();
+        localStorage.removeItem('userInfo');
         this.loadingProd.showToast(this.toastCtrl,data.Msg)
-        this.navCtrl.push('TabsPage', {
+        this.navCtrl.push(TabsPage, {
           pageIndex: 3
         });
       }else {
@@ -43,6 +43,7 @@ export class MoreOptionPage {
 
   showConfirm() {
     const confirm = this.alertCtrl.create({
+      cssClass:'quitModel',
       title: '确定退出吗？',
       buttons: [
         {

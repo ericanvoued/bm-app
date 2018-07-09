@@ -131,7 +131,7 @@ export class SignupPage {
           //this.storage.set('userInfo', data['data']);
 
           localStorage.userInfo = JSON.stringify(data['data']);
-          this.navCtrl.setRoot(TabsPage, {
+          this.navCtrl.push(TabsPage, {
             pageIndex: 0
           });
         } else {

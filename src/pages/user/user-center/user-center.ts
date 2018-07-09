@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, ToastController, LoadingController, normalizeURL,NavController, NavParams, Platform} from 'ionic-angular';
+import {ToastController, LoadingController, normalizeURL,NavController, NavParams, Platform} from 'ionic-angular';
 import { LoadingProvider } from '../../../providers/loading/loading'
 import {ActionSheetController} from 'ionic-angular';
 import { HttpClientProvider } from '../../../providers/http-client/http-client'
@@ -15,7 +15,7 @@ import {FilePath} from '@ionic-native/file-path';
 
 declare var cordova: any;
 
-@IonicPage()
+
 @Component({
   selector: 'page-user-center',
   templateUrl: './user-center.html',

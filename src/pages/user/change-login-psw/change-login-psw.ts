@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,LoadingController, ToastController } from 'ionic-angular';
 import {UserCenterProvider } from '../../../providers/user-center/user-center'
 import {LoadingProvider} from '../../../providers/loading/loading'
-
+// import {TabsPage} from '../../tabs/tabs'
 
 
 @IonicPage()

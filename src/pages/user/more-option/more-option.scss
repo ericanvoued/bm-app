@@ -41,4 +41,20 @@ page-more-option {
   .mt-14{
     margin-top: 14px;
   }
+  .disable-quit{
+    background-color: #B4B4B4!important;
+  }
 }
+.quitModel{
+  .alert-button-group{
+    height: auto!important;
+  }
+  .alert-message{
+    height: 0!important;
+    padding: 0!important;
+  }
+  .alert-title{
+    line-height:50px!important;
+  }
+}
+

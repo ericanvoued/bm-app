@@ -11,6 +11,7 @@ import {LoginProvider} from '../../../providers/login/login';
 import {HttpClientProvider} from '../../../providers/http-client/http-client'
 import {LoadingProvider} from '../../../providers/loading/loading'
 import * as md5 from 'md5';
+import {TabsPage} from '../../tabs/tabs'
 
 @IonicPage()
 @Component({
@@ -66,11 +67,11 @@ export class LoginPage {
           // if(this.navParams.get('page')){
           //   //this.navCtrl.push(TabsPage)
           //   this.appCtrl.getRootNav().push(TabsPage)
-          // }else  
+          // }else
           //   this.navCtrl.setRoot(TabsPage, {
           //     pageIndex: 3
           //   })
-          this.navCtrl.push('TabsPage', {
+          this.navCtrl.push(TabsPage, {
             pageIndex: 3
           });
         } else {

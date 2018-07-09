@@ -28,7 +28,8 @@
       <p>版本自动更新</p>
       <ion-toggle checked="true"></ion-toggle></div>
     <div class="submit-row">
-      <button class="submit-button" (click)="showConfirm()">退出登录</button>
+      <button *ngIf="userInfo==null" class="submit-button disable-quit" (click)="showConfirm()">退出登录</button>
+      <button *ngIf="userInfo!==null" class="submit-button" (click)="showConfirm()">退出登录</button>
     </div>
   </div>
 </ion-content>
