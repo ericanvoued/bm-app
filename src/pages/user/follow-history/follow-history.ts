@@ -3,6 +3,8 @@ import { IonicPage, ToastController,LoadingController,NavController, NavParams }
 import {HttpClientProvider} from '../../../providers/http-client/http-client'
 import { LoadingProvider } from '../../../providers/loading/loading'
 
+import { TabsPage } from '../../tabs/tabs'
+
 @IonicPage()
 @Component({
   selector: 'page-follow-history',
@@ -142,4 +144,9 @@ export class FollowHistoryPage {
   }
 
 
+  toHome(){
+    this.navCtrl.push(TabsPage, {
+      pageIndex: 0
+    });
+  }
 }

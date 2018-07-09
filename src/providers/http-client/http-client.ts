@@ -27,7 +27,7 @@ export class HttpClientProvider {
                     resolve(data);
                   } else {
                       console.log('ffqfqwfwq')
-                    this.load.showTip(data.Msg, 3000);
+                   // this.load.showTip(data.Msg, 3000);
                     //reject(data);
                   }
             }, (e) => {
@@ -44,7 +44,7 @@ export class HttpClientProvider {
                 if (data.isSuccess) {
                     resolve(data);
                   } else {
-                    this.load.showTip(data.Msg, 3000);
+                   // this.load.showTip(data.Msg, 3000);
                     console.log(data)
                     //reject(data);
                   }
