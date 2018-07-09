@@ -84,14 +84,14 @@ export class KsPage extends KsAction {
   initOdds(data) {
 
     var hz_prize, hz_extra_prize, sth_prize, erth_prize, sbt_prize, erbt_prize, slh_prize, dtys_prize;
-    hz_prize = data[6].prize;
-    hz_extra_prize = data[6].extra_prize;
-    sth_prize = new Number(data[0].prize).toFixed(2);
-    erth_prize = new Number(data[1].prize).toFixed(2);
-    sbt_prize = new Number(data[2].prize).toFixed(2);
-    erbt_prize = new Number(data[3].prize).toFixed(2);
-    slh_prize = new Number(data[4].prize).toFixed(2);
-    dtys_prize = new Number(data[5].prize).toFixed(2);
+    hz_prize = data[0].prize;
+    hz_extra_prize = data[0].extra_prize;
+    sth_prize = new Number(data[1].prize).toFixed(2);
+    erth_prize = new Number(data[2].prize).toFixed(2);
+    sbt_prize = new Number(data[3].prize).toFixed(2);
+    erbt_prize = new Number(data[4].prize).toFixed(2);
+    slh_prize = new Number(data[5].prize).toFixed(2);
+    dtys_prize = new Number(data[6].prize).toFixed(2);
 
 //hz
 //     $('.hz-section .content-box .ball-num')
