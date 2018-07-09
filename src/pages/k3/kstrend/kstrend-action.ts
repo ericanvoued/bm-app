@@ -385,7 +385,7 @@ export class KstrendAction {
             item = '<li class="his-line">\n' +
               '        <p class="t-issue">' + arr[i].number.slice(6) + '期</p>\n' +
               '        <p class="cutline"><span class="dom"></span></p>\n' +
-              '        <p class="kj-ing">正在开奖...</p>\n' +
+              '        <p class="kj-ing">等待开奖...</p>\n' +
               '      </li>';
           } else {
             item = '<li class="his-line">\n' +
@@ -439,7 +439,7 @@ export class KstrendAction {
             item = '<li class="his-line">\n' +
               '        <p class="t-issue">' + arr[i].number.slice(4) + '期</p>\n' +
               '        <p class="cutline"><span class="dom"></span></p>\n' +
-              '        <p class="kj-ing">正在开奖...</p>\n' +
+              '        <p class="kj-ing">等待开奖...</p>\n' +
               '      </li>';
           } else {
             item = '<li class="his-line">\n' +
@@ -478,7 +478,7 @@ export class KstrendAction {
       if (code == '') {
         item = '<li class="his-line">\n' +
           '        <p class="t-issue">' + arr[i].number.slice(8) + '期</p>\n' +
-          '        <p class="kj-ing" style="width: 85vw;">正在开奖...</p>\n' +
+          '        <p class="kj-ing" style="width: 85vw;">等待开奖...</p>\n' +
           '      </li>';
         $('.jbzs-container .jbzs-ul').append(item);
         continue;
@@ -610,7 +610,7 @@ export class KstrendAction {
       if (code == '') {
         item = '<li class="his-line">\n' +
           '        <p class="t-issue">' + arr[i].number.slice(6) + '期</p>\n' +
-          '        <p class="kj-ing" style="width: 85vw;">正在开奖...</p>\n' +
+          '        <p class="kj-ing" style="width: 85vw;">等待开奖...</p>\n' +
           '      </li>';
         $('.xtzs-container .xtzs-ul').append(item);
         continue;
@@ -718,8 +718,7 @@ export class KstrendAction {
           totalyl += averarr[p].length;
         }
       }
-      // console.log('字符串处理后averarr.====='+averarr);
-      // console.log('字符串处理后averarr.length=='+averarr.length);
+
       // console.log('empty=='+empty);
       duanshu = averarr.length - empty;
       aver_1 = Math.floor(totalyl / duanshu);
@@ -729,8 +728,7 @@ export class KstrendAction {
       max_arr.push(max_1);
       hot_arr.push(hot);
       // console.log('段数==='+duanshu);
-      // console.log('总共遗漏==='+totalyl);
-      // console.log('平均遗漏===~~~~~~~~'+aver_1);
+
     }
     // var list = $('.xtzs-ul .t-1');
     // list.each(function () {
@@ -801,7 +799,7 @@ export class KstrendAction {
       if (code == '') {
         item = '<li class="his-line">\n' +
           '        <p class="t-issue">' + arr[i].number.slice(6) + '期</p>\n' +
-          '        <p class="kj-ing" style="width: 85vw;">正在开奖...</p>\n' +
+          '        <p class="kj-ing" style="width: 85vw;">等待开奖...</p>\n' +
           '      </li>';
         $('.hmfb-container .hmfb-ul').append(item);
         continue;
@@ -971,7 +969,7 @@ export class KstrendAction {
       if (code == '') {
         item = '<li class="his-line">\n' +
           '        <p class="t-issue">' + arr[i].number.slice(6) + '期</p>\n' +
-          '        <p class="kj-ing" style="width: 85vw;">正在开奖...</p>\n' +
+          '        <p class="kj-ing" style="width: 85vw;">等待开奖...</p>\n' +
           '      </li>';
         $('.hmfb-container .hmfb-ul').append(item);
         continue;
@@ -1102,16 +1100,57 @@ export class KstrendAction {
         lr60 = JSON.parse(localStorage.yldata60).hz.hot;
         lr90 = JSON.parse(localStorage.yldata90).hz.hot;
         ylarr = JSON.parse(localStorage.yldata90).hz.current;
+
+        console.log('lr30===='+lr30);
+
+
+
+        var lr30_max  = Math.max(...lr30);//Math.max(...lr30);
+        var lr60_max  = Math.max(...lr60);
+        var lr90_max  = Math.max(...lr90);
+        var ylarr_max = Math.max(...ylarr);
+
+        console.log('lr30_max===='+lr30_max);
+        console.log('lr60_max===='+lr60_max);
+        console.log('lr90_max===='+lr90_max);
+
         for (var i = 0; i < 16; i++) {
+
+
           var inx = i + 3, hz = i + 1;
-          item = '<li class="his-line">\n' +
-            '        <p class="t-hz">' + inx + '</p>\n' +
-            '        <p class="t-30lr">' + lr30[inx] + '</p>\n' +
-            '        <p class="t-60lr">' + lr60[inx] + '</p>\n' +
-            '        <p class="t-100lr">' + lr90[inx] + '</p>\n' +
-            '        <p class="t-yl">' + ylarr[inx] + '</p>\n' +
-            '      </li>';
-          htm += item;
+          htm +=  '<li class="his-line"><p class="t-hz">' + inx + '</p>\n';
+
+          if(lr30[inx]==lr30_max){
+            htm += '<p class="t-30lr hot">' + lr30[inx] + '</p>\n';
+          }else{
+            htm += '<p class="t-30lr">' + lr30[inx] + '</p>\n';
+          }
+          if(lr60[inx]==lr60_max){
+            htm += '<p class="t-60lr hot">' + lr60[inx] + '</p>\n';
+          }else{
+            htm += '<p class="t-60lr">' + lr60[inx] + '</p>\n';
+          }
+          if(lr90[inx]==lr90_max){
+            htm += '<p class="t-100lr hot">' + lr90[inx] + '</p>\n';
+          }else{
+            htm += '<p class="t-100lr">' + lr90[inx] + '</p>\n';
+          }
+          if(lr90[inx]==ylarr_max){
+            htm += '<p class="t-yl hot">' + ylarr[inx] + '</p>\n';
+          }else{
+            htm += '<p class="t-yl">' + ylarr[inx] + '</p>\n';
+          }
+          htm +=  '</li>';
+
+          // item = '<li class="his-line">\n' +
+            // '        <p class="t-hz">' + inx + '</p>\n' +
+            // '        <p class="t-30lr">' + lr30[inx] + '</p>\n' +
+            // '        <p class="t-60lr">' + lr60[inx] + '</p>\n' +
+            // '        <p class="t-100lr">' + lr90[inx] + '</p>\n' +
+            // '        <p class="t-yl">' + ylarr[inx] + '</p>\n' +
+            // '      </li>';
+          // htm += item;
+
         }
         break;
       case '三不同号':
@@ -1190,7 +1229,7 @@ export class KstrendAction {
 
         item = '<li class="his-line">\n' +
           '        <p class="t-issue">' + arr[i].number.slice(8) + '期</p>\n' +
-          '        <p class="kj-ing" style="width: 85vw;">正在开奖...</p>\n' +
+          '        <p class="kj-ing" style="width: 85vw;">等待开奖...</p>\n' +
           '      </li>';
         $('.hzzs-container .hzzs-ul').append(item);
         continue;

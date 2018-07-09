@@ -27,7 +27,6 @@ export class LhcAction {
     this.changePlaySelect();
     this.betBtnClick();
 
-    //取消按钮
     this.alertCancelBtnClick();
 
     this.cleanBtnClick();
@@ -71,8 +70,11 @@ export class LhcAction {
 
       var wanfa = $('.wanfa').text(), bonus = 0, profit;
       if (wanfa.search('特码') != -1 || wanfa.search('正') != -1 || wanfa.search('不') != -1) {
-        bonus = money * 46.55;
+        var balldata = JSON.parse(localStorage.balls);
+        console.log('balldata[0].odds=='+balldata[0].odds)
+        bonus = money * balldata[0].odds;
         profit = bonus - money;
+
       } else if (wanfa.search('半波') != -1) {
 
         var balldata = JSON.parse(localStorage.balls);
@@ -105,15 +107,15 @@ export class LhcAction {
         }
         profit = bonus - money;
 
-      } else if (wanfa.search('不中') != -1) {
-
-        var balldata = JSON.parse(localStorage.balls);
-        for (var i = 0; i < balldata.length; i++) {
-          bonus += balldata[i].odds * moneyunit;
-        }
-        profit = bonus - money;
-
       }
+      // else if (wanfa.search('不中') != -1) {
+      //   console.log('localStorage.balls==='+localStorage.balls);
+      //   var balldata = JSON.parse(localStorage.balls);
+      //   for (var i = 0; i < balldata.length; i++) {
+      //     bonus += balldata[i].odds * moneyunit;
+      //   }
+      //   profit = bonus - money;
+      // }
 
       $('.bonus').text(bonus.toFixed(2));
       $('.profit').text(profit.toFixed(2));
@@ -200,6 +202,17 @@ export class LhcAction {
           $('.green-active').removeClass('green-active');
           $('.blue-active').removeClass('blue-active');
 
+          if(wanfa.search('特肖') != -1){
+            $('.lhc-sx .pl').text('赔率 '+localStorage.tx_prize);
+            $('.self-sx .odds.animated').text(localStorage.tx_prize);
+          }else if(wanfa.search('一肖') != -1){
+            $('.lhc-sx .pl').text('赔率 '+localStorage.yx_prize);
+            $('.self-sx .odds.animated').text(localStorage.yx_prize);
+          }else if(wanfa.search('六肖') != -1){
+            $('.lhc-sx .pl').text('赔率 '+localStorage.lx_prize);
+            $('.self-sx .odds.animated').text(localStorage.lx_prize);
+          }
+
         } else if (wanfa.search('尾数') != -1) {
           $('.currunt .ball-box .red-active').removeClass('red-active');
           $('.currunt .ball-box .green-active').removeClass('green-active');
@@ -214,17 +227,17 @@ export class LhcAction {
 
         if (title.search('不中') == -1 || title.search('六肖') == -1) {
           _this.recoverTopSlide();
-
-          console.log('.transform==' + $('.slide_one .swiper-wrapper').css('transform'));
-          console.log('localStorage.transform==' + localStorage.transform);
-
           if (!_this.isfast()&& $('.slide_one .swiper-wrapper').css('transform')== 'matrix(1, 0, 0, 1, 0, 0)') {
-
             $('.slide_one .swiper-wrapper').css('transform', localStorage.transform);
           }
         }
+
         if (title.search('码') != -1) {
           $('.lhc-tm .t-box').removeClass('current');
+          $('.peilv-tip').text('赔率 *' + localStorage.tm_prize);
+          $('.self-tm .odds.animated').text(localStorage.tm_prize);
+        }else if (title.search('不中') != -1) {
+          $('.peilv-tip').text('赔率 *' + localStorage.bz_pirze);
         }
 
         var title1 = $('.play-list .play-yellow').text();
@@ -332,7 +345,6 @@ export class LhcAction {
 
   tmBallClick() {
 
-
     // $('.b-box .tm-unit').on('click', function () {
     //   $(this).toggleClass('currunt');
     // });
@@ -368,27 +380,6 @@ export class LhcAction {
     })
 
 
-    // var timeout ;
-    // $(".b-box .tm-unit").mousedown(function() {
-    //   console.log('11111222221')
-    //   $(".b-box .tm-unit").eq($(this).index()).find('.topball').removeClass('hide');
-    //   timeout = setTimeout(function() {
-    //     console.log('11111222221')
-    //     $(".b-box .tm-unit").eq($(this).index()).find('.topball').removeClass('hide');
-    //     // $(this).find('.hide').removeClass('hide');
-    //   }, 500);
-    // });
-    // $(".b-box .tm-unit").mouseup(function() {
-    //   clearTimeout(timeout);
-    //   console.log('2222222111111111')
-    //   $(".b-box .tm-unit").eq($(this).index()).find('.topball').addClass('hide');
-    //   // $(this).find('.hide').addClass('hide');
-    // });
-    // $(".b-box .tm-unit").mouseout(function() {
-    //   clearTimeout(timeout);
-    //   console.log('333333')
-    //   $(this).find('.hide').addClass('hide');
-    // });
 
   }
 
@@ -526,39 +517,37 @@ export class LhcAction {
         if (type.search('特码') != -1 || type.search('正') != -1 || type.search('不') != -1) {
           str = $('.b-box .currunt').eq(i).find('span').eq(1).text();
           zhu = 1;
-          odds = 46.55;
+          odds =  $('.lhc-tm .peilv-tip').text().split(' ')[1].substr(1);
           txt = str;
         } else if (type.search('波') != -1) {
 
           str = $('.currunt').eq(i).attr('data-index');
           zhu = 1;
-          odds = $('.currunt').eq(i).find('h2').text().split(' ')[1];
-          odds = odds.substr(2, odds.length - 2);
+          odds = $('.currunt').eq(i).find('.pl').text().split(' ')[2];
           txt = $('.currunt').eq(i).find('h2').text().split(' ')[0];
 
         } else if (type.search('肖') != -1) {
+
           str = $('.currunt').eq(i).attr('data-index');
           zhu = 1;
-          odds = $('.currunt').eq(i).find('h2').text().split(' ')[1];
-          odds = odds.substr(2, odds.length - 2);
+          odds = $('.currunt').eq(i).find('h2').text().split(' ')[2];
           txt = $('.currunt').eq(i).find('h2').text().split(' ')[0];
 
         } else if (type.search('尾') != -1) {
 
           str = $('.currunt').eq(i).attr('data-index');
           zhu = 1;
-          odds = $('.currunt').eq(i).find('h2').text().split(' ')[1];
-          odds = odds.substr(2, odds.length - 2);
+          odds = $('.currunt').eq(i).find('h2').text().split(' ')[2];
           txt = $('.currunt').eq(i).find('h2').text().split(' ')[0];
 
         } else if (type.search('总') != -1) {
 
           str = $('.currunt').eq(i).attr('index');
           zhu = 1;
-          odds = $('.currunt').eq(i).find('span').text();
-          odds = odds.substr(3, odds.length - 3);
+          odds = $('.currunt').eq(i).find('span').text().split(' ')[2];
           txt = $('.currunt').eq(i).find('h2').text();
         }
+
 
         _this.dealWithBallData(str, zhu, odds, txt);
       }
@@ -570,7 +559,7 @@ export class LhcAction {
       var odds;
       if (type.search('特码') != -1 || type.search('正') != -1) {
 
-        odds = '47.77';
+        odds =  $('.self-tm .odds.animated').eq(0).text();
         var obj = $('.self-tm .r-input');
         var length = obj.length;
         for (var i = 0; i < length; i++) {
@@ -635,8 +624,7 @@ export class LhcAction {
           }
         }
       }
-
-
+      // console.log('odds==='+odds)
     }
   }
 
@@ -1036,7 +1024,6 @@ export class LhcAction {
     $('.lhc-bb .bb-tops li').on('click', function () {
 
       $('.lhc-bb .bb-unit').addClass('hide');
-
       if ($(this).index() == 0) {
         $(this).addClass('red-active');
         $('.bb-tops .green-active').removeClass('green-active');
@@ -1053,7 +1040,6 @@ export class LhcAction {
         $('.bb-tops .red-active').removeClass('red-active');
         $('.lhc-bb .blue').removeClass('hide');
       }
-
     });
 
   }
@@ -1061,25 +1047,20 @@ export class LhcAction {
   bb_BallClick() {
 
     $('.lhc-bb .bb-unit').on('click', function () {
-
       $(this).toggleClass('currunt');
-
       if ($(this).hasClass('red')) {
         $(this).find('.red-ball').toggleClass('red-active');
       } else if ($(this).hasClass('green')) {
         $(this).find('.green-ball').toggleClass('green-active');
       } else {
         $(this).find('.blue-ball').toggleClass('blue-active');
-
       }
     })
 
   }
 
   ani_BallClick() {
-
     $('.lhc-sx .animals-unit').on('click', function () {
-
       $(this).toggleClass('currunt');
       $(this).find('.red-ball').toggleClass('red-active');
       $(this).find('.green-ball').toggleClass('green-active');
@@ -1089,7 +1070,6 @@ export class LhcAction {
 
   ws_BallClick() {
     $('.lhc-ws .animals-unit').on('click', function () {
-
       $(this).toggleClass('currunt');
       $(this).find('.red-ball').toggleClass('red-active');
       $(this).find('.green-ball').toggleClass('green-active');
@@ -1098,11 +1078,8 @@ export class LhcAction {
   }
 
   points_BallClick() {
-
     $('.lhc-points .points-unit').on('click', function () {
-
       $(this).toggleClass('currunt');
-
     })
   }
 

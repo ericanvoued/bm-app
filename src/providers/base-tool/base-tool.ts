@@ -154,7 +154,7 @@ export class BaseToolProvider {
               $('.nextdate').text(currentstr + '截止:');
               if (lottery.search('3') != -1) {
                 // $('.currentdate').text(currentstr + '期开奖:'+ data.data.lottery_balls );
-
+                $('.currentdate').append('<img src="./assets/imgs/ks/sanjiao.png" class="dot-bottom"/>');
                 if(data.data.lottery_balls==null){
                   data.data.lottery_balls ='123';
                 }
@@ -231,7 +231,6 @@ export class BaseToolProvider {
     let _this = this;
     var totalSec = this.getRemainTime(a, b);
     var ttt = totalSec;
-    var liArr = $('.r-time span');
     this.timeIddd = setInterval(function () {
       if (totalSec <= 0) {
         //--奖期
@@ -251,9 +250,10 @@ export class BaseToolProvider {
 
         $('.basket-time').text(minute+':'+sec);
       }else{
-        liArr[0].innerHTML = hour;
-        liArr[1].innerHTML = minute;
-        liArr[2].innerHTML = sec;
+
+        $('.r-time span').eq(0).text(hour);
+        $('.r-time span').eq(1).text(minute);
+        $('.r-time span').eq(2).text(sec);
         var scale = totalSec / ttt * 100;
         $('.time-bar').css('width', scale + '%');
       }
