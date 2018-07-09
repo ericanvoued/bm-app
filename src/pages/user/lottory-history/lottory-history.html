@@ -31,7 +31,7 @@
       <div class="enpty" *ngIf="lrecord.data.length==0">
         <p>暂无相关记录</p>
         <div class="fix-sure-btn">
-          <button>立即购彩</button>
+          <button (click)="toHome()">立即购彩</button>
         </div>
       </div>
       <div class="month"  *ngIf="lrecord.data.length!=0">

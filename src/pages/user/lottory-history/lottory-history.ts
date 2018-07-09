@@ -4,6 +4,7 @@ import {IonicPage,LoadingController, ToastController, NavController, NavParams} 
 import {HttpClientProvider} from '../../../providers/http-client/http-client'
 import { LoadingProvider } from '../../../providers/loading/loading'
 import Clipboard from 'clipboard'
+import {TabsPage} from '../../tabs/tabs'
 
 @IonicPage()
 @Component({
@@ -181,5 +182,11 @@ export class LottoryHistoryPage {
     // alert(cpTxt);
     // $('#message').text('Copy Data : ' + cpTxt);
     return false;//否则设不生效
+  }
+
+  toHome(){
+    this.navCtrl.push(TabsPage, {
+      pageIndex: 0
+    });
   }
 }
