@@ -33,9 +33,10 @@ export class ChargePage {
     toast: null,
   }
   numList = {
+    currenMoney:null,
     chargeMoney: null,
     conpareMoney: null,
-    status: [0, 0, 0, 0, 0, 0],
+    status: [0,0,0,0,0,0],
     money: [100, 300, 500, 1000, 3000, 5000]
   }
 
@@ -86,13 +87,20 @@ export class ChargePage {
     for (let i = 0; i < this.numList.status.length; i++) {
       this.numList.status[i] = 0;
     }
-    this.numList.chargeMoney += money;
+    if(this.numList.currenMoney == money){
+      this.numList.chargeMoney += money;
+    }else {
+      this.numList.currenMoney = money
+      this.numList.chargeMoney = money;
+    }
+
     this.numList.conpareMoney = money;
     this.numList.status[_index] = 1;
   }
 
 
   inputMoney() {
+    this.numList.currenMoney = this.numList.chargeMoney;
     for (let i = 0; i < this.numList.status.length; i++) {
       this.numList.status[i] = 0;
     }

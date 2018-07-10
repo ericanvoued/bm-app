@@ -86,20 +86,23 @@ page-hot-gmage-list {
         .delete-lottory{
           display: block;
           position: absolute;
-          top: 0px;
+          top: 2px;
           left: 0;
-          background-position: 0 2px;
-          background-size: 21px 21px;
-          width: 100%;
-          height: 100%;
-          border-radius: 50%;
+          background-position: center center;
+          background-size: 18px 18px;
+          background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAADAUlEQVRogdXaO4hUVxzH8c9cxMIXS0gsBN/gEhvDEgtLE7CzXM2iIHZro1XaFLFMkzQx2wQRfCTpYueClhaJiVV0Fd9goYJLWCy22LX439nZWeZ57505O18YmJl7Hr/fzLn3nPM//9rs7KyK2Imj+BLj2INPsRk1LOAdnmMOf+MOXlXR+YaS9XfhDL7BwS5lP8lfB3Bs1ff/4Qau4EVRIVnBeofwO57he91NdOJg3sbTvM1DRRrp18h2XMa/mCxQv5uWybzty3lffVXulUkxts+IMT8oankfc3mfPdGLkY34WfztY4WkFWMs7/NSrqEj3YxswU2cK6+rMNO5hi2dCnUysgm3ND9hUnFMaNnUrkA7IxvFr3BkAKKKcgR/ajPM2hn5EV8NSlEJvsZPrS60MnJS2nuiG9NiAm5irZEd+GUocspxSWhdYa2RHwz3EVuUMaF1hdVGJjA1VDnlmBKa0WzkO4OdsaumJjSjYWQ3jieRU47j2EvDyGnVLgCHRYaz9TdwKp2W0pwkjOzE52m1lOIA9mXW5wzeL0czsccedb7IxF8z6oxn2J9aRQXsy/BZahUVMJZhW2oVFbB1FCfBlmT4P7WICljI8Da1igp4n+FJahUV8DTDo9QqKmAuE1HxUed+htupVVTAnUycTzxIraQEj+X3CFxNqaQkv9HYWF3FUjothVnCrzSMPBch0lHjpjhsatqnX8RyEjnFWBYnXWg2cg/Xhy6nONfxT/3D2kXjt5gfqpxizAutK6w18tr6DmDXOSe0rtBqGX/D+g5kzwiNTbTbj1ywPmf82zjf6kI7I4siHHl3UIoKcFdoWmx1sdMO8YPG2V1q6meZH9oV6LbVXRC/wkyFovplJtew0KlQL3v2RXHcdcJwH83zIq47rc1wWk0/wYc/RNbPFYNdASznfYyLhIGe6DeK8kakV0wIY1UuNJfyNifyPt70U7lomtN9MdTqaU5Tikf0H+KakmlOtQoTz3aJxLPDIp68RySe1VMvVieePcJfIvHsZRWdfwRsc39Iu3YigwAAAABJRU5ErkJggg==');
+          width: 21px;
+          height: 21px;
+          background-repeat: no-repeat;
           background-color: transparent;
           font-size: 20px;
           color: #ffffff;
           font-weight: bold;
-          line-height: 19px;
-          //text-align: center;
-          text-indent: 5px;
+          line-height: 21px;
+          text-align: center;
+          //text-indent: 3px;
+          animation: shakingIcon .5s ease-in-out infinite;
+          transform: rotate(0deg);
         }
       }
     }
@@ -116,3 +119,25 @@ page-hot-gmage-list {
     letter-spacing: 0;
   }
 }
+
+@keyframes shakingIcon {
+  0% {
+    transform: rotate(0deg);
+  }
+  22% {
+    transform: rotate(30deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  78% {
+    transform: rotate(-30deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+
+
+
