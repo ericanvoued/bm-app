@@ -31,8 +31,8 @@ export class HttpClientProvider {
                     //reject(data);
                   }
             }, (e) => {
-                this.load.showTip(JSON.stringify(e), 3000);
-                reject(e);
+                //this.load.showTip(JSON.stringify(e), 3000);
+               
               })
         })
     }
@@ -49,7 +49,7 @@ export class HttpClientProvider {
                     //reject(data);
                   }
             }, (e) => {
-                this.load.showTip(JSON.stringify(e), 3000);
+                //this.load.showTip(JSON.stringify(e), 3000);
                  //reject(e);
               })
          })
