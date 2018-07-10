@@ -65,7 +65,7 @@ export class UserCenterPage {
         this.http.fetchData('/h5api-users/user-account-info?_t='+this.userInfo.auth_token).then(data=>{
           this.userInfo.available = data.data.available
         })
-      },1500)
+      },10000)
 
     }else {
       clearInterval(this.timer)

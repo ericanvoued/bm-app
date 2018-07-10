@@ -142,7 +142,7 @@ export class ChargePage {
       }).then(data=>{
         // loading.dismiss()
         if(data.isSuccess==1){
-          this.lineService(data.data.break_url)
+          this.lineCharge(data.data.break_url)
         }else {
           loading = this.loadPrd.showToast(this.toastCtrl,data.type);
         }
@@ -157,10 +157,11 @@ export class ChargePage {
 
 
 
+
     }
   }
 
-  lineService(url) {
+  lineCharge(url) {
     if (this.plat = 'ios') {
       window.open(url+'&_t='+this.userInfo.auth_token, '_blank')
       return;

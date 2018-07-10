@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { LoadingProvider } from '../loading/loading'
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {LoadingProvider} from '../loading/loading'
+import {ModalController} from 'ionic-angular'
 /*
   Generated class for the HttpClientProvider provider.
 
@@ -10,48 +11,55 @@ import { LoadingProvider } from '../loading/loading'
 
 //let baseUrl = 'http://user.firecat.com'
 let baseUrl = 'http://www.zhenwin.com'
+
 //let baseUrl = '/api'
 
 @Injectable()
 export class HttpClientProvider {
 
-  constructor(public http: HttpClient, public load:LoadingProvider) {
+  plat = 'h5';
+
+  constructor(public http: HttpClient, public load: LoadingProvider, public modalCtrl: ModalController) {
     console.log('Hello HttpClientProvider Provider');
   }
 
-    public fetchData(url):Promise<any>{
-        return new Promise((resolve,reject) => {
-            //this.beforeRequest()
-            this.http.get(baseUrl+url).subscribe((data:any) => {
-                if (data.IsSuccess || data.isSuccess) {
-                    resolve(data);
-                  } else {
-                      console.log('ffqfqwfwq')
-                   // this.load.showTip(data.Msg, 3000);
-                    //reject(data);
-                  }
-            }, (e) => {
-                //this.load.showTip(JSON.stringify(e), 3000);
-               
-              })
-        })
-    }
+  public fetchData(url): Promise<any> {
+    return new Promise((resolve, reject) => {
+      //this.beforeRequest()
+      this.http.get(baseUrl + url).subscribe((data: any) => {
+        resolve(data)
+      })
+    })
+  }
 
-    public postData(url,params):Promise<any>{
-        //return this.http.post(baseUrl + url,params)
-         return new Promise((resolve,reject) => {
-             this.http.post(baseUrl + url,params).subscribe((data:any) =>  {
-                if (data.isSuccess) {
-                    resolve(data);
-                  } else {
-                   // this.load.showTip(data.Msg, 3000);
-                    console.log(data)
-                    //reject(data);
-                  }
-            }, (e) => {
-                //this.load.showTip(JSON.stringify(e), 3000);
-                 //reject(e);
-              })
-         })
+  public postData(url, params): Promise<any> {
+    //return this.http.post(baseUrl + url,params)
+    return new Promise((resolve, reject) => {
+      this.http.post(baseUrl + url, params).subscribe((data: any) => {         
+        resolve(data)
+      })
+    })
+  }
+
+  checkPlatform() {
+    let userAgent: any = navigator.userAgent.toLowerCase();
+    this.plat = 'h5';
+    if (userAgent.match(/iphone os/i) == "iphone os") {
+      this.plat = 'ios';
+    } else if (userAgent.match(/android/i) == "android") {
+      this.plat = 'android';
     }
+  }
+
+
+  lineService(username) {
+    this.checkPlatform();
+
+    if (this.plat = 'ios') {
+      window.open(`https://vp9.live800.com/live800/chatClient/chatbox.jsp?companyID=80000041&configID=2083&codeType=custom&info=loginname=${username}&name=${username}&hashCode=&amp;timestamp=${Date.now()}`, '_blank')
+      return;
+    }
+    let profileModal = this.modalCtrl.create('Onlineservice', {data: {username: username}, title: ''});
+    profileModal.present();
+  }
 }
