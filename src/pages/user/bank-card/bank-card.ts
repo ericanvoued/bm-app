@@ -3,7 +3,7 @@ import {IonicPage, NavController, LoadingController, ToastController, AlertContr
 import {LoadingProvider} from '../../../providers/loading/loading';
 
 import {flyUp} from '../../../animation/flyUp'
-import {BankCardProvider} from '../../../providers/bank-card/bank-card'
+// import {BankCardProvider} from '../../../providers/bank-card/bank-card'
 import {HttpClientProvider} from '../../../providers/http-client/http-client'
 
 @IonicPage()

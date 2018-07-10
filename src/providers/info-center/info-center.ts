@@ -105,7 +105,9 @@ export class InfoCenterProvider {
       id: _id,
       is_top: _is_top
     }).then(data => {
-      if (data.isSuccess) {
+      console.log(2)
+      if (data.IsSuccess) {
+        console.log(1)
         this.loadLetters()
       }
     })
@@ -121,7 +123,7 @@ export class InfoCenterProvider {
         id: _id,
         is_top: _is_top
       }).then(data => {
-        if (data.isSuccess) {
+        if (data.IsSuccess) {
           this.loadannouncements()
         }
       })
