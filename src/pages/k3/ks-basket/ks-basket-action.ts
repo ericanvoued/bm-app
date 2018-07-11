@@ -284,8 +284,9 @@ export class KsBasketAction {
     var ballstr = betinfo.ball;
     var balldata = JSON.parse(localStorage.balls);
     for (var i = 0; i < balldata.length; i++) {
+      var moneyunit = balldata[i].moneyunit;
       var str = balldata[i].ball;
-      if (str == ballstr) {
+      if (str == ballstr && moneyunit==betinfo.moneyunit) {
         j++;
         balldata[i].multiple = parseInt(balldata[i].multiple) + parseInt(betinfo.multiple);
         balldata[i].price += betinfo.price;
@@ -322,7 +323,7 @@ export class KsBasketAction {
       arr[i].multiple = mutiple;
       // let price = parseInt(arr[i].num) * 2;
       let price = mutiple * parseInt(arr[i].onePrice) * parseInt(arr[i].num) * parseFloat(arr[i].moneyunit);
-      arr[i].price = price;
+      arr[i].price = price.toFixed(2);
       let item = '<li class="buy-li clear">\n' +
         '        <div class="li-close">\n' +
         '         <ion-icon name="ios-close-circle-outline" role="img" class="icon icon-ios ion-ios-close-circle-outline" aria-label="close circle-outline" ng-reflect-name="ios-close-circle-outline"></ion-icon>' +
@@ -333,7 +334,7 @@ export class KsBasketAction {
         '              <i>' + arr[i].ball + '</i>\n' +
         '            </i>\n' +
         '          </div>\n' +
-        '          <div class="mt5"><span class="direct-select">' + arr[i].wanfa + '</span> <span>' + arr[i].num + '注' + arr[i].multiple + '倍' + price + '元</span>\n' +
+        '          <div class="mt5"><span class="direct-select">' + arr[i].wanfa + '</span> <span>' + arr[i].num + '注' + arr[i].multiple + '倍' + arr[i].price + '元</span>\n' +
         '          </div>\n' +
         '        </div><div class="dian"></div>\n' +
         '      </li>';
@@ -357,12 +358,9 @@ export class KsBasketAction {
         //记录索引，删除缓存数组中对应的值， 并且删除对应ui
         // var ball = localStorage.getItem("balls");  //此时取得是字符串
         let dataa = JSON.parse(localStorage.balls);
-        // alert( dataa.length );
         dataa.splice(indexx, 1);
-        // localStorage.removeItem("balls");
         localStorage.balls = JSON.stringify(dataa);
         // let arr = JSON.parse(localStorage.balls);
-        // alert(arr.length);
         _this.initMinMultiple();
         _this.calculateMoney();
 
@@ -392,7 +390,6 @@ export class KsBasketAction {
           obj.val((num | 0) + 1);
 
           var zhi = $('#zhui_input').val();
-
           var times = localStorage.trace_max_times;
           console.log('localStorage.trace_max_times===' + localStorage.trace_max_times);
           if (parseInt(zhi) > parseInt(times)) {
@@ -411,7 +408,9 @@ export class KsBasketAction {
 
 
     $("#zhui_input").change(function () {
-
+      if(!parseInt($(this).val())){
+        $('#zhui_input').val(1);
+      }
       if (parseInt($(this).val()) > parseInt(localStorage.trace_max_times)) {
         $(this).val(localStorage.trace_max_times);
       } else {
@@ -460,7 +459,11 @@ export class KsBasketAction {
     });
 
     $("#bei_input").change(function () {
-      console.log('localStorage.min_multipl==='+localStorage.min_multipl)
+      // console.log('localStorage.min_multipl==='+localStorage.min_multipl)
+      // $('#bei_input').val(parseInt($(this).val()))
+      if(!parseInt($(this).val())){
+        $('#bei_input').val(1);
+      }
       if (parseInt($(this).val()) > parseInt(localStorage.min_multiple)) {
         $(this).val(localStorage.min_multiple);
         _this.loadData();
@@ -471,6 +474,7 @@ export class KsBasketAction {
         _this.calculateMoney();
 
       }
+
     });
   }
 
@@ -508,28 +512,23 @@ export class KsBasketAction {
     }
     var min_multiple = max_multiple / max_touzhushu;
     localStorage.min_multiple = min_multiple;
-
-    console.log('localStorage.min_multiple=='+localStorage.min_multiple)
-
+    // console.log('localStorage.min_multiple=='+localStorage.min_multiple)
     var qi = $('#zhui_input').val();
     $('.total-con .qi').text(qi);
     $('.total-con .zhu').text(zhu);
     $('.big-text .col').text(money);
-
     this.firstMoney = money;
-    //获取当前最小的倍数
 
-    console.log('max_multiple =='+max_multiple )
-    console.log('tlocalStorage.min_multiple =='+localStorage.min_multiple )
+    // console.log('max_multiple =='+max_multiple )
+    // console.log('tlocalStorage.min_multiple =='+localStorage.min_multiple )
 
   }
 
 
-  /*
 
-   */
   calculateMoney() {
 
+    console.log('localStorage.balls=='+localStorage.balls)
     var arr = JSON.parse(localStorage.balls);
     var zhu = 0, money = 0;
     for (var i = 0; i < arr.length; i++) {
@@ -540,7 +539,7 @@ export class KsBasketAction {
     // $('.yuan').text(total);
     $('.zhu').text(zhu);
     var total = $('#zhui_input').val() * $('#bei_input').val() * this.firstMoney;
-    $('.yuan').text(total);
+    $('.yuan').text(total.toFixed(2));
 
   }
 

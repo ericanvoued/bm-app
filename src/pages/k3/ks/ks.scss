@@ -2,6 +2,14 @@ page-ks {
   //.back-button.show-back-button{
   //  color: #FFFFFF;
   //}
+
+//  .ks-content .scroll-content {
+//  padding: 1px !important;
+//}
+//  .scroll-content {
+//  padding: 1px;
+//}
+
   .hide {
     display: block;
   }
@@ -46,6 +54,7 @@ page-ks {
   //ion-app.ios [padding] .scroll-content {
   //  padding: 7px;
   //}
+
 
   .right-popover {
     position: absolute;
@@ -685,7 +694,7 @@ page-ks {
     top: 0px;
     z-index: 4;
     position: absolute;
-    background: rgb(37, 87, 50);
+    background: rgb(0,88,46);
     padding-bottom: 10px;
     //border-bottom: 2px solid rgb(10, 175, 94);
     .pp {
@@ -693,7 +702,7 @@ page-ks {
       height: 2px;
       background-image: linear-gradient(43deg, #F3361B 0%, #EC6432 1%, #F5AD58 100%);
       position: absolute;
-      margin-top: 126px
+      margin-top: 97px
     }
 
     .play-title {
@@ -1115,6 +1124,7 @@ page-ks {
           height: 56px;
           border-radius: 3px;
           span {
+            margin-top: 12px;
             font-size: 20px;
           }
           p {

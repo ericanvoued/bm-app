@@ -215,6 +215,9 @@ export class BaseToolProvider {
               }
             }
             resolve();
+            console.log('this.timeIddd111=='+this.timeIddd);
+            clearInterval(this.timeIddd);
+            console.log('this.timeIddd222=='+this.timeIddd);
             this.cutDownTime(data.data.current_time, data.data.current_number_time, from);
           }
         });
@@ -222,8 +225,6 @@ export class BaseToolProvider {
   }
 
 
-  initViewData() {
-  }
 
   cutDownTime(a, b, from) {
 

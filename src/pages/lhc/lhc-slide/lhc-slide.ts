@@ -38,6 +38,53 @@ export class LhcSlidePage extends LhcAction {
     super();
   }
 
+//   玩法            最大奖金            奖金组
+//   特码            49                 2000
+//   正码            49                 2000
+//   半波
+
+//   6.8571              2000　          红大，绿双，绿合单，蓝小，绿小
+
+//   ４．８               2000           红小
+
+//   ６                  2000            红单，绿合双，红和双，蓝单，绿大，蓝双，绿单，蓝合双
+
+//   5.3333              2000           红双，蓝大，红合单
+
+//   生肖
+
+//   特肖               12.2500          2000
+// 其他，
+
+//   9.8000             2000            ｄｏｇ
+
+//   ６肖               2.0000           2000
+
+//   １肖               2.1199           2000        其他
+
+//   1.8054             2000            ｄｏｇ
+
+//   尾数              2.1199              2000       0尾
+
+//   1.8054              2000           其他尾数
+
+//   总分              2.0000              2000         大小单双
+
+//   4.0000             2000           大单，大双，小单，小双
+
+//   不中
+//   2.2416            2000            ５不中
+//   2.6657             2000            ６不中
+//   3.1841             2000            ７不中
+//   3.8209             2000            ８不中
+//   4.6075             2000            ９不中
+//   5.5849             2000            １０不中
+
+//   用户奖金组×最大奖金即为赔率
+//   用户奖金组大鱼1950的按1950计算
+//   小于１９５０的按实际奖金组计算
+
+
   backButtonClick = (e: UIEvent) => {
 
     for (var i = 0; i < localStorage.length; i++) {
@@ -46,7 +93,7 @@ export class LhcSlidePage extends LhcAction {
     }
 
     localStorage.removeItem('balls');
-    localStorage.removeItem('self_balls');
+    // localStorage.removeItem('self_balls');
     localStorage.removeItem('wanfa');
     localStorage.removeItem('wayId');
     localStorage.removeItem('typeStr');
@@ -75,7 +122,7 @@ export class LhcSlidePage extends LhcAction {
     this.navBar.backButtonClick = this.backButtonClick;
     this.initView();
     this.base.requestPlayData(localStorage.idstr, '6').then((response) => {
-        this.initOdds(response);
+        // this.initOdds(response);
         this.changePlaySelect();
       }
     );
@@ -83,37 +130,135 @@ export class LhcSlidePage extends LhcAction {
     this.initAny();
   }
 
-  initOdds(data) {
+  calculatePrize(prize, user_prize) {
+    return new Number(prize * parseInt(user_prize) / 2000).toFixed(2);
+  }
 
-    var tm_prize, zm_prize, bb_prize, tx_prize, yx_prize, lx_prize, ws_prize, zf_prize, bz_pirze;
-    // new Number(data[1].prize).toFixed(2);
-    tm_prize = new Number(data[0].children[0].children[0]['prize']).toFixed(2);
-    bb_prize = new Number(data[2].children[0].children[0]['prize']).toFixed(2);
-    tx_prize = new Number(data[3].children[0].children[0]['prize']).toFixed(2);
-    yx_prize = new Number(data[3].children[0].children[1]['prize']).toFixed(2);
-    lx_prize = new Number(data[3].children[0].children[2]['prize']).toFixed(2);
-    ws_prize = new Number(data[4].children[0].children[0]['prize']).toFixed(2);
-    zf_prize = new Number(data[5].children[0].children[0]['prize']).toFixed(2);
-    bz_pirze = new Number(data[6].children[0].children[0]['prize']).toFixed(2);
+  prize = {
+    tema: 49,
+    zhma: 49,
+
+    bb_hd_ls_lhd_lx: 6.8571,
+    bb_1: 4.8,
+    bb_25681114151617: 6,
+    bb_3412: 5.3333,
+
+    tex: 12.25,
+    tex_dog: 9.8,
+    liux: 2,
+
+    yix: 2.11,
+    yix_dog: 1.8054,
+
+    ws_0: 2.1199,
+    ws: 1.8054,
+
+    zf_1: 2,
+    zf_2: 4,
+
+    bz_5: 2.2416,
+    bz_6: 2.6657,
+    bz_7: 3.1841,
+    bz_8: 3.8209,
+    bz_9: 4.6075,
+    bz_10: 5.5849
+
+  };
+
+  initOdds() {
+    var user_prize = localStorage.user_prize_group;
+    if (parseInt(user_prize) > 1950) {
+      user_prize = 1950;
+    }
+
+    var tm_prize, bb_prize, tx_prize, yx_prize, lx_prize, ws_prize, zf_prize, bz_pirze;
+
+    var bb_0791013,bb_1,bb_25681114151617,bb_3412 ,
+      tex,tex_dog,liux ,yix,yix_dog ,ws_0,ws,zf_1,zf_2 ,
+      bz_5,bz_6,bz_7,bz_8,bz_9,bz_10;
+
+    tm_prize = this.calculatePrize(this.prize.tema, user_prize);
+    bb_0791013 = this.calculatePrize(this.prize.bb_hd_ls_lhd_lx, user_prize);
+    bb_1 = this.calculatePrize(this.prize.bb_1, user_prize);
+    bb_25681114151617 = this.calculatePrize(this.prize.bb_25681114151617, user_prize);
+    bb_3412 = this.calculatePrize(this.prize.bb_3412, user_prize);
+
+    tex = this.calculatePrize(this.prize.tex, user_prize);
+    tex_dog = this.calculatePrize(this.prize.tex_dog, user_prize);
+
+    liux = this.calculatePrize(this.prize.liux, user_prize);
+
+    yix = this.calculatePrize(this.prize.yix, user_prize);
+    yix_dog = this.calculatePrize(this.prize.yix_dog, user_prize);
+
+    ws_0 = this.calculatePrize(this.prize.ws_0, user_prize);
+    ws = this.calculatePrize(this.prize.ws, user_prize);
+
+    zf_1 = this.calculatePrize(this.prize.zf_1, user_prize);
+    zf_2 = this.calculatePrize(this.prize.zf_2, user_prize);
+
+    bz_5 = this.calculatePrize(this.prize.bz_5, user_prize);
+    bz_6 = this.calculatePrize(this.prize.bz_6, user_prize);
+    bz_7 = this.calculatePrize(this.prize.bz_7, user_prize);
+    bz_8 = this.calculatePrize(this.prize.bz_8, user_prize);
+    bz_9 = this.calculatePrize(this.prize.bz_9, user_prize);
+    bz_10 = this.calculatePrize(this.prize.bz_10, user_prize);
+
 
     $('.peilv-tip').text('赔率 *' + tm_prize);
-    $('.lhc-bb .pl').text(' 赔率 ' + bb_prize);
-    $('.lhc-ws .pl').text(' 赔率 ' + ws_prize);
-    $('.lhc-points .pl').text(' 赔率 ' + zf_prize);
-    $('.self-points .odds.animated').text(zf_prize);
-    $('.self-ws .odds.animated').text(ws_prize);
-    $('.self-bb .odds.animated').text(bb_prize);
-    $('.self-tm .odds.animated').text(tm_prize);
-    localStorage.tx_prize = tx_prize;
-    localStorage.yx_prize = yx_prize;
-    localStorage.lx_prize = lx_prize;
-    localStorage.tm_prize = tm_prize;
-    localStorage.bz_pirze = bz_pirze;
 
+    $('.lhc-bb').find('.pl:eq(0),.pl:eq(7),.pl:eq(9),.pl:eq(10),.pl:eq(13)').text(' 赔率 ' + bb_0791013);
+    $('.lhc-bb .pl').eq(1).text(' 赔率 ' + bb_1);
+    $('.lhc-bb').find('.pl:eq(2),.pl:eq(5),.pl:eq(6),.pl:eq(8),.pl:eq(11),.pl:eq(14),.pl:eq(15),.pl:eq(16),.pl:eq(17)').text(' 赔率 ' + bb_25681114151617);
+    $('.lhc-bb').find('.pl:eq(3),.pl:eq(4),.pl:eq(12)').text(' 赔率 ' + bb_3412);
+
+
+    $('.lhc-ws .pl').text(' 赔率 ' + ws);
+    $('.lhc-ws .pl').eq(0).text(' 赔率 ' + ws_0);
+
+    $('.lhc-points').find('.pl:eq(0),.pl:eq(1),.pl:eq(2),.pl:eq(3)').text(' 赔率 ' + zf_1);
+    $('.lhc-points').find('.pl:eq(4),.pl:eq(5),.pl:eq(6),.pl:eq(7)').text(' 赔率 ' + zf_2);
+
+    $('.self-points').find('.odds:eq(0),.odds:eq(1),.odds:eq(2),.odds:eq(3)').text(zf_1);
+    $('.self-points').find('.odds:eq(4),.odds:eq(5),.odds:eq(6),.odds:eq(7)').text(zf_2);
+
+    $('.self-ws .odds.animated').text(ws);
+    $('.self-ws .odds.animated').eq(0).text(ws_0);
+
+    $('.self-bb').find('.odds:eq(0),.odds:eq(7),.odds:eq(9),.odds:eq(10),.odds:eq(13)').text(bb_0791013);
+    $('.self-bb .odds').eq(1).text(bb_1);
+    $('.self-bb').find('.odds:eq(2),.odds:eq(5),.odds:eq(6),.odds:eq(8),.odds:eq(11),.odds:eq(14),.odds:eq(15),.odds:eq(16),.odds:eq(17)').text(bb_25681114151617);
+    $('.self-bb').find('.odds:eq(3),.odds:eq(4),.odds:eq(12)').text(bb_3412);
+
+
+    $('.self-tm .odds.animated').text(tm_prize);
+
+    localStorage.tx_prize = tex;
+    localStorage.tx_prize_dog = tex_dog;
+
+    localStorage.yx_prize = yix;
+    localStorage.yx_prize_dog = yix_dog;
+
+    localStorage.lx_prize = liux;
+
+    localStorage.tm_prize = tm_prize;
+
+    localStorage.bz_5 = bz_5;
+    localStorage.bz_6 = bz_6;
+    localStorage.bz_7 = bz_7;
+    localStorage.bz_8 = bz_8;
+    localStorage.bz_9 = bz_9;
+    localStorage.bz_10 = bz_10;
+
+    console.log('localStorage.bz_6===='+localStorage.bz_6);
+    console.log('localStorage.bz_7===='+localStorage.bz_7);
+    console.log('localStorage.bz_8===='+localStorage.bz_8);
+    console.log('localStorage.bz_9===='+localStorage.bz_9);
   }
 
   ionViewWillEnter() {
     this.base.requestJiangQiData(localStorage.idstr, '6', 'play').then(() => {
+      this.initOdds();
     });
   }
 
@@ -239,13 +384,10 @@ export class LhcSlidePage extends LhcAction {
       .subscribe((data) => {
         // console.log(data);
         if (data.IsSuccess) {
-
           localStorage.lhchisdata = JSON.stringify(data.data);
           var htm = '', it;
           for (var i = 0; i < data.data.length; i++) {
-
             if (data.data[i].code == '') {
-
               it = '<li class="his-line">\n' +
                 '        <span class="kj-issue">' + data.data[i].number + '</span>\n' +
                 '        <span class="kj-ing">等待开奖...</span>\n' +
@@ -264,7 +406,6 @@ export class LhcSlidePage extends LhcAction {
             }
             htm = htm + it;
           }
-
           $('.his-ul').html(htm);
         }
       });
