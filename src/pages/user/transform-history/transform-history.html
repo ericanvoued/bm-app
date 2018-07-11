@@ -35,10 +35,10 @@
               <p style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;width: 70%;flex: none;">编号：<span>{{allData.serial_number}}{{allData.company_order_num}}</span></p>
               <p style="width: 30%;flex: none;"><span>{{allData.is_withDraw==1?'账户提现':''}}{{allData.is_deposits==1?'账户充值':''}}</span></p>
             </div>
-            <!--<div class="case-wrap border-bottom">-->
-              <!--<p style="text-align: left">金额：<span [ngClass]="{'red':allData.is_withDraw==1,'green':allData.is_deposits==1}">{{allData.is_withDraw==1?'-':''}}{{allData.is_deposits==1?'+':''}}{{allData.amount}}</span></p>-->
+            <div class="case-wrap border-bottom">
+              <p style="text-align: left">金额：<span [ngClass]="{'green':allData.is_withDraw==1,'red':allData.is_deposits==1}">{{allData.is_withDraw==1?'-':''}}{{allData.is_deposits==1?'+':''}}{{allData.amount}}</span></p>
               <!--<p>余额：<span class="red">1800.00</span></p>-->
-            <!--</div>-->
+            </div>
             <div class="content-detail" *ngIf="allData.is_withDraw==1">
               <div class="case-wrap ">
                 <p class="right">提现银行： <span>{{allData.bank}}</span></p>
