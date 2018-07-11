@@ -40,6 +40,8 @@ export class ChangeLoginPswPage {
     } else if (this.pswData.old_password == this.pswData.password) {
       toast = this.loadPrd.showToast(this.ToastCtrl, '新登陆密码不能与旧登陆密码相同');
     }else {
+      toast = this.loadPrd.showLoading(this.loadingCtrl,'密码修改中');
+
       this.http.postData('/h5api-users/password-management/0?_t='+this.userInfo.auth_token, {
         'Content-Type': 'application/x-www-form-urlencoded',
         '_token': this.userInfo.token,

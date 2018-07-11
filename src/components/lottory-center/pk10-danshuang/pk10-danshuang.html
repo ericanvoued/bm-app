@@ -17,11 +17,12 @@
     </div>
     <div class="ssc-table-body">
       <div class="ssc-table-body">
-        <div class="ssc-table-wrap" *ngFor="let result of resultsData.data">
+        <div class="ssc-table-wrap" *ngFor="let result of resultsData.data" [ngClass]="{'isWaiting-bg':result.code.length<=1}">
           <div class="t-qihao">{{result.number.slice(-5)}}期</div>
-          <div class="t-qihao-list">
+          <div class="t-qihao-list" *ngIf="result.code.length>1">
             <div *ngFor="let code of result.code" [ngClass]="{'single':code%2==1,'double':code%2==0}">{{code%2==0?'双':'单'}}</div>
           </div>
+          <div class="t-qihao-list" *ngIf="result.code.length<=1" style="justify-content: center;color: #666">等待开奖...</div>
         </div>
       </div>
     </div>

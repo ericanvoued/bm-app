@@ -92,8 +92,8 @@
       </div>
     </div>
   </div>
-  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" *ngIf="loadmore==true">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))" *ngIf="loadmore==true">
+    <ion-infinite-scroll-content class="myloading" loadingSpinner="bubbles" loadingText="努力加载中…"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
   <div *ngIf="isNomore==true" style="line-height: 50px;text-align: center;font-size: 14px;margin-top: -10px">
     没有更多了

@@ -1,5 +1,5 @@
 import {Component, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentRef} from '@angular/core';
-import {IonicPage, ToastController, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, ToastController, NavController, NavParams,Refresher} from 'ionic-angular';
 import {HomeProvider} from '../../providers/home/home';
 import {LoadingProvider} from '../../providers/loading/loading'
 
@@ -30,8 +30,9 @@ import {LhcBoseComponent} from '../../components/lottory-center/lhc-bose/lhc-bos
 
 export class LottoryCenterPage {
   lcData = {
-    currentLottory: null,//当前彩种
+    currentLottory: {id: 1},//当前彩种
     isK3: false,
+    currentNav: SscKaijiangComponent,
     currentNavIndex: 0,
     isDrop: false,
     resultsData: {data: []}
@@ -55,13 +56,24 @@ export class LottoryCenterPage {
   }
 
   ngAfterContentInit() {
-    this.createDynComponent(SscKaijiangComponent, this.lcData.currentLottory.id)
+    this.createDynComponent(this.lcData.currentNav, this.lcData.currentLottory.id)
   }
 
   //下拉选择彩种
   triggleMenu() {
     this.lcData.isDrop = !this.lcData.isDrop;
   }
+
+  //下拉刷新
+  doRefresh(refresher: Refresher) {
+    this.createDynComponent(this.lcData.currentNav, this.lcData.currentLottory.id)
+    setTimeout(() => {
+      refresher.complete()
+    }, 2000)
+
+  }
+
+
 
   //创建动态组件
   createDynComponent(componentName, id) {
@@ -169,9 +181,11 @@ export class LottoryCenterPage {
 
   //改变动态组件
   changeDynComponent(_index, nav) {
+
     for (let i = 0; i < this.navData.length; i++) {
       this.navData[i].flag = false;
     }
+    this.lcData.currentNav = nav.c;
     this.lcData.currentNavIndex = _index;
     this.currentNav(this.lcData.currentNavIndex);
     this.createDynComponent(nav.c, this.lcData.currentLottory.id)
@@ -193,6 +207,7 @@ export class LottoryCenterPage {
     _lottory.group == 'K3' ? this.lcData.isK3 = true : this.lcData.isK3 = false;
     this.createDynComponent(this.homeprv.homeData.lottoryList[_lottory.group].nav[0].c, this.lcData.currentLottory.id)
   }
+
 
   //清楚彩种状态
   clearLottoryStatus() {

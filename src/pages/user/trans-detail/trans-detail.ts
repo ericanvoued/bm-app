@@ -119,12 +119,14 @@ export class TransDetailPage {
   }
 
 
-  doInfinite(): Promise<any>{
-    this.transData.currentpage ++
-    return new Promise((resolve,reject)=>{
+  doInfinite(infiniteScroll): Promise<any> {
+    this.transData.currentpage++
+    return new Promise((resolve, reject) => {
       setTimeout(() => {
-        this.selectChange(this.transData.currentLottory,this.transData.page,false)
+        this.selectChange(this.transData.currentLottory, this.transData.page, false)
         resolve()
+        infiniteScroll.complete();
+        infiniteScroll.state = 'enabled'
       }, 500);
     })
   }

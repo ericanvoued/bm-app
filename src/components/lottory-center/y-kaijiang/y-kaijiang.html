@@ -8,13 +8,14 @@
       <th class="lk-unit">大小比</th>
       <th class="lk-unit">奇偶比</th>
     </tr>
-    <tr *ngFor="let result of resultsData.data">
+    <tr *ngFor="let result of resultsData.data" [ngClass]="{'isWaiting-bg':result.code.length<=1}">
       <td>{{result.number.slice(-2)}}期</td>
-      <td class="num-list"><span *ngFor="let code of result.code">{{code}}</span></td>
-      <td>{{result.sum}}</td>
-      <td>{{result.spacing}}</td>
-      <td>{{result.small}}:{{result.big}}</td>
-      <td>{{result.odd}}:{{result.even}}</td>
+      <td class="num-list" *ngIf="result.code.length>1"><span *ngFor="let code of result.code">{{code}}</span></td>
+      <td *ngIf="result.code.length>1">{{result.sum}}</td>
+      <td *ngIf="result.code.length>1">{{result.spacing}}</td>
+      <td *ngIf="result.code.length>1">{{result.small}}:{{result.big}}</td>
+      <td *ngIf="result.code.length>1">{{result.odd}}:{{result.even}}</td>
+      <td colspan="5" *ngIf="result.code.length<=1">等待开奖...</td>
     </tr>
   </table>
 </div>

@@ -36,6 +36,7 @@ export class ChangePayPswPage {
     if (this.pswData.password != this.pswData.password_confirmation) {
       toast = this.loadPrd.showToast(this.ToastCtrl, '两次输入的新支付密码不一致');
     } else {
+      toast = this.loadPrd.showLoading(this.loadingCtrl,'密码修改中');
       this.ucPrd.changePsw('/h5api-users/password-management/1?_t=', {
         'Content-Type': 'application/x-www-form-urlencoded',
         '_token': this.userInfo.token,
