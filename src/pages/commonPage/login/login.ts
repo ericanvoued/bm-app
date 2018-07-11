@@ -20,6 +20,7 @@ import {TabsPage} from '../../tabs/tabs'
 })
 export class LoginPage {
 
+  userInfo;
   username = 'testjose';
   password = '123qwe';
   loginData: any;
@@ -57,11 +58,12 @@ export class LoginPage {
         password: md5(md5(md5(this.username + this.password)))
       }).then((data) => {
         if (data.isSuccess) {
-          this.loading.dismiss();
-          this.tost = this.loadPrd.showMidToast(this.ToastCtrl, data.Msg);
-          // this.storage.set('userInfo', data['data']);
 
-          localStorage.userInfo = JSON.stringify(data['data']);
+
+          // this.storage.set('userInfo', data['data']);
+          this.userInfo = data['data']
+
+          // localStorage.userInfo = JSON.stringify(data['data']);
 
           // if(this.navParams.get('page')){
           //   //this.navCtrl.push(TabsPage)
@@ -70,15 +72,30 @@ export class LoginPage {
           //   this.navCtrl.setRoot(TabsPage, {
           //     pageIndex: 3
           //   })
-          this.navCtrl.push(TabsPage, {
-            pageIndex: 3
-          });
+          this.loadBalance().then(data=>{
+
+            this.loading.dismiss();
+            this.tost = this.loadPrd.showMidToast(this.ToastCtrl, data.Msg);
+            this.userInfo.available = data.data.available;
+            localStorage.userInfo = JSON.stringify(this.userInfo);
+
+            this.navCtrl.push(TabsPage, {
+              pageIndex: 3
+            });
+          })
+
+
+
         } else {
           // this.loading.dismiss();
           this.tost = this.loadPrd.showMidToast(this.ToastCtrl, data.Msg);
         }
       })
     }
+  }
+
+  async loadBalance(){
+    return await this.http.fetchData('/h5api-users/user-account-info?_t='+this.userInfo.auth_token)
   }
 
   checkForm() {

@@ -29,7 +29,6 @@ export class UserCenterPage {
   toast:any = null;
   userId:string;
   // userInfo;
-  userBalance = 0.00;
   timer = null;
 
   constructor(
@@ -47,7 +46,7 @@ export class UserCenterPage {
               public navCtrl: NavController,
               public navParams: NavParams) {
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    this.userInfo.available = 0.00;
+    // this.userInfo.available = 0.00;
     // this.getBalance()
     this.announcementsUnreadnum();
   }
@@ -228,10 +227,6 @@ export class UserCenterPage {
 
   ionViewDidEnter(){
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    this.http.fetchData('/h5api-users/user-account-info?_t='+this.userInfo.auth_token).then(data=>{
-      this.userInfo.available = data.data.available;
-      localStorage.userInfo = JSON.stringify(this.userInfo);
-    })
   }
   ionViewWillLeave(){
     clearInterval(this.timer)
