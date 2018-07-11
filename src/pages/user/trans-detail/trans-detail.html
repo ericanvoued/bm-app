@@ -39,7 +39,7 @@
               <p>{{transfer.created_at}}</p>
             </div>
             <div class="case-wrap ball-wrap border-bottom">
-              <p>金额：<span [ngClass]="{'red':transfer.is_income=='-','green':transfer.is_income=='+'}">{{transfer.is_income}}{{transfer.amount}}</span></p>
+              <p>金额：<span [ngClass]="{'green':transfer.is_income=='-','red':transfer.is_income=='+'}">{{transfer.is_income}}{{transfer.amount}}</span></p>
               <p>{{transfer.lottery_name}} {{transfer.friendly_name}}</p>
             </div>
             <div class="case-wrap case-wrap-big">
@@ -50,8 +50,8 @@
       </div>
     </div>
   </div>
-  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" *ngIf="loadmore==true">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))" *ngIf="loadmore==true">
+    <ion-infinite-scroll-content class="myloading" loadingSpinner="bubbles" loadingText="努力加载中…"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
   <div *ngIf="isNomore==true" style="line-height: 50px;text-align: center;font-size: 14px;margin-top: -10px">
     没有更多了

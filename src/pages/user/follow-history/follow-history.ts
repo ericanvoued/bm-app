@@ -18,7 +18,7 @@ export class FollowHistoryPage {
     today:new Date(),
     currentLottory: {friend_name: '全部游戏'},
     bet_model: {'1.00': '元', '0.10': '角', '0.01': '分'},
-    statusName: {'0': '等待中', '1': '用户终止', '2': '管理员终止', '3': '系统终止'},
+    statusName: {'0': '进行中', '1': '用户终止', '2': '管理员终止', '3': '系统终止'},
     lottorys: [{friend_name: ''}],
     timeStarts:new Date().getFullYear()+'-',
     timeEnds:new Date().getFullYear()+'-',
@@ -133,12 +133,14 @@ export class FollowHistoryPage {
   }
 
 
-  doInfinite(): Promise<any>{
+  doInfinite(infiniteScroll): Promise<any>{
     this.followData.currentpage ++
     return new Promise((resolve,reject)=>{
       setTimeout(() => {
         this.selectLottory(this.followData.currentLottory,this.followData.currentpage,false)
         resolve()
+        infiniteScroll.complete();
+        infiniteScroll.state = 'enabled'
       }, 500);
     })
   }

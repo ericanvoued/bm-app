@@ -145,7 +145,6 @@ export class TransformHistoryPage {
 
 
   doInfinite(item): Promise<any>{
-    console.log(item)
     return new Promise((resolve,reject)=>{
       setTimeout(() => {
         switch (item){
@@ -165,6 +164,7 @@ export class TransformHistoryPage {
             break;
         }
         resolve();
+
       }, 500);
     })
   }

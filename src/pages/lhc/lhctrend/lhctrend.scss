@@ -3,6 +3,8 @@ page-lhctrend {
     background-color: rgb(74, 140, 192);
     background-image: none
   }
+
+
   .nav-title {
     font-weight: 600;
   }
@@ -40,7 +42,6 @@ page-lhctrend {
         right: 0;
       }
     }
-
   }
 
   .top-ul, .his-ul {
@@ -69,6 +70,15 @@ page-lhctrend {
   .his-line span {
     font-size: 12px;
   }
+  .his-line .kj-ing {
+    width: 25.5%;
+  }
+  .his-line .kj-issue {
+    float: left;
+    margin-left: 3.5%;
+  }
+
+
   .his-line:nth-child(odd) {
     background: rgb(255, 255, 255);
   }
@@ -76,11 +86,17 @@ page-lhctrend {
     background: rgb(255, 249, 245);
   }
 
-
   .his-line.ani {
     span{
       font-size: 12px;
       width: 12%;
+    }
+    .kj-ing {
+      width: 25.5%;
+    }
+    .kj-issue {
+      float: left;
+      margin-left: 2.3%;
     }
   }
 
@@ -88,9 +104,15 @@ page-lhctrend {
 
     span{
       font-size: 14px;
-      width: 19%;
+      width: 18.5%;
     }
-
+    .kj-ing {
+      width: 25.5%;
+    }
+    .kj-issue {
+      float: left;
+      margin-left: 1%;
+    }
 
   }
 

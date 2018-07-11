@@ -5,6 +5,17 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      class="myloading"
+      pullingIcon="arrow-dropdown"
+      pullingText="下拉刷新"
+      refreshingSpinner="circles"
+      refreshingText="正在刷新...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+
   <div class="ll-mask" *ngIf="lcData.isDrop">
     <div class="lottory-list clearfix">
       <div class="lottory-wrap">
@@ -57,9 +68,7 @@
       <div class="underline"></div>
     </div>
   </div>
-  <div class="lc-loading" *ngIf="lcData.resultsData.data.length==0" style="font-size: 16px;line-height: 42px;text-align: center">
-    开奖结果获取中...
-  </div>
+
   <div #dynLottoryComponent></div>
 </ion-content>
 

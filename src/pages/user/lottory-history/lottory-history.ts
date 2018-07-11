@@ -145,16 +145,20 @@ export class LottoryHistoryPage {
   }
 
 
+  doInfinite(infiniteScroll): Promise<any> {
 
-  doInfinite(): Promise<any>{
-    this.lrecord.currentpage ++
-    return new Promise((resolve,reject)=>{
+    this.lrecord.currentpage++
+    return new Promise((resolve, reject) => {
       setTimeout(() => {
-        this.selectLottory(this.lrecord.currentLottory,this.lrecord.currentpage,false)
+        this.selectLottory(this.lrecord.currentLottory, this.lrecord.currentpage, false)
         resolve()
+        infiniteScroll.complete();
+        infiniteScroll.state = 'enabled'
       }, 500);
+
     })
   }
+
 
   copyText(e:event) {
     // const _input = document.querySelector(txt);

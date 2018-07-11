@@ -17,9 +17,9 @@
       </div>
     </div>
     <div class="ssc-table-body">
-      <div class="ssc-table-wrap" *ngFor="let result of resultsData.data">
+      <div class="ssc-table-wrap" *ngFor="let result of resultsData.data" [ngClass]="{'isWaiting-bg':result.code.length<=1}">
         <div class="t-qihao">{{result.number.slice(-2)}}期</div>
-        <div class="t-qihao-list">
+        <div class="t-qihao-list" *ngIf="result.code.length>1">
           <div [ngClass]="{'current':result['code'].indexOf('01')!=-1}"><span>01</span></div>
           <div [ngClass]="{'current':result['code'].indexOf('02')!=-1}"><span>02</span></div>
           <div [ngClass]="{'current':result['code'].indexOf('03')!=-1}"><span>03</span></div>
@@ -32,6 +32,7 @@
           <div [ngClass]="{'current':result['code'].indexOf('10')!=-1}"><span>10</span></div>
           <div [ngClass]="{'current':result['code'].indexOf('11')!=-1}"><span>11</span></div>
         </div>
+        <div class="t-qihao-list" *ngIf="result.code.length<=1" style="justify-content: center;color: #666">等待开奖...</div>
       </div>
       <div class="ssc-table-wrap">
         <div class="t-qihao">出现次数</div>
