@@ -106,25 +106,15 @@ export class KsBasketPage extends KsBasketAction {
         item[next] = 1;
         // obj['orders'] = {...obj['orders'],[next]:1}
       }
-
     } else {
-
       obj['orders'][nextDat] = 1;
-
     }
 
     obj['orders'] = JSON.stringify(obj['orders']);
-    // obj['orders'] = '{"20180703034": 1, "20180703035": 1, "20180703036": 1}';//JSON.stringify(obj['orders']);
-
     obj['isTrace'] = isTrace;
-    // obj['orders'] = {}
-    // obj['orders'][nextDat] = 1
-    // result['orders'] = {}
-    // result['orders'][this.common.currentNumber] = 1
-
-
     obj['is_encoded'] = 1;
     obj['bet_source'] = "h5";
+
     // obj['multiple'] = multiple;
     obj['amount'] = amount;
     // console.log(localStorage.getItem('userInfo'))

@@ -509,16 +509,26 @@ export class KstrendAction {
           if (i == 0) {
             txt = 1;
           } else {
-            //判断上个 球是否 active  如何选中，则1 否则 +1
+
+
+            //判断上个 球是否 active  如果选中，则1 否则 +1
             obj = $('.jbzs-ul').find('.his-line').eq(i - 1).find('p').eq(j + 4);
             txt = obj.find('span').eq(0).text();
             // console.log('上一期 对应球 ===' + txt);
+
             if (obj.find('span').hasClass('active')) {
               txt = 1;
             } else {
               txt = parseInt(txt) + 1;
             }
+
+            if( $('.jbzs-ul').find('.his-line').eq(i - 1).find('.kj-ing').text().search('等待')!=-1 ){
+              txt = 1;
+            }
+
           }
+
+
           it = '<p class="t-' + num + '">\n' +
             '          <span class="t">' + txt + '</span>\n' +
             '          <span class="corner hide">0</span>\n' +
@@ -657,6 +667,9 @@ export class KstrendAction {
             } else {
               txt = parseInt(txt) + 1;
             }
+          }
+          if( $('.xtzs-ul').find('.his-line').eq(i - 1).find('.kj-ing').text().search('等待')!=-1 ){
+            txt = 1;
           }
           it = '<p class="t t-' + (k + 1) + '">' + txt + '</p>';
         }
@@ -850,6 +863,9 @@ export class KstrendAction {
                 txt = parseInt(txt) + 1;
               }
             }
+            if( $('.hmfb-ul').find('.his-line').eq(i - 1).find('.kj-ing').text().search('等待')!=-1 ){
+              txt = 1;
+            }
             it = '<p class="t"><span>' + txt + '</span></p>';
           }
           htm += it;
@@ -1015,6 +1031,9 @@ export class KstrendAction {
               } else {
                 txt = parseInt(txt) + 1;
               }
+              if( $('.hmfb-ul').find('.his-line').eq(i - 1).find('.kj-ing').text().search('等待')!=-1 ){
+                txt = 1;
+              }
             }
             it = '<p class="t"><span>' + txt + '</span></p>';
           }
@@ -1032,6 +1051,9 @@ export class KstrendAction {
               txt = 1;
             } else {
               txt = parseInt(txt) + 1;
+            }
+            if( $('.hmfb-ul').find('.his-line').eq(i - 1).find('.kj-ing').text().search('等待')!=-1 ){
+              txt = 1;
             }
           }
           it = '<p class="t"><span>' + txt + '</span></p>';
@@ -1262,6 +1284,9 @@ export class KstrendAction {
                 txt = 1;
               } else {
                 txt = parseInt(txt) + 1;
+              }
+              if( $('.hzzs-ul').find('.his-line').eq(i - 1).find('.kj-ing').text().search('等待')!=-1 ){
+                txt = 1;
               }
             }
             it = '<p class="t-' + inx + '"><span class="t">' + txt + '</span></p>';

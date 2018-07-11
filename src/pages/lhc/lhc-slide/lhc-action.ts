@@ -56,6 +56,9 @@ export class LhcAction {
 
     let _this = this;
     $('.buy-input').bind('input propertychange', function () {
+      if(!parseInt($(this).val())){
+        $('.buy-input').val(1);
+      }
       if ($(this).val() == '') {
         $('.money-text').addClass('hide');
         return;
@@ -69,9 +72,9 @@ export class LhcAction {
       //理论奖金=注单金额*赔率
 
       var wanfa = $('.wanfa').text(), bonus = 0, profit;
-      if (wanfa.search('特码') != -1 || wanfa.search('正') != -1 || wanfa.search('不') != -1) {
+      if (wanfa.search('特码') != -1 || wanfa.search('正') != -1) {
         var balldata = JSON.parse(localStorage.balls);
-        console.log('balldata[0].odds=='+balldata[0].odds)
+        // console.log('balldata[0].odds=='+balldata[0].odds)
         bonus = money * balldata[0].odds;
         profit = bonus - money;
 
@@ -79,7 +82,7 @@ export class LhcAction {
 
         var balldata = JSON.parse(localStorage.balls);
         for (var i = 0; i < balldata.length; i++) {
-          bonus += balldata[i].odds * moneyunit;
+          bonus += (balldata[i].odds *balldata[i].multiple)* moneyunit;
         }
         profit = bonus - money;
 
@@ -87,7 +90,7 @@ export class LhcAction {
 
         var balldata = JSON.parse(localStorage.balls);
         for (var i = 0; i < balldata.length; i++) {
-          bonus += balldata[i].odds * moneyunit;
+          bonus += (balldata[i].odds *balldata[i].multiple)* moneyunit;
         }
         profit = bonus - money;
 
@@ -95,7 +98,7 @@ export class LhcAction {
 
         var balldata = JSON.parse(localStorage.balls);
         for (var i = 0; i < balldata.length; i++) {
-          bonus += balldata[i].odds * moneyunit;
+          bonus += (balldata[i].odds*balldata[i].multiple) * moneyunit;
         }
         profit = bonus - money;
 
@@ -103,7 +106,7 @@ export class LhcAction {
 
         var balldata = JSON.parse(localStorage.balls);
         for (var i = 0; i < balldata.length; i++) {
-          bonus += balldata[i].odds * moneyunit;
+          bonus += (balldata[i].odds*balldata[i].multiple)  * moneyunit;
         }
         profit = bonus - money;
 
@@ -202,17 +205,6 @@ export class LhcAction {
           $('.green-active').removeClass('green-active');
           $('.blue-active').removeClass('blue-active');
 
-          if(wanfa.search('特肖') != -1){
-            $('.lhc-sx .pl').text('赔率 '+localStorage.tx_prize);
-            $('.self-sx .odds.animated').text(localStorage.tx_prize);
-          }else if(wanfa.search('一肖') != -1){
-            $('.lhc-sx .pl').text('赔率 '+localStorage.yx_prize);
-            $('.self-sx .odds.animated').text(localStorage.yx_prize);
-          }else if(wanfa.search('六肖') != -1){
-            $('.lhc-sx .pl').text('赔率 '+localStorage.lx_prize);
-            $('.self-sx .odds.animated').text(localStorage.lx_prize);
-          }
-
         } else if (wanfa.search('尾数') != -1) {
           $('.currunt .ball-box .red-active').removeClass('red-active');
           $('.currunt .ball-box .green-active').removeClass('green-active');
@@ -240,11 +232,10 @@ export class LhcAction {
           $('.peilv-tip').text('赔率 *' + localStorage.bz_pirze);
         }
 
+
         var title1 = $('.play-list .play-yellow').text();
         var title2 = $('.after-list .play-yellow').text();
-
         $('.wanfa').text(title2);
-
         _this.changeBallUi(title1);
 
         $('.body-bg').css('display', 'none');
@@ -339,6 +330,55 @@ export class LhcAction {
       // tmboxBtnClick();
       // tmBallClick();
     }
+
+
+    // localStorage.tx_prize = tex;
+    // localStorage.tx_prize_dog = tex_dog;
+    // localStorage.yx_prize = yix;
+    // localStorage.yx_prize_dog = yix_dog;
+    // localStorage.lx_prize = liux;
+    // localStorage.tm_prize = tm_prize;
+
+    if(wanfa.search('特肖') != -1){
+      $('.lhc-sx .pl').text(' 赔率 '+localStorage.tx_prize);
+      $('.self-sx .odds.animated').text(localStorage.tx_prize);
+      $('.lhc-sx .pl').eq(10).text(' 赔率 '+localStorage.tx_prize_dog);
+      $('.self-sx .odds.animated').eq(10).text(localStorage.tx_prize_dog);
+    }else if(wanfa.search('一肖') != -1){
+      $('.lhc-sx .pl').text(' 赔率 '+localStorage.yx_prize);
+      $('.self-sx .odds.animated').text(localStorage.yx_prize);
+      $('.lhc-sx .pl').eq(10).text(' 赔率 '+localStorage.yx_prize_dog);
+      $('.self-sx .odds.animated').eq(10).text(localStorage.yx_prize_dog);
+    }else if(wanfa.search('六肖') != -1){
+      $('.lhc-sx .pl').text(' 赔率 '+localStorage.lx_prize);
+      $('.self-sx .odds.animated').text(localStorage.lx_prize);
+    }
+
+
+    if (wanfa.search('码') != -1) {
+      $('.peilv-tip').text('赔率 *' + localStorage.tm_prize);
+      $('.self-tm .odds.animated').text(localStorage.tm_prize);
+
+    }else if (wanfa.search('五不中') != -1) {
+
+      $('.peilv-tip').text('赔率 *' + localStorage.bz_5);
+    }else if (wanfa.search('六不中') != -1) {
+
+      $('.peilv-tip').text('赔率 *' + localStorage.bz_6);
+    }else if (wanfa.search('七不中') != -1) {
+
+      $('.peilv-tip').text('赔率 *' + localStorage.bz_7);
+    }else if (wanfa.search('八不中') != -1) {
+
+      $('.peilv-tip').text('赔率 *' + localStorage.bz_8);
+    }else if (wanfa.search('九不中') != -1) {
+
+      $('.peilv-tip').text('赔率 *' + localStorage.bz_9);
+    }else if (wanfa.search('十不中') != -1) {
+
+      $('.peilv-tip').text('赔率 *' + localStorage.bz_10);
+    }
+
 
   }
 
@@ -634,7 +674,13 @@ export class LhcAction {
     // var multiple = num;
     var num = num;
     var wayId = localStorage.wayId;
-    var prize_group = localStorage.bet_max_prize_group;
+    var prize_group;
+    if(parseInt(localStorage.user_prize_group)>1950){
+      prize_group=1950;
+    }else{
+      prize_group=localStorage.user_prize_group;
+    }
+    // var prize_group = localStorage.user_prize_group;//localStorage.bet_max_prize_group;
     // var price = localStorage.price;
     var jsid = 1;
     if (localStorage.balls != null) {
@@ -728,7 +774,7 @@ export class LhcAction {
     var zhu, money = 0;
     if (_this.isfast()) {
 
-      console.log('_this.isfast~~~~~')
+      // console.log('_this.isfast~~~~~')
 
       if (type.search('波') != -1) {
         zhu = $('.currunt').length;
@@ -745,7 +791,7 @@ export class LhcAction {
       //自选～
     } else {
 
-      console.log('//自选～~~~')
+      // console.log('//自选～~~~')
       if (type.search('波') != -1) {
         var obj = $('.self-bb .r-input');
         var len = obj.length;
@@ -929,7 +975,7 @@ export class LhcAction {
         //自选
       } else {
 
-        localStorage.removeItem('self_balls');//移除之前选择的数据
+        // localStorage.removeItem('self_balls');//移除之前选择的数据
         localStorage.removeItem('balls');
         var zhu = _this.calculateNum().zhu;
         if (zhu < 1) {

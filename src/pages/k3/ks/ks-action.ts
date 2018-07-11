@@ -226,7 +226,6 @@ export class KsAction {
 
   shakeClick() {
 
-
     let _this = this;
     _this.removeCover();
     if (!$('.saizi-pop').hasClass('hide')) {
@@ -397,7 +396,6 @@ export class KsAction {
 
     localStorage.balls = ballsitem;
 
-
   }
 
   isNumDuplication(betinfo) {
@@ -407,7 +405,8 @@ export class KsAction {
     var balldata = JSON.parse(localStorage.balls);
     for (var i = 0; i < balldata.length; i++) {
       var str = balldata[i].ball;
-      if (str == ballstr) {
+      var moneyunit = balldata[i].moneyunit;
+      if (str == ballstr && moneyunit==betinfo.moneyunit) {
         j++;
         balldata[i].multiple = parseInt(balldata[i].multiple) + parseInt(betinfo.multiple);
         balldata[i].price += betinfo.price;
