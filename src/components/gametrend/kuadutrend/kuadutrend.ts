@@ -267,51 +267,51 @@ export class KuadutrendComponent {
             }
             console.log(totals)
             this.trendData = totals
-            this.getComplexData(this.trendData)
+          
         }
 
-        getComplexData(hezhiData){
-             //遗漏冷热  yilou 当前遗漏 
-              let yilou = [],lengre = [],maxYi = [],avgYi = [], sumData = [], length = hezhiData.length;
-              for(let i = 1; i < hezhiData[length-1].length;i++){
-                  let temp = [], local = []
+        // getComplexData(hezhiData){
+        //      //遗漏冷热  yilou 当前遗漏 
+        //       let yilou = [],lengre = [],maxYi = [],avgYi = [], sumData = [], length = hezhiData.length;
+        //       for(let i = 1; i < hezhiData[length-1].length;i++){
+        //           let temp = [], local = []
 
-                  hezhiData.forEach((ele,index) => {
-                      temp.push(ele[i])
-                      if(index < hezhiData.length - 1){
-                          if(!ele[i].choose && hezhiData[index+1][i].choose){
-                              local.push(ele[i])
-                          }
-                      }else if(index = hezhiData.length - 1){
-                          if(!ele[i].choose)
-                              local.push(ele[i])
-                      }        
-                  })
+        //           hezhiData.forEach((ele,index) => {
+        //               temp.push(ele[i])
+        //               if(index < hezhiData.length - 1){
+        //                   if(!ele[i].choose && hezhiData[index+1][i].choose){
+        //                       local.push(ele[i])
+        //                   }
+        //               }else if(index = hezhiData.length - 1){
+        //                   if(!ele[i].choose)
+        //                       local.push(ele[i])
+        //               }        
+        //           })
 
-                  console.log(local)
-                  // 每个位数出现次数
-                  let leng = temp.reduce((a,b) => { 
-                      if(b.choose) 
-                        return a + b.choose
-                      else
-                        return a
-                  },0)
+        //           console.log(local)
+        //           // 每个位数出现次数
+        //           let leng = temp.reduce((a,b) => { 
+        //               if(b.choose) 
+        //                 return a + b.choose
+        //               else
+        //                 return a
+        //           },0)
 
-                  let max = temp.filter(ele => !ele.choose).length ? Math.max(...temp.filter(ele => !ele.choose).map(item => item.number)) : 0 
-                  let avg = local.length == 0 ? 0 : Math.floor(local.reduce((a,b) => a + b.number,0)/local.length)
-                  let tempArr = temp.filter(ele => !ele.choose)
-                  // let length = temp.filter(ele => !ele.choose).length
-                  yilou.push(tempArr.length ? tempArr[tempArr.length - 1].number : 0 )
-                  maxYi.push(max)
-                  avgYi.push(avg)
-                  lengre.push(leng)     
-              }
-              sumData.push(lengre)
-              sumData.push(avgYi)
-              sumData.push(maxYi)
-              sumData.push(yilou)
-              this.sumData = sumData
-        }
+        //           let max = temp.filter(ele => !ele.choose).length ? Math.max(...temp.filter(ele => !ele.choose).map(item => item.number)) : 0 
+        //           let avg = local.length == 0 ? 0 : Math.floor(local.reduce((a,b) => a + b.number,0)/local.length)
+        //           let tempArr = temp.filter(ele => !ele.choose)
+        //           // let length = temp.filter(ele => !ele.choose).length
+        //           yilou.push(tempArr.length ? tempArr[tempArr.length - 1].number : 0 )
+        //           maxYi.push(max)
+        //           avgYi.push(avg)
+        //           lengre.push(leng)     
+        //       }
+        //       sumData.push(lengre)
+        //       sumData.push(avgYi)
+        //       sumData.push(maxYi)
+        //       sumData.push(yilou)
+        //       this.sumData = sumData
+        // }
 
         getKuaduData(){
           let asd = [], totals = []

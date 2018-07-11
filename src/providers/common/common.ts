@@ -10,6 +10,7 @@ import { CountTipComponent } from '../../components/count-tip/count-tip'
 import { RestProvider } from '../../providers/rest/rest'
 import { HttpClientProvider } from '../http-client/http-client'
 import * as $ from 'jquery'
+import {fakeData} from '../../yilou'
 import {observe} from "../tools/observe";
 let _ = new observe();
 /*
@@ -98,8 +99,8 @@ export class CommonProvider {
   //历史开奖
   historyList:any[]
 
-  missData:any
-
+  missData:any = fakeData
+      
   //倒计时是否结束
   countEnd:boolean = false
 
@@ -112,7 +113,7 @@ export class CommonProvider {
 
   prizeGroup:any[];
 
-  chooseGroup:any;
+  chooseGroup:any = '1800-7.50%';
 
   currentNumber:any;
   countTime:any = {
@@ -143,13 +144,6 @@ export class CommonProvider {
           console.log(percent)
           this.bonus = this.smallKind.prize*percent
 
-        //   if(this.smallKind.extra_prize){
-        //       console.log('cccccdddddd')
-        //       console.log(this.smallKind.extra_prize)
-        //     this.smallKind.extra_prize = this.smallKind.extra_prize.map(ele => percent*Number(ele))
-        //     console.log(this.smallKind.extra_prize)
-            
-        //   }
           console.log(this.bonus)
           this.tabYuan = val
       })
@@ -169,7 +163,6 @@ export class CommonProvider {
 
 
     async initData():Promise<any>{
-        console.log('wcnmb')
         let url = '/api-lotteries-h5/load-data/2/' + this.gameId
         this.gameMethodConfig = (await this.http.fetchData(url)).data.game_ways
         
@@ -301,10 +294,12 @@ export class CommonProvider {
   produce(){
     // console.log(this.common.getCountDownTime()['current_number_time'])
     this.getCountDownTime().then((data) => {
-        this.currentNumber = data.current_number
-        this.countDown(new Date(data['current_number_time']).getTime() - new Date(data['current_time']).getTime())
+        if(data){
+            this.currentNumber = data.current_number
+            this.countDown(new Date(data['current_number_time']).getTime() - new Date(data['current_time']).getTime())
+        }   
     })   
- }
+  }
 
     countDown(time){
         this.timer = setInterval(()=> {
@@ -356,21 +351,25 @@ export class CommonProvider {
         //let data = (await this.http.postData('/api-lotteries-h5/load-data/1/' + this.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token, {_token:JSON.parse(localStorage.getItem('userInfo')).token})).data
         let data = (await this.http.fetchData('/api-lotteries-h5/load-data/1/' + this.gameId)).data
         console.log(data)
-        this.prizeGroup = []
-        this.prizeGroup.push(data.bet_max_prize_group + '-' + Number((data.user_prize_group - data.bet_max_prize_group)/data.series_amount*100).toFixed(2) + '%')
-        this.prizeGroup.push(data.bet_min_prize_group + '-' + Number((data.user_prize_group - data.bet_min_prize_group)/data.series_amount*100).toFixed(2) + '%')
-        this.chooseGroup = this.prizeGroup[0]
-        console.log(this.prizeGroup)
-        this.trace_max_times = data.trace_max_times
 
+        if(data){
+            this.prizeGroup = []
+            this.prizeGroup.push(data.bet_max_prize_group + '-' + Number((data.user_prize_group - data.bet_max_prize_group)/data.series_amount*100).toFixed(2) + '%')
+            this.prizeGroup.push(data.bet_min_prize_group + '-' + Number((data.user_prize_group - data.bet_min_prize_group)/data.series_amount*100).toFixed(2) + '%')
+            this.chooseGroup = this.prizeGroup[0]
+            console.log(this.prizeGroup)
+            this.trace_max_times = data.trace_max_times    
+        }
+       
         return new Promise((resolve,reject) =>{
             resolve(data)
         })
     }
 
     async getMissObservable(){
-      // this.missData =  this.http.fetchData('/api-lotteries-h5/getnewlottterymissed/' + this.gameId + '/30?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)
-       this.missData =  (await this.http.fetchData('/api-lotteries-h5/getnewlottterymissed/' + this.gameId + '/30')).data
+       let missData =  (await this.http.fetchData('/api-lotteries-h5/getnewlottterymissed/' + this.gameId + '/30')).data
+       if(missData)
+          this.missData = missData
        console.log(this.missData)
 
     }

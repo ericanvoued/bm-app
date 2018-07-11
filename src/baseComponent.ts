@@ -45,8 +45,6 @@ export class Effect{
     constructor(public common:CommonProvider, public gamemenu:GamemenuComponent, public modalCtrl: ModalController,public navCtrl:NavController,public resolver: ComponentFactoryResolver,public events:Events){
         let self = this;
 
-        //this.produce()
-
         //拉去倒计时
         this.common.produce()
         
@@ -56,7 +54,7 @@ export class Effect{
             }
             self.common.small = self.common.tempSmall
             self.common.bigId = self.common.tempBigId
-            self.common.smallId = self.common.tempBigId
+           // self.common.smallId = self.common.tempBigId
             $('.modal').removeClass('active')
             $('.tri-arrow').removeClass('current')
         });
@@ -73,11 +71,19 @@ export class Effect{
 
         this.events.subscribe('changeRecord', () => {
             console.log('nmslbrwgbebrreberbe')
-            let length = this.common.historyList.length, historyList = this.common.historyList
+            let length = this.common.historyList.length, historyList = this.common.historyList, number
             //this.list = historyList.map(this.handleBall).slice(0,10)
            // this.list = historyList.concat(1 - historyList.length).concat({number:historyList[length - 1]+1,code:'',time:''}).map(this.handleBall).slice(0,10)
            this.list = this.list.slice(0,this.list.length - 2)
-           this.list.unshift({number:(+(historyList[0].number) + 1 +'').slice(-7),balls:'',time:''})
+
+           if(this.common.series_id == 1)
+               number =  (+(historyList[0].number) + 1 +'').slice(-7)
+           else if(this.common.series_id == 2){
+               let splitArr = historyList[0].number.substr(5,historyList[0].number.length).split('-')
+               number = splitArr[0] + '' + (+splitArr[1] + 1) 
+           }
+                
+           this.list.unshift({number:number,balls:'',time:''})
 
             
             if(this.list.length > 2){

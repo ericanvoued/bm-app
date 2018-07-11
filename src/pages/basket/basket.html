@@ -18,14 +18,14 @@
     <div style="text-align:center;margin-bottom:10px">
         距{{common.currentNumber}}期开奖 {{common.countTime.minutes}}:{{common.countTime.seconds}}
     </div>
-   <div class="top-header" style="display:flex;justify-content:space-between;margin:0 auto 10px auto;width:100%;">
+   <div class="top-header" style="display:flex;justify-content:space-between;margin:0 auto 10px auto;width:90%;">
       <div class="top-menu" (click)="randomChoose()">+ 机选1注</div>
       <div class="top-menu" (click)="randomChoose(5)">+ 机选5注</div>
       <div class="top-menu" (click)="navCtrl.pop()">继续追号</div>
   </div> 
    
    <div>
-       <ul style="width:100%;margin:0 auto">
+       <ul style="width:90%;margin:0 auto">
           <li class="basket-content" *ngFor="let item of basket.betData;let i = index" >
               <div style="width:15%;display:flex;align-items:center;justify-content:center">
                 <img src="assets/imgs/games/delete.png" alt="" (click)="basket.removeByIndex(i)">
@@ -103,7 +103,7 @@
           <!-- <div>余额：¥{{ balance ? (balance | async) : ''}}</div> -->
           <div>余额：¥{{util.formatMoney(common.balance)}}</div>
         </div>
-       <div>共 {{basket.totalAmount}} 元</div> 
+       <div>共 {{util.formatMoney(basket.totalAmount)}} 元</div> 
        <div style="width:100px;background:url('assets/imgs/games/now-bet.svg')" (click)="confirmBet()">
 
        </div>

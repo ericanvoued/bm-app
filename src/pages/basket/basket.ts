@@ -1,5 +1,5 @@
 import { Component ,ComponentRef} from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { BasketDataProvider } from '../../providers/basket-data/basket-data'
 import { CommonProvider } from "../../providers/common/common";
 import { trigger ,state,transition,animate,style} from "@angular/animations";
@@ -47,7 +47,7 @@ export class BasketPage {
 
   min_multiple:number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,  public basket:BasketDataProvider, public common:CommonProvider, private alertCtrl: AlertController,public util:UtilProvider, public http:HttpClientProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,  public basket:BasketDataProvider, public common:CommonProvider, private alertCtrl: AlertController,public util:UtilProvider, public http:HttpClientProvider,public loadingCtrl:LoadingController) {
     for(let i = 0;i<30;i++){
        this.arr.push(i)
     }
@@ -250,7 +250,7 @@ export class BasketPage {
      
      for(let i = 0; i < this.basket.statistic.trace; i++){
             let commonNumber = this.common.currentNumber
-            let key =  this.common.series_id == 1 ? +commonNumber + i + '' : commonNumber.split('-')[0] + '-' + (+commonNumber.split('-')[1] + i) 
+            let key =  this.common.series_id == 1 ? +commonNumber + i + '' : commonNumber.split('-')[0] + '-' + ('0' + '' + (+commonNumber.split('-')[1] + i)).slice(-2) 
             let qq = {[key]:1}
             result['orders'] = {...result['orders'],[key]:1}
      }
@@ -268,9 +268,10 @@ export class BasketPage {
         result['balls'].push({
           'jsId': ballsData[i]['jsId'],
           'wayId': ballsData[i]['mid'],
-          'ball':  ballsData[i].gameName.indexOf('大小单双') != -1 ?  ballsData[i]['lotterysText'] :ballsData[i]['viewBalls'],
+          'ball':  ballsData[i].gameName.indexOf('大小单双') != -1 || ballsData[i].gameName.indexOf('特殊号码') != -1 ? ballsData[i]['lotterysText'] : ballsData[i]['viewBalls'],
           'position':ballsData[i]['position'],
-          'viewBalls': ballsData[i].gameName.indexOf('大小单双') != -1 ?  ballsData[i]['lotterysText'] :ballsData[i]['viewBalls'],
+           //'viewBalls': ballsData[i].gameName.indexOf('大小单双') != -1 ?  ballsData[i]['lotterysText'] :ballsData[i]['viewBalls'],
+          'viewBalls': '',
           //'viewBalls':ballsData[i]['viewBalls'],
           'num': ballsData[i]['num'],
           'type': ballsData[i]['gameName'],
@@ -287,9 +288,14 @@ export class BasketPage {
 
       let url = '/api-lotteries-h5/bet/' + this.common.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token
 
-    
+      let loading = this.loadingCtrl.create({
+        content: '投注中...'
+      });
+      loading.present()
+      
       this.http.postData(url,result).then(data => {
         console.log(data)
+        loading.dismiss()
         if(data.isSuccess == 1){
           this.basket.clearBasket()
 

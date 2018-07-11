@@ -75,6 +75,10 @@ export class Xuan5Page extends Effect{
                 $('#qq').show()  
             }
         )
+
+        setTimeout(() => {
+            this.loadInfo.dismiss()
+        },3000)
   }
 
   handleBall(ele){
@@ -104,6 +108,18 @@ export class Xuan5Page extends Effect{
   ionViewDidEnter(){
     this.util.shakePhone(this.util.randomChoose)
  }  
+
+ ionViewWillLeave(){
+    console.log('dwfqwfwqef')
+    //console.log(window.getEventListeners(window))
+    if(this.util.listeners.length){
+        this.util.listeners.forEach(element => {
+            window.removeEventListener('devicemotion',element,false)
+        })
+    }
+    this.util.listeners = []
+ 
+ }
 
    resetData(){
        if(this.common.smallMethod.indexOf('组选胆拖') != -1){

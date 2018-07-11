@@ -313,22 +313,22 @@ this.fakeTrend = [0,1,2,3,4].reduce((a,b) =>{
         if((Math.abs(x-lastX) > speed || Math.abs(y-lastY) > speed) && !self.shake){
             // 用户设备摇动了，触发响应操作
             // 此处的判断依据是用户设备的加速度大于我们设置的阈值
-            this.shake = true;
+            self.shake = true;
             new Observable(observer => {
                 setTimeout(() => {
                   observer.next();
                    }, 300);
             }).subscribe(value => {
-                  func.bind(this)()
-                  this.shake = false
-                  this.vibration.vibrate(500)
+                  func.bind(self)()
+                  self.shake = false
+                  self.vibration.vibrate(500)
             })
         }
         lastX = x;
         lastY = y;
     }
      this.listeners.push(shake)
-     window.addEventListener('devicemotion',shake.bind(self),false);
+     window.addEventListener('devicemotion',shake,false);
   }
 
   checkResult(data, array){
