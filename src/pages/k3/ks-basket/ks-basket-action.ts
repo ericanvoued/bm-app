@@ -5,22 +5,29 @@ export class KsBasketAction {
 
   initView() {
 
+    // if(!localStorage.balls){
+    //   return;
+    // }
     this.loadData();
     this.zhuiJiaJian();
     this.beiJiaJian();
     this.initClick();
     this.initRebate();
 
+    if(!localStorage.balls){
+      return;
+    }
     this.initMinMultiple();
     this.calculateMoney();
   }
 
   initClick() {
 
+
     let _this = this;
-    $('.clean-all').on('click', function () {
-      _this.cleanAll();
-    })
+    // $('.clean-all').on('click', function () {
+    //   _this.cleanAll();
+    // })
 
     $('.random1').on('click', function () {
       _this.randomMore(1);
@@ -33,9 +40,34 @@ export class KsBasketAction {
     $('.money-btn').on('click', function () {
       // money-drop
       // money-menu
-      // console.log(11111112323)
       $('.money-menu').toggleClass('hide');
     })
+
+    $('body').on("click", ".cancel-btn", function () {
+      // console.log(333333333)
+      $('.basket-pop').remove();
+    });
+    $('body').on("click", ".offhand-btn.bet-btn", function () {
+      // console.log(22222222222)
+      localStorage.removeItem("balls");
+      $('.buy-list').html("");
+      $('#bei input').val(1);
+      $('#zhui input').val(1);
+      $('.total-con .qi').text(1);
+      $('.total-con .zhu').text(1);
+      $('.total-con .yuan').text(0);
+      $('.basket-pop').remove();
+    });
+    // $('.cancel-btn').on('click', function () {
+    //   console.log(33334543534)
+    //    $('.basket-pop').remove();
+    // })
+
+    // $('.offhand-btn.bet-btn').on('click', function () {
+    //   _this.cleanAll();
+    //   $('.basket-pop').remove();
+    // })
+
 
     $('.win-select').on('click', function () {
 
@@ -298,6 +330,7 @@ export class KsBasketAction {
 
   cleanAll() {
 
+    console.log('000000000')
     localStorage.removeItem("balls");
     $('.buy-list').html("");
     $('#bei input').val(1);
@@ -308,11 +341,15 @@ export class KsBasketAction {
   }
 
 
+
   loadData() {
 
     let list = "";
-    if (localStorage.balls == null)
+    if (!localStorage.balls){
+      $('.buy-list').html('');
       return;
+    }
+
     let arr = JSON.parse(localStorage.balls);
     console.log(arr);
     var total_multiple = $('#bei_input').val();
@@ -484,6 +521,13 @@ export class KsBasketAction {
     //     "max_multiple":localStorage.max_multiple 最大限制倍数
     // alert(localStorage.balls);
     // $('.buy-balance').text('余额： '+localStorage.available);
+
+    // if(!localStorage.balls){
+    //   return;
+    // }
+    if(!localStorage.balls){
+      return;
+    }
     var arr = JSON.parse(localStorage.balls);
     if(arr.length==0){
       return;
@@ -528,7 +572,10 @@ export class KsBasketAction {
 
   calculateMoney() {
 
-    console.log('localStorage.balls=='+localStorage.balls)
+    if(!localStorage.balls){
+      return;
+    }
+    // console.log('localStorage.balls=='+localStorage.balls)
     var arr = JSON.parse(localStorage.balls);
     var zhu = 0, money = 0;
     for (var i = 0; i < arr.length; i++) {

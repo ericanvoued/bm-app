@@ -58,10 +58,13 @@ export class KsPage extends KsAction {
 
   ionViewDidLoad() {
 
+
+
+
     let that = this;
-    this.util.shakePhone(() => {
-      this.shakeClick();
-    })
+    // this.util.shakePhone(() => {
+    //   this.shakeClick();
+    // })
     this.navBar.backButtonClick = this.backButtonClick;
     this.initView();
     this.requestHisData();
@@ -70,50 +73,106 @@ export class KsPage extends KsAction {
     this.getnewlotterymissed60();
     this.getnewlotterymissed90();
     this.base.requestPlayData(localStorage.idstr, '3').then((response) => {
-      console.log('2222233333' + JSON.stringify(response))
-      that.initOdds(response);
+      // console.log('2222233333' + JSON.stringify(response))
+      that.initOdds(response,1);
+      localStorage.prizedata = JSON.stringify(response);
       this.changePlaySelect();
       // localStorage.kshtml = $('.alert-con').html();
     });
     this.initAny();
 
-
   }
 
+  ionViewWillEnter() {
+    // this.getnewlotterymissed30();
+    // this.getnewlotterymissed60();
+    // this.getnewlotterymissed90();
 
-  initOdds(data) {
+    this.base.requestJiangQiData(localStorage.idstr, '3', 'play').then(() => {
+      console.log('k3333333333')
+    });
 
-    var hz_prize, hz_extra_prize, sth_prize, erth_prize, sbt_prize, erbt_prize, slh_prize, dtys_prize;
-    hz_prize = data[0].prize;
-    hz_extra_prize = data[0].extra_prize;
-    sth_prize = new Number(data[1].prize).toFixed(2);
-    erth_prize = new Number(data[2].prize).toFixed(2);
-    sbt_prize = new Number(data[3].prize).toFixed(2);
-    erbt_prize = new Number(data[4].prize).toFixed(2);
-    slh_prize = new Number(data[5].prize).toFixed(2);
-    dtys_prize = new Number(data[6].prize).toFixed(2);
+    // console.log('重新进入初始化 页面～～～')
+    //初始化 顶部 选择按钮
+    this.resetTopSelectView();
 
-//hz
-//     $('.hz-section .content-box .ball-num')
-    for(var i=0;i<18;i++){
-      var inx = i+3;
-      $('.hz-section .prize').eq(i).text('奖金'+new Number(hz_extra_prize[inx]).toFixed(2)+'元');
+    if (localStorage.balls == null) {
+      console.log('----WillEnter');
+      $('.confirm-number').addClass('hide');
+      $('.bottom-r').css('background', 'grey');
+      return;
     }
-//三同号
-    $('.santh-section .content-box .ball-num').find('.prize').text('奖金' + sth_prize + '元')
-//二同号
-    $('.eth_prize').text(erth_prize);
-//三不同号
-    $('.sbt_prize').text(sbt_prize);
-//二不同号
-    $('.ebt_prize').text(erbt_prize);
-//三连号
-    $('.sanlh-section .prize').text('奖金' + slh_prize + '元');
-//单挑一骰
-    $('.dtys-section .prize').text('奖金' + dtys_prize + '元');
-
+    let balll = JSON.parse(localStorage.balls);
+    if (balll.length > 0) {
+      $('.confirm-number').removeClass('hide');
+      $('.confirm-number').text(balll.length);
+    } else {
+      $('.confirm-number').addClass('hide');
+    }
 
   }
+
+  ionViewDidLeave() {
+    // clearInterval(this.base.timeIddd);
+  }
+
+  ionViewWillLeave() {
+    $('.ks-footer').css('background', '#ececec')
+    clearInterval(this.base.timeIddd);
+    // localStorage.removeItem('balls');放这里有问题，去购彩蓝戒面会
+    //记录当前topselelctview
+    localStorage.removeItem('kshtml');
+    if(this.util.listeners.length){
+          this.util.listeners.forEach(element => {
+            window.removeEventListener('devicemotion',element,false)
+          })
+        }
+    this.util.listeners = []
+  }
+
+  ionViewDidEnter(){
+    this.util.shakePhone(() => {
+      this.shakeClick();
+    })
+  }
+
+
+
+//   initOdds(data) {
+//
+//     // console.log('data=='+data)
+//
+//     var hz_prize, hz_extra_prize, sth_prize, erth_prize, sbt_prize, erbt_prize, slh_prize, dtys_prize;
+//     hz_prize = data[0].prize;
+//     hz_extra_prize = data[0].extra_prize;
+//     sth_prize = new Number(data[1].prize).toFixed(2);
+//     erth_prize = new Number(data[2].prize).toFixed(2);
+//     sbt_prize = new Number(data[3].prize).toFixed(2);
+//     erbt_prize = new Number(data[4].prize).toFixed(2);
+//     slh_prize = new Number(data[5].prize).toFixed(2);
+//     dtys_prize = new Number(data[6].prize).toFixed(2);
+//
+// //hz
+// //     $('.hz-section .content-box .ball-num')
+//     for(var i=0;i<18;i++){
+//       var inx = i+3;
+//       $('.hz-section .prize').eq(i).text('奖金'+new Number(hz_extra_prize[inx]).toFixed(2)+'元');
+//     }
+// //三同号
+//     $('.santh-section .content-box .ball-num').find('.prize').text('奖金' + sth_prize + '元')
+// //二同号
+//     $('.eth_prize').text(erth_prize);
+// //三不同号
+//     $('.sbt_prize').text(sbt_prize);
+// //二不同号
+//     $('.ebt_prize').text(erbt_prize);
+// //三连号
+//     $('.sanlh-section .prize').text('奖金' + slh_prize + '元');
+// //单挑一骰
+//     $('.dtys-section .prize').text('奖金' + dtys_prize + '元');
+//
+//
+//   }
 
 
 
@@ -212,7 +271,7 @@ export class KsPage extends KsAction {
 
     // var userInfo = JSON.parse(localStorage.userInfo);
     var url, data;
-    url = '/api-lotteries-h5/load-issues/' + localStorage.idstr + '?_t=';
+    url = '/api-lotteries-h5/load-issues/' + localStorage.idstr + '?count=90_t=';
 
     this.rest.getUrlReturn(url)
       .subscribe((data) => {
@@ -269,42 +328,6 @@ export class KsPage extends KsAction {
 
   }
 
-
-  ionViewWillEnter() {
-    console.log('this.navParams.get()===t' + localStorage.idstr);
-    this.base.requestJiangQiData(localStorage.idstr, '3', 'play').then(() => {
-      console.log('k3333333333')
-    });
-
-    // console.log('重新进入初始化 页面～～～')
-    //初始化 顶部 选择按钮
-    this.resetTopSelectView();
-
-    if (localStorage.balls == null) {
-      console.log('----WillEnter');
-      $('.confirm-number').addClass('hide');
-      $('.bottom-r').css('background', 'grey');
-      return;
-    }
-    let balll = JSON.parse(localStorage.balls);
-    if (balll.length > 0) {
-      $('.confirm-number').removeClass('hide');
-      $('.confirm-number').text(balll.length);
-    } else {
-      $('.confirm-number').addClass('hide');
-    }
-
-  }
-
-  ionViewDidLeave() {
-    // clearInterval(this.base.timeIddd);
-  }
-
-  ionViewWillLeave() {
-    clearInterval(this.base.timeIddd);
-    //记录当前topselelctview
-    localStorage.removeItem('kshtml');
-  }
 
 
   resetTopSelectView() {
@@ -371,6 +394,8 @@ export class KsPage extends KsAction {
 
 
   pushToBasket() {
+
+
 
     var moneyunit = 1;
     var txt = $('.money-btn i').text();

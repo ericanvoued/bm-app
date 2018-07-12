@@ -20,13 +20,13 @@ export class Tpl {
   }
 
 
-  static recharge_tip = '<section class="basket-pop" style=" position: absolute;top: 0; bottom: 0;left: 0;right: 0;z-index: 123;background: rgba(0, 0, 0, 0.6);display: flex;justify-content: center;align-items: center;">\n' +
-    '  <div class="balance-pop" style="overflow: hidden;background: #ffffff;border-radius: 10px;text-align: center;width: 75vw;height: 160px;">\n' +
-    '    <h4 style="font-size: 14px;color: #000;letter-spacing: -0.22px;margin-top: 54px;">您的余额不足，请先去充值</h4>\n' +
-    '    <div style="height: 40px;float: left;width: 37.5vw;line-height: 40px;text-align: center;font-size: 16px;background-color: #ffffff; margin-top: 49px;border-top: 1px solid rgb(210, 210, 210);color: #666666;\n' +
+  static recharge_tip = '<section class="basket-pop" style=" position: absolute;top: 0; bottom: 0;left: 0;right: 0;z-index: 123;background: rgba(0, 0, 0, 0.35);display: flex;justify-content: center;align-items: center;">\n' +
+    '  <div class="balance-pop" style="overflow: hidden;background: #ffffff;border-radius: 10px;text-align: center;width: 75vw;height: 137px;">\n' +
+    '    <h4 class="txt" style="font-size: 14px;color: #000;letter-spacing: -0.22px;margin-top: 40px;">您的余额不足，请先去充值</h4>\n' +
+    '    <div style="height: 40px;float: left;width: 37.5vw;line-height: 40px;text-align: center;font-size: 16px;background-color: #ffffff; margin-top: 40px;border-top: 1px solid rgb(210, 210, 210);color: #666666;\n' +
     '    border-right: 1px solid rgb(210, 210, 210);" class="offhand-btn cancel-btn">取消\n' +
     '    </div>\n' +
-    '    <div style="height: 40px;float: left;width: 37.5vw;line-height: 40px;text-align: center;font-size: 16px;background-color: #ffffff;margin-top: 49px;border-top: 1px solid rgb(210, 210, 210);color: #FE5600;" class="offhand-btn bet-btn">确定\n' +
+    '    <div style="height: 40px;float: left;width: 37.5vw;line-height: 40px;text-align: center;font-size: 16px;background-color: #ffffff;margin-top: 40px;border-top: 1px solid rgb(210, 210, 210);color: #FE5600;" class="offhand-btn bet-btn">确定\n' +
     '    </div>\n' +
     '  </div>\n' +
     '</section>';

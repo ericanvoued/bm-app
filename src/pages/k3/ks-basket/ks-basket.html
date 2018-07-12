@@ -4,7 +4,7 @@
     <span class="nav-title"> 购彩篮</span>
     <!--</ion-title>-->
 
-    <span class="clean-all">清空</span>
+    <span class="clean-all" (click)="cleanAllClick()">清空</span>
 
 
   </ion-navbar>
@@ -21,38 +21,39 @@
 <ion-content padding>
 
   <div class="scroll-content" style="">
+
+
     <ul class="buy-list">
 
-      <li class="buy-li clear">
-        <div class="li-close">
-          <ion-icon name="ios-close-circle-outline"></ion-icon>
-        </div>
-        <div class="buy-con">
-          <div class="number">
-            <i style="color: #FE5600;width: auto; display: inline;">
-              <i>888|31231|21321312312313|123123123213|21321313|123213123|!23123123|!2312321</i>
-            </i>
-          </div>
-          <div class="mt5"><span class="direct-select">后三直选复式</span> <span>1注 1倍 2元</span>
-          </div>
-        </div>
-        <div class="dian"></div>
-      </li>
+      <!--<li class="buy-li clear">-->
+        <!--<div class="li-close">-->
+          <!--<ion-icon name="ios-close-circle-outline"></ion-icon>-->
+        <!--</div>-->
+        <!--<div class="buy-con">-->
+          <!--<div class="number">-->
+            <!--<i style="color: #FE5600;width: auto; display: inline;">-->
+              <!--<i>888|31231|21321312312313|123123123213|21321313|123213123|!23123123|!2312321</i>-->
+            <!--</i>-->
+          <!--</div>-->
+          <!--<div class="mt5"><span class="direct-select">后三直选复式</span> <span>1注 1倍 2元</span>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="dian"></div>-->
+      <!--</li>-->
 
-
-      <li class="buy-li clear">
-        <div class="li-close">
-          <ion-icon name="ios-close-circle-outline"></ion-icon>
-        </div>
-        <div class="buy-con">
-          <div class="number">
-            <i style="color: #FE5600;width: auto; display: inline;"><i>8</i><i class="line">,</i></i>
-          </div>
-          <div class="mt5"><span class="direct-select">后三直选复式</span> <span>1注 1倍 2元</span>
-          </div>
-        </div>
-        <div class="dian"></div>
-      </li>
+      <!--<li class="buy-li clear">-->
+        <!--<div class="li-close">-->
+          <!--<ion-icon name="ios-close-circle-outline"></ion-icon>-->
+        <!--</div>-->
+        <!--<div class="buy-con">-->
+          <!--<div class="number">-->
+            <!--<i style="color: #FE5600;width: auto; display: inline;"><i>8</i><i class="line">,</i></i>-->
+          <!--</div>-->
+          <!--<div class="mt5"><span class="direct-select">后三直选复式</span> <span>1注 1倍 2元</span>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="dian"></div>-->
+      <!--</li>-->
 
       <!--<li class="buy-li clear">-->
       <!--<div class="li-close">-->
@@ -82,6 +83,8 @@
       <!--</li>-->
 
     </ul>
+
+
   </div>
 </ion-content>
 

@@ -522,7 +522,7 @@ export class KstrendAction {
               txt = parseInt(txt) + 1;
             }
 
-            if( $('.jbzs-ul').find('.his-line').eq(i - 1).find('.kj-ing').text().search('等待')!=-1 ){
+            if ($('.jbzs-ul').find('.his-line').eq(i - 1).find('.kj-ing').text().search('等待') != -1) {
               txt = 1;
             }
 
@@ -668,7 +668,7 @@ export class KstrendAction {
               txt = parseInt(txt) + 1;
             }
           }
-          if( $('.xtzs-ul').find('.his-line').eq(i - 1).find('.kj-ing').text().search('等待')!=-1 ){
+          if ($('.xtzs-ul').find('.his-line').eq(i - 1).find('.kj-ing').text().search('等待') != -1) {
             txt = 1;
           }
           it = '<p class="t t-' + (k + 1) + '">' + txt + '</p>';
@@ -863,7 +863,7 @@ export class KstrendAction {
                 txt = parseInt(txt) + 1;
               }
             }
-            if( $('.hmfb-ul').find('.his-line').eq(i - 1).find('.kj-ing').text().search('等待')!=-1 ){
+            if ($('.hmfb-ul').find('.his-line').eq(i - 1).find('.kj-ing').text().search('等待') != -1) {
               txt = 1;
             }
             it = '<p class="t"><span>' + txt + '</span></p>';
@@ -896,75 +896,75 @@ export class KstrendAction {
     var statistics = '<ul class="bottom-hmfb">\n' +
       '      <li class="his-line">\n' +
       '        <p class="txt">出现次数</p>\n' +
-      '        <p class="t t-12">'+lr90['hot']['ebth']['12']+'</p>\n' +
-      '        <p class="t t-13">'+lr90['hot']['ebth']['13']+'</p>\n' +
-      '        <p class="t t-14">'+lr90['hot']['ebth']['14']+'</p>\n' +
-      '        <p class="t t-15">'+lr90['hot']['ebth']['15']+'</p>\n' +
-      '        <p class="t t-16">'+lr90['hot']['ebth']['16']+'</p>\n' +
-      '        <p class="t t-23">'+lr90['hot']['ebth']['23']+'</p>\n' +
-      '        <p class="t t-24">'+lr90['hot']['ebth']['24']+'</p>\n' +
-      '        <p class="t t-25">'+lr90['hot']['ebth']['25']+'</p>\n' +
-      '        <p class="t t-26">'+lr90['hot']['ebth']['26']+'</p>\n' +
-      '        <p class="t t-34">'+lr90['hot']['ebth']['34']+'</p>\n' +
-      '        <p class="t t-35">'+lr90['hot']['ebth']['35']+'</p>\n' +
-      '        <p class="t t-36">'+lr90['hot']['ebth']['36']+'</p>\n' +
-      '        <p class="t t-45">'+lr90['hot']['ebth']['45']+'</p>\n' +
-      '        <p class="t t-46">'+lr90['hot']['ebth']['46']+'</p>\n' +
-      '        <p class="t t-56">'+lr90['hot']['ebth']['56']+'</p>\n' +
+      '        <p class="t t-12">' + lr90['hot']['ebth']['12'] + '</p>\n' +
+      '        <p class="t t-13">' + lr90['hot']['ebth']['13'] + '</p>\n' +
+      '        <p class="t t-14">' + lr90['hot']['ebth']['14'] + '</p>\n' +
+      '        <p class="t t-15">' + lr90['hot']['ebth']['15'] + '</p>\n' +
+      '        <p class="t t-16">' + lr90['hot']['ebth']['16'] + '</p>\n' +
+      '        <p class="t t-23">' + lr90['hot']['ebth']['23'] + '</p>\n' +
+      '        <p class="t t-24">' + lr90['hot']['ebth']['24'] + '</p>\n' +
+      '        <p class="t t-25">' + lr90['hot']['ebth']['25'] + '</p>\n' +
+      '        <p class="t t-26">' + lr90['hot']['ebth']['26'] + '</p>\n' +
+      '        <p class="t t-34">' + lr90['hot']['ebth']['34'] + '</p>\n' +
+      '        <p class="t t-35">' + lr90['hot']['ebth']['35'] + '</p>\n' +
+      '        <p class="t t-36">' + lr90['hot']['ebth']['36'] + '</p>\n' +
+      '        <p class="t t-45">' + lr90['hot']['ebth']['45'] + '</p>\n' +
+      '        <p class="t t-46">' + lr90['hot']['ebth']['46'] + '</p>\n' +
+      '        <p class="t t-56">' + lr90['hot']['ebth']['56'] + '</p>\n' +
       '      </li>\n' +
       '      <li class="his-line">\n' +
       '        <p class="txt">平均遗漏</p>\n' +
-      '        <p class="t t-12">'+lr90['average']['ebth']['12']+'</p>\n' +
-      '        <p class="t t-13">'+lr90['average']['ebth']['13']+'</p>\n' +
-      '        <p class="t t-14">'+lr90['average']['ebth']['14']+'</p>\n' +
-      '        <p class="t t-15">'+lr90['average']['ebth']['15']+'</p>\n' +
-      '        <p class="t t-16">'+lr90['average']['ebth']['16']+'</p>\n' +
-      '        <p class="t t-23">'+lr90['average']['ebth']['23']+'</p>\n' +
-      '        <p class="t t-24">'+lr90['average']['ebth']['24']+'</p>\n' +
-      '        <p class="t t-25">'+lr90['average']['ebth']['25']+'</p>\n' +
-      '        <p class="t t-26">'+lr90['average']['ebth']['26']+'</p>\n' +
-      '        <p class="t t-34">'+lr90['average']['ebth']['34']+'</p>\n' +
-      '        <p class="t t-35">'+lr90['average']['ebth']['35']+'</p>\n' +
-      '        <p class="t t-36">'+lr90['average']['ebth']['36']+'</p>\n' +
-      '        <p class="t t-45">'+lr90['average']['ebth']['45']+'</p>\n' +
-      '        <p class="t t-46">'+lr90['average']['ebth']['46']+'</p>\n' +
-      '        <p class="t t-56">'+lr90['average']['ebth']['56']+'</p>\n' +
+      '        <p class="t t-12">' + lr90['average']['ebth']['12'] + '</p>\n' +
+      '        <p class="t t-13">' + lr90['average']['ebth']['13'] + '</p>\n' +
+      '        <p class="t t-14">' + lr90['average']['ebth']['14'] + '</p>\n' +
+      '        <p class="t t-15">' + lr90['average']['ebth']['15'] + '</p>\n' +
+      '        <p class="t t-16">' + lr90['average']['ebth']['16'] + '</p>\n' +
+      '        <p class="t t-23">' + lr90['average']['ebth']['23'] + '</p>\n' +
+      '        <p class="t t-24">' + lr90['average']['ebth']['24'] + '</p>\n' +
+      '        <p class="t t-25">' + lr90['average']['ebth']['25'] + '</p>\n' +
+      '        <p class="t t-26">' + lr90['average']['ebth']['26'] + '</p>\n' +
+      '        <p class="t t-34">' + lr90['average']['ebth']['34'] + '</p>\n' +
+      '        <p class="t t-35">' + lr90['average']['ebth']['35'] + '</p>\n' +
+      '        <p class="t t-36">' + lr90['average']['ebth']['36'] + '</p>\n' +
+      '        <p class="t t-45">' + lr90['average']['ebth']['45'] + '</p>\n' +
+      '        <p class="t t-46">' + lr90['average']['ebth']['46'] + '</p>\n' +
+      '        <p class="t t-56">' + lr90['average']['ebth']['56'] + '</p>\n' +
       '      </li>\n' +
       '      <li class="his-line">\n' +
       '        <p class="txt">最大遗漏</p>\n' +
-      '        <p class="t t-12">'+lr90['max']['ebth']['12']+'</p>\n' +
-      '        <p class="t t-13">'+lr90['max']['ebth']['13']+'</p>\n' +
-      '        <p class="t t-14">'+lr90['max']['ebth']['14']+'</p>\n' +
-      '        <p class="t t-15">'+lr90['max']['ebth']['15']+'</p>\n' +
-      '        <p class="t t-16">'+lr90['max']['ebth']['16']+'</p>\n' +
-      '        <p class="t t-23">'+lr90['max']['ebth']['23']+'</p>\n' +
-      '        <p class="t t-24">'+lr90['max']['ebth']['24']+'</p>\n' +
-      '        <p class="t t-25">'+lr90['max']['ebth']['25']+'</p>\n' +
-      '        <p class="t t-26">'+lr90['max']['ebth']['26']+'</p>\n' +
-      '        <p class="t t-34">'+lr90['max']['ebth']['34']+'</p>\n' +
-      '        <p class="t t-35">'+lr90['max']['ebth']['35']+'</p>\n' +
-      '        <p class="t t-36">'+lr90['max']['ebth']['36']+'</p>\n' +
-      '        <p class="t t-45">'+lr90['max']['ebth']['45']+'</p>\n' +
-      '        <p class="t t-46">'+lr90['max']['ebth']['46']+'</p>\n' +
-      '        <p class="t t-56">'+lr90['max']['ebth']['56']+'</p>\n' +
+      '        <p class="t t-12">' + lr90['max']['ebth']['12'] + '</p>\n' +
+      '        <p class="t t-13">' + lr90['max']['ebth']['13'] + '</p>\n' +
+      '        <p class="t t-14">' + lr90['max']['ebth']['14'] + '</p>\n' +
+      '        <p class="t t-15">' + lr90['max']['ebth']['15'] + '</p>\n' +
+      '        <p class="t t-16">' + lr90['max']['ebth']['16'] + '</p>\n' +
+      '        <p class="t t-23">' + lr90['max']['ebth']['23'] + '</p>\n' +
+      '        <p class="t t-24">' + lr90['max']['ebth']['24'] + '</p>\n' +
+      '        <p class="t t-25">' + lr90['max']['ebth']['25'] + '</p>\n' +
+      '        <p class="t t-26">' + lr90['max']['ebth']['26'] + '</p>\n' +
+      '        <p class="t t-34">' + lr90['max']['ebth']['34'] + '</p>\n' +
+      '        <p class="t t-35">' + lr90['max']['ebth']['35'] + '</p>\n' +
+      '        <p class="t t-36">' + lr90['max']['ebth']['36'] + '</p>\n' +
+      '        <p class="t t-45">' + lr90['max']['ebth']['45'] + '</p>\n' +
+      '        <p class="t t-46">' + lr90['max']['ebth']['46'] + '</p>\n' +
+      '        <p class="t t-56">' + lr90['max']['ebth']['56'] + '</p>\n' +
       '      </li>\n' +
       '      <li class="his-line">\n' +
       '        <p class="txt">当前遗漏</p>\n' +
-      '        <p class="t t-12">'+lr90['current']['ebth']['12']+'</p>\n' +
-      '        <p class="t t-13">'+lr90['current']['ebth']['13']+'</p>\n' +
-      '        <p class="t t-14">'+lr90['current']['ebth']['14']+'</p>\n' +
-      '        <p class="t t-15">'+lr90['current']['ebth']['15']+'</p>\n' +
-      '        <p class="t t-16">'+lr90['current']['ebth']['16']+'</p>\n' +
-      '        <p class="t t-23">'+lr90['current']['ebth']['23']+'</p>\n' +
-      '        <p class="t t-24">'+lr90['current']['ebth']['24']+'</p>\n' +
-      '        <p class="t t-25">'+lr90['current']['ebth']['25']+'</p>\n' +
-      '        <p class="t t-26">'+lr90['current']['ebth']['26']+'</p>\n' +
-      '        <p class="t t-34">'+lr90['current']['ebth']['34']+'</p>\n' +
-      '        <p class="t t-35">'+lr90['current']['ebth']['35']+'</p>\n' +
-      '        <p class="t t-36">'+lr90['current']['ebth']['36']+'</p>\n' +
-      '        <p class="t t-45">'+lr90['current']['ebth']['45']+'</p>\n' +
-      '        <p class="t t-46">'+lr90['current']['ebth']['46']+'</p>\n' +
-      '        <p class="t t-56">'+lr90['current']['ebth']['56']+'</p>\n' +
+      '        <p class="t t-12">' + lr90['current']['ebth']['12'] + '</p>\n' +
+      '        <p class="t t-13">' + lr90['current']['ebth']['13'] + '</p>\n' +
+      '        <p class="t t-14">' + lr90['current']['ebth']['14'] + '</p>\n' +
+      '        <p class="t t-15">' + lr90['current']['ebth']['15'] + '</p>\n' +
+      '        <p class="t t-16">' + lr90['current']['ebth']['16'] + '</p>\n' +
+      '        <p class="t t-23">' + lr90['current']['ebth']['23'] + '</p>\n' +
+      '        <p class="t t-24">' + lr90['current']['ebth']['24'] + '</p>\n' +
+      '        <p class="t t-25">' + lr90['current']['ebth']['25'] + '</p>\n' +
+      '        <p class="t t-26">' + lr90['current']['ebth']['26'] + '</p>\n' +
+      '        <p class="t t-34">' + lr90['current']['ebth']['34'] + '</p>\n' +
+      '        <p class="t t-35">' + lr90['current']['ebth']['35'] + '</p>\n' +
+      '        <p class="t t-36">' + lr90['current']['ebth']['36'] + '</p>\n' +
+      '        <p class="t t-45">' + lr90['current']['ebth']['45'] + '</p>\n' +
+      '        <p class="t t-46">' + lr90['current']['ebth']['46'] + '</p>\n' +
+      '        <p class="t t-56">' + lr90['current']['ebth']['56'] + '</p>\n' +
       '      </li>\n' +
       '    </ul>';
 
@@ -999,7 +999,6 @@ export class KstrendAction {
           '      <p class="t-kjh">' + codestr + '</p>\n' +
           '      </li>';
 
-
         $('.hmfb-container .hmfb-ul').append(item);
       }
 
@@ -1031,7 +1030,7 @@ export class KstrendAction {
               } else {
                 txt = parseInt(txt) + 1;
               }
-              if( $('.hmfb-ul').find('.his-line').eq(i - 1).find('.kj-ing').text().search('等待')!=-1 ){
+              if ($('.hmfb-ul').find('.his-line').eq(i - 1).find('.kj-ing').text().search('等待') != -1) {
                 txt = 1;
               }
             }
@@ -1052,7 +1051,7 @@ export class KstrendAction {
             } else {
               txt = parseInt(txt) + 1;
             }
-            if( $('.hmfb-ul').find('.his-line').eq(i - 1).find('.kj-ing').text().search('等待')!=-1 ){
+            if ($('.hmfb-ul').find('.his-line').eq(i - 1).find('.kj-ing').text().search('等待') != -1) {
               txt = 1;
             }
           }
@@ -1108,13 +1107,53 @@ export class KstrendAction {
   }
 
 
-  createLrContent() {
+  //和值，三不同，二不同，三连，单挑
+  calculateHZMax(lr30) {
+    var arr = [];
+    for (var i = 3; i <= 18; i++) {
+      arr.push(lr30[i]);
+    }
+    return Math.max(...arr);
+  }
 
+  calculate3btMax(lr30) {
+
+    var inxarr = [123, 124, 125, 126, 134, 135, 136, 145, 146, 156, 234, 235, 236, 245, 246, 256, 345, 346, 356, 456]
+    var arr = [];
+    for (var i = 0; i < inxarr.length; i++) {
+      arr.push(lr30[inxarr[i]]);
+    }
+    return Math.max(...arr);
+  }
+
+  calculate2btMax(lr30) {
+
+    var inxarr = [12, 13, 14, 15, 16, 23, 24, 25, 26, 34, 35, 36, 45, 46, 56];
+    var arr = [];
+    for (var i = 0; i < inxarr.length; i++) {
+      arr.push(lr30[inxarr[i]]);
+    }
+    return Math.max(...arr);
+  }
+
+  calculateDTYSMax(lr30) {
+
+    var inxarr = [1, 2, 3, 4, 5, 6];
+    var arr = [];
+    for (var i = 0; i < inxarr.length; i++) {
+      arr.push(lr30[inxarr[i]]);
+    }
+    return Math.max(...arr);
+  }
+
+  createLrContent() {
+    let that = this;
     // 和值 ， 三不同 ， 二不同 ，单挑
     // 3-18 ， 1-6  ，1-6   ，1-6   遗漏 30 期
     var title = $('page-kstrend .wanfa').text();
     var lr30 = [], lr60 = [], lr90 = [], ylarr = [];
     var trend = $('.trend-content'), htm = '', item;
+    var lr30_max,lr60_max,lr90_max,ylarr_max,hot;
     trend.append(Tpl.lr_con_tpl);
     switch (title) {
       case '和值':
@@ -1122,58 +1161,14 @@ export class KstrendAction {
         lr60 = JSON.parse(localStorage.yldata60).hz.hot;
         lr90 = JSON.parse(localStorage.yldata90).hz.hot;
         ylarr = JSON.parse(localStorage.yldata90).hz.current;
+        hot = [3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
+        // console.log('lr30====' + JSON.stringify(lr30));
 
-        console.log('lr30===='+lr30);
+         lr30_max = that.calculateHZMax(lr30);
+         lr60_max = that.calculateHZMax(lr60);
+         lr90_max = that.calculateHZMax(lr90);
+         ylarr_max = that.calculateHZMax(ylarr);
 
-
-
-        var lr30_max  = Math.max(...lr30);//Math.max(...lr30);
-        var lr60_max  = Math.max(...lr60);
-        var lr90_max  = Math.max(...lr90);
-        var ylarr_max = Math.max(...ylarr);
-
-        console.log('lr30_max===='+lr30_max);
-        console.log('lr60_max===='+lr60_max);
-        console.log('lr90_max===='+lr90_max);
-
-        for (var i = 0; i < 16; i++) {
-
-
-          var inx = i + 3, hz = i + 1;
-          htm +=  '<li class="his-line"><p class="t-hz">' + inx + '</p>\n';
-
-          if(lr30[inx]==lr30_max){
-            htm += '<p class="t-30lr hot">' + lr30[inx] + '</p>\n';
-          }else{
-            htm += '<p class="t-30lr">' + lr30[inx] + '</p>\n';
-          }
-          if(lr60[inx]==lr60_max){
-            htm += '<p class="t-60lr hot">' + lr60[inx] + '</p>\n';
-          }else{
-            htm += '<p class="t-60lr">' + lr60[inx] + '</p>\n';
-          }
-          if(lr90[inx]==lr90_max){
-            htm += '<p class="t-100lr hot">' + lr90[inx] + '</p>\n';
-          }else{
-            htm += '<p class="t-100lr">' + lr90[inx] + '</p>\n';
-          }
-          if(lr90[inx]==ylarr_max){
-            htm += '<p class="t-yl hot">' + ylarr[inx] + '</p>\n';
-          }else{
-            htm += '<p class="t-yl">' + ylarr[inx] + '</p>\n';
-          }
-          htm +=  '</li>';
-
-          // item = '<li class="his-line">\n' +
-            // '        <p class="t-hz">' + inx + '</p>\n' +
-            // '        <p class="t-30lr">' + lr30[inx] + '</p>\n' +
-            // '        <p class="t-60lr">' + lr60[inx] + '</p>\n' +
-            // '        <p class="t-100lr">' + lr90[inx] + '</p>\n' +
-            // '        <p class="t-yl">' + ylarr[inx] + '</p>\n' +
-            // '      </li>';
-          // htm += item;
-
-        }
         break;
       case '三不同号':
 
@@ -1181,18 +1176,11 @@ export class KstrendAction {
         lr60 = JSON.parse(localStorage.yldata60).k3sbth.hot;
         lr90 = JSON.parse(localStorage.yldata90).k3sbth.hot;
         ylarr = JSON.parse(localStorage.yldata90).k3sbth.current;
-        var hot = [123, 124, 125, 126, 134, 135, 136, 145, 146, 156, 234, 235, 236, 245, 246, 256, 345, 346, 356, 456];
-        for (var i = 0; i < hot.length; i++) {
-          var inx = hot[i];
-          item = '<li class="his-line">\n' +
-            '        <p class="t-hz">' + inx + '</p>\n' +
-            '        <p class="t-30lr">' + lr30[inx] + '</p>\n' +
-            '        <p class="t-60lr">' + lr60[inx] + '</p>\n' +
-            '        <p class="t-100lr">' + lr90[inx] + '</p>\n' +
-            '        <p class="t-yl">' + ylarr[inx] + '</p>\n' +
-            '      </li>';
-          htm += item;
-        }
+         hot = [123, 124, 125, 126, 134, 135, 136, 145, 146, 156, 234, 235, 236, 245, 246, 256, 345, 346, 356, 456];
+         lr30_max = that.calculate3btMax(lr30);
+         lr60_max = that.calculate3btMax(lr60);
+         lr90_max = that.calculate3btMax(lr90);
+         ylarr_max = that.calculate3btMax(ylarr);
 
         break;
       case '二不同号':
@@ -1200,37 +1188,81 @@ export class KstrendAction {
         lr60 = JSON.parse(localStorage.yldata60).k3ebth.hot;
         lr90 = JSON.parse(localStorage.yldata90).k3ebth.hot;
         ylarr = JSON.parse(localStorage.yldata90).k3ebth.current;
-        var hot = [12, 13, 14, 15, 16, 23, 24, 25, 26, 34, 35, 36, 45, 46, 56];
-        for (var i = 0; i < hot.length; i++) {
-          var inx = hot[i];
-          item = '<li class="his-line">\n' +
-            '        <p class="t-hz">' + inx + '</p>\n' +
-            '        <p class="t-30lr">' +  lr30['ebth'][inx] + '</p>\n' +
-            '        <p class="t-60lr">' +  lr60['ebth'][inx] + '</p>\n' +
-            '        <p class="t-100lr">' + lr90['ebth'][inx] + '</p>\n' +
-            '        <p class="t-yl">' + ylarr['ebth'][inx] + '</p>\n' +
-            '      </li>';
-          htm += item;
-        }
+         hot = [12, 13, 14, 15, 16, 23, 24, 25, 26, 34, 35, 36, 45, 46, 56];
+         lr30_max = that.calculate2btMax(lr30);
+         lr60_max = that.calculate2btMax(lr60);
+         lr90_max = that.calculate2btMax(lr90);
+         ylarr_max = that.calculate2btMax(ylarr);
+
         break;
       case '单挑一骰':
         lr30 = JSON.parse(localStorage.yldata30).k3dtys.hot;
         lr60 = JSON.parse(localStorage.yldata60).k3dtys.hot;
         lr90 = JSON.parse(localStorage.yldata90).k3dtys.hot;
         ylarr = JSON.parse(localStorage.yldata90).k3dtys.current;
-        var hot = [1, 2, 3, 4, 5, 6];
-        for (var i = 0; i < hot.length; i++) {
-          var inx = hot[i];
-          item = '<li class="his-line">\n' +
-            '        <p class="t-hz">' + inx + '</p>\n' +
-            '        <p class="t-30lr">' + lr30[inx] + '</p>\n' +
-            '        <p class="t-60lr">' + lr60[inx] + '</p>\n' +
-            '        <p class="t-100lr">' + lr90[inx] + '</p>\n' +
-            '        <p class="t-yl">' + ylarr[inx] + '</p>\n' +
-            '      </li>';
-          htm += item;
-        }
+         hot = [1, 2, 3, 4, 5, 6];
+         lr30_max = that.calculateDTYSMax(lr30);
+         lr60_max = that.calculateDTYSMax(lr60);
+         lr90_max = that.calculateDTYSMax(lr90);
+         ylarr_max = that.calculateDTYSMax(ylarr);
+
         break;
+    }
+
+    if(title=='二不同号'){
+
+      for (var i = 0; i < hot.length; i++) {
+        var inx = hot[i];
+        htm += '<li class="his-line"><p class="t-hz">' + inx + '</p>\n';
+        if (lr30[inx] == lr30_max) {
+          htm += '<p class="t-30lr hot">' + lr30['ebth'][inx] + '</p>\n';
+        } else {
+          htm += '<p class="t-30lr">' + lr30['ebth'][inx] + '</p>\n';
+        }
+        if (lr60[inx] == lr60_max) {
+          htm += '<p class="t-60lr hot">' + lr60['ebth'][inx] + '</p>\n';
+        } else {
+          htm += '<p class="t-60lr">' + lr60['ebth'][inx] + '</p>\n';
+        }
+        if (lr90[inx] == lr90_max) {
+          htm += '<p class="t-100lr hot">' + lr90['ebth'][inx] + '</p>\n';
+        } else {
+          htm += '<p class="t-100lr">' + lr90['ebth'][inx] + '</p>\n';
+        }
+        if (ylarr[inx] == ylarr_max) {
+          htm += '<p class="t-yl hot">' + ylarr['ebth'][inx] + '</p>\n';
+        } else {
+          htm += '<p class="t-yl">' + ylarr['ebth'][inx] + '</p>\n';
+        }
+        htm += '</li>';
+      }
+    }else {
+
+      for (var i = 0; i < hot.length; i++) {
+        var inx = hot[i];
+        htm += '<li class="his-line"><p class="t-hz">' + inx + '</p>\n';
+        if (lr30[inx] == lr30_max) {
+          htm += '<p class="t-30lr hot">' + lr30[inx] + '</p>\n';
+        } else {
+          htm += '<p class="t-30lr">' + lr30[inx] + '</p>\n';
+        }
+        if (lr60[inx] == lr60_max) {
+          htm += '<p class="t-60lr hot">' + lr60[inx] + '</p>\n';
+        } else {
+          htm += '<p class="t-60lr">' + lr60[inx] + '</p>\n';
+        }
+        if (lr90[inx] == lr90_max) {
+          htm += '<p class="t-100lr hot">' + lr90[inx] + '</p>\n';
+        } else {
+          htm += '<p class="t-100lr">' + lr90[inx] + '</p>\n';
+        }
+        if (ylarr[inx] == ylarr_max) {
+          htm += '<p class="t-yl hot">' + ylarr[inx] + '</p>\n';
+        } else {
+          htm += '<p class="t-yl">' + ylarr[inx] + '</p>\n';
+        }
+        htm += '</li>';
+      }
     }
     trend.find('.lr-ul').html(htm);
   }
@@ -1285,7 +1317,7 @@ export class KstrendAction {
               } else {
                 txt = parseInt(txt) + 1;
               }
-              if( $('.hzzs-ul').find('.his-line').eq(i - 1).find('.kj-ing').text().search('等待')!=-1 ){
+              if ($('.hzzs-ul').find('.his-line').eq(i - 1).find('.kj-ing').text().search('等待') != -1) {
                 txt = 1;
               }
             }

@@ -161,6 +161,8 @@ export class LhcAction {
 
   dropdownClick() {
 
+
+
     $('.body-bg').css('display', 'block');
     $('.pageMenuSlides').css('display', 'none');
     $('.alert-con').css('display', 'block');
