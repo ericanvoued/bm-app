@@ -2,6 +2,7 @@ import { Component,Output,ViewChild,ElementRef, EventEmitter, OnInit,AfterViewIn
 import { Slides } from 'ionic-angular';
 import { UtilProvider } from '../../../../providers/util/util'
 import { SscServiceProvider } from "../../../../providers/games/ssc-service/ssc-service"
+import * as $ from 'jquery';
 
 import { CommonProvider } from "../../../../providers/common/common";
 /**
@@ -10,6 +11,30 @@ import { CommonProvider } from "../../../../providers/common/common";
  * See https://angular.io/api/core/Component for more info on Angular
  * Components.
  */
+
+function throttle(fn,delay,options) {
+  var wait=false;
+ if (!options) options = {};
+ return function(e){
+     var that = this;
+      if(!wait){
+          if (options.leading === false){
+              // 非截流操作
+              fn.apply(that)
+             }
+          else { 
+             // 截流操作
+             wait=true;
+             setTimeout(function () {
+                fn.call(that,e);
+                wait=false;
+             },delay);
+         }
+     }
+ }
+}
+
+
 @Component({
   selector: 'zhixuanhezhi',
   templateUrl: 'zhixuanhezhi.html'
@@ -28,10 +53,10 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
 
   domWidth:number;
 
-  qishu:any[] = ['期号']
+  qishu:any[] = []
 
     
-  numbers:number[];
+  numbers:any[];
 
   menus:string[] = ['开奖','号码走势','和值走势','冷热']
 
@@ -59,7 +84,6 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
   lengreData:any[]
 
   //平均 最大 当前 冷热统计
-  sumData:any[]
 
   sumArr:any[]
 
@@ -94,7 +118,8 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
   }
 
   ngOnInit(){
-    this.contentSlides.initialSlide = this.chooseIndex
+    console.log(this.chooseIndex)
+   
     this.choose = this.menus[this.chooseIndex]
 
     if(this.common.method == '前三' || this.common.method == '中三' || this.common.method == '后三'){
@@ -129,37 +154,48 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
 
 
   ngAfterViewInit(){
-    console.log('axivababsbeen')
-    this.contentSlides.lockSwipes(true)
+    console.log(this.numbers)
+    this.contentSlides.initialSlide = this.chooseIndex
+    setTimeout(() => {
+      this.contentSlides.lockSwipes(true)
+    },500)
+    //this.contentSlides.lockSwipes(true)
    
-    //  this.domWidth = this.drag.nativeElement.offsetWidth
-    //  console.log(this.domWidth)
-    //  console.log(document.querySelector('.hezhi-container'))
+     this.drag.nativeElement.addEventListener('touchstart', (e)=>{
+        this.originX = e.changedTouches[0].pageX        
+     }, false)
 
-
-    //  this.drag.nativeElement.addEventListener('touchstart', (e)=>{
-    //     this.originX = e.changedTouches[0].pageX
-    //     console.log('begin')
+      this.drag.nativeElement.addEventListener('touchmove', throttle(function(e){
+        
+        let x = e.changedTouches[0].pageX
+        let total = this.gap + x - this.originX
+        console.log(total)
+        console.log($('#hezhi-container').width())
+        if( total > 0 || total < -(+($('.union-part').width()*(this.numbers.length - 10)/this.numbers.length))){
+          return
+        }
+        this.gap = this.gap + x - this.originX
+        $('.union-part').css('left', this.gap + 'px')
+      }.bind(this), 80, {leading:true}
        
-    //     if(!this.canvas){
-    //       this.canvas = document.getElementById('canvas')
-    //       console.log(this.canvas)
-    //     }
+        // = this.gap + x - this.originX
+        //this.canvas.style.transform = "translate(" + this.gap + "px,0)"
        
-    //  }, false)
-
-    //   this.drag.nativeElement.addEventListener('touchmove', 
-    //     (e)=>{
-    //       let x = e.changedTouches[0].pageX
-    //       let total = this.gap + x - this.originX
-    //       console.log(total)
-    //       if( total > 0 || total < -18*this.domWidth/28){
-    //         return
-    //       }
-    //       this.gap = this.gap + x - this.originX
-    //       this.canvas.style.transform = "translate(" + this.gap + "px,0)"
+    ),false)
+      //   (e)=>{
+      //     let x = e.changedTouches[0].pageX
+      //     let total = this.gap + x - this.originX
+      //     console.log(total)
+      //     console.log($('#hezhi-container').width())
+      //     if( total > 0 || total < -(+($('#hezhi-container').width()*(this.numbers.length - 10)/this.numbers.length))){
+      //       return
+      //     }
+      //     this.gap = this.gap + x - this.originX
+      //     $('#hezhi-container').css('left', this.gap + 'px')
+      //     // = this.gap + x - this.originX
+      //     //this.canvas.style.transform = "translate(" + this.gap + "px,0)"
          
-    //   }, false)
+      // }, false)
      
   }
 
@@ -171,10 +207,10 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
       this.contentSlides.lockSwipes(true)
   }
   
-  slideChanged(){
-      let index = this.contentSlides.getActiveIndex()
-      this.choose = this.menus[index]
-  }
+  // slideChanged(){
+  //     let index = this.contentSlides.getActiveIndex()
+  //     this.choose = this.menus[index]
+  // }
 
   existZuxuan(){
     let data = this.common.componentRef.instance.getCommonData(),flag = false;
@@ -232,51 +268,51 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
       }
       console.log(totals)
       this.trendData = totals
-      this.getComplexData(this.trendData)
+     
   }
 
-  getComplexData(hezhiData){
-    //遗漏冷热  yilou 当前遗漏 
-    let yilou = [],lengre = [],maxYi = [],avgYi = [], sumData = [], length = hezhiData.length;
-            for(let i = 1; i < hezhiData[length-1].length;i++){
-                let temp = [], local = []
+  // getComplexData(hezhiData){
+  //   //遗漏冷热  yilou 当前遗漏 
+  //   let yilou = [],lengre = [],maxYi = [],avgYi = [], sumData = [], length = hezhiData.length;
+  //           for(let i = 1; i < hezhiData[length-1].length;i++){
+  //               let temp = [], local = []
     
-                hezhiData.forEach((ele,index) => {
-                    temp.push(ele[i])
-                    if(index < hezhiData.length - 1){
-                        if(!ele[i].choose && hezhiData[index+1][i].choose){
-                            local.push(ele[i])
-                        }
-                    }else if(index = hezhiData.length - 1){
-                        if(!ele[i].choose)
-                            local.push(ele[i])
-                    }        
-                })
+  //               hezhiData.forEach((ele,index) => {
+  //                   temp.push(ele[i])
+  //                   if(index < hezhiData.length - 1){
+  //                       if(!ele[i].choose && hezhiData[index+1][i].choose){
+  //                           local.push(ele[i])
+  //                       }
+  //                   }else if(index = hezhiData.length - 1){
+  //                       if(!ele[i].choose)
+  //                           local.push(ele[i])
+  //                   }        
+  //               })
     
-                console.log(local)
-                // 每个位数出现次数
-                let leng = temp.reduce((a,b) => { 
-                    if(b.choose) 
-                       return a + b.choose
-                    else
-                       return a
-                },0)
+  //               console.log(local)
+  //               // 每个位数出现次数
+  //               let leng = temp.reduce((a,b) => { 
+  //                   if(b.choose) 
+  //                      return a + b.choose
+  //                   else
+  //                      return a
+  //               },0)
 
-                let max = temp.filter(ele => !ele.choose).length ? Math.max(...temp.filter(ele => !ele.choose).map(item => item.number)) : 0 
-                let avg = local.length == 0 ? 0 : Math.floor(local.reduce((a,b) => a + b.number,0)/local.length)
-                let tempArr = temp.filter(ele => !ele.choose)
-                // let length = temp.filter(ele => !ele.choose).length
-                yilou.push(tempArr.length ? tempArr[tempArr.length - 1].number : 0 )
-                maxYi.push(max)
-                avgYi.push(avg)
-                lengre.push(leng)     
-            }
-        sumData.push(lengre)
-        sumData.push(avgYi)
-        sumData.push(maxYi)
-        sumData.push(yilou)
-        this.sumData = sumData
-  }
+  //               let max = temp.filter(ele => !ele.choose).length ? Math.max(...temp.filter(ele => !ele.choose).map(item => item.number)) : 0 
+  //               let avg = local.length == 0 ? 0 : Math.floor(local.reduce((a,b) => a + b.number,0)/local.length)
+  //               let tempArr = temp.filter(ele => !ele.choose)
+  //               // let length = temp.filter(ele => !ele.choose).length
+  //               yilou.push(tempArr.length ? tempArr[tempArr.length - 1].number : 0 )
+  //               maxYi.push(max)
+  //               avgYi.push(avg)
+  //               lengre.push(leng)     
+  //           }
+  //       sumData.push(lengre)
+  //       sumData.push(avgYi)
+  //       sumData.push(maxYi)
+  //       sumData.push(yilou)
+  //       this.sumData = sumData
+  // }
 
   getHezhiTrend(){
       let asd = [],totals = []

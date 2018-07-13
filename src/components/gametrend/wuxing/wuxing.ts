@@ -62,6 +62,7 @@ export class WuxingComponent implements OnInit {
     console.log(this.position)
 
     this.weiData = ['w','q','b','s','g'].slice(this.position[0], this.position[1])
+    console.log(this.common.missData)
 
     this.historyRecord = this.common.historyList.filter(ele => ele.code != '').map(ele => {
       return {...ele, number:ele.number.substr(2,ele.number.length),

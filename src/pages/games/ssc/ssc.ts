@@ -46,7 +46,8 @@ export class SscPage extends Effect{
 
     list: any ;
     loadInfo:any;
-    // 
+
+    missData:any
    
     maxNumber:number;
     loadNumber:number = 0
@@ -75,6 +76,10 @@ export class SscPage extends Effect{
                 $('#qq').show()                           
             }
         )
+
+        setTimeout(() => {
+            this.loadInfo.dismiss()
+        },2000)
     }
 
     handleBall(ele){
@@ -126,12 +131,7 @@ export class SscPage extends Effect{
         //     if (this.loadNumber)
         //         this.high = (this.record.slice(0,this.loadNumber*5).length - 2)*this.trHeight
 
-        //     // if (this.loadNumber == 2)
-        //     //     this.high = (this.record.slice(0,2*5).length - 2)*this.trHeight
-
-        //     if (this.loadNumber == 0)
-        //         this.high = 0
-
+    
         //     if(this.loadNumber == this.maxNumber && this.maxNumber != 0){
         //         this.loadNumber = 0
         //         this.high = 0
@@ -157,6 +157,13 @@ export class SscPage extends Effect{
         this.util.listeners = []
        // clearInterval(this.timer)
     }
+
+    // async getMissObservable(){
+    //     // this.missData =  this.http.fetchData('/api-lotteries-h5/getnewlottterymissed/' + this.gameId + '/30?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)
+    //      this.missData =  (await this.http.fetchData('/api-lotteries-h5/getnewlottterymissed/' + this.gameId + '/30')).data
+    //      console.log(this.missData)
+  
+    // }
 
     watchScroll(){
         let mc = new Hammer(document.getElementById('ball-area'));

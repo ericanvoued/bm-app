@@ -244,17 +244,26 @@ export class BaseToolProvider {
       var minute = Math.floor(totalSec % 3600 / 60);
       var sec = totalSec % 60;
 
+      var hourstr,minutestr,secstr;
+      hourstr = hour;minutestr = minute;secstr = sec;
+      if(hour<10){
+        hourstr ='0'+hour;
+      }
+      if(minute<10){
+        minutestr ='0'+minute;
+      }
+      if( sec<10){
+        secstr ='0'+sec;
+      }
       if(from=='trend'){
-
-        $('.ks-cuttime').text(minute+':'+sec);
+        $('.ks-cuttime').text(minutestr+':'+secstr);
       }else if(from=='basket'){
-
-        $('.basket-time').text(minute+':'+sec);
+        $('.basket-time').text(minutestr+':'+secstr);
       }else{
 
-        $('.r-time span').eq(0).text(hour);
-        $('.r-time span').eq(1).text(minute);
-        $('.r-time span').eq(2).text(sec);
+        $('.r-time span').eq(0).text(hourstr);
+        $('.r-time span').eq(1).text(minutestr);
+        $('.r-time span').eq(2).text(secstr);
         var scale = totalSec / ttt * 100;
         $('.time-bar').css('width', scale + '%');
       }

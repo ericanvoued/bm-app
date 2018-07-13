@@ -20,6 +20,8 @@ page-game-trend {
       // div{color:blue};
     }
 
+    
+
     .slides{height:calc(100% - 75px)}
 
     .top-line{background:#D6DAFF;display:flex;position:sticky;width:100%;z-index:100;top:0;line-height: 25px}
@@ -62,7 +64,7 @@ page-game-trend {
   
     li.head-num{font-size: 15px;display: flex;justify-content: center;align-items: center}
   
-    ion-slides div.kai-jiang{display: flex;color:#666}
+    ion-slides div.kai-jiang{display: flex;color:#666;position: sticky;top:0}
     ion-slides div.kai-jiang div{background: #DEE2FF;padding: 5px 0 5px 0}
     ion-slides div.kai-jiang-line{display: flex;padding: 5px 0 5px 0}
     
@@ -81,6 +83,9 @@ page-game-trend {
   
     ul.ball-line{background:rgba(255,255,255,.1)}
     ul.ball-line:nth-of-type(2n){background:#FFFAF7}
+
+    li.qishu-number{background:rgba(255,255,255,.1)}
+    li.qishu-number:nth-of-type(2n){background:#FFFAF7}
 
     li.qihao-number{background:rgba(255,255,255,.1)}
     li.qihao-number:nth-of-type(2n+1){background:#FFFAF7}

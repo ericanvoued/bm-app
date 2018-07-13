@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, LoadingController} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, LoadingController,AlertController} from 'ionic-angular';
 
 import {KsBasketAction} from './ks-basket-action';
 import {BaseToolProvider} from '../../../providers/base-tool/base-tool';
@@ -21,6 +21,7 @@ export class KsBasketPage extends KsBasketAction {
               public navParams: NavParams,
               public rest: RestProvider,
               public loading: LoadingController
+              // public alerttCtrl: AlertController
   ) {
     super();
   }
@@ -37,7 +38,6 @@ export class KsBasketPage extends KsBasketAction {
     } else {
       $('.balance').text(0);
     }
-
   }
 
   dealWithPrizegroup() {
@@ -55,6 +55,11 @@ export class KsBasketPage extends KsBasketAction {
 
 
   betClick() {
+
+
+    if(!localStorage.balls){
+      return;
+    }
     const that = this;
     if (localStorage.userInfo == null) {
       $('body').append(Tpl.fail_tip);
@@ -62,6 +67,8 @@ export class KsBasketPage extends KsBasketAction {
       setTimeout(function () {
         $('.basket-pop').remove();
         localStorage.clear();
+        clearInterval(that.base.timeIddd);
+        localStorage.removeItem('balls');
         that.navCtrl.push("LoginPage");
       }, 1000);
       return;
@@ -75,7 +82,7 @@ export class KsBasketPage extends KsBasketAction {
     loader.present();
 
     var traceWinStop = "1";
-    var gameId = 21;//localStorage.idStr;
+    var gameId = localStorage.idstr;
     var zhuihao = parseInt($('#zhui_input').val());
     var multiple = parseInt($('#bei_input').val());
     var amount = $('.yuan').text();
@@ -166,15 +173,21 @@ export class KsBasketPage extends KsBasketAction {
   }
 
 
-  cleanAll() {
-    localStorage.removeItem("balls");
-    $('.buy-list').html("");
-    $('#bei input').val(1);
-    $('#zhui input').val(1);
-    $('.total-con .qi').text(1);
-    $('.total-con .zhu').text(1);
-    $('.total-con .yuan').text(0);
+  // cleanAll() {
+  //   localStorage.removeItem("balls");
+  //   $('.buy-list').html("");
+  //   $('#bei input').val(1);
+  //   $('#zhui input').val(1);
+  //   $('.total-con .qi').text(1);
+  //   $('.total-con .zhu').text(1);
+  //   $('.total-con .yuan').text(0);
+  // }
+
+  cleanAllClick(){
+    $('body').append(Tpl.recharge_tip);
+    $('.txt').text('确定清空所有注单？');
   }
+
 
   ionViewWillEnter() {
 

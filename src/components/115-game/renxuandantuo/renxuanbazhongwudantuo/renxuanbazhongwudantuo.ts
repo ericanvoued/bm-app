@@ -112,8 +112,8 @@ export class RenxuanbazhongwudantuoComponent extends commonMethod{
     let count = 0;
     let data = this.getOriginData()
  
-    if(data.first.length + data.second.length >= 7 && data.first.length >0 && data.second.length > 0 ) {
-       count = this.tool.zuhe1(data.second.length,7 - data.first.length)
+    if(data.first.length + data.second.length >= 8 && data.first.length >0 && data.second.length > 0 ) {
+       count = this.tool.zuhe1(data.second.length,8 - data.first.length)
     }
     return count
   }

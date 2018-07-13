@@ -1,6 +1,7 @@
-import {Component, ViewChild,Output, EventEmitter,OnInit } from '@angular/core'
+import {Component, ViewChild,Output, ElementRef,EventEmitter,OnInit } from '@angular/core'
 import { UtilProvider } from '../../../providers/util/util'
 import { Slides } from 'ionic-angular';
+import * as $ from 'jquery';
 
 import { CommonProvider } from "../../../providers/common/common";
 /**
@@ -9,16 +10,46 @@ import { CommonProvider } from "../../../providers/common/common";
  * See https://angular.io/api/core/Component for more info on Angular
  * Components.
  */
+
+function throttle(fn,delay,options) {
+  var wait=false;
+ if (!options) options = {};
+ return function(e){
+     var that = this;
+      if(!wait){
+          if (options.leading === false){
+              // 非截流操作
+              fn.apply(that)
+             }
+          else { 
+             // 截流操作
+             wait=true;
+             setTimeout(function () {
+                fn.call(that,e);
+                wait=false;
+             },delay);
+         }
+     }
+ }
+}
+
 @Component({
   selector: 'daxiaodanshuang',
   templateUrl: 'daxiaodanshuang.html'
 })
 export class DaxiaodanshuangComponent implements OnInit{
   @ViewChild('contentSlides') contentSlides: Slides;
+
+  @ViewChild('drag') drag:ElementRef
+  
   menus:string[];
 
   choose:string = '开奖';
- 
+
+  chooseIndex:number;
+  originX:number;
+
+  gap:number = 0;
   historyRecord: any;
 
   kaijiangData:any[];
@@ -46,6 +77,33 @@ export class DaxiaodanshuangComponent implements OnInit{
   ngOnInit(){
     this.getKaijiang()
     this.getDaxiao()
+  }
+
+  ngAfterViewInit(){
+    this.contentSlides.initialSlide = this.chooseIndex
+    setTimeout(() => {
+      this.contentSlides.lockSwipes(true)
+    },500)
+    //this.contentSlides.lockSwipes(true)
+   
+     this.drag.nativeElement.addEventListener('touchstart', (e)=>{
+        this.originX = e.changedTouches[0].pageX        
+     }, false)
+
+      this.drag.nativeElement.addEventListener('touchmove', throttle(function(e){
+        
+        let x = e.changedTouches[0].pageX
+        let total = this.gap + x - this.originX
+        console.log(total)
+        console.log($('#hezhi-container').width())
+        if( total > 0 || total < -(+($('.union-part').width()*(this.weiData.length - 2)/this.weiData.length))){
+          return
+        }
+        this.gap = this.gap + x - this.originX
+        $('.union-part').css('left', this.gap + 'px')
+      }.bind(this), 80, {leading:true}
+          
+    ),false)
   }
 
   ionChange($event){

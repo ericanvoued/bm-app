@@ -33,7 +33,7 @@
     "@ionic-native/vibration": "^4.7.0",
     "clipboard": "^2.0.1",
     "cordova": "^8.0.0",
-    "cordova-android": "^7.0.0",
+    "cordova-android": "7.0.0",
     "cordova-ios": "4.5.4",
     "cordova-plugin-add-swift-support": "^1.7.2",
     "cordova-plugin-camera": "^4.0.3",
@@ -44,9 +44,11 @@
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^1.1.19",
     "cordova-plugin-qrscanner": "^2.6.0",
+    "cordova-plugin-screen-orientation": "^3.0.1",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-vibration": "^3.1.0",
     "cordova-plugin-whitelist": "^1.3.3",
+    "es6-promise-plugin": "^4.2.2",
     "hammerjs": "^2.0.8",
     "ionic-angular": "3.9.2",
     "ionic-swipe-all": "^1.2.0",
@@ -80,6 +82,7 @@
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-vibration": {},
+      "cordova-plugin-screen-orientation": {},
       "cordova-plugin-qrscanner": {}
     },
     "platforms": [

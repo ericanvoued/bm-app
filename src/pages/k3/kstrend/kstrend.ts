@@ -8,6 +8,7 @@ import {BaseToolProvider} from '../../../providers/base-tool/base-tool';
 // import {Tpl} from '../../../providers/base-tool/tpl';
 // import {KstrendAction} from '../../../providers/base-tool/kstrend-action';
 import {KstrendAction} from './kstrend-action';
+
 @IonicPage()
 @Component({
   selector: 'page-kstrend',
@@ -18,8 +19,8 @@ export class KstrendPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public base: BaseToolProvider,
-              public action:KstrendAction
-              ) {
+              public action: KstrendAction
+  ) {
     // super();
   }
 
@@ -50,7 +51,7 @@ export class KstrendPage {
     $('.alert-con').html(this.navParams.get('htm'));
     // this.initView(this.navParams.get('wanfa'),1);
     // this.changePlaySelect();
-    this.action.initView(this.navParams.get('wanfa'),1);
+    this.action.initView(this.navParams.get('wanfa'), 1);
     this.action.changePlaySelect();
 
   }
@@ -72,7 +73,6 @@ export class KstrendPage {
     this.initany();
 
   }
-
 
 
   initany() {
@@ -100,7 +100,6 @@ export class KstrendPage {
 //  });
 
 
-
     // var startx, starty, left;
     // document.getElementsByClassName('hmfb-container')[0].addEventListener("touchstart",
     //   function (e) {
@@ -123,7 +122,6 @@ export class KstrendPage {
     //   }, true)
 
 
-
     var startx, starty, left;
     document.getElementsByClassName('ion-con')[0].addEventListener("touchstart",
       function (e) {
@@ -134,19 +132,39 @@ export class KstrendPage {
         left = obj.scrollLeft();
         $('.ks-tab-second').scrollLeft($('.hmfb-container').scrollLeft());
         $('.ks-tab-second').scrollLeft($('.hzzs-container').scrollLeft());
+        $('.ks-bom-ul').scrollLeft($('.hzzs-container').scrollLeft());
+        $('.ks-bom-ul').scrollLeft($('.hmfb-container').scrollLeft());
+
+        $('.hzzs-container').scrollLeft($('.ks-bom-ul').scrollLeft());
       }, true);
+
     document.getElementsByClassName('ion-con')[0].addEventListener("touchmove",
       function (e) {
         $('.ks-tab-second').scrollLeft($('.hmfb-container').scrollLeft());
         $('.ks-tab-second').scrollLeft($('.hzzs-container').scrollLeft());
+        $('.ks-bom-ul').scrollLeft($('.hzzs-container').scrollLeft());
+        $('.ks-bom-ul').scrollLeft($('.hmfb-container').scrollLeft());
+
+        $('.hzzs-container').scrollLeft($('.ks-bom-ul').scrollLeft());
         // $('.ks-tab-second').scrollLeft(left);
-      }, true)
+      }, true);
+
     document.getElementsByClassName('ion-con')[0].addEventListener("touchend",
       function (e) {
         $('.ks-tab-second').scrollLeft($('.hmfb-container').scrollLeft());
         $('.ks-tab-second').scrollLeft($('.hzzs-container').scrollLeft());
+        $('.ks-bom-ul').scrollLeft($('.hzzs-container').scrollLeft());
+        $('.ks-bom-ul').scrollLeft($('.hmfb-container').scrollLeft());
+
+        $('.hzzs-container').scrollLeft($('.ks-bom-ul').scrollLeft());
         // $('.ks-tab-second').scrollLeft(left);
-      }, true)
+      }, true);
+
+
+
+
+
+
 
   }
 
@@ -191,12 +209,12 @@ export class KstrendPage {
     if (zhu > 0) {
       let wanfa = $('page-kstrend .wanfa').text();
       if (wanfa.search('二同号') != -1) {
-          zhu = zhu*5;
-        }
+        zhu = zhu * 5;
+      }
       // if (wanfa.search('二同号') != -1) {
       //   this.dealWithBallDataWithErth(zhu*5);
       // } else {
-        this.dealWithBallData(zhu);
+      this.dealWithBallData(zhu);
       // }
       let balll = JSON.parse(localStorage.balls);
       // $('.bottom-r').css('background', '');
@@ -209,7 +227,7 @@ export class KstrendPage {
   }
 
 
-  dealWithBallData(zhu){
+  dealWithBallData(zhu) {
 
     let wayId = localStorage.wayId;
     let ballStr = this.getBallStr();
@@ -237,7 +255,7 @@ export class KstrendPage {
     let balls = [];
     let ballsitem = "";
     let ball = localStorage.balls;
-    console.log('添加号码时候localStorage.bal==='+localStorage.balls);
+    console.log('添加号码时候localStorage.bal===' + localStorage.balls);
     // if (ball == null) {
     if (!localStorage.balls) {
 
@@ -305,18 +323,43 @@ export class KstrendPage {
   }
 
 
-  cleanBalls(){
+  cleanBalls() {
 
     $('.ks-bom-ul .active').removeClass('active');
 
   }
 
   addCover() {
+    // let _this = this;
+    // if ($('.header-top').hasClass('hide')) {
+    //   _this.removeCover();
+    //   return;
+    // }
     $('.select-d').addClass('hide');
     $('.body-bg').removeClass('hide');
     $('.alert-con').removeClass('hide');
     $('.after-con').addClass('active');
-
   }
+
+
+  // addCover() {
+  //   let _this = this;
+  //   if ($('.header-top').hasClass('hide')) {
+  //     _this.removeCover();
+  //     return;
+  //   }
+  //   $('.header-top').addClass('hide');
+  //   $('.body-bg').removeClass('hide');
+  //   $('.alert-con').removeClass('hide');
+  //   $('.after-con').addClass('active');
+  // }
+
+
+  // removeCover() {
+  //   $('.header-top').removeClass('hide');
+  //   $('.body-bg').addClass('hide');
+  //   $('.alert-con').addClass('hide');
+  // }
+
 
 }

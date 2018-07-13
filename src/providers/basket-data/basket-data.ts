@@ -170,7 +170,7 @@ export class BasketDataProvider {
     let totalData = this.betData.filter(ele => ele.wayId == processData.wayId)
   
     //检测重复
-    if(totalData.filter(item => item.lotterysText == processData.lotterysText).length > 0)
+    if(totalData.filter(item => item.lotterysText == processData.lotterysText && item.moneyUnit == processData.moneyUnit).length > 0)
        return true
   }
 
@@ -199,7 +199,7 @@ export class BasketDataProvider {
          num:this.common.count,
          onePrice:2,
          moneyUnit:this.common.tabYuan == '元' ? 1 : this.common.tabYuan == '角' ? 0.1 : 0.01,
-        // prize_group:this.common.chooseGroup,
+         prize_group:this.common.chooseGroup,
          beishu:1,
          multiple:this.statistic.multiple,
          max_multiple:this.common.smallKind.max_multiple,

@@ -17,6 +17,7 @@ export class KsAction {
     this.trendClick();
     this.addOrder();
 
+    // this.calculateNumOfBet();
   }
 
 
@@ -26,9 +27,10 @@ export class KsAction {
   addOrder() {
 
     let _this = this;
-    $('.bottom-m ion-icon').on('click', function () {
-
+    // $('.bottom-m ion-icon').on('click', function () {
+      $('.bottom-m').on('click', function () {
       _this.addOrderEvent();
+        $('.ks-footer').css('background', '#ececec')
       // localStorage.removeItem("balls");
       // var zhu = $('.total-num').text();
       // // if (zhu === 0) return;
@@ -528,10 +530,58 @@ export class KsAction {
         var txt = $('.money-menu li').eq($(this).index()).text();
         $('.money-menu').css('display', 'none');
         $('.money-btn').find('i').text(txt);
+        if(txt=='元'){
+          _this.initOdds(JSON.parse(localStorage.prizedata),1);
+        }else if(txt=='角'){
+          _this.initOdds(JSON.parse(localStorage.prizedata),0.1);
+        }else if(txt=='分'){
+          _this.initOdds(JSON.parse(localStorage.prizedata),0.01);
+        }
+
         _this.calculateMoney();
       });
     });
   }
+
+
+
+  initOdds(data,moneyunit) {
+
+    console.log('data=='+data)
+
+
+    var hz_prize, hz_extra_prize, sth_prize, erth_prize, sbt_prize, erbt_prize, slh_prize, dtys_prize;
+    hz_prize = data[0].prize;
+    hz_extra_prize = data[0].extra_prize;
+    sth_prize = new Number(data[1].prize*moneyunit).toFixed(2);
+    erth_prize = new Number(data[2].prize*moneyunit).toFixed(2);
+    sbt_prize = new Number(data[3].prize*moneyunit).toFixed(2);
+    erbt_prize = new Number(data[4].prize*moneyunit).toFixed(2);
+    slh_prize = new Number(data[5].prize*moneyunit).toFixed(2);
+    dtys_prize = new Number(data[6].prize*moneyunit).toFixed(2);
+
+//hz
+//     $('.hz-section .content-box .ball-num')
+    for(var i=0;i<18;i++){
+      var inx = i+3;
+      $('.hz-section .prize').eq(i).text('奖金'+new Number(hz_extra_prize[inx]*moneyunit).toFixed(2)+'元');
+    }
+//三同号
+    $('.santh-section .content-box .ball-num').find('.prize').text('奖金' + sth_prize + '元')
+//二同号
+    $('.eth_prize').text(erth_prize);
+//三不同号
+    $('.sbt_prize').text(sbt_prize);
+//二不同号
+    $('.ebt_prize').text(erbt_prize);
+//三连号
+    $('.sanlh-section .prize').text('奖金' + slh_prize + '元');
+//单挑一骰
+    $('.dtys-section .prize').text('奖金' + dtys_prize + '元');
+
+
+  }
+
 
   fastBtnDxds123() {
 
@@ -714,6 +764,9 @@ export class KsAction {
 
     if (zhushu > 0) {
       $('.bottom-r').css('background', '');
+       $('.ks-footer').css('background', 'rgb(255,248,235)');
+    }else {
+      $('.ks-footer').css('background', '#ececec')
     }
     console.log('zhushu==' + zhushu)
     return zhushu;

@@ -47,7 +47,7 @@ export class ZufuComponent {
       console.log('Hello ZufuComponent Component');
       this.text = 'Hello World'
 
-      this.historyRecord = this.common.historyList.map(ele => {
+      this.historyRecord = this.common.historyList.filter(ele => ele.code != '').map(ele => {
         return {...ele, number:ele.number.substr(2,ele.number.length),
           history: this.common.series_id == 2 ? ele.code.split(' ').map(ele => parseInt(ele)) : ele.code.split('').map(ele => parseInt(ele))}
       })
@@ -67,7 +67,6 @@ export class ZufuComponent {
     //   a.push(arr)
     //   return a
     // },[])
-    // console.log(this.fakeTrend)
 
     this.contentSlides.initialSlide = this.chooseIndex
     this.choose = this.menus[this.chooseIndex]
@@ -84,7 +83,7 @@ export class ZufuComponent {
       let max = Math.max(...ele.history)
       let min = Math.min(...ele.history)
       let gap = max - min
-      let da = ele.history.filter(el => el >= 5).length
+      let da = ele.history.filter(el => el >= 6).length
       let daxiao = da + ':' + (5 - da)
       let odd = ele.history.filter(el => el%2 != 0).length
       let oddeven = odd + ':' + (5 -odd)

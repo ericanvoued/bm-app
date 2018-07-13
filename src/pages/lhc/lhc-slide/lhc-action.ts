@@ -56,9 +56,10 @@ export class LhcAction {
 
     let _this = this;
     $('.buy-input').bind('input propertychange', function () {
-      if(!parseInt($(this).val())){
-        $('.buy-input').val(1);
-      }
+
+        $(this).val($(this).val().replace(/[\'\"\\\/\b\f\n\r\t\-]/g, ''));
+
+        
       if ($(this).val() == '') {
         $('.money-text').addClass('hide');
         return;
@@ -160,6 +161,8 @@ export class LhcAction {
 
 
   dropdownClick() {
+
+
 
     $('.body-bg').css('display', 'block');
     $('.pageMenuSlides').css('display', 'none');

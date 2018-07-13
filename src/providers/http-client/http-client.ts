@@ -35,7 +35,7 @@ export class HttpClientProvider {
   public postData(url, params): Promise<any> {
     //return this.http.post(baseUrl + url,params)
     return new Promise((resolve, reject) => {
-      this.http.post(baseUrl + url, params).subscribe((data: any) => {
+      this.http.post(baseUrl + url, params).subscribe((data: any) => {         
         resolve(data)
       })
     })
