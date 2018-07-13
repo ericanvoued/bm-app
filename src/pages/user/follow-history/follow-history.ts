@@ -18,7 +18,7 @@ export class FollowHistoryPage {
     today:new Date(),
     currentLottory: {friend_name: '全部游戏'},
     bet_model: {'1.00': '元', '0.10': '角', '0.01': '分'},
-    statusName: {'0': '进行中', '1': '用户终止', '2': '管理员终止', '3': '系统终止'},
+    statusName: {'0': '进行中','1':'已完成', '2': '用户终止', '3': '管理员终止', '4': '系统终止'},
     lottorys: [{friend_name: ''}],
     timeStarts:new Date().getFullYear()+'-',
     timeEnds:new Date().getFullYear()+'-',
@@ -150,5 +150,19 @@ export class FollowHistoryPage {
     this.navCtrl.push(TabsPage, {
       pageIndex: 0
     });
+  }
+
+  formatMoney(num){
+    let re = /(-?\d+)(\d{3})/;
+    if (Number.prototype.toFixed) {
+      num = (+num).toFixed(2)
+    } else {
+      num = Math.round(+num * 100) / 100
+    }
+    num = '' + num;
+    while (re.test(num)) {
+      num = num.replace(re, "$1,$2")
+    }
+    return num
   }
 }

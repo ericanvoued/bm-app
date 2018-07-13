@@ -10,13 +10,13 @@
   <div class="invite-banner"><img src="assets/imgs/invite-bg.png" alt=""></div>
   <div class="invite-text">
     <h2>邀请好友，得双份奖励</h2>
-    <p>邀请好友加入博猫游戏，但激活后你将获得相应的消费返点，邀请越多返点越多，赶快和好友一起享受双倍奖励吧！</p>
+    <p>邀请好友加入博猫游戏，Ta激活后你将获得相应的消费返点，邀请越多返点越多，赶快和好友一起享受双倍奖励吧！</p>
   </div>
   <div class="set-reward" *ngIf="!invitedata.showQrcode">
     <h2>设置奖金组</h2>
     <!--<ion-datetime displayFormat="HH:mm" [(ngModel)]="win_group.current.a+':'+win_group.current.b" (ionChange)="selecGroup()"></ion-datetime>-->
     <input type="text" [(ngModel)]="invitedata.iCurrentUserPrizeGroup" disabled>
-    <p>预计平均返点率 {{invitedata.rewardPoint}}%</p>
+    <p>预计平均返点率 <span style="color: red">{{invitedata.rewardPoint}}%</span></p>
   </div>
   <div class="slide-bar" *ngIf="!invitedata.showQrcode">
     <div class="bar-hash">{{invitedata.iAgentMinPrizeGroup}}</div>
@@ -31,7 +31,7 @@
     <img src="http://qr.liantu.com/api.php?&w=200&bg=F3F3F3&fg=000000&text={{invitedata.qrCodeUrl}}"/>
   </div>
   <div class="invite-btn" (click)="getQRCode()" *ngIf="!invitedata.showQrcode">
-    <button>生成二维码邀请</button>
+    <button>生成邀请二维码</button>
   </div>
   <div class="invite-btn" (click)="shareQRCode()" *ngIf="invitedata.showQrcode">
     <button>分享邀请链接</button>

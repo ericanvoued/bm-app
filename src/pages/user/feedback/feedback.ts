@@ -36,6 +36,7 @@ export class FeedbackPage {
         this.loadPrvd.showToast(this.toastCtrl, '意见提交成功')
       } else {
         this.loadPrvd.showToast(this.toastCtrl, data.type)
+        this.navCtrl.pop()
       }
     })
   }

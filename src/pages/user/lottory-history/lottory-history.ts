@@ -193,4 +193,18 @@ export class LottoryHistoryPage {
       pageIndex: 0
     });
   }
+
+  formatMoney(num){
+    let re = /(-?\d+)(\d{3})/;
+    if (Number.prototype.toFixed) {
+      num = (+num).toFixed(2)
+    } else {
+      num = Math.round(+num * 100) / 100
+    }
+    num = '' + num;
+    while (re.test(num)) {
+      num = num.replace(re, "$1,$2")
+    }
+    return num
+  }
 }

@@ -109,13 +109,17 @@ export class BankCardPage {
           handler: data => {
             this.bcData.toast = this.loadPrd.showLoading(this.loadingCtrl, '资金密码设置中')
             if (data.password != data.comfirmPsw) {
+              data.comfirmPsw = ''
+              data.password = ''
               this.bcData.toast = this.loadPrd.showMidToast(this.toastCtrl, '两次输入的密码不一致');
               return false
             } else if (data.password.length < 6 || data.password.length > 16) {
+              data.comfirmPsw = ''
+              data.password = ''
               this.bcData.toast = this.loadPrd.showMidToast(this.toastCtrl, '输入的密码长度不对');
               return false
             } else {
-              this.bcData.toast = this.loadPrd.showMidToast(this.toastCtrl, '输入的密码长度不对');
+              // this.bcData.toast = this.loadPrd.showMidToast(this.toastCtrl, '输入的密码长度不对');
               this.postFoundPsw({psw1: data.password, psw2: data.comfirmPsw}).then(data => {
                 this.bcData.toast.dismiss()
                 console.log(data)

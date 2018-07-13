@@ -64,7 +64,7 @@ export class TransDetailPage {
       'start':this.transData.timeStarts+' 00:00:00',
       'end':this.transData.timeEnds+' 23:59:59',
       'bet_status':1,
-      'lottery_id':_lottory.id?_lottory.id:null
+      'transTpyeId':_lottory.id?_lottory.id:null
     }).then(data=>{
       this.transData.data = data.data.data;
       console.log(this.transData.data)
@@ -129,5 +129,19 @@ export class TransDetailPage {
         infiniteScroll.state = 'enabled'
       }, 500);
     })
+  }
+
+  formatMoney(num){
+    let re = /(-?\d+)(\d{3})/;
+    if (Number.prototype.toFixed) {
+      num = (+num).toFixed(2)
+    } else {
+      num = Math.round(+num * 100) / 100
+    }
+    num = '' + num;
+    while (re.test(num)) {
+      num = num.replace(re, "$1,$2")
+    }
+    return num
   }
 }

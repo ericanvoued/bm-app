@@ -14,13 +14,13 @@
     </div>
     <div class="cf-row">
       <label for="yue" class="w81">当前金额:</label>
-      <input id="yue" type="text" value="{{userInfo.available+' 元'}}" disabled>
+      <input id="yue" type="text" value="{{formatMoney(userInfo.available)+' 元'}}" disabled>
     </div>
   </div>
 
   <div class="input-value">
     <p class="info">请输入充值金额：</p>
-    <div class="input-wrap"><input type="number" (input)="inputMoney()" [(ngModel)]="numList.chargeMoney" placeholder="请输入充值金额，最少选择0.01元"></div>
+    <div class="input-wrap"><input type="number" (blur)="formteMoney()" (input)="inputMoney()" [(ngModel)]="numList.chargeMoney" placeholder="请输入充值金额，最少选择0.01元"></div>
     <div class="num-list">
       <span [ngClass]="{'current':numList.status[i]==1}" *ngFor="let num of numList.money;index as i" (click)="selectMoney(num,i)">{{num}}元</span>
     </div>
@@ -36,7 +36,7 @@
         </div>
         <div class="bank-text">
           <h4>{{bank.name}}</h4>
-          <p>当日最高上限{{bank.currency_max}}元</p>
+          <p>单笔限额¥{{bank.currency_min}}-¥{{bank.currency_max}}</p>
         </div>
         <!--<div class="repairing">-->
           <!--维护中-->
@@ -107,7 +107,13 @@
     </div>
   </div>
   <div class="fix-sure-btn">
-    <button class="disable-submit" *ngIf="numList.chargeMoney==null||chargeList.currentBank==null">确认充值</button>
-    <button (click)="showModal(chargeList.currentBank.submit)" *ngIf="numList.chargeMoney!=null&&chargeList.currentBank!=null">确认充值</button>
+    <button class="disable-submit"
+            *ngIf="numList.chargeMoney==null||chargeList.currentBank==null||(numList.chargeMoney<chargeList.currentBank.currency_min)">
+      确认充值
+    </button>
+    <button (click)="showModal(chargeList.currentBank.submit)"
+            *ngIf="numList.chargeMoney!=null&&chargeList.currentBank!=null&&(numList.chargeMoney>=chargeList.currentBank.currency_min)">
+      确认充值
+    </button>
   </div>
 </ion-content>

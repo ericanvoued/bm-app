@@ -48,7 +48,7 @@
 
                 <!--<span *ngFor="let ball of record.winning_number.split('|')">{{ball}}</span>-->
               <!--</p>-->
-              <p>金额：{{record.amount}}元</p>
+              <p>金额：{{formatMoney(record.amount)}}元</p>
             </div>
             <div class="content-detail">
               <div class="case-wrap ">
@@ -79,7 +79,7 @@
                 <p class="right">投注返点： <span>{{record.commission}}</span></p>
               </div>
               <div class="case-wrap">
-                <p class="right">中奖金额： <span class="red">{{record.prize>0?record.prize:0.00}}元</span></p>
+                <p class="right">中奖金额： <span class="red">{{record.prize>0?formatMoney(record.prize):0.00}}元</span></p>
               </div>
             </div>
             <div class="case-wrap case-wrap-big">

@@ -11,7 +11,7 @@ import {File} from '@ionic-native/file';
 import {Transfer, TransferObject} from '@ionic-native/transfer';
 import {FilePath} from '@ionic-native/file-path';
 
-import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
+
 
 
 declare var cordova: any;
@@ -32,7 +32,6 @@ export class UserCenterPage {
   timer = null;
 
   constructor(
-              private qrScanner: QRScanner,
               public platform: Platform,
               private camera: Camera,
               private transfer: Transfer,
@@ -250,33 +249,23 @@ export class UserCenterPage {
     }
   }
 
-  //scan qrCode
-  scanQrcode(){
-    this.qrScanner.prepare()
-      .then((status: QRScannerStatus) => {
-        if (status.authorized) {
-          // alert(1)
-          // camera permission was granted
 
-
-          // start scanning
-          let scanSub = this.qrScanner.scan().subscribe((text: string) => {
-            alert('Scanned something', text);
-
-            this.qrScanner.hide(); // hide camera preview
-            scanSub.unsubscribe(); // stop scanning
-          });
-
-        } else if (status.denied) {
-          console.log('status.denied'+status.denied)
-          // camera permission was permanently denied
-          // you must use QRScanner.openSettings() method to guide the user to the settings page
-          // then they can grant the permission from there
-        } else {
-          console.log('status.authorized'+status.denied)
-          // permission was denied, but not permanently. You can ask for permission again at a later time.
-        }
-      })
-      .catch((e: any) => alert('没有打开相机的权限'));
+  toScanQRCode(){
+    this.navCtrl.push('ScanQrPage',null,{'animate':false})
   }
+
+  formatMoney(num){
+    let re = /(-?\d+)(\d{3})/;
+    if (Number.prototype.toFixed) {
+      num = (+num).toFixed(2)
+    } else {
+      num = Math.round(+num * 100) / 100
+    }
+    num = '' + num;
+    while (re.test(num)) {
+      num = num.replace(re, "$1,$2")
+    }
+    return num
+  }
+
 }

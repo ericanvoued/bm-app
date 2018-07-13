@@ -21,8 +21,8 @@ import {TabsPage} from '../../tabs/tabs'
 export class LoginPage {
 
   userInfo;
-  username = 'testjose';
-  password = '123qwe';
+  username = '';
+  password = '';
   loginData: any;
   nameInfoFlag: boolean = false
   pswInfoFlag: boolean = false;

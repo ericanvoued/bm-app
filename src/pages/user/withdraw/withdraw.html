@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <h2 class="DIY-title">充值中心</h2>
+    <h2 class="DIY-title">提现申请</h2>
   </ion-navbar>
 </ion-header>
 
@@ -8,13 +8,13 @@
 <ion-content>
   <div class="worming-info"><span class="danger">*为防止套现和洗钱，充值后需购买充值金额的20％方可提现</span></div>
   <div class="withDraw-info clearfix">
-    <h4>可提现额度 <span>{{ucPrd.withdrewApiData.data.accounts.withdrawable}}</span></h4>
-    <p>拥有资产：{{ucPrd.withdrewApiData.data.accounts.balance}}</p>
+    <h4>可提现额度 <span>{{formatMoney(ucPrd.withdrewApiData.data.accounts.withdrawable)}}</span></h4>
+    <p>拥有资产：{{formatMoney(ucPrd.withdrewApiData.data.accounts.balance)}}</p>
   </div>
   <div class="withDraw-money">
     <p>提现金额</p>
     <span class="currency">¥</span>
-    <input type="number" class="showCurrency" [(ngModel)]="withDrawMoney"/>
+    <input type="number" (blur)="formateMoney()" class="showCurrency" [(ngModel)]="withDrawMoney"/>
   </div>
   <div class="bank-list">
     <p class="info">请选择提现银行：</p>

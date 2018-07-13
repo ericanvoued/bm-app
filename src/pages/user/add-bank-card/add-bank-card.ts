@@ -170,7 +170,7 @@ export class AddBankCardPage {
       this.loadPrd.showToast(this.toastCtrl, "请输入持卡人姓名");
       return null;
     }  else if (!numReg.test(this.bcData.subData.cardNum)) {
-      this.loadPrd.showToast(this.toastCtrl, "请输入正确的19位银行卡号")
+      this.loadPrd.showToast(this.toastCtrl, "银行卡号长度不对")
       return null;
     } else if (this.bcData.subData.bank.name.length == 0) {
       this.loadPrd.showToast(this.toastCtrl, "请输入开户银行")

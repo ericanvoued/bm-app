@@ -35,6 +35,7 @@ export class ChargePage {
   numList = {
     currenMoney:null,
     chargeMoney: null,
+    formateMoney:null,
     conpareMoney: null,
     status: [0,0,0,0,0,0],
     money: [100, 300, 500, 1000, 3000, 5000]
@@ -98,6 +99,10 @@ export class ChargePage {
     this.numList.status[_index] = 1;
   }
 
+  formteMoney(){
+    this.numList.formateMoney = parseFloat(this.numList.chargeMoney).toFixed(2)
+    this.numList.chargeMoney = this.numList.formateMoney;
+  }
 
   inputMoney() {
     this.numList.currenMoney = this.numList.chargeMoney;
@@ -117,6 +122,7 @@ export class ChargePage {
 
     this.chargeList.bankflag = _index;
     this.chargeList.currentBank = bank;
+    console.log(this.chargeList.currentBank)
   }
 
   //页面跳转
@@ -178,5 +184,19 @@ export class ChargePage {
       deepLinker:url+'&_t='+this.userInfo.auth_token
     });
     profileModal.present();
+  }
+
+  formatMoney(num){
+    let re = /(-?\d+)(\d{3})/;
+    if (Number.prototype.toFixed) {
+      num = (+num).toFixed(2)
+    } else {
+      num = Math.round(+num * 100) / 100
+    }
+    num = '' + num;
+    while (re.test(num)) {
+      num = num.replace(re, "$1,$2")
+    }
+    return num
   }
 }

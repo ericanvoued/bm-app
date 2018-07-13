@@ -15,6 +15,7 @@ export class WithdrawPage {
   toast;
   userInfo
   withDrawMoney = 0.00;
+  formateNum = null;
   currentBank=null;
   constructor(
     public alertCtrl: AlertController,
@@ -30,13 +31,18 @@ export class WithdrawPage {
   }
 
 
+  formateMoney(){
+    this.formateNum = parseFloat(this.withDrawMoney).toFixed(2)
+    this.withDrawMoney = this.formateNum;
+  }
+
   checkWithdraw(){
     if(this.withDrawMoney>this.ucPrd.withdrewApiData.data.accounts.withdrawable){
       this.loadPrd.showToast(this.toastCtrl,'可提现额度不够')
     }else if(this.withDrawMoney<this.ucPrd.withdrewApiData.data.min_withdraw_amount){
       this.loadPrd.showToast(this.toastCtrl,'提现金额不得低于'+this.ucPrd.withdrewApiData.data.min_withdraw_amount+'元')
     }else if(this.withDrawMoney>this.ucPrd.withdrewApiData.data.max_withdraw_amount){
-      this.loadPrd.showToast(this.toastCtrl,'提现金额不得高于'+this.ucPrd.withdrewApiData.data.min_withdraw_amount+'元')
+      this.loadPrd.showToast(this.toastCtrl,'提现金额不得高于'+this.ucPrd.withdrewApiData.data.max_withdraw_amount+'元')
     }else {
       this.showPrompt()
     }
@@ -132,7 +138,7 @@ export class WithdrawPage {
         {
           text: '确定',
           handler: data => {
-            // this.ucPrd.http.postData('')
+
             this.sendFoundPsw({psw1:data.psw}).then(val=>{
               if(val.IsSuccess){
                 this.navCtrl.push('AddBankCardPage')
@@ -158,6 +164,20 @@ export class WithdrawPage {
 
   formatBankNumber(bankNumber){
     return bankNumber.substr(0,4)+"********"+bankNumber.substr(-4);
+  }
+
+  formatMoney(num){
+    let re = /(-?\d+)(\d{3})/;
+    if (Number.prototype.toFixed) {
+      num = (+num).toFixed(2)
+    } else {
+      num = Math.round(+num * 100) / 100
+    }
+    num = '' + num;
+    while (re.test(num)) {
+      num = num.replace(re, "$1,$2")
+    }
+    return num
   }
 
 }

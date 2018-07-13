@@ -36,7 +36,7 @@
               <p style="width: 30%;flex: none;"><span>{{allData.is_withDraw==1?'账户提现':''}}{{allData.is_deposits==1?'账户充值':''}}</span></p>
             </div>
             <div class="case-wrap border-bottom">
-              <p style="text-align: left">金额：<span [ngClass]="{'green':allData.is_withDraw==1,'red':allData.is_deposits==1}">{{allData.is_withDraw==1?'-':''}}{{allData.is_deposits==1?'+':''}}{{allData.amount}}</span></p>
+              <p style="text-align: left">金额：<span [ngClass]="{'green':allData.is_withDraw==1,'red':allData.is_deposits==1}">{{allData.is_withDraw==1?'-':''}}{{allData.is_deposits==1?'+':''}}{{formatMoney(allData.amount)}}</span></p>
               <!--<p>余额：<span class="red">1800.00</span></p>-->
             </div>
             <div class="content-detail" *ngIf="allData.is_withDraw==1">
@@ -47,7 +47,7 @@
                 <p class="right">提现账户： <span>尾号{{allData.account.slice(-4)}} {{allData.account_name}}</span></p>
               </div>
               <div class="case-wrap ">
-                <p class="right">金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额： <span class="red">{{allData.amount}}</span></p>
+                <p class="right">金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额： <span class="red">{{formatMoney(allData.amount)}}</span></p>
               </div>
               <div class="case-wrap">
                 <p class="right">提现状态： <span class="red">{{transData.withDrawStatus[allData.status]}}</span></p>

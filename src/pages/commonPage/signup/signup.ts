@@ -125,7 +125,7 @@ export class SignupPage {
         _token:                  this.signData.signInitParam.token,
       }).subscribe((data) => {
 
-        if (data.isSuccess == 1) {
+        if (data.isSuccess) {
           this.signData.loading.dismiss();
           this.signData.toast = this.loadPrd.showToast(this.ToastCtrl, '注册成功');
           //this.storage.set('userInfo', data['data']);
