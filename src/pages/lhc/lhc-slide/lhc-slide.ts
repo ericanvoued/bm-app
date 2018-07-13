@@ -420,10 +420,10 @@ export class LhcSlidePage extends LhcAction {
       $('#yue').text(0);
     }
     this.base.initHisBox('lhc-content-child');
-    if ($('.lhc-content-child .section.active').offset().top < 156) {
-      $(".his-box").stop().animate({height: "0px"}, 0);
-      return;
-    }
+    // if ($('.lhc-content-child .section.active').offset().top < 156) {
+    //   $(".his-box").stop().animate({height: "0px"}, 0);
+    //   return;
+    // }
   }
 
 
