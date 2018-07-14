@@ -20,8 +20,8 @@
       <input id="comfirmPsw" type="password"  maxlength="16" [(ngModel)]="pswData.password_confirmation" placeholder="6-16个字符，可使用字母或数字" required>
     </div>
     <div class="submit-row">
-      <button *ngIf="pswData.old_password.length==0||pswData.password.length==0||pswData.password_confirmation.length==0" class="submit-button disableBtn">下一步</button>
-      <button *ngIf="pswData.old_password.length!=0&&pswData.password.length!=0&&pswData.password_confirmation.length!=0"class="submit-button " (click)="submitPsw()">下一步</button>
+      <button *ngIf="pswData.old_password.length==0||pswData.password.length==0||pswData.password_confirmation.length==0" class="submit-button disableBtn">确认修改</button>
+      <button *ngIf="pswData.old_password.length!=0&&pswData.password.length!=0&&pswData.password_confirmation.length!=0"class="submit-button " (click)="submitPsw()">确认修改</button>
     </div>
   </div>
 </ion-content>

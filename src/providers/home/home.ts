@@ -76,16 +76,14 @@ export class HomeProvider {
     this.homeData.lottoryList['SSC'].nav = [{name:'开奖',flag:true,c:SscKaijiangComponent},{name:'大小',flag:false,c:SscDaxiaoComponent},{name:'单双',flag:false,c:SscDanshuangComponent}];
     this.homeData.lottoryList['11Y'].nav = [{name:'开奖',flag:true,c:YKaijiangComponent},{name:'号码分布',flag:false,c:YDistributeComponent}];
     this.homeData.lottoryList['K3'].nav = [{name:'开奖',flag:true,c:K3KaijiangComponent},{name:'基本走势',flag:false,c:K3BaseTrendComponent},{name:'形态走势',flag:false,c:K3ShapeTrendComponent},{name:'冷热',flag:false,c:K3CoodHotComponent}];
-    this.homeData.lottoryList['PK10'].nav = [{name:'开奖',flag:true,c:Pk10KaijiangComponent},{name:'大小',flag:false,c:Pk10daxiaoComponent},{name:'单双',flag:false,c:Pk10DanshuangComponent},{name:'冠亚军和',flag:false,c:Pk10ChanpiomComponent},{name:'龙虎',flag:false,c:Pk10LonghuComponent}];
+    // this.homeData.lottoryList['PK10'].nav = [{name:'开奖',flag:true,c:Pk10KaijiangComponent},{name:'大小',flag:false,c:Pk10daxiaoComponent},{name:'单双',flag:false,c:Pk10DanshuangComponent},{name:'冠亚军和',flag:false,c:Pk10ChanpiomComponent},{name:'龙虎',flag:false,c:Pk10LonghuComponent}];
     this.homeData.lottoryList['LHC'].nav = [{name:'开奖',flag:true,c:LhcKaijiangComponent},{name:'生肖',flag:false,c:LhcShengxiaoComponent},{name:'两面/波色',flag:false,c:LhcBoseComponent}];
 
 
-    console.log(this.homeData.lottories)
     this.loadHotLottory(this.homeData.lottories)
 
 
 
-    console.log(this.homeData.lottories)
 
   }
 
@@ -122,7 +120,7 @@ export class HomeProvider {
 
       this.homeData.lottorys = {hot: [], more: []};
       this.homeData.lottorys.hot = _lottory.slice(0, 15)
-      this.homeData.lottorys.more = _lottory.slice(-3)
+      this.homeData.lottorys.more = _lottory.slice(-2)
       localStorage.lottorys = JSON.stringify(this.homeData.lottorys)
     }
   }

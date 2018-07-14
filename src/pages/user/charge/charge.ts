@@ -8,10 +8,10 @@ import {
   NavParams } from 'ionic-angular';
 import { LoadingProvider } from '../../../providers/loading/loading'
 
-// import {UserCenterProvider } from '../../../providers/user-center/user-center'
 
-import { HttpClientProvider } from '../../../providers/http-client/http-client'
-import {win} from "@angular/platform-browser/src/browser/tools/browser";
+import {HttpClientProvider} from '../../../providers/http-client/http-client';
+
+
 
 
 @IonicPage()
@@ -75,9 +75,13 @@ export class ChargePage {
   //充值列表
   async getcChargeList(){
     await this.http.fetchData('/h5api-recharges/rechargeinfo?_t=' + this.userInfo.auth_token).then(data=>{
-      this.chargeList.data = data.data;
-      this.chargeList.payment_setting_data = data.payment_setting_data
-      console.log(this.chargeList.data)
+      if(data.IsSuccess){
+        this.chargeList.data = data.data;
+        this.chargeList.payment_setting_data = data.extra.payment_setting_data
+      }else {
+        this.loadPrd.showToast(this.toastCtrl,data.Msg)
+      }
+
     })
   }
 

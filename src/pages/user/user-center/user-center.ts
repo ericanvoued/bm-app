@@ -237,7 +237,7 @@ export class UserCenterPage {
     if(isOpen){
       if(needLogin){
         if(this.userInfo==null){
-          this.toast = this.loadPrd.showToast(this.toastCtrl, '请先登陆');
+          this.toast = this.loadPrd.showToast(this.toastCtrl, '请先登录');
         }else {
           this.navCtrl.push(page);
         }

@@ -37,15 +37,22 @@ export class WithdrawPage {
   }
 
   checkWithdraw(){
-    if(this.withDrawMoney>this.ucPrd.withdrewApiData.data.accounts.withdrawable){
-      this.loadPrd.showToast(this.toastCtrl,'可提现额度不够')
-    }else if(this.withDrawMoney<this.ucPrd.withdrewApiData.data.min_withdraw_amount){
-      this.loadPrd.showToast(this.toastCtrl,'提现金额不得低于'+this.ucPrd.withdrewApiData.data.min_withdraw_amount+'元')
-    }else if(this.withDrawMoney>this.ucPrd.withdrewApiData.data.max_withdraw_amount){
-      this.loadPrd.showToast(this.toastCtrl,'提现金额不得高于'+this.ucPrd.withdrewApiData.data.max_withdraw_amount+'元')
+
+    if(this.ucPrd.withdrewApiData.data.fund_password){
+      if(parseFloat(this.withDrawMoney)>parseFloat(this.ucPrd.withdrewApiData.data.accounts.withdrawable)){
+        this.loadPrd.showToast(this.toastCtrl,'可提现额度不够')
+      }else if(parseFloat(this.withDrawMoney)<parseFloat(this.ucPrd.withdrewApiData.data.min_withdraw_amount)){
+        this.loadPrd.showToast(this.toastCtrl,'提现金额不得低于'+this.ucPrd.withdrewApiData.data.min_withdraw_amount+'元')
+      }else if(parseFloat(this.withDrawMoney)>parseFloat(this.ucPrd.withdrewApiData.data.max_withdraw_amount)){
+        this.loadPrd.showToast(this.toastCtrl,'提现金额不得高于'+this.ucPrd.withdrewApiData.data.max_withdraw_amount+'元')
+      }else {
+        this.showPrompt()
+      }
     }else {
-      this.showPrompt()
+      this.setPayPsw();
     }
+
+
   }
 
   showPrompt() {
@@ -117,41 +124,45 @@ export class WithdrawPage {
     }
     bank.flag=true;
     this.currentBank = bank;
-    console.log(bank)
   }
 
   addBankCard(){
-    let prompt = this.alertCtrl.create({
-      title: '请输入支付密码',
-      cssClass:'inputPayModel',
-      inputs: [
-        {
-          name: 'psw',
-          type:'password',
-          placeholder: '至少6位，字母和数字组合'
-        },
-      ],
-      buttons: [
-        {
-          text: '取消'
-        },
-        {
-          text: '确定',
-          handler: data => {
+    if(this.ucPrd.withdrewApiData.data.fund_password){
+      let prompt = this.alertCtrl.create({
+        title: '请输入支付密码',
+        cssClass:'inputPayModel',
+        inputs: [
+          {
+            name: 'psw',
+            type:'password',
+            placeholder: '至少6位，字母和数字组合'
+          },
+        ],
+        buttons: [
+          {
+            text: '取消'
+          },
+          {
+            text: '确定',
+            handler: data => {
 
-            this.sendFoundPsw({psw1:data.psw}).then(val=>{
-              if(val.IsSuccess){
-                this.navCtrl.push('AddBankCardPage')
-              }else {
-                this.toast = this.loadPrd.showToast(this.toastCtrl,'资金密码有误')
-              }
-            })
+              this.sendFoundPsw({psw1:data.psw}).then(val=>{
+                if(val.IsSuccess){
+                  this.navCtrl.push('AddBankCardPage')
+                }else {
+                  this.toast = this.loadPrd.showToast(this.toastCtrl,'资金密码有误')
+                }
+              })
 
+            }
           }
-        }
-      ]
-    });
-    prompt.present();
+        ]
+      });
+      prompt.present();
+    }else {
+      this.setPayPsw();
+    }
+
   }
 
   //发送资金密码
@@ -179,5 +190,95 @@ export class WithdrawPage {
     }
     return num
   }
+
+  //*************************************设置支付密码****************************************
+  setPayPsw() {
+    let prompt = this.alertCtrl.create({
+      title: '请设置支付密码',
+      cssClass:'bankCardModel',
+      inputs: [
+        {
+          name: 'password',
+          type: 'password',
+          placeholder: '至少6位，字母和数字组合'
+        },
+        {
+          name: 'comfirmPsw',
+          type: 'password',
+          placeholder: '重复输入支付密码'
+        },
+      ],
+      buttons: [
+        {
+          text: '取消',
+          handler: data => {
+            console.log(data)
+
+          }
+        },
+        {
+          text: '确认',
+          handler: data => {
+            this.toast = this.loadPrd.showLoading(this.loadingCtrl, '资金密码设置中')
+            if (data.password != data.comfirmPsw) {
+              data.comfirmPsw = ''
+              data.password = ''
+              this.toast = this.loadPrd.showMidToast(this.toastCtrl, '两次输入的密码不一致');
+              return false
+            } else if (data.password.length < 6 || data.password.length > 16) {
+              data.comfirmPsw = ''
+              data.password = ''
+              this.toast = this.loadPrd.showMidToast(this.toastCtrl, '输入的密码长度不对');
+              return false
+            } else {
+              this.postFoundPsw({psw1: data.password, psw2: data.comfirmPsw}).then(data => {
+                this.toast.dismiss()
+                if (data.isSuccess == 1) {
+                  this.toast = this.loadPrd.showMidToast(this.toastCtrl, data.Msg);
+
+                  this.postWithReq().then(val1=>{
+                    this.toast.dismiss()
+                    if(val1.isSuccess==1){
+                      this.navCtrl.push('CommonStatusPage',{
+                        'status':'succeed',
+                        'text':'提现审核中'
+                      })
+                    }else {
+                      this.navCtrl.push('CommonStatusPage',{
+                        'status':'fail',
+                        'text':val1.Msg
+                      })
+                    }
+                    console.log(val1)
+                  })
+
+
+                } else {
+                  this.toast = this.loadPrd.showMidToast(this.toastCtrl, data.Msg);
+                }
+              })
+              // this.navCtrl.push('CommonStatusPage',{
+              //   title:'银行卡',
+              //   status:'succeed',
+              //   text:'恭喜你！支付密码设置成功'
+              // })
+            }
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  //发送设置的资金密码
+  async postFoundPsw(params) {
+    return await this.ucPrd.http.postData('/h5api-users/safe-reset-fund-password?_t=' + this.userInfo.auth_token, {
+
+      'fund_password': params.psw1,
+      'fund_password_confirmation': params.psw2,
+      '_token': this.userInfo.token
+    })
+  }
+
 
 }

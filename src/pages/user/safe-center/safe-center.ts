@@ -3,6 +3,8 @@ import { IonicPage, NavController, ToastController, NavParams } from 'ionic-angu
 
 import { LoadingProvider } from '../../../providers/loading/loading'
 
+import {HttpClientProvider} from '../../../providers/http-client/http-client'
+
 @IonicPage()
 @Component({
   selector: 'page-safe-center',
@@ -10,6 +12,7 @@ import { LoadingProvider } from '../../../providers/loading/loading'
 })
 export class SafeCenterPage {
 
+  userInfo=null;
   safeCentData = {
     start_grade: 0,
     end_grade: 67,
@@ -19,19 +22,26 @@ export class SafeCenterPage {
     canvas: null,
     ctx: null,
     toast:null,
+    status:{
+      "fund_password": false,
+      "password": false,
+      "bank": false
+    }
   }
 
   constructor(
     public navCtrl: NavController,
     public loadPrd: LoadingProvider,
+    public http: HttpClientProvider,
     public toastCtrl:ToastController,
     public navParams: NavParams) {
-
+    this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
   }
 
   ionViewDidEnter() {
     this.getContext()
     this.arcRuning()
+    this.loadStatus();
   }
 
   //*************************************获取上下文******************************************
@@ -92,6 +102,16 @@ export class SafeCenterPage {
     }else {
       this.navCtrl.push(page);
     }
+  }
+
+  async loadStatus(){
+    await this.http.fetchData('/h5api-users/checksafe?_t='+this.userInfo.auth_token).then(data=>{
+      if(data.IsSuccess){
+        this.safeCentData.status = data.data;
+      } else {
+        this.loadPrd.showToast(this.toastCtrl,data.Msg)
+      }
+    })
   }
 
 }
