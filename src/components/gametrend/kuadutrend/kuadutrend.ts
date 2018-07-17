@@ -46,16 +46,11 @@ export class KuadutrendComponent {
 
     complexData:any
 
+    //遗漏数据
+    statisticData:any[]
+
     constructor(public common:CommonProvider,public util:UtilProvider) {
       console.log('Hello KuadutrendComponent Component');
-      console.log(this.common.historyList)
-
-      this.historyRecord = this.common.historyList.filter(ele => ele.code != '').map(ele => {
-           return {...ele, number:ele.number.substr(2,ele.number.length),history:ele.code.split('').map(ele => parseInt(ele))}
-      }).reverse()
-
-      console.log(this.historyRecord)
-      //this.historyRecord = this.util.historyNumbers.slice(0,11)
     }
 
     ngOnInit(){
@@ -65,11 +60,20 @@ export class KuadutrendComponent {
       this.weiData = ['w','q','b','s','g'].slice(this.position[0], this.position[1])
       this.contentSlides.initialSlide = this.chooseIndex
       this.choose = this.menus[this.chooseIndex]
-      this.judgeHeadTitle()
-      this.getKaijiang()
-      this.getNumberTrend()
-      this.getKuaduData()
-      this.getColdHot()
+      this.produceAllData()
+    }
+
+    produceAllData(){
+        this.historyRecord = this.common.historyList.map(ele => {
+            return {...ele, number:ele.number.substr(2,ele.number.length),history:ele.code.split('').map(ele => parseInt(ele))}
+        }).reverse()
+ 
+        console.log(this.historyRecord)
+        this.judgeHeadTitle()
+        this.getKaijiang()
+        this.getNumberTrend()
+        this.getKuaduData()
+        this.getColdHot()
     }
 
     ionChange($event){
@@ -82,79 +86,31 @@ export class KuadutrendComponent {
       this.choose = this.menus[index]
     }
 
-    // getKaijiang1(){
-    //   if(this.common.method == '二星'){
-    //       if(this.common.smallMethod == '前二跨度')
-    //           this.kaijiangData = this.historyRecord.map((ele,index) => {
-    //             let wan = this.judgeKind(ele.history[0])
-    //             let qian = this.judgeKind(ele.history[1])
-    //             return {...ele,wan,qian}   
-    //           })
-    //       else if(this.common.smallMethod == '后二跨度')  
-    //           this.kaijiangData = this.historyRecord.map((ele,index) => {
-    //             let shi = this.judgeKind(ele.history[3])
-    //             let ge = this.judgeKind(ele.history[4])
-    //             return {...ele,shi,ge}   
-    //           }) 
-
-    //       return    
-    //   }
-        
-    //   switch(this.common.method){
-    //       case "前三":
-    //           this.kaijiangData = this.historyRecord.map((ele,index) => {
-    //             let wan = this.judgeKind(ele.history[0])
-    //             let qian = this.judgeKind(ele.history[1])
-    //             let bai = this.judgeKind(ele.history[2])
-    //             let zu = this.tellZu(ele.history.slice(0,3))
-    //             return {...ele, wan,qian,bai,zu}   
-    //             })      
-    //             break  
-    //       case "中三":   
-    //             this.kaijiangData = this.historyRecord.map((ele,index) => {
-    //               let qian = this.judgeKind(ele.history[1])
-    //               let bai = this.judgeKind(ele.history[2])
-    //               let shi = this.judgeKind(ele.history[3])
-    //               let zu = this.tellZu(ele.history.slice(1,4))
-    //               return {...ele,qian,bai,shi,zu}   
-    //             })      
-    //             break 
-    //       case "后三":   
-    //             this.kaijiangData = this.historyRecord.map((ele,index) => {
-    //               let bai = this.judgeKind(ele.history[2])
-    //               let shi = this.judgeKind(ele.history[3])
-    //               let ge = this.judgeKind(ele.history[4])
-    //               let zu = this.tellZu(ele.history.slice(2,5))
-    //               return {...ele,bai,shi,ge,zu}   
-    //             })      
-    //             break    
-    //     }
-    // }
-
     getKaijiang(){
         this.kaijiangData = this.historyRecord.map((ele,index) => {
             let arr = []
 
-            if(this.common.secondKind == '五星不定位'){
-                let sum = ele.history.slice(this.position[0], this.position[1]).reduce((l,r) => (+l) + (+r))
-                let max = Math.max(...ele.history)
-                let min = Math.min(...ele.history)
-                let gap = max - min
-                let da = ele.history.filter(el => el >= 5).length
-                let daxiao = da + ':' + (5 - da)
-                let odd = ele.history.filter(el => el%2 != 0).length
-                let oddeven = odd + ':' + (5 -odd)
-                arr.push(...[sum,gap,daxiao,oddeven])
-            }else{
-                for(let i = this.position[0]; i<this.position[1]; i++){
-                    arr.push(this.judgeKind(ele.history[i]))
+            if(ele.history[0]){
+                if(this.common.secondKind == '五星不定位'){
+                    let sum = ele.history.slice(this.position[0], this.position[1]).reduce((l,r) => (+l) + (+r))
+                    let max = Math.max(...ele.history)
+                    let min = Math.min(...ele.history)
+                    let gap = max - min
+                    let da = ele.history.filter(el => el >= 5).length
+                    let daxiao = da + ':' + (5 - da)
+                    let odd = ele.history.filter(el => el%2 != 0).length
+                    let oddeven = odd + ':' + (5 -odd)
+                    arr.push(...[sum,gap,daxiao,oddeven])
+                }else{
+                    for(let i = this.position[0]; i<this.position[1]; i++){
+                        arr.push(this.judgeKind(ele.history[i]))
+                    }
+                    if(this.position[1] - this.position[0] == 3)
+                    arr.push(this.tellZu(ele.history.slice(this.position[0],this.position[1])))
                 }
-                if(this.position[1] - this.position[0] == 3)
-                arr.push(this.tellZu(ele.history.slice(this.position[0],this.position[1])))
             }
-               
-            
-            return {...ele, data:arr}
+              
+            return ele.history[0] ? {...ele, data:arr} : ele
           })      
     }
 
@@ -183,31 +139,37 @@ export class KuadutrendComponent {
     judgeHeadTitle(){
         if(this.position[0] == 0 && this.position[1] == 3){
             this.complexData =  {title:['万位','千位','百位','前三形态'], class:'qiansan'}
+            this.statisticData = this.common.missData.qsbdw
         }
 
         if(this.position[0] == 1 && this.position[1] == 4){
             this.complexData =  {title:['千位','百位','十位','中三形态'], class:'zhongsan'}
+            this.statisticData = this.common.missData.zsbdw
         }
 
         if(this.position[0] == 2 && this.position[1] == 5){
             this.complexData =  {title:['百位','十位','个位','后三形态'], class:'housan'}
+            this.statisticData = this.common.missData.hsbdw
         }
 
         if(this.position[0] == 1 && this.position[1] == 5){
             this.complexData =  {title:['千位','百位','十位','个位'], class:'sixing'}
+            this.statisticData = this.common.missData.sixbdw
         }
 
         if(this.position[0] == 0 && this.position[1] == 5){
-            console.log('fwgwgwefwef')
             this.complexData =  {title:['和值','跨度','大小比','奇偶比'], class:'wuxing'}
+            this.statisticData = this.common.missData.wxbdw
         }
 
         if(this.position[0] == 0 && this.position[1] == 2){
             this.complexData =  {title:['万位','千位'], class:'qianer'}
+            this.statisticData = this.common.missData.qezuxfs
         }
 
         if(this.position[0] == 3 && this.position[1] == 5){
             this.complexData =  {title:['十位','个位'], class:'houer'}
+            this.statisticData = this.common.missData.hezuxfs
         }
     }
 
@@ -265,60 +227,23 @@ export class KuadutrendComponent {
             for(let i =0;i<totals.length;i++){
                 totals[i].unshift({number:this.historyRecord[i].number, choose:false})
             }
+            totals = totals.map(ele => ele.filter(item => item.choose).length ? ele : [ele[0], {'noNumber':'等待开奖'}])
             console.log(totals)
             this.trendData = totals
           
         }
 
-        // getComplexData(hezhiData){
-        //      //遗漏冷热  yilou 当前遗漏 
-        //       let yilou = [],lengre = [],maxYi = [],avgYi = [], sumData = [], length = hezhiData.length;
-        //       for(let i = 1; i < hezhiData[length-1].length;i++){
-        //           let temp = [], local = []
-
-        //           hezhiData.forEach((ele,index) => {
-        //               temp.push(ele[i])
-        //               if(index < hezhiData.length - 1){
-        //                   if(!ele[i].choose && hezhiData[index+1][i].choose){
-        //                       local.push(ele[i])
-        //                   }
-        //               }else if(index = hezhiData.length - 1){
-        //                   if(!ele[i].choose)
-        //                       local.push(ele[i])
-        //               }        
-        //           })
-
-        //           console.log(local)
-        //           // 每个位数出现次数
-        //           let leng = temp.reduce((a,b) => { 
-        //               if(b.choose) 
-        //                 return a + b.choose
-        //               else
-        //                 return a
-        //           },0)
-
-        //           let max = temp.filter(ele => !ele.choose).length ? Math.max(...temp.filter(ele => !ele.choose).map(item => item.number)) : 0 
-        //           let avg = local.length == 0 ? 0 : Math.floor(local.reduce((a,b) => a + b.number,0)/local.length)
-        //           let tempArr = temp.filter(ele => !ele.choose)
-        //           // let length = temp.filter(ele => !ele.choose).length
-        //           yilou.push(tempArr.length ? tempArr[tempArr.length - 1].number : 0 )
-        //           maxYi.push(max)
-        //           avgYi.push(avg)
-        //           lengre.push(leng)     
-        //       }
-        //       sumData.push(lengre)
-        //       sumData.push(avgYi)
-        //       sumData.push(maxYi)
-        //       sumData.push(yilou)
-        //       this.sumData = sumData
-        // }
-
         getKuaduData(){
           let asd = [], totals = []
           this.historyRecord.forEach(ele => {
-                let tempArr = ele.history.slice(this.position[0],this.position[1])
-                asd.push(Math.max(...tempArr) - Math.min(...tempArr))
+                if(ele.history[0]){
+                    let tempArr = ele.history.slice(this.position[0],this.position[1])
+                    asd.push(Math.max(...tempArr) - Math.min(...tempArr))
+                }else
+                    asd.push(-1)
+               
           })
+          console.log(asd)
 
           for(let i =0;i<asd.length;i++){
             let arr:any[] = []
@@ -338,12 +263,15 @@ export class KuadutrendComponent {
                 }
         }   
           //arr.unshift({number:('00' + i).slice(-2) + '期'})
+          console.log(arr)
           totals.push(arr)
         }
 
         for(let i =0;i<totals.length;i++){
             totals[i].unshift({number:this.historyRecord[i].number, choose:false})
         }
+        console.log(totals)
+        totals = totals.map(ele => ele.filter(item => item.choose).length ? ele : [ele[0], {'noNumber':'等待开奖'}])
         console.log(totals)
            this.kuaDuData = totals
         }
@@ -363,9 +291,30 @@ export class KuadutrendComponent {
     this.lengreData = arr.map(number => {
         let leng30 = asd.slice(-30).filter(item => number == item).length
         let leng60 = asd.slice(-60).filter(item => number == item).length
-        let leng100 = asd.slice(-100).filter(item => number == item).length
+        let leng100 = asd.slice(-90).filter(item => number == item).length
         let yilou = asd.length - asd.lastIndexOf(number) - 1
         return {number, leng30, leng60, leng100, yilou}
     })
   }  
+
+  getTitle(item){
+    switch(item) {
+      case 'hot':
+           return '出现次数';
+      case 'average':
+           return '平均遗漏';
+      case 'max':
+           return '最大遗漏';
+      case 'current':
+           return '当前遗漏';                       
+    }
+  }
+
+  refreshData():Promise<any>{
+    console.log('fwfwfwef')
+    this.produceAllData()
+    return new Promise((resolve,reject) =>{
+      resolve()
+    })
+  }
 }

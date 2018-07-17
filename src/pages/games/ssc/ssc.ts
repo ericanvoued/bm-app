@@ -16,7 +16,6 @@ import { MenumodalComponent } from '../../../components/menumodal/menumodal'
 import { UtilProvider } from '../../../providers/util/util'
 import { gameConfig } from '../../../components/ssc-config'
 import { GameTrendPage } from '../../game-trend/game-trend'
-import { SscServiceProvider } from '../../../providers/games/ssc-service/ssc-service'
 import * as $ from 'jquery'
 import * as Hammer from 'hammerjs';
 /**
@@ -58,7 +57,7 @@ export class SscPage extends Effect{
     gameConfig:any;
 
     constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, public resolver: ComponentFactoryResolver,public app:App,public loadingCtrl:LoadingController,
-    public common:CommonProvider, public gamemenu:GamemenuComponent, public util:UtilProvider,public basket:BasketDataProvider,public ssc:SscServiceProvider, public events:Events) {
+    public common:CommonProvider, public gamemenu:GamemenuComponent, public util:UtilProvider,public basket:BasketDataProvider, public events:Events) {
         super(common,gamemenu,modalCtrl,navCtrl,resolver,events)
         this.gameConfig = gameConfig
 
@@ -104,7 +103,7 @@ export class SscPage extends Effect{
             return false
         }
 
-        return {...ele, number:ele.number.substr(2,ele.number.length),balls:ele.code.replace(/\s+/g, ""), shiwei:judge(ele.code.replace(/\s+/g, "").split('')[3]) ,
+        return {...ele, number:ele.number.substr(-7),balls:ele.code.replace(/\s+/g, ""), shiwei:judge(ele.code.replace(/\s+/g, "").split('')[3]) ,
                gewei:judge(ele.code.replace(/\s+/g, "").split('')[4]), housan:tell(ele.code) ? '组三':'组六'
         }                   
     }
@@ -126,15 +125,6 @@ export class SscPage extends Effect{
         //     if(!this.loadNumber)
         //         return
 
-        //     this.loadNumber --
-
-        //     if (this.loadNumber)
-        //         this.high = (this.record.slice(0,this.loadNumber*5).length - 2)*this.trHeight
-
-    
-        //     if(this.loadNumber == this.maxNumber && this.maxNumber != 0){
-        //         this.loadNumber = 0
-        //         this.high = 0
         //     }
         //     setTimeout(() => {
         //         this.list = this.record.slice(0, this.loadNumber? this.loadNumber * 5 : 2)
@@ -148,28 +138,18 @@ export class SscPage extends Effect{
 
     ionViewWillLeave(){
         console.log('dwfqwfwqef')
-        //console.log(window.getEventListeners(window))
         if(this.util.listeners.length){
             this.util.listeners.forEach(element => {
                  window.removeEventListener('devicemotion',element,false)
             })
         }
         this.util.listeners = []
-       // clearInterval(this.timer)
     }
-
-    // async getMissObservable(){
-    //     // this.missData =  this.http.fetchData('/api-lotteries-h5/getnewlottterymissed/' + this.gameId + '/30?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)
-    //      this.missData =  (await this.http.fetchData('/api-lotteries-h5/getnewlottterymissed/' + this.gameId + '/30')).data
-    //      console.log(this.missData)
-  
-    // }
 
     watchScroll(){
         let mc = new Hammer(document.getElementById('ball-area'));
         mc.get('swipe').set({direction: Hammer.DIRECTION_VERTICAL});
         mc.on('swipedown', () => {
-            console.log('axiba')
             if(this.loadNumber == this.maxNumber + 1)
                 return
             this.loadNumber ++
@@ -177,13 +157,11 @@ export class SscPage extends Effect{
         })
 
         mc.on('swipeup', () => {
-            console.log('axiba')
             if(this.loadNumber == 0)
                 return
             this.loadNumber --
             this.high = this.loadNumber == 1 ? 81 : this.loadNumber == 2 ? 216 : 0
         })
-
     }
 
     getBack(){
@@ -194,36 +172,6 @@ export class SscPage extends Effect{
             obj.animate({height: "54px"}, 100);
    }
 
-
-    change(val){
-        console.log(val)
-        this.common.open = false
-
-        $('.tri-arrow').removeClass('current')
-        this.common.visible = 'invisable'
-        $('.body-bg').fadeOut(300)
-        if(val == '走势图')
-           this.navCtrl.push('GameTrendPage',{'index':1}) 
-          // this.navCtrl.push('GameTrendPage',{'index':1})
-
-        if(val == '近期开奖')
-           this.navCtrl.push('GameTrendPage',{'index':0})   
-
-        if(val == '号码统计'){
-            if($('.modal').hasClass('active')){
-                $('.body-bg').fadeOut(300)
-            }else{
-                $('.body-bg').fadeIn(300)
-            }
-            $('.modal').toggleClass('active')
-
-        }         
-    }
-
-    goKaiJiang(){
-        this.navCtrl.push('GameTrendPage',{'index':0})   
-    }
-   
     resetData(){
         this.util.resetData()
     }

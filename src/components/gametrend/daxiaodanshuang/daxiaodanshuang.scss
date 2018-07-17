@@ -16,4 +16,10 @@ daxiaodanshuang {
       .qihao-number{height:50px;line-height:50px;background:#D6DAFF;border-right:1px solid #ffffff}
       .kaijianghao{height:50px;line-height:50px;background:#E5E8FD;border-right:1px solid #ffffff}
      // div.highlight{}
+     li.daxiaodanshuang{display: flex}
+     .ball-trend.noNumber div:not(.noRecord){display: none}
+     .ball-trend.noNumber{width:200%}
+     li.daxiaodanshuang.noShow{visibility: hidden}
+
+     div.noRecord div:not(.wait-record){display: none}
 }

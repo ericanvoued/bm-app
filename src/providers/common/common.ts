@@ -341,7 +341,7 @@ export class CommonProvider {
 
     async fetchRecord():Promise<any>{
         console.log('fetchdata')
-        this.historyList = (await this.http.fetchData('/api-lotteries-h5/load-issues/' + this.gameId)).data
+        this.historyList = (await this.http.fetchData('/api-lotteries-h5/load-issues/' + this.gameId + '?count=90&sort=desc')).data
         return new Promise((resolve,reject) =>{
             resolve()
         })
@@ -367,10 +367,11 @@ export class CommonProvider {
     }
 
     async getMissObservable(){
-       let missData =  (await this.http.fetchData('/api-lotteries-h5/getnewlottterymissed/' + this.gameId + '/30')).data
+       let missData =  (await this.http.fetchData('/api-lotteries-h5/getnewlottterymissed/' + this.gameId + '/90')).data
        if(missData)
           this.missData = missData
        console.log(this.missData)
+       console.log('sssefewf')
 
     }
 

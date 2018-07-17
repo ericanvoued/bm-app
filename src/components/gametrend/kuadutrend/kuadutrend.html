@@ -17,10 +17,11 @@
                                 <div *ngFor="let item of complexData.title">{{item}}</div>
                         </div>
                    
-                        <div *ngFor ="let item of kaijiangData" class="kai-jiang-line" [class.erxing]="common.method == '二星'">
-                            <div >{{item.number}}</div>
+                        <div *ngFor ="let item of kaijiangData" class="kai-jiang-line" [class.erxing]="common.method == '二星'" [class.noRecord] = "!item.history[0]">
+                            <div class="wait-record">{{item.number}}</div>
                             <div class="{{complexData.class}}"><span *ngFor="let aa of item.history">{{aa}}</span></div>
                             <div *ngFor="let detail of item.data">{{detail}}</div>
+                            <div *ngIf="!item.history[0]" class="wait-record" style="width:84%">等待开奖</div>
                         </div>
                 </div> 
                 
@@ -85,8 +86,6 @@
 
      
   </ion-slide>  
-  <!-- swiper-slide-active -->
-
   <ion-slide>
       <div>
           <ul style="display:flex" class="number-header top-line">
@@ -102,22 +101,30 @@
                   <li class="head-num" style="width:8.5%">8</li>
                   <li class="head-num" style="width:8.5%">9</li>
          </ul>
-              <ul *ngFor="let item of trendData" class="ball-line" style="display:flex">
+              <ul *ngFor="let item of trendData" class="ball-line kuadu" style="display:flex">
                   <li *ngFor="let ele of item.slice(0,1)" style="line-height:30px;font-size:12px;width:17%">
                       {{ele.number.slice(-7)}}
                    </li>
-                  <li *ngFor="let ele of item.slice(1)" style="position:relative;display:flex;width:8.5%;align-items:center;justify-content:center;border-left:1px solid #f0f0f0">
-                     <span [class.highlight]="ele.choose" class="number-code" style="width:20px;height:20px;border-radius:50%;text-align:center;line-height:20px;"> {{ele.number}}</span>
+                  <li *ngFor="let ele of item.slice(1)" [class.noNumber] = "ele.noNumber" style="position:relative;">
+                     <span [class.highlight]="ele.choose" *ngIf="!ele.noNumber" class="number-code" style="width:20px;height:20px;border-radius:50%;text-align:center;line-height:20px;"> {{ele.number}}</span>
                      <span class="right-corner" *ngIf="ele.choose > 1">{{ele.choose}}</span>
+                     <span *ngIf="ele.noNumber" style="width:100%"> {{ele.noNumber}}</span>
                   </li>
               </ul>
       </div>
+
+      <ul *ngFor="let item of category" class="trend-category">
+            <li class="head-num head-category" [class.xuan5]="common.series_id == 2" style="font-size:10px">{{getTitle(item)}}</li>
+            <li class="head-num head-content"  *ngFor="let todo of statisticData[item]" [class.xuan5]="common.series_id == 2" style="border-left:1px solid #f0f0f0">
+                {{todo}}
+            </li>
+      </ul>   
 
         <div class="cl bottom-choose">
             <ul class="choose-content" *ngFor="let item of common.ballData;let row=index">
                 <li class="head-num" style="width:17%;width:17%;color:#333333;font-size:12px">{{common.smallMethod}}</li>
                 <li class="head-num ball-choose ball-tap" style="width:8.5%;position:relative"  *ngFor="let item of item.value;let column=index" >
-                    <span [class.current]="item == 1" (click)="common.componentRef.instance.changeToggle(row,column)">{{column}}</span>
+                    <span [class.current]="item == 1" id="ball" (click)="common.componentRef.instance.changeToggle(row,column)">{{column}}</span>
                 </li>
             </ul>
 
@@ -148,17 +155,25 @@
               <li *ngFor="let ele of item.slice(0,1)" style="line-height:30px;font-size:12px;width:17%">
                   {{ele.number.slice(-7)}}
                </li>
-              <li *ngFor="let ele of item.slice(1)" style="display:flex;align-items:center;justify-content:center;border-left:1px solid #f0f0f0;width:8.5%">
-                 <span [class.highlight]="ele.choose"> {{ele.number}}</span>
+              <li *ngFor="let ele of item.slice(1)" [class.noNumber] = "ele.noNumber" >
+                 <span [class.highlight]="ele.choose" *ngIf="!ele.noNumber"> {{ele.number}}</span>
+                 <span *ngIf="ele.noNumber" style="width:100%"> {{ele.noNumber}}</span>
               </li>
           </ul>
       </div>
+
+      <ul *ngFor="let item of category" class="trend-category">
+            <li class="head-num head-category" [class.xuan5]="common.series_id == 2" style="font-size:10px">{{getTitle(item)}}</li>
+            <li class="head-num head-content"  *ngFor="let todo of statisticData[item]" [class.xuan5]="common.series_id == 2" style="border-left:1px solid #f0f0f0">
+                {{todo}}
+            </li>
+      </ul>   
 
         <div class="cl bottom-choose">
             <ul class="choose-content" *ngFor="let item of common.ballData;let row=index">
                 <li class="head-num" style="width:17%;width:17%;color:#333333;font-size:12px">{{common.smallMethod}}</li>
                 <li class="head-num ball-choose ball-tap" style="width:8.5%;position:relative"  *ngFor="let item of item.value;let column=index" >
-                    <span [class.current]="item == 1" (click)="common.componentRef.instance.changeToggle(row,column)">{{column}}</span>
+                    <span [class.current]="item == 1" id="ball" (click)="common.componentRef.instance.changeToggle(row,column)">{{column}}</span>
                 </li>
             </ul>
 
@@ -172,7 +187,7 @@
   <ion-slide> 
       <div class="menus-head" style="display:flex;font-size:14px">
               <div style="width:16%">和值</div> <div style="width:21%">30期冷热</div> <div style="width:21%">60期冷热</div> 
-              <div style="width:21%">100期冷热</div> <div style="width:21%">遗漏</div>
+              <div style="width:21%">90期冷热</div> <div style="width:21%">遗漏</div>
       </div>
       
           <ul>
@@ -188,8 +203,8 @@
           <div class="cl bottom-choose">
               <ul class="choose-content" *ngFor="let item of common.ballData;let row=index">
                   <li class="head-num" style="width:17%;width:17%;color:#333333;font-size:12px">{{common.smallMethod}}</li>
-                  <li class="head-num  choose-ball" style="width:8.5%;position:relative"  *ngFor="let item of item.value;let column=index" >
-                      <span [class.current]="item == 1" (click)="common.componentRef.instance.changeToggle(row,column)">{{column}}</span>
+                  <li class="head-num ball-choose ball-tap" style="width:8.5%;position:relative"  *ngFor="let item of item.value;let column=index" >
+                      <span [class.current]="item == 1" id="ball" (click)="common.componentRef.instance.changeToggle(row,column)">{{column}}</span>
                   </li>
               </ul>
   

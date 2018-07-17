@@ -78,10 +78,6 @@ page-ssc {
 
   #qq.fixed{position: fixed; top:70px;left:50%;transform: translateX(-50%)}
 
-  .tri-arrow{width:15px;height:15px;background: url(../assets/imgs/games/triangle.png) center center no-repeat;transition: .5s;margin-top: 3px}
-
-  .tri-arrow.current{transform: rotate(180deg)}
-
   .notice{width:15px;height: 15px;background: url(../assets/imgs/games/notice.png) center center no-repeat}
 
   .his-line .td:nth-of-type(1){width:22.6%;border-right:1px solid #cccccc;position:relative}

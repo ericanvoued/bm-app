@@ -80,7 +80,7 @@ export class Effect{
                number =  (+(historyList[0].number) + 1 +'').slice(-7)
            else if(this.common.series_id == 2){
                let splitArr = historyList[0].number.substr(5,historyList[0].number.length).split('-')
-               number = splitArr[0] + '' + (+splitArr[1] + 1) 
+               number = splitArr[0] + '-' + (+splitArr[1] + 1) 
            }
                 
            this.list.unshift({number:number,balls:'',time:''})
@@ -112,7 +112,7 @@ export class Effect{
     renderMethodContainer(){
         this.gameContainer.clear()
         let method
-        if(this.common.method == '二星'){
+        if(this.common.method == '二星' || this.common.method == '任选'){
             method = this.common.method + this.common.secondKind + this.common.smallMethod
         }else{
             method = this.common.method + this.common.smallMethod
@@ -156,6 +156,10 @@ export class Effect{
     goToBasket(){
         console.log('gobasket')
         this.navCtrl.push('BasketPage',{'index':this.componentRef})
+    }
+
+    goKaiJiang(){
+        this.navCtrl.push('GameTrendPage',{'index':0})   
     }
 
     changeMenu(val){

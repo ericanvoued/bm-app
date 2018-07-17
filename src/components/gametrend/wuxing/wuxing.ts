@@ -48,23 +48,24 @@ export class WuxingComponent implements OnInit {
     console.log('Hello WuxingComponent Component');
     console.log(this.common.historyList)
     
-   // this.historyRecord = this.util.historyNumbers.slice(0,11)
-    // this.historyRecord = this.common.historyList.map(ele => {
-    //   return {...ele, number:ele.number.substr(2,ele.number.length),
-    //     history: this.common.series_id == 2 ? ele.code.split(' ').map(ele => parseInt(ele)) : ele.code.split('').map(ele => parseInt(ele))}
-    // })
-
     console.log(this.historyRecord)
   }
 
   ngOnInit(){
     console.log(this.chooseIndex)
-    console.log(this.position)
 
     this.weiData = ['w','q','b','s','g'].slice(this.position[0], this.position[1])
     console.log(this.common.missData)
 
-    this.historyRecord = this.common.historyList.filter(ele => ele.code != '').map(ele => {
+    this.contentSlides.initialSlide = this.chooseIndex
+    this.choose = this.menus[this.chooseIndex] 
+
+    this.produceAllData()
+  }
+
+  //形成所有页面需要的数据
+  produceAllData(){
+    this.historyRecord = this.common.historyList.map(ele => {
       return {...ele, number:ele.number.substr(2,ele.number.length),
         history: this.common.series_id == 2 ? ele.code.split(' ').map(ele => parseInt(ele)) : ele.code.split('').map(ele => parseInt(ele))}
     }).reverse()
@@ -78,33 +79,33 @@ export class WuxingComponent implements OnInit {
       return a
     },[])
 
-    console.log(this.fakeTrend)
-
-    this.contentSlides.initialSlide = this.chooseIndex
-    this.choose = this.menus[this.chooseIndex]
+    console.log(this.fakeTrend) 
     this.getKaijiang()
     this.generateFake()
-   
   }
 
   initialArr(end, start = 0){
      return Array.apply(null, Array(end - start)).map((v,i) => i + start)
   }
 
-   //huoqu kaijiang
+   //开奖号码区域数据
    getKaijiang(){
       console.log(this.common.method)
       if(this.common.method == '五星' || this.common.method == '一星' || this.common.method == '任选' || this.common.method == '三码' || this.common.method == '二码' || this.common.method == '定位胆'){
             this.kaijiangData = this.historyRecord.map((ele,index) => {
-              let sum = ele.history.slice(this.position[0], this.position[1]).reduce((l,r) => (+l) + (+r))
-              let max = Math.max(...ele.history)
-              let min = Math.min(...ele.history)
-              let gap = max - min
-              let da = ele.history.filter(el => this.common.series_id == 1 ? el >= 5 : el > 5).length
-              let daxiao = da + ':' + (5 - da)
-              let odd = ele.history.filter(el => el%2 != 0).length
-              let oddeven = odd + ':' + (5 -odd)
-              return {...ele, sum,gap, daxiao, oddeven}
+              let sum, gap, daxiao, oddeven
+              if(ele.history[0]){
+                sum = ele.history.slice(this.position[0], this.position[1]).reduce((l,r) => (+l) + (+r))
+                let max = Math.max(...ele.history)
+                let min = Math.min(...ele.history)
+                gap = max - min
+                let da = ele.history.filter(el => this.common.series_id == 1 ? el >= 5 : el > 5).length
+                daxiao = da + ':' + (5 - da)
+                let odd = ele.history.filter(el => el%2 != 0).length
+                oddeven = odd + ':' + (5 -odd)
+              }
+            
+              return ele.history[0] ? {...ele, sum,gap, daxiao, oddeven} : ele
             })
             return 
       }
@@ -289,6 +290,7 @@ export class WuxingComponent implements OnInit {
            arr[i].unshift({number:this.historyRecord[i].number, choose:false})
        }
 
+       arr = arr.map(ele => ele.filter(item => item.choose).length ? ele : [ele[0], {'noNumber':'等待开奖'}])
        console.log(arr)
        sumData.push(arr)
     }
@@ -307,5 +309,14 @@ export class WuxingComponent implements OnInit {
       case 'current':
            return '当前遗漏';                       
     }
+  }
+
+  refreshData():Promise<any>{
+    console.log('fwfwfwef')
+
+    this.produceAllData()
+    return new Promise((resolve,reject) =>{
+      resolve()
+    })
   }
 }
