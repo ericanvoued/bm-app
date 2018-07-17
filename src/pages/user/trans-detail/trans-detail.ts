@@ -61,8 +61,8 @@ export class TransDetailPage {
       'Content-Type':'application/x-www-form-urlencoded',
       '_token':this.userInfo.token,
       'page':page,
-      'start':this.transData.timeStarts+' 00:00:00',
-      'end':this.transData.timeEnds+' 23:59:59',
+      'start_time':this.transData.timeStarts+' 00:00:00',
+      'end_time':this.transData.timeEnds+' 23:59:59',
       'bet_status':1,
       'transTypeId':_lottory.id?_lottory.id:null
     }).then(data=>{
