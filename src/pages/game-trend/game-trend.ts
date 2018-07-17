@@ -68,8 +68,8 @@ export class GameTrendPage {
   }
 
   ionViewWillEnter(){
-     //this.contentSlides.slideTo(this.navParams.get('index'))
-     this.drawTrend()
+     //传一个布尔值是否重新渲染组件
+     this.drawTrend(true)
      //this.events.publish('getMethod')
   }
 
@@ -187,8 +187,7 @@ export class GameTrendPage {
               canvas.height = container.offsetHeight
               container.appendChild(canvas)
               let ctx = canvas.getContext('2d')
-              ctx.strokeStyle = this.getCtxColor(i)
-              console.log(this.getCtxColor(i))
+              ctx.strokeStyle = '#7ED321'
               ctx.lineWidth = 1
               ctx.beginPath();
               let nodes = container.querySelectorAll('.highlight')
@@ -204,55 +203,43 @@ export class GameTrendPage {
     }
 }
 
-  create(gameMethod:string):Promise<any>{
+  create(gameMethod:string, flag:boolean):Promise<any>{
     console.log(gameMethod)
-    let trendComponent:any;
-
-    switch(this.common.series_id){
-        case 1:
-           trendComponent = judgeTrend('SSC', gameMethod)
-           break
-        case 2:
-           trendComponent= judgeTrend('Xuan5', gameMethod)  
-           break
+    if(flag){
+      let trendComponent:any;
+      
+          switch(this.common.series_id){
+              case 1:
+                 trendComponent = judgeTrend('SSC', gameMethod)
+                 break
+              case 2:
+                 trendComponent= judgeTrend('Xuan5', gameMethod)  
+                 break
+          }
+          console.log(trendComponent)
+          const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(trendComponent.component)
+          this.componentRef = this.container.createComponent(factory)
+          this.componentRef.instance.chooseIndex = this.navParams.get('index')
+          this.componentRef.instance.menus = trendComponent.menus
+          this.componentRef.instance.position = trendComponent.position
     }
-    console.log(trendComponent)
-    const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(trendComponent.component)
-    this.componentRef = this.container.createComponent(factory)
-    this.componentRef.instance.chooseIndex = this.navParams.get('index')
-    this.componentRef.instance.menus = trendComponent.menus
-    this.componentRef.instance.position = trendComponent.position
+   
     //上拉加载数据 canvas重回
-    //this.componentRef.instance.output.subscribe(() => setTimeout(() => this.drawCanvas(),0))
     return new Promise((resolve,reject) => {
         setTimeout(resolve,0)
     })
 }
 
-  drawTrend(){
-    this.container.clear()
+  drawTrend(flag:boolean){
+    if(flag)
+        this.container.clear()
+
     if(this.common.method == '前三'){
-        this.observer.next(this.create(this.common.method + this.common.smallMethod))
+        this.observer.next(this.create(this.common.method + this.common.smallMethod, flag))
     }else{
-        this.observer.next(this.create(this.common.method + this.common.smallMethod))
+        this.observer.next(this.create(this.common.method + this.common.smallMethod, flag))
     }
   }
-
-  getCtxColor(i){
-    switch(this.util.trendKind[this.common.method][i]) {
-       case '万位走势':
-            return '#F5d300'
-       case '千位走势':
-            return '#F84F1E'
-       case '百位走势':
-            return '#F84F1E'
-       case '十位走势':
-            return '#F84F1E'
-       case '个位走势':
-            return '#F84F1E'
-
-    }
- }
 
   slideChanged(){
     let index = this.contentSlides.getActiveIndex();
@@ -275,8 +262,6 @@ export class GameTrendPage {
 
   methodChange($event){
     console.log('trend change')
-    //this.drawTrend()
-    console.log($event)
     console.log(gameConfig)
     let component = gameConfig[$event]
     console.log(component)
@@ -285,7 +270,21 @@ export class GameTrendPage {
     this.componentRef = this.nocontainer.createComponent(factory)
     this.common.componentRef = this.componentRef
     this.common.getMissObservable()
-    this.drawTrend()
+    this.drawTrend(true)
     //this.componentRef.instance.choose = this.haveChoosen
+  }
+
+  async doRefresh(refresher){
+     console.log('ewfwfwf')
+     setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+     }, 2000);
+     let record = await this.common.fetchRecord()
+     let miss = await this.common.getMissObservable()
+
+     this.componentRef.instance.refreshData().then(() => {
+          this.drawTrend(false)
+     })  
   }
 }

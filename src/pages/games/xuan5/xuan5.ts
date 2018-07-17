@@ -129,6 +129,14 @@ export class Xuan5Page extends Effect{
        this.util.resetData()
    }
 
+   getBack(){
+    console.log('cwcwc')
+    var obj = $(".his-box"),his = obj.css('height');
+    console.log(his)
+    if(his > 54)
+        obj.animate({height: "54px"}, 100);
+   }
+
 
    presentLoadingDefault() {
     let loading = this.loadingCtrl.create({
@@ -138,15 +146,4 @@ export class Xuan5Page extends Effect{
     return loading
   }
 
-   //切换小玩法
-//    methodChange($event){
-//     //    this.haveChoosen = ['当前遗漏']
-//        console.log($event)
-//        let component = gameConfig[$event]
-//        this.gameContainer.clear()
-//        const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(component)
-//        this.componentRef = this.gameContainer.createComponent(factory)
-//        console.log(this.haveChoosen)
-//        this.componentRef.instance.choose = this.haveChoosen
-//    }
 }

@@ -2,11 +2,15 @@
 <div class="choose-game alert-con" [@fading]="common.visible">
   <div>
     玩法选择
-    <ul class="big-method" style="border-bottom:1px solid #F1D2BF">
+    <ul class="big-method" style="border-bottom:1px solid #F1D2BF" *ngIf="isPlay != 'true'">
       <li *ngFor="let item of common.gameMethodConfig;let i = index" [class.active]="common.bigId == item.id" (click)="setMethodIndex(i)">{{item.name_cn}}</li>
     </ul>
+
+    <ul class="big-method" style="border-bottom:1px solid #F1D2BF" *ngIf="isPlay == 'true'">
+        <li *ngFor="let item of common.gameMethodConfig;let i = index" [class.active]="common.bigId == item.id" (click)="changeActive(i)" class="play-li">{{item.name_cn}}</li>
+      </ul>
   </div>
-  <div style="margin-top:10px">
+  <div style="margin-top:10px" *ngIf="isPlay != 'true'">
     <div *ngFor="let item of common.small;let j = index" style="display:flex">
       <span>{{item.name_cn}}: </span>
       <div style="width:75%;padding-left:3%">

@@ -36,6 +36,9 @@ export class RightmenuComponent {
     if(val == '近期开奖')
        this.navCtrl.push('GameTrendPage',{'index':0})   
 
+    if(val == '玩法说明')  
+       this.navCtrl.push('PlayHelpPage')
+
     if(val == '号码统计'){
         if($('.modal').hasClass('active')){
             $('.body-bg').fadeOut(300)

@@ -13,11 +13,12 @@
                                   <div>期号</div><div >开奖号码</div><div style="width:32%">十位</div><div style="width:32%">个位</div>
                           </div>
                      
-                          <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
-                              <div >{{item.number}}</div>
+                          <div *ngFor ="let item of kaijiangData" class="kai-jiang-line" [class.noRecord] = "!item.history[0]">
+                              <div class="wait-record">{{item.number}}</div>
                               <div class="houer"><span *ngFor="let aa of item.history">{{aa}}</span></div>
                               <div style="width:32%">{{item.shi}}</div>
                               <div style="width:32%">{{item.ge}}</div>
+                              <div *ngIf="!item.history[0]" class="wait-record" style="width:84%">等待开奖</div>
                           </div>
                   </div> 
       
@@ -26,13 +27,14 @@
                                   <div>期号</div><div>开奖号码</div><div>百位</div><div>十位</div><div>个位</div><div>后三形态</div>
                           </div>
                      
-                          <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
-                              <div >{{item.number}}</div>
+                          <div *ngFor ="let item of kaijiangData" class="kai-jiang-line" [class.noRecord] = "!item.history[0]">
+                              <div class="wait-record">{{item.number}}</div>
                               <div class="housan"><span *ngFor="let aa of item.history">{{aa}}</span></div>
                               <div >{{item.bai}}</div>
                               <div >{{item.shi}}</div>
                               <div >{{item.ge}}</div>
                               <div >{{item.xingtai}}</div>
+                              <div *ngIf="!item.history[0]" class="wait-record" style="width:84%">等待开奖</div>
                           </div>
                   </div> 
       
@@ -41,11 +43,12 @@
                                   <div >期号</div><div>开奖号码</div><div style="width:32%">万位</div><div style="width:32%">千位</div>
                           </div>
                      
-                          <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
-                              <div >{{item.number}}</div>
+                          <div *ngFor ="let item of kaijiangData" class="kai-jiang-line" [class.noRecord] = "!item.history[0]">
+                              <div class="wait-record">{{item.number}}</div>
                               <div class="qianer"><span *ngFor="let aa of item.history">{{aa}}</span></div>
                               <div style="width:32%">{{item.wan}}</div>
                               <div style="width:32%">{{item.qian}}</div>
+                              <div *ngIf="!item.history[0]" class="wait-record" style="width:84%">等待开奖</div>
                           </div>
                   </div> 
       
@@ -54,13 +57,14 @@
                                   <div >期号</div><div>开奖号码</div><div>万位</div><div>千位</div><div>百位</div><div>前三形态</div>
                           </div>
                      
-                          <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
-                              <div >{{item.number}}</div>
+                          <div *ngFor ="let item of kaijiangData" class="kai-jiang-line" [class.noRecord] = "!item.history[0]">
+                              <div class="wait-record">{{item.number}}</div>
                               <div class="qiansan"><span *ngFor="let aa of item.history">{{aa}}</span></div>
                               <div >{{item.wan}}</div>
                               <div >{{item.qian}}</div>
                               <div >{{item.bai}}</div>
                               <div >{{item.xingtai}}</div>
+                              <div *ngIf="!item.history[0]" class="wait-record" style="width:84%">等待开奖</div>
                           </div>
                   </div> 
       
@@ -69,13 +73,14 @@
                                   <div >期号</div><div>开奖号码</div><div>千位</div><div>百位</div><div>十位</div><div>中三形态</div>
                           </div>
                      
-                          <div *ngFor ="let item of kaijiangData" class="kai-jiang-line">
-                              <div >{{item.number}}</div>
+                          <div *ngFor ="let item of kaijiangData" class="kai-jiang-line" [class.noRecord] = "!item.history[0]">
+                              <div class="wait-record">{{item.number}}</div>
                               <div class="zhongsan"><span *ngFor="let aa of item.history">{{aa}}</span></div>
                               <div >{{item.qian}}</div>
                               <div >{{item.bai}}</div>
                               <div >{{item.shi}}</div>
                               <div >{{item.xingtai}}</div>
+                              <div *ngIf="!item.history[0]" class="wait-record" style="width:84%">等待开奖</div>
                           </div>
                   </div> 
               </div>    
@@ -203,12 +208,13 @@
       
                       <div style="width:66%;position:relative;overflow:hidden" #drag>
                               <div [ngStyle]="{'width':weiData.length*50 + '%'}" style="display:flex;position:relative" class="union-part">
-                                  <div [ngStyle]="{'width':1/weiData.length*100 + '%'}" *ngFor="let item of weiData;let ii = index" class="trend-container" style="position:relative;background:#E5E8FD;border-right:1px solid #ffffff">
+                                  <div [ngStyle]="{'width':1/weiData.length*100 + '%'}" *ngFor="let item of weiData;let ii = index" class="trend-container" style="position:relative;border-right:1px solid #ffffff">
                                        <ul style="display:block">
-                                          <li *ngFor="let item of daxiaoData[ii]" style="display:flex" class="ball-trend">
+                                          <li *ngFor="let item of daxiaoData[ii];" class="ball-trend daxiaodanshuang" [class.noShow]="ii > 0 && trueExist(item)" [class.noNumber]="trueExist(item)">
                                               <div *ngFor="let do of item;let i = index"  class="trend-wrapper"> 
                                                   <div [class.highlight]="do === true">{{do === true ? qq(i) : do}}</div>     
                                               </div>
+                                              <div *ngIf="trueExist(item)" [class.noRecord]="trueExist(item)" style="width:100%;font-size:13px;line-height:30px;text-align:center">等待开奖</div>
                                           </li>
                                        </ul>
                                   </div>

@@ -681,6 +681,8 @@ padding-top: 25px;}
 
 .alert-md .alert-button-group{height:0}
 
+.tri-arrow{width:15px;height:15px;background: url(../assets/imgs/games/triangle.png) center center no-repeat;transition: .5s;margin-top: 3px}
+.tri-arrow.current{transform: rotate(180deg)}
 
 // .content-ios, .content-md {
 //   background-color: #ffffff;
@@ -745,23 +747,23 @@ padding-top: 25px;}
 }
 
 .myloading {
-  min-height: 0!important;
-  .infinite-loading,.refresher-refreshing{
-    margin-bottom: 10px;
-    margin-top: 10px;
-    display: flex!important;
-    justify-content: center;
-    .infinite-loading-text{
-      margin-left: 10px;
-    }
-    .refresher-refreshing-text{
-      line-height: 40px;
-    }
-  }
-  .refresher-refreshing{
-    margin-top: 18px;
-    margin-bottom: 2px;
-  }
+  // min-height: 0!important;
+  // .infinite-loading,.refresher-refreshing{
+  //   margin-bottom: 10px;
+  //   margin-top: 10px;
+  //   display: flex!important;
+  //   justify-content: center;
+  //   .infinite-loading-text{
+  //     margin-left: 10px;
+  //   }
+  //   .refresher-refreshing-text{
+  //     line-height: 40px;
+  //   }
+  // }
+  // .refresher-refreshing{
+  //   margin-top: 18px;
+  //   margin-bottom: 2px;
+  // }
 }
 
 @keyframes bounceLoading {

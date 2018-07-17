@@ -20,6 +20,9 @@ page-game-trend {
       // div{color:blue};
     }
 
+    .choose-game{top:0}
+
+    .toolbar-title{display: flex;justify-content: center;align-items: center}
     
 
     .slides{height:calc(100% - 75px)}
@@ -30,7 +33,7 @@ page-game-trend {
 
     ul.trend-category{line-height: 30px}  
 
-    ul.trend-category .head-content{width:8.5%;border-left:1px solid #f0f0f0;border-bottom:1px solid #f0f0f0}  
+    ul.trend-category .head-content{width:8.3%;border-left:1px solid #f0f0f0;border-bottom:1px solid #f0f0f0}  
 
     .bottom-choose{position:sticky;bottom:0;width:100%;background:#ffffff;z-index:100;box-shadow: 0 -2px 6px rgba(118, 29, 29, 0.1)}
 
@@ -40,12 +43,13 @@ page-game-trend {
     div.active{background: #25B35E}
     .swiper-container{height:100%}
 
-    .ball-line li span{width:20px;height:20px;color:#000000;font-size:15px;border-radius:50%;text-align:center;line-height:20px}
 
     .ball-line .highlight{background: #F86338;z-index:5;color:#ffffff}
 
-    .ball-line.kuadu li span{width:20px;height:20px;color:#000000;font-size:15px;border-radius:0%;text-align:center;line-height:20px}
+    .ball-line.kuadu li span{width:20px;height:20px;color:#000000;font-size:13px;border-radius:0%;text-align:center;line-height:20px}
     
+    .ball-line.kuadu li span.right-corner{width:12px;height:12px;color:#000000;font-size:12px;border-radius:50%;text-align:center;line-height:12px}
+
     .ball-line.kuadu .highlight{background: #7ED321;z-index:5}
   
     canvas{position: absolute;top:0;left:0}
@@ -62,7 +66,7 @@ page-game-trend {
     .trend-category{display:flex;justify-content:space-between}
     //.trend-container li{margin-bottom:25px;width:28px;height:28px;border-radius:50%;line-height: 28px}
   
-    li.head-num{font-size: 15px;display: flex;justify-content: center;align-items: center}
+    li.head-num{font-size: 13px;display: flex;justify-content: center;align-items: center}
   
     ion-slides div.kai-jiang{display: flex;color:#666;position: sticky;top:0}
     ion-slides div.kai-jiang div{background: #DEE2FF;padding: 5px 0 5px 0}

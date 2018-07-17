@@ -16,25 +16,6 @@ import { Vibration } from '@ionic-native/vibration';
 export class UtilProvider {
   shake:boolean = false;
   
-  // game trend
-  trendKind = {
-    '五星':['万位走势','千位走势','百位走势','十位走势','个位走势'],
-    '四星':['万位走势','千位走势','百位走势','十位走势'],
-    '前三':['万位走势','千位走势','百位走势'],
-    '中三':['千位走势','百位走势','十位走势'],
-    '后三':['百位走势','十位走势','个位走势'],
-    '二星':['十位走势','个位走势'],
-    '一星':['万位走势','千位走势','百位走势','十位走势','个位走势'],
-    '不定位':['十位走势','个位走势'],
-    '大小单双':['十位走势','个位走势'],
-    '三码':['十位走势','个位走势'],
-    '二码':['十位走势','个位走势'],
-    '定位胆':['十位走势','个位走势'],
-    '任选复式':['十位走势','个位走势'],
-    '任选胆拖':['十位走势','个位走势'],
-    '任选':['十位走势','个位走势'],
-  }
-
   // 走势图头部选择
   choose:any
   menus: Array<string> 
@@ -81,31 +62,11 @@ export class UtilProvider {
     }  
   }
 
-  //五星玩法
-  wuxingData = []
-  
-  sixingData = []
-  
-  qiansanData = []
-
-  //统计遗漏
-  yilou:any;
-
-  //最大遗漏
-  maxYi:any;
-
-  //平均遗漏
-  avgYi:any;
-
-  //统计冷热
-  lengre:any;
+ 
 
   listeners:any = []
 
   fakeTrend:Array<any> = []
-
-  //http://user.firecat.com/api-lotteries-h5/load-issues/1?_t=e182334981f44d206cc70ddd6c05293a
-
   constructor(public http: HttpClientProvider,public common:CommonProvider, public vibration: Vibration) {
     
 
@@ -163,22 +124,9 @@ this.fakeTrend = [0,1,2,3,4].reduce((a,b) =>{
                     
         }
     }
-    this.yilou = yilou
-    this.lengre = lengre
-    this.maxYi = maxYi
-    this.avgYi = avgYi
+   
   
    // this.generateFake()
-  }
-
-  async fetchRecord():Promise<any>{
-      console.log('fetchdata')
-      this.historyList = (await this.http.fetchData('/api-lotteries-h5/load-issues/1?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token)).data
-      
-      console.log(this.historyList)
-      return new Promise((resolve,reject) =>{
-        resolve()
-    })
   }
 
    //生成走势统计数据
@@ -230,20 +178,20 @@ this.fakeTrend = [0,1,2,3,4].reduce((a,b) =>{
   }
 
   //走势图头部菜单
-  setData(){
-    console.log('ggg');
-    console.log(this.common.method);
+//   setData(){
+//     console.log('ggg');
+//     console.log(this.common.method);
 
-    this.menus = ['开奖']
-    if(this.common.method){
-      this.trendKind[this.common.method].forEach(ele => {
-        this.menus.push(ele)
-      })
-      this.choose = this.menus[0]
-    }   
-     console.log(this.menus)
+//     this.menus = ['开奖']
+//     if(this.common.method){
+//       this.trendKind[this.common.method].forEach(ele => {
+//         this.menus.push(ele)
+//       })
+//       this.choose = this.menus[0]
+//     }   
+//      console.log(this.menus)
     
-   }
+//    }
 
     //单个选球
     // changeToggle(row,column?){

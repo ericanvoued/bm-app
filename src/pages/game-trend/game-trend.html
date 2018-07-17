@@ -7,7 +7,10 @@
 <ion-header>
   
     <ion-navbar>
-      <ion-title (click)="common.toggle()">{{common.method}} {{common.smallMethod}}</ion-title>
+        <ion-title (click)="common.toggle()">
+            <div style="position:relative;z-index:1300">{{common.method}} {{common.smallMethod}}</div>
+            <div class="tri-arrow"></div>
+         </ion-title>
     </ion-navbar>
   
   </ion-header>
@@ -15,8 +18,15 @@
   
   <ion-content>
       <div class="body-bg"></div>
+    
       
-      <gamemenu (switch)="methodChange($event)"></gamemenu>  
+      <ion-refresher (ionRefresh)="doRefresh($event)">
+          <ion-refresher-content 
+            pullingText="下拉刷新..."
+            refreshingText="正在刷新...">
+          </ion-refresher-content>
+        </ion-refresher>
+        <gamemenu (switch)="methodChange($event)"></gamemenu>  
   <!-- <div class="segment">
        <ion-segment [(ngModel)]="util.choose" (ionChange)="segmentChanged($event)">
          <ion-segment-button *ngFor="let name of util.menus;let ii = index" value="{{name}}">{{name}}</ion-segment-button>  

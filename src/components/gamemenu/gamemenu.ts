@@ -33,6 +33,8 @@ import { UtilProvider } from '../../providers/util/util'
 })
 export class GamemenuComponent implements OnDestroy{
     @Output('switch') switch:EventEmitter<any> = new EventEmitter<any>()
+    @Output('changeMethod') changeMethod:EventEmitter<any> = new EventEmitter<any>()
+    @Input('isPlay') isPlay:any
     choosen:any;
 
     //大玩法
@@ -93,7 +95,6 @@ console.log(this.common.gameMethodConfig[this.bigIndex].children[j].children[k])
      
         this.common.setGameConfig(this.bigIndex,j,k)
         this.util.resetData()
-        this.util.setData()
 
         // console.log(name)
         console.log(this.common.secondKind)
@@ -114,4 +115,12 @@ console.log(this.common.gameMethodConfig[this.bigIndex].children[j].children[k])
         $('.body-bg').fadeOut(300)
     }
 
+    changeActive(i){
+        
+        console.log(i)
+        console.log($('.play-li').eq(i))
+         $('.play-li').eq(i).addClass('active').siblings().removeClass('active')
+         this.changeMethod.emit($('.big-method li').eq(i).text())
+         this.common.toggle()
+    }
 }

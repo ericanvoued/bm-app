@@ -8,6 +8,7 @@ import {UtilProvider} from '../../../providers/util/util'
 import * as $ from 'jquery';
 import {RestProvider} from '../../../providers/rest/rest';
 import {BaseToolProvider} from '../../../providers/base-tool/base-tool';
+import {IntroducePage} from "../introduce/introduce";
 
 
 @IonicPage()
@@ -58,20 +59,17 @@ export class KsPage extends KsAction {
 
   ionViewDidLoad() {
 
-
-
-
     let that = this;
     // this.util.shakePhone(() => {
     //   this.shakeClick();
     // })
     this.navBar.backButtonClick = this.backButtonClick;
     this.initView();
-    this.requestHisData();
+    // this.requestHisData();
     // 获取遗漏
     // this.getnewlotterymissed30();
-    this.getnewlotterymissed60();
-    this.getnewlotterymissed90();
+    // this.getnewlotterymissed60();
+    // this.getnewlotterymissed90();
     this.base.requestPlayData(localStorage.idstr, '3').then((response) => {
       // console.log('2222233333' + JSON.stringify(response))
       that.initOdds(response,1);
@@ -84,9 +82,10 @@ export class KsPage extends KsAction {
   }
 
   ionViewWillEnter() {
+    this.requestHisData();
     this.getnewlotterymissed30();
-    // this.getnewlotterymissed60();
-    // this.getnewlotterymissed90();
+    this.getnewlotterymissed60();
+    this.getnewlotterymissed90();
 
     this.base.requestJiangQiData(localStorage.idstr, '3', 'play').then(() => {
       console.log('k3333333333')
@@ -129,14 +128,6 @@ export class KsPage extends KsAction {
         }
     this.util.listeners = []
 
-    // document.addEventListener('webkitvisibilitychange',function()
-    // {
-    //   if(window.webkit=='hidden')
-    //   {
-    //     b=Date.now();
-    //   }
-    // });
-
   }
 
   ionViewDidEnter(){
@@ -144,45 +135,6 @@ export class KsPage extends KsAction {
       this.shakeClick();
     })
   }
-
-
-
-//   initOdds(data) {
-//
-//     // console.log('data=='+data)
-//
-//     var hz_prize, hz_extra_prize, sth_prize, erth_prize, sbt_prize, erbt_prize, slh_prize, dtys_prize;
-//     hz_prize = data[0].prize;
-//     hz_extra_prize = data[0].extra_prize;
-//     sth_prize = new Number(data[1].prize).toFixed(2);
-//     erth_prize = new Number(data[2].prize).toFixed(2);
-//     sbt_prize = new Number(data[3].prize).toFixed(2);
-//     erbt_prize = new Number(data[4].prize).toFixed(2);
-//     slh_prize = new Number(data[5].prize).toFixed(2);
-//     dtys_prize = new Number(data[6].prize).toFixed(2);
-//
-// //hz
-// //     $('.hz-section .content-box .ball-num')
-//     for(var i=0;i<18;i++){
-//       var inx = i+3;
-//       $('.hz-section .prize').eq(i).text('奖金'+new Number(hz_extra_prize[inx]).toFixed(2)+'元');
-//     }
-// //三同号
-//     $('.santh-section .content-box .ball-num').find('.prize').text('奖金' + sth_prize + '元')
-// //二同号
-//     $('.eth_prize').text(erth_prize);
-// //三不同号
-//     $('.sbt_prize').text(sbt_prize);
-// //二不同号
-//     $('.ebt_prize').text(erbt_prize);
-// //三连号
-//     $('.sanlh-section .prize').text('奖金' + slh_prize + '元');
-// //单挑一骰
-//     $('.dtys-section .prize').text('奖金' + dtys_prize + '元');
-//
-//
-//   }
-
 
 
 
@@ -291,9 +243,9 @@ export class KsPage extends KsAction {
           // console.log('localStorage.hisissue===' + JSON.parse(localStorage.hisissue));
           var htm = '', newary = [];
           if (data.data.length > 10) {
-            newary = data.data.slice(0, 9);
+            newary = data.data.reverse().slice(0, 9);
           } else {
-            newary = data.data;
+            newary = data.data.reverse();
           }
           console.log('nweary===' + newary);
           var code0, code1, code2, toltal, dx, jo, item;
@@ -441,14 +393,16 @@ export class KsPage extends KsAction {
 
   }
 
-
-
   pushToTrend() {
-
     //判断当前 玩法  -- 》 传参 ， 对应的 不同  走势图页面
     this.navCtrl.push("KstrendPage", {wanfa: $('.wanfa').text(), htm: $('.alert-con').html()});
 
   }
 
+  pushToIntroduce(){
+    localStorage.which = 3;
+    this.navCtrl.push("IntroducePage");
+
+  }
 
 }

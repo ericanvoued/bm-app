@@ -1,7 +1,6 @@
 import { Component,Output,ViewChild,ElementRef, EventEmitter, OnInit,AfterViewInit } from '@angular/core';
 import { Slides } from 'ionic-angular';
 import { UtilProvider } from '../../../../providers/util/util'
-import { SscServiceProvider } from "../../../../providers/games/ssc-service/ssc-service"
 import * as $ from 'jquery';
 
 import { CommonProvider } from "../../../../providers/common/common";
@@ -92,29 +91,10 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
   //遗漏数据
   statisticData:any[]
 
-  constructor(public common:CommonProvider,public util:UtilProvider, public ssc:SscServiceProvider) {
+  constructor(public common:CommonProvider,public util:UtilProvider) {
     console.log(this.common.ballData)
     console.log(this.common.historyList) 
     //this.historyRecord = this.util.historyNumbers.slice(0,this.page*30)
-   
-    this.historyRecord = this.common.historyList.filter(ele => ele.code != '').map(ele => {
-      return {...ele, number:ele.number.substr(2,ele.number.length),history:ele.code.split('').map(ele => parseInt(ele))}
-    }).reverse()
-
-    console.log(this.historyRecord)
-    //this.qishu = this.qishu.slice(0,1).concat()
-  }
-
-  //根据position计算位数
-  getKaijiang(){
-    this.kaijiangData = this.historyRecord.map((ele,index) => {
-      let hezhi,daxiao,danshuang;
-      hezhi = ele.history.slice(this.position[0],this.position[1]).reduce((a,b) => a+b)
-      //daxiao = hezhi > 13 ? '大':'小'
-      daxiao = hezhi > this.numbers[Math.floor(this.numbers.length/2)] ? '大':'小'
-      danshuang = hezhi %2 > 0 ? '单':'双'
-      return {...ele, hezhi, daxiao, danshuang}
-    })
   }
 
   ngOnInit(){
@@ -122,19 +102,29 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
    
     this.choose = this.menus[this.chooseIndex]
 
+    this.produceAllData()
+  }
+
+  produceAllData(){
     if(this.common.method == '前三' || this.common.method == '中三' || this.common.method == '后三'){
-           if(this.common.smallMethod == '直选和值'){
-                this.numbers = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27]
-           }else{
-                this.numbers = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26]
-           }
+      if(this.common.smallMethod == '直选和值'){
+           this.numbers = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27]
+      }else{
+           this.numbers = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26]
+      }
     }else if(this.common.method == '二星'){
-          if(this.common.bigKind == '直选'){
-            this.numbers = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
-          }else{
-            this.numbers = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
-          }
+      if(this.common.bigKind == '直选'){
+        this.numbers = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
+      }else{
+        this.numbers = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
+      }
     }
+
+    this.historyRecord = this.common.historyList.map(ele => {
+      return {...ele, number:ele.number.substr(2,ele.number.length),history:ele.code.split('').map(ele => parseInt(ele))}
+    }).reverse()
+
+    console.log(this.historyRecord)
 
     this.getKaijiang()
     this.getNumberTrend()
@@ -145,13 +135,9 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
     console.log(this.lengreData)
 
     this.hezhiTrendData.forEach(ele => {
-         this.qishu.push(ele[0].number)
+        this.qishu.push(ele[0].number)
     })
-
-    console.log(this.qishu)
   }
-
-
 
   ngAfterViewInit(){
     console.log(this.numbers)
@@ -206,12 +192,22 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
       this.contentSlides.slideTo(this.menus.indexOf($event.value))
       this.contentSlides.lockSwipes(true)
   }
-  
-  // slideChanged(){
-  //     let index = this.contentSlides.getActiveIndex()
-  //     this.choose = this.menus[index]
-  // }
 
+  //根据position计算位数
+  getKaijiang(){
+    this.kaijiangData = this.historyRecord.map((ele,index) => {
+      let hezhi,daxiao,danshuang;
+      if(ele.history[0]){
+        hezhi = ele.history.slice(this.position[0],this.position[1]).reduce((a,b) => a+b)
+        //daxiao = hezhi > 13 ? '大':'小'
+        daxiao = hezhi > this.numbers[Math.floor(this.numbers.length/2)] ? '大':'小'
+        danshuang = hezhi %2 > 0 ? '单':'双'
+      }
+     
+      return ele.history[0] ? {...ele, hezhi, daxiao, danshuang} : ele
+    })
+  }
+  
   existZuxuan(){
     let data = this.common.componentRef.instance.getCommonData(),flag = false;
     data.forEach(ele => {
@@ -266,66 +262,31 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
       for(let i =0;i<totals.length;i++){
           totals[i].unshift({number:this.historyRecord[i].number, choose:false})
       }
+
+      console.log(totals)
+      totals = totals.map(ele => ele.filter(item => item.choose).length ? ele : [ele[0], {'noNumber':'等待开奖'}])
       console.log(totals)
       this.trendData = totals
      
   }
 
-  // getComplexData(hezhiData){
-  //   //遗漏冷热  yilou 当前遗漏 
-  //   let yilou = [],lengre = [],maxYi = [],avgYi = [], sumData = [], length = hezhiData.length;
-  //           for(let i = 1; i < hezhiData[length-1].length;i++){
-  //               let temp = [], local = []
-    
-  //               hezhiData.forEach((ele,index) => {
-  //                   temp.push(ele[i])
-  //                   if(index < hezhiData.length - 1){
-  //                       if(!ele[i].choose && hezhiData[index+1][i].choose){
-  //                           local.push(ele[i])
-  //                       }
-  //                   }else if(index = hezhiData.length - 1){
-  //                       if(!ele[i].choose)
-  //                           local.push(ele[i])
-  //                   }        
-  //               })
-    
-  //               console.log(local)
-  //               // 每个位数出现次数
-  //               let leng = temp.reduce((a,b) => { 
-  //                   if(b.choose) 
-  //                      return a + b.choose
-  //                   else
-  //                      return a
-  //               },0)
-
-  //               let max = temp.filter(ele => !ele.choose).length ? Math.max(...temp.filter(ele => !ele.choose).map(item => item.number)) : 0 
-  //               let avg = local.length == 0 ? 0 : Math.floor(local.reduce((a,b) => a + b.number,0)/local.length)
-  //               let tempArr = temp.filter(ele => !ele.choose)
-  //               // let length = temp.filter(ele => !ele.choose).length
-  //               yilou.push(tempArr.length ? tempArr[tempArr.length - 1].number : 0 )
-  //               maxYi.push(max)
-  //               avgYi.push(avg)
-  //               lengre.push(leng)     
-  //           }
-  //       sumData.push(lengre)
-  //       sumData.push(avgYi)
-  //       sumData.push(maxYi)
-  //       sumData.push(yilou)
-  //       this.sumData = sumData
-  // }
-
   getHezhiTrend(){
       let asd = [],totals = []
       this.historyRecord.forEach(ele => {
-          let temp = []
-          temp.push(...ele.history.slice(this.position[0],this.position[1]))
-          asd.push(temp)
+         // let temp = []
+          if(ele.history[0]){
+            asd.push(ele.history.slice(this.position[0],this.position[1]).reduce((a,b) => a+b))
+          }else
+            asd.push(-1)
+         // temp.push(...ele.history.slice(this.position[0],this.position[1]))
+         // asd.push(temp)
+         
       })
-     let sum = asd.map(item => item.reduce((a,b) => a+b))
+     let sum = asd
 
      console.log(this.position[0])
      console.log(this.position[1])
-     console.log(sum)
+    // console.log(sum)
      //和值统计的长度根据this.numbers确认
      for(let i = 0;i<sum.length;i++){
           let arr:any[] = []
@@ -356,7 +317,9 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
     //   {number:11},{number:12},{number:13},{number:14},{number:15},{number:16},{number:17},{number:18},{number:19},{number:20},{number:21},
     //   {number:22},{number:23},{number:24},{number:25},{number:26},{number:27}
     // ])
-      console.log(totals)
+    console.log(totals)
+    totals = totals.map(ele => ele.filter(item => item.choose).length ? ele : [ele[0], {'noNumber':'等待开奖'}])
+    console.log(totals)
       return this.hezhiTrendData = totals
   }
 
@@ -367,13 +330,16 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
      this.historyRecord.forEach(ele => {
           let temp = []
           temp.push(...ele.history.slice(this.position[0],this.position[1]))
-          asd.push(temp.reduce((a,b) => a + b))
+          if(ele.history[0])
+             asd.push(temp.reduce((a,b) => a + b))
+          else 
+             asd.push(-1)
      })
 
      this.lengreData = this.numbers.map(number => {
          let leng30 = asd.slice(-30).filter(item => number == item).length
          let leng60 = asd.slice(-60).filter(item => number == item).length
-         let leng100 = asd.slice(-100).filter(item => number == item).length
+         let leng100 = asd.slice(-90).filter(item => number == item).length
          let yilou = asd.length - asd.lastIndexOf(number) - 1
          return {number, leng30, leng60, leng100, yilou}
      })
@@ -392,7 +358,6 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
         return this.common.ballData[Math.floor(number/7)].value[number%7] == 1
      else
         return false
-    // return this.common.ballData[Math.floor(number/7)].value[number%7] == 1
   }
 
   getStatisticData(){
@@ -422,5 +387,14 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
       case 'current':
            return '当前遗漏';                       
     }
+  }
+
+  refreshData():Promise<any>{
+    console.log('fwfwfwef')
+
+    this.produceAllData()
+    return new Promise((resolve,reject) =>{
+      resolve()
+    })
   }
 }

@@ -35,8 +35,8 @@
             <div class="th" style='width:13%'>大小比</div>
             <div class="th" style='width:13%'>奇偶比</div>
         </div>
-  
-        <div class="tbody clearfix his-box">
+      </div>
+        <div class="tbody clearfix his-box" (click)="goKaiJiang()">
           <div class="tr clearfix his-line" *ngFor="let item of list">
               <div style='width:18%' class="td">{{item.number}}
                   <span class="dom" ></span>
@@ -54,12 +54,12 @@
 
           <div class="see-more"> <div class="notice"></div> <div> 点击以上开奖号码区域可查看更多</div></div>
         </div>
-      </div>
+      
   </div>
 
   <div class="modify scroll" style="position:fixed;width:100%">
       <div class="bet-box clearfix">
-          <div id="qq"></div>
+          <div id="qq" style="display:none"></div>
           <ng-template #gameContainer>
                 
           </ng-template>

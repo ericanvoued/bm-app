@@ -66,17 +66,10 @@ export class DaxiaodanshuangComponent implements OnInit{
 
   constructor(public common:CommonProvider,public util:UtilProvider) {
     console.log('Hello DaxiaodanshuangComponent Component');
-
-    this.historyRecord = this.common.historyList.filter(ele => ele.code != '').map(ele => {
-      return {...ele, number:ele.number.substr(2,ele.number.length),history:ele.code.split('').map(ele => parseInt(ele))}
-    })
-    console.log(this.historyRecord)
- 
   }
 
   ngOnInit(){
-    this.getKaijiang()
-    this.getDaxiao()
+     this.produceAllData()
   }
 
   ngAfterViewInit(){
@@ -107,8 +100,10 @@ export class DaxiaodanshuangComponent implements OnInit{
   }
 
   ionChange($event){
+    this.contentSlides.lockSwipes(false)
     console.log($event.value)
     this.contentSlides.slideTo(this.menus.indexOf($event.value))
+    this.contentSlides.lockSwipes(true)
   }
 
   slideChanged(){
@@ -116,56 +111,66 @@ export class DaxiaodanshuangComponent implements OnInit{
     this.choose = this.menus[index]
   }
 
+  //形成所有页面需要的数据
+  produceAllData(){
+    this.historyRecord = this.common.historyList.map(ele => {
+      return {...ele, number:ele.number.substr(2,ele.number.length),history:ele.code.split('').map(ele => parseInt(ele))}
+    })
+    console.log(this.historyRecord)
+    this.getKaijiang()
+    this.getDaxiao()
+  }
+
   getKaijiang(){
       switch(this.common.smallMethod){
            case '后二大小单双':
               this.weiData = ['十位','个位']
               this.kaijiangData = this.historyRecord.map((ele,index) => {
-                let shi = this.judgeKind(ele.history[3])
-                let ge = this.judgeKind(ele.history[4])
-                return {...ele,shi,ge}  
+                  let shi = this.judgeKind(ele.history[3])
+                  let ge = this.judgeKind(ele.history[4])
+                  return {...ele,shi,ge}       
             })      
             break  
 
            case '后三大小单双':
               this.weiData = ['百位','十位','个位']
               this.kaijiangData = this.historyRecord.map((ele,index) => {
-                let bai = this.judgeKind(ele.history[2])
-                let shi = this.judgeKind(ele.history[3])
-                let ge = this.judgeKind(ele.history[4])
-                let xingtai = this.tellZu(ele.history.slice(2,5))
-                return {...ele,bai,shi,ge,xingtai}  
+                  let bai = this.judgeKind(ele.history[2])
+                  let shi = this.judgeKind(ele.history[3])
+                  let ge = this.judgeKind(ele.history[4])
+                  let xingtai = this.tellZu(ele.history.slice(2,5))
+                  return {...ele,bai,shi,ge,xingtai}       
             })  
             break    
 
             case '前二大小单双':
               this.weiData = ['万位','千位']
               this.kaijiangData = this.historyRecord.map((ele,index) => {
-                let wan = this.judgeKind(ele.history[0])
-                let qian = this.judgeKind(ele.history[1])
-                return {...ele,wan,qian}
+                  let wan = this.judgeKind(ele.history[0])
+                  let qian = this.judgeKind(ele.history[1])
+                  return {...ele,wan,qian}
               })
               break  
 
             case '前三大小单双':
               this.weiData = ['万位','千位','百位']
               this.kaijiangData = this.historyRecord.map((ele,index) => {
-                let wan = this.judgeKind(ele.history[0])
-                let qian = this.judgeKind(ele.history[1])
-                let bai = this.judgeKind(ele.history[2])
-                let xingtai = this.tellZu(ele.history.slice(0,3))
-                return {...ele,wan,qian,bai,xingtai}
+                  let wan = this.judgeKind(ele.history[0])
+                  let qian = this.judgeKind(ele.history[1])
+                  let bai = this.judgeKind(ele.history[2])
+                  let xingtai = this.tellZu(ele.history.slice(0,3))
+                  return {...ele,wan,qian,bai,xingtai}   
               })
               break  
             
             case '中三大小单双':
               this.weiData = ['千位','百位','个位']
               this.kaijiangData = this.historyRecord.map((ele,index) => {
-                let qian = this.judgeKind(ele.history[1])
-                let bai = this.judgeKind(ele.history[2])
-                let shi = this.judgeKind(ele.history[3])
-                let xingtai = this.tellZu(ele.history.slice(1,4))
-                return {...ele,qian,bai,shi,xingtai}
+                  let qian = this.judgeKind(ele.history[1])
+                  let bai = this.judgeKind(ele.history[2])
+                  let shi = this.judgeKind(ele.history[3])
+                  let xingtai = this.tellZu(ele.history.slice(1,4))
+                  return {...ele,qian,bai,shi,xingtai}
               })
               break              
       }
@@ -173,7 +178,11 @@ export class DaxiaodanshuangComponent implements OnInit{
 
   getDaxiao(){
     //this.position
-    let tempData = this.historyRecord.map(ele => { return {...ele,history:ele.history.slice(this.position[0],this.position[1])}}) 
+    let tempData = this.historyRecord.map(ele => 
+        { return  ele.history[0] ? {...ele,history:ele.history.slice(this.position[0],this.position[1])} : 
+         {...ele, history:Array.apply(null,Array(this.position[1] - this.position[0])).map((v,i) => -1)}
+    }) 
+
     let tempArr = Array.apply(null,Array(this.position[1] - this.position[0])).map((v,i) => i)
 
     let statisticData = tempArr.reduce((a,b) => {
@@ -187,29 +196,6 @@ export class DaxiaodanshuangComponent implements OnInit{
     
     console.log(statisticData)
     this.getResultData(statisticData)
-
-    // let arr = [3,4,5,6,7,8],qq = ['大','小','单','双'],total = [];
-    
-    // for(let i =0;i<arr.length;i++){
-    //     let temp = []
-    //     if(i == 0){
-    //        temp.push(...this.test(arr[i]))
-    
-    //     }else{
-    //        let ss = this.test(arr[i])
-    //        for(let j = 0;j<4;j++){
-    //            if(total[i-1][j] === true && ss[j] !== true)
-    //               temp.push(1)
-    //            if(ss[j] === true)
-    //               temp.push(true)
-    //            if(total[i-1][j] !== true && ss[j] !== true)
-    //               temp.push(total[i-1][j] + 1)
-    //        }
-    
-    //     }
-    //     total.push(temp)
-    //     this.daxiaoData = total
-    // }
   }
 
   getResultData(arr:Array<any>){
@@ -218,7 +204,7 @@ export class DaxiaodanshuangComponent implements OnInit{
           total.push(this.processData(arr[i]))
       }
       this.daxiaoData = total
-      //this.daxiaoData = total
+      console.log(this.daxiaoData)
   }
 
   processData(arr:any[]){
@@ -287,6 +273,9 @@ export class DaxiaodanshuangComponent implements OnInit{
   }
 
   test(number){
+    if(number == -1)
+       return [1,1,1,1]
+
     if(number>=5 && number%2)
        return [true,1,true,1]
     if(number>=5 && !(number%2))
@@ -324,5 +313,16 @@ export class DaxiaodanshuangComponent implements OnInit{
     return flag
  }
 
-   
+  trueExist(item){
+      return item.filter(ele => ele === true).length ? false : true
+  }
+
+  refreshData():Promise<any>{
+    console.log('fwfwfwef')
+
+    this.produceAllData()
+    return new Promise((resolve,reject) =>{
+      resolve()
+    })
+  }
 }
