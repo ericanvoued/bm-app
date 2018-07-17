@@ -25,7 +25,10 @@ page-info-center {
         .item-title{
           width: 100%;
           flex: 1;
-          .red-coin{
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          .red-coin {
             width: 5px;
             height: 5px;
             display: inline-block;
@@ -44,7 +47,7 @@ page-info-center {
           line-height:21px;
           text-align: right;
           position: relative;
-          right: 14px;
+          //right: 14px;
         }
       }
       .item-text{

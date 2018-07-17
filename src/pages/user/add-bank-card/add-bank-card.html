@@ -9,11 +9,11 @@
   <div class="bank-card-content common-form">
     <div class="cf-row">
       <label for="username">用户名</label>
-      <input id="username" type="text" (focus)="dismissModel('searchFlag')" [(ngModel)]="bcData.subData.userName" minlength="1" maxlength="40" placeholder="请输入持卡人姓名" required>
+      <input id="username" type="text" (focus)="dismissModel('searchFlag')" value="{{bcData.subData.userName}}" placeholder="请输入持卡人姓名" required />
     </div>
     <div class="cf-row">
-      <label for="bannumber">卡&nbsp;&nbsp;&nbsp;号</label>
-      <input id="bannumber" type="number" (focus)="dismissModel('searchFlag')" minlength="16" maxlength="19" [(ngModel)]="bcData.subData.cardNum" placeholder="请输入银行卡号" required>
+      <label for="cardnum">卡&nbsp;&nbsp;&nbsp;号</label>
+      <input id="cardnum" minlength="16" maxlength="20" type="tel" (focus)="dismissModel('searchFlag')" (ionInput)="getValue($event)" [(ngModel)]="cardNum" placeholder="请输入银行卡号" />
     </div>
     <div class="cf-row" style="margin-top: 15px;" (click)="showBankModel()">
       <label for="bankname">开户银行</label>
@@ -31,7 +31,7 @@
       </div>
     </div>
     <div class="submit-row">
-      <button class="submit-button" [ngClass]="{' disable-submit-button':bcData.subData.userName.length == 0||bcData.subData.cardNum.length==0||bcData.subData.bank.name.length == 0||bcData.subData.bankAddress[0].name.length == 0||bcData.subData.bankAddress[1].name.length == 0||bcData.subData.branchName.length == 0}" (click)="submitData()">下一步</button>
+      <button class="submit-button" [ngClass]="{' disable-submit-button':bcData.subData.userName.length == 0||cardNum.length==0||bcData.subData.bank.name.length == 0||bcData.subData.bankAddress[0].name.length == 0||bcData.subData.bankAddress[1].name.length == 0||bcData.subData.branchName.length == 0}" (click)="submitData()">下一步</button>
     </div>
     <div class="common-form-info">
       <h4>温馨提示</h4>

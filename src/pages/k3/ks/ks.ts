@@ -69,7 +69,7 @@ export class KsPage extends KsAction {
     this.initView();
     this.requestHisData();
     // 获取遗漏
-    this.getnewlotterymissed30();
+    // this.getnewlotterymissed30();
     this.getnewlotterymissed60();
     this.getnewlotterymissed90();
     this.base.requestPlayData(localStorage.idstr, '3').then((response) => {
@@ -84,7 +84,7 @@ export class KsPage extends KsAction {
   }
 
   ionViewWillEnter() {
-    // this.getnewlotterymissed30();
+    this.getnewlotterymissed30();
     // this.getnewlotterymissed60();
     // this.getnewlotterymissed90();
 
@@ -128,6 +128,15 @@ export class KsPage extends KsAction {
           })
         }
     this.util.listeners = []
+
+    // document.addEventListener('webkitvisibilitychange',function()
+    // {
+    //   if(window.webkit=='hidden')
+    //   {
+    //     b=Date.now();
+    //   }
+    // });
+
   }
 
   ionViewDidEnter(){

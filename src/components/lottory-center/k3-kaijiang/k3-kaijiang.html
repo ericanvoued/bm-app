@@ -15,7 +15,7 @@
         </div>
         <div class="num">{{result.code[0]}} {{result.code[1]}} {{result.code[2]}}</div>
       </div>
-      <div class="kj-unit kj-unit3" *ngIf="result.code.length>1">三不同号</div>
+      <div class="kj-unit kj-unit3" *ngIf="result.code.length>1">{{result.shapeData.length<=1?'三同号':(result.shapeData.length<=2?'二同号':(result.shapeData.length<=3?'三不同':'二不同'))}}</div>
       <div class="t-qihao-list" *ngIf="result.code.length<=1" style="width:100%;flex:1;text-align: center;color: #fff">等待开奖...</div>
     </div>
   </div>

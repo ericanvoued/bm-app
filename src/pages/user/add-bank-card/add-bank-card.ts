@@ -14,7 +14,7 @@ import { HttpClientProvider } from '../../../providers/http-client/http-client'
   ]
 })
 export class AddBankCardPage {
-
+  cardNum:null;
   userInfo;
   bcData = {
     branch_id:null,
@@ -28,7 +28,6 @@ export class AddBankCardPage {
     bankAddress:'province',
     subData:{
       userName:'',
-      cardNum:'',
       bank:{name:''},
       bankAddress:[{
         name:''
@@ -79,6 +78,10 @@ export class AddBankCardPage {
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
   }
 
+
+  getValue(event){
+    console.log(event)
+  }
 
   ionViewDidEnter(){
     this.getAllBankList().then(data=>{
@@ -163,13 +166,14 @@ export class AddBankCardPage {
   }
 
   async submitData() {
+    console.log(this.cardNum)
     // let chineseReg = /^[\u4E00-\u9 FA5\uF900-\uFA2D]{2,16}$/;//中文验证
-    let numReg = /^[0-9]{16,19}$/;//数字验证
+    // let numReg = /^[0-9]{16,19}$/;//数字验证
 
     if (this.bcData.subData.userName.length == 0) {
       this.loadPrd.showToast(this.toastCtrl, "请输入持卡人姓名");
       return null;
-    }  else if (!numReg.test(this.bcData.subData.cardNum)) {
+    }  else if (!numReg.test(this.cardNum)) {
       this.loadPrd.showToast(this.toastCtrl, "银行卡号长度不对")
       return null;
     } else if (this.bcData.subData.bank.name.length == 0) {
@@ -189,9 +193,9 @@ export class AddBankCardPage {
         'province': this.bcData.subData.bankAddress[0].name,
         'city': this.bcData.subData.bankAddress[1].name,
         'branch': this.bcData.subData.branchName,
-        'account_confirmation': this.bcData.subData.cardNum,
+        'account_confirmation': this.cardNum,
         'account_name': this.bcData.subData.userName,
-        'account': this.bcData.subData.cardNum,
+        'account': this.cardNum,
         'branch_id': this.bcData.branch_id,
         '_token': this.userInfo.token
       }).then(data => {

@@ -51,7 +51,7 @@ export class LoginPage {
     else {
       this.nameInfoFlag = false;
       this.pswInfoFlag = false;
-      this.loading = this.loadPrd.showLoading(this.loadingCtrl, '登陆中...');
+      this.loading = this.loadPrd.showLoading(this.loadingCtrl, '登录中...');
       this.http.postData('/h5-api-auth/login?_t=init',{
         'Content-Type':'application/x-www-form-urlencoded',
         username: this.username,

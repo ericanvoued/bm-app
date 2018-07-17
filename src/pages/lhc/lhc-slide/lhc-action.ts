@@ -59,7 +59,7 @@ export class LhcAction {
 
         $(this).val($(this).val().replace(/[\'\"\\\/\b\f\n\r\t\-]/g, ''));
 
-        
+
       if ($(this).val() == '') {
         $('.money-text').addClass('hide');
         return;

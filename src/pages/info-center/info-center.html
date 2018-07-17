@@ -27,7 +27,7 @@
             <h2 (click)="pushPage('InfoDetailPage',msg.id)"><span class="item-title">{{msg.msg_title}} <i class="red-coin"
                                                                                                    *ngIf="msg.is_readed==0"></i></span><span
               class="item-date">{{msg.created_at}}</span></h2>
-            <p class="item-text">{{msg.content}} <i class="firecat-icon stick-icon" *ngIf="msg.is_top==1"></i></p>
+            <p class="item-text" [innerHTML]="msg.content"><i class="firecat-icon stick-icon" *ngIf="msg.is_top==1"></i></p>
           </ion-item>
           <ion-item-options side="right">
             <button ion-button class="Stick"
@@ -51,7 +51,7 @@
             <h2 (click)="pushPage('InfoDetailPage',info.id)"><span class="item-title">{{info.title}} <i
               class="red-coin" *ngIf="info.is_readed==0"></i></span><span class="item-date">{{info.created_at}}</span>
             </h2>
-            <p class="item-text">{{info.content}} <i class="firecat-icon stick-icon" *ngIf="info.is_top==1"></i></p>
+            <p class="item-text" [innerHTML]='info.content'><i class="firecat-icon stick-icon" *ngIf="info.is_top==1"></i></p>
           </ion-item>
           <ion-item-options side="right" *ngIf="userInfo!=null">
             <button ion-button class="Stick"

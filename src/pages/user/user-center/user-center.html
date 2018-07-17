@@ -10,12 +10,12 @@
 
 <ion-content>
   <div class="gredient-bg"></div>
-  <!--未登陆-->
+  <!--未登录-->
   <div class="sc-card" *ngIf="userInfo == null">
     <div class="head-row">
       <img src="../assets/imgs/default-head.png" alt="">
       <div class="head-info">
-        <h2 (click)="pushPage('LoginPage',false,true)">用户登陆</h2>
+        <h2 (click)="pushPage('LoginPage',false,true)">用户登录</h2>
         <!--<p>安全指数: <a class="safe-info" href="javascript:;">70分</a></p>-->
       </div>
       <!--<div class="sign-in">-->
@@ -39,7 +39,7 @@
       </div>
     </div>
   </div>
-  <!--已登陆-->
+  <!--已登录-->
   <div class="sc-card"  *ngIf="userInfo != null">
     <div class="head-row">
       <img src="{{userInfo.avatar==null?'../assets/imgs/default-head.png':userInfo.avatar}}" alt="" (click)="changePic()">

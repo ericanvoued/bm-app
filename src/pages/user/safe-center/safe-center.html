@@ -48,7 +48,7 @@
     <div class="sc-list-unit" (click)="pushPage('BankCardPage')">
       <div class="left-icon"><i class="firecat-icon bank-card-icon"></i></div>
       <div class="list-text">
-        <h4>银行卡<i class="redPoint"></i></h4>
+        <h4>银行卡<i class="redPoint" *ngIf="!safeCentData.status.bank"></i></h4>
         <p>保障你的账户安全</p>
       </div>
       <div class="right-icon"><i class="firecat-icon toRight-icon"></i></div>
@@ -56,7 +56,7 @@
     <div class="sc-list-unit" (click)="pushPage('ChangeLoginPswPage')">
       <div class="left-icon"><i class="firecat-icon change-login-psw-icon"></i></div>
       <div class="list-text">
-        <h4>修改登录密码<i class="redPoint"></i></h4>
+        <h4>修改登录密码<i class="redPoint" *ngIf="!safeCentData.status.password"></i></h4>
         <p>用户信息及中奖提醒</p>
       </div>
       <div class="right-icon"><i class="firecat-icon toRight-icon"></i></div>
@@ -64,7 +64,7 @@
     <div class="sc-list-unit" (click)="pushPage('ChangePayPswPage')">
       <div class="left-icon"><i class="firecat-icon change-pay-psw-icon"></i></div>
       <div class="list-text">
-        <h4>修改支付密码<i class="redPoint"></i></h4>
+        <h4>修改支付密码<i class="redPoint" *ngIf="!safeCentData.status.fund_password"></i></h4>
         <p>提款时验证，资金更安全</p>
       </div>
       <div class="right-icon"><i class="firecat-icon toRight-icon"></i></div>

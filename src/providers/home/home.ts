@@ -80,12 +80,10 @@ export class HomeProvider {
     this.homeData.lottoryList['LHC'].nav = [{name:'开奖',flag:true,c:LhcKaijiangComponent},{name:'生肖',flag:false,c:LhcShengxiaoComponent},{name:'两面/波色',flag:false,c:LhcBoseComponent}];
 
 
-    console.log(this.homeData.lottories)
     this.loadHotLottory(this.homeData.lottories)
 
 
 
-    console.log(this.homeData.lottories)
 
   }
 
@@ -122,7 +120,7 @@ export class HomeProvider {
 
       this.homeData.lottorys = {hot: [], more: []};
       this.homeData.lottorys.hot = _lottory.slice(0, 15)
-      this.homeData.lottorys.more = _lottory.slice(-3)
+      this.homeData.lottorys.more = _lottory.slice(-2)
       localStorage.lottorys = JSON.stringify(this.homeData.lottorys)
     }
   }

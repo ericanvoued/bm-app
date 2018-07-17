@@ -34,11 +34,11 @@ export class ChangeLoginPswPage {
 
     if (!patt.test(this.pswData.old_password)) {
       console.log(1)
-      toast = this.loadPrd.showToast(this.ToastCtrl, '原登陆密码不正确');
+      toast = this.loadPrd.showToast(this.ToastCtrl, '原登录密码不正确');
     } else if (this.pswData.password != this.pswData.password_confirmation) {
-      toast = this.loadPrd.showToast(this.ToastCtrl, '两次输入的新登陆密码不一致');
+      toast = this.loadPrd.showToast(this.ToastCtrl, '两次输入的新登录密码不一致');
     } else if (this.pswData.old_password == this.pswData.password) {
-      toast = this.loadPrd.showToast(this.ToastCtrl, '新登陆密码不能与旧登陆密码相同');
+      toast = this.loadPrd.showToast(this.ToastCtrl, '新登录密码不能与旧登录密码相同');
     }else {
       toast = this.loadPrd.showLoading(this.loadingCtrl,'密码修改中');
 
@@ -65,6 +65,6 @@ export class ChangeLoginPswPage {
   }
 //
 //   else if (this.pswData.old_password == this.pswData.password) {
-//   toast = this.loadPrd.showToast(this.ToastCtrl, '新登陆密码不能与旧登陆密码相同');
+//   toast = this.loadPrd.showToast(this.ToastCtrl, '新登录密码不能与旧登录密码相同');
 // }
 }
