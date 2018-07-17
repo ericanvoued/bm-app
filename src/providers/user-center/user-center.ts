@@ -21,8 +21,5 @@ export class UserCenterProvider {
 
 
 
-  //修改登录密码
-  async changePsw(url,params){
-    return (await this.http.postData(url+ this.userInfo.auth_token,params))
-  }
+
 }

@@ -54,27 +54,18 @@ export class ChangeNamePage{
         'nickname':this.userData.data.nickname
 
       }).then(data=>{
-        console.log(data)
+        this.http.checkUnjump(data)
         if(data.isSuccess==1){
           localStorage.userInfo = JSON.stringify(this.userData.data);
           this.userData.loading = this.loadPrd.showToast(this.toastCtrl, '昵称修改成功');
           this.navCtrl.push(TabsPage,{
             pageIndex:3
           });
-        }else {
+        }else if(data.isSuccess==0){
           this.userData.loading = this.loadPrd.showToast(this.toastCtrl, data.type)
         }
 
       })
-      // this.storage.set('userInfo',this.userData.data);
-      // localStorage.userInfo = JSON.stringify(this.userData.data);
-      //
-      // setTimeout(() => {
-      //   this.userData.loading = this.loadPrd.showToast(this.toastCtrl, '昵称修改成功');
-      //   this.navCtrl.setRoot(TabsPage,{
-      //     pageIndex:3
-      //   });
-      // },1500)
 
     }
   }

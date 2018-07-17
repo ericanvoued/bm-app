@@ -9,7 +9,7 @@
     </tr>
     <tr *ngFor="let result of resultsData.data" [ngClass]="{'isWaiting-bg':result.code.length<=1}">
       <td>{{result.number.slice(-6)}}期</td>
-      <td class="num-list" *ngIf="result.code.length>1"><span *ngFor="let code of result.code">0{{code}}</span></td>
+      <td class="num-list" *ngIf="result.code.length>1"><span *ngFor="let code of result.code">{{code}}</span></td>
       <td *ngIf="result.code.length>1">{{result.sum}}</td>
       <td *ngIf="result.code.length>1" [ngClass]="{'big':result.sum>22,'small':result.sum<23}">{{result.sum>22?'大':'小'}}</td>
       <td *ngIf="result.code.length>1" [ngClass]="{'double':result.sum%2==0,'single':result.sum%2==1}">{{result.sum%2==0?'双':'单'}}</td>

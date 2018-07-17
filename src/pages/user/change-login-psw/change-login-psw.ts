@@ -49,13 +49,14 @@ export class ChangeLoginPswPage {
         'password': this.pswData.password,
         'password_confirmation': this.pswData.password_confirmation
       }).then(data => {
+        this.http.checkUnjump(data)
         if (data.isSuccess == 1) {
           toast = this.loadPrd.showToast(this.ToastCtrl,data.data.tplData.msg+'请重新登录')
           localStorage.userInfo = null;
           this.navCtrl.push(TabsPage,{
             pageIndex: 3
           });
-        }else {
+        }else if(data.isSuccess == 0) {
           toast = this.loadPrd.showToast(this.ToastCtrl,data.data.tplData.msg)
         }
       })

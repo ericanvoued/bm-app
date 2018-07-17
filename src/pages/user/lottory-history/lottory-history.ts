@@ -53,13 +53,14 @@ export class LottoryHistoryPage {
   async loadLottory() {
     this._index++
     await this.http.fetchData('/api-lotteries-h5/lottery-info?_t=' + this.userInfo.auth_token).then(data => {
+      this.http.checkUnjump(data)
       this.lrecord.lottorys = []
       for (let item in data.data) {
         this.lrecord.lottorys.push(...data.data[item])
       }
       // this.lrecord.currentLottory = this.lrecord.lottorys[0]
       // if (this._index == 0) {
-        this.selectLottory(this.lrecord.currentLottory)
+      this.selectLottory(this.lrecord.currentLottory)
       // }
     })
   }
@@ -76,7 +77,7 @@ export class LottoryHistoryPage {
       'page':this.lrecord.currentpage,
       'lottery_id': _lottory.id?_lottory.id:null
     }).then(data => {
-
+      this.http.checkUnjump(data)
       if(isChange){
         if(data.data.data.length<20){
           if(data.data.data.length==0){
@@ -134,6 +135,7 @@ export class LottoryHistoryPage {
       '_token': this.userInfo.token,
       project_id: record.id
     }).then(data => {
+      this.http.checkUnjump(data)
       loading.dismiss()
       if (data.isSuccess == 1) {
         record.status = 1;

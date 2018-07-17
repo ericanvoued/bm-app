@@ -66,6 +66,7 @@ export class FollowHistoryPage {
       'page':page,
       'lottery_id': _lottory.id?_lottory.id:null
     }).then(data => {
+        this.http.checkUnjump(data)
         if(isChange){
           if(data.data.data.length<20){
             if(data.data.data.length==0){
@@ -123,10 +124,11 @@ export class FollowHistoryPage {
       '_token': this.userInfo.token,
       'tid':follow.id
     }).then(data=>{
+      this.http.checkUnjump(data)
       if(data.isSuccess==1){
         this.loadingPrvd.showToast(this.toastCtrl,data.Msg)
         follow.status = 2
-      }else {
+      }else if(data.isSuccess==0){
         this.loadingPrvd.showToast(this.toastCtrl,data.Msg)
       }
     })

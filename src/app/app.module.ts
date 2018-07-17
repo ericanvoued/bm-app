@@ -14,9 +14,14 @@ import {UserCenterPage} from '../pages/user/user-center/user-center'
 
 import { QRScanner } from '@ionic-native/qr-scanner';
 import {Camera} from '@ionic-native/camera';
+
+// import {File} from '@ionic-native/file';
+// import {Transfer, TransferObject} from '@ionic-native/transfer';
+// import {FilePath} from '@ionic-native/file-path';
 import {File} from '@ionic-native/file';
-import {Transfer, TransferObject} from '@ionic-native/transfer';
-import {FilePath} from '@ionic-native/file-path';
+import { FileTransfer } from '@ionic-native/file-transfer';
+
+
 import {HomeProvider} from '../providers/home/home';
 import {LoginProvider} from '../providers/login/login';
 import {RestProvider} from '../providers/rest/rest';
@@ -35,15 +40,15 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {UtilProvider} from '../providers/util/util';
 import {BasketDataProvider} from '../providers/basket-data/basket-data';
 import {Vibration} from '@ionic-native/vibration';
-import {TrendHeadComponent} from '../components/gametrend/trend-head/trend-head'
+// import {TrendHeadComponent} from '../components/gametrend/trend-head/trend-head'
 // import {WuxingComponent} from '../components/gametrend/wuxing/wuxing'
-import {SixingComponent} from '../components/gametrend/sixing/sixing'
-import {KuadutrendComponent} from '../components/gametrend/kuadutrend/kuadutrend'
-import {ZhixuanhezhiComponent} from '../components/gametrend/qiansan/zhixuanhezhi/zhixuanhezhi'
-import { ZufuComponent } from '../components/gametrend/zufu/zufu'
+// import {SixingComponent} from '../components/gametrend/sixing/sixing'
+// import {KuadutrendComponent} from '../components/gametrend/kuadutrend/kuadutrend'
+// import {ZhixuanhezhiComponent} from '../components/gametrend/qiansan/zhixuanhezhi/zhixuanhezhi'
+// import { ZufuComponent } from '../components/gametrend/zufu/zufu'
 
-import {gameConfig} from './gameComponent'
-import {DaxiaodanshuangComponent} from '../components/gametrend/daxiaodanshuang/daxiaodanshuang'
+// import {gameConfig} from './gameComponent'
+// import {DaxiaodanshuangComponent} from '../components/gametrend/daxiaodanshuang/daxiaodanshuang'
 
 import {SignupProvider} from '../providers/signup/signup';
 
@@ -144,9 +149,10 @@ import {YKaijiangComponent} from '../components/lottory-center/y-kaijiang/y-kaij
     QRScanner,
     Vibration,
     File,
-    Transfer,
-    TransferObject,
-    FilePath,
+    FileTransfer,
+    // Transfer,
+    // TransferObject,
+    // FilePath,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HomeProvider,
     LoginProvider,

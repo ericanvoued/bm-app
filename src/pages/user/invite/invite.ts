@@ -61,12 +61,12 @@ export class InvitePage {
       'prize_group': this.invitedata.iCurrentUserPrizeGroup
     }).then(data => {
       loading.dismiss();
-
+      this.http.checkUnjump(data)
       if (data.IsSuccess) {
         this.loadingPrvd.showToast(this.toastCtrl, '恭喜你！生成邀请链接成功！')
         this.invitedata.qrCodeUrl = data.data
         this.invitedata.showQrcode = true
-      } else {
+      } else if(!data.IsSuccess){
         this.loadingPrvd.showToast(this.toastCtrl, '生成邀请链接失败,请重试')
       }
     })
@@ -75,6 +75,7 @@ export class InvitePage {
   async getcreateprize() {
     this.loading = this.loadingPrvd.showLoading(this.loadingCtrl, '正在获取用户奖金组')
     await this.http.fetchData('/h5api-users/getcreateprize?_t=' + this.userInfo.auth_token).then(data => {
+      this.http.checkUnjump(data)
       this.loading.dismiss()
       if (data.IsSuccess) {
         this.invitedata.iAgentMaxPrizeGroup = data.data.iAgentMaxPrizeGroup
@@ -84,7 +85,7 @@ export class InvitePage {
         this.invitedata.iPlayerMaxPrizeGroup = data.data.iPlayerMaxPrizeGroup
         this.invitedata.iPlayerMinPrizeGroup = data.data.iPlayerMinPrizeGroup
         this.dragRange()
-      } else {
+      } else if(!data.IsSuccess){
         this.loadingPrvd.showToast(this.toastCtrl, '获取用户奖金组失败,请返回重试')
       }
     })
