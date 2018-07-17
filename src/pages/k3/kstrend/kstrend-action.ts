@@ -371,7 +371,7 @@ export class KstrendAction {
         //   htm += item;
         // }
 
-        var arr = JSON.parse(localStorage.hisissue).reverse();
+        var arr = JSON.parse(localStorage.hisissue);//.reverse();
         var code0, code1, code2, toltal, dx, jo, item;
         for (var i = 0; i < arr.length; i++) {
           code0 = arr[i].code.split('')[0];
@@ -413,7 +413,7 @@ export class KstrendAction {
         // trend.append(Tpl.kj_others_con_tpl);
         //形态： 三不同号，三同号，二同号，三连号
 
-        var arr = JSON.parse(localStorage.hisissue).reverse();
+        var arr = JSON.parse(localStorage.hisissue)//.reverse();
         var code0, code1, code2, toltal, dx, jo, item, xt, code, reg_3t, reg_3l, reg_2t;
         for (var i = 0; i < arr.length; i++) {
           code0 = arr[i].code.split('')[0];
@@ -470,7 +470,7 @@ export class KstrendAction {
     var trend = $('.trend-content'), htm = '', item;
     trend.append(Tpl.jbzs_con_tpl);
     // $('.jbzs-ul').html('');
-    var arr = JSON.parse(localStorage.hisissue).reverse();
+    var arr = JSON.parse(localStorage.hisissue)//.reverse();
     var code0, code1, code2, hezhi, kuadu, item, code, codestr, reg;
     // reg =eval("/"+re+"/ig")
     for (var i = 0; i < arr.length; i++) {
@@ -613,7 +613,7 @@ export class KstrendAction {
     trend.append(Tpl.xtzs_con_tpl);
     // console.log('xtzs_con_tpl==='+trend.html());
 
-    var arr = JSON.parse(localStorage.hisissue).reverse();
+    var arr = JSON.parse(localStorage.hisissue)//.reverse();
     var code0, code1, code2, item, code, codestr, reg_3t, reg_2t;
     for (var i = 0; i < arr.length; i++) {
       code = arr[i].code;
@@ -695,7 +695,7 @@ export class KstrendAction {
         current_1 = '0';
       }
 
-      console.log('v====' + v);
+      // console.log('v====' + v);
       //最大遗漏
       var max_1 = 1;//parseInt($('.xtzs-ul .t-'+h).eq(0).text()), v;
       // console.log('第一个max_1===='+max_1);
@@ -707,7 +707,6 @@ export class KstrendAction {
           max_1 = v
         }
       });
-
 
       //出现次数
       var hot = $('.xtzs-ul').find('.t-' + h + '.active').length;
@@ -735,7 +734,12 @@ export class KstrendAction {
       // console.log('empty=='+empty);
       duanshu = averarr.length - empty;
       aver_1 = Math.floor(totalyl / duanshu);
-
+      console.log('aver_1==' + aver_1)
+      console.log('totalyl==' + totalyl)
+      console.log('duanshu==' + duanshu)
+      if (duanshu == 0) {
+        aver_1 = 1;
+      }
       current_arr.push(current_1);
       aver_arr.push(aver_1);
       max_arr.push(max_1);
@@ -805,7 +809,7 @@ export class KstrendAction {
     var trend = $('.trend-content'), htm = '', item;
     trend.append(Tpl.hmfb_erbth_con_tpl);
 
-    var arr = JSON.parse(localStorage.hisissue).reverse();
+    var arr = JSON.parse(localStorage.hisissue)//.reverse();
     var code0, code1, code2, item, code, codestr, reg_3t, reg_2t, reg_2bt;
     for (var i = 0; i < arr.length; i++) {
       code = arr[i].code;
@@ -978,7 +982,7 @@ export class KstrendAction {
     var trend = $('.trend-content'), htm = '', item;
     trend.append(Tpl.hmfb_erth_con_tpl);
 
-    var arr = JSON.parse(localStorage.hisissue).reverse();
+    var arr = JSON.parse(localStorage.hisissue)//.reverse();
     var code0, code1, code2, item, code, codestr, reg_3t, reg_2t;
     for (var i = 0; i < arr.length; i++) {
       code = arr[i].code;
@@ -1153,7 +1157,7 @@ export class KstrendAction {
     var title = $('page-kstrend .wanfa').text();
     var lr30 = [], lr60 = [], lr90 = [], ylarr = [];
     var trend = $('.trend-content'), htm = '', item;
-    var lr30_max,lr60_max,lr90_max,ylarr_max,hot;
+    var lr30_max, lr60_max, lr90_max, ylarr_max, hot;
     trend.append(Tpl.lr_con_tpl);
     switch (title) {
       case '和值':
@@ -1161,13 +1165,13 @@ export class KstrendAction {
         lr60 = JSON.parse(localStorage.yldata60).hz.hot;
         lr90 = JSON.parse(localStorage.yldata90).hz.hot;
         ylarr = JSON.parse(localStorage.yldata90).hz.current;
-        hot = [3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
+        hot = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
         // console.log('lr30====' + JSON.stringify(lr30));
 
-         lr30_max = that.calculateHZMax(lr30);
-         lr60_max = that.calculateHZMax(lr60);
-         lr90_max = that.calculateHZMax(lr90);
-         ylarr_max = that.calculateHZMax(ylarr);
+        lr30_max = that.calculateHZMax(lr30);
+        lr60_max = that.calculateHZMax(lr60);
+        lr90_max = that.calculateHZMax(lr90);
+        ylarr_max = that.calculateHZMax(ylarr);
 
         break;
       case '三不同号':
@@ -1176,11 +1180,11 @@ export class KstrendAction {
         lr60 = JSON.parse(localStorage.yldata60).k3sbth.hot;
         lr90 = JSON.parse(localStorage.yldata90).k3sbth.hot;
         ylarr = JSON.parse(localStorage.yldata90).k3sbth.current;
-         hot = [123, 124, 125, 126, 134, 135, 136, 145, 146, 156, 234, 235, 236, 245, 246, 256, 345, 346, 356, 456];
-         lr30_max = that.calculate3btMax(lr30);
-         lr60_max = that.calculate3btMax(lr60);
-         lr90_max = that.calculate3btMax(lr90);
-         ylarr_max = that.calculate3btMax(ylarr);
+        hot = [123, 124, 125, 126, 134, 135, 136, 145, 146, 156, 234, 235, 236, 245, 246, 256, 345, 346, 356, 456];
+        lr30_max = that.calculate3btMax(lr30);
+        lr60_max = that.calculate3btMax(lr60);
+        lr90_max = that.calculate3btMax(lr90);
+        ylarr_max = that.calculate3btMax(ylarr);
 
         break;
       case '二不同号':
@@ -1188,11 +1192,11 @@ export class KstrendAction {
         lr60 = JSON.parse(localStorage.yldata60).k3ebth.hot;
         lr90 = JSON.parse(localStorage.yldata90).k3ebth.hot;
         ylarr = JSON.parse(localStorage.yldata90).k3ebth.current;
-         hot = [12, 13, 14, 15, 16, 23, 24, 25, 26, 34, 35, 36, 45, 46, 56];
-         lr30_max = that.calculate2btMax(lr30);
-         lr60_max = that.calculate2btMax(lr60);
-         lr90_max = that.calculate2btMax(lr90);
-         ylarr_max = that.calculate2btMax(ylarr);
+        hot = [12, 13, 14, 15, 16, 23, 24, 25, 26, 34, 35, 36, 45, 46, 56];
+        lr30_max = that.calculate2btMax(lr30);
+        lr60_max = that.calculate2btMax(lr60);
+        lr90_max = that.calculate2btMax(lr90);
+        ylarr_max = that.calculate2btMax(ylarr);
 
         break;
       case '单挑一骰':
@@ -1200,16 +1204,16 @@ export class KstrendAction {
         lr60 = JSON.parse(localStorage.yldata60).k3dtys.hot;
         lr90 = JSON.parse(localStorage.yldata90).k3dtys.hot;
         ylarr = JSON.parse(localStorage.yldata90).k3dtys.current;
-         hot = [1, 2, 3, 4, 5, 6];
-         lr30_max = that.calculateDTYSMax(lr30);
-         lr60_max = that.calculateDTYSMax(lr60);
-         lr90_max = that.calculateDTYSMax(lr90);
-         ylarr_max = that.calculateDTYSMax(ylarr);
+        hot = [1, 2, 3, 4, 5, 6];
+        lr30_max = that.calculateDTYSMax(lr30);
+        lr60_max = that.calculateDTYSMax(lr60);
+        lr90_max = that.calculateDTYSMax(lr90);
+        ylarr_max = that.calculateDTYSMax(ylarr);
 
         break;
     }
 
-    if(title=='二不同号'){
+    if (title == '二不同号') {
 
       for (var i = 0; i < hot.length; i++) {
         var inx = hot[i];
@@ -1236,7 +1240,7 @@ export class KstrendAction {
         }
         htm += '</li>';
       }
-    }else {
+    } else {
 
       for (var i = 0; i < hot.length; i++) {
         var inx = hot[i];
@@ -1273,7 +1277,7 @@ export class KstrendAction {
     var trend = $('.trend-content'), htm = '', item;
     trend.append(Tpl.hz_con_tpl);
 
-    var arr = JSON.parse(localStorage.hisissue).reverse();
+    var arr = JSON.parse(localStorage.hisissue)//.reverse();
     var code, code0, code1, code2, codestr, hezhi;
     for (var i = 0; i < arr.length; i++) {
 

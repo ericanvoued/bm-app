@@ -115,6 +115,12 @@ export class LhcSlidePage extends LhcAction {
     this.navCtrl.push("LhctrendPage");
     $('.right-popover').css('height', '0px')
   }
+  pushToIntroduce(){
+    localStorage.which = 6;
+    $('.right-popover').css('height', '0px')
+    this.navCtrl.push("IntroducePage");
+
+  }
 
   ionViewDidLoad() {
 
@@ -126,8 +132,15 @@ export class LhcSlidePage extends LhcAction {
         this.changePlaySelect();
       }
     );
-    this.requestHisData();
+
     this.initAny();
+  }
+
+  ionViewWillEnter() {
+    this.requestHisData();
+    this.base.requestJiangQiData(localStorage.idstr, '6', 'play').then(() => {
+      this.initOdds();
+    });
   }
 
   calculatePrize(prize, user_prize) {
@@ -256,16 +269,12 @@ export class LhcSlidePage extends LhcAction {
     console.log('localStorage.bz_9===='+localStorage.bz_9);
   }
 
-  ionViewWillEnter() {
-    this.base.requestJiangQiData(localStorage.idstr, '6', 'play').then(() => {
-      this.initOdds();
-    });
-  }
-
   ionViewDidLeave() {
     clearInterval(this.base.timeIddd);
   }
-
+  ionViewWillLeave() {
+    clearInterval(this.base.timeIddd);
+  }
   dealWithBallMultiple() {
 
     var moneyunit = parseInt($('.buy-input').val());
