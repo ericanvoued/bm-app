@@ -3,7 +3,6 @@ import {NavController, NavParams, Tabs} from 'ionic-angular';
 import {HomePage} from '../home/home';
 import {ActivityPage} from '../activity/activity';
 import {UserCenterPage} from '../user/user-center/user-center';
-import { BackgroundMode } from '@ionic-native/background-mode';
 
 // import {LottoryCenterPage} from '../lottory-center/lottory-center';
 
@@ -19,7 +18,7 @@ export class TabsPage {
   tab3Root = ActivityPage;
   tab4Root = UserCenterPage;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public backgroundMode: BackgroundMode) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidEnter() {
