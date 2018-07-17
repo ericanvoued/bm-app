@@ -126,7 +126,7 @@ export class LhcSlidePage extends LhcAction {
 
     this.initSwiper();
     this.navBar.backButtonClick = this.backButtonClick;
-    this.initView();
+    // this.initView();
     this.base.requestPlayData(localStorage.idstr, '6').then((response) => {
         // this.initOdds(response);
         this.changePlaySelect();
@@ -137,6 +137,7 @@ export class LhcSlidePage extends LhcAction {
   }
 
   ionViewWillEnter() {
+    this.initView();
     this.requestHisData();
     this.base.requestJiangQiData(localStorage.idstr, '6', 'play').then(() => {
       this.initOdds();
@@ -291,13 +292,14 @@ export class LhcSlidePage extends LhcAction {
   betClick() {
 
     const that = this;
-    if (localStorage.userInfo == null) {
+    console.log('localStorage.userInfo=='+localStorage.userInfo)
+    if (!localStorage.userInfo) {
       $('body').append(Tpl.fail_tip);
       $('#error-tip').text('您还未登录～');
       setTimeout(function () {
         $('.basket-pop').remove();
         localStorage.clear();
-        that.navCtrl.push("LoginPage");
+        // that.navCtrl.push("LoginPage");
       }, 1000);
       return;
     }
@@ -375,11 +377,29 @@ export class LhcSlidePage extends LhcAction {
           }, 1500);
 
         } else {
-          $('body').append(Tpl.fail_tip);
-          $('#error-tip').text(data.Msg);
-          setTimeout(function () {
-            $('.basket-pop').remove();
-          }, 1500);
+
+          // $('body').append(Tpl.fail_tip);
+          // $('#error-tip').text('请重新登陆！');
+          // setTimeout(function () {
+          //   $('.basket-pop').remove();
+          // }, 1500);
+
+
+          if (data.type == 'loginTimeout') {
+            $('body').append(Tpl.fail_tip);
+            $('#error-tip').text('请重新登陆！');
+            setTimeout(function () {
+              $('.basket-pop').remove();
+              clearInterval(that.base.timeIddd);
+              // that.navCtrl.push("LoginPage");
+            }, 1500);
+          } else {
+            $('body').append(Tpl.fail_tip);
+            $('#error-tip').text(data.Msg);
+            setTimeout(function () {
+              $('.basket-pop').remove();
+            }, 1500);
+          }
 
         }
       });

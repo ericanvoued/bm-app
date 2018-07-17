@@ -57,8 +57,8 @@ export class LhcAction {
     let _this = this;
     $('.buy-input').bind('input propertychange', function () {
 
-        $(this).val($(this).val().replace(/[\'\"\\\/\b\f\n\r\t\-]/g, ''));
 
+      $(this).val($(this).val().replace(/[\'\"\\\/\b\f\n\r\t\-]/g, ''));
 
       if ($(this).val() == '') {
         $('.money-text').addClass('hide');
@@ -72,65 +72,109 @@ export class LhcAction {
 
       //理论奖金=注单金额*赔率
 
-      var wanfa = $('.wanfa').text(), bonus = 0, profit;
-      if (wanfa.search('特码') != -1 || wanfa.search('正') != -1) {
-        var balldata = JSON.parse(localStorage.balls);
-        // console.log('balldata[0].odds=='+balldata[0].odds)
-        bonus = money * balldata[0].odds;
-        profit = bonus - money;
-
-      } else if (wanfa.search('半波') != -1) {
-
-        var balldata = JSON.parse(localStorage.balls);
-        for (var i = 0; i < balldata.length; i++) {
-          bonus += (balldata[i].odds *balldata[i].multiple)* moneyunit;
-        }
-        profit = bonus - money;
-
-      } else if (wanfa.search('肖') != -1) {
-
-        var balldata = JSON.parse(localStorage.balls);
-        for (var i = 0; i < balldata.length; i++) {
-          bonus += (balldata[i].odds *balldata[i].multiple)* moneyunit;
-        }
-        profit = bonus - money;
-
-      } else if (wanfa.search('尾数') != -1) {
-
-        var balldata = JSON.parse(localStorage.balls);
-        for (var i = 0; i < balldata.length; i++) {
-          bonus += (balldata[i].odds*balldata[i].multiple) * moneyunit;
-        }
-        profit = bonus - money;
-
-      } else if (wanfa.search('总分') != -1) {
-
-        var balldata = JSON.parse(localStorage.balls);
-        for (var i = 0; i < balldata.length; i++) {
-          bonus += (balldata[i].odds*balldata[i].multiple)  * moneyunit;
-        }
-        profit = bonus - money;
-
-      }
-      // else if (wanfa.search('不中') != -1) {
-      //   console.log('localStorage.balls==='+localStorage.balls);
+      // var wanfa = $('.wanfa').text(), bonus = 0, profit;
+      // if (wanfa.search('特码') != -1 || wanfa.search('正') != -1|| wanfa.search('不') != -1) {
+      //   var balldata = JSON.parse(localStorage.balls);
+      //   // console.log('balldata[0].odds=='+balldata[0].odds)
+      //   bonus = money * balldata[0].odds;
+      //   profit = bonus - money;
+      //
+      // } else if (wanfa.search('半波') != -1) {
+      //
       //   var balldata = JSON.parse(localStorage.balls);
       //   for (var i = 0; i < balldata.length; i++) {
-      //     bonus += balldata[i].odds * moneyunit;
+      //     bonus += (balldata[i].odds *balldata[i].multiple)* moneyunit;
       //   }
       //   profit = bonus - money;
+      //
+      // } else if (wanfa.search('肖') != -1) {
+      //
+      //   var balldata = JSON.parse(localStorage.balls);
+      //   for (var i = 0; i < balldata.length; i++) {
+      //     bonus += (balldata[i].odds *balldata[i].multiple)* moneyunit;
+      //   }
+      //   profit = bonus - money;
+      //
+      // } else if (wanfa.search('尾数') != -1) {
+      //
+      //   var balldata = JSON.parse(localStorage.balls);
+      //   for (var i = 0; i < balldata.length; i++) {
+      //     bonus += (balldata[i].odds*balldata[i].multiple) * moneyunit;
+      //   }
+      //   profit = bonus - money;
+      //
+      // } else if (wanfa.search('总分') != -1) {
+      //
+      //   var balldata = JSON.parse(localStorage.balls);
+      //   for (var i = 0; i < balldata.length; i++) {
+      //     bonus += (balldata[i].odds*balldata[i].multiple)  * moneyunit;
+      //   }
+      //   profit = bonus - money;
+      //
       // }
-
-      $('.bonus').text(bonus.toFixed(2));
-      $('.profit').text(profit.toFixed(2));
-
+      //
+      // // else if (wanfa.search('不中') != -1) {
+      // //   console.log('localStorage.balls==='+localStorage.balls);
+      // //   var balldata = JSON.parse(localStorage.balls);
+      // //   for (var i = 0; i < balldata.length; i++) {
+      // //     bonus += balldata[i].odds * moneyunit;
+      // //   }
+      // //   profit = bonus - money;
+      // // }
+      //
+      // $('.bonus').text(bonus.toFixed(2));
+      // $('.profit').text(profit.toFixed(2));
+      _this.executeProfit(moneyunit);
     })
 
-//        理论奖金=注单金额*赔率
-//       //   <h4 class="money-text hide">
-//       //   <span class="zhu">5</span>注 共<span class="money">10元</span>，若中奖，奖金为<span class="bonus">10</span>元，盈利<span
-//       // class="profit">1000元</span>
-//       //   </h4>
+  }
+
+  executeProfit(moneyunit){
+    let _this = this;
+    var money = _this.calculateNum().money * moneyunit;
+
+    var wanfa = $('.wanfa').text(), bonus = 0, profit;
+    if (wanfa.search('特码') != -1 || wanfa.search('正') != -1|| wanfa.search('不') != -1) {
+      var balldata = JSON.parse(localStorage.balls);
+      // console.log('balldata[0].odds=='+balldata[0].odds)
+      bonus = money * balldata[0].odds;
+      profit = bonus - money;
+
+    } else if (wanfa.search('半波') != -1) {
+
+      var balldata = JSON.parse(localStorage.balls);
+      for (var i = 0; i < balldata.length; i++) {
+        bonus += (balldata[i].odds *balldata[i].multiple)* moneyunit;
+      }
+      profit = bonus - money;
+
+    } else if (wanfa.search('肖') != -1) {
+
+      var balldata = JSON.parse(localStorage.balls);
+      for (var i = 0; i < balldata.length; i++) {
+        bonus += (balldata[i].odds *balldata[i].multiple)* moneyunit;
+      }
+      profit = bonus - money;
+
+    } else if (wanfa.search('尾数') != -1) {
+
+      var balldata = JSON.parse(localStorage.balls);
+      for (var i = 0; i < balldata.length; i++) {
+        bonus += (balldata[i].odds*balldata[i].multiple) * moneyunit;
+      }
+      profit = bonus - money;
+
+    } else if (wanfa.search('总分') != -1) {
+
+      var balldata = JSON.parse(localStorage.balls);
+      for (var i = 0; i < balldata.length; i++) {
+        bonus += (balldata[i].odds*balldata[i].multiple)  * moneyunit;
+      }
+      profit = bonus - money;
+    }
+
+    $('.bonus').text(bonus.toFixed(2));
+    $('.profit').text(profit.toFixed(2));
 
   }
 
@@ -1024,9 +1068,12 @@ export class LhcAction {
     let _this = this;
     var play = $('.wanfa').text();
     $('.lhc-popup').removeClass('hide');
+    $('.money-text').addClass('hide');
+    $('.yuan').removeClass('hide');
     $('#yue').text();
     if (_this.isfast()) {
       //赋值
+      $('.buy-input').removeClass('hide');
       var arr = JSON.parse(localStorage.balls);
       console.log(arr);
       var html = '';
@@ -1043,6 +1090,12 @@ export class LhcAction {
 
       //自选
       // var arr = JSON.parse(localStorage.self_balls);
+      $('.buy-input').addClass('hide');
+      $('.yuan').addClass('hide');
+      $('.money-text').removeClass('hide')
+
+      _this.executeProfit(1);
+
       var arr = JSON.parse(localStorage.balls);
       console.log(arr);
       var html = '';
