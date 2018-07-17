@@ -9,8 +9,7 @@ import {HomePage} from '../pages/home/home'
 // import {LottoryCenterPage} from '../pages/lottory-center/lottory-center'
 import {ActivityPage} from '../pages/activity/activity'
 import {UserCenterPage} from '../pages/user/user-center/user-center'
-
-
+import { BackgroundMode } from '@ionic-native/background-mode';
 
 import { QRScanner } from '@ionic-native/qr-scanner';
 import {Camera} from '@ionic-native/camera';
@@ -25,7 +24,7 @@ import {InfoCenterProvider} from '../providers/info-center/info-center';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {CommonProvider} from '../providers/common/common';
-import {SscServiceProvider} from '../providers/games/ssc-service/ssc-service'
+import { NavController} from 'ionic-angular';
 
 import {HttpClientProvider} from '../providers/http-client/http-client';
 import {ToolsProvider} from '../providers/tools/tools';
@@ -37,7 +36,6 @@ import {BasketDataProvider} from '../providers/basket-data/basket-data';
 import {Vibration} from '@ionic-native/vibration';
 import {TrendHeadComponent} from '../components/gametrend/trend-head/trend-head'
 // import {WuxingComponent} from '../components/gametrend/wuxing/wuxing'
-import {SixingComponent} from '../components/gametrend/sixing/sixing'
 import {KuadutrendComponent} from '../components/gametrend/kuadutrend/kuadutrend'
 import {ZhixuanhezhiComponent} from '../components/gametrend/qiansan/zhixuanhezhi/zhixuanhezhi'
 import { ZufuComponent } from '../components/gametrend/zufu/zufu'
@@ -143,6 +141,7 @@ import {YKaijiangComponent} from '../components/lottory-center/y-kaijiang/y-kaij
     Camera,
     QRScanner,
     Vibration,
+    BackgroundMode,
     File,
     Transfer,
     TransferObject,
@@ -157,13 +156,11 @@ import {YKaijiangComponent} from '../components/lottory-center/y-kaijiang/y-kaij
     HttpClientProvider,
     ToolsProvider,
     UtilProvider,
-    SscServiceProvider,
     BasketDataProvider,
     SignupProvider,
     UserCenterProvider,
     LottoryCenterProvider,
     BaseToolProvider,KstrendAction
-
   ]
 })
 export class AppModule {
