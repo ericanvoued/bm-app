@@ -71,8 +71,8 @@ export class LottoryHistoryPage {
     await this.http.postData('/h5api-projects?_t=' + this.userInfo.auth_token, {
       'Content-Type': 'application/x-www-form-urlencoded',
       '_token': this.userInfo.token,
-      'start': this.lrecord.timeStarts+' 00:00:00',
-      'end': this.lrecord.timeEnds+' 23:59:59',
+      'start_time': this.lrecord.timeStarts+' 00:00:00',
+      'end_time': this.lrecord.timeEnds+' 23:59:59',
       'page':this.lrecord.currentpage,
       'lottery_id': _lottory.id?_lottory.id:null
     }).then(data => {

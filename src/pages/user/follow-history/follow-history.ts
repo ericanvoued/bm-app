@@ -61,8 +61,8 @@ export class FollowHistoryPage {
     await this.http.postData('/h5api-traces/0/getalltransations?_t=' + this.userInfo.auth_token, {
       'Content-Type': 'application/x-www-form-urlencoded',
       '_token': this.userInfo.token,
-      'start': this.followData.timeStarts+' 00:00:00',
-      'end': this.followData.timeEnds+' 23:59:59',
+      'start_time': this.followData.timeStarts+' 00:00:00',
+      'end_time': this.followData.timeEnds+' 23:59:59',
       'page':page,
       'lottery_id': _lottory.id?_lottory.id:null
     }).then(data => {
