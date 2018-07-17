@@ -9,7 +9,6 @@ import {HomePage} from '../pages/home/home'
 // import {LottoryCenterPage} from '../pages/lottory-center/lottory-center'
 import {ActivityPage} from '../pages/activity/activity'
 import {UserCenterPage} from '../pages/user/user-center/user-center'
-import { BackgroundMode } from '@ionic-native/background-mode';
 
 import { QRScanner } from '@ionic-native/qr-scanner';
 import {Camera} from '@ionic-native/camera';
@@ -141,7 +140,6 @@ import {YKaijiangComponent} from '../components/lottory-center/y-kaijiang/y-kaij
     Camera,
     QRScanner,
     Vibration,
-    BackgroundMode,
     File,
     Transfer,
     TransferObject,
