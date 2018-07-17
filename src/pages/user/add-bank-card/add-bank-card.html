@@ -9,7 +9,7 @@
   <div class="bank-card-content common-form">
     <div class="cf-row">
       <label for="username">用户名</label>
-      <input id="username" type="text" (focus)="dismissModel('searchFlag')" value="{{bcData.subData.userName}}" placeholder="请输入持卡人姓名" required />
+      <input id="username" type="text" (focus)="dismissModel('searchFlag')" [(ngModel)]="bcData.subData.userName" placeholder="请输入持卡人姓名" required />
     </div>
     <div class="cf-row">
       <label for="cardnum">卡&nbsp;&nbsp;&nbsp;号</label>
@@ -27,7 +27,8 @@
       <label for="branchName" >支行名称</label>
       <p id="branchName" text-end  (click)="showBranch()">{{bcData.subData.branchName}}</p>
       <div class="search-container clearfix" [@flyUp] *ngIf="bcData.searchFlag&&bcData.searchData.length!=0">
-        <p *ngFor="let branch of bcData.searchData.slice(0,20)" (click)="selectBranch(branch,$event)">{{branch.text}}</p>
+        <p *ngFor="let branch of bcData.searchData.slice(0,20)" (click)="selectBranch(branch,$event)">
+          {{branch.text}}</p>
       </div>
     </div>
     <div class="submit-row">

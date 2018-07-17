@@ -60,11 +60,11 @@ import {K3BaseTrendComponent} from '../components/lottory-center/k3-base-trend/k
 import {LhcShengxiaoComponent} from '../components/lottory-center/lhc-shengxiao/lhc-shengxiao'
 import {LhcKaijiangComponent} from '../components/lottory-center/lhc-kaijiang/lhc-kaijiang'
 import {LhcBoseComponent} from '../components/lottory-center/lhc-bose/lhc-bose'
-import {Pk10daxiaoComponent} from '../components/lottory-center/pk10daxiao/pk10daxiao'
-import {Pk10LonghuComponent} from '../components/lottory-center/pk10-longhu/pk10-longhu'
-import {Pk10KaijiangComponent} from '../components/lottory-center/pk10-kaijiang/pk10-kaijiang'
-import {Pk10ChanpiomComponent} from '../components/lottory-center/pk10-chanpiom/pk10-chanpiom'
-import {Pk10DanshuangComponent} from '../components/lottory-center/pk10-danshuang/pk10-danshuang'
+// import {Pk10daxiaoComponent} from '../components/lottory-center/pk10daxiao/pk10daxiao'
+// import {Pk10LonghuComponent} from '../components/lottory-center/pk10-longhu/pk10-longhu'
+// import {Pk10KaijiangComponent} from '../components/lottory-center/pk10-kaijiang/pk10-kaijiang'
+// import {Pk10ChanpiomComponent} from '../components/lottory-center/pk10-chanpiom/pk10-chanpiom'
+// import {Pk10DanshuangComponent} from '../components/lottory-center/pk10-danshuang/pk10-danshuang'
 import {SscKaijiangComponent} from '../components/lottory-center/ssc-kaijiang/ssc-kaijiang'
 import {SscDanshuangComponent} from '../components/lottory-center/ssc-danshuang/ssc-danshuang'
 import {SscDaxiaoComponent} from '../components/lottory-center/ssc-daxiao/ssc-daxiao'
@@ -86,11 +86,11 @@ import {YKaijiangComponent} from '../components/lottory-center/y-kaijiang/y-kaij
     LhcShengxiaoComponent,
     LhcKaijiangComponent,
     LhcBoseComponent,
-    Pk10daxiaoComponent,
-    Pk10LonghuComponent,
-    Pk10KaijiangComponent,
-    Pk10ChanpiomComponent,
-    Pk10DanshuangComponent,
+    // Pk10daxiaoComponent,
+    // Pk10LonghuComponent,
+    // Pk10KaijiangComponent,
+    // Pk10ChanpiomComponent,
+    // Pk10DanshuangComponent,
     SscKaijiangComponent,
     SscDanshuangComponent,
     SscDaxiaoComponent,
@@ -124,11 +124,11 @@ import {YKaijiangComponent} from '../components/lottory-center/y-kaijiang/y-kaij
     LhcShengxiaoComponent,
     LhcKaijiangComponent,
     LhcBoseComponent,
-    Pk10daxiaoComponent,
-    Pk10LonghuComponent,
-    Pk10KaijiangComponent,
-    Pk10ChanpiomComponent,
-    Pk10DanshuangComponent,
+    // Pk10daxiaoComponent,
+    // Pk10LonghuComponent,
+    // Pk10KaijiangComponent,
+    // Pk10ChanpiomComponent,
+    // Pk10DanshuangComponent,
     SscKaijiangComponent,
     SscDanshuangComponent,
     SscDaxiaoComponent,

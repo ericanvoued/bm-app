@@ -64,7 +64,7 @@ export class TransDetailPage {
       'start':this.transData.timeStarts+' 00:00:00',
       'end':this.transData.timeEnds+' 23:59:59',
       'bet_status':1,
-      'transTpyeId':_lottory.id?_lottory.id:null
+      'transTypeId':_lottory.id?_lottory.id:null
     }).then(data=>{
       this.transData.data = data.data.data;
       console.log(this.transData.data)

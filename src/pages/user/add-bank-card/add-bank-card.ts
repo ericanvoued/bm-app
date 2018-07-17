@@ -114,6 +114,7 @@ export class AddBankCardPage {
       'bank_id':this.bcData.subData.bank.id,
       '_token':this.userInfo.token
     }).then(data=>{
+      console.log(data.data)
       this.bcData.searchData = data.data
     })
   }
@@ -157,7 +158,7 @@ export class AddBankCardPage {
   }
 
   dismissModel(_model){
-    return this.bcData[_model] = false;
+    this.bcData[_model] = false;
     // return this.bcData.bankModelFlag = false;
   }
 
@@ -168,7 +169,7 @@ export class AddBankCardPage {
   async submitData() {
     console.log(this.cardNum)
     // let chineseReg = /^[\u4E00-\u9 FA5\uF900-\uFA2D]{2,16}$/;//中文验证
-    // let numReg = /^[0-9]{16,19}$/;//数字验证
+    let numReg = /^[0-9]{16,19}$/;//数字验证
 
     if (this.bcData.subData.userName.length == 0) {
       this.loadPrd.showToast(this.toastCtrl, "请输入持卡人姓名");

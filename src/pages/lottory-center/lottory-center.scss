@@ -1,14 +1,5 @@
 page-lottory-center {
-  .ll-mask{
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    top: 0;
-    //padding-top: 44px;
-    z-index: 1000000000000000;
-    background-color: rgba(0,0,0,.5);
-  }
+
   .k3Head{
     background-color: #00180D;
   }
@@ -24,50 +15,7 @@ page-lottory-center {
 
     }
   }
-  .lottory-list{
-    padding: 0 16px;
-    background-color: #F3F3F3;
-    border-bottom: 2px solid #F08845;
-    .lottory-wrap{
-      display: flex;
-      color: #666666;
-      &:first-child{
-        margin-top: 9px;
-      }
-      .l-title{
-        width: 46px;
-        line-height:25px;
-      }
-      .l-list{
-        flex: 1;
-        width: 100%;
-      }
-      ul{
-        min-height: 26px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        &:last-child{
 
-        }
-        li{
-          width: 31%;
-          line-height:26px;
-          text-align: center;
-          background: #FFFFFF;
-          border: 0 solid #E6E6E6;
-          box-shadow: 0 1px 2px 0 #C5C4C4;
-          border-radius: 3px;
-          margin-bottom: 13px;
-          &.current{
-            background-color: #F98D4B;
-            color: #ffffff;
-          }
-        }
-
-      }
-    }
-  }
 
 
   .lc-tab-head{
@@ -106,6 +54,60 @@ page-lottory-center {
           height: 2px;
         }
       }
+    }
+  }
+}
+.ll-mask{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  top: 47px;
+  //padding-top: 44px;
+  z-index: 1000000000000000;
+  background-color: rgba(0,0,0,.5);
+}
+.lottory-list{
+  padding: 0 16px;
+  background-color: #F3F3F3;
+  border-bottom: 2px solid #F08845;
+  .lottory-wrap{
+    display: flex;
+    color: #666666;
+    &:first-child{
+      margin-top: 9px;
+    }
+    .l-title{
+      width: 46px;
+      line-height:25px;
+    }
+    .l-list{
+      flex: 1;
+      width: 100%;
+    }
+    ul{
+      min-height: 26px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      &:last-child{
+
+      }
+      li{
+        width: 31%;
+        line-height:26px;
+        text-align: center;
+        background: #FFFFFF;
+        border: 0 solid #E6E6E6;
+        box-shadow: 0 1px 2px 0 #C5C4C4;
+        border-radius: 3px;
+        margin-bottom: 13px;
+        &.current{
+          background-color: #F98D4B;
+          color: #ffffff;
+        }
+      }
+
     }
   }
 }
