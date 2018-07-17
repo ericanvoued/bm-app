@@ -35,12 +35,13 @@ export class HomePage {
 
     this.homePrv.loadbanner();
     this.homePrv.loadannouncements();
-    this.homePrv.announcementsUnreadnum();
+
   }
 
   ionViewWillEnter(){
     this.homePrv.lottoryInfo();
     // this.homePrv.loadHotLottory();
+    this.homePrv.announcementsUnreadnum();
   }
 
   ionViewDidEnter(){
@@ -100,7 +101,7 @@ export class HomePage {
   toLottory(lottory){
     console.log(lottory.redirect_url)
     console.log(lottory.id)
-   
+
     if(lottory.redirect_url){
       this.common.gameId = lottory.id
       this.common.series_id = lottory.series_id

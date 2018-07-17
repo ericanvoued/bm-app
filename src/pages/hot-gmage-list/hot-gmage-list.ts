@@ -43,18 +43,24 @@ export class HotGmageListPage {
 
 
   decreament(_lottory,_index){
-    if(this.lottorys.data.hot.length>3){
-      this.lottorys.data.more.push(_lottory)
-      this.lottorys.data.hot.splice(_index,1)
-    }else{
-      this.loadPrd.showMidToast(this.toastCtrl,'最少保留3个彩种')
+    if(this.lottorys.editable){
+      if(this.lottorys.data.hot.length>3){
+        this.lottorys.data.more.push(_lottory)
+        this.lottorys.data.hot.splice(_index,1)
+      }else{
+        this.loadPrd.showMidToast(this.toastCtrl,'最少保留3个彩种')
+      }
     }
+
 
   }
 
   increament(_lottory,_index){
-    this.lottorys.data.hot.push(_lottory)
-    this.lottorys.data.more.splice(_index,1)
+    if(this.lottorys.editable){
+      this.lottorys.data.hot.push(_lottory)
+      this.lottorys.data.more.splice(_index,1)
+    }
+
   }
 
   toggleEdit(){

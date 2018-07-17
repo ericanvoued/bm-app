@@ -80,6 +80,7 @@ export class ChargePage {
         this.chargeList.payment_setting_data = data.extra.payment_setting_data
       }else {
         this.loadPrd.showToast(this.toastCtrl,data.Msg)
+        this.navCtrl.pop()
       }
 
     })

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, LoadingController, ToastController,NavParams, AlertController } from 'ionic-angular';
 
-import {UserCenterProvider } from '../../../providers/user-center/user-center';
+import {HttpClientProvider } from '../../../providers/http-client/http-client';
 import { LoadingProvider } from '../../../providers/loading/loading'
 
 
@@ -17,19 +17,43 @@ export class WithdrawPage {
   withDrawMoney = 0.00;
   formateNum = null;
   currentBank=null;
+  // receiveChargeData = {}
+  withdrewApiData = {data:{accounts:{withdrawable:null,balance:null}}}
+
   constructor(
     public alertCtrl: AlertController,
     public navCtrl: NavController,
-    public ucPrd: UserCenterProvider,
+    public http: HttpClientProvider,
     public loadPrd:LoadingProvider,
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
     public navParams: NavParams) {
-
-    this.ucPrd.withdrewBankApi()
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    this.withdrewBankApi()
+
   }
 
+
+  //提现
+  //银行卡接口
+  async withdrewBankApi(){
+    // this.withdrewApiData = (await this.http.fetchData('/h5api-withdrawals/withdraw?_t=' + this.userInfo.auth_token))
+    await this.http.fetchData('/h5api-withdrawals/withdraw?_t=' + this.userInfo.auth_token).then(data=>{
+
+      if(data.isSuccess==0){
+        this.loadPrd.showToast(this.toastCtrl,data.Msg)
+        this.navCtrl.pop()
+      } else {
+        this.withdrewApiData =data
+        for(let i=0;i<this.withdrewApiData.data.bank_cards.length;i++){
+          this.withdrewApiData.data.bank_cards[i].flag=false
+        }
+      }
+    })
+
+
+    // console.log(this.withdrewApiData.data)
+  }
 
   formateMoney(){
     this.formateNum = parseFloat(this.withDrawMoney).toFixed(2)
@@ -38,13 +62,13 @@ export class WithdrawPage {
 
   checkWithdraw(){
 
-    if(this.ucPrd.withdrewApiData.data.fund_password){
-      if(parseFloat(this.withDrawMoney)>parseFloat(this.ucPrd.withdrewApiData.data.accounts.withdrawable)){
+    if(this.withdrewApiData.data.fund_password){
+      if(parseFloat(this.withDrawMoney)>parseFloat(this.withdrewApiData.data.accounts.withdrawable)){
         this.loadPrd.showToast(this.toastCtrl,'可提现额度不够')
-      }else if(parseFloat(this.withDrawMoney)<parseFloat(this.ucPrd.withdrewApiData.data.min_withdraw_amount)){
-        this.loadPrd.showToast(this.toastCtrl,'提现金额不得低于'+this.ucPrd.withdrewApiData.data.min_withdraw_amount+'元')
-      }else if(parseFloat(this.withDrawMoney)>parseFloat(this.ucPrd.withdrewApiData.data.max_withdraw_amount)){
-        this.loadPrd.showToast(this.toastCtrl,'提现金额不得高于'+this.ucPrd.withdrewApiData.data.max_withdraw_amount+'元')
+      }else if(parseFloat(this.withDrawMoney)<parseFloat(this.withdrewApiData.data.min_withdraw_amount)){
+        this.loadPrd.showToast(this.toastCtrl,'提现金额不得低于'+this.withdrewApiData.data.min_withdraw_amount+'元')
+      }else if(parseFloat(this.withDrawMoney)>parseFloat(this.withdrewApiData.data.max_withdraw_amount)){
+        this.loadPrd.showToast(this.toastCtrl,'提现金额不得高于'+this.withdrewApiData.data.max_withdraw_amount+'元')
       }else {
         this.showPrompt()
       }
@@ -73,7 +97,7 @@ export class WithdrawPage {
         {
           text: '确定',
           handler: data => {
-            // this.ucPrd.http.postData('')
+            // this.http.postData('')
             this.sendFoundPsw({psw1:data.psw}).then(val=>{
               if(val.IsSuccess){
                 this.toast = this.loadPrd.showLoading(this.loadingCtrl,'提现中')
@@ -105,7 +129,7 @@ export class WithdrawPage {
   }
 
   async postWithReq(){
-    return await this.ucPrd.http.postData('/h5api-withdrawals/withdraw/1?_t=' + this.userInfo.auth_token,{
+    return await this.http.postData('/h5api-withdrawals/withdraw/1?_t=' + this.userInfo.auth_token,{
       'id':this.currentBank.id,
       'account':this.currentBank.account,
       'account_name':this.currentBank.account_name,
@@ -119,15 +143,15 @@ export class WithdrawPage {
 
 
   selectBank(bank){
-    for(let i=0,len=this.ucPrd.withdrewApiData.data.bank_cards.length;i<len;i++){
-      this.ucPrd.withdrewApiData.data.bank_cards[i].flag=false
+    for(let i=0,len=this.withdrewApiData.data.bank_cards.length;i<len;i++){
+      this.withdrewApiData.data.bank_cards[i].flag=false
     }
     bank.flag=true;
     this.currentBank = bank;
   }
 
   addBankCard(){
-    if(this.ucPrd.withdrewApiData.data.fund_password){
+    if(this.withdrewApiData.data.fund_password){
       let prompt = this.alertCtrl.create({
         title: '请输入支付密码',
         cssClass:'inputPayModel',
@@ -167,7 +191,7 @@ export class WithdrawPage {
 
   //发送资金密码
   async sendFoundPsw(params) {
-    return await this.ucPrd.http.postData('/h5api-users/checkfundpassword?_t=' + this.userInfo.auth_token, {
+    return await this.http.postData('/h5api-users/checkfundpassword?_t=' + this.userInfo.auth_token, {
       'fund_password': params.psw1,
       '_token': this.userInfo.token
     })
@@ -272,7 +296,7 @@ export class WithdrawPage {
 
   //发送设置的资金密码
   async postFoundPsw(params) {
-    return await this.ucPrd.http.postData('/h5api-users/safe-reset-fund-password?_t=' + this.userInfo.auth_token, {
+    return await this.http.postData('/h5api-users/safe-reset-fund-password?_t=' + this.userInfo.auth_token, {
 
       'fund_password': params.psw1,
       'fund_password_confirmation': params.psw2,

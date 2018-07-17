@@ -32,8 +32,11 @@ export class FeedbackPage {
       'contact': this.contact
     }).then(data => {
       loading.dismiss();
+      this.content=''
+      this.contact=''
       if (data.isSuccess == 1) {
         this.loadPrvd.showToast(this.toastCtrl, '意见提交成功')
+        this.navCtrl.pop()
       } else {
         this.loadPrvd.showToast(this.toastCtrl, data.type)
         this.navCtrl.pop()
