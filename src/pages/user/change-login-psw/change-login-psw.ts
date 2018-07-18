@@ -33,11 +33,15 @@ export class ChangeLoginPswPage {
     let patt = /^[a-zA-Z0-9`\-=\[\];,./~!@#$%^*()_+}{:?]{6,16}$/g;
 
     if (!patt.test(this.pswData.old_password)) {
-      console.log(1)
+      this.pswData.old_password = '';
       toast = this.loadPrd.showToast(this.ToastCtrl, '原登录密码不正确');
     } else if (this.pswData.password != this.pswData.password_confirmation) {
+      this.pswData.password=''
+      this.pswData.password_confirmation=''
       toast = this.loadPrd.showToast(this.ToastCtrl, '两次输入的新登录密码不一致');
     } else if (this.pswData.old_password == this.pswData.password) {
+      this.pswData.password=''
+      this.pswData.password_confirmation=''
       toast = this.loadPrd.showToast(this.ToastCtrl, '新登录密码不能与旧登录密码相同');
     }else {
       toast = this.loadPrd.showLoading(this.loadingCtrl,'密码修改中');
@@ -49,13 +53,15 @@ export class ChangeLoginPswPage {
         'password': this.pswData.password,
         'password_confirmation': this.pswData.password_confirmation
       }).then(data => {
+        toast.dismiss()
+        this.http.checkUnjump(data)
         if (data.isSuccess == 1) {
           toast = this.loadPrd.showToast(this.ToastCtrl,data.data.tplData.msg+'请重新登录')
           localStorage.userInfo = null;
           this.navCtrl.push(TabsPage,{
             pageIndex: 3
           });
-        }else {
+        }else if(data.isSuccess == 0) {
           toast = this.loadPrd.showToast(this.ToastCtrl,data.data.tplData.msg)
         }
       })

@@ -102,6 +102,7 @@ export class WithdrawPage {
               if(val.IsSuccess){
                 this.toast = this.loadPrd.showLoading(this.loadingCtrl,'提现中')
                 this.postWithReq().then(val1=>{
+                  this.http.checkUnjump(data)
                   this.toast.dismiss()
                   if(val1.isSuccess==1){
                     this.navCtrl.push('CommonStatusPage',{

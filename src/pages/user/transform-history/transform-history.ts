@@ -88,6 +88,7 @@ export class TransformHistoryPage {
       'page':_page,
       'type':type
     }).then(data=>{
+      this.http.checkUnjump(data)
       if(data.isSuccess==1){
         switch (type){
           case 1:
@@ -165,7 +166,7 @@ export class TransformHistoryPage {
         }
         resolve();
 
-      }, 500);
+      }, 1500);
     })
   }
 

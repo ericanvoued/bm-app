@@ -1,16 +1,15 @@
 import {Component} from '@angular/core';
-import { NavController, ModalController} from 'ionic-angular';
+import { IonicPage, NavController, ModalController} from 'ionic-angular';
 import { HomeProvider } from '../../providers/home/home'
 import { CommonProvider } from "../../providers/common/common";
 import { LoadingProvider } from '../../providers/loading/loading'
-import {HotGmageListPage} from '../hot-gmage-list/hot-gmage-list';
-import { InfoCenterPage } from '../info-center/info-center'
 
 import { BasketDataProvider } from '../../providers/basket-data/basket-data'
 
 
 declare var Swiper;
 
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -99,8 +98,6 @@ export class HomePage {
   }
 
   toLottory(lottory){
-    console.log(lottory.redirect_url)
-    console.log(lottory.id)
 
     if(lottory.redirect_url){
       this.common.gameId = lottory.id

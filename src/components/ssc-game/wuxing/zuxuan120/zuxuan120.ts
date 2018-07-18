@@ -61,4 +61,8 @@ export class Zuxuan120Component extends commonMethod{
     return this.choose.indexOf(choice) > -1
   }
 
+  getLotteryText(){
+    return this.getCommonData().filter(ele => ele.length > 0).map(ele => ele.map(item => item).join(' '))
+  }
+
 }

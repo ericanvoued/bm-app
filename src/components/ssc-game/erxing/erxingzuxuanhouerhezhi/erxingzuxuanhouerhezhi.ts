@@ -69,10 +69,23 @@ export class ErxingzuxuanhouerhezhiComponent extends commonMethod{
 
    getLotteryText(){
     let arr = []
-    this.getCommonData().forEach((ele,index) => ele.forEach((item,index1) => arr.push(('0' + (index*7 + item + 1)).slice(-2) + ' ')))
+    this.getCommonData().forEach((ele,index) => ele.forEach((item,index1) => arr.push(index*7 + item + 1)))
     console.log(arr)
-    return arr.join('| ')
+    return arr.join(' ')
    }
+
+   getOriginLotteryText(){
+    let total = []
+    this.getCommonData().forEach((item,index) => {
+         let arr = []
+         if(item.length)
+           // arr.push(item*index*7 + 1)
+            arr.push(...item.map(ele => 7*index + ele + 1))
+        
+         total.push(arr)
+    }) 
+    return total.filter(ele => ele.length > 0).map(ele => ele.join('|')).join('|')
+  }
 
 
    checkResult(data, array){

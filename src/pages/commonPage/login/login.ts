@@ -83,9 +83,6 @@ export class LoginPage {
               pageIndex: 3
             });
           })
-
-
-
         } else {
           // this.loading.dismiss();
           this.tost = this.loadPrd.showMidToast(this.ToastCtrl, data.Msg);

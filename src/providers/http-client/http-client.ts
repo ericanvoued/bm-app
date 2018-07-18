@@ -1,15 +1,11 @@
 import {HttpClient} from '@angular/common/http';
+import {ToastController,App} from 'ionic-angular';
 import {Injectable} from '@angular/core';
 import {LoadingProvider} from '../loading/loading'
 import {ModalController} from 'ionic-angular'
-/*
-  Generated class for the HttpClientProvider provider.
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 
-//let baseUrl = 'http://user.firecat.com'
+// let baseUrl = 'http://user.firecat.com'
 let baseUrl = 'http://www.zhenwin.com'
 
 //let baseUrl = '/api'
@@ -19,7 +15,12 @@ export class HttpClientProvider {
 
   plat = 'h5';
 
-  constructor(public http: HttpClient, public load: LoadingProvider, public modalCtrl: ModalController) {
+  constructor(public http: HttpClient,
+              // public navCtrl: NavController,
+              public load: LoadingProvider,
+              private app: App,
+              public toastCtrl:ToastController,
+              public modalCtrl: ModalController) {
     console.log('Hello HttpClientProvider Provider');
   }
 
@@ -35,11 +36,16 @@ export class HttpClientProvider {
   public postData(url, params): Promise<any> {
     //return this.http.post(baseUrl + url,params)
     return new Promise((resolve, reject) => {
-      this.http.post(baseUrl + url, params).subscribe((data: any) => {         
+      this.http.post(baseUrl + url, params).subscribe((data: any) => {
         resolve(data)
       })
     })
   }
+
+
+
+
+
 
   checkPlatform() {
     let userAgent: any = navigator.userAgent.toLowerCase();
@@ -62,4 +68,27 @@ export class HttpClientProvider {
     let profileModal = this.modalCtrl.create('Onlineservice', {data: {username: username}, title: ''});
     profileModal.present();
   }
+
+  //超时验证到登陆
+  checkTimeOut(data){
+    if(data.IsSuccess==2){
+      let nav = this.app.getActiveNav();
+      localStorage.removeItem('userInfo');
+      this.load.showMidToast(this.toastCtrl,data.Msg)
+      nav.push('LoginPage')
+    }else {
+      return null;
+    }
+  }
+
+  checkUnjump(data){
+    if(data.IsSuccess==2){
+      // let nav = this.app.getActiveNav();
+      localStorage.removeItem('userInfo');
+      this.load.showMidToast(this.toastCtrl,data.Msg)
+    }else {
+      return null;
+    }
+  }
+
 }

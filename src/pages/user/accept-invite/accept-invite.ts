@@ -74,21 +74,22 @@ export class AcceptInvitePage {
         password_confirmation:   this.sign.comfirm_psw,
         source:                 'invite',
       }).then((data) => {
+        loading.dismiss();
+        this.http.checkUnjump(data)
 
         if (data.isSuccess) {
-          loading.dismiss();
           this.loadPrd.showToast(this.toastCtrl, '注册成功');
-
-
           localStorage.userInfo = JSON.stringify(data['data']);
           this.navCtrl.push(TabsPage, {
             pageIndex: 0
           });
         } else {
-          loading.dismiss();
-          this.loadPrd.showToast(this.toastCtrl, data.Msg);
+          if (data.IsSuccess == 2) {
+            return null
+          } else {
+            this.loadPrd.showToast(this.toastCtrl, data.Msg);
+          }
         }
-
       })
     }
   }

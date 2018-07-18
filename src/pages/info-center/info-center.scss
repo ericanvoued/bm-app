@@ -1,6 +1,10 @@
 page-info-center {
   .gredient-bg{
+    position: sticky;
+    top: 0;
+    bottom: 0;
     height: 30px;
+    z-index: 100000;
     background-image: linear-gradient(32deg, #F3361B 0%, #EC6432 1%, #F5AD58 100%);
   }
   .switch-body{
@@ -18,7 +22,7 @@ page-info-center {
       padding-right: 0!important;
       h2{
         color: #333333;
-        font-size: 18px;
+        font-size: 14px;
         font-weight: bold;
         display: flex;
         margin-bottom: 3px;
@@ -28,15 +32,16 @@ page-info-center {
           text-overflow: ellipsis;
           white-space: nowrap;
           overflow: hidden;
+          position: relative;
           .red-coin {
             width: 5px;
             height: 5px;
-            display: inline-block;
+            display: block;
             border-radius: 50%;
             background-color: #ff0000;
-            position: relative;
-            top: -12px;
-            left: -5px;
+            position: absolute;
+            top: 0px;
+            right: 0;
           }
         }
         .item-date{

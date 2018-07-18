@@ -200,9 +200,12 @@ export class AddBankCardPage {
         'branch_id': this.bcData.branch_id,
         '_token': this.userInfo.token
       }).then(data => {
-        if(data.isSuccess==0){
+
+        this.http.checkUnjump(data)
+
+        if(!data.isSuccess){
           this.loadPrd.showToast(this.toastCtrl,data.Msg)
-        }else {
+        }else if(data.isSuccess){
           this.loadPrd.showToast(this.toastCtrl,'恭喜你！绑定银行卡成功')
           this.navCtrl.pop()
         }

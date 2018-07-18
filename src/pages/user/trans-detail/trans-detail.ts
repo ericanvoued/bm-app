@@ -127,7 +127,7 @@ export class TransDetailPage {
         resolve()
         infiniteScroll.complete();
         infiniteScroll.state = 'enabled'
-      }, 500);
+      }, 1500);
     })
   }
 

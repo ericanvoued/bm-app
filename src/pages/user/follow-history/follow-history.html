@@ -76,9 +76,9 @@
               <div class="case-wrap">
                 <p class="right">追号奖金组： <span>{{follow.prize_group}}</span></p>
               </div>
-              <!--<div class="case-wrap">-->
-                <!--<p class="right">模式： <span>{{follow.follow_reward_money}}</span></p>-->
-              <!--</div>-->
+              <div class="case-wrap">
+                <p class="right">模式： <span>{{follow.coefficient}}</span></p>
+              </div>
             </div>
             <div class="case-wrap case-wrap-big">
               <p *ngIf="follow.stop_on_won">中奖后停止追号</p>
@@ -95,7 +95,7 @@
   <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))" *ngIf="loadmore==true">
     <ion-infinite-scroll-content class="myloading" loadingSpinner="bubbles" loadingText="努力加载中…"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
-  <div *ngIf="isNomore==true" style="line-height: 50px;text-align: center;font-size: 14px;margin-top: -10px">
+  <div *ngIf="isNomore==false" style="line-height: 50px;text-align: center;font-size: 14px;margin-top: -10px">
     没有更多了
   </div>
 </ion-content>

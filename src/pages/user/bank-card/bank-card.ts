@@ -41,17 +41,21 @@ export class BankCardPage {
 
   ionViewWillEnter() {
     this.getBankCard().then((data) => {
-      this.bcData.bankList = data.data.bank_cards
-      this.bcData.fund_password = data.data.fund_password
-      for (let i=0,len=this.bcData.bankList.length;i<len;i++){
-        this.bcData.idArr.push(this.bcData.bankList[i].id)
-        if(this.bcData.bankList[i].islock==1){
-          this.bcData.isLocked = true;
-        }else {
-          continue
+      this.http.checkUnjump(data)
+      if(data.isSuccess==1){
+        this.bcData.bankList = data.data.bank_cards
+        this.bcData.fund_password = data.data.fund_password
+        for (let i=0,len=this.bcData.bankList.length;i<len;i++){
+          this.bcData.idArr.push(this.bcData.bankList[i].id)
+          if(this.bcData.bankList[i].islock==1){
+            this.bcData.isLocked = true;
+          }else {
+            continue
+          }
         }
+      }else if(data.isSuccess==0){
+        this.loadPrd.showToast(this.toastCtrl, data.Msg)
       }
-      console.log(this.bcData.idArr)
     })
   }
 
@@ -119,15 +123,18 @@ export class BankCardPage {
               this.bcData.toast = this.loadPrd.showMidToast(this.toastCtrl, '输入的密码长度不对');
               return false
             } else {
-              // this.bcData.toast = this.loadPrd.showMidToast(this.toastCtrl, '输入的密码长度不对');
-              this.postFoundPsw({psw1: data.password, psw2: data.comfirmPsw}).then(data => {
-                this.bcData.toast.dismiss()
-                console.log(data)
-                if (data.isSuccess == 1) {
-                  this.bcData.toast = this.loadPrd.showMidToast(this.toastCtrl, data.Msg);
+              this.postFoundPsw({psw1: data.password, psw2: data.comfirmPsw}).then(data1 => {
+
+                this.http.checkUnjump(data1)
+                if (data1.isSuccess == 1) {
+                  this.bcData.toast = this.loadPrd.showMidToast(this.toastCtrl, data1.Msg);
                   this.navCtrl.push('AddBankCardPage')
                 } else {
-                  this.bcData.toast = this.loadPrd.showMidToast(this.toastCtrl, data.Msg);
+                  if(data1.isSuccess == 2){
+                    return null;
+                  }else {
+                    this.bcData.toast = this.loadPrd.showMidToast(this.toastCtrl, data1.Msg);
+                  }
                 }
               })
               // this.navCtrl.push('CommonStatusPage',{
@@ -185,12 +192,16 @@ export class BankCardPage {
         {
           text: '确认',
           handler: data => {
-            this.sendFoundPsw({psw1: data.password}).then(data => {
-              console.log(data)
-              if (data.IsSuccess) {
+            this.sendFoundPsw({psw1: data.password}).then(data1 => {
+              this.http.checkUnjump(data1)
+              if (data1.IsSuccess) {
                 this.navCtrl.push('AddBankCardPage')
               } else {
-                this.bcData.toast = this.loadPrd.showMidToast(this.toastCtrl, data.Msg);
+                if(data1.IsSuccess==2){
+                  return null
+                }else {
+                  this.bcData.toast = this.loadPrd.showMidToast(this.toastCtrl, data1.Msg);
+                }
               }
             })
           }
@@ -222,15 +233,16 @@ export class BankCardPage {
               this.bcData.toast = this.loadPrd.showLoading(this.loadingCtrl, '锁卡中')
               this.postLock().then(data => {
                 this.bcData.toast.dismiss()
+                this.http.checkUnjump(data)
                 if (data.isSuccess == 1) {
                   this.bcData.isLocked = true;
                   this.bcData.toast = this.loadPrd.showToast(this.toastCtrl, '锁卡成功')
 
-                  this.getBankCard().then((data) => {
-                    this.bcData.bankList = data.data.bank_cards
-                    this.bcData.fund_password = data.data.fund_password
+                  this.getBankCard().then((data1) => {
+                    this.bcData.bankList = data1.data.bank_cards
+                    this.bcData.fund_password = data1.data.fund_password
                   })
-                } else {
+                } else if(data.isSuccess == 0){
                   this.bcData.toast = this.loadPrd.showToast(this.toastCtrl, '锁卡失败，请重试')
                 }
               })

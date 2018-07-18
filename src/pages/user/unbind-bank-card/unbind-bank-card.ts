@@ -97,9 +97,10 @@ export class UnbindBankCardPage {
         {
           text: '确认',
           handler: data => {
-            this.sendFoundPsw({psw1:data.password}).then(data=>{
-              if (data.IsSuccess == 1) {
-                console.log(data)
+            this.sendFoundPsw({psw1:data.password}).then(data1=>{
+              this.http.checkUnjump(data1)
+
+              if (data1.IsSuccess == 1) {
                 this.unbindAction().then(val=>{
                   if(val.IsSuccess){
                     this.loadPrd.showToast(this.toastCtrl,'解绑成功')
@@ -108,8 +109,6 @@ export class UnbindBankCardPage {
                     this.loadPrd.showToast(this.toastCtrl,'解绑失败，请重试')
                   }
                 })
-              } else {
-
               }
             })
           }
