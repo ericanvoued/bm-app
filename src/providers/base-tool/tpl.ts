@@ -39,6 +39,15 @@ export class Tpl {
     '  </div>\n' +
     '</section>';
 
+    
+    static success_tip1 = '<section class="basket-pop" style="position: absolute;top: 0;bottom: 0;left: 0;right: 0;z-index: 123;\n' +
+    '    background: rgba(0, 0, 0, 0.6);display: flex;justify-content: center;align-items: center;">\n' +
+    '  <div class="success-pop" style="background: #ffffff;border-radius: 10px;text-align: center;width: 60vw;height: 130px;">\n' +
+    '    <h2 style="margin-top: 35px;font-size: 15px;">恭喜您</h2>\n' +
+    '    <p style="margin: 10px 0;text-align: center;">投注已成功，祝您好运</p>\n' +
+    '  </div>\n' +
+    '</section>';
+
   static fail_tip = '<section class="basket-pop" style="position: absolute;top: 0;bottom: 0;left: 0;right: 0;z-index: 123;\n' +
     '    background: rgba(0, 0, 0, 0.6);display: flex;justify-content: center;align-items: center;">\n' +
     '  <div class="success-pop" style="background: #ffffff;border-radius: 10px;text-align: center;width: 75vw;height: 100px;">\n' +

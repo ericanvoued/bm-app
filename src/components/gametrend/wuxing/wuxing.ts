@@ -67,7 +67,7 @@ export class WuxingComponent implements OnInit {
   produceAllData(){
     this.historyRecord = this.common.historyList.map(ele => {
       return {...ele, number:ele.number.substr(2,ele.number.length),
-        history: this.common.series_id == 2 ? ele.code.split(' ').map(ele => parseInt(ele)) : ele.code.split('').map(ele => parseInt(ele))}
+        history: this.common.series_id == 2 ? ele.code.split(' ').map(ele => ele ? ('0' + ele).slice(-2) : null) : ele.code.split('').map(ele => parseInt(ele))}
     }).reverse()
 
     this.fakeTrend = this.initialArr(this.position[1], this.position[0]).reduce((a,b) =>{
@@ -251,7 +251,7 @@ export class WuxingComponent implements OnInit {
         if(this.common.series_id == 2) {
           for(let j = 1; j<=11;j++){
             if(j == tempData[i]){
-               inner.push({number:tempData[i], choose:true})
+               inner.push({number:('0' + tempData[i]).slice(-2), choose:true})
             }else{
                if(i == 0){
                  inner.push({number:1,choose:false})

@@ -174,7 +174,10 @@ export class commonMethod{
    }
 
    getLotteryText(){
-       return this.getCommonData().filter(ele => ele.length > 0).map(ele => ele.map(item => ('0' + item).slice(-2) + '').join('')).join('|')
+       if(this.common.series_id == 2)
+         return this.getCommonData().filter(ele => ele.length > 0).map(ele => ele.map(item => ('0' + item).slice(-2) + '').join(' ')).join('|')
+       else
+         return this.getCommonData().filter(ele => ele.length > 0).map(ele => ele.map(item => item).join(' ')).join('|')
    }
 
    getOriginLotteryText(){

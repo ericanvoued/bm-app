@@ -72,10 +72,10 @@
             </ul>
 
 
-            <div  style="display:flex;align-items:center">
-                 <div style="width:17%;font-size:10px">已选</div>
+            <div  style="display:flex;align-items:center;height:20px">
+                 <div style="width:17%;font-size:10px;">已选</div>
                  <div *ngIf="existNumber(common.ballData[i].value)" style="display:flex;align-items:center">
-                    <div *ngFor="let item of common.componentRef.instance.getCommonData()[i]" style="color:#F84F1E;margin-left:5px">{{item+1}} </div>              
+                    <div *ngFor="let item of common.componentRef.instance.getCommonData()[i]" style="color:#F84F1E;margin-left:5px">{{('0' + (item+1)).slice(-2)}} </div>              
                  </div>
                
             </div>

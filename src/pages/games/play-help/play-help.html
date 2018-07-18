@@ -38,7 +38,7 @@
       </thead>
 
       <tbody>
-          <tr>
+          <tr *ngIf="this.common.series_id == 1">
             <td style="width:40px" rowspan="2">重庆时时彩</td>  
             <td style="width:60px">10:00-22:00</td>  
             <td style="width:60px">10分钟</td>  
@@ -47,7 +47,7 @@
             <td>09:59:10</td>
           </tr> 
 
-          <tr>
+          <tr *ngIf="this.common.series_id == 1">
               <td style="width:60px">22:00-01:55</td>  
               <td style="width:60px">5分钟</td>  
               <td style="width:50px">48期</td>
@@ -55,7 +55,7 @@
               <td >22:04:10</td>
           </tr> 
 
-          <tr *ngFor="let item of sscInfo" class="game-tr">
+          <tr *ngFor="let item of detailInfo" class="game-tr">
               <td *ngFor="let todo of item">{{todo}}</td>
           </tr>  
           

@@ -1,4 +1,6 @@
 page-xuan5 {
+  .toolbar-title{display: flex;justify-content: center;align-items: center}
+
   .toggle-menu{background: url('../assets/imgs/toggle.png') center center no-repeat; position:relative;float:right;top:10px;width:21px;height:21px;margin-right: 10px}
   ul.statistic li.active, ul.statistic li.low{color:#F3361B}
   ul.statistic li.high{color: #20BA36}

@@ -50,7 +50,7 @@ export class ZufuComponent {
 
       this.historyRecord = this.common.historyList.map(ele => {
         return {...ele, number:ele.number.substr(2,ele.number.length),
-          history: this.common.series_id == 2 ? ele.code.split(' ').map(ele => parseInt(ele)) : ele.code.split('').map(ele => parseInt(ele))}
+          history: this.common.series_id == 2 ? ele.code.split(' ').map(ele => ele ? ('0' + ele).slice(-2) : null) : ele.code.split('').map(ele => parseInt(ele))}
       }).reverse()
   
       console.log(this.historyRecord)
@@ -133,7 +133,7 @@ export class ZufuComponent {
             let arr:any[] = []
             for(let j = 1; j<=11; j++){
                 if(check(asd[i],j)){
-                  arr.push({number:j,choose:check(asd[i],j)})
+                  arr.push({number:('0' + j).slice(-2),choose:check(asd[i],j)})
                 }else{
                   if(i == 0 ){
                         arr.push({number:1,choose:0})
