@@ -10,7 +10,7 @@
 </div>
 <div class="l-game" *ngFor="let data of common.ballData;let ii = index" >
     <div class="l">
-        <p><span></span>{{getWei(data.key)}}</p>
+        <p><span></span>{{ii == 0 ? '三重号' : '单号'}}</p>
       
       
     </div>

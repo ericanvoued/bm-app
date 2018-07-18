@@ -8,7 +8,7 @@ import * as $ from 'jquery'
 import { UtilProvider } from '../../providers/util/util'
 import { HttpClientProvider } from '../../providers/http-client/http-client'
 import {Tpl} from '../../providers/base-tool/tpl'
-import { ChargePage } from '../user/charge/charge'
+// import { ChargePage } from '../user/charge/charge'
 declare var encrypt
 //import { encrypt } from '../../assets/js/Encrypt.js'
 /**
@@ -210,7 +210,7 @@ export class BasketPage {
       {
         text: '确认',
         handler: () => {
-            this.navCtrl.push(ChargePage)
+            this.navCtrl.push('ChargePage')
         }
       }
     ]
@@ -218,8 +218,7 @@ export class BasketPage {
   alert.present();
 }
 
-  confirmBet(){
-   
+  confirmBet(){ 
     if(!JSON.parse(localStorage.getItem('userInfo'))){
       //this.navCtrl.parent.select(3);
       this.navCtrl.push('LoginPage',{page:'SscPage'})
@@ -301,7 +300,7 @@ export class BasketPage {
 
           this.balance = this.common.getBalance()
 
-          $('body').append(Tpl.success_tip)
+          $('body').append(Tpl.success_tip1)
           setTimeout(function () {
             $('.basket-pop').remove();
           }, 1500);

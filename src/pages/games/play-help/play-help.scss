@@ -1,5 +1,7 @@
 page-play-help {
-     .choose-game{top:0}
+     .choose-game{position: fixed}
+
+     .body-bg{position: fixed}
 
      .toolbar-title{display: flex;justify-content: center;align-items: center}
      .t-head th{padding: 8px 0 }

@@ -59,6 +59,46 @@ export class Effect{
             $('.tri-arrow').removeClass('current')
         });
 
+        this.fetchListData()
+
+        this.events.subscribe('changeRecord', () => {
+            //新一期倒计时开始
+            this.fetchListData()
+
+        //     let length = this.common.historyList.length, historyList = this.common.historyList, number     
+        //    this.list = this.list.slice(0,this.list.length - 2)
+        //    if(this.common.series_id == 1)
+        //        number =  (+(historyList[0].number) + 1 +'').slice(-7)
+        //    else if(this.common.series_id == 2){
+        //        let splitArr = historyList[0].number.substr(5,historyList[0].number.length).split('-')
+        //        number = splitArr[0] + '-' + (+splitArr[1] + 1) 
+        //    }         
+        //    this.list.unshift({number:number,balls:'',time:''})     
+        //     if(this.list.length > 2){
+        //         this.maxNumber = Math.ceil(this.list.length/5)
+        //     }else{
+        //         this.maxNumber = 0
+        //     }
+        //    console.log(this.list)
+        //    this.timer =  setInterval(() => {
+        //         this.common.fetchRecord().then(() => {
+        //              console.log('fetch arrive')
+        //              if(this.common.historyList[0].number.slice(-7) == this.list[0].number){
+        //                 this.list = this.common.historyList.map(this.handleBall).slice(0,10)
+        //                 if(this.list.length > 2){
+        //                     this.maxNumber = Math.ceil(this.list.length/5)
+        //                 }else{
+        //                     this.maxNumber = 0
+        //                 }
+        //                 clearInterval(this.timer)
+        //              }
+        //         })
+        //     },10000)
+        })
+    }
+
+    //抓取历史开奖进行处理
+    fetchListData(){
         this.common.fetchRecord().then(() => {
             this.list = this.common.historyList.map(this.handleBall).slice(0,10)
             console.log(this.list)
@@ -67,46 +107,24 @@ export class Effect{
             }else{
                 this.maxNumber = 0
             }
-        })  
 
-        this.events.subscribe('changeRecord', () => {
-            console.log('nmslbrwgbebrreberbe')
-            let length = this.common.historyList.length, historyList = this.common.historyList, number
-            //this.list = historyList.map(this.handleBall).slice(0,10)
-           // this.list = historyList.concat(1 - historyList.length).concat({number:historyList[length - 1]+1,code:'',time:''}).map(this.handleBall).slice(0,10)
-           this.list = this.list.slice(0,this.list.length - 2)
-
-           if(this.common.series_id == 1)
-               number =  (+(historyList[0].number) + 1 +'').slice(-7)
-           else if(this.common.series_id == 2){
-               let splitArr = historyList[0].number.substr(5,historyList[0].number.length).split('-')
-               number = splitArr[0] + '-' + (+splitArr[1] + 1) 
-           }
-                
-           this.list.unshift({number:number,balls:'',time:''})
-
-            
-            if(this.list.length > 2){
-                this.maxNumber = Math.ceil(this.list.length/5)
-            }else{
-                this.maxNumber = 0
-            }
-           console.log(this.list)
-           this.timer =  setInterval(() => {
-                this.common.fetchRecord().then(() => {
-                     console.log('fetch arrive')
-                     if(this.common.historyList[0].number.slice(-7) == this.list[0].number){
+            if(this.list.filter(item => !item.balls).length){
+                let timer = setInterval(() => {
+                    this.common.fetchRecord().then(() => {
                         this.list = this.common.historyList.map(this.handleBall).slice(0,10)
+                        console.log(this.list)
                         if(this.list.length > 2){
                             this.maxNumber = Math.ceil(this.list.length/5)
                         }else{
                             this.maxNumber = 0
                         }
-                        clearInterval(this.timer)
-                     }
-                })
-            },10000)
-        })
+
+                        if(!this.list.filter(item => !item.balls).length)
+                            clearInterval(timer)
+                    })
+                },10000)
+            }
+        })  
     }
 
     renderMethodContainer(){

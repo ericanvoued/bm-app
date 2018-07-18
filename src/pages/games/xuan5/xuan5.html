@@ -7,9 +7,9 @@
 <ion-header>
     
       <ion-navbar>
-        <ion-title>
-           <div style="position:relative;z-index:1300" #methodName (click)="common.toggle()">{{common.method}} {{common.smallMethod}}</div>
-    
+        <ion-title (click)="common.toggle()">
+           <div style="position:relative;z-index:1300" #methodName>{{common.method}} {{common.smallMethod}}</div>
+           <div class="tri-arrow"></div>
         </ion-title>
     
         <div class="toggle-menu" (click)="$event.stopPropagation();common.open = !common.open"></div>

@@ -92,7 +92,7 @@ export class Xuan5Page extends Effect{
     let oddeven = odd + ':' + (5 -odd)
     console.log(ele.code)
     console.log(ele.code.split(' '))
-    return {...ele, number:ele.number.substr(5,ele.number.length),balls:tempArr.map(ele => ('0'+ele).slice(-2)).join(' '), hezhi:total, kuadu:kuadu,
+    return {...ele, number:ele.number.substr(5,ele.number.length),balls:tempArr.map(ele => ele ? ('0'+ele).slice(-2) : '').join(' '), hezhi:total, kuadu:kuadu,
            daxiao:daxiao, oddeven:oddeven
     }                   
 }
