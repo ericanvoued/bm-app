@@ -56,7 +56,7 @@ export class LhctrendPage {
   createAnimalContent(inx) {
 
     $('.lhc.top-ul').html(Tpl.trend_lhc_kj);
-    var data = JSON.parse(localStorage.lhchisdata);
+    var data = JSON.parse(localStorage.lhchisdata).reverse();
 
     if (inx == 0) {
 

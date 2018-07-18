@@ -264,10 +264,10 @@ export class LhcSlidePage extends LhcAction {
     localStorage.bz_9 = bz_9;
     localStorage.bz_10 = bz_10;
 
-    console.log('localStorage.bz_6===='+localStorage.bz_6);
-    console.log('localStorage.bz_7===='+localStorage.bz_7);
-    console.log('localStorage.bz_8===='+localStorage.bz_8);
-    console.log('localStorage.bz_9===='+localStorage.bz_9);
+    // console.log('localStorage.bz_6===='+localStorage.bz_6);
+    // console.log('localStorage.bz_7===='+localStorage.bz_7);
+    // console.log('localStorage.bz_8===='+localStorage.bz_8);
+    // console.log('localStorage.bz_9===='+localStorage.bz_9);
   }
 
   ionViewDidLeave() {
@@ -408,14 +408,21 @@ export class LhcSlidePage extends LhcAction {
 
   requestHisData() {
 
-    var url = '/api-lotteries-h5/load-issues/' + localStorage.idstr + '?_t=';
+    var url = '/api-lotteries-h5/load-issues/' + localStorage.idstr+'?count=90&sort=desc&_t=';
+    // url = '/api-lotteries-h5/load-issues/' + localStorage.idstr + '?count=90&sort=desc_t=';
     this.rest.getUrlReturn(url)
       .subscribe((data) => {
         // console.log(data);
         if (data.IsSuccess) {
           localStorage.lhchisdata = JSON.stringify(data.data);
           var htm = '', it;
-          for (var i = 0; i < data.data.length; i++) {
+          var arr = [];
+          if (data.data.length > 10) {
+            arr = data.data.slice(0, 9);
+          } else {
+            arr = data.data;
+          }
+          for (var i = 0; i < arr.length; i++) {
             if (data.data[i].code == '') {
               it = '<li class="his-line">\n' +
                 '        <span class="kj-issue">' + data.data[i].number + '</span>\n' +
