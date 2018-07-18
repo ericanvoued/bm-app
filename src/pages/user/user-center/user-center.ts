@@ -44,7 +44,6 @@ export class UserCenterPage {
               public navCtrl: NavController,
               public navParams: NavParams) {
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    this.announcementsUnreadnum();
   }
 
   async announcementsUnreadnum() {
@@ -106,6 +105,7 @@ export class UserCenterPage {
 
   ionViewDidEnter(){
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    this.announcementsUnreadnum();
   }
   ionViewWillLeave(){
     clearInterval(this.timer)
