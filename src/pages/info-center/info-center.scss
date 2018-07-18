@@ -18,7 +18,7 @@ page-info-center {
       padding-right: 0!important;
       h2{
         color: #333333;
-        font-size: 18px;
+        font-size: 14px;
         font-weight: bold;
         display: flex;
         margin-bottom: 3px;
@@ -28,13 +28,14 @@ page-info-center {
           text-overflow: ellipsis;
           white-space: nowrap;
           overflow: hidden;
+          position: relative;
           .red-coin {
             width: 5px;
             height: 5px;
             display: inline-block;
             border-radius: 50%;
             background-color: #ff0000;
-            position: relative;
+            position: absolute;
             top: -12px;
             left: -5px;
           }

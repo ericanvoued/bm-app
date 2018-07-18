@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,LoadingController, ToastController } from 'ionic-angular';
 
-import {UserCenterProvider } from '../../../providers/user-center/user-center'
+// import {UserCenterProvider } from '../../../providers/user-center/user-center'
 import {LoadingProvider} from '../../../providers/loading/loading'
+import {HttpClientProvider} from '../../../providers/http-client/http-client'
 import {TabsPage} from '../../tabs/tabs'
 
 
@@ -20,7 +21,7 @@ export class ChangePayPswPage {
   }
   constructor(
     public navCtrl: NavController,
-    public ucPrd: UserCenterProvider,
+    public http: HttpClientProvider,
     public loadPrd: LoadingProvider,
     public loadingCtrl: LoadingController,
     public ToastCtrl: ToastController,
@@ -37,7 +38,7 @@ export class ChangePayPswPage {
       toast = this.loadPrd.showToast(this.ToastCtrl, '两次输入的新支付密码不一致');
     } else {
       toast = this.loadPrd.showLoading(this.loadingCtrl,'密码修改中');
-      this.ucPrd.changePsw('/h5api-users/password-management/1?_t=', {
+      this.http.postData('/h5api-users/password-management/1?_t=', {
         'Content-Type': 'application/x-www-form-urlencoded',
         '_token': this.userInfo.token,
         'old_fund_password': this.pswData.old_password,
@@ -45,13 +46,14 @@ export class ChangePayPswPage {
         'fund_password_confirmation': this.pswData.password_confirmation
       }).then(data => {
         toast.dismiss()
+        this.http.checkUnjump(data)
         if (data.isSuccess == 1) {
           toast = this.loadPrd.showToast(this.ToastCtrl, data.data.tplData.msg)
           localStorage.userInfo = null;
-          this.navCtrl.push(TabsPage,{
+          this.navCtrl.push(TabsPage, {
             pageIndex: 3
           });
-        } else {
+        } else if (data.isSuccess == 0) {
           toast = this.loadPrd.showToast(this.ToastCtrl, data.data.tplData.msg)
         }
       })

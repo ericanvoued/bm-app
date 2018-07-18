@@ -75,10 +75,11 @@ export class ChargePage {
   //充值列表
   async getcChargeList(){
     await this.http.fetchData('/h5api-recharges/rechargeinfo?_t=' + this.userInfo.auth_token).then(data=>{
+      this.http.checkUnjump(data)
       if(data.IsSuccess){
         this.chargeList.data = data.data;
         this.chargeList.payment_setting_data = data.extra.payment_setting_data
-      }else {
+      }else if(!data.IsSuccess){
         this.loadPrd.showToast(this.toastCtrl,data.Msg)
         this.navCtrl.pop()
       }
@@ -138,7 +139,7 @@ export class ChargePage {
   }
 
   showModal(url) {
-    console.log(this.chargeList.currentBank)
+
     let loading = this.loadPrd.showLoading(this.LoadingCtrl,'正在转入第三方充值渠道')
     if(Number(this.numList.chargeMoney)<=0 ){
       this.loadPrd.showToast(this.toastCtrl,'请输入要充值的金额');
@@ -147,23 +148,23 @@ export class ChargePage {
       this.loadPrd.showToast(this.toastCtrl,'请选择要支付方式');
       return;
     }else if(this.numList.chargeMoney>this.chargeList.currentBank.currency_max){
-      this.loadPrd.showToast(this.toastCtrl,'充值金额已超上限');
+      this.loadPrd.showToast(this.toastCtrl, '充值金额已超上限');
       return;
-    }else {
-      this.http.postData(url+'?_t='+ this.userInfo.auth_token,{
-        'Content-Type':'application/x-www-form-urlencoded',
-        'deposit_mode':this.chargeList.currentBank.mode,
-        'bank_code':this.chargeList.currentBank.identifier,
-        'bank':this.chargeList.currentBank.id,
-        'amount':this.numList.chargeMoney,
-        'payment_data_json':this.chargeList.payment_setting_data,
-        '_token':this.userInfo.token
-      }).then(data=>{
-        // loading.dismiss()
-        if(data.isSuccess==1){
+    } else {
+      this.http.postData(url + '?_t=' + this.userInfo.auth_token, {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'deposit_mode': this.chargeList.currentBank.mode,
+        'bank_code': this.chargeList.currentBank.identifier,
+        'bank': this.chargeList.currentBank.id,
+        'amount': this.numList.chargeMoney,
+        'payment_data_json': this.chargeList.payment_setting_data,
+        '_token': this.userInfo.token
+      }).then(data => {
+        this.http.checkUnjump(data)
+        if (data.isSuccess == 1) {
           this.lineCharge(data.data.break_url)
-        }else {
-          loading = this.loadPrd.showToast(this.toastCtrl,data.type);
+        } else if (data.isSuccess == 0) {
+          loading = this.loadPrd.showToast(this.toastCtrl, data.type);
         }
         // this.navCtrl.push('ChargeStatusPage',
         //   {

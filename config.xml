@@ -82,15 +82,18 @@
     <plugin name="cordova-plugin-device" spec="2.0.2" />
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="2.0.5" />
-    <plugin name="cordova-plugin-camera" spec="^4.0.3" />
-    <plugin name="cordova-plugin-file" spec="^6.0.1" />
-    <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
     <plugin name="cordova-plugin-filepath" spec="^1.3.0" />
     <plugin name="cordova-plugin-ionic-webview" spec="^1.2.1" />
     <plugin name="cordova-plugin-vibration" spec="^3.1.0" />
     <plugin name="cordova-plugin-screen-orientation" spec="^3.0.1" />
     <plugin name="cordova-plugin-qrscanner" spec="^2.6.0" />
+<<<<<<< HEAD
+    <plugin name="cordova-plugin-camera" spec="^4.0.3" />
+    <plugin name="cordova-plugin-file" spec="^6.0.1" />
+    <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
+=======
     <plugin name="cordova-plugin-background-mode" spec="^0.7.2" />
+>>>>>>> ff9c43d2f2d8991f108d2ae97fea552829025ed3
     <engine name="ios" spec="4.5.4" />
     <engine name="android" spec="7.0.0" />
 </widget>

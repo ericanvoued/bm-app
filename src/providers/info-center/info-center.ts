@@ -43,17 +43,25 @@ export class InfoCenterProvider {
 
 
   async letterUnreadnum() {
-    this.IcCenter.unreadLetter = (await this.http.fetchData('/h5api-station-letters/unreadnum?_t=' + this.userInfo.auth_token)).data.num;
+    await this.http.fetchData('/h5api-station-letters/unreadnum?_t=' + this.userInfo.auth_token).then(data=>{
+      this.http.checkUnjump(data)
+      this.IcCenter.unreadLetter = data.data.num
+    });
   }
 
   async loadLetters() {
     this.infoData.letters_id = [];
-    this.infoData.letters = (await this.http.fetchData('/h5api-station-letters/?_t=' + this.userInfo.auth_token)).data;
-    if(this.infoData.letters.data.length!=0){
-      for(let i=0,len=this.infoData.letters.data.length;i<len;i++){
-        this.infoData.letters_id.push(this.infoData.letters.data[i].id)
+    await this.http.fetchData('/h5api-station-letters/?_t=' + this.userInfo.auth_token).then(data=>{
+      this.http.checkUnjump(data)
+      this.infoData.letters = data.data
+      if(this.infoData.letters.data.length!=0){
+        for(let i=0,len=this.infoData.letters.data.length;i<len;i++){
+          this.infoData.letters_id.push(this.infoData.letters.data[i].id)
+        }
       }
-    }
+    });
+
+
   }
 
   infoChanged(event){
@@ -72,18 +80,25 @@ export class InfoCenterProvider {
 
   async announcementsUnreadnum() {
     if(this.userInfo) {
-      this.IcCenter.unreadAnnouncements = (await this.http.fetchData('/h5api-announcements/unreadnum?_t='+this.userInfo.auth_token)).data.num;
+      await this.http.fetchData('/h5api-announcements/unreadnum?_t='+this.userInfo.auth_token).then(data=>{
+        this.IcCenter.unreadAnnouncements = data.data.num
+      });
     }else {
       this.IcCenter.unreadAnnouncements = (await this.http.fetchData('/h5api-announcements/unreadnum')).data.num;
+      this.IcCenter.unreadAnnouncements = data.data.num
     }
   }
   async loadannouncements() {
     this.infoData.announcements_id = [];
     if(this.userInfo){
-      this.infoData.announcements = (await this.http.fetchData('/h5api-announcements?_t='+this.userInfo.auth_token)).data;
+      await this.http.fetchData('/h5api-announcements?_t='+this.userInfo.auth_token).then(data=>{
+        this.infoData.announcements = data.data
+      });
 
     }else {
-      this.infoData.announcements = (await this.http.fetchData('/h5api-announcements')).data;
+      await this.http.fetchData('/h5api-announcements').then(data=>{
+        this.infoData.announcements = data.data
+      });
     }
 
     if(this.infoData.announcements.data.length!=0){
@@ -105,9 +120,8 @@ export class InfoCenterProvider {
       id: _id,
       is_top: _is_top
     }).then(data => {
-      console.log(2)
+      this.http.checkUnjump(data)
       if (data.IsSuccess) {
-        console.log(1)
         this.loadLetters()
       }
     })
@@ -123,6 +137,7 @@ export class InfoCenterProvider {
         id: _id,
         is_top: _is_top
       }).then(data => {
+        this.http.checkUnjump(data)
         if (data.IsSuccess) {
           this.loadannouncements()
         }
@@ -130,9 +145,6 @@ export class InfoCenterProvider {
 
 
   }
-
-
-
 
 
   //站内信删除
@@ -143,6 +155,7 @@ export class InfoCenterProvider {
       '_token': this.userInfo.token,
       id: _id
     }).then(data => {
+      this.http.checkUnjump(data)
       loading.dismiss()
       if (data.IsSuccess) {
         loading = this.LoadPrvd.showToast(this.toastCtrl, '删除成功')
@@ -165,6 +178,7 @@ export class InfoCenterProvider {
         id: _id
       }).then(data => {
         loading.dismiss()
+        this.http.checkUnjump(data)
         if (data.IsSuccess) {
           loading = this.LoadPrvd.showToast(this.toastCtrl,'删除成功')
           this.loadannouncements();

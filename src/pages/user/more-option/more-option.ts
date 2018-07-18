@@ -29,13 +29,14 @@ export class MoreOptionPage {
     let loading = this.loadingProd.showLoading(this.loadingCtrl,'正在退出')
     await this.http.fetchData('/h5-api-auth/logout?_t='+ this.userInfo.auth_token).then(data=>{
       loading.dismissAll();
+      this.http.checkUnjump(data)
       if(data.isSuccess){
         localStorage.removeItem('userInfo');
         this.loadingProd.showToast(this.toastCtrl,data.Msg)
         this.navCtrl.push(TabsPage, {
           pageIndex: 3
         });
-      }else {
+      }else if(!data.isSuccess){
         this.loadingProd.showToast(this.toastCtrl,data.Msg)
       }
     })

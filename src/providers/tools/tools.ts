@@ -65,7 +65,7 @@ export class ToolsProvider {
     zuhe1(m,n){
         if(m == n)
             return 1
-    
+
         let gap = n,total = m, divider = 1;;
 
         for(let i = 1;i<gap;i++){
@@ -87,7 +87,7 @@ export class ToolsProvider {
     }
 
     produceRandom(number,except?){
-       
+
         let arr = [0,1,2,3,4,5,6,7,8,9],temp=[];
         if(this.isArray(except)){
             for(let i = 0;i<except.length;i++){
@@ -96,7 +96,7 @@ export class ToolsProvider {
             console.log(arr)
         }
         console.log(arr)
-       
+
         for(let i =0;i<number;i++){
             let index = Math.floor(Math.random()*arr.length)
             temp.push(arr[index])
@@ -106,7 +106,7 @@ export class ToolsProvider {
     }
 
     produceRandom5(number,except?){
-        
+
          let arr = [0,1,2,3,4,5,6,7,8,9,10],temp=[];
          if(this.isArray(except)){
              for(let i = 0;i<except.length;i++){
@@ -115,7 +115,7 @@ export class ToolsProvider {
              console.log(arr)
          }
          console.log(arr)
-        
+
          for(let i =0;i<number;i++){
              let index = Math.floor(Math.random()*arr.length)
              temp.push(arr[index])
@@ -172,7 +172,7 @@ export class ToolsProvider {
     }
 
     /**
-     * 
+     *
      * @param arr 二维数组
      */
     checkCount(arr){
@@ -180,7 +180,7 @@ export class ToolsProvider {
     }
 
     /**
-     * 
+     *
      * @param arr 数组去重
      */
     checkRepeat(arr){

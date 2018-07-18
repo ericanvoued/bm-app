@@ -78,6 +78,7 @@ export class InfoCenterPage {
     if (this.infoCenter == 'info') {
       if(this.userInfo){
         await this.infoCenterProd.http.fetchData('/h5api-announcements/view/' + _id +'?_t=' + this.userInfo.auth_token).then(data => {
+          this.infoCenterProd.http.checkUnjump(data)
           if (data.IsSuccess == 1) {
             this.navCtrl.push(page, {
               title:'公告详情',
@@ -97,6 +98,7 @@ export class InfoCenterPage {
       }
     } else {
       await this.infoCenterProd.http.fetchData('/h5api-station-letters/view/' + _id + '?_t=' + this.userInfo.auth_token).then(data => {
+        this.infoCenterProd.http.checkUnjump(data)
         if (data.IsSuccess == 1) {
           this.navCtrl.push(page,{
             title:'站内信详情',

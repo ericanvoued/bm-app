@@ -106,9 +106,10 @@ export class SafeCenterPage {
 
   async loadStatus(){
     await this.http.fetchData('/h5api-users/checksafe?_t='+this.userInfo.auth_token).then(data=>{
+      this.http.checkUnjump(data)
       if(data.IsSuccess){
         this.safeCentData.status = data.data;
-      } else {
+      } else if(!data.IsSuccess){
         this.loadPrd.showToast(this.toastCtrl,data.Msg)
       }
     })

@@ -99,8 +99,6 @@ export class HomePage {
   }
 
   toLottory(lottory){
-    console.log(lottory.redirect_url)
-    console.log(lottory.id)
 
     if(lottory.redirect_url){
       this.common.gameId = lottory.id

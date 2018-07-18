@@ -27,13 +27,9 @@ export class HotGmageListPage {
     public toastCtrl: ToastController,
     public loadPrd:LoadingProvider,
     public ViewCtrl: ViewController) {
-    console.log(this.lottorys.data.hot)
 
-    console.log(JSON.parse(localStorage.getItem('lottorys')))
     this.lottorys.data.hot = JSON.parse(localStorage.getItem('lottorys')).hot;
     this.lottorys.data.more = JSON.parse(localStorage.getItem('lottorys')).more;
-
-
 
   }
 
@@ -67,10 +63,6 @@ export class HotGmageListPage {
 
     if(this.lottorys.editable){
       localStorage.lottorys = JSON.stringify(this.lottorys.data)
-      // localStorage.hot = JSON.stringify(this.lottorys.hot)
-      // localStorage.more = JSON.stringify(this.lottorys.more)
-
-    }else {
 
     }
     this.lottorys.editable =!this.lottorys.editable;
