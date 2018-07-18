@@ -202,10 +202,10 @@ export class AddBankCardPage {
       }).then(data => {
 
         this.http.checkUnjump(data)
-        
-        if(data.isSuccess==0){
+
+        if(!data.isSuccess){
           this.loadPrd.showToast(this.toastCtrl,data.Msg)
-        }else if(data.isSuccess==1){
+        }else if(data.isSuccess){
           this.loadPrd.showToast(this.toastCtrl,'恭喜你！绑定银行卡成功')
           this.navCtrl.pop()
         }

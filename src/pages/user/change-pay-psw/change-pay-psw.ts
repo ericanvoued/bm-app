@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,LoadingController, ToastController } from 'ionic-angular';
 
-// import {UserCenterProvider } from '../../../providers/user-center/user-center'
 import {LoadingProvider} from '../../../providers/loading/loading'
 import {HttpClientProvider} from '../../../providers/http-client/http-client'
 import {TabsPage} from '../../tabs/tabs'
@@ -33,8 +32,10 @@ export class ChangePayPswPage {
     let toast = null;
     // let patt = /^[a-zA-Z0-9`\-=\[\];,./~!@#$%^*()_+}{:?]{6,16}$/g;
 
-    toast = this.loadPrd.showLoading(this.loadingCtrl,'修改中')
+
     if (this.pswData.password != this.pswData.password_confirmation) {
+      this.pswData.password=''
+      this.pswData.password_confirmation=''
       toast = this.loadPrd.showToast(this.ToastCtrl, '两次输入的新支付密码不一致');
     } else {
       toast = this.loadPrd.showLoading(this.loadingCtrl,'密码修改中');

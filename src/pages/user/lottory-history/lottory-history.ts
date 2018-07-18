@@ -156,7 +156,7 @@ export class LottoryHistoryPage {
         resolve()
         infiniteScroll.complete();
         infiniteScroll.state = 'enabled'
-      }, 500);
+      }, 1500);
 
     })
   }

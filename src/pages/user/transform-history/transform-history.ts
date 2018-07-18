@@ -166,7 +166,7 @@ export class TransformHistoryPage {
         }
         resolve();
 
-      }, 500);
+      }, 1500);
     })
   }
 

@@ -28,7 +28,7 @@ export class HomeProvider {
   userInfo ;
   infoData = {
     unreadAnnouncements:0,
-    announcements: {data:['']}
+    announcements: ['']
   }
 
   currentLottory=null

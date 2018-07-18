@@ -2,7 +2,7 @@
   <ion-navbar>
     <a href="javascript:;" class="firecat-icon kefu-icon" (click)="http.lineService(userInfo.username)"></a>
     <h2 class="DIY-title">个人中心</h2>
-    <a href="javascript:;" class="firecat-icon msg-icon" (click)="pushPage('InfoCenterPage',false,true)"><i class="myBadge">{{unreadAnnouncements}}</i></a>
+    <a href="javascript:;" class="firecat-icon msg-icon" (click)="pushPage('InfoCenterPage',false,true)"><i class="myBadge">{{unreadAnnouncements>99?99:unreadAnnouncements}}</i></a>
     <a href="javascript:;" class="firecat-icon qrcode-icon" (click)="toScanQRCode()"> </a>
   </ion-navbar>
 </ion-header>

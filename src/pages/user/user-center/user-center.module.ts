@@ -9,5 +9,6 @@ import { UserCenterPage } from './user-center';
   imports: [
     IonicPageModule.forChild(UserCenterPage),
   ],
+  exports:[UserCenterPage]
 })
 export class UserCenterPageModule {}

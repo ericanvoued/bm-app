@@ -1,11 +1,11 @@
 import {HttpClient} from '@angular/common/http';
-import {ToastController} from 'ionic-angular';
+import {ToastController,App} from 'ionic-angular';
 import {Injectable} from '@angular/core';
 import {LoadingProvider} from '../loading/loading'
 import {ModalController} from 'ionic-angular'
 
 
-//let baseUrl = 'http://user.firecat.com'
+// let baseUrl = 'http://user.firecat.com'
 let baseUrl = 'http://www.zhenwin.com'
 
 //let baseUrl = '/api'
@@ -18,6 +18,7 @@ export class HttpClientProvider {
   constructor(public http: HttpClient,
               // public navCtrl: NavController,
               public load: LoadingProvider,
+              private app: App,
               public toastCtrl:ToastController,
               public modalCtrl: ModalController) {
     console.log('Hello HttpClientProvider Provider');
@@ -82,7 +83,7 @@ export class HttpClientProvider {
 
   checkUnjump(data){
     if(data.IsSuccess==2){
-      let nav = this.app.getActiveNav();
+      // let nav = this.app.getActiveNav();
       localStorage.removeItem('userInfo');
       this.load.showMidToast(this.toastCtrl,data.Msg)
     }else {

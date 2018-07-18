@@ -88,6 +88,7 @@ export class InfoCenterPage {
         })
       }else {
         await this.infoCenterProd.http.fetchData('/h5api-announcements/view/' + _id).then(data => {
+          this.infoCenterProd.http.checkUnjump(data)
           if (data.IsSuccess == 1) {
             this.navCtrl.push(page, {
               title:'公告详情',

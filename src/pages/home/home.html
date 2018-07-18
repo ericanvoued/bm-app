@@ -39,11 +39,11 @@
   <div class="index-info" (click)="pushPage('InfoCenterPage','消息中心')">
     <div class="info-title">
       <i class="voice-icon"></i>
-      消息({{homePrv.infoData.unreadAnnouncements}})
+      消息({{homePrv.infoData.unreadAnnouncements>99?'99+':homePrv.infoData.unreadAnnouncements}})
     </div>
     <div class="info-slider">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" *ngFor="let info of homePrv.infoData.announcements.data;index as i;">
+        <div class="swiper-slide" *ngFor="let info of homePrv.infoData.announcements;index as i;">
           <a href="javascript:;">{{info.title}}</a>
         </div>
       </div>
