@@ -38,36 +38,10 @@ import {Vibration} from '@ionic-native/vibration';
 
 
 
-//开奖中心的组件
-import {K3CoodHotComponent} from '../components/lottory-center/k3-cood-hot/k3-cood-hot'
-import {K3KaijiangComponent} from '../components/lottory-center/k3-kaijiang/k3-kaijiang'
-import {K3ShapeTrendComponent} from '../components/lottory-center/k3-shape-trend/k3-shape-trend'
-import {K3BaseTrendComponent} from '../components/lottory-center/k3-base-trend/k3-base-trend'
-import {LhcShengxiaoComponent} from '../components/lottory-center/lhc-shengxiao/lhc-shengxiao'
-import {LhcKaijiangComponent} from '../components/lottory-center/lhc-kaijiang/lhc-kaijiang'
-import {LhcBoseComponent} from '../components/lottory-center/lhc-bose/lhc-bose'
-import {SscKaijiangComponent} from '../components/lottory-center/ssc-kaijiang/ssc-kaijiang'
-import {SscDanshuangComponent} from '../components/lottory-center/ssc-danshuang/ssc-danshuang'
-import {SscDaxiaoComponent} from '../components/lottory-center/ssc-daxiao/ssc-daxiao'
-import {YDistributeComponent} from '../components/lottory-center/y-distribute/y-distribute'
-import {YKaijiangComponent} from '../components/lottory-center/y-kaijiang/y-kaijiang'
-
 @NgModule({
   declarations: [
     MyApp,
     TabsPage,
-    K3CoodHotComponent,
-    K3KaijiangComponent,
-    K3ShapeTrendComponent,
-    K3BaseTrendComponent,
-    LhcShengxiaoComponent,
-    LhcKaijiangComponent,
-    LhcBoseComponent,
-    SscKaijiangComponent,
-    SscDanshuangComponent,
-    SscDaxiaoComponent,
-    YDistributeComponent,
-    YKaijiangComponent,
   ],
   imports: [
     BrowserModule,
@@ -85,18 +59,6 @@ import {YKaijiangComponent} from '../components/lottory-center/y-kaijiang/y-kaij
   entryComponents: [
     MyApp,
     TabsPage,
-    K3CoodHotComponent,
-    K3KaijiangComponent,
-    K3ShapeTrendComponent,
-    K3BaseTrendComponent,
-    LhcShengxiaoComponent,
-    LhcKaijiangComponent,
-    LhcBoseComponent,
-    SscKaijiangComponent,
-    SscDanshuangComponent,
-    SscDaxiaoComponent,
-    YDistributeComponent,
-    YKaijiangComponent,
   ],
   providers: [
     StatusBar,

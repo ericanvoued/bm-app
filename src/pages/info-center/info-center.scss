@@ -40,8 +40,8 @@ page-info-center {
             border-radius: 50%;
             background-color: #ff0000;
             position: absolute;
-            top: 0px;
-            right: 0;
+            top: 2px;
+            right: 2px;
           }
         }
         .item-date{
@@ -61,13 +61,16 @@ page-info-center {
         color: #666666;
         letter-spacing: 0;
         width: 100%;
-        padding-right: 30px;
+        padding-right: 20px;
         position: relative;
-        .stick-icon{
-          position: absolute;
-          right: 0;
-          top: 2px;
-        }
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .stick-icon{
+        position: absolute;
+        right: 16px;
+        top: 44px;
       }
     }
   }
