@@ -369,16 +369,43 @@ export class BaseToolProvider {
               lscroll.css('overflow', 'hidden');
             }
             break;
-          case 2:
+          case 2://down
+
+            // console.log('idstr==='+idstr)
+            // console.log('his==='+his)
+            if(idstr=='ks-content') {
+              // console.log('.offset().top==='+$('#ks-content .section.current').offset().top)
+              if ($('#ks-content .section.current').offset().top < 95) {
+                $(".his-box").stop().animate({height: "0px"}, 0);
+                return;
+              }
+            }else if(idstr=='lhc-content-child') {
+              // console.log('.offset().top==='+$('.lhc-content-child .section.active').offset().top)
+              if ($('.lhc-content-child .section.active').offset().top < 156) {
+                $(".his-box").stop().animate({height: "0px"}, 0);
+                return;
+              }
+            }
+
+            console.log('his==='+his)
+
             if (obj.css('height') == '0px' && len < 5) {
+
+              console.log('0px===')
+
               var h = len * 28 + 25;
               obj.animate({height: h + 'px'}, 100);
             } else if (obj.css('height') == '0px' && len >= 5) {
+
+              console.log('0px===')
+
               obj.animate({height: "165px"}, 100);
             } else if (parseInt(his) >= 165 && len < 10) {
+
               var h = 165 + (len - 5) * 28;
               obj.animate({height: h + "px"}, 100);
             } else if (len >= 10) {
+
               obj.animate({height: "305px"}, 100);
             }
             lscroll.css('overflow', 'hidden');
