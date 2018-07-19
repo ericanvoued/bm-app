@@ -17,7 +17,7 @@ declare var Swiper;
 
 
 export class HomePage {
-  userInfo:any;
+  userInfo:any = null;
   banner_swiper: any;
   info_swiper: any;
   showData = {'is_pop':0}
@@ -124,9 +124,14 @@ export class HomePage {
   }
 
   async loadPop(){
-    await this.homePrv.http.fetchData('/h5api-announcements/getalter').then(data=>{
-      this.showData = data.data
-    })
+    if(this.userInfo==null){
+
+    }else {
+      await this.homePrv.http.fetchData('/h5api-announcements/getalter?_t='+this.userInfo.auth_token).then(data=>{
+        this.showData = data.data
+      })
+    }
+
   }
 
 }

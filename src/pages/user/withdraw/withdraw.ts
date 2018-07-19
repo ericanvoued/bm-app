@@ -81,13 +81,13 @@ export class WithdrawPage {
 
   showPrompt() {
     let prompt = this.alertCtrl.create({
-      title: '请输入支付密码',
+      title: '验证支付密码',
       cssClass: 'inputPayModel',
       inputs: [
         {
           name: 'psw',
           type: 'password',
-          placeholder: '至少6位，字母和数字组合'
+          placeholder: '请输入支付密码'
         },
       ],
       buttons: [
@@ -159,13 +159,13 @@ export class WithdrawPage {
   addBankCard() {
     if (this.withdrewApiData.data.fund_password) {
       let prompt = this.alertCtrl.create({
-        title: '请输入支付密码',
+        title: '验证支付密码',
         cssClass: 'inputPayModel',
         inputs: [
           {
             name: 'psw',
             type: 'password',
-            placeholder: '至少6位，字母和数字组合'
+            placeholder: '请输入支付密码'
           },
         ],
         buttons: [

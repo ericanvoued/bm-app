@@ -106,7 +106,9 @@ export class UserCenterPage {
   ionViewDidEnter(){
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
     this.announcementsUnreadnum();
+    this.getBalance()
   }
+
   ionViewWillLeave(){
     clearInterval(this.timer)
   }
