@@ -17,11 +17,13 @@ declare var Swiper;
 
 
 export class HomePage {
-  userInfo:any;
+  userInfo:any = null;
   banner_swiper: any;
   info_swiper: any;
-  showData = {'is_pop':0}
+  showData = {}
   homeData: any;
+  is_pop=0
+
   infoData = {
     announcements: {data:['ddd']},
     letters: {data:['ddd']}
@@ -118,13 +120,18 @@ export class HomePage {
   }
 
   closePop(){
-    this.showData.is_pop=0;
+    this.is_pop=0;
   }
 
   async loadPop(){
-    await this.homePrv.http.fetchData('/h5api-announcements/getalter').then(data=>{
-      this.showData = data.data
-    })
+    if(this.userInfo==null){
+      return
+    }else {
+      await this.homePrv.http.fetchData('/h5api-announcements/getalter?_t='+this.userInfo.auth_token).then(data=>{
+        this.showData = data.data
+      })
+    }
+
   }
 
 }
