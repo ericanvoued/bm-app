@@ -11,6 +11,8 @@ import {HttpClient} from '@angular/common/http';
 })
 export class ScanQrPage {
 
+  userInfo: any = null;
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public http:HttpClient,
@@ -18,10 +20,24 @@ export class ScanQrPage {
               public loadPrd:LoadingProvider,
               public toast:ToastController,
               public alertCtrl: AlertController,) {
+
+    this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
   }
 
   ionViewDidEnter() {
-    this.scanQrcode()
+    this.checkUsr()
+  }
+
+  checkUsr(){
+    if(this.userInfo!=null){
+      this.loadPrd.showToast(this.toast,'哎呦喂，老用户不能参与该活动喔！')
+      setTimeout(()=>{
+        this.navCtrl.pop()
+      },500)
+
+    }else {
+      this.scanQrcode()
+    }
   }
 
   //scan qrCode

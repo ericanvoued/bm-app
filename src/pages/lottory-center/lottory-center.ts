@@ -81,7 +81,7 @@ export class LottoryCenterPage {
     const dynComp = this.resolver.resolveComponentFactory(componentName)
     this.dynComponent = this.dynLottoryComponent.createComponent(dynComp, 0);
 
-    this.homeprv.http.fetchData('/api-lotteries-h5/load-issues/' + id + '?count=90').then(data => {
+    this.homeprv.http.fetchData('/api-lotteries-h5/load-issues/' + id + '?count=90&sort=asc').then(data => {
       this.lcData.resultsData = {data: []};
       if (data.IsSuccess == 1) {
 
