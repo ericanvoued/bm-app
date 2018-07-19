@@ -62,42 +62,34 @@ export class KstrendPage {
     console.log('this.navParams.get(\'wanfa\')====' + this.navParams.get('wanfa'));
 
     // $('.alert-con').html(this.navParams.get('htm'));
-    this.base.requestJiangQiData('21', '3', 'trend').then(() => {
-      // $('.alert-con').html(this.navParams.get('htm'));
-      // $('.alert-con').html(localStorage.kshtml);
-      console.log('请求结束～～～');
-      // this.initView(this.navParams.get('wanfa'),1);
-      //   this.changePlaySelect();
-    });
+    // this.base.requestJiangQiData('21', '3', 'trend').then(() => {
+    //   // $('.alert-con').html(this.navParams.get('htm'));
+    //   // $('.alert-con').html(localStorage.kshtml);
+    //   console.log('请求结束～～～');
+    //   // this.initView(this.navParams.get('wanfa'),1);
+    //   //   this.changePlaySelect();
+    // });
 
     this.initany();
 
   }
 
+  ionViewWillEnter() {
+    // this.initView();
+    // this.loadData();
+    console.log('ionViewWillEnter')
+    this.base.requestJiangQiData(localStorage.idstr, '3', 'trend').then(() => {
+      // console.log(123232323)
+    });
+  }
+
+  // ionViewDidEnter(){
+  //   this.action.initView(this.navParams.get('wanfa'), 1);
+  //   this.action.changePlaySelect();
+  //   // this.action.setDefaultUiByIndex(0);
+  // }
 
   initany() {
-
-    // var myElement = document.getElementsByClassName('ion-con')[0];
-    // var mc = new Hammer(myElement);
-//  mc.on("pan swipe panleft panright panstart panmove  ", function(ev) {
-//    console.log(111111222);
-//    console.log(ev.type);
-//    // var obj =  $('.hzzs-container .t-3').eq(0);
-//    var obj =  $('.hzzs-container');
-//    $('.ks-tab-second').scrollLeft(obj.scrollLeft());
-//    this.left = obj.scrollLeft();
-//    // var marginLeft = obj.css('margin-left');
-//    // console.log('marginLeft==='+marginLeft)
-//    // console.log('left==='+left)
-//    // $('.ks-tab-second').scrollLeft(left);
-//    // $('.ks-tab-second').scrollTo(offserleft,0);
-//    // $('.top-line .t-3').scrollTo(offserleft,0);
-// // if(offserleft>0){
-// //   $('.top-line .t-3').css('margin-left','-'+offserleft+'px');
-// // }else{
-// //   $('.top-line .t-3').css('margin-left',offserleft-48+'px');
-// // }
-//  });
 
 
     // var startx, starty, left;
@@ -162,10 +154,6 @@ export class KstrendPage {
 
 
 
-
-
-
-
   }
 
 
@@ -182,8 +170,7 @@ export class KstrendPage {
     //记录当前topselelctview
     localStorage.kshtml = $('page-kstrend .alert-con').html();
     localStorage.wanfa = $('page-kstrend .wanfa').text();
-    console.log('localStorage.kshtml===' + localStorage.kshtml);
-
+    // console.log('localStorage.kshtml===' + localStorage.kshtml);
   }
 
 
@@ -197,7 +184,6 @@ export class KstrendPage {
     //购彩蓝 balls 数组添加数据 ，然后push
 
     this.addOrderEvent();
-
     this.navCtrl.push("KsBasketPage")
 
   }
