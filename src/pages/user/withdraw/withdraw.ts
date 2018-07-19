@@ -36,7 +36,6 @@ export class WithdrawPage {
   //提现
   //银行卡接口
   async withdrewBankApi() {
-    // this.withdrewApiData = (await this.http.fetchData('/h5api-withdrawals/withdraw?_t=' + this.userInfo.auth_token))
     await this.http.fetchData('/h5api-withdrawals/withdraw?_t=' + this.userInfo.auth_token).then(data => {
 
       if (data.isSuccess == 0) {
