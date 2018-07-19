@@ -58,7 +58,7 @@ export class KstrendAction {
       // $('.ks-tab-second').eq(index).removeClass('hide');
       // $('.content-d').addClass('hide');
       // $('.content-d').eq(index).removeClass('hide');
-      var title = $('.wanfa').text();
+      var title = $('.wanfa').eq(0).text();
       _this.changeBallUi(title, index);
     });
 
@@ -91,7 +91,7 @@ export class KstrendAction {
     var len = $('.ks-bom-ul .active').length;
     console.log('len==' + len)
     if (len > 0) {
-      console.log(6666)
+      // console.log(6666)
       // $('.bottom-r').css('background', '');
       $('.bottom-2 .confirm-btn').css('background', '');
     } else {
@@ -211,16 +211,15 @@ export class KstrendAction {
     trend.find('div').remove();
     // trend.html('');
     // $('.trend-content').html('');
-    var title = $('page-kstrend  .wanfa').text();
+    // var title = $('page-kstrend  .wanfa').text();
+
     console.log('title===' + title);
-
     //玩法切换时候  默认显示选中的 ， 其他的  按需显示
-
-    console.log('当前选中的 索引 index===' + index);
+    // console.log('当前选中的 索引 index===' + index);
     // $('.ks-bom-ul').find('li').remove();
     // $('.bom_title').text(title);
-
     // this.BaseTool.showLoading();
+
     let loader = this.loading.create({});
     loader.present();
 
@@ -269,7 +268,6 @@ export class KstrendAction {
         } else if (index == 2) {
           this.createHmfbContent();
         }
-
         break;
       case '三不同号':
         arr = this.sanbth;
@@ -285,7 +283,6 @@ export class KstrendAction {
         } else if (index == 3) {
           this.createLrContent();
         }
-
         break;
       case '二不同号':
         arr = this.sanbth;
@@ -689,12 +686,15 @@ export class KstrendAction {
 
       //当前遗漏
       var current_1 = $('.xtzs-ul li:last').find('.t-' + h).text();
-      if (current_1 == '') {
+      var current_2 = $('.xtzs-ul li').eq(-2).find('.t-' + h).text();
+      if (current_1 == '' && current_2!='') {
         current_1 = $('.xtzs-ul li').eq(-2).find('.t-' + h).text();
+      } else if (current_2== '') {
+        current_1 = '0';
       } else if (!(parseInt(current_1) > 0)) {
         current_1 = '0';
       }
-
+      console.log('current_1====' + current_1);
       // console.log('v====' + v);
       //最大遗漏
       var max_1 = 1;//parseInt($('.xtzs-ul .t-'+h).eq(0).text()), v;

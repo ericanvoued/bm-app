@@ -232,14 +232,14 @@ export class KsPage extends KsAction {
 
     // var userInfo = JSON.parse(localStorage.userInfo);
     var url, data;
-    url = '/api-lotteries-h5/load-issues/' + localStorage.idstr + '?count=90_t=';
+    url = '/api-lotteries-h5/load-issues/' + localStorage.idstr + '?count=90&sort=desc_t=';
 
     this.rest.getUrlReturn(url)
       .subscribe((data) => {
         // console.log(data);
         if (data.IsSuccess) {
 
-          localStorage.hisissue = JSON.stringify(data.data);
+          localStorage.hisissue = JSON.stringify(data.data.reverse());
           // console.log('localStorage.hisissue===' + JSON.parse(localStorage.hisissue));
           var htm = '', newary = [];
           if (data.data.length > 10) {
