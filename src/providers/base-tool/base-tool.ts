@@ -387,17 +387,11 @@ export class BaseToolProvider {
               }
             }
 
-            console.log('his==='+his)
-
             if (obj.css('height') == '0px' && len < 5) {
-
-              console.log('0px===')
 
               var h = len * 28 + 25;
               obj.animate({height: h + 'px'}, 100);
             } else if (obj.css('height') == '0px' && len >= 5) {
-
-              console.log('0px===')
 
               obj.animate({height: "165px"}, 100);
             } else if (parseInt(his) >= 165 && len < 10) {
