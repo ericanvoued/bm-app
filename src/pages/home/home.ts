@@ -20,10 +20,8 @@ export class HomePage {
   userInfo:any = null;
   banner_swiper: any;
   info_swiper: any;
-  showData = {}
+  showData = {'is_pop':0}
   homeData: any;
-  is_pop=0
-
   infoData = {
     announcements: {data:['ddd']},
     letters: {data:['ddd']}
@@ -120,12 +118,12 @@ export class HomePage {
   }
 
   closePop(){
-    this.is_pop=0;
+    this.showData.is_pop=0;
   }
 
   async loadPop(){
     if(this.userInfo==null){
-      return
+
     }else {
       await this.homePrv.http.fetchData('/h5api-announcements/getalter?_t='+this.userInfo.auth_token).then(data=>{
         this.showData = data.data
