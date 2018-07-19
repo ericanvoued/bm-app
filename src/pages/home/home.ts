@@ -107,6 +107,8 @@ export class HomePage {
       this.common.series_id = lottory.series_id
       localStorage.idstr = lottory.id
 
+      
+
       if(this.common.hasLoad.indexOf(this.common.series_id) == -1){
          this.common.hasLoad.push(this.common.series_id)
          this.loading.showWarn('正在获取玩法配置')
