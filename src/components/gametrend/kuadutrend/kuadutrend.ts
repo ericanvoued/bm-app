@@ -310,6 +310,20 @@ export class KuadutrendComponent {
     }
   }
 
+  processData(number){
+      if(this.common.smallMethod == '特殊号码'){
+        switch(number) {
+            case 0:
+                 return '豹子';
+            case 1:
+                 return '顺子';
+            case 2:
+                 return '对子';                     
+          }
+      }else
+          return number
+  }
+
   refreshData():Promise<any>{
     console.log('fwfwfwef')
     this.produceAllData()

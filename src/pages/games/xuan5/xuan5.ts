@@ -106,6 +106,9 @@ export class Xuan5Page extends Effect{
   }
 
   ionViewDidEnter(){
+    this.events.subscribe('changeRecord', () => {
+      this.fetchListData()
+    })    
     this.util.shakePhone(this.util.randomChoose)
  }  
 
@@ -117,6 +120,8 @@ export class Xuan5Page extends Effect{
             window.removeEventListener('devicemotion',element,false)
         })
     }
+    clearInterval(this.timer)
+    this.events.unsubscribe('changeRecord')
     this.util.listeners = []
  
  }

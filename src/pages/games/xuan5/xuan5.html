@@ -7,8 +7,8 @@
 <ion-header>
     
       <ion-navbar>
-        <ion-title (click)="common.toggle()">
-           <div style="position:relative;z-index:1300" #methodName>{{common.method}} {{common.smallMethod}}</div>
+        <ion-title >
+           <div style="position:relative;z-index:1300" (click)="common.toggle()" #methodName>{{common.method}} {{common.smallMethod}}</div>
            <div class="tri-arrow"></div>
         </ion-title>
     

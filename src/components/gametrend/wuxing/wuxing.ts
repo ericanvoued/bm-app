@@ -49,10 +49,14 @@ export class WuxingComponent implements OnInit {
     console.log(this.common.historyList)
     
     console.log(this.historyRecord)
+   
   }
 
   ngOnInit(){
     console.log(this.chooseIndex)
+    // document.getElementsByClassName('trend-container')[0].addEventListener('touchend', () => {
+    //   return true
+    // }, false)
 
     this.weiData = ['w','q','b','s','g'].slice(this.position[0], this.position[1])
     console.log(this.common.missData)
@@ -95,9 +99,10 @@ export class WuxingComponent implements OnInit {
             this.kaijiangData = this.historyRecord.map((ele,index) => {
               let sum, gap, daxiao, oddeven
               if(ele.history[0]){
-                sum = ele.history.slice(this.position[0], this.position[1]).reduce((l,r) => (+l) + (+r))
-                let max = Math.max(...ele.history)
-                let min = Math.min(...ele.history)
+                let tempArr = ele.history.slice(this.position[0], this.position[1])
+                sum = tempArr.reduce((l,r) => (+l) + (+r))
+                let max = Math.max(...tempArr)
+                let min = Math.min(...tempArr)
                 gap = max - min
                 let da = ele.history.filter(el => this.common.series_id == 1 ? el >= 5 : el > 5).length
                 daxiao = da + ':' + (5 - da)
@@ -318,5 +323,17 @@ export class WuxingComponent implements OnInit {
     return new Promise((resolve,reject) =>{
       resolve()
     })
+  }
+
+  async doRefresh(refresher){
+    console.log('ewfwfwf')
+    setTimeout(() => {
+     console.log('Async operation has ended');
+     refresher.complete();
+    }, 2000);
+    let record = await this.common.fetchRecord()
+    let miss = await this.common.getMissObservable()
+
+    this.refreshData()
   }
 }

@@ -51,6 +51,9 @@ export class KstrendAction {
 
     let _this = this;
     $('.select-d').on("click", ".ks-tab-top .ks-tab-unit", function () {
+
+
+
       $('.current').removeClass('current');
       let index = $(this).index();
       $(this).addClass('current');
@@ -205,6 +208,8 @@ export class KstrendAction {
     //1 改变 顶部tab
     //2 改变 次顶级 tab
     //3 改变页面
+    let loader = this.loading.create({});
+    loader.present();
 
     var htm = '', item, arr = [], obj = $('.select-d'), trend = $('.trend-content');
     obj.find('ul').remove();
@@ -220,8 +225,7 @@ export class KstrendAction {
     // $('.bom_title').text(title);
     // this.BaseTool.showLoading();
 
-    let loader = this.loading.create({});
-    loader.present();
+
 
     switch (title) {
       case '和值':

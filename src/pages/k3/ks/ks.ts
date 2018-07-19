@@ -290,7 +290,6 @@ export class KsPage extends KsAction {
   }
 
 
-
   resetTopSelectView() {
 
     if (localStorage.kshtml != null) {
@@ -343,19 +342,16 @@ export class KsPage extends KsAction {
     localStorage.wanfa = '和值';
     localStorage.max_multiple = 949;
     this.base.initHisBox('ks-content');
-    if ($('#ks-content .section.current').offset().top < 97) {
-      $(".his-box").stop().animate({height: "0px"}, 0);
-      return;
-    }
+    // if ($('#ks-content .section.current').offset().top < 97) {
+    //   $(".his-box").stop().animate({height: "0px"}, 0);
+    //   return;
+    // }
 
 
   }
 
 
-
-
   pushToBasket() {
-
 
 
     var moneyunit = 1;

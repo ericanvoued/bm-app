@@ -351,11 +351,10 @@ export class CommonProvider {
         //let data = (await this.http.postData('/api-lotteries-h5/load-data/1/' + this.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token, {_token:JSON.parse(localStorage.getItem('userInfo')).token})).data
         let data = (await this.http.fetchData('/api-lotteries-h5/load-data/1/' + this.gameId)).data
         console.log(data)
-
         if(data){
             this.prizeGroup = []
-            this.prizeGroup.push(data.bet_max_prize_group + '-' + Number((data.user_prize_group - data.bet_max_prize_group)/data.series_amount*100).toFixed(2) + '%')
-            this.prizeGroup.push(data.bet_min_prize_group + '-' + Number((data.user_prize_group - data.bet_min_prize_group)/data.series_amount*100).toFixed(2) + '%')
+            this.prizeGroup.push(data.bet_max_prize_group + '-' + Number((+data.user_prize_group - data.bet_max_prize_group)/data.series_amount*100).toFixed(2) + '%')
+            this.prizeGroup.push(data.bet_min_prize_group + '-' + Number((+data.user_prize_group - data.bet_min_prize_group)/data.series_amount*100).toFixed(2) + '%')
             this.chooseGroup = this.prizeGroup[0]
             console.log(this.prizeGroup)
             this.trace_max_times = data.trace_max_times    
@@ -367,7 +366,7 @@ export class CommonProvider {
     }
 
     async getMissObservable(){
-       let missData =  (await this.http.fetchData('/api-lotteries-h5/getnewlottterymissed/' + this.gameId + '/90')).data
+       let missData =  (await this.http.fetchData('/api-lotteries-h5/getnewlottterymissed/' + this.gameId + '/30')).data
        if(missData)
           this.missData = missData
        console.log(this.missData)
