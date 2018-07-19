@@ -292,8 +292,8 @@ export class LhcSlidePage extends LhcAction {
   betClick() {
 
     const that = this;
-    console.log('localStorage.userInfo=='+localStorage.userInfo)
-    if (!localStorage.userInfo) {
+    // console.log('localStorage.userInfo=='+localStorage.userInfo)
+    if (localStorage.userInfo == null||!localStorage.userInfo) {
       $('body').append(Tpl.fail_tip);
       $('#error-tip').text('您还未登录～');
       setTimeout(function () {
