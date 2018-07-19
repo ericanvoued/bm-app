@@ -20,6 +20,7 @@ export class HomePage {
   userInfo:any;
   banner_swiper: any;
   info_swiper: any;
+  showData = {'is_pop':0}
   homeData: any;
   infoData = {
     announcements: {data:['ddd']},
@@ -34,6 +35,7 @@ export class HomePage {
 
     this.homePrv.loadbanner();
     this.homePrv.loadannouncements();
+    this.loadPop()
 
   }
 
@@ -51,6 +53,7 @@ export class HomePage {
     }
 
     this.basket.clearBasket()
+
   }
 
   ngAfterContentInit(){
@@ -112,6 +115,16 @@ export class HomePage {
     }else{
       alert('no pages')
     }
+  }
+
+  closePop(){
+    this.showData.is_pop=0;
+  }
+
+  async loadPop(){
+    await this.homePrv.http.fetchData('/h5api-announcements/getalter').then(data=>{
+      this.showData = data.data
+    })
   }
 
 }

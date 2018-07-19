@@ -54,6 +54,9 @@ export class TransDetailPage {
     })
   }
 
+  selectDate(){
+    this.selectChange(this.currentLottory,this.transData.page,true)
+  }
 
   async selectChange(_lottory,page,isChange){
     this.transData.data = []

@@ -74,7 +74,7 @@ export class HttpClientProvider {
     if(data.IsSuccess==2){
       let nav = this.app.getActiveNav();
       localStorage.removeItem('userInfo');
-      this.load.showMidToast(this.toastCtrl,data.Msg)
+      this.load.showMidToast(this.toastCtrl,'登陆超时，请重新登陆')
       nav.push('LoginPage')
     }else {
       return null;
@@ -85,7 +85,7 @@ export class HttpClientProvider {
     if(data.IsSuccess==2){
       // let nav = this.app.getActiveNav();
       localStorage.removeItem('userInfo');
-      this.load.showMidToast(this.toastCtrl,data.Msg)
+      this.load.showMidToast(this.toastCtrl,'登陆超时，请重新登陆')
     }else {
       return null;
     }

@@ -56,6 +56,10 @@ export class FollowHistoryPage {
     })
   }
 
+  selectDate(){
+    this.selectLottory(this.followData.currentLottory,this.followData.currentpage,true)
+  }
+
   //选择彩种
   async selectLottory(_lottory,page,isChange) {
     await this.http.postData('/h5api-traces/0/getalltransations?_t=' + this.userInfo.auth_token, {

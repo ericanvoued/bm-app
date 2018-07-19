@@ -111,7 +111,7 @@ export class BankCardPage {
         {
           text: '确认',
           handler: data => {
-            this.bcData.toast = this.loadPrd.showLoading(this.loadingCtrl, '资金密码设置中')
+
             if (data.password != data.comfirmPsw) {
               data.comfirmPsw = ''
               data.password = ''
@@ -123,14 +123,16 @@ export class BankCardPage {
               this.bcData.toast = this.loadPrd.showMidToast(this.toastCtrl, '输入的密码长度不对');
               return false
             } else {
+              this.bcData.toast = this.loadPrd.showLoading(this.loadingCtrl, '资金密码设置中')
               this.postFoundPsw({psw1: data.password, psw2: data.comfirmPsw}).then(data1 => {
-
+                this.bcData.toast.dismiss()
                 this.http.checkUnjump(data1)
                 if (data1.isSuccess == 1) {
                   this.bcData.toast = this.loadPrd.showMidToast(this.toastCtrl, data1.Msg);
                   this.navCtrl.push('AddBankCardPage')
                 } else {
                   if(data1.isSuccess == 2){
+                    this.http.checkUnjump(data1)
                     return null;
                   }else {
                     this.bcData.toast = this.loadPrd.showMidToast(this.toastCtrl, data1.Msg);
@@ -192,18 +194,23 @@ export class BankCardPage {
         {
           text: '确认',
           handler: data => {
-            this.sendFoundPsw({psw1: data.password}).then(data1 => {
-              this.http.checkUnjump(data1)
-              if (data1.IsSuccess) {
-                this.navCtrl.push('AddBankCardPage')
-              } else {
-                if(data1.IsSuccess==2){
-                  return null
-                }else {
-                  this.bcData.toast = this.loadPrd.showMidToast(this.toastCtrl, data1.Msg);
+            if (data.password == '' || data.password.length < 6 || data.password.length > 16) {
+              this.toast = this.loadPrd.showToast(this.toastCtrl, '支付密码不正确')
+              return false
+            } else {
+              this.sendFoundPsw({psw1: data.password}).then(data1 => {
+                this.http.checkUnjump(data1)
+                if (data1.IsSuccess) {
+                  this.navCtrl.push('AddBankCardPage')
+                } else {
+                  if(data1.IsSuccess==2){
+                    return null
+                  }else {
+                    this.bcData.toast = this.loadPrd.showMidToast(this.toastCtrl, data1.Msg);
+                  }
                 }
-              }
-            })
+              })
+            }
           }
         }
       ]

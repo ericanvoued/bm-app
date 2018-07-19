@@ -18,7 +18,6 @@ import {HomeProvider} from '../providers/home/home';
 import {LoginProvider} from '../providers/login/login';
 import {RestProvider} from '../providers/rest/rest';
 import {LoadingProvider} from '../providers/loading/loading';
-import {InfoCenterProvider} from '../providers/info-center/info-center';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {CommonProvider} from '../providers/common/common';
@@ -73,7 +72,6 @@ import {Vibration} from '@ionic-native/vibration';
     LoginProvider,
     RestProvider,
     LoadingProvider,
-    InfoCenterProvider,
     CommonProvider,
     HttpClientProvider,
     ToolsProvider,

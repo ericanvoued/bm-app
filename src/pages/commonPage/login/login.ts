@@ -84,6 +84,8 @@ export class LoginPage {
             });
           })
         } else {
+          this.username = ''
+          this.password = ''
           // this.loading.dismiss();
           this.tost = this.loadPrd.showMidToast(this.ToastCtrl, data.Msg);
         }
@@ -112,6 +114,7 @@ export class LoginPage {
       return false;
     } else if (!patt.test(this.password)) {
       // this.pswInfoFlag = true;
+      this.password = ''
       this.loadPrd.showMidToast(this.ToastCtrl, '密码格式不对');
       // this.pswInfo = '密码格式不对';
       return false;

@@ -62,6 +62,9 @@ export class ChangeLoginPswPage {
             pageIndex: 3
           });
         }else if(data.isSuccess == 0) {
+          this.pswData.old_password='';
+          this.pswData.password='';
+          this.pswData.password_confirmation='';
           toast = this.loadPrd.showToast(this.ToastCtrl,data.data.tplData.msg)
         }
       })

@@ -65,10 +65,11 @@ export class LottoryHistoryPage {
     })
   }
 
+  selectDate(){
+    this.selectLottory(this.lrecord.currentLottory, this.lrecord.currentpage, true)
+  }
 
   async selectLottory(_lottory,page,isChange) {
-
-
     await this.http.postData('/h5api-projects?_t=' + this.userInfo.auth_token, {
       'Content-Type': 'application/x-www-form-urlencoded',
       '_token': this.userInfo.token,

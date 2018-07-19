@@ -76,22 +76,27 @@ export class SignupPage {
       return false;
     } else if (this.signData.data.password.length == 0) {
       this.signData.pswInfoFlag = true;
+      this.signData.data.password = ''
       this.signData.pswInfoText = '密码不能为空';
       return false;
     } else if (this.signData.data.password.length<6||this.signData.data.password.length>16) {
+      this.signData.data.password = ''
       this.signData.pswInfoFlag = true;
       this.signData.pswInfoText = '密码长度不对';
       return false;
     } else if (!patt.test(this.signData.data.password)) {
+      this.signData.data.password = ''
       this.signData.pswInfoFlag = true;
       this.signData.pswInfoText = '密码格式不对';
       return false;
     }  else if (this.signData.data.confirmPsw.length == 0) {
+      this.signData.data.confirmPsw= ''
       this.signData.checkInfoFlag = true;
       this.signData.checkInfoText = '请再次输入密码确认';
       return false;
     }  else if (this.signData.data.confirmPsw != this.signData.data.password) {
       this.signData.checkInfoFlag = true;
+      this.signData.data.confirmPsw = ''
       this.signData.checkInfoText = '两次输入的密码不一样';
       return false;
     }else {
@@ -135,6 +140,10 @@ export class SignupPage {
             pageIndex: 0
           });
         } else {
+          this.signData.data.username = ''
+          this.signData.data.password = ''
+          this.signData.data.confirmPsw = ''
+
           this.signData.loading.dismiss();
           this.signData.toast = this.loadPrd.showToast(this.ToastCtrl, data.Msg);
         }

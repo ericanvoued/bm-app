@@ -7,12 +7,12 @@
 <ion-content>
   <div class="lh-head">
     <div class="lh-Picker">
-      <ion-datetime min="2013" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="transData.timeStarts"></ion-datetime>
+      <ion-datetime min="2013" cancelText="取消" doneText="确定" (ionChange)='selectDate()' displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="transData.timeStarts"></ion-datetime>
       <i class="firecat-icon dropdown-icon"></i>
     </div>
     <div class="mid-line"></div>
     <div class="lh-Picker">
-      <ion-datetime min="2013" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="transData.timeEnds"></ion-datetime>
+      <ion-datetime min="2013" cancelText="取消" doneText="确定" (ionChange)='selectDate()' displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="transData.timeEnds"></ion-datetime>
       <i class="firecat-icon dropdown-icon"></i>
     </div>
     <div class="mid-line"></div>
@@ -53,7 +53,7 @@
   <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))" *ngIf="loadmore==true">
     <ion-infinite-scroll-content class="myloading" loadingSpinner="bubbles" loadingText="努力加载中…"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
-  <div *ngIf="isNomore==true" style="line-height: 50px;text-align: center;font-size: 14px;margin-top: -10px">
-    没有更多了
-  </div>
+  <!--<div *ngIf="isNomore==false" style="line-height: 50px;text-align: center;font-size: 14px;margin-top: -10px">-->
+    <!--没有更多了-->
+  <!--</div>-->
 </ion-content>

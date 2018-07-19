@@ -211,7 +211,69 @@ page-home {
   background-repeat: no-repeat;
   background-position: center top;
 }
-
+.alert-pop-mask{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000000000;
+  background-color: rgba(33,33,33,.5);
+}
+.e-alert-main{
+  width: 75vw;
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 100000000000;
+  padding: 9px;
+  .close-wrap{
+    height: 32px;
+    border-bottom: 2px solid #e8e8e8;
+    .close-span{
+      height: 30px;
+      width: 30px;
+      display: block;
+      float: right;
+      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAblJREFUSA3Nl0FOAjEUhqclJK7ceQO8AFu3o1sTzkAyrjyMK0kmcwQSt8qWrReQU7gyIYDvI5aUYei81ib6kkdL2/d/fZ12KKZpmqv1ev1cFEUpvhoMBo/T6XQp9WxW1/XNZrN5EsGR+GI4HD7YH+hEGi7Fx9vtdjGbze6knsXQQlPExuIwJjCtMebWJ+x2uwtpe8kBRwMtNH2G1EsrjR+txiIHPAAFt7I8U5nVV054CAoLpmUjSYb3ueB9UFgwjctUE1BV1asb31XGaBzACMUEtsGxsUfgVHgsFM4JOBaeAj0L1sL3At3ntGCzspHO7YvOjBHE+rJhDGee0rc+KGODYAaE4PS3TQMlphfMIC1cC1WDNfAYKHqWj7+w/7vU2ufrVk275MGMQ1AAwLIfpz4oLwfAMoGuH/q0F4gG6t5IMWOZqLOTpU4RSok5AqcIuAxiYw/g2EAH9MsYjT04JsAHddW1WobLNvfe1GORArfWlpYbfk4oE2HHc9zcWfcnBwsmF/prv4M6AQS6I9Pu13wPwSV+xIX+zRfKAXV6AfjC8gdKBs7FP8XfWf/fZOqgrkQLTbTFYcxhfgNLQBpJWeo/+QAAAABJRU5ErkJggg==');
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: 16px 16px;
+    }
+  }
+  .e-alert-content{
+    padding: 0 9px;
+    h2{
+      font-weight: bold;
+      font-family: PingFangSC-Medium;
+      font-size: 16px;
+      color: #333333;
+      letter-spacing: -0.29px;
+      line-height:50px;
+      text-align: center;
+    }
+    p{
+      font-family: PingFangSC-Regular;
+      font-size: 14px;
+      color: #4A4A4A;
+      letter-spacing: -0.25px;
+      line-height:24px;
+      margin-bottom: 10px;
+    }
+  }
+  .e-alert-footer{
+    padding: 10px 4px;
+    font-size: 14px;
+    color: #4A4A4A;
+    letter-spacing: -0.25px;
+    line-height:24px;
+    text-align: right;
+  }
+}
 
 
 

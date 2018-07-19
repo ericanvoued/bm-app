@@ -7,12 +7,12 @@
 <ion-content>
   <div class="lh-head">
     <div class="lh-Picker">
-      <ion-datetime min="2013" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="lrecord.timeStarts"></ion-datetime>
+      <ion-datetime min="2013" cancelText="取消" doneText="确定" (ionChange)='selectDate()' displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="lrecord.timeStarts"></ion-datetime>
       <i class="firecat-icon dropdown-icon"></i>
     </div>
     <div class="mid-line"></div>
     <div class="lh-Picker">
-      <ion-datetime min="2013" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="lrecord.timeEnds"></ion-datetime>
+      <ion-datetime min="2013" cancelText="取消" doneText="确定" (ionChange)='selectDate()' displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="lrecord.timeEnds"></ion-datetime>
       <i class="firecat-icon dropdown-icon"></i>
     </div>
     <div class="mid-line"></div>
@@ -67,7 +67,7 @@
                 <p class="right">玩法详情： <span>{{record.title}}</span></p>
               </div>
               <div class="case-wrap">
-                <p class="right">投注内容： <span>{{record.display_bet_number}}</span></p>
+                <p class="right" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden">投注内容： <span>{{record.display_bet_number}}</span></p>
               </div>
               <div class="case-wrap">
                 <p class="right">模&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;式： <span>{{lrecord.bet_model[record.coefficient]}}</span></p>
@@ -98,7 +98,7 @@
   <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))" *ngIf="loadmore==true">
     <ion-infinite-scroll-content class="myloading" loadingSpinner="bubbles" loadingText="努力加载中…"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
-  <div *ngIf="isNomore==true" style="line-height: 50px;text-align: center;font-size: 14px;margin-top: -40px">
-    没有更多了
-  </div>
+  <!--<div *ngIf="isNomore==false" style="line-height: 50px;text-align: center;font-size: 14px;margin-top: -40px">-->
+    <!--没有更多了-->
+  <!--</div>-->
 </ion-content>
