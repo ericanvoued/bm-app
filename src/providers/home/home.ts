@@ -13,11 +13,11 @@ import {K3KaijiangComponent} from '../../components/lottory-center/k3-kaijiang/k
 import {K3BaseTrendComponent} from '../../components/lottory-center/k3-base-trend/k3-base-trend'
 import {K3ShapeTrendComponent} from '../../components/lottory-center/k3-shape-trend/k3-shape-trend'
 import {K3CoodHotComponent} from '../../components/lottory-center/k3-cood-hot/k3-cood-hot'
-import {Pk10KaijiangComponent} from '../../components/lottory-center/pk10-kaijiang/pk10-kaijiang'
-import {Pk10daxiaoComponent} from '../../components/lottory-center/pk10daxiao/pk10daxiao'
-import {Pk10DanshuangComponent} from '../../components/lottory-center/pk10-danshuang/pk10-danshuang'
-import {Pk10ChanpiomComponent} from '../../components/lottory-center/pk10-chanpiom/pk10-chanpiom'
-import {Pk10LonghuComponent} from '../../components/lottory-center/pk10-longhu/pk10-longhu'
+// import {Pk10KaijiangComponent} from '../../components/lottory-center/pk10-kaijiang/pk10-kaijiang'
+// import {Pk10daxiaoComponent} from '../../components/lottory-center/pk10daxiao/pk10daxiao'
+// import {Pk10DanshuangComponent} from '../../components/lottory-center/pk10-danshuang/pk10-danshuang'
+// import {Pk10ChanpiomComponent} from '../../components/lottory-center/pk10-chanpiom/pk10-chanpiom'
+// import {Pk10LonghuComponent} from '../../components/lottory-center/pk10-longhu/pk10-longhu'
 import {LhcKaijiangComponent} from '../../components/lottory-center/lhc-kaijiang/lhc-kaijiang'
 import {LhcShengxiaoComponent} from '../../components/lottory-center/lhc-shengxiao/lhc-shengxiao'
 import {LhcBoseComponent} from '../../components/lottory-center/lhc-bose/lhc-bose'
@@ -28,7 +28,7 @@ export class HomeProvider {
   userInfo ;
   infoData = {
     unreadAnnouncements:0,
-    announcements: {data:['']}
+    announcements: ['']
   }
 
   currentLottory=null

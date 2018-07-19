@@ -6,10 +6,9 @@ import { RestProvider } from '../rest/rest';
 export class SignupProvider {
 
   getRegisterParamApi = '/h5-api-auth/register?_t=init';
-  // getRegisterParamApi = '/h5-api-auth/register?_t=init&keyword=';
 
   constructor(public http: HttpClient,public rest: RestProvider) {
-    // console.log('Hello SignupProvider Provider');
+
   }
 
   getRegisterParam(_keyword) {

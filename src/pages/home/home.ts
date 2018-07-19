@@ -1,16 +1,15 @@
 import {Component} from '@angular/core';
-import { NavController, ModalController} from 'ionic-angular';
+import { IonicPage, NavController, ModalController} from 'ionic-angular';
 import { HomeProvider } from '../../providers/home/home'
 import { CommonProvider } from "../../providers/common/common";
 import { LoadingProvider } from '../../providers/loading/loading'
-import {HotGmageListPage} from '../hot-gmage-list/hot-gmage-list';
-import { InfoCenterPage } from '../info-center/info-center'
 
 import { BasketDataProvider } from '../../providers/basket-data/basket-data'
 
 
 declare var Swiper;
 
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -21,6 +20,7 @@ export class HomePage {
   userInfo:any;
   banner_swiper: any;
   info_swiper: any;
+  showData = {'is_pop':0}
   homeData: any;
   infoData = {
     announcements: {data:['ddd']},
@@ -35,6 +35,7 @@ export class HomePage {
 
     this.homePrv.loadbanner();
     this.homePrv.loadannouncements();
+    this.loadPop()
 
   }
 
@@ -52,6 +53,7 @@ export class HomePage {
     }
 
     this.basket.clearBasket()
+
   }
 
   ngAfterContentInit(){
@@ -113,6 +115,16 @@ export class HomePage {
     }else{
       alert('no pages')
     }
+  }
+
+  closePop(){
+    this.showData.is_pop=0;
+  }
+
+  async loadPop(){
+    await this.homePrv.http.fetchData('/h5api-announcements/getalter').then(data=>{
+      this.showData = data.data
+    })
   }
 
 }

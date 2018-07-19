@@ -33,7 +33,8 @@
   <div class="invite-btn" (click)="getQRCode()" *ngIf="!invitedata.showQrcode">
     <button>生成邀请二维码</button>
   </div>
-  <div class="invite-btn" (click)="shareQRCode()" *ngIf="invitedata.showQrcode">
+  <div class="invite-btn" *ngIf="invitedata.showQrcode">
+  <!--<div class="invite-btn" (click)="shareQRCode()" *ngIf="invitedata.showQrcode">-->
     <button>分享邀请链接</button>
   </div>
 </ion-content>

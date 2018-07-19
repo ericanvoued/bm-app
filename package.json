@@ -23,7 +23,7 @@
     "@angular/platform-browser": "5.2.10",
     "@angular/platform-browser-dynamic": "5.2.10",
     "@ionic-native/background-mode": "^4.9.1",
-    "@ionic-native/camera": "^4.9.0",
+    "@ionic-native/camera": "^4.9.2",
     "@ionic-native/core": "^4.9.0",
     "@ionic-native/file": "^4.9.2",
     "@ionic-native/file-path": "^4.7.0",

@@ -46,7 +46,6 @@ export class ChargePage {
               public toastCtrl: ToastController,
               public loadPrd: LoadingProvider,
               public modalCtrl: ModalController,
-              // public ucPrd: UserCenterProvider,
               public LoadingCtrl: LoadingController,
               public http: HttpClientProvider,
               public navCtrl: NavController,

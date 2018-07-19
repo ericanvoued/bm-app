@@ -39,11 +39,11 @@
   <div class="index-info" (click)="pushPage('InfoCenterPage','消息中心')">
     <div class="info-title">
       <i class="voice-icon"></i>
-      消息({{homePrv.infoData.unreadAnnouncements}})
+      消息({{homePrv.infoData.unreadAnnouncements>99?'99+':homePrv.infoData.unreadAnnouncements}})
     </div>
     <div class="info-slider">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" *ngFor="let info of homePrv.infoData.announcements.data;index as i;">
+        <div class="swiper-slide" *ngFor="let info of homePrv.infoData.announcements;index as i;">
           <a href="javascript:;">{{info.title}}</a>
         </div>
       </div>
@@ -78,3 +78,22 @@
   </div>
 
 </ion-content>
+<div class="alert-pop-mask" (click)="closePop()" *ngIf="showData.is_pop==1"></div>
+<div class="e-alert-main cl" (click)="closePop()" *ngIf="showData.is_pop==1">
+  <div class="close-wrap">
+    <span class="close-span"></span>
+  </div>
+  <div class="e-alert-content">
+    <h2>{{showData.title}}</h2>
+    <p [innerHTML]="showData.content"></p>
+  </div>
+  <!--<div class="e-alert-footer">-->
+    <!--<p>博猫彩票运营团队</p>-->
+    <!--<p>{{showData.created_at.slice(0,10)}}</p>-->
+    <!--<p>2018年2月11日</p>-->
+  <!--</div>-->
+</div>
+
+
+
+

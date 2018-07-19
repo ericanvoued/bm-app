@@ -135,7 +135,9 @@ export class LhcAction {
 
     var wanfa = $('.wanfa').text(), bonus = 0, profit;
     if (wanfa.search('特码') != -1 || wanfa.search('正') != -1|| wanfa.search('不') != -1) {
+
       var balldata = JSON.parse(localStorage.balls);
+
       // console.log('balldata[0].odds=='+balldata[0].odds)
       bonus = money * balldata[0].odds;
       profit = bonus - money;
@@ -582,7 +584,7 @@ export class LhcAction {
     let _this = this;
     var type = $('.wanfa').text();
 
-    if (_this.isfast()) {
+    if (_this.isfast()||type.search('不中')!=-1||type.search('六肖')!=-1) {
 
       var len;
       if (type.search('特码') != -1 || type.search('正') != -1) {
@@ -1001,8 +1003,9 @@ export class LhcAction {
       $('.money-text .money').text('0元');
       $('.money-text .bonus').text(0);
       $('.money-text .profit').text(0);
+      var play = $('.wanfa').text();
       //快捷选号
-      if (_this.isfast()) {
+      if (_this.isfast()||play.search('不中')!=-1||play.search('六肖')!=-1) {
 
         localStorage.removeItem('balls');//移除之前选择的数据
         // var arr = JSON.parse(localStorage.balls);
@@ -1011,7 +1014,6 @@ export class LhcAction {
 
         console.log('zhu===='+zhu);
         if (zhu < 1) {
-          //弹框提示
           _this.failedTip();
           return;
         } else {
@@ -1026,9 +1028,7 @@ export class LhcAction {
         localStorage.removeItem('balls');
         var zhu = _this.calculateNum().zhu;
         if (zhu < 1) {
-          //弹框提示
           _this.failedTip();
-          // alert('请选择有效注单');
           return;
         } else {
           _this.dealWithManyBallData();
@@ -1071,8 +1071,9 @@ export class LhcAction {
     $('.money-text').addClass('hide');
     $('.yuan').removeClass('hide');
     $('#yue').text();
-    if (_this.isfast()) {
+    if (_this.isfast()||play.search('不中')!=-1||play.search('六肖')!=-1) {
       //赋值
+      console.log('报错localStorage.balls=='+localStorage.balls);
       $('.buy-input').removeClass('hide');
       var arr = JSON.parse(localStorage.balls);
       console.log(arr);
