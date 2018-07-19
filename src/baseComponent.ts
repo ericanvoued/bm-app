@@ -101,7 +101,6 @@ export class Effect{
     fetchListData(){
         this.common.fetchRecord().then(() => {
             this.list = this.common.historyList.map(this.handleBall).slice(0,10)
-            console.log(this.list)
             if(this.list.length > 2){
                 this.maxNumber = Math.ceil(this.list.length/5)
             }else{
@@ -109,10 +108,9 @@ export class Effect{
             }
 
             if(this.list.filter(item => !item.balls).length){
-                let timer = setInterval(() => {
+                this.timer = setInterval(() => {
                     this.common.fetchRecord().then(() => {
                         this.list = this.common.historyList.map(this.handleBall).slice(0,10)
-                        console.log(this.list)
                         if(this.list.length > 2){
                             this.maxNumber = Math.ceil(this.list.length/5)
                         }else{
@@ -120,7 +118,7 @@ export class Effect{
                         }
 
                         if(!this.list.filter(item => !item.balls).length)
-                            clearInterval(timer)
+                            clearInterval(this.timer)
                     })
                 },10000)
             }

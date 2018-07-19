@@ -53,7 +53,7 @@ export class SscPage extends Effect{
     over:boolean;
     trHeight:number;
     high:number = 0
-
+    timer:any
     gameConfig:any;
 
     constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, public resolver: ComponentFactoryResolver,public app:App,public loadingCtrl:LoadingController,
@@ -133,6 +133,9 @@ export class SscPage extends Effect{
       }
 
     ionViewDidEnter(){
+        this.events.subscribe('changeRecord', () => {
+            this.fetchListData()
+        })    
         this.util.shakePhone(this.util.randomChoose)
     }  
 
@@ -143,6 +146,8 @@ export class SscPage extends Effect{
                  window.removeEventListener('devicemotion',element,false)
             })
         }
+        clearInterval(this.timer)
+        this.events.unsubscribe('changeRecord')
         this.util.listeners = []
     }
 

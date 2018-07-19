@@ -95,6 +95,10 @@ export class BasketPage {
         return 
     }
     this.basket.statistic.multiple += number
+
+    // this.basket.betData = this.basket.betData.map(item => {
+    //     return {...item, beishu:item.beishu*this.basket.statistic.multiple}
+    // })
     console.log(this.basket.totalAmount)   
   }
 
@@ -277,7 +281,7 @@ export class BasketPage {
           'onePrice': ballsData[i]['onePrice'],
           'prize_group':ballsData[i]['prize_group'],
           'moneyunit': ballsData[i]['moneyUnit'],
-          'multiple': ballsData[i]['multiple']
+          'multiple': this.basket.statistic.multiple*ballsData[i].beishu
         })
       }
 

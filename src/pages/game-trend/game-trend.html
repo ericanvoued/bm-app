@@ -17,16 +17,15 @@
   
   
   <ion-content>
-      <div class="body-bg"></div>
-    
-      
       <ion-refresher (ionRefresh)="doRefresh($event)">
-          <ion-refresher-content 
+          <ion-refresher-content class="myloading"
             pullingText="下拉刷新..."
             refreshingText="正在刷新...">
           </ion-refresher-content>
-        </ion-refresher>
-        <gamemenu (switch)="methodChange($event)"></gamemenu>  
+      </ion-refresher>
+      <div class="body-bg"></div>
+    
+     <gamemenu (switch)="methodChange($event)"></gamemenu>  
   <!-- <div class="segment">
        <ion-segment [(ngModel)]="util.choose" (ionChange)="segmentChanged($event)">
          <ion-segment-button *ngFor="let name of util.menus;let ii = index" value="{{name}}">{{name}}</ion-segment-button>  
@@ -35,20 +34,20 @@
   <div style="display:none">
     <ng-template  #noshowContainer></ng-template>
   </div>
-  
-  <ng-template #gameTrendContainer></ng-template>  
+   
+   
+      <ng-template  #gameTrendContainer></ng-template>
+     
   <!-- <trend-head (changeIndex)="segmentChanged($event)"> </trend-head>   -->
   
-  <div class="fixed-footer">
-    <ul class="choose-area">
-        <li *ngIf="common.count > 0" style="font-size:12px;display:flex;align-items:center"> 
-          <span class="little-circle"></span> <span>若中奖: 奖金{{util.formatMoney(common.bonus)}} 盈利{{common.profits}}</span></li>
-        <li style="font-size:12px;display:flex;align-items:center">
-          <span class="little-circle"></span> <span>距离{{common.currentNumber}}截止{{common.countTime.minutes}} : {{common.countTime.seconds}}</span></li>     
-    </ul>
-     
-     
-      <div id="confirm" [class.active]="common.count > 0" (click)="goBasket()">确定</div>
- </div>
-  </ion-content>
   
+  </ion-content>
+  <div class="fixed-footer">
+      <ul class="choose-area">
+          <li *ngIf="common.count > 0" style="font-size:12px;display:flex;align-items:center"> 
+            <span class="little-circle"></span> <span>若中奖: 奖金{{util.formatMoney(common.bonus)}} 盈利{{common.profits}}</span></li>
+          <li style="font-size:12px;display:flex;align-items:center">
+            <span class="little-circle"></span> <span>距离{{common.currentNumber}}截止{{common.countTime.minutes}} : {{common.countTime.seconds}}</span></li>     
+      </ul>
+        <div id="confirm" [class.active]="common.count > 0" (click)="goBasket()">确定</div>
+    </div>

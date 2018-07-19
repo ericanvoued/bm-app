@@ -44,14 +44,14 @@ export class GameTrendPage {
     this.common.getMissObservable()
 
     $('body').on('touchstart', '.ball-tap', function(){
-      //  if($(this).find('span.tip'))
-      //     return
+  
        let text = $(this).find('#ball').text()
-       let dom = $('<span class="tip">'  + text + '</span>')
+       let dom = $(this).hasClass('special') ? $('<span class="tips">'  + text + '</span>'): $('<span class="tip">'  + text + '</span>')
        $(this).append(dom)
 
     }).on('touchend', '.ball-tap', function(){
        $(this).find('.tip').remove()
+       $(this).find('.tips').remove()
     })
 
     this.observable.subscribe((val:Promise<any>) => {

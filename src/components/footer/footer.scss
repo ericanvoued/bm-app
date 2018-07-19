@@ -8,7 +8,7 @@ footer {
         
       .tab-mode{width:70px;display:flex;flex-direction:column;align-items:center;justify-content:space-around;background:#ffffff}
     
-      .clear{width:10%;background:url('../assets/imgs/games/clear.png') center center no-repeat;background-size:50% 70%;width:70px;border-right:1px solid #f0f0f0;background-color:#ffffff}
+      .clear{width:10%;background:url('../assets/imgs/games/clear.svg') center center no-repeat;width:70px;border-right:1px solid #f0f0f0;background-color:#ffffff}
     
       .basket{width:92px;background:url('../assets/imgs/games/basket.svg') center center no-repeat;background-size:auto 50px;position: relative}
     
@@ -19,4 +19,8 @@ footer {
         border-color: transparent transparent #222222 transparent; 
         border-style: solid;
         border-width: 0 5px 8px 5px;}
+
+      .clear-box{background:#ffffff; border-right:1px solid #f0f0f0;}  
+
+      .addCart{width:30px;padding-left:20px;line-height:50px;font-size:18px}
 }

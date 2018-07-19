@@ -1,4 +1,5 @@
 <!-- Generated template for the WuxingComponent component -->
+
 <div class="segment">
     <ion-segment [(ngModel)]="choose" (ionChange)="ionChange($event)">
       <ion-segment-button *ngFor="let name of menus;let ii = index" value="{{name}}">{{name}}</ion-segment-button>  
@@ -132,7 +133,7 @@
      
   </ion-slide>  
   <!-- swiper-slide-active -->
-  <ion-slide *ngFor="let ii of menus.slice(1,menus.length);let i = index" style="min-height:100%" class="swiper-slide-active">
+  <ion-slide *ngFor="let ii of menus.slice(1,menus.length);let i = index" style="min-height:100%" class="swiper-slide-active" style="-webkit-overflow-scrolling:touch">
       <div class="trend-container">
           <ul *ngIf="common.series_id == 1" class="top-line">
               <li class="head-num" style="width:17%">期号</li>

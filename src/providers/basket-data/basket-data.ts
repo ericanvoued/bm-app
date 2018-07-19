@@ -71,7 +71,6 @@ export class BasketDataProvider {
     else
        $('#trace').prop('disabled', false)
 
-
     /**
      * 1  判断购彩蓝能够添加的最大倍数
      * 2  计算当前购彩蓝总金额

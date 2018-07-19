@@ -80,9 +80,10 @@ export class ZufuComponent {
     this.kaijiangData = this.historyRecord.map((ele,index) => {
         let sum, gap, daxiao, oddeven
       if(ele.history[0]){
-        sum = ele.history.slice(this.position[0], this.position[1]).reduce((l,r) => (+l) + (+r))
-        let max = Math.max(...ele.history)
-        let min = Math.min(...ele.history)
+        let tempArr = ele.history.slice(this.position[0], this.position[1])
+        sum = tempArr.reduce((l,r) => (+l) + (+r))
+        let max = Math.max(...tempArr)
+        let min = Math.min(...tempArr)
         gap = max - min
         let da = ele.history.filter(el => el >= 6).length
         daxiao = da + ':' + (5 - da)
