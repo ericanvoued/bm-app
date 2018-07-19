@@ -351,7 +351,7 @@ export class LhcSlidePage extends LhcAction {
 
     obj['_token'] = JSON.parse(localStorage.getItem('userInfo')).token;
 
-    let url = '/api-lotteries-h5/bet/' + gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token;
+    let url = '/api-lotteries-h5/h5apibet/' + gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token;
 
     this.rest.postUrlReturn(url, obj)
       .subscribe((data) => {
@@ -460,6 +460,7 @@ export class LhcSlidePage extends LhcAction {
     //   $(".his-box").stop().animate({height: "0px"}, 0);
     //   return;
     // }
+
   }
 
 

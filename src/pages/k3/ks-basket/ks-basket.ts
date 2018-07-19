@@ -8,6 +8,7 @@ declare var encrypt
 import * as $ from 'jquery';
 import {RestProvider} from '../../../providers/rest/rest';
 import {Tpl} from '../../../providers/base-tool/tpl';
+import {ChargePage} from "../../user/charge/charge";
 
 @IonicPage()
 @Component({
@@ -32,13 +33,7 @@ export class KsBasketPage extends KsBasketAction {
     // console.log('this.navCtrl.length()=='+this.navCtrl.length())
   }
 
-  initany() {
-    if (localStorage.userInfo) {
-      $('.balance').text(JSON.parse(localStorage.getItem('userInfo')).available);
-    } else {
-      $('.balance').text(0);
-    }
-  }
+
 
   dealWithPrizegroup() {
 
@@ -54,14 +49,29 @@ export class KsBasketPage extends KsBasketAction {
   }
 
 
-  betClick() {
+  initany() {
+    const that = this;
+    if (localStorage.userInfo) {
+      $('.balance').text(JSON.parse(localStorage.getItem('userInfo')).available);
+    } else {
+      $('.balance').text(0);
+    }
 
+    // $('body').on("click", ".tocharge", function () {
+    //   that.navCtrl.push("ChargePage");
+    //   $('.basket-pop').remove();
+    // });
+
+  }
+
+
+  betClick() {
 
     if(!localStorage.balls){
       return;
     }
     const that = this;
-    if (localStorage.userInfo == null) {
+    if (localStorage.userInfo == null||!localStorage.userInfo) {
       $('body').append(Tpl.fail_tip);
       $('#error-tip').text('您还未登录～');
       setTimeout(function () {
@@ -73,6 +83,16 @@ export class KsBasketPage extends KsBasketAction {
       }, 1000);
       return;
     }
+
+    // console.log('parseInt($.yuan).text()==='+parseInt($('.yuan').text()));
+    // console.log('parseInt($(.balance).text())=='+parseInt($('.balance').text()));
+
+    // if (parseInt($('.yuan').text()) > parseInt($('.balance').text())) {
+    //   $('body').append(Tpl.recharge_tip);
+    //   clearInterval(that.base.timeIddd);
+    //   $('.offhand-btn.bet-btn').addClass('tocharge');
+    //   return;
+    // }
 
     this.dealWithPrizegroup();
     if (localStorage.balls == null || JSON.parse(localStorage.balls).length == 0) {
@@ -127,7 +147,7 @@ export class KsBasketPage extends KsBasketAction {
     // console.log(localStorage.getItem('userInfo'))
     obj['_token'] = JSON.parse(localStorage.getItem('userInfo')).token;
 
-    let url = '/api-lotteries-h5/bet/' + gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token
+    let url = '/api-lotteries-h5/h5apibet/' + gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token
 
     this.rest.postUrlReturn(url, obj)
       .subscribe((data) => {
@@ -190,10 +210,11 @@ export class KsBasketPage extends KsBasketAction {
 
 
   ionViewWillEnter() {
-
+    // this.initView();
+    // this.loadData();
     console.log('ionViewWillEnter')
     this.base.requestJiangQiData(localStorage.idstr, '3', 'basket').then(() => {
-      console.log(123232323)
+      // console.log(123232323)
     });
   }
 
