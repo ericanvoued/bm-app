@@ -155,7 +155,7 @@ export class UserCenterPage {
       if(data.IsSuccess){
         this.toast = this.loadPrd.showMidToast(this.toastCtrl,'哎呦喂！好棒，头像上传成功！')
       }else {
-        this.toast = this.loadPrd.showMidToast(this.toastCtrl,'哎呦喂！上传成功失败了，再试一次呗！')
+        this.toast = this.loadPrd.showMidToast(this.toastCtrl,'哎呦喂！上传失败了，再试一次呗！')
       }
 
     })
