@@ -212,7 +212,7 @@ export class KsBasketPage extends KsBasketAction {
   ionViewWillEnter() {
     // this.initView();
     // this.loadData();
-    console.log('ionViewWillEnter')
+    // console.log('ionViewWillEnter')
     this.base.requestJiangQiData(localStorage.idstr, '3', 'basket').then(() => {
       // console.log(123232323)
     });

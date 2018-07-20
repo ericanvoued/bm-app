@@ -511,22 +511,18 @@ export class KstrendAction {
             txt = 1;
           } else {
 
-
             //判断上个 球是否 active  如果选中，则1 否则 +1
             obj = $('.jbzs-ul').find('.his-line').eq(i - 1).find('p').eq(j + 4);
             txt = obj.find('span').eq(0).text();
             // console.log('上一期 对应球 ===' + txt);
-
             if (obj.find('span').hasClass('active')) {
               txt = 1;
             } else {
               txt = parseInt(txt) + 1;
             }
-
             if ($('.jbzs-ul').find('.his-line').eq(i - 1).find('.kj-ing').text().search('等待') != -1) {
               txt = 1;
             }
-
           }
 
 
@@ -559,7 +555,51 @@ export class KstrendAction {
     var title = $('page-kstrend .wanfa').text();
     var ylarr = [];
 
-    ylarr = JSON.parse(localStorage.yldata30).k3dtys;
+    if(!localStorage.yldata90){
+      var statistic = '<ul class="bottom-jbzs">\n' +
+        '      <li class="his-line">\n' +
+        '        <p class="txt">出现次数</p>\n' +
+        '        <p class="t-1">-</p>\n' +
+        '        <p class="t-2">-</p>\n' +
+        '        <p class="t-3">-</p>\n' +
+        '        <p class="t-4">-</p>\n' +
+        '        <p class="t-5">-</p>\n' +
+        '        <p class="t-6">-</p>\n' +
+        '      </li>\n' +
+        '      <li class="his-line">\n' +
+        '        <p class="txt">平均遗漏</p>\n' +
+        '        <p class="t-1">-</p>\n' +
+        '        <p class="t-2">-</p>\n' +
+        '        <p class="t-3">-</p>\n' +
+        '        <p class="t-4">-</p>\n' +
+        '        <p class="t-5">-</p>\n' +
+        '        <p class="t-6">-</p>\n' +
+        '      </li>\n' +
+        '      <li class="his-line">\n' +
+        '        <p class="txt">最大遗漏</p>\n' +
+        '        <p class="t-1">-</p>\n' +
+        '        <p class="t-2">-</p>\n' +
+        '        <p class="t-3">-</p>\n' +
+        '        <p class="t-4">-</p>\n' +
+        '        <p class="t-5">-</p>\n' +
+        '        <p class="t-6">-</p>\n' +
+        '      </li>\n' +
+        '      <li class="his-line">\n' +
+        '        <p class="txt">当前遗漏</p>\n' +
+        '        <p class="t-1">-</p>\n' +
+        '        <p class="t-2">-</p>\n' +
+        '        <p class="t-3">-</p>\n' +
+        '        <p class="t-4">-</p>\n' +
+        '        <p class="t-5">-</p>\n' +
+        '        <p class="t-6">-</p>\n' +
+        '      </li>\n' +
+        '    </ul>';
+      $('.jbzs-container').append(statistic);
+      return;
+    }
+
+
+    ylarr = JSON.parse(localStorage.yldata90).k3dtys;
 
     var it;
     // for(var m =0;m<ylarr.length;m++){
@@ -900,6 +940,88 @@ export class KstrendAction {
       $('.hmfb-container .hmfb-ul').find('.his-line').eq(i).append(htm);
     }
 
+
+    if(!localStorage.yldata90){
+      var statistics = '<ul class="bottom-hmfb">\n' +
+        '      <li class="his-line">\n' +
+        '        <p class="txt">出现次数</p>\n' +
+        '        <p class="t t-12">-</p>\n' +
+        '        <p class="t t-13">-</p>\n' +
+        '        <p class="t t-14">-</p>\n' +
+        '        <p class="t t-15">-</p>\n' +
+        '        <p class="t t-16">-</p>\n' +
+        '        <p class="t t-23">-</p>\n' +
+        '        <p class="t t-24">-</p>\n' +
+        '        <p class="t t-25">-</p>\n' +
+        '        <p class="t t-26">-</p>\n' +
+        '        <p class="t t-34">-</p>\n' +
+        '        <p class="t t-35">-</p>\n' +
+        '        <p class="t t-36">-</p>\n' +
+        '        <p class="t t-45">-</p>\n' +
+        '        <p class="t t-46">-</p>\n' +
+        '        <p class="t t-56">-</p>\n' +
+        '      </li>\n' +
+        '      <li class="his-line">\n' +
+        '        <p class="txt">平均遗漏</p>\n' +
+        '        <p class="t t-12">-</p>\n' +
+        '        <p class="t t-13">-</p>\n' +
+        '        <p class="t t-14">-</p>\n' +
+        '        <p class="t t-15">-</p>\n' +
+        '        <p class="t t-16">-</p>\n' +
+        '        <p class="t t-23">-</p>\n' +
+        '        <p class="t t-24">-</p>\n' +
+        '        <p class="t t-25">-</p>\n' +
+        '        <p class="t t-26">-</p>\n' +
+        '        <p class="t t-34">-</p>\n' +
+        '        <p class="t t-35">-</p>\n' +
+        '        <p class="t t-36">-</p>\n' +
+        '        <p class="t t-45">-</p>\n' +
+        '        <p class="t t-46">-</p>\n' +
+        '        <p class="t t-56">-</p>\n' +
+        '      </li>\n' +
+        '      <li class="his-line">\n' +
+        '        <p class="txt">最大遗漏</p>\n' +
+        '        <p class="t t-12">-</p>\n' +
+        '        <p class="t t-13">-</p>\n' +
+        '        <p class="t t-14">-</p>\n' +
+        '        <p class="t t-15">-</p>\n' +
+        '        <p class="t t-16">-</p>\n' +
+        '        <p class="t t-23">-</p>\n' +
+        '        <p class="t t-24">-</p>\n' +
+        '        <p class="t t-25">-</p>\n' +
+        '        <p class="t t-26">-</p>\n' +
+        '        <p class="t t-34">-</p>\n' +
+        '        <p class="t t-35">-</p>\n' +
+        '        <p class="t t-36">-</p>\n' +
+        '        <p class="t t-45">-</p>\n' +
+        '        <p class="t t-46">-</p>\n' +
+        '        <p class="t t-56">-</p>\n' +
+        '      </li>\n' +
+        '      <li class="his-line">\n' +
+        '        <p class="txt">当前遗漏</p>\n' +
+        '        <p class="t t-12">-</p>\n' +
+        '        <p class="t t-13">-</p>\n' +
+        '        <p class="t t-14">-</p>\n' +
+        '        <p class="t t-15">-</p>\n' +
+        '        <p class="t t-16">-</p>\n' +
+        '        <p class="t t-23">-</p>\n' +
+        '        <p class="t t-24">-</p>\n' +
+        '        <p class="t t-25">-</p>\n' +
+        '        <p class="t t-26">-</p>\n' +
+        '        <p class="t t-34">-</p>\n' +
+        '        <p class="t t-35">-</p>\n' +
+        '        <p class="t t-36">-</p>\n' +
+        '        <p class="t t-45">-</p>\n' +
+        '        <p class="t t-46">-</p>\n' +
+        '        <p class="t t-56">-</p>\n' +
+        '      </li>\n' +
+        '    </ul>';
+      $('.hmfb-container').append(statistics);
+      return;
+    }
+
+
+
     var lr90 = JSON.parse(localStorage.yldata90).k3ebth;
     var statistics = '<ul class="bottom-hmfb">\n' +
       '      <li class="his-line">\n' +
@@ -1070,6 +1192,52 @@ export class KstrendAction {
       $('.hmfb-container .hmfb-ul').find('.his-line').eq(i).append(htm);
     }
 
+    if(!localStorage.yldata90){
+      var statistics = '<ul class="bottom-hmfb">\n' +
+        '      <li class="his-line">\n' +
+        '        <p class="txt">出现次数</p>\n' +
+        '        <p class="t-1">-</p>\n' +
+        '        <p class="t-2">-</p>\n' +
+        '        <p class="t-3">-</p>\n' +
+        '        <p class="t-4">-</p>\n' +
+        '        <p class="t-5">-</p>\n' +
+        '        <p class="t-6">-</p>\n' +
+        '      </li>\n' +
+        '      <li class="his-line">\n' +
+        '        <p class="txt">平均遗漏</p>\n' +
+        '        <p class="t-1">-</p>\n' +
+        '        <p class="t-2">-</p>\n' +
+        '        <p class="t-3">-</p>\n' +
+        '        <p class="t-4">-</p>\n' +
+        '        <p class="t-5">-</p>\n' +
+        '        <p class="t-6">-</p>\n' +
+        '      </li>\n' +
+        '      <li class="his-line">\n' +
+        '        <p class="txt">最大遗漏</p>\n' +
+        '        <p class="t-1">-</p>\n' +
+        '        <p class="t-2">-</p>\n' +
+        '        <p class="t-3">-</p>\n' +
+        '        <p class="t-4">-</p>\n' +
+        '        <p class="t-5">-</p>\n' +
+        '        <p class="t-6">-</p>\n' +
+        '      </li>\n' +
+        '      <li class="his-line">\n' +
+        '        <p class="txt">当前遗漏</p>\n' +
+        '        <p class="t-1">-</p>\n' +
+        '        <p class="t-2">-</p>\n' +
+        '        <p class="t-3">-</p>\n' +
+        '        <p class="t-4">-</p>\n' +
+        '        <p class="t-5">-</p>\n' +
+        '        <p class="t-6">-</p>\n' +
+        '      </li>\n' +
+        '    </ul>';
+
+      $('.hmfb-container').append(statistics);
+      return;
+
+    }
+
+
     var lr90 = JSON.parse(localStorage.yldata90).k3eth;
     var statistics = '<ul class="bottom-hmfb">\n' +
       '      <li class="his-line">\n' +
@@ -1163,11 +1331,17 @@ export class KstrendAction {
     var trend = $('.trend-content'), htm = '', item;
     var lr30_max, lr60_max, lr90_max, ylarr_max, hot;
     trend.append(Tpl.lr_con_tpl);
+
+    if(!localStorage.yldata30||!localStorage.yldata60||!localStorage.yldata90){
+      alert('没有数据');
+      return;
+    }
+
     switch (title) {
       case '和值':
-        lr30 = JSON.parse(localStorage.yldata30).hz.hot;
-        lr60 = JSON.parse(localStorage.yldata60).hz.hot;
-        lr90 = JSON.parse(localStorage.yldata90).hz.hot;
+        lr30  = JSON.parse(localStorage.yldata30).hz.hot;
+        lr60  = JSON.parse(localStorage.yldata60).hz.hot;
+        lr90  = JSON.parse(localStorage.yldata90).hz.hot;
         ylarr = JSON.parse(localStorage.yldata90).hz.current;
         hot = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
         // console.log('lr30====' + JSON.stringify(lr30));
@@ -1276,6 +1450,8 @@ export class KstrendAction {
   }
 
 
+
+
   createHzzsContent() {
 
     var trend = $('.trend-content'), htm = '', item;
@@ -1337,6 +1513,90 @@ export class KstrendAction {
 
       }
     }
+
+    if(!localStorage.yldata90){
+      var statistic = '<ul class="bottom-hzzs">\n' +
+        '      <li class="his-line">\n' +
+        '        <p class="txt">出现次数</p>\n' +
+        '        <p class="t-3">-</p>\n' +
+        '        <p class="t-4">-</p>\n' +
+        '        <p class="t-5">-</p>\n' +
+        '        <p class="t-6">-</p>\n' +
+        '        <p class="t-7">-</p>\n' +
+        '        <p class="t-8">-</p>\n' +
+        '        <p class="t-9">-</p>\n' +
+        '        <p class="t-10">-</p>\n' +
+        '        <p class="t-11">-</p>\n' +
+        '        <p class="t-12">-</p>\n' +
+        '        <p class="t-13">-</p>\n' +
+        '        <p class="t-14">-</p>\n' +
+        '        <p class="t-15">-</p>\n' +
+        '        <p class="t-16">-</p>\n' +
+        '        <p class="t-17">-</p>\n' +
+        '        <p class="t-18">-</p>\n' +
+        '      </li>\n' +
+        '      <li class="his-line">\n' +
+        '        <p class="txt">平均遗漏</p>\n' +
+        '        <p class="t-3">-</p>\n' +
+        '        <p class="t-4">-</p>\n' +
+        '        <p class="t-5">-</p>\n' +
+        '        <p class="t-6">-</p>\n' +
+        '        <p class="t-7">-</p>\n' +
+        '        <p class="t-8">-</p>\n' +
+        '        <p class="t-9">-</p>\n' +
+        '        <p class="t-10">-</p>\n' +
+        '        <p class="t-11">-</p>\n' +
+        '        <p class="t-12">-</p>\n' +
+        '        <p class="t-13">-</p>\n' +
+        '        <p class="t-14">-</p>\n' +
+        '        <p class="t-15">-</p>\n' +
+        '        <p class="t-16">-</p>\n' +
+        '        <p class="t-17">-</p>\n' +
+        '        <p class="t-18">-</p>\n' +
+        '      </li>\n' +
+        '      <li class="his-line">\n' +
+        '        <p class="txt">最大遗漏</p>\n' +
+        '        <p class="t-3">-</p>\n' +
+        '        <p class="t-4">-</p>\n' +
+        '        <p class="t-5">-</p>\n' +
+        '        <p class="t-6">-</p>\n' +
+        '        <p class="t-7">-</p>\n' +
+        '        <p class="t-8">-</p>\n' +
+        '        <p class="t-9">-</p>\n' +
+        '        <p class="t-10">-</p>\n' +
+        '        <p class="t-11">-</p>\n' +
+        '        <p class="t-12">-</p>\n' +
+        '        <p class="t-13">-</p>\n' +
+        '        <p class="t-14">-</p>\n' +
+        '        <p class="t-15">-</p>\n' +
+        '        <p class="t-16">-</p>\n' +
+        '        <p class="t-17">-</p>\n' +
+        '        <p class="t-18">-</p>\n' +
+        '      </li>\n' +
+        '      <li class="his-line">\n' +
+        '        <p class="txt">当前遗漏</p>\n' +
+        '        <p class="t-3">-</p>\n' +
+        '        <p class="t-4">-</p>\n' +
+        '        <p class="t-5">-</p>\n' +
+        '        <p class="t-6">-</p>\n' +
+        '        <p class="t-7">-</p>\n' +
+        '        <p class="t-8">-</p>\n' +
+        '        <p class="t-9">-</p>\n' +
+        '        <p class="t-10">-</p>\n' +
+        '        <p class="t-11">-</p>\n' +
+        '        <p class="t-12">-</p>\n' +
+        '        <p class="t-13">-</p>\n' +
+        '        <p class="t-14">-</p>\n' +
+        '        <p class="t-15">-</p>\n' +
+        '        <p class="t-16">-</p>\n' +
+        '        <p class="t-17">-</p>\n' +
+        '        <p class="t-18">-</p>\n' +
+        '      </li>\n' +
+        '    </ul>';
+      $('.hzzs-container').append(statistic);
+      return;
+    }
+
 
     //统计要 按照不同的玩法 取数据
     //判断玩法

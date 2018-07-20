@@ -83,11 +83,6 @@ export class KstrendPage {
     });
   }
 
-  // ionViewDidEnter(){
-  //   this.action.initView(this.navParams.get('wanfa'), 1);
-  //   this.action.changePlaySelect();
-  //   // this.action.setDefaultUiByIndex(0);
-  // }
 
   initany() {
 
