@@ -41,7 +41,7 @@ export class LottoryCenterPage {
 
   @ViewChild('dynLottoryComponent', {read: ViewContainerRef})
   dynLottoryComponent: ViewContainerRef;
-  dynComponent: ComponentRef<[SscKaijiangComponent, SscDanshuangComponent, SscDaxiaoComponent, YKaijiangComponent, YDistributeComponent, K3KaijiangComponent, K3BaseTrendComponent, K3CoodHotComponent, K3ShapeTrendComponent, LhcKaijiangComponent, LhcShengxiaoComponent, LhcBoseComponent]>
+  dynComponent: ComponentRef<any>
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -66,6 +66,8 @@ export class LottoryCenterPage {
 
   //下拉刷新
   doRefresh(refresher: Refresher) {
+    console.log(this.lcData.currentNav)
+    console.log(this.lcData.currentLottory.id)
     this.createDynComponent(this.lcData.currentNav, this.lcData.currentLottory.id)
     setTimeout(() => {
       refresher.complete()
