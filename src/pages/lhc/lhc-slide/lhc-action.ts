@@ -434,43 +434,56 @@ export class LhcAction {
 
   tmBallClick() {
 
-    // $('.b-box .tm-unit').on('click', function () {
-    //   $(this).toggleClass('currunt');
-    // });
-    var timeOutEvent = 0;
-    $(".b-box .tm-unit").on({
-      touchstart: function (e) {
-        timeOutEvent = setTimeout(function () {
-          var clas = e.currentTarget.children[0].className;
-          if (clas.search('red-ball') != -1) {
-            e.currentTarget.children[0].className = 'topball red-ball';
-          } else if (clas.search('blue-ball') != -1) {
-            e.currentTarget.children[0].className = 'topball blue-ball';
-          } else {
-            e.currentTarget.children[0].className = 'topball green-ball';
-          }
-        }, 0);
-        e.preventDefault();
-      },
-      // touchmove: function(){
-      //   clearTimeout(timeOutEvent);
-      //   timeOutEvent = 0;
-      //   $(".b-box .tm-unit").eq($(this).index()).find('.topball').addClass('hide');
-      //   $(".b-box .tm-unit").eq($(this).index()).toggleClass('currunt');
-      // },
-      touchend: function () {
-        clearTimeout(timeOutEvent);
-        if (timeOutEvent != 0) {
-          $(".b-box .tm-unit").eq($(this).index()).find('.topball').addClass('hide');
-          $(".b-box .tm-unit").eq($(this).index()).toggleClass('currunt');
-        }
-        return false;
-      }
-    })
+    $('.b-box .tm-unit').on('click', function () {
+      $(this).toggleClass('currunt');
+    });
 
-
-
+    // var timeOutEvent = 0;
+    // $(".b-box .tm-unit").on({
+    //   touchstart: function (e) {
+    //     timeOutEvent = setTimeout(function () {
+    //       var clas = e.currentTarget.children[0].className;
+    //       if (clas.search('red-ball') != -1) {
+    //         e.currentTarget.children[0].className = 'topball red-ball';
+    //       } else if (clas.search('blue-ball') != -1) {
+    //         e.currentTarget.children[0].className = 'topball blue-ball';
+    //       } else {
+    //         e.currentTarget.children[0].className = 'topball green-ball';
+    //       }
+    //     }, 0);
+    //     e.preventDefault();
+    //   },
+    //   touchend: function () {
+    //     clearTimeout(timeOutEvent);
+    //     // console.log('$(this).index()==='+$(this).index())
+    //     if (timeOutEvent != 0) {
+    //       $(".b-box .tm-unit").eq($(this).index()).find('.topball').addClass('hide');
+    //       $(".b-box .tm-unit").eq($(this).index()).toggleClass('currunt');
+    //     }
+    //     return false;
+    //   }
+    // })
+    // touchmove: function(){
+    //   clearTimeout(timeOutEvent);
+    //   timeOutEvent = 0;
+    //   $(".b-box .tm-unit").eq($(this).index()).find('.topball').addClass('hide');
+    //   $(".b-box .tm-unit").eq($(this).index()).toggleClass('currunt');
+    // },
   }
+
+  // console.log(e)
+  // timeOutEvent = setTimeout(function () {
+  //   var clas = e.currentTarget.parentElement.children[0].className
+  //   console.log('clas==='+clas);
+  //   if (clas.search('red-ball') != -1) {
+  //     e.currentTarget.parentElement.children[0].className = 'topball red-ball';
+  //   } else if (clas.search('blue-ball') != -1) {
+  //     e.currentTarget.parentElement.children[0].className = 'topball blue-ball';
+  //   } else {
+  //     e.currentTarget.parentElement.children[0].className = 'topball green-ball';
+  //   }
+  // }, 0);
+
 
   tmboxBtnClick() {
 

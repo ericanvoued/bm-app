@@ -5,7 +5,6 @@ import {MyApp} from './app.component';
 
 //page module
 import {HttpClientModule} from "@angular/common/http";
-import {TabsPage} from '../pages/tabs/tabs'
 
 //native provider
 import {QRScanner} from '@ionic-native/qr-scanner';
@@ -40,7 +39,6 @@ import {Vibration} from '@ionic-native/vibration';
 @NgModule({
   declarations: [
     MyApp,
-    TabsPage,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +55,6 @@ import {Vibration} from '@ionic-native/vibration';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    TabsPage,
   ],
   providers: [
     StatusBar,

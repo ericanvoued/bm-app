@@ -1,11 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
-import {NavController, NavParams, Tabs} from 'ionic-angular';
-// import {HomePage} from '../home/home';
-// import {ActivityPage} from '../activity/activity';
-// import {UserCenterPage} from '../user/user-center/user-center';
+import {IonicPage, NavController, NavParams, Tabs} from 'ionic-angular';
 
-// import {LottoryCenterPage} from '../lottory-center/lottory-center';
-
+@IonicPage()
 @Component({
   selector: 'page-tab',
   templateUrl: 'tabs.html'

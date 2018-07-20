@@ -4,22 +4,22 @@ import {HomeProvider} from '../../providers/home/home';
 import {LoadingProvider} from '../../providers/loading/loading'
 
 import {SscKaijiangComponent} from '../../components/lottory-center/ssc-kaijiang/ssc-kaijiang'
-import {SscDanshuangComponent} from '../../components/lottory-center/ssc-danshuang/ssc-danshuang'
-import {SscDaxiaoComponent} from '../../components/lottory-center/ssc-daxiao/ssc-daxiao'
-import {YKaijiangComponent} from '../../components/lottory-center/y-kaijiang/y-kaijiang'
-import {YDistributeComponent} from '../../components/lottory-center/y-distribute/y-distribute'
-import {K3KaijiangComponent} from '../../components/lottory-center/k3-kaijiang/k3-kaijiang'
-import {K3BaseTrendComponent} from '../../components/lottory-center/k3-base-trend/k3-base-trend'
-import {K3ShapeTrendComponent} from '../../components/lottory-center/k3-shape-trend/k3-shape-trend'
-import {K3CoodHotComponent} from '../../components/lottory-center/k3-cood-hot/k3-cood-hot'
+// import {SscDanshuangComponent} from '../../components/lottory-center/ssc-danshuang/ssc-danshuang'
+// import {SscDaxiaoComponent} from '../../components/lottory-center/ssc-daxiao/ssc-daxiao'
+// import {YKaijiangComponent} from '../../components/lottory-center/y-kaijiang/y-kaijiang'
+// import {YDistributeComponent} from '../../components/lottory-center/y-distribute/y-distribute'
+// import {K3KaijiangComponent} from '../../components/lottory-center/k3-kaijiang/k3-kaijiang'
+// import {K3BaseTrendComponent} from '../../components/lottory-center/k3-base-trend/k3-base-trend'
+// import {K3ShapeTrendComponent} from '../../components/lottory-center/k3-shape-trend/k3-shape-trend'
+// import {K3CoodHotComponent} from '../../components/lottory-center/k3-cood-hot/k3-cood-hot'
 // import {Pk10KaijiangComponent} from '../../components/lottory-center/pk10-kaijiang/pk10-kaijiang'
 // import {Pk10daxiaoComponent} from '../../components/lottory-center/pk10daxiao/pk10daxiao'
 // import {Pk10DanshuangComponent} from '../../components/lottory-center/pk10-danshuang/pk10-danshuang'
 // import {Pk10ChanpiomComponent} from '../../components/lottory-center/pk10-chanpiom/pk10-chanpiom'
 // import {Pk10LonghuComponent} from '../../components/lottory-center/pk10-longhu/pk10-longhu'
-import {LhcKaijiangComponent} from '../../components/lottory-center/lhc-kaijiang/lhc-kaijiang'
-import {LhcShengxiaoComponent} from '../../components/lottory-center/lhc-shengxiao/lhc-shengxiao'
-import {LhcBoseComponent} from '../../components/lottory-center/lhc-bose/lhc-bose'
+// import {LhcKaijiangComponent} from '../../components/lottory-center/lhc-kaijiang/lhc-kaijiang'
+// import {LhcShengxiaoComponent} from '../../components/lottory-center/lhc-shengxiao/lhc-shengxiao'
+// import {LhcBoseComponent} from '../../components/lottory-center/lhc-bose/lhc-bose'
 
 @IonicPage()
 @Component({
@@ -41,7 +41,7 @@ export class LottoryCenterPage {
 
   @ViewChild('dynLottoryComponent', {read: ViewContainerRef})
   dynLottoryComponent: ViewContainerRef;
-  dynComponent: ComponentRef<[SscKaijiangComponent, SscDanshuangComponent, SscDaxiaoComponent, YKaijiangComponent, YDistributeComponent, K3KaijiangComponent, K3BaseTrendComponent, K3CoodHotComponent, K3ShapeTrendComponent, LhcKaijiangComponent, LhcShengxiaoComponent, LhcBoseComponent]>
+  dynComponent: ComponentRef<any>
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -66,6 +66,8 @@ export class LottoryCenterPage {
 
   //下拉刷新
   doRefresh(refresher: Refresher) {
+    console.log(this.lcData.currentNav)
+    console.log(this.lcData.currentLottory.id)
     this.createDynComponent(this.lcData.currentNav, this.lcData.currentLottory.id)
     setTimeout(() => {
       refresher.complete()
@@ -100,7 +102,8 @@ export class LottoryCenterPage {
         } else if (this.lcData.currentLottory.group == 'K3') {
 
           let k3numList = ['1', '2', '3', '4', '5', '6']
-          this.lcData.resultsData.data = data.data.reverse()
+          // this.lcData.resultsData.data = data.data.reverse()
+          this.lcData.resultsData.data = data.data
           // this.lcData.resultsDatadata[i].shapeData = []
           for (let i = 0, len = data.data.length; i < len; i++) {
             this.lcData.resultsData.data[i].blanket = [0, 0, 0, 0, 0, 0]
@@ -199,14 +202,21 @@ export class LottoryCenterPage {
 
   // 彩种切换
   switchLottory(_lottory) {
+
+    console.log(_lottory)
     this.lcData.currentLottory = _lottory;
     localStorage.lottoryId = this.lcData.currentLottory.id;
     this.lcData.isDrop = false;
     this.clearLottoryStatus();
     _lottory.flag = true;
+    // 切换导航内容
     this.navData = this.homeprv.homeData.lottoryList[_lottory.group].nav;
+    //当前显示的第一个导航
+    this.lcData.currentNav = this.navData[0].c
+    //k3样式切换
     _lottory.group == 'K3' ? this.lcData.isK3 = true : this.lcData.isK3 = false;
-    this.createDynComponent(this.homeprv.homeData.lottoryList[_lottory.group].nav[0].c, this.lcData.currentLottory.id)
+    //创建组件
+    this.createDynComponent(this.lcData.currentNav, this.lcData.currentLottory.id)
   }
 
 
