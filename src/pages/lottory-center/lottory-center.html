@@ -58,10 +58,6 @@
     </ion-refresher-content>
   </ion-refresher>
 
-
-
-
-
   <div class="lc-tab-head">
     <div class="lc-tab-unit" *ngFor="let nav of navData;index as i" [ngClass]="{'current':nav.flag}" (click)="changeDynComponent(i,nav)">
       <p>{{nav.name}}</p>
