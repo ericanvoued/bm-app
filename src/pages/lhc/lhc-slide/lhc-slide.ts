@@ -418,9 +418,9 @@ export class LhcSlidePage extends LhcAction {
           var htm = '', it;
           var arr = [];
           if (data.data.length > 10) {
-            arr = data.data.slice(0, 9);
+            arr = data.data.reverse().slice(0, 9);
           } else {
-            arr = data.data;
+            arr = data.data.reverse();
           }
           for (var i = 0; i < arr.length; i++) {
             if (data.data[i].code == '') {
