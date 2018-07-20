@@ -62,7 +62,7 @@
       </li>     -->
       <li *ngFor="let hots of homePrv.homeData.lottorys.hot" (click)=toLottory(hots)>
         <a href="javascript:;">
-          <img src="assets/home/{{hots.identifier}}.png" alt="">
+          <img src="./assets/home/{{hots.identifier}}.png" alt="">
           <p>{{hots.friend_name}}</p>
           <!--<span *ngIf="lottory.stopSale">停售</span>-->
         </a>
