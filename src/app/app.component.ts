@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
-import { Nav, Platform, NavController} from 'ionic-angular';
+import { Nav, Platform, NavController, App} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { UtilProvider } from '../providers/util/util'
@@ -13,8 +13,13 @@ export class MyApp implements OnInit{
   @ViewChild('nav') nav: Nav;
   rootPage:any = TabsPage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public util:UtilProvider) {
-    
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public util:UtilProvider, public app: App) {
+    this.app.viewDidLoad.subscribe(res=>{
+      console.log(res);
+      console.log(res.component.name);
+    })
+
+
     platform.ready().then(() => {
      
       // Okay, so the platform is ready and our plugins are available.
