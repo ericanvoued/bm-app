@@ -100,7 +100,8 @@ export class LottoryCenterPage {
         } else if (this.lcData.currentLottory.group == 'K3') {
 
           let k3numList = ['1', '2', '3', '4', '5', '6']
-          this.lcData.resultsData.data = data.data.reverse()
+          // this.lcData.resultsData.data = data.data.reverse()
+          this.lcData.resultsData.data = data.data
           // this.lcData.resultsDatadata[i].shapeData = []
           for (let i = 0, len = data.data.length; i < len; i++) {
             this.lcData.resultsData.data[i].blanket = [0, 0, 0, 0, 0, 0]
