@@ -126,7 +126,9 @@ export class HomePage {
 
     }else {
       await this.homePrv.http.fetchData('/h5api-announcements/getalter?_t='+this.userInfo.auth_token).then(data=>{
-        this.showData = data.data
+        if(data.IsSuccess){
+          this.showData = data.data
+        }
       })
     }
 
