@@ -122,7 +122,7 @@ export class ZhixuanhezhiComponent implements OnInit, AfterViewInit{
 
     this.historyRecord = this.common.historyList.map(ele => {
       return {...ele, number:ele.number.substr(2,ele.number.length),history:ele.code.split('').map(ele => parseInt(ele))}
-    }).reverse()
+    })
 
     console.log(this.historyRecord)
 

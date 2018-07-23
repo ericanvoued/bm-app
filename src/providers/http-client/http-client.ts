@@ -5,8 +5,8 @@ import {LoadingProvider} from '../loading/loading'
 import {ModalController} from 'ionic-angular'
 
 
-// let baseUrl = 'http://user.firecat.com'
-let baseUrl = 'http://www.zhenwin.com'
+//let baseUrl = 'http://user.firecat.com'
+let baseUrl = 'http://stg.zhenwin.com'
 
 //let baseUrl = '/api'
 

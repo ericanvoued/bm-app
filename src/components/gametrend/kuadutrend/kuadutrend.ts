@@ -66,7 +66,7 @@ export class KuadutrendComponent {
     produceAllData(){
         this.historyRecord = this.common.historyList.map(ele => {
             return {...ele, number:ele.number.substr(2,ele.number.length),history:ele.code.split('').map(ele => parseInt(ele))}
-        }).reverse()
+        })
  
         console.log(this.historyRecord)
         this.judgeHeadTitle()
@@ -92,7 +92,7 @@ export class KuadutrendComponent {
 
             if(ele.history[0]){
                 if(this.common.secondKind == '五星不定位'){
-                    let sum = ele.history.slice(this.position[0], this.position[1]).reduce((l,r) => (+l) + (+r))
+                    let sum = ele.history.reduce((l,r) => (+l) + (+r))
                     let max = Math.max(...ele.history)
                     let min = Math.min(...ele.history)
                     let gap = max - min

@@ -40,8 +40,8 @@ export class GameTrendPage {
     this.observable = new Observable((observer: Observer<any>) => {
       this.observer = observer;
     })
-
     this.common.getMissObservable()
+    
 
     $('body').on('touchstart', '.ball-tap', function(){
   
@@ -204,11 +204,9 @@ export class GameTrendPage {
 }
 
   create(gameMethod:string, flag:boolean):Promise<any>{
-    console.log(gameMethod)
     if(flag){
       let trendComponent:any;
-      
-          switch(this.common.series_id){
+          switch(+this.common.series_id){
               case 1:
                  trendComponent = judgeTrend('SSC', gameMethod)
                  break
@@ -216,7 +214,6 @@ export class GameTrendPage {
                  trendComponent= judgeTrend('Xuan5', gameMethod)  
                  break
           }
-          console.log(trendComponent)
           const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(trendComponent.component)
           this.componentRef = this.container.createComponent(factory)
           this.componentRef.instance.chooseIndex = this.navParams.get('index')
@@ -234,11 +231,8 @@ export class GameTrendPage {
     if(flag)
         this.container.clear()
 
-    if(this.common.method == '前三'){
-        this.observer.next(this.create(this.common.method + this.common.smallMethod, flag))
-    }else{
-        this.observer.next(this.create(this.common.method + this.common.smallMethod, flag))
-    }
+    this.observer.next(this.create(this.common.method + this.common.smallMethod, flag))
+   
   }
 
   slideChanged(){
@@ -248,7 +242,6 @@ export class GameTrendPage {
   }
 
   segmentChanged($event){
-    console.log('wcnmb')
     console.log($event.value)
     this.contentSlides.slideTo(this.util.menus.indexOf($event.value))
   }

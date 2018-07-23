@@ -92,7 +92,6 @@ export class BasketDataProvider {
       this.totalCount = this.betData.reduce((a,b) => {
             return a + b.num
       },0)
-      console.log('dddd')
       console.log(this.totalAmount)
   
      } else{
@@ -150,7 +149,8 @@ export class BasketDataProvider {
                
                return item
           }else{
-            return {...item, jsId:item.jsId, beishu:item.beishu + 1, amount:item.amount +  processData.amount}
+            console.log(processData)
+            return {...item, jsId:item.jsId, beishu:item.beishu + 1, amount:(item.amount +  processData.amount)}
           }     
       }else{
           return item

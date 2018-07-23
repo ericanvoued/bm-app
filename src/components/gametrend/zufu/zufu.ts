@@ -51,7 +51,7 @@ export class ZufuComponent {
       this.historyRecord = this.common.historyList.map(ele => {
         return {...ele, number:ele.number.substr(2,ele.number.length),
           history: this.common.series_id == 2 ? ele.code.split(' ').map(ele => ele ? ('0' + ele).slice(-2) : null) : ele.code.split('').map(ele => parseInt(ele))}
-      }).reverse()
+      })
   
       console.log(this.historyRecord)
       console.log(this.common.ballData)
@@ -80,10 +80,9 @@ export class ZufuComponent {
     this.kaijiangData = this.historyRecord.map((ele,index) => {
         let sum, gap, daxiao, oddeven
       if(ele.history[0]){
-        let tempArr = ele.history.slice(this.position[0], this.position[1])
-        sum = tempArr.reduce((l,r) => (+l) + (+r))
-        let max = Math.max(...tempArr)
-        let min = Math.min(...tempArr)
+        sum = ele.history.reduce((l,r) => (+l) + (+r))
+        let max = Math.max(...ele.history)
+        let min = Math.min(...ele.history)
         gap = max - min
         let da = ele.history.filter(el => el >= 6).length
         daxiao = da + ':' + (5 - da)
