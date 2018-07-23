@@ -253,7 +253,7 @@ export class BasketPage {
      
      for(let i = 0; i < this.basket.statistic.trace; i++){
             let commonNumber = this.common.currentNumber
-            let key =  this.common.series_id == 1 ? +commonNumber + i + '' : commonNumber.split('-')[0] + '-' + ('0' + '' + (+commonNumber.split('-')[1] + i)).slice(-2) 
+            let key =  +this.common.gameId != 8 ? +commonNumber + i + '' : commonNumber.split('-')[0] + '-' + ('0' + '' + (+commonNumber.split('-')[1] + i)).slice(-2) 
             let qq = {[key]:1}
             result['orders'] = {...result['orders'],[key]:1}
      }
@@ -289,7 +289,7 @@ export class BasketPage {
       console.log(encrypt(JSON.stringify(result['balls'])))
       result['balls'] = encrypt(JSON.stringify(result['balls']))
 
-      let url = '/api-lotteries-h5/bet/' + this.common.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token
+      let url = '/api-lotteries-h5/h5apibet/' + this.common.gameId + '?_t=' + JSON.parse(localStorage.getItem('userInfo')).auth_token
 
       let loading = this.loadingCtrl.create({
         content: '投注中...'

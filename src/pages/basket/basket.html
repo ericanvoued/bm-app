@@ -35,7 +35,7 @@
                       <span class="bet-ball">{{item.viewBalls}}</span>
                   </div>
                  <div style="display:flex;justify-content:space-between">
-                    <span>{{item.gameName}}</span>    共{{item.num}}注  {{item.beishu*basket.statistic.multiple}}倍 {{item.amount*basket.statistic.multiple}}元
+                    <span>{{item.gameName}}</span>    共{{item.num}}注  {{item.beishu*basket.statistic.multiple}}倍 {{util.formatMoney(item.amount*basket.statistic.multiple)}}元
                  </div>
               </div>
            
@@ -99,7 +99,7 @@
 
   <div style="display:flex;justify-content:space-between;height:50px">
        <div style="padding-left:5px">
-          <div>追号 <span style="color:#F6374E">{{basket.statistic.trace}}</span> 期 共 <span style="color:#F6374E">{{basket.totalCount}}</span> 注</div> 
+          <div>追号 <span style="color:#F6374E">{{basket.statistic.trace}}</span> 期 共 <span style="color:#F6374E">{{basket.betData.length}}</span> 注</div> 
           <!-- <div>余额：¥{{ balance ? (balance | async) : ''}}</div> -->
           <div>余额：¥{{util.formatMoney(common.balance)}}</div>
         </div>

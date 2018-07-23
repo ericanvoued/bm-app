@@ -383,7 +383,7 @@ export class CommonProvider {
         // <div>进入第<div style="color:#FD6000;line-height:20px">{{text}}</div>期</div>
         // <div>请留意期号变化( <div style="color:#FD6000;line-height:20px">{{count}}s</div>)</div>
         let tip = '<div class="count-tip">'+
-        '<div>进入第<div style="color:#FD6000;line-height:20px">' + countNum + '</div>期</div>' + 
+        '<div>进入第<div style="color:#FD6000;line-height:20px">' + (countNum+1) + '</div>期</div>' + 
         '<div>请留意期号变化( <div id="count-time" style="color:#FD6000;line-height:20px">3s</div>)</div>'
         '</div>'
 

@@ -100,7 +100,7 @@ export class Effect{
     //抓取历史开奖进行处理
     fetchListData(){
         this.common.fetchRecord().then(() => {
-            this.list = this.common.historyList.map(this.handleBall).slice(0,10)
+            this.list = this.common.historyList.slice(-10).map(this.handleBall).reverse()
             if(this.list.length > 2){
                 this.maxNumber = Math.ceil(this.list.length/5)
             }else{
@@ -110,7 +110,7 @@ export class Effect{
             if(this.list.filter(item => !item.balls).length){
                 this.timer = setInterval(() => {
                     this.common.fetchRecord().then(() => {
-                        this.list = this.common.historyList.map(this.handleBall).slice(0,10)
+                        this.list = this.common.historyList.slice(-10).map(this.handleBall).reverse()
                         if(this.list.length > 2){
                             this.maxNumber = Math.ceil(this.list.length/5)
                         }else{
