@@ -129,10 +129,10 @@ export class BasketDataProvider {
       }else{
          console.log('wccruruurur')
          this.betData.push(processData)
-         this.calculateTotal()
          console.log(this.betData)
       }
     }  
+    this.calculateTotal()
     if(!flag)
         return false
     return true

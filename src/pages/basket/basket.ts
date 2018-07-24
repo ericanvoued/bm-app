@@ -79,6 +79,10 @@ export class BasketPage {
 
   toggle(){
     this.show = this.show == 'invisable' ? 'visable' : 'invisable'
+    if(this.show == 'visable')
+       $('.l-triangle').hide()
+    else
+       $('.l-triangle').show()
   }
 
   change(number){
