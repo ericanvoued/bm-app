@@ -22,7 +22,15 @@ page-basket {
 
     .co-title{float:left;margin-right:5px}
     //返点
-    .fandian-number{float:left;background:#F3F3F3;width:100px;text-align:center;height:30px;line-height:26px;border-radius:30px;padding:2px 0;position:relative;}
+    .fandian-number{float:left;background:#F3F3F3;width:100px;text-indent:5px;height:30px;line-height:26px;border-radius:30px;padding:2px 0;position:relative;}
+
+    .l-triangle{  width: 0px;
+        height: 0px;
+        position: absolute;
+        right: 3px;top:12px;
+        border-color: #222222 transparent transparent transparent; 
+        border-style: solid;
+        border-width: 8px 5px 0px 5px;}
 
     li.basket-content{display:flex;padding:10px;margin-bottom:10px;position:relative;background:#ffffff}
 

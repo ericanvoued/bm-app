@@ -87,7 +87,8 @@
                  {{common.chooseGroup}}
                  <ul class="fandian" [@show]="show" >
                      <li *ngFor="let item of common.prizeGroup" (click)="common.chooseGroup = item" [class.current]="common.chooseGroup == item">{{item}}</li>
-                 </ul>      
+                 </ul>   
+                 <div class="l-triangle"></div>   
             </div> 
         </div>
 
