@@ -3,7 +3,7 @@ import { Nav, Platform, NavController, App} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { UtilProvider } from '../providers/util/util'
-import { SscPage } from '../pages/games/ssc/ssc'
+// import { SscPage } from '../pages/games/ssc/ssc'
 
 @Component({
   templateUrl: 'app.html',
